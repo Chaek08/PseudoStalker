@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900" prefWidth="1600" styleClass="">
+  <children>
+    <ImageViewEx AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" autoSize="false" centered="true" focusTraversable="false" height="900" id="main_frame" layoutX="0" layoutY="0" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="1600">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-main_frame" image=".data/ui/exit_dialog/main_frame.png" visible="1"/>
+    <Data cursor="HAND" enabled="1" hoverImage=".data/ui/button/button_active_2.png" id="data-btn_yes" image=".data/ui/button/button_noactive_2.png" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="dialog_text" layoutX="712" layoutY="392" prefHeight="80" prefWidth="312" styleClass="label " text="Действительно ли вы хотите выйти в Windows?&#10;" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="Arial" size="13"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-dialog_text" visible="1"/>
+    <ImageViewEx AnchorPane.bottomAnchor="235" AnchorPane.leftAnchor="792" AnchorPane.rightAnchor="114" AnchorPane.topAnchor="504" autoSize="true" centered="false" focusTraversable="false" height="29" id="btn_yes" layoutX="792" layoutY="504" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" text="Да" textFill="#ffffff" width="118">
+      <font>
+        <Font name="Arial" size="15"/>
+      </font>
+    </ImageViewEx>
+    <ImageViewEx AnchorPane.bottomAnchor="235" AnchorPane.leftAnchor="912" AnchorPane.rightAnchor="-6" AnchorPane.topAnchor="504" autoSize="true" centered="false" focusTraversable="false" height="29" id="btn_no" layoutX="912" layoutY="504" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" text="Нет" textFill="#ffffff" width="118">
+      <font>
+        <Font name="Arial" size="15"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="HAND" enabled="1" hoverImage=".data/ui/button/button_active_2.png" id="data-btn_no" image=".data/ui/button/button_noactive_2.png" visible="1"/>
+  </children>
+</AnchorPane>

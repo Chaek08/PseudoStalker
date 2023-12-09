@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488" prefWidth="768" styleClass="">
+  <children>
+    <FlatButton alignment="CENTER" borderRadius="13" clickColor="#324e57" color="#324e57" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#324e57" id="frame_01" layoutX="0" layoutY="8" opacity="0.64165103189493" prefHeight="472" prefWidth="768" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-frame_01" visible="1"/>
+    <FlatButton alignment="CENTER_LEFT" color="#6680e6" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#6680e6" id="tab_button" layoutX="8" layoutY="16" prefHeight="32" prefWidth="752" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-tab_button" visible="1"/>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="icon" layoutX="8" layoutY="56" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="128">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-icon" image=".data/ui/icon_npc/icon_vovchik.png" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="144" layoutY="80" prefHeight="21" prefWidth="144" styleClass="label " text="мастер" textAlignment="LEFT" textFill="#f2f2f2" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-rank" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_desc" layoutX="144" layoutY="56" prefHeight="25" prefWidth="96" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="16"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-rank_desc" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_desc" layoutX="144" layoutY="104" prefHeight="17" prefWidth="48" styleClass="label " text="группа" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-community_desc" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community" layoutX="144" layoutY="120" prefHeight="21" prefWidth="152" styleClass="label " text="Спаситель мира" textAlignment="LEFT" textFill="#f2f2f2" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-community" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="reputation_desc" layoutX="144" layoutY="144" prefHeight="17" prefWidth="96" styleClass="label " text="репутация" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-reputation_desc" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="reputation" layoutX="144" layoutY="160" prefHeight="21" prefWidth="152" styleClass="label " text="Отлично" textAlignment="LEFT" textFill="#00ff00" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-reputation" visible="1"/>
+    <Separator focusTraversable="false" id="separator" layoutX="8" layoutY="192" orientation="HORIZONTAL" prefHeight="8" prefWidth="328" styleClass="separator "/>
+    <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-separator_vertical" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic_label" layoutX="16" layoutY="208" prefHeight="36" prefWidth="168" styleClass="label " text="Статистика" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="25"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-statistic_label" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic" layoutX="16" layoutY="240" prefHeight="104" prefWidth="168" styleClass="label " text="Написанных программ&#10;Убийство мутантов&#10;Выполненные квесты &#10;&#10;ВСЕГО" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-statistic" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic_num" layoutX="296" layoutY="240" prefHeight="104" prefWidth="32" styleClass="label " text="9700&#10;0&#10;0&#10;&#10;9700" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-statistic_num" visible="1"/>
+    <Separator focusTraversable="false" id="separator_vertical" layoutX="336" layoutY="16" orientation="VERTICAL" prefHeight="456" prefWidth="8" styleClass="separator "/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="name_label" layoutX="8" layoutY="16" prefHeight="32" prefWidth="328" styleClass="label " text="   Вовчик" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-name_label" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="detail_label" layoutX="336" layoutY="16" prefHeight="32" prefWidth="424" styleClass="label " text="   Моя цель" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-detail_label" visible="1"/>
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="target_label" layoutX="352" layoutY="56" prefHeight="112" prefWidth="408" styleClass="label " text="Перед дракой с алексом : &#10;&#10;События происходят в 2033 году&#10;В это болото меня сюда заслал Kosta Krut. Он смог поразить алекса, но оказалось что поразил он не алекса, а его двойника!!!&#10;Теперь мне нужно устранить настоящего алекса&#10;&#10;После драки с алексом :  (Игрок победил)&#10;&#10;События происходят в 2035 году&#10;Вот я и победил алекса, во время боевого контакта он вколол мне укол, на котором было написано &quot;Гомосекоптомин&quot;&#10;Теперь, кажись, Kosta Krut со мной будет сражаться... А пока иду в местную больницу, колоть противоядие&#10;Чуствую себя как мусор..&#10;&#10;После драки с алексом : (Игрок проиграл)&#10;События происходят в 2035 году&#10;Я проиграл... Алекс остался жив.. Теперь возможно он заразит Kosta Kruta!!!" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-target_label" visible="1"/>
+    <FlatButton alignment="CENTER" color="#6680e6" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d66cc" id="spoiler_button" layoutX="352" layoutY="176" prefHeight="32" prefWidth="408" styleClass="x-flat-button " text="Показать, что происходило дальше (Спойлер)" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-spoiler_button" visible="1"/>
+    <FlatButton alignment="CENTER" color="#6680e6" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d66cc" id="hide_spoiler_button" layoutX="352" layoutY="440" prefHeight="32" prefWidth="408" styleClass="x-flat-button " text="Свернуть спойлер" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-hide_spoiler_button" visible=""/>
+  </children>
+</AnchorPane>

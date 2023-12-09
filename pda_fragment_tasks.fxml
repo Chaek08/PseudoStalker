@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488" prefWidth="768" styleClass="">
+  <children>
+    <FlatButton alignment="CENTER" borderRadius="13" clickColor="#324e57" color="#324e57" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#324e57" id="frame_detail_02" layoutX="360" layoutY="8" opacity="0.64634146341463" prefHeight="472" prefWidth="408" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <FlatButton alignment="CENTER" borderRadius="13" clickColor="#324e57" color="#324e57" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#324e57" id="frame_01" layoutX="0" layoutY="8" opacity="0.64165103189493" prefHeight="472" prefWidth="352" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="488" id="frame_hide" layoutX="0" layoutY="0" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="768">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="task_label" layoutX="104" layoutY="18" prefHeight="16" prefWidth="224" styleClass="label " text="Натурализовать алекса" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-task_label" visible="1"/>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="47" id="icon_task" layoutX="8" layoutY="16" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="83">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-icon_task" image=".data/ui/pda/icon_Task.png" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="time_quest" layoutX="104" layoutY="43" prefHeight="17" prefWidth="200" styleClass="label " text="04/01/2023" textAlignment="LEFT" textFill="#99b3ff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-time_quest" visible="1"/>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="24" id="quest_detail_btn" layoutX="304" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#ffffff" width="24">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data clickImage=".data/ui/pda/task_detail_on.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/pda/task_detail_on.png" id="data-quest_detail_btn" image=".data/ui/pda/task_detail_off.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-task_detail_text" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" id="data-frame_01" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-frame_detail_02" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-frame_hide" visible="1"/>
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="task_detail_text" layoutX="376" layoutY="24" prefHeight="448" prefWidth="376" styleClass="label " text="Вчера поздно вечером соседи услышали гачи звуки из квартиры алекса, они заподозрили что алекс не натурал! Бабки - соседки начали стучаться ему в дверь, он открыл и сказал &quot;Welcome to the club, body&quot; Тогда всё сразу стало понятно!!! Так вот.. нам необходимо натурализовать алекса" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </LabelEx>
+  </children>
+</AnchorPane>
