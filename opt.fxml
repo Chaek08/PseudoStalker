@@ -19,5 +19,11 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-buttonAlt" visible="1"/>
+    <FlatButton alignment="CENTER" color="#6680e6" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d66cc" id="btn_menu_sound" layoutX="64" layoutY="176" prefHeight="32" prefWidth="144" styleClass="x-flat-button " text="Отключить звук в меню" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-btn_menu_sound" visible="1"/>
   </children>
 </AnchorPane>

@@ -11,8 +11,7 @@ class enemy_fail extends AbstractForm
      */
     function ReturnBtn(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->fragment_enm_fail->hide();
-        $this->form('maingame')->ResetGameClient();        
+        $this->form('maingame')->fragment_enm_fail->hide();       
     }
     /**
      * @event exitbtn.click-Left 
@@ -20,6 +19,7 @@ class enemy_fail extends AbstractForm
     function ExitBtn(UXMouseEvent $e = null)
     {
         $this->form('maingame')->fragment_menu->show();
+        $this->form('maingame')->ResetGameClient();         
     }
 
 }

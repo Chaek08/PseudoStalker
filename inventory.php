@@ -55,7 +55,7 @@ class inventory extends AbstractForm
         if ($this->inv_maket_select_2->visible)
         {
             Element::setText($this->maket_label, "Водка Казаки");
-            Element::setText($this->maket_desc, "Огненная водичка! Можно устроить пожар в заднице алекса , метнув в него бутылку");    
+            Element::setText($this->maket_desc, "Огненная водичка! Можно устроить пожар в заднице алекса , метнув в него бутылку. Управление бутылкой: ЛКМ - Метнуть бутылку, ПКМ - Отметнуть к себе");    
             Element::setText($this->maket_count, "100 RU"); 
             Element::setText($this->maket_weight, "0.5kg");            
         }

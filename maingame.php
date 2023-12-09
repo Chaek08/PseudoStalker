@@ -52,8 +52,8 @@ class maingame extends AbstractForm
     function ShowMenu()
     {
         if ($this->fragment_menu->toggle()) {$this->fragment_menu->visible;}      
-        if ($this->sound_debug->visible) {Media::play("menu_sound");} 
-        if ($this->sound_debug->visible) {Media::pause("fight_sound");}
+        Media::play("menu_sound");
+        Media::pause("fight_sound");
     }
     /**
      * @event keyDown-P 
@@ -166,13 +166,51 @@ class maingame extends AbstractForm
             $this->fragment_enm_fail->show();
         }   
     }
-
     /**
      * @event button.click-Left 
      */
     function doButtonClickLeft(UXMouseEvent $e = null)
     {    
         $this->ResetGameClient();
+    }
+    /**
+     * @event buttonAlt.click-Left 
+     */
+    function doButtonAltClickLeft(UXMouseEvent $e = null)
+    {    
+        $this->fragment_dlg->content->Talk_3();
+    }
+    
+    /**
+     * @event item_vodka_0000.click-2x
+     */
+    function VodkaAttack(UXMouseEvent $e = null)
+    {    
+        if ($this->item_vodka_0000->x != 1312)
+        {
+             Animation::moveTo($this->item_vodka_0000, 2000, 1270, 640); 
+             $this->item_vodka_0000->dragging->disable();
+        }
+        if ($this->item_vodka_0000->x == 1270)
+        {
+            $this->item_vodka_0000->x += 42; 
+            if (Geometry::intersect($this->item_vodka_0000, $this->enemy))
+            {
+                $this->DamageEnemy();
+                Animation::displace($this->item_vodka_0000, 500, -42, $y); 
+            }
+        }
+    }
+    /**
+     * @event item_vodka_0000.click-Right 
+     */
+    function VodkaDraggingEnable(UXMouseEvent $e = null)
+    {    
+        $this->item_vodka_0000->dragging->enable();
+        if ($this->item_vodka_0000->x == 1270 || $this->item_vodka_0000->x == 1312)
+        {
+            Animation::displace($this->item_vodka_0000, 500, -1030, $y); 
+        }
     }
     function HideExitDialog()
     {
@@ -307,6 +345,10 @@ class maingame extends AbstractForm
         $this->idle_static_enemy->show();
         $this->enemy->x = 1312;
         $this->fragment_act_fail->show();
+        if ($this->item_vodka_0000->visible)
+        {
+            $this->item_vodka_0000->hide(); 
+        }   
         Media::stop("fight_sound");
     }
     function EnemyFail()
@@ -317,6 +359,10 @@ class maingame extends AbstractForm
         $this->idle_static_enemy->show();
         $this->enemy->x = 1312;
         $this->fragment_enm_fail->show();
-        Media::stop("fight_sound");        
+        if ($this->item_vodka_0000->visible)
+        {
+            $this->item_vodka_0000->hide(); 
+        }       
+        //Media::stop("fight_sound");        
     }
 }
