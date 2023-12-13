@@ -6,9 +6,9 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label_gamename" layoutX="136" layoutY="152" prefHeight="60.986328125" prefWidth="299.1943359375" styleClass="label " text="PseudoStalker" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label_gamename" layoutX="136" layoutY="152" prefHeight="66.50390625" prefWidth="335.0341796875" styleClass="label " text="PseudoStalker" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="Impact" size="50"/>
+        <Font name="System Bold" size="50"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label_gamename" visible="1"/>

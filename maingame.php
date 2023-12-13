@@ -23,9 +23,9 @@ class maingame extends AbstractForm
         $this->GetHealth();   
         $this->dlg_btn->show();
         $this->leave_btn->hide();
-        $this->fragment_dlg->content->answer_1->show();
-        $this->fragment_dlg->content->answer_2->hide();
-        $this->fragment_dlg->content->answer_3->hide();  
+        $this->fragment_dlg->content->answer_1_new->show();
+        //$this->fragment_dlg->content->answer_2->hide();
+        //$this->fragment_dlg->content->answer_3->hide();  
         $this->fragment_dlg->content->answer_desc->text = "Даю тебе зелье натурала!";    
         $this->fragment_dlg->content->ClearDialog();
         $this->fragment_act_fail->hide();
@@ -349,7 +349,7 @@ class maingame extends AbstractForm
         {
             $this->item_vodka_0000->hide(); 
         }   
-        Media::stop("fight_sound");
+        //Media::stop("fight_sound");
     }
     function EnemyFail()
     {

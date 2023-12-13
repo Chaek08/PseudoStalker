@@ -8,7 +8,7 @@ class opt extends AbstractForm
 {
 
     /**
-     * @event back_btn.click-Left
+     * @event backbtn.click-Left
      */
     function BackBtn(UXMouseEvent $e = null)
     {    

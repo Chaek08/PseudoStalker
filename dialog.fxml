@@ -109,13 +109,13 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-alex_desc_2" visible=""/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="40" id="answer_2" layoutX="440" layoutY="824" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="704">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="40" id="answer_2" layoutX="1168" layoutY="544" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="704">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data clickImage=".data/ui/selected/clicked.png" cursor="HAND" enabled="1" hoverImage=".data/ui/dialog/selected_frame.png" id="data-answer_2" image="" visible=""/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="40" id="answer_1" layoutX="440" layoutY="824" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="704">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="40" id="answer_1" layoutX="1168" layoutY="584" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="704">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -144,12 +144,30 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-alex_desc_3" visible=""/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="40" id="answer_3" layoutX="440" layoutY="824" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="704">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="40" id="answer_3" layoutX="1168" layoutY="504" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="704">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data clickImage=".data/ui/selected/clicked.png" cursor="HAND" enabled="1" hoverImage=".data/ui/dialog/selected_frame.png" id="data-answer_3" image="" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-trans" visible="1"/>
+    <Data cursor="HAND" enabled="1" id="data-answer_1_new" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="answer_2_new" layoutX="440" layoutY="824" opacity="0.51219512195122" prefHeight="40" prefWidth="704" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="HAND" enabled="1" id="data-answer_2_new" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="answer_3_new" layoutX="440" layoutY="824" opacity="0.51219512195122" prefHeight="40" prefWidth="704" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="HAND" enabled="1" id="data-answer_3_new" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="answer_1_new" layoutX="440" layoutY="824" opacity="0.51219512195122" prefHeight="40" prefWidth="704" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
   </children>
 </AnchorPane>

@@ -61,9 +61,9 @@
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-inv_maket_select" image=".data/ui/inventory/novice_outfit.png" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_desc" visible=""/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="money" layoutX="2128" layoutY="664" prefHeight="26" prefWidth="56" styleClass="label " text="40 RU" textAlignment="CENTER" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="money" layoutX="1520" layoutY="88" prefHeight="16" prefWidth="40" styleClass="label " text="40 RU" textAlignment="CENTER" textFill="#ee991a" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="17"/>
+        <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-money" visible="1"/>

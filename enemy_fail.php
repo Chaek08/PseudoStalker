@@ -19,7 +19,9 @@ class enemy_fail extends AbstractForm
     function ExitBtn(UXMouseEvent $e = null)
     {
         $this->form('maingame')->fragment_menu->show();
-        $this->form('maingame')->ResetGameClient();         
+        $this->form('maingame')->ResetGameClient();
+        Media::stop("fight_sound");      
+        $this->form('mainmenu')->InitGameClient();   
     }
 
 }
