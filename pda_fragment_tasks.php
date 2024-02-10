@@ -7,12 +7,13 @@ use std, gui, framework, app;
 class pda_fragment_tasks extends AbstractForm
 {
     /**
-     * @event quest_detail_btn.click-Left 
+    * @event quest_detail_btn.click-Left 
      */
     function DetailTask(UXMouseEvent $e = null)
     {    
-        $this->task_detail_text->show();      
+        $this->task_detail_text->toggle() == $this->task_detail_text->visible;      
     }
+    
     /**
      * @event frame_hide.click-Left 
      */

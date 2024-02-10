@@ -8,22 +8,25 @@ use std, gui, framework, app;
 
 class pda_fragments_stat extends AbstractForm
 {
-    /**
-     * @event spoiler_button.click-Left 
-     */
-    function SpoilerShow(UXMouseEvent $e = null)
-    {    
-        $this->spoiler_button->hide();
-        $this->hide_spoiler_button->show();        
-        $this->target_label->height = 416;     
-    }
-    /**
-     * @event hide_spoiler_button.click-Left 
-     */
-    function SpoilerHide(UXMouseEvent $e = null)
+    function ActorFailText()
     {
-        $this->spoiler_button->show();
-        $this->hide_spoiler_button->hide();
-        $this->target_label->height = 112;         
+        $this->tab_final->show();
+        $this->final_label->show();
+        $this->final_label->text = "Я проиграл... Алекс остался жив.. Теперь возможно он заразит Kosta Kruta!!!";
+    }
+    function EnemyFailText()
+    {
+        $this->tab_final->show();
+        $this->final_label->show();
+        $this->final_label->text =
+"Вот я и победил алекса, во время боевого контакта он вколол мне укол, на котором было написано 'Гомосекоптомин'
+Теперь, кажись, Kosta Krut со мной будет сражаться... А пока иду в местную больницу, колоть противоядие
+Чуствую себя как мусор..";        
+    }
+    function ResetFinalText()
+    {
+        $this->tab_final->hide();
+        $this->final_label->hide();
+        $this->final_label->text = "";
     }
 }

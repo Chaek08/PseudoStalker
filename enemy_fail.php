@@ -21,7 +21,7 @@ class enemy_fail extends AbstractForm
         $this->form('maingame')->fragment_menu->show();
         $this->form('maingame')->ResetGameClient();
         Media::stop("fight_sound");      
-        $this->form('mainmenu')->InitGameClient();   
+        $this->form('mainmenu')->InitGameClient();     
     }
 
 }

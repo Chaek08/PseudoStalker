@@ -9,21 +9,20 @@ class pda_fragment_contacts extends AbstractForm
     /**
      * @event alex_frame.click-Left 
      */
-    function CharacterAlexClick(UXMouseEvent $e = null)
+    function CharacterClick(UXMouseEvent $e = null)
     {    
-        $this->selected->show();
+        $this->selected_new->show();
         $this->bio->show();                     
     }
     /**
-     * @event frame_01.click-Left 
+     * @event frame.click-Left 
      */
-    function OtherClick(UXMouseEvent $e = null)
+    function HideCharacter(UXMouseEvent $e = null)
     {    
-        if ($this->selected->visible) // а вот тут условие нужно, ведь не факт что игрок сразу тыкнет на алекса, а лишний код нам не нужон
+        if ($this->selected_new->visible) // а вот тут условие нужно, ведь не факт что игрок сразу тыкнет на алекса, а лишний код нам не нужон
         {
-            $this->selected->hide();
+            $this->selected_new->hide();
             $this->bio->hide();            
         }          
     }
-
 }

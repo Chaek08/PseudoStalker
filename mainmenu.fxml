@@ -37,7 +37,7 @@
       </font>
     </ImageViewEx>
     <Data cursor="HAND" enabled="1" hoverImage=".data/ui/button/button_active.png" id="data-opt_btn" image=".data/ui/button/button_noactive.png" visible="1"/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_exit" layoutX="424" layoutY="280" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_exit" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <Data content="exit_dlg" cursor="DEFAULT" enabled="1" id="data-fragment_exit" visible=""/>
   </children>
 </AnchorPane>

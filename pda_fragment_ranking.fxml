@@ -1,117 +1,151 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488" prefWidth="768" styleClass="">
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488" prefWidth="784" styleClass="">
   <children>
-    <FlatButton alignment="CENTER" borderRadius="13" clickColor="#324e57" color="#324e57" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#324e57" id="frame_01" layoutX="0" layoutY="8" opacity="0.64165103189493" prefHeight="472" prefWidth="768" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button" layoutX="472" layoutY="8" prefHeight="472" prefWidth="304" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="alex_icon" layoutX="472" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#ffffff" width="128">
+    <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="frame_01" layoutX="8" layoutY="8" prefHeight="472" prefWidth="456" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="472" id="frame_hide" layoutX="8" layoutY="8" mosaic="false" mosaicGap="0" opacity="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="768">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="alex_icon" layoutX="488" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#ffffff" width="128">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-alex_icon" image=".data/ui/icon_npc/icon_alex.png" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_desc" layoutX="608" layoutY="24" prefHeight="25" prefWidth="96" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_desc" layoutX="624" layoutY="24" prefHeight="25" prefWidth="96" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-rank_desc" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_desc" layoutX="608" layoutY="72" prefHeight="17" prefWidth="48" styleClass="label " text="группа" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_desc" layoutX="624" layoutY="72" prefHeight="17" prefWidth="48" styleClass="label " text="группа" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-community_desc" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="attitude_alex" layoutX="608" layoutY="112" prefHeight="17" prefWidth="72" styleClass="label " text="отношение" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="attitude" layoutX="624" layoutY="112" prefHeight="17" prefWidth="72" styleClass="label " text="отношение" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-attitude_alex" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="608" layoutY="47" prefHeight="21" prefWidth="144" styleClass="label " text="новичок" textAlignment="LEFT" textFill="#f2f2f2" underline="false" wrapText="false">
+    <Data cursor="DEFAULT" enabled="1" id="data-attitude" visible=""/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="624" layoutY="48" prefHeight="21" prefWidth="144" styleClass="label " text="новичок" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-rank" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community" layoutX="608" layoutY="88" prefHeight="21" prefWidth="152" styleClass="label " text="Спаммеры" textAlignment="LEFT" textFill="#f2f2f2" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community" layoutX="624" layoutY="88" prefHeight="21" prefWidth="152" styleClass="label " text="Спаммеры" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-community" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_relationship_desc" layoutX="608" layoutY="128" prefHeight="21" prefWidth="152" styleClass="label " text="враг" textAlignment="LEFT" textFill="#cc3333" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="relationship" layoutX="624" layoutY="128" prefHeight="21" prefWidth="152" styleClass="label " text="враг" textAlignment="LEFT" textFill="#cc3333" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-alex_relationship_desc" visible=""/>
-    <Separator focusTraversable="false" id="separator_bio_alex" layoutX="456" layoutY="168" orientation="HORIZONTAL" prefHeight="8" prefWidth="304" styleClass="separator "/>
-    <Data cursor="DEFAULT" enabled="1" id="data-separator_bio_alex" visible="1"/>
-    <Separator focusTraversable="false" id="separator" layoutX="448" layoutY="16" orientation="VERTICAL" prefHeight="456" prefWidth="16" styleClass="separator "/>
-    <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="bio" layoutX="464" layoutY="184" prefHeight="288" prefWidth="296" styleClass="label " text="bio" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+    <Data cursor="DEFAULT" enabled="1" id="data-relationship" visible=""/>
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="bio" layoutX="488" layoutY="176" prefHeight="288" prefWidth="272" styleClass="label " text="bio" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
-        <Font name="System Regular" size="15"/>
+        <Font name="System Regular" size="14"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-bio" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_in_raiting" layoutX="24" layoutY="72" prefHeight="21" prefWidth="112" styleClass="label " text="0. Alex Stalker" textAlignment="LEFT" textFill="#f2f2f2" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_in_raiting" layoutX="56" layoutY="88" prefHeight="32" prefWidth="112" styleClass="label " text="0. Alex Stalker" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-alex_in_raiting" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="kosta_in_raiting" layoutX="24" layoutY="24" prefHeight="21" prefWidth="112" styleClass="label " text="9700. Вовчик" textAlignment="LEFT" textFill="#f2f2f2" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="kosta_in_raiting" layoutX="56" layoutY="24" prefHeight="32" prefWidth="112" styleClass="label " text="9700. Вовчик" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-kosta_in_raiting" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="kosta_icon" layoutX="472" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="128">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="kosta_icon" layoutX="488" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="128">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-kosta_icon" image=".data/ui/icon_npc/icon_vovchik.png" visible=""/>
-    <Data clickImage=".data/ui/selected/clicked.png" cursor="DEFAULT" enabled="1" id="data-selected" image=".data/ui/dialog/selected_frame.png" visible=""/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="24" id="kosta_frame" layoutX="8" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="440">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-kosta_frame" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="24" id="alex_frame" layoutX="8" layoutY="72" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="440">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-alex_frame" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" id="data-frame_01" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="24" layoutY="48" prefHeight="21" prefWidth="112" styleClass="label " text="999. Kosta Krut" textAlignment="LEFT" textFill="#f2f2f2" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="56" layoutY="56" prefHeight="32" prefWidth="112" styleClass="label " text="999. Kosta Krut" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="24" id="kosta_frame_" layoutX="8" layoutY="48" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="440">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-kosta_frame_" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="24" id="selected" layoutX="8" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="440">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="kosta_icon_" layoutX="472" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="128">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="kosta_icon_" layoutX="488" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="128">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-kosta_icon_" image=".data/ui/icon_npc/icon_kostakrut.png" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" id="data-frame_01" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-button" visible="1"/>
+    <Separator focusTraversable="false" id="separator" layoutX="488" layoutY="160" orientation="HORIZONTAL" prefHeight="8" prefWidth="272" styleClass="separator "/>
+    <Data cursor="DEFAULT" enabled="1" id="data-separator" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" id="data-frame_hide" visible="1"/>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="32" id="image" layoutX="136" layoutY="56" mosaic="false" mosaicGap="0" opacity="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="424">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-image" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#b3b31a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#999900" id="vova_btn" layoutX="24" layoutY="24" opacity="0.35365853658537" prefHeight="32" prefWidth="424" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="HAND" enabled="1" id="data-vova_btn" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#b3b31a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#999900" id="kosta_btn" layoutX="24" layoutY="56" opacity="0.35365853658537" prefHeight="32" prefWidth="424" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="HAND" enabled="1" id="data-kosta_btn" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#b3b31a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#999900" id="alex_btn" layoutX="24" layoutY="88" opacity="0.35365853658537" prefHeight="32" prefWidth="424" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="HAND" enabled="1" id="data-alex_btn" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" id="data-selected_status" image=".data/ui/pda/ui_pda_contacts_online.png" visible=""/>
+    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="16" id="imageAlt" layoutX="32" layoutY="32" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="16">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="" id="data-imageAlt" image=".data/ui/pda/selected_status_offline.png" visible="1"/>
+    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="16" id="image3" layoutX="32" layoutY="64" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="16">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="" id="data-image3" image=".data/ui/pda/selected_status_offline.png" visible="1"/>
+    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="16" id="image4" layoutX="32" layoutY="96" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="16">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="" id="data-image4" image=".data/ui/pda/selected_status_offline.png" visible="1"/>
+    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="16" id="selected_status" layoutX="32" layoutY="32" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="16">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
   </children>
 </AnchorPane>

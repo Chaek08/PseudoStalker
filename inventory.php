@@ -15,40 +15,40 @@ class inventory extends AbstractForm
     function HideVodkaMaket()
     {
         $this->inv_maket_select_2->hide();
-        $this->progressbar_cond->hide();
+        //$this->progressbar_cond->hide();
     }
     function HideOutfitMaket() 
     {
         $this->inv_maket_select->hide();
-        $this->progressbar_cond->hide();        
+        //$this->progressbar_cond->hide();        
     }
     function ShowVodkaMaket()
     {
         $this->HideOutfitMaket();    
         $this->inv_maket_select_2->show();
-        $this->progressbar_cond->show();
+        //$this->progressbar_cond->show();
     }
     function ShowOutfitMaket() 
     {
         $this->HideVodkaMaket();    
         $this->inv_maket_select->show();
-        $this->progressbar_cond->show();        
+        //$this->progressbar_cond->show();        
     }    
     function ShowUIText()
     {
         $this->maket_label->show();
         $this->maket_count->show();
         $this->maket_desc->show();
-        $this->maket_cond->show();
-        $this->maket_weight->show();        
+        //$this->maket_cond->show();
+        //$this->maket_weight->show();        
     }
     function HideUIText()
     {
         $this->maket_label->hide();
         $this->maket_count->hide();
         $this->maket_desc->hide();
-        $this->maket_cond->hide();
-        $this->maket_weight->hide();         
+        //$this->maket_cond->hide();
+        //$this->maket_weight->hide();         
     }
     function SetUIText()
     {
@@ -57,14 +57,14 @@ class inventory extends AbstractForm
             Element::setText($this->maket_label, "Водка Казаки");
             Element::setText($this->maket_desc, "Огненная водичка! Можно устроить пожар в заднице алекса , метнув в него бутылку. Управление бутылкой: ЛКМ - Метнуть бутылку, ПКМ - Отметнуть к себе");    
             Element::setText($this->maket_count, "100 RU"); 
-            Element::setText($this->maket_weight, "0.5kg");            
+            //Element::setText($this->maket_weight, "0.5kg");            
         }
         if ($this->inv_maket_select->visible)
         {
             Element::setText($this->maket_label, "Броня вовчика");
             Element::setText($this->maket_desc, "100% защита от радиации и пердежа алекса, сделано из плоти мамонтов");    
             Element::setText($this->maket_count, "1000 RU"); 
-            Element::setText($this->maket_weight, "1.0kg");           
+            //Element::setText($this->maket_weight, "1.0kg");           
         }
     }
     function SlotUseSound()
@@ -119,18 +119,6 @@ class inventory extends AbstractForm
         $this->HideVodkaMaket();
         $this->HideUIText();   
         $this->HideCombobox();          
-    }
-    /**
-     * @event button.click-Left 
-     */
-    function CloseButton(UXMouseEvent $e = null)
-    {    
-        //$this->form('maingame')->ShowHud();
-        Media::open('res://.data/audio/inv_close.mp3', true, 'inv_close');
-        $this->HideOutfitMaket();
-        $this->HideVodkaMaket();
-        $this->HideUIText();
-        $this->CloseInventory();
     }
     /**
      * @event button_drop.click-Left 

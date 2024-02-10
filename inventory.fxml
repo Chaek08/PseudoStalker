@@ -21,37 +21,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="632" id="inv_frame_01" layoutX="1600" layoutY="192" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="1600">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-inv_frame_01" image=".data/ui/inventory/inv_frame.png" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="32" id="inv_frame_02" layoutX="1632" layoutY="880" mosaic="true" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="1600">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-inv_frame_02" image=".data/ui/dialog_and_inventory/down_backgorund.png" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="192" id="inv_frame_03" layoutX="1608" layoutY="0" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="1600">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-inv_frame_03" image=".data/ui/inventory/top_slots.png" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="189" id="inv_shkala" layoutX="1616" layoutY="568" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="74">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-inv_shkala" image=".data/ui/inventory/inv_shkala.png" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-inv_maket_visual" image=".data/ui/maket/maket_actor.png" visible="1"/>
-    <ImageViewEx AnchorPane.bottomAnchor="32" AnchorPane.rightAnchor="-174" autoSize="false" centered="true" focusTraversable="false" height="52" id="button" layoutX="1616" layoutY="816" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" text="Закрыть" textFill="#ffffff" width="158">
-      <font>
-        <Font name="System Regular" size="15"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" hoverImage=".data/ui/button/button_active.png" id="data-button" image=".data/ui/button/button_noactive.png" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_label" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_count" visible=""/>
     <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="328" id="inv_maket_select" layoutX="608" layoutY="80" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="504">
@@ -74,51 +44,18 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-weight_desc" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="param_desc" layoutX="2320" layoutY="688" prefHeight="16.7578125" prefWidth="80.45654296875" styleClass="label " text="Параметры" textAlignment="CENTER" textFill="#ee991a" underline="false" wrapText="false">
-      <font>
-        <Font name="Arial" size="15"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-param_desc" visible="1"/>
     <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="328" id="inv_maket_select_2" layoutX="608" layoutY="80" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="504">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-inv_maket_select_2" image=".data/ui/inventory/item_vodka.png" visible=""/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="126" id="cond_zone_brake" layoutX="2200" layoutY="400" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="18">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-cond_zone_brake" image=".data/ui/inventory/hud_ustoychivocst.png" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="brake_desdc" layoutX="2224" layoutY="392" prefHeight="136" prefWidth="90" styleClass="label " text="Ожог&#10;Электрошок&#10;Удар&#10;Разрыв&#10;Хим. ожог&#10;Взрыв&#10;Пулестойкость" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="Arial" size="13"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-brake_desdc" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="viser" layoutX="2320" layoutY="400" prefHeight="128" prefWidth="34" styleClass="label " text="+10%&#10;+10%&#10;+10%&#10;+10%&#10;+10%&#10;+10%&#10;+10%" textAlignment="LEFT" textFill="#00ff00" underline="false" wrapText="false">
-      <font>
-        <Font name="Arial Bold" size="13"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-viser" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="64" id="ui_dg_time" layoutX="1632" layoutY="840" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="256">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-ui_dg_time" image=".data/ui/ui_dg_time.png" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="time" layoutX="0" layoutY="880" prefHeight="15.9609375" prefWidth="28.4765625" styleClass="label " text="20:23" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-time" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" id="data-maket_weight" visible=""/>
-    <Data cursor="DEFAULT" enabled="1" id="data-maket_cond" visible=""/>
-    <Data cursor="DEFAULT" enabled="1" id="data-progressbar_cond" image=".data/ui/inventory/shk_inv.png" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-main" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-button_drop" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-inv_back" visible="1"/>
@@ -165,21 +102,6 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-button9" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="maket_weight" layoutX="1680" layoutY="504" prefHeight="15.9609375" prefWidth="28.5703125" styleClass="label " text="1.0kg" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </LabelEx>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="8" id="progressbar_cond" layoutX="1648" layoutY="464" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="168">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="maket_cond" layoutX="1696" layoutY="536" prefHeight="17" prefWidth="56" styleClass="label " text="condition" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </LabelEx>
     <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="maket_desc" layoutX="624" layoutY="496" prefHeight="248" prefWidth="472" styleClass="label " text="maket_desc" textAlignment="LEFT" textFill="#e6e6e6" underline="false" wrapText="true">
       <font>
         <Font name="Arial" size="12"/>
