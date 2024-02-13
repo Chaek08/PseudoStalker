@@ -69,7 +69,10 @@ class inventory extends AbstractForm
     }
     function SlotUseSound()
     {
-        Media::open('res://.data/audio/inv_slot.mp3', true, 'inv_use_slot');      
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {
+            Media::open('res://.data/audio/inv_slot.mp3', true, 'inv_use_slot'); 
+        }     
     }
     function HideCombobox()
     {
@@ -137,6 +140,14 @@ class inventory extends AbstractForm
         $this->inv_item_vodka->hide();
         $this->form('maingame')->item_vodka_0000->show();                
     }
+    function DespawnVodka()
+    {
+        Element::setText($this->weight_desc, 'Вес  4.3 / 50.0');
+        $this->inv_item_vodka->show();
+        $this->form('maingame')->item_vodka_0000->hide();    
+        $this->form('maingame')->item_vodka_0000->x = 240;
+        $this->form('maingame')->item_vodka_0000->y = 704;                           
+    }    
     /**
      * @event inv_item_vodka.click-Right 
      */

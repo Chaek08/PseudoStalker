@@ -40,7 +40,10 @@ class dialog extends AbstractForm
      */
     function Talk_3(UXMouseEvent $e = null)
     {                
-        Media::open('res://.data/audio/fight/vibeman.wav', true, "fight_sound");     
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {
+            Media::open('res://.data/audio/fight/vibeman.wav', true, "fight_sound");
+        }    
         $this->form('maingame')->idle_static_actor->hide();
         $this->form('maingame')->idle_static_enemy->hide(); 
         $this->form('maingame')->fight_label->show();               

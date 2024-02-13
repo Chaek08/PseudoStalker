@@ -25,4 +25,32 @@ class pda_fragment_contacts extends AbstractForm
             $this->bio->hide();            
         }          
     }
+    function AddEnemyContacts()
+    {
+        $this->name->show();
+        $this->character->show();  
+        $this->character_desc->show();
+        $this->online_icon->show();
+        $this->alex_frame->show();
+        $this->icon_alex->show();
+        //$this->selected_new->show(); 
+        if($this->bio->visible)
+        {
+            $this->bio->hide();
+        }           
+    }
+    function DeleteEnemyContacts()
+    {
+        $this->name->hide();
+        $this->character->hide();  
+        $this->character_desc->hide();
+        $this->online_icon->hide();
+        $this->alex_frame->hide();
+        $this->icon_alex->hide();
+        //$this->selected_new->hide();  
+        if($this->bio->visible)
+        {
+            $this->bio->hide();
+        }             
+    }    
 }

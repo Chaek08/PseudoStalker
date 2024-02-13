@@ -11,9 +11,16 @@ class mainmenu extends AbstractForm
      */
     function InitGameClient(UXWindowEvent $e = null)
     {    
-        $this->GetVersion();
+        $this->GetVersion(); 
         Media::open('res://.data/audio/fight/im_alex.mp3', false, "menu_sound");
-        Media::play("menu_sound");
+        Media::play("menu_sound");     
+    }
+    function StartMenuSound()
+    {
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {
+            Media::play("menu_sound");
+        }            
     }
     /**
      * @event newgamebtn.click-Left 
@@ -25,7 +32,10 @@ class mainmenu extends AbstractForm
         Media::pause("menu_sound");
         if ($this->form('maingame')->fight_label->visible)
         {
-            Media::play("fight_sound");
+            if ($this->form('maingame')->fragment_opt->content->sound->visible)
+            {
+                 Media::play("fight_sound");
+            }
         }
     }
     /**
@@ -33,7 +43,6 @@ class mainmenu extends AbstractForm
      */
     function ExitWindowsBtn(UXMouseEvent $e = null)
     {    
-        //app()->shutdown();
         $this->fragment_exit->show();
     }
     /**
@@ -46,6 +55,6 @@ class mainmenu extends AbstractForm
     }
     function GetVersion()
     {
-        Element::setText($this->label_version, "pre alpha 0.0.3");
+        Element::setText($this->label_version, "pre alpha 0.0.4");
     }
 }

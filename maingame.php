@@ -17,24 +17,44 @@ class maingame extends AbstractForm
     function ResetGameClient()
     {
         if ($this->skull_actor->visible) {$this->skull_actor->hide();}
-        if ($this->skull_enemy->visible) {$this->skull_enemy->hide();}     
+        if ($this->skull_enemy->visible) {$this->skull_enemy->hide();}    
+        if ($this->fight_label->visible) {$this->fight_label->hide();} 
+        if ($this->leave_btn->visible) {$this->leave_btn->hide();}        
+        if ($this->fragment_act_fail->visible) {$this->fragment_act_fail->hide();}     
+        if ($this->fragment_enm_fail->visible) {$this->fragment_enm_fail->hide();}    
+        if ($this->pda_icon->visible) {$this->pda_icon->hide();} 
+        if ($this->fragment_inv->content->skull_actor->visible)
+        {
+            $this->fragment_inv->content->skull_actor->hide();
+        }                 
+                         
         if ($this->health_bar_gg->visible) {} else {$this->health_bar_gg->show();}
-        if ($this->health_bar_enemy->visible) {} else {$this->health_bar_enemy->show();}        
-        $this->fragment_inv->content->health_bar_gg->show();
-        $this->fragment_inv->content->skull_actor->hide();        
+        if ($this->health_bar_enemy->visible) {} else {$this->health_bar_enemy->show();}  
+        
+        if ($this->item_vodka_0000->visible) //функция, позволяющая вернуть водку в инвентарь при начале новой игры
+        {
+            $this->fragment_inv->content->DespawnVodka();
+            $this->item_vodka_0000->enabled = true;  
+        }
+              
+        $this->fragment_inv->content->health_bar_gg->show();      
         $this->fragment_inv->content->health_bar_gg->width = 416;           
         $this->fragment_inv->content->health_bar_gg->text = "100%";        
-        $this->GetHealth();   
+        $this->GetHealth();  
+        
+        $this->fragment_pda->content->fragment_contacts->content->AddEnemyContacts();   
+        $this->fragment_pda->content->fragment_tasks->content->AddTask();                
+         
         $this->dlg_btn->show();
-        $this->leave_btn->hide();
+        $this->idle_static_actor->show(); $this->actor->x = 112;
+        $this->idle_static_enemy->show(); $this->enemy->x = 1312; 
+        $this->actor->opacity = 100; 
+        $this->enemy->opacity = 100;                 
         $this->fragment_dlg->content->answer_1_new->show(); 
         $this->fragment_dlg->content->answer_desc->text = "Даю тебе зелье натурала!";    
         $this->fragment_dlg->content->ClearDialog();
-        $this->fragment_act_fail->hide();
-        $this->fragment_enm_fail->hide(); 
         $this->fragment_menu->content->newgamebtn->text = "Новая игра"; 
         $this->fragment_pda->content->fragment_stat->content->ResetFinalText();
-        $this->pda_icon->hide();
         Media::stop('fight_sound');
     }
     /**
@@ -45,20 +65,30 @@ class maingame extends AbstractForm
         if ($this->fragment_inv->visible) 
         {
             $this->HideInventory(); 
-            Media::open('res://.data/audio/inv_close.mp3', true);
+            if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/inv_close.mp3', true);}
             return;
         }     
         if ($this->fragment_pda->visible) {$this->HidePda(); return;}
         if ($this->fragment_dlg->visible) {$this->HideDialog(); return;}   
         if ($this->fragment_exit->visible) {$this->HideExitDialog(); return;}    
-        if ($this->fragment_opt->visible) {$this->HideOpt(); return;}                
+        if ($this->fragment_opt->visible) {return;}                
         $this->ShowMenu();
     }
     function ShowMenu()
     {
-        if ($this->fragment_menu->toggle()) {$this->fragment_menu->visible;}      
-        Media::play("menu_sound");
-        Media::pause("fight_sound");
+        if ($this->fragment_menu->toggle()) {$this->fragment_menu->visible;}  
+        if ($this->fragment_opt->content->sound->visible)
+        {
+            if ($this->fragment_opt->content->mutesound->visible)
+            {
+                 Media::pause("fight_sound"); 
+            }
+            else 
+            {
+                 Media::play("menu_sound");
+                 Media::pause("fight_sound");            
+            }  
+        }
     }
     /**
      * @event keyDown-P 
@@ -104,10 +134,9 @@ class maingame extends AbstractForm
         if ($this->fragment_act_fail->show || $this->fragment_enm_fail->show)
         {
             return;
-        }            
-        //if ($this->fragment_inv->visible) {return;}      
+        }               
               
-        Media::open('res://.data/audio/inv_open.mp3', true);   
+        if ($this->fragment_opt->content->sound->visible){ Media::open('res://.data/audio/inv_open.mp3', true);} 
         $this->ResetFragmentsVisible();       
         $this->fragment_inv->show();   
     }    
@@ -267,14 +296,15 @@ class maingame extends AbstractForm
         if ($this->health_bar_enemy->width != 14)
         {
             $this->health_bar_enemy->width -= 50;        
-            Media::open('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex');         
+            if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex'); }        
         }
         else     
         {
             $this->skull_enemy->show();
             $this->health_bar_enemy->hide();
-            $this->leave_btn->show();                       
-            Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex');    
+            $this->leave_btn->show();
+            $this->dlg_btn->hide();                       
+            if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex'); }   
             $this->EnemyFail();         
             return;
         }   
@@ -307,7 +337,7 @@ class maingame extends AbstractForm
             Animation::fadeIn($this->hitmark_static, 250);  
             $this->hitmark_static->show();
             Animation::fadeOut($this->hitmark_static, 500);
-            Media::open('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor');           
+            if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor');   }        
         }
         else     
         {
@@ -316,11 +346,12 @@ class maingame extends AbstractForm
             $this->fragment_inv->content->health_bar_gg->hide();
             $this->fragment_inv->content->skull_actor->show();
             $this->leave_btn->show();
+            $this->dlg_btn->hide();             
             if ($this->hitmark_static->visible)
             {
                 $this->hitmark_static->hide();
             }
-            Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');    
+            if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');  }  
             $this->ActorFail();          
             return;
         }   
@@ -358,31 +389,26 @@ class maingame extends AbstractForm
     function ActorFail()
     {
         $this->fight_label->hide();
-        $this->idle_static_actor->show();
-        $this->actor->x = 112;
-        $this->idle_static_enemy->show();
-        $this->enemy->x = 1312;
         $this->fragment_act_fail->show();
         $this->fragment_pda->content->fragment_stat->content->ActorFailText();
-        $this->pda_icon->show();          
-        if ($this->item_vodka_0000->visible)
-        {
-            $this->item_vodka_0000->hide(); 
-        }   
+        $this->pda_icon->show(); 
+        $this->idle_static_actor->show(); $this->actor->x = 112;
+        $this->idle_static_enemy->show(); $this->enemy->x = 1312;  
+        $this->item_vodka_0000->enabled = false; 
+        $this->fragment_pda->content->fragment_tasks->content->DeleteTask();  
+        $this->actor->opacity = 0;                  
     }
     function EnemyFail()
     {
         $this->fight_label->hide();
-        $this->idle_static_actor->show();
-        $this->actor->x = 112;
-        $this->idle_static_enemy->show();
-        $this->enemy->x = 1312;
         $this->fragment_enm_fail->show();
         $this->fragment_pda->content->fragment_stat->content->EnemyFailText();   
         $this->pda_icon->show();     
-        if ($this->item_vodka_0000->visible)
-        {
-            $this->item_vodka_0000->hide(); 
-        }              
+        $this->idle_static_actor->show(); $this->actor->x = 112;
+        $this->idle_static_enemy->show(); $this->enemy->x = 1312;  
+        $this->item_vodka_0000->enabled = false;  
+        $this->fragment_pda->content->fragment_contacts->content->DeleteEnemyContacts();    
+        $this->fragment_pda->content->fragment_tasks->content->DeleteTask();     
+        $this->enemy->opacity = 0;                                   
     }
 }
