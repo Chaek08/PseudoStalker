@@ -86,7 +86,7 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-button8" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="maket_label" layoutX="624" layoutY="416" prefHeight="56" prefWidth="232" styleClass="label " text="maket_label" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="maket_label" layoutX="624" layoutY="416" prefHeight="40" prefWidth="232" styleClass="label " text="maket_label" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
       <font>
         <Font name="Arial" size="15"/>
       </font>
@@ -157,5 +157,11 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-skull_actor" image=".data/ui/maingame/skull_icon.png" visible=""/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="maket_weight" layoutX="624" layoutY="440" prefHeight="24" prefWidth="96" styleClass="label " text="maket_weight" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-maket_weight" visible=""/>
   </children>
 </AnchorPane>
