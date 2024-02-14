@@ -36,12 +36,12 @@
         <Font name="System Regular" size="15"/>
       </font>
     </FlatButton>
-    <Data cursor="HAND" enabled="1" id="data-exitbtn" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-exitbtn" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="15" clickColor="#666666" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d4d4d" id="returnbtn" layoutX="728" layoutY="752" prefHeight="48" prefWidth="208" styleClass="x-flat-button " text="Вернуться в игру" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </FlatButton>
-    <Data cursor="HAND" enabled="1" id="data-returnbtn" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-returnbtn" visible="1"/>
   </children>
 </AnchorPane>

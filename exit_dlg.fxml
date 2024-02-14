@@ -7,7 +7,7 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-main_frame" image=".data/ui/exit_dialog/main_frame.png" visible="1"/>
-    <Data cursor="HAND" enabled="1" hoverImage=".data/ui/button/button_active_2.png" id="data-btn_yes" image=".data/ui/button/button_noactive_2.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" hoverImage=".data/ui/button/button_active_2.png" id="data-btn_yes" image=".data/ui/button/button_noactive_2.png" visible="1"/>
     <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="dialog_text" layoutX="712" layoutY="392" prefHeight="80" prefWidth="312" styleClass="label " text="Действительно ли вы хотите выйти в Windows?&#10;" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="Arial" size="13"/>
@@ -24,6 +24,6 @@
         <Font name="Arial" size="15"/>
       </font>
     </ImageViewEx>
-    <Data cursor="HAND" enabled="1" hoverImage=".data/ui/button/button_active_2.png" id="data-btn_no" image=".data/ui/button/button_noactive_2.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" hoverImage=".data/ui/button/button_active_2.png" id="data-btn_no" image=".data/ui/button/button_noactive_2.png" visible="1"/>
   </children>
 </AnchorPane>

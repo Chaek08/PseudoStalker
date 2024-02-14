@@ -46,7 +46,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-character" visible="1"/>
-    <Data cursor="HAND" enabled="1" id="data-alex_frame" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-alex_frame" visible="1"/>
     <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="bio" layoutX="448" layoutY="24" prefHeight="448" prefWidth="312" styleClass="label " text="Мой мальчик делает ауфф ой.... у нас же биография алекса &quot;Пьёт пиво, занимается ремонтой телефоной. Спит с выключенным светом, не боится бабайку на кухне&quot;" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="15"/>

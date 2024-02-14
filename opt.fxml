@@ -17,9 +17,9 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="HAND" enabled="1" graphic="" id="data-back_btn" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-back_btn" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-buttonAlt" visible="1"/>
-    <Data cursor="HAND" enabled="1" id="data-btn_menu_sound_mute" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-btn_menu_sound_mute" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button3" layoutX="16" layoutY="72" prefHeight="48" prefWidth="648" styleClass="x-flat-button " text="Настройки звука " textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
@@ -66,7 +66,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="HAND" enabled="1" id="data-btn_menu_sound_unmute" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-btn_menu_sound_unmute" visible="1"/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="144" id="mutesound" layoutX="1400" layoutY="0" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="200">
       <font>
         <Font name="System Regular" size="12"/>
@@ -78,13 +78,13 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="HAND" enabled="1" id="data-item_shadow_off" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-item_shadow_off" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="6" clickColor="#1a1a1a" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#000000" id="item_shadow_on" layoutX="264" layoutY="344" prefHeight="48" prefWidth="40" styleClass="x-flat-button " text="Вкл" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="HAND" enabled="1" id="data-item_shadow_on" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-item_shadow_on" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button9" layoutX="32" layoutY="200" prefHeight="48" prefWidth="176" styleClass="x-flat-button " text="Общий звук" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
@@ -96,13 +96,13 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="HAND" enabled="1" id="data-all_sound_off" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-all_sound_off" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="6" clickColor="#1a1a1a" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#000000" id="all_sound_on" layoutX="264" layoutY="200" prefHeight="48" prefWidth="40" styleClass="x-flat-button " text="Вкл" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="HAND" enabled="1" id="data-all_sound_on" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-all_sound_on" visible="1"/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="144" id="sound" layoutX="1400" layoutY="152" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="200">
       <font>
         <Font name="System Regular" size="12"/>

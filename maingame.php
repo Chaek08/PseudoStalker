@@ -261,6 +261,7 @@ class maingame extends AbstractForm
             Animation::displace($this->item_vodka_0000, 500, -1030, $y); 
         }
     }
+
     function HideExitDialog()
     {
         if ($this->fragment_exit->visible) {$this->fragment_exit->hide();}  
@@ -425,4 +426,16 @@ class maingame extends AbstractForm
         $this->fragment_pda->content->fragment_tasks->content->DeleteTask();     
         $this->enemy->opacity = 0;                                   
     }
+    function BugDetectSystem()
+    {
+        app()->showForm('bugdetect');
+        app()->hideForm('maingame');
+    }
+    /**
+     * @event button3.click-Left 
+     */
+    function doButton3ClickLeft(UXMouseEvent $e = null)
+    {    
+        $this->BugDetectSystem();
+    }    
 }

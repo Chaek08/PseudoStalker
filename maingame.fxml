@@ -6,6 +6,11 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button3" layoutX="1456" layoutY="240" prefHeight="32" prefWidth="144" styleClass="button " text="bugdetect system" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
     <Data content="mainmenu" cursor="DEFAULT" enabled="1" id="data-fragment_menu" visible="1"/>
     <Data content="inventory" cursor="DEFAULT" enabled="1" id="data-fragment_inv" visible=""/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="93" id="item_vodka_0000" layoutX="240" layoutY="704" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="30">
@@ -33,7 +38,7 @@
         <Font name="System Regular" size="15"/>
       </font>
     </FlatButton>
-    <Data cursor="HAND" enabled="1" graphic=".data/ui/maingame/talk_icon.png" id="data-dlg_btn" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/maingame/talk_icon.png" id="data-dlg_btn" visible="1"/>
     <Data content="dialog" cursor="DEFAULT" enabled="1" id="data-fragment_dlg" visible=""/>
     <Data content="exit_dlg" cursor="DEFAULT" enabled="1" id="data-fragment_exit" visible=""/>
     <FlatButton alignment="CENTER" borderRadius="10" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="health_static_gg" layoutX="16" layoutY="16" prefHeight="56" prefWidth="280" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
@@ -83,7 +88,7 @@
         <Font name="System Regular" size="15"/>
       </font>
     </FlatButton>
-    <Data cursor="HAND" enabled="1" graphic=".data/ui/maingame/exit_icon.png" id="data-leave_btn" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/maingame/exit_icon.png" id="data-leave_btn" visible=""/>
     <Data content="opt" cursor="DEFAULT" enabled="1" id="data-fragment_opt" visible=""/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="224" id="idle_static_actor" layoutX="96" layoutY="576" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="120">
       <font>
@@ -145,5 +150,8 @@
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_inv" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_opt" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_exit" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <SpriteView animationEnabled="false" focusTraversable="false" height="64" id="anim_cursor" layoutX="768" layoutY="418" styleClass="" width="64"/>
+    <Data animated="1" cursor="DEFAULT" enabled="1" id="data-anim_cursor" sprite="game_cursor" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-button3" visible="1"/>
   </children>
 </AnchorPane>

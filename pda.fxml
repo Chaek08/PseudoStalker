@@ -56,24 +56,24 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="HAND" enabled="1" id="data-tasks_btn" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-tasks_btn" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="10" clickColor="#b3b31a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#999900" id="contacts_btn" layoutX="464" layoutY="632" opacity="0.35365853658537" prefHeight="40" prefWidth="80" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="HAND" enabled="1" id="data-contacts_btn" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-contacts_btn" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="10" clickColor="#b3b31a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#999900" id="ranking_btn" layoutX="544" layoutY="632" opacity="0.35365853658537" prefHeight="40" prefWidth="72" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="HAND" enabled="1" id="data-ranking_btn" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-ranking_btn" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="10" clickColor="#b3b31a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#999900" id="stat_btn" layoutX="616" layoutY="632" opacity="0.35365853658537" prefHeight="40" prefWidth="72" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="HAND" enabled="1" id="data-stat_btn" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-stat_btn" visible="1"/>
   </children>
 </AnchorPane>

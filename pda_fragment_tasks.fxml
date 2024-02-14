@@ -39,7 +39,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data clickImage=".data/ui/pda/task_detail_on.png" cursor="HAND" enabled="1" hoverImage=".data/ui/pda/task_detail_on.png" id="data-quest_detail_btn" image=".data/ui/pda/task_detail_off.png" visible="1"/>
+    <Data clickImage=".data/ui/pda/task_detail_on.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/pda/task_detail_on.png" id="data-quest_detail_btn" image=".data/ui/pda/task_detail_off.png" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-task_detail_text" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-frame_01" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-frame_detail_02" visible="1"/>

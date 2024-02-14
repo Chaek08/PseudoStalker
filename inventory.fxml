@@ -37,7 +37,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-money" visible="1"/>
-    <Data cursor="HAND" enabled="1" id="data-inv_item_vodka" image=".data/ui/inventory/item_vodka.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-inv_item_vodka" image=".data/ui/inventory/item_vodka.png" visible="1"/>
     <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="weight_desc" layoutX="1144" layoutY="88" prefHeight="16.7578125" prefWidth="96.73095703125" styleClass="label " text="Вес  4.3 / 50.0" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="Arial" size="15"/>
@@ -138,7 +138,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="HAND" enabled="1" id="data-inv_maket" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-inv_maket" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="10" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="health_static_gg" layoutX="1136" layoutY="808" prefHeight="56" prefWidth="432" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
