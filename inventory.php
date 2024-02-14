@@ -15,31 +15,33 @@ class inventory extends AbstractForm
     function HideVodkaMaket()
     {
         $this->inv_maket_select_2->hide();
-        //$this->progressbar_cond->hide();
+        $this->maket_cond->hide(); 
     }
     function HideOutfitMaket() 
     {
         $this->inv_maket_select->hide();
-        //$this->progressbar_cond->hide();        
+        $this->maket_cond->hide();        
     }
     function ShowVodkaMaket()
     {
         $this->HideOutfitMaket();    
         $this->inv_maket_select_2->show();
-        //$this->progressbar_cond->show();
+        $this->SetVodkaCondition();        
+        $this->maket_cond->show(); 
     }
     function ShowOutfitMaket() 
     {
         $this->HideVodkaMaket();    
         $this->inv_maket_select->show();
-        //$this->progressbar_cond->show();        
+        $this->SetOutfitCondition();        
+        $this->maket_cond->show();        
     }    
     function ShowUIText()
     {
         $this->maket_label->show();
         $this->maket_count->show();
         $this->maket_desc->show();
-        //$this->maket_cond->show();
+        $this->maket_cond_static->show();
         $this->maket_weight->show();        
     }
     function HideUIText()
@@ -47,7 +49,8 @@ class inventory extends AbstractForm
         $this->maket_label->hide();
         $this->maket_count->hide();
         $this->maket_desc->hide();
-        //$this->maket_cond->hide();
+        $this->maket_cond_static->hide();
+        $this->maket_cond->hide();
         $this->maket_weight->hide();         
     }
     function SetUIText()
@@ -154,5 +157,34 @@ class inventory extends AbstractForm
     function VodkaActions(UXMouseEvent $e = null)
     {    
         $this->ShowCombobox();
-    }   
+    }  
+    
+    function SetOutfitCondition()
+    {
+        if ($this->form('maingame')->health_bar_gg->width == 164)
+        {
+            $this->maket_cond->text = "75 %"; 
+            $this->maket_cond->width = 139;            
+        }
+        if ($this->form('maingame')->health_bar_gg->width == 114)
+        {
+            $this->maket_cond->text = "55 %";     
+            $this->maket_cond->width = 104;                                           
+        }           
+        if ($this->form('maingame')->health_bar_gg->width == 24)
+        {
+            $this->maket_cond->text = "45 %";   
+            $this->maket_cond->width = 49;                                                    
+        }   
+    } 
+    function ResetOutfitCondition()
+    {
+        $this->maket_cond->text = "100 %";       
+        $this->maket_cond->width = 216;         
+    }
+    function SetVodkaCondition()
+    {
+        $this->maket_cond->text = "100 %";       
+        $this->maket_cond->width = 216; 
+    }
 }

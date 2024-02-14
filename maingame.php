@@ -36,10 +36,11 @@ class maingame extends AbstractForm
             $this->fragment_inv->content->DespawnVodka();
             $this->item_vodka_0000->enabled = true;  
         }
-              
+                      
         $this->fragment_inv->content->health_bar_gg->show();      
         $this->fragment_inv->content->health_bar_gg->width = 416;           
-        $this->fragment_inv->content->health_bar_gg->text = "100%";        
+        $this->fragment_inv->content->health_bar_gg->text = "100%";   
+        $this->fragment_inv->content->ResetOutfitCondition();                
         $this->GetHealth();  
         
         $this->fragment_pda->content->fragment_contacts->content->AddEnemyContacts();   
@@ -76,7 +77,8 @@ class maingame extends AbstractForm
     }
     function ShowMenu()
     {
-        if ($this->fragment_menu->toggle()) {$this->fragment_menu->visible;}  
+        //if ($this->fragment_menu->toggle()) {$this->fragment_menu->visible;}  
+        $this->fragment_menu->show();
         if ($this->fragment_opt->content->sound->visible)
         {
             if ($this->fragment_opt->content->mutesound->visible)
@@ -269,7 +271,14 @@ class maingame extends AbstractForm
     }
     function HideInventory()
     {
-        if ($this->fragment_inv->visible) {$this->fragment_inv->hide();}
+        if ($this->fragment_inv->visible)
+        {
+            $this->fragment_inv->content->HideOutfitMaket();
+            $this->fragment_inv->content->HideVodkaMaket(); 
+            $this->fragment_inv->content->HideUIText();                   
+            $this->fragment_inv->hide();                
+        }
+        
     }
     function HideExitDlg()
     {
@@ -293,7 +302,7 @@ class maingame extends AbstractForm
     }    
     function DamageEnemy()
     { 
-        if ($this->health_bar_enemy->width != 14)
+        if ($this->health_bar_enemy->width != 24)
         {
             $this->health_bar_enemy->width -= 50;        
             if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex'); }        
@@ -327,11 +336,12 @@ class maingame extends AbstractForm
         if ($this->health_bar_enemy->width == 14)
         {
             $this->health_bar_enemy->text = "1%";
+            $this->health_bar_enemy->width += 10;
         }                    
     }
     function DamageActor()
     { 
-        if ($this->health_bar_gg->width != 14)
+        if ($this->health_bar_gg->width != 24)
         {
             $this->health_bar_gg->width -= 50;  
             Animation::fadeIn($this->hitmark_static, 250);  
@@ -365,13 +375,15 @@ class maingame extends AbstractForm
         {
             $this->health_bar_gg->text = "55%";
             $this->fragment_inv->content->health_bar_gg->width -= 50;            
-            $this->fragment_inv->content->health_bar_gg->text = "55%";            
+            $this->fragment_inv->content->health_bar_gg->text = "55%";   
+            $this->fragment_inv->content->SetOutfitCondition();      
         }      
         if ($this->health_bar_gg->width == 114)
         {
             $this->health_bar_gg->text = "50%";
             $this->fragment_inv->content->health_bar_gg->width -= 40;            
-            $this->fragment_inv->content->health_bar_gg->text = "50%";            
+            $this->fragment_inv->content->health_bar_gg->text = "50%";  
+            $this->fragment_inv->content->SetOutfitCondition();          
         }  
         if ($this->health_bar_gg->width == 64)
         {
@@ -383,7 +395,9 @@ class maingame extends AbstractForm
         {
             $this->health_bar_gg->text = "1%";
             $this->fragment_inv->content->health_bar_gg->width -= 50;            
-            $this->fragment_inv->content->health_bar_gg->text = "1%";            
+            $this->fragment_inv->content->health_bar_gg->text = "1%"; 
+            $this->health_bar_gg->width += 10;   
+            $this->fragment_inv->content->SetOutfitCondition();                           
         }                     
     }    
     function ActorFail()
