@@ -163,13 +163,13 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_weight" visible=""/>
-    <FlatButton alignment="CENTER" borderRadius="10" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="maket_cond_static" layoutX="752" layoutY="424" prefHeight="40" prefWidth="232" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="10" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="maket_cond_static" layoutX="872" layoutY="816" prefHeight="40" prefWidth="232" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_cond_static" visible=""/>
-    <FlatButton alignment="CENTER" borderRadius="10" color="#80b380" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="maket_cond" layoutX="760" layoutY="432" prefHeight="24" prefWidth="216" styleClass="x-flat-button " text="100 %" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="10" color="#80b380" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="maket_cond" layoutX="880" layoutY="824" prefHeight="24" prefWidth="216" styleClass="x-flat-button " text="100 %" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
