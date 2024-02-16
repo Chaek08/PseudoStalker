@@ -55,6 +55,13 @@ class mainmenu extends AbstractForm
     }
     function GetVersion()
     {
-        Element::setText($this->label_version, "pre alpha 0.0.6");
+        if ($this->debug_build->visible)
+        {
+            $this->label_version->text = "PseudoStalker, Build 419, Feb 16 2024"; //start date 24.12.2022
+        }
+        else
+        {
+            $this->label_version->text = "PseudoStalker\nVersion 1.0";
+        }
     }
 }
