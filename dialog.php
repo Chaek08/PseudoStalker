@@ -42,12 +42,11 @@ class dialog extends AbstractForm
     {                
         if ($this->form('maingame')->fragment_opt->content->sound->visible)
         {
-            Media::open('res://.data/audio/fight/vibeman.wav', true, "fight_sound");
+            Media::open('res://.data/audio/fight/new_track.mp3', true, "fight_sound");
         }    
         $this->form('maingame')->idle_static_actor->hide();
         $this->form('maingame')->idle_static_enemy->hide(); 
         $this->form('maingame')->fight_label->show();               
-        //очищаем игру
         $this->form('maingame')->dlg_btn->hide();
         $this->form('maingame')->HideDialog();                 
         $this->ResetAnswerVisible();           
@@ -64,8 +63,6 @@ class dialog extends AbstractForm
         $this->alex_desc_3->hide();
         $this->alex_label_3->hide();        
     }
-    //заебали блять ебаные диалоги, тупые кнопки 
-    //исправим эту проблему, раз и навсегда
     function ResetAnswerVisible()
     {
         $this->answer_1_new->hide();

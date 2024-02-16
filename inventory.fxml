@@ -50,12 +50,6 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-inv_maket_select_2" image=".data/ui/inventory/item_vodka.png" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="time" layoutX="0" layoutY="880" prefHeight="15.9609375" prefWidth="28.4765625" styleClass="label " text="20:23" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-time" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-main" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-button_drop" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-inv_back" visible="1"/>

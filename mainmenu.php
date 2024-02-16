@@ -55,6 +55,6 @@ class mainmenu extends AbstractForm
     }
     function GetVersion()
     {
-        Element::setText($this->label_version, "pre alpha 0.0.5");
+        Element::setText($this->label_version, "pre alpha 0.0.6");
     }
 }

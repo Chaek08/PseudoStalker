@@ -77,13 +77,28 @@ class inventory extends AbstractForm
             Media::open('res://.data/audio/inv_slot.mp3', true, 'inv_use_slot'); 
         }     
     }
-    function HideCombobox()
+    function PropertiesSound()
     {
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {
+            Media::open('res://.data/audio/inv_properties.mp3', true, 'inv_properties'); 
+        }          
+    }
+    function DropSound()
+    {
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {
+            Media::open('res://.data/audio/inv_drop.mp3', true, 'inv_drop'); 
+        }               
+    }
+    function HideCombobox()
+    {  
         $this->main->hide();
         $this->button_drop->hide();
     }
     function ShowCombobox()
-    {
+    {     
+        $this->PropertiesSound();
         $this->main->show();
         $this->button_drop->show();        
     }
@@ -113,6 +128,10 @@ class inventory extends AbstractForm
     }
     function GetCurrentHealth()
     {
+        if ($this->health_bar_gg->visible) {} else
+        {
+            $this->health_bar_gg->show();
+        }
         $this->health_bar_gg->width = 416; //100%
         $this->health_bar_gg->text = "100%";
     }
@@ -131,6 +150,7 @@ class inventory extends AbstractForm
      */
     function DropVodka(UXMouseEvent $e = null)
     {       
+        $this->DropSound();   
         $this->HideVodkaMaket();
         $this->HideUIText();   
         $this->HideCombobox(); 

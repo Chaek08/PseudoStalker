@@ -36,10 +36,8 @@ class maingame extends AbstractForm
             $this->fragment_inv->content->DespawnVodka();
             $this->item_vodka_0000->enabled = true;  
         }
-                      
-        $this->fragment_inv->content->health_bar_gg->show();      
-        $this->fragment_inv->content->health_bar_gg->width = 416;           
-        $this->fragment_inv->content->health_bar_gg->text = "100%";   
+                        
+        $this->fragment_inv->content->GetCurrentHealth();          
         $this->fragment_inv->content->ResetOutfitCondition();                
         $this->GetHealth();  
         
