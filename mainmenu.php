@@ -43,7 +43,7 @@ class mainmenu extends AbstractForm
      */
     function ExitWindowsBtn(UXMouseEvent $e = null)
     {    
-        $this->fragment_exit->show();
+        $this->form('maingame')->ShowExitDialog();
     }
     /**
      * @event opt_btn.click-Left 

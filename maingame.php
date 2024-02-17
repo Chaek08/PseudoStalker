@@ -15,18 +15,12 @@ class maingame extends AbstractForm
         $this->GetHealth();
     }
     function ResetGameClient()
-    {
-        if ($this->skull_actor->visible) {$this->skull_actor->hide();}
-        if ($this->skull_enemy->visible) {$this->skull_enemy->hide();}    
+    {  
         if ($this->fight_label->visible) {$this->fight_label->hide();} 
         if ($this->leave_btn->visible) {$this->leave_btn->hide();}        
         if ($this->fragment_act_fail->visible) {$this->fragment_act_fail->hide();}     
         if ($this->fragment_enm_fail->visible) {$this->fragment_enm_fail->hide();}    
-        if ($this->pda_icon->visible) {$this->pda_icon->hide();} 
-        if ($this->fragment_inv->content->skull_actor->visible)
-        {
-            $this->fragment_inv->content->skull_actor->hide();
-        }                 
+        if ($this->pda_icon->visible) {$this->pda_icon->hide();}            
         
         if ($this->item_vodka_0000->visible) //функция, позволяющая вернуть водку в инвентарь при начале новой игры
         {
@@ -102,7 +96,11 @@ class maingame extends AbstractForm
         {
             return;
         }
-        if ($this->fragment_act_fail->show || $this->fragment_enm_fail->show)
+        if($this->fragment_dlg->visible)
+        {
+            return;
+        }         
+        if ($this->fragment_act_fail->visible || $this->fragment_enm_fail->visible)
         {
             return;
         }
@@ -125,7 +123,11 @@ class maingame extends AbstractForm
         if ($this->fragment_pda->visible)
         {
             return;
-        }    
+        }  
+        if($this->fragment_dlg->visible)
+        {
+            return;
+        }           
         if ($this->fragment_act_fail->show || $this->fragment_enm_fail->show)
         {
             return;
@@ -138,7 +140,7 @@ class maingame extends AbstractForm
     /**
      * @event keyDown-F4 
      */
-    function ShowExitDlg(UXKeyEvent $e = null)
+    function ShowExitDialog_KF4(UXKeyEvent $e = null)
     {          
         if($this->fragment_menu->visible)
         {
@@ -156,12 +158,20 @@ class maingame extends AbstractForm
         {
             return;
         }    
-        if ($this->fragment_act_fail->show || $this->fragment_enm_fail->show)
+        if($this->fragment_dlg->visible)
+        {
+            return;
+        }           
+        if ($this->fragment_act_fail->visible || $this->fragment_enm_fail->visible)
         {
             return;
         }                           
         $this->ResetFragmentsVisible();    
-        $this->fragment_exit->toggle() == $this->fragment_exit->visible;   
+        $this->ShowExitDialog();   
+    }
+    function ShowExitDialog()
+    {
+        $this->fragment_exit->toggle() == $this->fragment_exit->visible;  
     }
     function ResetFragmentsVisible()
     {
@@ -170,7 +180,9 @@ class maingame extends AbstractForm
         if ($this->fragment_pda->visible) {$this->fragment_pda->hide();}  
         if ($this->fragment_opt->visible) {$this->fragment_opt->hide();}      
         if ($this->fragment_dlg->visible) {$this->fragment_dlg->hide();}      
-        if ($this->fragment_exit->visible) {$this->fragment_exit->hide();}                        
+        if ($this->fragment_exit->visible) {$this->fragment_exit->hide();}   
+        if ($this->fragment_act_fail->visible) {$this->fragment_act_fail->hide();}     
+        if ($this->fragment_enm_fail->visible) {$this->fragment_enm_fail->hide();}                              
     }
     /**
      * @event dlg_btn.click-Left 
@@ -272,10 +284,6 @@ class maingame extends AbstractForm
         }
         
     }
-    function HideExitDlg()
-    {
-        if ($this->fragment_exit->visible) {$this->fragment_exit->hide();}        
-    }
     function HidePda()
     {
         if ($this->fragment_pda->visible) {$this->fragment_pda->hide();}        
@@ -289,13 +297,24 @@ class maingame extends AbstractForm
         $this->health_bar_gg->width = 264;
         $this->health_bar_gg->text = "100%";
         $this->health_bar_gg->show();
+        
         $this->fragment_inv->content->health_bar_gg->show();
         $this->fragment_inv->content->health_bar_gg->width = 416; //100%
         $this->fragment_inv->content->health_bar_gg->text = "100%";               
                 
         $this->health_bar_enemy->show();                
         $this->health_bar_enemy->width = 264;    
-        $this->health_bar_enemy->text = "100%";       
+        $this->health_bar_enemy->text = "100%"; 
+        
+        if ($this->skull_actor->visible || $this->skull_enemy->visible)
+        {
+            $this->skull_actor->hide();
+            $this->skull_enemy->hide();
+        }    
+        if ($this->fragment_inv->content->skull_actor->visible)  
+        {
+            $this->fragment_inv->content->skull_actor->hide();
+        }
     }    
     function DamageEnemy()
     { 
