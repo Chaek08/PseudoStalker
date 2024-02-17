@@ -58,7 +58,7 @@ class inventory extends AbstractForm
         if ($this->inv_maket_select_2->visible)
         {
             Element::setText($this->maket_label, "Водка Казаки");
-            Element::setText($this->maket_desc, "Огненная водичка! Можно устроить пожар в заднице алекса , метнув в него бутылку. Управление бутылкой: ЛКМ - Метнуть бутылку, ПКМ - Отметнуть к себе");    
+            Element::setText($this->maket_desc, "Огненная водичка! Можно устроить пожар в заднице алекса , метнув в него бутылку.\n\nУправление бутылкой:\nЛКМ - Метнуть бутылку\nПКМ - Отметнуть к себе");    
             Element::setText($this->maket_count, "100 RU"); 
             Element::setText($this->maket_weight, "0.5kg");            
         }
@@ -95,12 +95,14 @@ class inventory extends AbstractForm
     {  
         $this->main->hide();
         $this->button_drop->hide();
+        $this->drink_btn->hide();
     }
     function ShowCombobox()
     {     
         $this->PropertiesSound();
         $this->main->show();
-        $this->button_drop->show();        
+        $this->button_drop->show();   
+        $this->drink_btn->show();             
     }
     function CloseInventory()
     {
@@ -117,7 +119,7 @@ class inventory extends AbstractForm
         $this->SetUIText();       
     }
     /**
-     * @event inv_item_vodka.click-Left 
+     * @event vodka_selected.click-Left 
      */
     function VodkaMaketFunc(UXMouseEvent $e = null)
     {    
@@ -172,7 +174,7 @@ class inventory extends AbstractForm
         $this->form('maingame')->item_vodka_0000->y = 704;                           
     }    
     /**
-     * @event inv_item_vodka.click-Right 
+     * @event vodka_selected.click-Right 
      */
     function VodkaActions(UXMouseEvent $e = null)
     {    

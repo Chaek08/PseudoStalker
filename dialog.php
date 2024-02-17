@@ -3,8 +3,6 @@ namespace app\forms;
 
 use std, gui, framework, app;
 
-// подсказка для дайлогов actor_label_1, actor_desc_1
-
 class dialog extends AbstractForm
 {
     /**

@@ -291,7 +291,7 @@ class maingame extends AbstractForm
     {
         if ($this->fragment_opt->visible) {$this->fragment_opt->hide();}          
     }    
-    function GetHealth() //default health state
+    function GetHealth() 
     {
         $this->health_bar_gg->width = 264;
         $this->health_bar_gg->text = "100%";
