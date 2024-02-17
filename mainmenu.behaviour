@@ -3,7 +3,5 @@
   <target id="image">
     <behaviour radius="0" type="behaviour\custom\GaussianBlurEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="label_gamename">
-    <behaviour color="#333333" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
-  </target>
+  <target id="label_gamename"/>
 </behaviours>

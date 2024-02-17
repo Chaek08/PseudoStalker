@@ -6,7 +6,6 @@ use std, gui, framework, app;
 
 class opt extends AbstractForm
 {
-
     /**
      * @event back_btn.click-Left
      */
@@ -15,7 +14,6 @@ class opt extends AbstractForm
         $this->form('maingame')->fragment_menu->show();    
         $this->form('maingame')->fragment_opt->hide();      
     }
-
     /**
      * @event btn_menu_sound_mute.click-Left 
      */
@@ -24,7 +22,6 @@ class opt extends AbstractForm
         Media::stop("menu_sound");
         $this->mutesound->show();
     }
-
     /**
      * @event btn_menu_sound_unmute.click-Left 
      */
@@ -33,7 +30,6 @@ class opt extends AbstractForm
         Media::play("menu_sound");
         $this->mutesound->hide();             
     }
-
     /**
      * @event item_shadow_off.click-Left 
      */
@@ -48,7 +44,6 @@ class opt extends AbstractForm
         $this->form('maingame')->health_static_enemy->dropShadowEffect->disable();     
         $this->form('maingame')->health_static_gg->dropShadowEffect->disable();                                                                   
     }
-
     /**
      * @event item_shadow_on.click-Left 
      */
@@ -63,7 +58,6 @@ class opt extends AbstractForm
         $this->form('maingame')->health_static_enemy->dropShadowEffect->enable();     
         $this->form('maingame')->health_static_gg->dropShadowEffect->enable();                      
     }
-
     /**
      * @event all_sound_off.click-Left 
      */
@@ -74,7 +68,6 @@ class opt extends AbstractForm
         Media::stop("fight_sound");
         Media::stop();
     }
-
     /**
      * @event all_sound_on.click-Left 
      */
@@ -82,6 +75,4 @@ class opt extends AbstractForm
     {
         $this->sound->show();
     }
-
-
 }

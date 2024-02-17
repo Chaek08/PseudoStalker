@@ -57,7 +57,7 @@ class mainmenu extends AbstractForm
     {
         if ($this->debug_build->visible)
         {
-            $this->label_version->text = "PseudoStalker, Build 419, Feb 16 2024"; //start date 24.12.2022
+            $this->label_version->text = "PseudoStalker, Build 420, Feb 17 2024"; //start date 24.12.2022
         }
         else
         {

@@ -8,10 +8,7 @@ class inventory extends AbstractForm
     /**
      * @event show 
      */
-    function Inventory(UXWindowEvent $e = null)
-    {    
-        $this->GetCurrentHealth();
-    }
+    function Inventory(UXWindowEvent $e = null) {}
     function HideVodkaMaket()
     {
         $this->inv_maket_select_2->hide();
@@ -95,14 +92,12 @@ class inventory extends AbstractForm
     {  
         $this->main->hide();
         $this->button_drop->hide();
-        $this->drink_btn->hide();
     }
     function ShowCombobox()
     {     
         $this->PropertiesSound();
         $this->main->show();
-        $this->button_drop->show();   
-        $this->drink_btn->show();             
+        $this->button_drop->show();             
     }
     function CloseInventory()
     {
@@ -127,15 +122,6 @@ class inventory extends AbstractForm
         $this->ShowVodkaMaket();
         $this->ShowUIText();
         $this->SetUIText();                
-    }
-    function GetCurrentHealth()
-    {
-        if ($this->health_bar_gg->visible) {} else
-        {
-            $this->health_bar_gg->show();
-        }
-        $this->health_bar_gg->width = 416; //100%
-        $this->health_bar_gg->text = "100%";
     }
     /**
      * @event rci.click-Left 
@@ -180,7 +166,6 @@ class inventory extends AbstractForm
     {    
         $this->ShowCombobox();
     }  
-    
     function SetOutfitCondition()
     {
         if ($this->form('maingame')->health_bar_gg->width == 164)

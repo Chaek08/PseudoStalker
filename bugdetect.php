@@ -6,7 +6,6 @@ use std, gui, framework, app;
 
 class bugdetect extends AbstractForm
 {
-
     /**
      * @event button.click-Left 
      */
@@ -14,5 +13,4 @@ class bugdetect extends AbstractForm
     {    
         app()->shutdown();
     }
-
 }

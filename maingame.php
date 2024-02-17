@@ -27,17 +27,13 @@ class maingame extends AbstractForm
         {
             $this->fragment_inv->content->skull_actor->hide();
         }                 
-                         
-        if ($this->health_bar_gg->visible) {} else {$this->health_bar_gg->show();}
-        if ($this->health_bar_enemy->visible) {} else {$this->health_bar_enemy->show();}  
         
         if ($this->item_vodka_0000->visible) //функция, позволяющая вернуть водку в инвентарь при начале новой игры
         {
             $this->fragment_inv->content->DespawnVodka();
             $this->item_vodka_0000->enabled = true;  
         }
-                        
-        $this->fragment_inv->content->GetCurrentHealth();          
+                               
         $this->fragment_inv->content->ResetOutfitCondition();                
         $this->GetHealth();  
         
@@ -75,7 +71,6 @@ class maingame extends AbstractForm
     }
     function ShowMenu()
     {
-        //if ($this->fragment_menu->toggle()) {$this->fragment_menu->visible;}  
         $this->fragment_menu->show();
         if ($this->fragment_opt->content->sound->visible)
         {
@@ -216,18 +211,17 @@ class maingame extends AbstractForm
     /**
      * @event button.click-Left 
      */
-    function doButtonClickLeft(UXMouseEvent $e = null)
+    function OLD_DELETE_PLS_2(UXMouseEvent $e = null)
     {    
         $this->ResetGameClient();
     }
     /**
      * @event buttonAlt.click-Left 
      */
-    function doButtonAltClickLeft(UXMouseEvent $e = null)
+    function OLD_DELETE_PLS_3(UXMouseEvent $e = null)
     {    
         $this->fragment_dlg->content->Talk_3();
     }
-    
     /**
      * @event item_vodka_0000.click-2x
      */
@@ -259,7 +253,6 @@ class maingame extends AbstractForm
             Animation::displace($this->item_vodka_0000, 500, -1030, $y); 
         }
     }
-
     function HideExitDialog()
     {
         if ($this->fragment_exit->visible) {$this->fragment_exit->hide();}  
@@ -295,7 +288,12 @@ class maingame extends AbstractForm
     {
         $this->health_bar_gg->width = 264;
         $this->health_bar_gg->text = "100%";
+        $this->health_bar_gg->show();
+        $this->fragment_inv->content->health_bar_gg->show();
+        $this->fragment_inv->content->health_bar_gg->width = 416; //100%
+        $this->fragment_inv->content->health_bar_gg->text = "100%";               
                 
+        $this->health_bar_enemy->show();                
         $this->health_bar_enemy->width = 264;    
         $this->health_bar_enemy->text = "100%";       
     }    
@@ -436,7 +434,7 @@ class maingame extends AbstractForm
     /**
      * @event button3.click-Left 
      */
-    function doButton3ClickLeft(UXMouseEvent $e = null)
+    function OLD_DELETE_PLS_1(UXMouseEvent $e = null)
     {    
         $this->BugDetectSystem();
     }    

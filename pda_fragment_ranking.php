@@ -67,7 +67,6 @@ class pda_fragment_ranking extends AbstractForm
         $this->selected_status->show();      
         $this->selected_status->y = 64;                       
     }
-
     /**
      * @event alex_btn.click-Left 
      */
@@ -81,7 +80,6 @@ class pda_fragment_ranking extends AbstractForm
         $this->selected_status->show();      
         $this->selected_status->y = 96;                
     }
-
     function SetUserInfo()
     {
         if ($this->alex_icon->visible)

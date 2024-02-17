@@ -19,7 +19,7 @@ class pda_fragment_contacts extends AbstractForm
      */
     function HideCharacter(UXMouseEvent $e = null)
     {    
-        if ($this->selected_new->visible) // а вот тут условие нужно, ведь не факт что игрок сразу тыкнет на алекса, а лишний код нам не нужон
+        if ($this->selected_new->visible)
         {
             $this->selected_new->hide();
             $this->bio->hide();            
@@ -33,7 +33,6 @@ class pda_fragment_contacts extends AbstractForm
         $this->online_icon->show();
         $this->alex_frame->show();
         $this->icon_alex->show();
-        //$this->selected_new->show(); 
         if($this->bio->visible)
         {
             $this->bio->hide();
@@ -47,7 +46,6 @@ class pda_fragment_contacts extends AbstractForm
         $this->online_icon->hide();
         $this->alex_frame->hide();
         $this->icon_alex->hide();
-        //$this->selected_new->hide();  
         if($this->bio->visible)
         {
             $this->bio->hide();

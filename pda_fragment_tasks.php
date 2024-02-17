@@ -13,7 +13,6 @@ class pda_fragment_tasks extends AbstractForm
     {    
         $this->task_detail_text->toggle() == $this->task_detail_text->visible;      
     }
-    
     /**
      * @event frame_hide.click-Left 
      */
@@ -24,7 +23,6 @@ class pda_fragment_tasks extends AbstractForm
             $this->task_detail_text->hide();            
         }               
     }
-    
     function AddTask()
     {
         $this->task_label->show();
