@@ -3,7 +3,7 @@ namespace app\forms;
 
 use std, gui, framework, app;
 use action\Geometry;
-
+use script\MediaPlayerScript;
 
 class maingame extends AbstractForm
 {
@@ -13,6 +13,28 @@ class maingame extends AbstractForm
     function MainGame(UXWindowEvent $e = null)
     {    
         $this->GetHealth();
+        $this->OpenMainAmbient();
+    }
+    function OpenMainAmbient()
+    {
+        if ($this->fragment_opt->content->sound->visible)
+        {
+             Media::open('res://.data/audio/fight/vibeman.wav', false, 'main_ambient');
+        }        
+    }
+    function PlayMainAmbient()
+    {
+        if ($this->fragment_opt->content->sound->visible)
+        {
+             Media::play('main_ambient');      
+        }         
+    }
+    function StopMainAmbient()
+    {
+        if ($this->fragment_opt->content->sound->visible)
+        {
+             Media::pause('main_ambient');             
+        }            
     }
     function ResetGameClient()
     {  
@@ -60,8 +82,9 @@ class maingame extends AbstractForm
         if ($this->fragment_pda->visible) {$this->HidePda(); return;}
         if ($this->fragment_dlg->visible) {$this->HideDialog(); return;}   
         if ($this->fragment_exit->visible) {$this->HideExitDialog(); return;}    
-        if ($this->fragment_opt->visible) {return;}                
+        if ($this->fragment_opt->visible) {return;}        
         $this->ShowMenu();
+        $this->StopMainAmbient();
     }
     function ShowMenu()
     {
@@ -75,7 +98,7 @@ class maingame extends AbstractForm
             else 
             {
                  Media::play("menu_sound");
-                 Media::pause("fight_sound");            
+                 Media::pause("fight_sound");        
             }  
         }
     }

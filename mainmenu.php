@@ -20,6 +20,7 @@ class mainmenu extends AbstractForm
         if ($this->form('maingame')->fragment_opt->content->sound->visible)
         {
             Media::play("menu_sound");
+           
         }            
     }
     /**
@@ -30,6 +31,7 @@ class mainmenu extends AbstractForm
         $this->form('maingame')->fragment_menu->hide();
         $this->newgamebtn->text = "Вернуться в игру";
         Media::pause("menu_sound");
+        $this->form('maingame')->PlayMainAmbient();
         if ($this->form('maingame')->fight_label->visible)
         {
             if ($this->form('maingame')->fragment_opt->content->sound->visible)

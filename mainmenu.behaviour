@@ -3,5 +3,4 @@
   <target id="image">
     <behaviour radius="0" type="behaviour\custom\GaussianBlurEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="label_gamename"/>
 </behaviours>
