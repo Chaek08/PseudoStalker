@@ -76,4 +76,22 @@ class opt extends AbstractForm
     {
         $this->sound->show();
     }
+
+    /**
+     * @event button11.click-Left 
+     */
+    function WatermarkMenuOff(UXMouseEvent $e = null)
+    {    
+        $this->form('maingame')->fragment_menu->content->label_version->hide();
+    }
+
+    /**
+     * @event button10.click-Left 
+     */
+    function WatermarkMenuOn(UXMouseEvent $e = null)
+    {    
+        $this->form('maingame')->fragment_menu->content->label_version->show();        
+    }
+
+
 }

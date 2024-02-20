@@ -37,7 +37,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button5" layoutX="16" layoutY="272" prefHeight="48" prefWidth="648" styleClass="x-flat-button " text="Настройки графики" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button5" layoutX="16" layoutY="272" prefHeight="48" prefWidth="648" styleClass="x-flat-button " text="Настройки рендера" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
@@ -109,5 +109,23 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-sound" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="6" clickColor="#1a1a1a" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#000000" id="button10" layoutX="928" layoutY="88" prefHeight="48" prefWidth="40" styleClass="x-flat-button " text="Вкл" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-button10" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="6" clickColor="#1a1a1a" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#000000" id="button11" layoutX="880" layoutY="88" prefHeight="48" prefWidth="40" styleClass="x-flat-button " text="Выкл" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-button11" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button12" layoutX="696" layoutY="88" prefHeight="48" prefWidth="176" styleClass="x-flat-button " text="Номер версии игры" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-button12" visible="1"/>
   </children>
 </AnchorPane>

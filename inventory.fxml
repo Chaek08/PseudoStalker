@@ -21,7 +21,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-inv_maket_visual" image=".data/ui/maket/maket_actor.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" id="data-inv_maket_visual" image=".data/ui/maket/maket_actor.png" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_label" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_count" visible=""/>
     <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="328" id="inv_maket_select" layoutX="608" layoutY="80" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="504">
@@ -117,12 +117,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="696" id="inv_maket_visual" layoutX="1128" layoutY="112" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="448">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="304" id="inv_maket" layoutX="1256" layoutY="312" mosaic="false" mosaicGap="0" opacity="0.15853658536585" proportional="false" stretch="true" styleClass="" textFill="#000000" width="200">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="304" id="inv_maket" layoutX="1632" layoutY="0" mosaic="false" mosaicGap="0" opacity="0.15853658536585" proportional="false" stretch="true" styleClass="" textFill="#000000" width="200">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -171,6 +166,17 @@
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-vodka_selected" visible="1"/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="93" id="inv_item_vodka" layoutX="48" layoutY="96" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="30">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#b3b31a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#999900" id="outfit_selected" layoutX="1272" layoutY="312" opacity="0.29036739734486" prefHeight="296" prefWidth="160" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-outfit_selected" visible="1"/>
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="696" id="inv_maket_visual" layoutX="1128" layoutY="112" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="448">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

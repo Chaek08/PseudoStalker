@@ -104,7 +104,7 @@ class inventory extends AbstractForm
         $this->form('maingame')->fragment_inv->hide();
     }
     /**
-     * @event inv_maket.click-Left 
+     * @event outfit_selected.click-Left 
      */
     function OutfitMaketFunc(UXMouseEvent $e = null)
     {
@@ -166,6 +166,8 @@ class inventory extends AbstractForm
     {    
         $this->ShowCombobox();
     }  
+
+
     function SetOutfitCondition()
     {
         if ($this->form('maingame')->health_bar_gg->width == 164)
