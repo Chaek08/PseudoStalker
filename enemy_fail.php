@@ -20,6 +20,10 @@ class enemy_fail extends AbstractForm
      */
     function ReturnBtn(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->fragment_enm_fail->hide();            
+        $this->form('maingame')->fragment_enm_fail->hide();   
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {        
+            Media::play('main_ambient');    
+        }                 
     }    
 }

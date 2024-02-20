@@ -20,6 +20,10 @@ class actor_fail extends AbstractForm
      */
     function ReturnBtn(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->fragment_act_fail->hide();      
+        $this->form('maingame')->fragment_act_fail->hide(); 
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {        
+            Media::play('main_ambient');    
+        } 
     }
 }

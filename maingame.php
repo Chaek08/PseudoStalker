@@ -19,7 +19,7 @@ class maingame extends AbstractForm
     {
         if ($this->fragment_opt->content->sound->visible)
         {
-             Media::open('res://.data/audio/fight/vibeman.wav', false, 'main_ambient');
+             Media::open('res://.data/audio/game/krip.mp3', false, 'main_ambient');
         }        
     }
     function PlayMainAmbient()
@@ -238,10 +238,12 @@ class maingame extends AbstractForm
         if ($this->skull_actor->visible)
         {
             $this->fragment_act_fail->show();
+            Media::pause('main_ambient');    
         }
         if ($this->skull_enemy->visible)
         {
             $this->fragment_enm_fail->show();
+            Media::pause('main_ambient');             
         }   
     }
     /**
@@ -345,7 +347,11 @@ class maingame extends AbstractForm
         if ($this->health_bar_enemy->width != 24)
         {
             $this->health_bar_enemy->width -= 50;        
-            if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex'); }        
+            if ($this->fragment_opt->content->sound->visible)
+            {
+                Media::open('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex');
+                Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_alex_damage');
+            }        
         }
         else     
         {
@@ -387,7 +393,11 @@ class maingame extends AbstractForm
             Animation::fadeIn($this->hitmark_static, 250);  
             $this->hitmark_static->show();
             Animation::fadeOut($this->hitmark_static, 500);
-            if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor');   }        
+            if ($this->fragment_opt->content->sound->visible)
+            {
+                Media::open('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor'); 
+                Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_actor_damage'); 
+            }        
         }
         else     
         {
