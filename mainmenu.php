@@ -2,7 +2,7 @@
 namespace app\forms;
 
 use std, gui, framework, app;
-
+use php\gui\text\UXFont;
 
 class mainmenu extends AbstractForm
 {
@@ -12,7 +12,7 @@ class mainmenu extends AbstractForm
     function InitGameClient(UXWindowEvent $e = null)
     {    
         $this->GetVersion(); 
-        Media::open('res://.data/audio/fight/im_alex.mp3', false, "menu_sound");
+        Media::open('res://.data/audio/menu/menu_sound.mp3', false, "menu_sound");
         Media::play("menu_sound");     
     }
     function StartMenuSound()
@@ -23,13 +23,26 @@ class mainmenu extends AbstractForm
            
         }            
     }
+    function Btn__ContinueGame()
+    {             
+        $this->btn_start_game->image = new UXImage('res://.data/ui/mainmenu/btn_default/btn4.png');   
+        $this->btn_start_game->hoverImage = new UXImage('res://.data/ui/mainmenu/btn_cursor/btn4.png'); 
+        $this->btn_start_game->clickImage = new UXImage('res://.data/ui/mainmenu/btn_clicked/btn4.png');                     
+           
+    }
+    function Btn__NewGame()
+    {
+        $this->btn_start_game->image = new UXImage('res://.data/ui/mainmenu/btn_default/btn1.png');   
+        $this->btn_start_game->hoverImage = new UXImage('res://.data/ui/mainmenu/btn_cursor/btn1.png'); 
+        $this->btn_start_game->clickImage = new UXImage('res://.data/ui/mainmenu/btn_clicked/btn1.png');       
+    }
     /**
-     * @event newgamebtn.click-Left 
+     * @event btn_start_game.click-Left 
      */
     function NewGameBtn(UXMouseEvent $e = null)
     {    
         $this->form('maingame')->fragment_menu->hide();
-        $this->newgamebtn->text = "Вернуться в игру";
+        $this->Btn__ContinueGame();
         Media::pause("menu_sound");
         $this->form('maingame')->PlayMainAmbient();
         if ($this->form('maingame')->fight_label->visible)
@@ -41,14 +54,14 @@ class mainmenu extends AbstractForm
         }
     }
     /**
-     * @event exitwindowsbtn.click-Left 
+     * @event btn_exit_windows.click-Left 
      */
     function ExitWindowsBtn(UXMouseEvent $e = null)
     {    
         $this->form('maingame')->ShowExitDialog();
     }
     /**
-     * @event opt_btn.click-Left 
+     * @event btn_opt.click-Left 
      */
     function OptBtn(UXMouseEvent $e = null)
     {        
@@ -59,7 +72,7 @@ class mainmenu extends AbstractForm
     {
         if ($this->debug_build->visible)
         {
-            $this->label_version->text = "PseudoStalker, Build 420, Feb 17 2024"; //start date 24.12.2022
+            $this->label_version->text = "PseudoStalker, Build 423, Feb 20 2024"; //start date 24.12.2022
         }
         else
         {

@@ -44,7 +44,7 @@ class maingame extends AbstractForm
         if ($this->fragment_enm_fail->visible) {$this->fragment_enm_fail->hide();}    
         if ($this->pda_icon->visible) {$this->pda_icon->hide();}            
         
-        if ($this->item_vodka_0000->visible) //функция, позволяющая вернуть водку в инвентарь при начале новой игры
+        if ($this->item_vodka_0000->visible) 
         {
             $this->fragment_inv->content->DespawnVodka();
             $this->item_vodka_0000->enabled = true;  
@@ -64,9 +64,10 @@ class maingame extends AbstractForm
         $this->fragment_dlg->content->answer_1_new->show(); 
         $this->fragment_dlg->content->answer_desc->text = "Даю тебе зелье натурала!";    
         $this->fragment_dlg->content->ClearDialog();
-        $this->fragment_menu->content->newgamebtn->text = "Новая игра"; 
+        $this->fragment_menu->content->Btn__NewGame();
         $this->fragment_pda->content->fragment_stat->content->ResetFinalText();
         Media::stop('fight_sound');
+        Media::stop('main_ambient');
     }
     /**
      * @event keyDown-Esc 

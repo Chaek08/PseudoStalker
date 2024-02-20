@@ -3,4 +3,16 @@
   <target id="image">
     <behaviour radius="0" type="behaviour\custom\GaussianBlurEffectBehaviour" when="ALWAYS"/>
   </target>
+  <target id="btn_start_game">
+    <behaviour color="#4d4d4d" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="btn_opt">
+    <behaviour color="#4d4d4d" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="btn_exit_windows">
+    <behaviour color="#4d4d4d" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="logo">
+    <behaviour color="#4d4d4d" offsetX="0" offsetY="0" radius="28.536585365854" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
 </behaviours>

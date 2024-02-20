@@ -19,7 +19,7 @@ class opt extends AbstractForm
      */
     function OptMuteMenuSound(UXMouseEvent $e = null)
     {    
-        Media::stop("menu_sound");
+        Media::stop('menu_sound');
         $this->mutesound->show();
     }
     /**
@@ -27,7 +27,7 @@ class opt extends AbstractForm
      */
     function OptUnMuteMenuSound(UXMouseEvent $e = null)
     {
-        Media::play("menu_sound");
+        Media::play('menu_sound');
         $this->mutesound->hide();             
     }
     /**
@@ -64,8 +64,9 @@ class opt extends AbstractForm
     function AllSoundOff(UXMouseEvent $e = null)
     {
         $this->sound->hide();
-        Media::stop("menu_sound");
-        Media::stop("fight_sound");
+        Media::stop('menu_sound');
+        Media::stop('main_ambient');
+        Media::stop('fight_sound');
         Media::stop();
     }
     /**
