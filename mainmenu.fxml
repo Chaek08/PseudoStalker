@@ -6,18 +6,12 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <ImageViewEx autoSize="true" centered="true" focusTraversable="false" height="900" id="image" layoutX="0" layoutY="0" mosaic="false" mosaicGap="0" opacity="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="1600">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
     <LabelEx alignment="BOTTOM_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label_version" layoutX="8" layoutY="848" prefHeight="48" prefWidth="264" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label_version" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" id="data-image" image=".data/ui/start_and_end/background_new.png" visible=""/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="32" id="debug_build" layoutX="1568" layoutY="0" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="32">
       <font>
         <Font name="System Regular" size="12"/>
@@ -48,6 +42,6 @@
       </font>
     </ImageViewEx>
     <Data clickImage=".data/ui/mainmenu/btn_clicked/btn3.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/btn_cursor/btn3.png" id="data-btn_exit_windows" image=".data/ui/mainmenu/btn_default/btn3.png" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" id="data-background" image=".data/ui/mainmenu/background.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-background" image=".data/ui/mainmenu/background_alt.png" visible="1"/>
   </children>
 </AnchorPane>

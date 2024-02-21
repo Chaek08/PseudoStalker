@@ -7,7 +7,7 @@ use std, gui, framework, app;
 class opt extends AbstractForm
 {
     /**
-     * @event back_btn.click-Left
+     * @event return_btn.click-Left
      */
     function BackBtn(UXMouseEvent $e = null)
     {    
@@ -15,7 +15,7 @@ class opt extends AbstractForm
         $this->form('maingame')->fragment_opt->hide();      
     }
     /**
-     * @event btn_menu_sound_mute.click-Left 
+     * @event menusound_off.click-Left 
      */
     function OptMuteMenuSound(UXMouseEvent $e = null)
     {    
@@ -23,7 +23,7 @@ class opt extends AbstractForm
         $this->mutesound->show();
     }
     /**
-     * @event btn_menu_sound_unmute.click-Left 
+     * @event menusound_on.click-Left 
      */
     function OptUnMuteMenuSound(UXMouseEvent $e = null)
     {
@@ -31,7 +31,7 @@ class opt extends AbstractForm
         $this->mutesound->hide();             
     }
     /**
-     * @event item_shadow_off.click-Left 
+     * @event shadows_off.click-Left 
      */
     function ShadowOptOff(UXMouseEvent $e = null)
     {
@@ -45,7 +45,7 @@ class opt extends AbstractForm
         $this->form('maingame')->health_static_gg->dropShadowEffect->disable();                                                                   
     }
     /**
-     * @event item_shadow_on.click-Left 
+     * @event shadows_on.click-Left 
      */
     function ShadowOptOn(UXMouseEvent $e = null)
     {
@@ -59,26 +59,31 @@ class opt extends AbstractForm
         $this->form('maingame')->health_static_gg->dropShadowEffect->enable();                      
     }
     /**
-     * @event all_sound_off.click-Left 
+     * @event allsound_off.click-Left 
      */
     function AllSoundOff(UXMouseEvent $e = null)
     {
         $this->sound->hide();
+        $this->menusound_off->enabled = false;
+        $this->menusound_on->enabled = false;        
         Media::stop('menu_sound');
         Media::stop('main_ambient');
         Media::stop('fight_sound');
         Media::stop();
     }
     /**
-     * @event all_sound_on.click-Left 
+     * @event allsound_on.click-Left 
      */
     function AllSoundOn(UXMouseEvent $e = null)
     {
         $this->sound->show();
+        $this->OptUnMuteMenuSound();
+        $this->menusound_off->enabled = true;
+        $this->menusound_on->enabled = true;          
     }
 
     /**
-     * @event button11.click-Left 
+     * @event version_off.click-Left 
      */
     function WatermarkMenuOff(UXMouseEvent $e = null)
     {    
@@ -86,12 +91,21 @@ class opt extends AbstractForm
     }
 
     /**
-     * @event button10.click-Left 
+     * @event version_on.click-Left 
      */
     function WatermarkMenuOn(UXMouseEvent $e = null)
     {    
         $this->form('maingame')->fragment_menu->content->label_version->show();        
     }
+
+    /**
+     * @event show 
+     */
+    function InitOptions(UXWindowEvent $e = null)
+    {    
+        $this->background->image = $this->form('mainmenu')->background->image;
+    }
+
 
 
 }
