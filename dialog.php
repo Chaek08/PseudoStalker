@@ -5,12 +5,41 @@ use std, gui, framework, app;
 
 class dialog extends AbstractForm
 {
+    function VoiceStart()
+    {
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {
+            Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start");
+        }    
+    }
+    function VoiceTalk_1()
+    {
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {
+            Media::open('res://.data/audio/voice/voice_talk1.mp3', true, "voice_talk1");
+        }           
+    }
+    function VoiceTalk_2()
+    {
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {
+            Media::open('res://.data/audio/voice/voice_talk2.mp3', true, "voice_talk2");
+        }           
+    }    
+    function VoiceTalk_3()
+    {
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {
+            Media::open('res://.data/audio/voice/voice_talk3.mp3', true, "voice_talk3");
+        }           
+    }    
     /**
      * @event answer_1_new.click-Left 
      */
     function Talk_1(UXMouseEvent $e = null)
     {    
         Element::setText($this->answer_desc, "Ахуел твой муж, когда узнал что ты скоро станешь натуралом!!!");
+        $this->VoiceTalk_1();    
             
         $this->actor_desc_1->show();
         $this->actor_label_1->show();
@@ -25,6 +54,7 @@ class dialog extends AbstractForm
     function Talk_2(UXMouseEvent $e = null)
     {
         Element::setText($this->answer_desc, "Фу изврощенес.. погнали драться!!!");
+        $this->VoiceTalk_2();
             
         $this->actor_desc_3->show();
         $this->actor_label_3->show();
@@ -37,7 +67,8 @@ class dialog extends AbstractForm
      * @event answer_3_new.click-Left 
      */
     function Talk_3(UXMouseEvent $e = null)
-    {                
+    {       
+        $this->VoiceTalk_3();         
         if ($this->form('maingame')->fragment_opt->content->sound->visible)
         {
             Media::open('res://.data/audio/fight/new_track.mp3', true, "fight_sound");
@@ -50,6 +81,7 @@ class dialog extends AbstractForm
         $this->form('maingame')->HideDialog();                 
         $this->ResetAnswerVisible();           
     }
+
     function ClearDialog()
     {
         $this->actor_desc_1->hide();

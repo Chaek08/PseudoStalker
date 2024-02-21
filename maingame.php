@@ -214,7 +214,8 @@ class maingame extends AbstractForm
     function ShowDialog(UXMouseEvent $e = null)
     {          
         $this->ResetFragmentsVisible();
-        $this->fragment_dlg->show();       
+        $this->fragment_dlg->show();   
+        $this->fragment_dlg->content->VoiceStart();    
     }
     /**
      * @event actor.click-2x
