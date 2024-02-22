@@ -61,13 +61,24 @@ class maingame extends AbstractForm
         $this->idle_static_enemy->show(); $this->enemy->x = 1312; 
         $this->actor->opacity = 100; 
         $this->enemy->opacity = 100;                 
-        $this->fragment_dlg->content->answer_1_new->show(); 
-        $this->fragment_dlg->content->answer_desc->text = "Даю тебе зелье натурала!";    
-        $this->fragment_dlg->content->ClearDialog();
+        $this->fragment_dlg->content->StartDialog();
         $this->fragment_menu->content->Btn__NewGame();
         $this->fragment_pda->content->fragment_stat->content->ResetFinalText();
-        Media::stop('fight_sound');
-        Media::stop('main_ambient');
+        $this->StopAllSounds();
+    }
+    function StopAllSounds()
+    {
+        if ($this->fragment_opt->content->sound->visible)
+        {
+            Media::stop('fight_sound');
+            Media::stop('main_ambient');
+            Media::stop('v_enemy');
+            Media::stop('v_actor');
+            Media::stop('hit_alex');
+            Media::stop('hit_alex_damage');       
+            Media::stop('hit_actor');
+            Media::stop('hit_actor_damage');                               
+        }        
     }
     /**
      * @event keyDown-Esc 

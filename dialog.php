@@ -5,6 +5,24 @@ use std, gui, framework, app;
 
 class dialog extends AbstractForm
 {
+    /**
+     * @event show 
+     */
+    function ShowDialogWnd(UXWindowEvent $e = null)
+    {    
+        $this->StartDialog();
+    }
+    
+    function StopVoice()
+    {
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {
+            Media::stop('voice_start');
+            Media::stop('voice_talk1');
+            Media::stop('voice_talk2');
+            Media::stop('voice_talk3');    
+        }          
+    }
     function VoiceStart()
     {
         if ($this->form('maingame')->fragment_opt->content->sound->visible)
@@ -39,6 +57,7 @@ class dialog extends AbstractForm
     function Talk_1(UXMouseEvent $e = null)
     {    
         Element::setText($this->answer_desc, "Ахуел твой муж, когда узнал что ты скоро станешь натуралом!!!");
+        $this->StopVoice();
         $this->VoiceTalk_1();    
             
         $this->actor_desc_1->show();
@@ -54,6 +73,7 @@ class dialog extends AbstractForm
     function Talk_2(UXMouseEvent $e = null)
     {
         Element::setText($this->answer_desc, "Фу изврощенес.. погнали драться!!!");
+        $this->StopVoice();        
         $this->VoiceTalk_2();
             
         $this->actor_desc_3->show();
@@ -68,6 +88,7 @@ class dialog extends AbstractForm
      */
     function Talk_3(UXMouseEvent $e = null)
     {       
+        $this->StopVoice();    
         $this->VoiceTalk_3();         
         if ($this->form('maingame')->fragment_opt->content->sound->visible)
         {
@@ -81,7 +102,12 @@ class dialog extends AbstractForm
         $this->form('maingame')->HideDialog();                 
         $this->ResetAnswerVisible();           
     }
-
+    function StartDialog()
+    {
+        $this->answer_1_new->show(); 
+        $this->answer_desc->text = "Даю тебе зелье натурала!";    
+        $this->ClearDialog();        
+    }
     function ClearDialog()
     {
         $this->actor_desc_1->hide();
