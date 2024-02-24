@@ -16,13 +16,13 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="96" id="icon_alex" layoutX="312" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#ffffff" width="96">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="96" id="icon" layoutX="312" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#ffffff" width="96">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-icon_alex" image=".data/ui/icon_npc/icon_alex.png" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="name" layoutX="48" layoutY="24" prefHeight="16" prefWidth="96" styleClass="label " text="Alex Stalker" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <Data cursor="DEFAULT" enabled="1" id="data-icon" image=".data/ui/icon_npc/goblindav.png" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="name" layoutX="48" layoutY="24" prefHeight="16" prefWidth="96" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
@@ -40,14 +40,14 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-character_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="character" layoutX="144" layoutY="48" prefHeight="72" prefWidth="96" styleClass="label " text="Спаммер&#10;ужасно&#10;враг&#10;новичок" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="character" layoutX="144" layoutY="48" prefHeight="72" prefWidth="96" styleClass="label " text="Пидорасы&#10;ужасно&#10;враг&#10;новичок" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-character" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-alex_frame" visible="1"/>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="bio" layoutX="448" layoutY="24" prefHeight="448" prefWidth="312" styleClass="label " text="Мой мальчик делает ауфф ой.... у нас же биография алекса &quot;Пьёт пиво, занимается ремонтой телефоной. Спит с выключенным светом, не боится бабайку на кухне&quot;" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="bio" layoutX="448" layoutY="24" prefHeight="448" prefWidth="312" styleClass="label " text="САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="15"/>
       </font>

@@ -13,27 +13,27 @@
     </Button>
     <Data content="mainmenu" cursor="DEFAULT" enabled="1" id="data-fragment_menu" visible="1"/>
     <Data content="inventory" cursor="DEFAULT" enabled="1" id="data-fragment_inv" visible=""/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="93" id="item_vodka_0000" layoutX="240" layoutY="704" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="30">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="93" id="item_vodka_0000" layoutX="256" layoutY="696" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="30">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-item_vodka_0000" image=".data/ui/inventory/item_vodka.png" visible=""/>
     <Data content="pda" cursor="DEFAULT" enabled="1" id="data-fragment_pda" visible=""/>
-    <Data cursor="DEFAULT" enabled="1" id="data-platform" image=".data/ui/maingame/background.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="160" id="actor" layoutX="112" layoutY="640" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="80">
+    <Data cursor="DEFAULT" enabled="1" id="data-platform" image=".data/ui/maingame/background_new.png" visible="1"/>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="344" id="actor" layoutX="80" layoutY="448" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="160">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-actor" image=".data/ui/maingame/sprite/vova.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="160" id="enemy" layoutX="1312" layoutY="640" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="80">
+    <Data cursor="DEFAULT" enabled="1" id="data-actor" image=".data/ui/maingame/sprite/actor.png" visible="1"/>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="344" id="enemy" layoutX="1312" layoutY="448" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="160">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-enemy" image=".data/ui/maingame/sprite/alex.png" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="9.7560975609756" hoverColor="#f2f2f2" id="dlg_btn" layoutX="659" layoutY="816" prefHeight="64" prefWidth="264" styleClass="x-flat-button " text="Начать диалог" textAlignment="CENTER" underline="false" wrapText="false">
+    <Data cursor="DEFAULT" enabled="1" id="data-enemy" image=".data/ui/maingame/sprite/goblindav.png" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="9.7560975609756" hoverColor="#f2f2f2" id="dlg_btn" layoutX="656" layoutY="816" prefHeight="64" prefWidth="264" styleClass="x-flat-button " text="Начать диалог" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -77,12 +77,6 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-skull_actor" image=".data/ui/maingame/skull_icon.png" visible=""/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="12.536585365854" hoverColor="#f2f2f2" id="damage_enemy_btn" layoutX="24" layoutY="816" prefHeight="64" prefWidth="264" styleClass="x-flat-button " text="Attack enemy" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="15"/>
-      </font>
-    </FlatButton>
-    <Data cursor="HAND" enabled="1" graphic=".data/ui/maingame/hand_icon.png" id="data-damage_enemy_btn" visible=""/>
     <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4.9416486569932" hoverColor="#f2f2f2" id="leave_btn" layoutX="1368" layoutY="816" prefHeight="64" prefWidth="208" styleClass="x-flat-button " text="Выйти" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
@@ -90,19 +84,19 @@
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/maingame/exit_icon.png" id="data-leave_btn" visible=""/>
     <Data content="opt" cursor="DEFAULT" enabled="1" id="data-fragment_opt" visible=""/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="224" id="idle_static_actor" layoutX="96" layoutY="576" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="120">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="384" id="idle_static_actor" layoutX="88" layoutY="416" mosaic="false" mosaicGap="0" opacity="0.4390243902439" proportional="false" stretch="true" styleClass="" textFill="#000000" width="208">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-idle_static_actor" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="224" id="idle_static_enemy" layoutX="1288" layoutY="576" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="120">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="384" id="idle_static_enemy" layoutX="1296" layoutY="416" mosaic="false" mosaicGap="0" opacity="0.4390243902439" proportional="false" stretch="true" styleClass="" textFill="#000000" width="184">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-idle_static_enemy" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="fight_label" layoutX="503" layoutY="382" prefHeight="86.400001525879" prefWidth="595" styleClass="label " text="Бой начался!!!" textAlignment="LEFT" textFill="#990000" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="fight_label" layoutX="459" layoutY="150" prefHeight="86.400001525879" prefWidth="681.640625" styleClass="label " text="戦いが始まった！" textAlignment="LEFT" textFill="#cc3333" underline="false" wrapText="false">
       <font>
         <Font name="Ink Free" size="100"/>
       </font>

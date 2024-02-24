@@ -91,12 +91,20 @@ class maingame extends AbstractForm
             if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/inv_close.mp3', true);}
             return;
         }     
-        if ($this->fragment_pda->visible) {$this->HidePda(); return;}
-        if ($this->fragment_dlg->visible) {$this->HideDialog(); return;}   
+        if ($this->fragment_dlg->visible)
+        {
+            $this->HideDialog();
+            $this->fragment_dlg->content->StopVoice();   
+            $this->fragment_dlg->content->ClearDialog();
+            $this->fragment_dlg->content->ResetAnswerVisible();                      
+            return;
+        }   
+        if ($this->fragment_pda->visible) {$this->HidePda(); return;}        
         if ($this->fragment_exit->visible) {$this->HideExitDialog(); return;}    
-        if ($this->fragment_opt->visible) {return;}        
+        if ($this->fragment_opt->visible) {return;}    
         $this->ShowMenu();
         $this->StopMainAmbient();
+        
     }
     function ShowMenu()
     {
@@ -226,6 +234,7 @@ class maingame extends AbstractForm
     {          
         $this->ResetFragmentsVisible();
         $this->fragment_dlg->show();   
+        $this->fragment_dlg->content->StartDialog();          
         $this->fragment_dlg->content->VoiceStart();    
     }
     /**

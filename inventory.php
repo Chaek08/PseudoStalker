@@ -55,14 +55,14 @@ class inventory extends AbstractForm
         if ($this->inv_maket_select_2->visible)
         {
             Element::setText($this->maket_label, "Водка Казаки");
-            Element::setText($this->maket_desc, "Огненная водичка! Можно устроить пожар в заднице алекса , метнув в него бутылку.\n\nУправление бутылкой:\nЛКМ - Метнуть бутылку\nПКМ - Отметнуть к себе");    
+            Element::setText($this->maket_desc, "Огненная водичка! Можно устроить пожар в заднице гоблиндава , метнув в него бутылку.\n\nУправление бутылкой:\nЛКМ - Метнуть бутылку\nПКМ - Отметнуть к себе");    
             Element::setText($this->maket_count, "100 RU"); 
             Element::setText($this->maket_weight, "0.5kg");            
         }
         if ($this->inv_maket_select->visible)
         {
-            Element::setText($this->maket_label, "Броня вовчика");
-            Element::setText($this->maket_desc, "100% защита от радиации и пердежа алекса, сделано из плоти мамонтов");    
+            Element::setText($this->maket_label, "Броня Сани Кабана");
+            Element::setText($this->maket_desc, "100% защита от радиации и едкого пердежа гоблиндава, сделано из плоти кабанов");    
             Element::setText($this->maket_count, "1000 RU"); 
             Element::setText($this->maket_weight, "1.0kg");           
         }

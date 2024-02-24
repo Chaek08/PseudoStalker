@@ -23,7 +23,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-icon" image=".data/ui/icon_npc/icon_vovchik.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-icon" image=".data/ui/icon_npc/actor.png" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="160" layoutY="80" prefHeight="21" prefWidth="144" styleClass="label " text="мастер" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
@@ -42,7 +42,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-community_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community" layoutX="160" layoutY="120" prefHeight="21" prefWidth="152" styleClass="label " text="Спаситель мира" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community" layoutX="160" layoutY="120" prefHeight="21" prefWidth="152" styleClass="label " text="Danila Emoji" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
@@ -68,19 +68,19 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-statistic_label" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic" layoutX="24" layoutY="256" prefHeight="104" prefWidth="168" styleClass="label " text="Написанных программ&#10;Убийство мутантов&#10;Выполненные квесты &#10;&#10;ВСЕГО" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic" layoutX="24" layoutY="256" prefHeight="104" prefWidth="168" styleClass="label " text="Униженных хохлов&#10;Убитых подсосов огср&#10;Выполненные квесты &#10;&#10;ВСЕГО" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-statistic" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic_num" layoutX="296" layoutY="256" prefHeight="104" prefWidth="32" styleClass="label " text="9700&#10;0&#10;0&#10;&#10;9700" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic_num" layoutX="296" layoutY="256" prefHeight="104" prefWidth="32" styleClass="label " text="9700&#10;999&#10;0&#10;&#10;9700" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-statistic_num" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="name_label" layoutX="16" layoutY="16" prefHeight="32" prefWidth="328" styleClass="label " text="   Вовчик" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="name_label" layoutX="16" layoutY="16" prefHeight="32" prefWidth="328" styleClass="label " text="   Саня Кабан" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>

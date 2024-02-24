@@ -16,7 +16,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="task_label" layoutX="120" layoutY="24" prefHeight="21" prefWidth="160" styleClass="label " text="Натурализовать алекса" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="task_label" layoutX="120" layoutY="24" prefHeight="19.951171875" prefWidth="193.54248046875" styleClass="label " text="Поразить пидораса" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="15"/>
       </font>

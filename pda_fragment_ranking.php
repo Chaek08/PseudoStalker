@@ -9,9 +9,9 @@ class pda_fragment_ranking extends AbstractForm
 {
     function ResetUserInfo()
     {
-        $this->alex_icon->hide();
-        $this->kosta_icon->hide();
-        $this->kosta_icon_->hide(); 
+        $this->goblindav_icon->hide();
+        $this->actor_icon->hide();
+        $this->valerok_icon->hide(); 
             
         $this->community_desc->hide();
         $this->community->hide(); 
@@ -48,7 +48,7 @@ class pda_fragment_ranking extends AbstractForm
     {    
         $this->ResetUserInfo();
         $this->ShowUserInfo();
-        $this->kosta_icon->show();
+        $this->actor_icon->show();
         $this->SetUserInfo();    
         
         $this->selected_status->show();      
@@ -61,7 +61,7 @@ class pda_fragment_ranking extends AbstractForm
     {    
         $this->ResetUserInfo();
         $this->ShowUserInfo();
-        $this->kosta_icon_->show();
+        $this->valerok_icon->show();
         $this->SetUserInfo();  
         
         $this->selected_status->show();      
@@ -74,7 +74,7 @@ class pda_fragment_ranking extends AbstractForm
     {    
         $this->ResetUserInfo();
         $this->ShowUserInfo();
-        $this->alex_icon->show();
+        $this->goblindav_icon->show();
         $this->SetUserInfo();  
         
         $this->selected_status->show();      
@@ -82,29 +82,29 @@ class pda_fragment_ranking extends AbstractForm
     }
     function SetUserInfo()
     {
-        if ($this->alex_icon->visible)
+        if ($this->goblindav_icon->visible)
         {
-            Element::setText($this->community, 'Спаммеры');
+            Element::setText($this->community, 'Пидорасы');
             Element::setText($this->rank, 'новичок');
-            Element::setText($this->bio, 'Продам запчасти на айфо... ёпта. у нас биография!! Пьёт пиво, занимается ремонтой телефоной. Спит с выключенным светом, не боится бабайку на кухне');  
+            Element::setText($this->bio, 'САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ');  
             Element::setText($this->relationship, 'враг');  
             $this->relationship->textColor = ('#cc3333');            
         }
-        if ($this->kosta_icon_->visible)
+        if ($this->valerok_icon->visible)
         {
-            Element::setText($this->community, 'Спаситель мира'); 
+            Element::setText($this->community, 'LADCEGA'); 
             Element::setText($this->rank, 'мастер');
-            Element::setText($this->bio, 'Носки , недоро.. так.. у нас же биография! Репер, фитовал с моргенштерном. Записал дисс на вову из соседнего подъезда'); 
+            Element::setText($this->bio, 'Хозяин LADCEGA, попускает тупых огсровцев, лежит нож в гараже'); 
             Element::setText($this->relationship, 'друг'); 
             $this->relationship->textColor = ('#669966');                       
         }
-        if ($this->kosta_icon->visible)
+        if ($this->actor_icon->visible)
         {
-            Element::setText($this->community, 'Спаситель мира');
+            Element::setText($this->community, 'Danila Emoji');
             Element::setText($this->rank, 'мастер');
             $this->attitude->hide();
             $this->relationship->hide();
-            Element::setText($this->bio, 'Хотите бесплатный кунили... ой.. у нас же биография!!! Терминатор. Может сьесть червяка с улыбкой на лице, его боятся все. Программист, изобрёл лампочку. Создал свой петангон');              
+            Element::setText($this->bio, 'Самый опасный на районе, попустит абсолютно любого, и неважно, админ он, или нет...');              
         }
     }
 }
