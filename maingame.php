@@ -481,9 +481,9 @@ class maingame extends AbstractForm
         $this->idle_static_enemy->show(); $this->enemy->x = 1312;  
         $this->item_vodka_0000->enabled = false; 
         $this->fragment_pda->content->fragment_tasks->content->DeleteTask();  
-        $this->actor->opacity = 0;      
-        if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');}       
-        Media::pause("fight_sound");                       
+        $this->actor->opacity = 0;    
+        $this->StopAllSounds();           
+        if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');}                            
     }
     function EnemyFail()
     {
@@ -496,9 +496,9 @@ class maingame extends AbstractForm
         $this->item_vodka_0000->enabled = false;  
         $this->fragment_pda->content->fragment_contacts->content->DeleteEnemyContacts();    
         $this->fragment_pda->content->fragment_tasks->content->DeleteTask();     
-        $this->enemy->opacity = 0;     
-        if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor'); }      
-        Media::pause("fight_sound");                                           
+        $this->enemy->opacity = 0;
+        $this->StopAllSounds();     
+        if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor'); }                                               
     }
     function BugDetectSystem()
     {
