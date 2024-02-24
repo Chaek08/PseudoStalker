@@ -46,6 +46,7 @@ class pda_fragment_contacts extends AbstractForm
         $this->online_icon->hide();
         $this->alex_frame->hide();
         $this->icon->hide();
+        $this->selected_new->hide();
         if($this->bio->visible)
         {
             $this->bio->hide();

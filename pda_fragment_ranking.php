@@ -80,11 +80,26 @@ class pda_fragment_ranking extends AbstractForm
         $this->selected_status->show();      
         $this->selected_status->y = 96;                
     }
+    function LadcegaRole()
+    {
+        Element::setText($this->community, 'LADCEGA');   
+        $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/ladcega_role.png'));                    
+    }    
+    function DanilaEmojiRole()
+    {
+        Element::setText($this->community, 'Danila Emoji');     
+        $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/danila_emoji_role.png'));            
+    }
+    function PidorasRole()
+    {
+        Element::setText($this->community, 'Пидорасы');  
+        $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/pidoras_role.png'));                
+    }
     function SetUserInfo()
     {
         if ($this->goblindav_icon->visible)
         {
-            Element::setText($this->community, 'Пидорасы');
+            $this->PidorasRole();
             Element::setText($this->rank, 'новичок');
             Element::setText($this->bio, 'САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ');  
             Element::setText($this->relationship, 'враг');  
@@ -92,7 +107,7 @@ class pda_fragment_ranking extends AbstractForm
         }
         if ($this->valerok_icon->visible)
         {
-            Element::setText($this->community, 'LADCEGA'); 
+            $this->LadcegaRole();
             Element::setText($this->rank, 'мастер');
             Element::setText($this->bio, 'Хозяин LADCEGA, попускает тупых огсровцев, лежит нож в гараже'); 
             Element::setText($this->relationship, 'друг'); 
@@ -100,7 +115,7 @@ class pda_fragment_ranking extends AbstractForm
         }
         if ($this->actor_icon->visible)
         {
-            Element::setText($this->community, 'Danila Emoji');
+            $this->DanilaEmojiRole();
             Element::setText($this->rank, 'мастер');
             $this->attitude->hide();
             $this->relationship->hide();

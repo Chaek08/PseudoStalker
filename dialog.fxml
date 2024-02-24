@@ -33,13 +33,13 @@
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-alex_name" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-alex_name" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="gg_name" layoutX="648" layoutY="64" prefHeight="21" prefWidth="136" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-gg_name" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-gg_name" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="gg_desc" layoutX="648" layoutY="88" prefHeight="32" prefWidth="136" styleClass="label " text="ранг    мастер&#10;группа  Danila Emoji" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
