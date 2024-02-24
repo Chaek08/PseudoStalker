@@ -171,5 +171,11 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="labelAlt" layoutX="504" layoutY="264" prefHeight="21" prefWidth="152" styleClass="label " text="Нацисты" textAlignment="LEFT" textFill="#8a2bff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/nacik_role.png" id="data-labelAlt" visible=""/>
   </children>
 </AnchorPane>
