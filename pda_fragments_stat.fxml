@@ -12,7 +12,7 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-frame_01" visible="1"/>
-    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#6680e6" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#6680e6" id="tab_button" layoutX="16" layoutY="16" prefHeight="32" prefWidth="320" styleClass="x-flat-button " text="Саня Кабан" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tab_button" layoutX="16" layoutY="16" prefHeight="32" prefWidth="320" styleClass="x-flat-button " text="Саня Кабан" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
@@ -42,7 +42,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-community_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community" layoutX="160" layoutY="128" prefHeight="21" prefWidth="152" styleClass="label " text="Danila Emoji" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community" layoutX="160" layoutY="128" prefHeight="21" prefWidth="152" styleClass="label " text="Danila Emoji" textAlignment="LEFT" textFill="#cc8033" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
@@ -62,15 +62,9 @@
     <Data cursor="DEFAULT" enabled="1" id="data-reputation" visible="1"/>
     <Separator focusTraversable="false" id="separator" layoutX="24" layoutY="200" orientation="HORIZONTAL" prefHeight="8" prefWidth="304" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic_label" layoutX="24" layoutY="216" prefHeight="36" prefWidth="168" styleClass="label " text="Статистика" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic" layoutX="24" layoutY="256" prefHeight="104" prefWidth="168" styleClass="label " text="Униженных хейтеров&#10;Убитых подсосов огср&#10;Выполненные квесты &#10;&#10;ВСЕГО" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Bold" size="25"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-statistic_label" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic" layoutX="24" layoutY="256" prefHeight="104" prefWidth="168" styleClass="label " text="Униженных хохлов&#10;Убитых подсосов огср&#10;Выполненные квесты &#10;&#10;ВСЕГО" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Bold" size="12"/>
+        <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-statistic" visible="1"/>
@@ -98,18 +92,24 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-final_label" visible=""/>
-    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#6680e6" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#6680e6" id="tab_final" layoutX="360" layoutY="144" prefHeight="32" prefWidth="408" styleClass="x-flat-button " text="Что же произошло?" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tab_final" layoutX="360" layoutY="144" prefHeight="32" prefWidth="408" styleClass="x-flat-button " text="Что же произошло?" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/info1.png" id="data-tab_final" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-button" visible="1"/>
-    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#6680e6" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="2.5316455696203" hoverColor="#6680e6" id="buttonAlt" layoutX="360" layoutY="16" prefHeight="32" prefWidth="408" styleClass="x-flat-button " text="Информация" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="2.5316455696203" id="buttonAlt" layoutX="360" layoutY="16" prefHeight="32" prefWidth="408" styleClass="x-flat-button " text="Информация" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/info.png" id="data-buttonAlt" visible="1"/>
+    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="statistic_norm" layoutX="16" layoutY="216" prefHeight="40" prefWidth="320" styleClass="x-flat-button " text="Статистика" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/info1.png" id="data-statistic_norm" visible="1"/>
   </children>
 </AnchorPane>

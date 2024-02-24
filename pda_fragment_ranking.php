@@ -12,6 +12,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->goblindav_icon->hide();
         $this->actor_icon->hide();
         $this->valerok_icon->hide(); 
+        $this->reyn_icon->hide();
             
         $this->community_desc->hide();
         $this->community->hide(); 
@@ -80,6 +81,20 @@ class pda_fragment_ranking extends AbstractForm
         $this->selected_status->show();      
         $this->selected_status->y = 96;                
     }
+
+    /**
+     * @event reyn_btn.click-Left 
+     */
+    function ReynInListBtn(UXMouseEvent $e = null)
+    {
+        $this->ResetUserInfo();
+        $this->ShowUserInfo();
+        $this->reyn_icon->show();
+        $this->SetUserInfo();  
+        
+        $this->selected_status->show();      
+        $this->selected_status->y = 128;                
+    }
     function LadcegaRole()
     {
         Element::setText($this->community, 'LADCEGA');   
@@ -94,6 +109,11 @@ class pda_fragment_ranking extends AbstractForm
     {
         Element::setText($this->community, 'Пидорасы');  
         $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/pidoras_role.png'));                
+    }
+    function NacistRole()
+    {
+        Element::setText($this->community, 'Нацисты');  
+        $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/nacik_role.png'));               
     }
     function SetUserInfo()
     {
@@ -113,6 +133,14 @@ class pda_fragment_ranking extends AbstractForm
             Element::setText($this->relationship, 'друг'); 
             $this->relationship->textColor = ('#669966');                       
         }
+        if ($this->reyn_icon->visible)
+        {
+            $this->NacistRole();
+            Element::setText($this->rank, 'ветеран');
+            Element::setText($this->bio, 'Легендарный вредитель на сталкерских Дискорд серверах, особо опасен. Получил свое звание из-за гадств и забанен на многих серверах.'); 
+            Element::setText($this->relationship, 'нейтрал'); 
+            $this->relationship->textColor = ('#b3b31a');                       
+        }        
         if ($this->actor_icon->visible)
         {
             $this->DanilaEmojiRole();
