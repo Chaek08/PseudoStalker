@@ -131,7 +131,7 @@ class pda_fragment_ranking extends AbstractForm
         {
             $this->ResetRole();
             $this->PidorasRole();
-            Element::setText($this->rank, 'новичок');
+            Element::setText($this->rank, 'ветеринар');
             Element::setText($this->bio, 'САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ');  
             Element::setText($this->relationship, 'враг');  
             $this->relationship->textColor = ('#cc3333');            

@@ -8,6 +8,26 @@ use std, gui, framework, app;
 
 class pda_fragments_stat extends AbstractForm
 {
+    /**
+     * @event show 
+     */
+    function InitRaiting(UXWindowEvent $e = null)
+    {    
+        $this->statistic_num->text = "9700\n999\n0\n\n10699";
+    }
+    function UpdateRaiting()
+    {
+        if ($this->form('maingame')->skull_enemy->visible)
+        {
+            $this->statistic_num->text = "10021\n1000\n1\n\n11022";  
+            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting->text = "11022. Саня Кабан";                           
+        }     
+        else 
+        {
+            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting->text = "10699. Саня Кабан"; 
+            $this->InitRaiting();           
+        }  
+    }
     function ActorFailText()
     {
         $this->tab_final->show();

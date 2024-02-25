@@ -6,6 +6,7 @@ use std, gui, framework, app;
 
 class pda_fragment_contacts extends AbstractForm
 {
+
     /**
      * @event alex_frame.click-Left 
      */

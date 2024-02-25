@@ -60,17 +60,17 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-reputation" visible="1"/>
-    <Separator focusTraversable="false" id="separator" layoutX="24" layoutY="200" orientation="HORIZONTAL" prefHeight="8" prefWidth="304" styleClass="separator "/>
+    <Separator focusTraversable="false" id="separator" layoutX="800" layoutY="8" orientation="HORIZONTAL" prefHeight="8" prefWidth="304" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic" layoutX="24" layoutY="256" prefHeight="104" prefWidth="168" styleClass="label " text="Униженных хейтеров&#10;Убитых подсосов огср&#10;Выполненные квесты &#10;&#10;ВСЕГО" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic" layoutX="24" layoutY="248" prefHeight="104" prefWidth="168" styleClass="label " text="Униженных хейтеров&#10;Убитых подсосов огср&#10;Выполненные квесты &#10;&#10;Всего" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="12"/>
+        <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-statistic" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic_num" layoutX="296" layoutY="256" prefHeight="104" prefWidth="32" styleClass="label " text="9700&#10;999&#10;0&#10;&#10;9700" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic_num" layoutX="280" layoutY="248" prefHeight="104" prefWidth="48" styleClass="label " text="9700&#10;999&#10;0&#10;&#10;10699" textAlignment="RIGHT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="12"/>
+        <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-statistic_num" visible="1"/>
@@ -86,7 +86,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-target_label" visible="1"/>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="final_label" layoutX="360" layoutY="192" prefHeight="80" prefWidth="408" styleClass="label " text="" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="final_label" layoutX="360" layoutY="192" prefHeight="280" prefWidth="408" styleClass="label " text="" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -105,7 +105,7 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/info.png" id="data-buttonAlt" visible="1"/>
-    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="statistic_norm" layoutX="16" layoutY="216" prefHeight="40" prefWidth="320" styleClass="x-flat-button " text="Статистика" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="statistic_norm" layoutX="16" layoutY="200" prefHeight="40" prefWidth="320" styleClass="x-flat-button " text="Статистика" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>

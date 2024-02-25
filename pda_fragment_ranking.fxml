@@ -70,7 +70,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-goblin_in_raiting" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_in_raiting" layoutX="56" layoutY="24" prefHeight="32" prefWidth="144" styleClass="label " text="9700. Саня Кабан" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_in_raiting" layoutX="56" layoutY="24" prefHeight="32" prefWidth="144" styleClass="label " text="10699. Саня Кабан" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
@@ -171,11 +171,5 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="labelAlt" layoutX="504" layoutY="264" prefHeight="21" prefWidth="152" styleClass="label " text="Нацисты" textAlignment="LEFT" textFill="#8a2bff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Bold" size="15"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/nacik_role.png" id="data-labelAlt" visible=""/>
   </children>
 </AnchorPane>
