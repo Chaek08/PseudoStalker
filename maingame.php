@@ -425,6 +425,7 @@ class maingame extends AbstractForm
         {
             $this->skull_actor->show();
             $this->health_bar_gg->hide();
+            $this->Bleeding();
             $this->fragment_inv->content->health_bar_gg->hide();
             $this->fragment_inv->content->skull_actor->show();
             $this->leave_btn->show();
@@ -454,24 +455,51 @@ class maingame extends AbstractForm
         {
             $this->health_bar_gg->text = "50%";
             $this->fragment_inv->content->health_bar_gg->width -= 40;            
-            $this->fragment_inv->content->health_bar_gg->text = "50%";  
-            $this->fragment_inv->content->SetOutfitCondition();          
+            $this->fragment_inv->content->health_bar_gg->text = "50%"; 
+            $this->Bleeding();               
+            $this->fragment_inv->content->SetOutfitCondition();                      
         }  
         if ($this->health_bar_gg->width == 64)
         {
             $this->health_bar_gg->text = "33%";
             $this->fragment_inv->content->health_bar_gg->width -= 150;            
-            $this->fragment_inv->content->health_bar_gg->text = "33%";            
+            $this->fragment_inv->content->health_bar_gg->text = "33%";   
+            $this->Bleeding();                       
         }    
         if ($this->health_bar_gg->width == 14)
         {
             $this->health_bar_gg->text = "1%";
             $this->fragment_inv->content->health_bar_gg->width -= 50;            
             $this->fragment_inv->content->health_bar_gg->text = "1%"; 
-            $this->health_bar_gg->width += 10;   
+            $this->health_bar_gg->width += 10;
+            $this->Bleeding();   
             $this->fragment_inv->content->SetOutfitCondition();                           
         }                     
     }    
+    function Bleeding()
+    {
+        if ($this->skull_actor->visible)
+        {
+            $this->blood_ui->hide();
+        }
+        else 
+        {
+            $this->blood_ui->show();
+        }
+
+        if ($this->health_bar_gg->width == 114)
+        {
+            $this->blood_ui->image = new UXImage('res://.data/ui/maingame/blood_mini.png');
+        }
+        if ($this->health_bar_gg->width == 64)
+        {
+            $this->blood_ui->image = new UXImage('res://.data/ui/maingame/blood_medium.png');            
+        }
+        if ($this->health_bar_gg->width == 24)
+        {
+            $this->blood_ui->image = new UXImage('res://.data/ui/maingame/blood_ultra.png');            
+        }        
+    }
     function ActorFail()
     {
         $this->fight_label->hide();

@@ -19,12 +19,12 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-image" image=".data/ui/maingame/sprite/actor.png" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="416" layoutY="496" prefHeight="51" prefWidth="752" styleClass="label " text="Александр, вы проиграли" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="7" id="label" layoutX="416" layoutY="496" prefHeight="51" prefWidth="752" styleClass="label " text="Александр, вы проиграли" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="30"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-label" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/fail_wnd/actor_fail.png" id="data-label" visible="1"/>
     <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="labelAlt" layoutX="416" layoutY="528" prefHeight="152" prefWidth="752" styleClass="label " text="Я пытался победить гоблиндава, но он оказался сильнее...&#10;Что-ж, не получилось, не фортануло" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="20"/>

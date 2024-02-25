@@ -41,4 +41,7 @@
     <behaviour bodyType="DYNAMIC" fixtureType="INHERITED" solid="" solidType="NONE" startVelocity="[0,0]" type="behaviour\custom\GameEntityBehaviour"/>
     <behaviour centered="" hideOrigin="1" offsetX="0" offsetY="0" type="behaviour\custom\CursorBindBehaviour"/>
   </target>
+  <target id="blood_ui">
+    <behaviour animated="1" delay="0" duration="1000" maxOpacity="1" minOpacity="0.3" repeatCount="-1" type="behaviour\custom\BlinkAnimationBehaviour" when="ALWAYS"/>
+  </target>
 </behaviours>
