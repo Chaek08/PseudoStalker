@@ -11,7 +11,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="472" id="frame_hide" layoutX="8" layoutY="8" mosaic="false" mosaicGap="0" opacity="0.50632911392405" proportional="false" stretch="true" styleClass="" textFill="#000000" width="352">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="472" id="frame_hide" layoutX="8" layoutY="8" mosaic="false" mosaicGap="0" opacity="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="352">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -49,5 +49,17 @@
         <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="step1" layoutX="24" layoutY="80" prefHeight="19.951171875" prefWidth="205.73779296875" styleClass="label " text="Поговорить с гоблиндавом" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/task_step_process.png" id="data-step1" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="step2" layoutX="24" layoutY="104" prefHeight="19.951171875" prefWidth="243.8896484375" styleClass="label " text="Дать жоск пиздюлей гоблиндаву" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/task_step_process.png" id="data-step2" visible="1"/>
   </children>
 </AnchorPane>

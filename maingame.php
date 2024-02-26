@@ -55,8 +55,9 @@ class maingame extends AbstractForm
         
         $this->fragment_pda->content->fragment_contacts->content->AddEnemyContacts();   
         $this->fragment_pda->content->fragment_tasks->content->AddTask();    
-        $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();            
-         
+        $this->fragment_pda->content->fragment_tasks->content->StepReset();          
+        $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();  
+                  
         $this->dlg_btn->show();
         $this->idle_static_actor->show(); $this->actor->x = 112;
         $this->idle_static_enemy->show(); $this->enemy->x = 1312; 
@@ -524,7 +525,8 @@ class maingame extends AbstractForm
         $this->idle_static_enemy->show(); $this->enemy->x = 1312;  
         $this->item_vodka_0000->enabled = false;  
         $this->fragment_pda->content->fragment_contacts->content->DeleteEnemyContacts();    
-        $this->fragment_pda->content->fragment_tasks->content->DeleteTask(); 
+        //$this->fragment_pda->content->fragment_tasks->content->DeleteTask(); 
+        $this->fragment_pda->content->fragment_tasks->content->Step2_Complete();         
         $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();             
         $this->enemy->opacity = 0;
         $this->StopAllSounds();     

@@ -99,7 +99,8 @@ class dialog extends AbstractForm
         $this->form('maingame')->idle_static_enemy->hide(); 
         $this->form('maingame')->fight_label->show();               
         $this->form('maingame')->dlg_btn->hide();
-        $this->form('maingame')->HideDialog();                 
+        $this->form('maingame')->HideDialog();    
+        $this->form('maingame')->fragment_pda->content->fragment_tasks->content->Step1_Complete();             
         $this->ResetAnswerVisible();           
     }
     function StartDialog()
