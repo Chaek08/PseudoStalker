@@ -35,7 +35,7 @@ class pda_fragment_tasks extends AbstractForm
      * @event frame_hide.click-Left 
      */
     function ClearDetailTask(UXMouseEvent $e = null) //заебись, сделал один фрейм на весь экран и тем самым сократил количество функций :like
-    {    
+    {               
         if ($this->task_detail_text->visible) 
         {
             $this->task_detail_text->hide();   
@@ -44,10 +44,65 @@ class pda_fragment_tasks extends AbstractForm
             $this->quest_detail_btn->clickImage = new UXImage('res://.data/ui/pda/task_detail_on.png');                      
         }               
     }
+    /**
+     * @event active_task.click-Left 
+     */
+    function ShowActiveTasks(UXMouseEvent $e = null)
+    {    
+        $this->ResetBtnColor();    
+        $this->active_task->textColor = "#b3b31a";
+        if ($this->form('maingame')->skull_actor->visible || $this->form('maingame')->skull_enemy->visible)
+        {
+            $this->DeleteTask();          
+        }
+        else
+        {
+            $this->AddTask();
+        }
+        
+    }
+    /**
+     * @event passive_task.click-Left 
+     */
+    function ShowPassiveTasks(UXMouseEvent $e = null)
+    {    
+        $this->ResetBtnColor();    
+        $this->passive_task->textColor = "#b3b31a";
+        if ($this->form('maingame')->skull_enemy->visible) //актор победил
+        {
+            $this->AddTask();
+        }
+        else
+        {
+            $this->DeleteTask();            
+        }        
+    }
+    /**
+     * @event failed_task.click-Left 
+     */
+    function ShowFailedTasks(UXMouseEvent $e = null)
+    {    
+        $this->ResetBtnColor();
+        $this->failed_task->textColor = "#b3b31a";
+        if ($this->form('maingame')->skull_actor->visible) //актор проиграл
+        {
+            $this->AddTask();
+            $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png'));
+        }
+        else
+        {
+            $this->DeleteTask();
+        }        
+    }
+    function ResetBtnColor()
+    {
+        $this->active_task->textColor = "white";
+        $this->passive_task->textColor = "white";   
+        $this->failed_task->textColor = "white";          
+    }
     function AddTask()
     {
         $this->task_label->show();
-        $this->task_detail_text->show();
         $this->icon_task->show();
         $this->quest_detail_btn->show();
         $this->time_quest->show();
@@ -55,22 +110,47 @@ class pda_fragment_tasks extends AbstractForm
         $this->step2->show();
     }
     
-    function Step1_Complete() {$this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));}
-    function Step2_Complete() {$this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));}  
+    function Step1_Complete()
+    {
+        $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {
+            Media::open('res://.data/audio/pda.mp3', 'pda_task');
+        }    
+    }
+    function Step2_Complete()
+    {
+        $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));
+        $this->DeleteTask();   
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {
+            Media::open('res://.data/audio/pda.mp3', 'pda_task');
+        }                
+    }  
     function StepReset()
     {
         $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_process.png'));    
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_process.png'));    
     } 
-     
+    function Step2_Failed()
+    {
+        $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png')); 
+        $this->DeleteTask();  
+        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        {
+            Media::open('res://.data/audio/pda.mp3', 'pda_task');
+        }                           
+    }
     function DeleteTask()
     {
         $this->task_label->hide();
-        $this->task_detail_text->hide();
         $this->icon_task->hide();
-        $this->quest_detail_btn->hide();   
+        $this->quest_detail_btn->hide(); 
+        $this->task_detail_text->hide();  
+        $this->quest_detail_btn->image = new UXImage('res://.data/ui/pda/task_detail_off.png');
+        $this->quest_detail_btn->hoverImage = new UXImage('res://.data/ui/pda/task_detail_on.png'); 
+        $this->quest_detail_btn->clickImage = new UXImage('res://.data/ui/pda/task_detail_on.png');        
         $this->time_quest->hide();
-        $this->StepReset();
         $this->step1->hide();
         $this->step2->hide();                     
     }

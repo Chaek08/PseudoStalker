@@ -54,7 +54,7 @@ class maingame extends AbstractForm
         $this->GetHealth();  
         
         $this->fragment_pda->content->fragment_contacts->content->AddEnemyContacts();   
-        $this->fragment_pda->content->fragment_tasks->content->AddTask();    
+        $this->fragment_pda->content->fragment_tasks->content->DeleteTask();    
         $this->fragment_pda->content->fragment_tasks->content->StepReset();          
         $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();  
                   
@@ -510,7 +510,8 @@ class maingame extends AbstractForm
         $this->idle_static_actor->show(); $this->actor->x = 112;
         $this->idle_static_enemy->show(); $this->enemy->x = 1312;  
         $this->item_vodka_0000->enabled = false; 
-        $this->fragment_pda->content->fragment_tasks->content->DeleteTask();  
+        //$this->fragment_pda->content->fragment_tasks->content->DeleteTask();  
+        $this->fragment_pda->content->fragment_tasks->content->Step2_Failed();        
         $this->actor->opacity = 0;    
         $this->StopAllSounds();           
         if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');}                            

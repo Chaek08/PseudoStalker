@@ -16,7 +16,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="task_label" layoutX="120" layoutY="24" prefHeight="19.951171875" prefWidth="193.54248046875" styleClass="label " text="Поразить пидораса" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="task_label" layoutX="120" layoutY="24" prefHeight="21" prefWidth="184" styleClass="label " text="Поразить пiдораса" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -61,5 +61,25 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/task_step_process.png" id="data-step2" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="active_task" layoutX="32" layoutY="440" prefHeight="21" prefWidth="72" styleClass="label " text="Активные" textAlignment="LEFT" textFill="#b3b31a" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-active_task" tooltipText="Показать активные задания" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="passive_task" layoutX="120" layoutY="440" prefHeight="21" prefWidth="104" styleClass="label " text="Выполненные" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-passive_task" tooltipText="Показать выполненные задания" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="failed_task" layoutX="240" layoutY="440" prefHeight="19.951171875" prefWidth="95.42724609375" styleClass="label " text="Проваленные" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-failed_task" tooltipText="Показать проваленные задания" visible="1"/>
+    <Separator focusTraversable="false" id="separator" layoutX="24" layoutY="416" opacity="0.23170731707317" orientation="HORIZONTAL" prefHeight="8" prefWidth="320" styleClass="separator "/>
+    <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
   </children>
 </AnchorPane>
