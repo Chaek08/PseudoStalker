@@ -29,8 +29,14 @@ class pda_fragment_contacts extends AbstractForm
     function AddEnemyContacts()
     {
         $this->name->show();
-        $this->character->show();  
-        $this->character_desc->show();
+        $this->community->show();
+        $this->community_desc->show();
+        $this->rank->show();
+        $this->rank_desc->show();
+        $this->relationship->show();
+        $this->relationship_desc->show();
+        $this->reputation->show();
+        $this->reputation_desc->show();
         $this->online_icon->show();
         $this->alex_frame->show();
         $this->icon->show();
@@ -42,8 +48,14 @@ class pda_fragment_contacts extends AbstractForm
     function DeleteEnemyContacts()
     {
         $this->name->hide();
-        $this->character->hide();  
-        $this->character_desc->hide();
+        $this->community->hide();
+        $this->community_desc->hide();
+        $this->rank->hide();
+        $this->rank_desc->hide();
+        $this->relationship->hide();
+        $this->relationship_desc->hide();
+        $this->reputation->hide();
+        $this->reputation_desc->hide();
         $this->online_icon->hide();
         $this->alex_frame->hide();
         $this->icon->hide();
