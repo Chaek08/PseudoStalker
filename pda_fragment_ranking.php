@@ -21,7 +21,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->relationship->hide(); 
         $this->attitude->hide(); 
         $this->bio->hide();         
-        $this->separator->hide();           
+        $this->bio_new->hide();             
     }
     function ShowUserInfo()
     {
@@ -32,7 +32,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->relationship->show(); 
         $this->attitude->show(); 
         $this->bio->show();         
-        $this->separator->show();           
+        $this->bio_new->show();           
     }
     /**
      * @event frame_hide.click-Left 
@@ -40,10 +40,17 @@ class pda_fragment_ranking extends AbstractForm
     function HideUserInfo(UXMouseEvent $e = null)
     {    
         $this->ResetUserInfo();
-        $this->selected_status->hide();
+        $this->ResetBtnColor();
+    }
+    function ResetBtnColor()
+    {
+        $this->actor_in_raiting->textColor = '#999999';
+        $this->goblin_in_raiting->textColor = '#999999';   
+        $this->valerok_in_raiting->textColor = '#999999';   
+        $this->reyn_in_raiting->textColor = '#999999';                  
     }
     /**
-     * @event vova_btn.click-Left 
+     * @event actor_in_raiting.click-Left 
      */
     function ActorinListBtn(UXMouseEvent $e = null)
     {    
@@ -52,11 +59,11 @@ class pda_fragment_ranking extends AbstractForm
         $this->actor_icon->show();
         $this->SetUserInfo();    
         
-        $this->selected_status->show();      
-        $this->selected_status->y = 32;      
+        $this->ResetBtnColor();
+        $this->actor_in_raiting->textColor = 'white'; 
     }
     /**
-     * @event kosta_btn.click-Left 
+     * @event valerok_in_raiting.click-Left 
      */
     function EnemyinListBtn(UXMouseEvent $e = null)
     {    
@@ -65,11 +72,11 @@ class pda_fragment_ranking extends AbstractForm
         $this->valerok_icon->show();
         $this->SetUserInfo();  
         
-        $this->selected_status->show();      
-        $this->selected_status->y = 64;                       
+        $this->ResetBtnColor();
+        $this->valerok_in_raiting->textColor = 'white';                               
     }
     /**
-     * @event alex_btn.click-Left 
+     * @event goblin_in_raiting.click-Left 
      */
     function OtherinListBtn(UXMouseEvent $e = null)
     {    
@@ -78,12 +85,12 @@ class pda_fragment_ranking extends AbstractForm
         $this->goblindav_icon->show();
         $this->SetUserInfo();  
         
-        $this->selected_status->show();      
-        $this->selected_status->y = 96;                
+        $this->ResetBtnColor();
+        $this->goblin_in_raiting->textColor = 'white';                      
     }
 
     /**
-     * @event reyn_btn.click-Left 
+     * @event reyn_in_raiting.click-Left 
      */
     function ReynInListBtn(UXMouseEvent $e = null)
     {
@@ -92,8 +99,8 @@ class pda_fragment_ranking extends AbstractForm
         $this->reyn_icon->show();
         $this->SetUserInfo();  
         
-        $this->selected_status->show();      
-        $this->selected_status->y = 128;                
+        $this->ResetBtnColor();
+        $this->reyn_in_raiting->textColor = 'white';                      
     }
     function ResetRole()
     {
