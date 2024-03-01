@@ -15,16 +15,24 @@ class pda_fragments_stat extends AbstractForm
     {    
         $this->statistic_num->text = "9700\n999\n0\n\n10699";
     }
+    /**
+     * @event icon.click-2x 
+     */
+    function RedirectRaiting(UXMouseEvent $e = null)
+    {    
+        $this->form('maingame')->fragment_pda->content->RankingBtn();
+        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->ActorinListBtn();        
+    }
     function UpdateRaiting()
     {
         if ($this->form('maingame')->skull_enemy->visible)
         {
             $this->statistic_num->text = "10021\n1000\n1\n\n11022";  
-            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting->text = "1.                   Саня Кабан                                               11022";                           
+            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting->text = "1.                   Саня Кабан                                             11022";                           
         }     
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting->text = "1.                   Саня Кабан                                               10699"; 
+            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting->text = "1.                   Саня Кабан                                             10699"; 
             $this->InitRaiting();           
         }  
     }
@@ -32,16 +40,13 @@ class pda_fragments_stat extends AbstractForm
     {
         $this->tab_final->show();
         $this->final_label->show();
-        $this->final_label->text = "Я проиграл... Алекс остался жив.. Теперь возможно он заразит Kosta Kruta!!!";
+        $this->final_label->text = $this->a_fail->text;
     }
     function EnemyFailText()
     {
         $this->tab_final->show();
         $this->final_label->show();
-        $this->final_label->text =
-"Вот я и победил алекса, во время боевого контакта он вколол мне укол, на котором было написано 'Гомосекоптомин'
-Теперь, кажись, Kosta Krut со мной будет сражаться... А пока иду в местную больницу, колоть противоядие
-Чуствую себя как мусор..";        
+        $this->final_label->text = $this->e_fail->text;     
     }
     function ResetFinalText()
     {

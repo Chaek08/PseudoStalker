@@ -23,48 +23,46 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-icon" image=".data/ui/icon_npc/actor.png" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="160" layoutY="88" prefHeight="21" prefWidth="144" styleClass="label " text="мастер" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <Data cursor="DEFAULT" enabled="1" id="data-icon" image=".data/ui/icon_npc/actor.png" tooltipText="Показать в рейтинге (2x клик)" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="160" layoutY="80" prefHeight="19.951171875" prefWidth="51.15966796875" styleClass="label " text="мастер" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-rank" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_desc" layoutX="160" layoutY="64" prefHeight="25" prefWidth="96" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_desc" layoutX="160" layoutY="64" prefHeight="19.951171875" prefWidth="30.849609375" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="16"/>
+        <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-rank_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_desc" layoutX="160" layoutY="112" prefHeight="17" prefWidth="48" styleClass="label " text="группа" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_desc" layoutX="160" layoutY="104" prefHeight="17" prefWidth="48" styleClass="label " text="группа" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-community_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community" layoutX="160" layoutY="128" prefHeight="21" prefWidth="152" styleClass="label " text="Danila Emoji" textAlignment="LEFT" textFill="#cc8033" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community" layoutX="160" layoutY="120" prefHeight="19.951171875" prefWidth="108.359375" styleClass="label " text="Danila Emoji" textAlignment="LEFT" textFill="#cc8033" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-community" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="reputation_desc" layoutX="160" layoutY="152" prefHeight="17" prefWidth="96" styleClass="label " text="репутация" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="reputation_desc" layoutX="160" layoutY="144" prefHeight="19.951171875" prefWidth="71.62353515625" styleClass="label " text="репутация" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-reputation_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="reputation" layoutX="160" layoutY="168" prefHeight="21" prefWidth="152" styleClass="label " text="Отлично" textAlignment="LEFT" textFill="#669966" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="reputation" layoutX="160" layoutY="160" prefHeight="19.951171875" prefWidth="64.00634765625" styleClass="label " text="Отлично" textAlignment="LEFT" textFill="#669966" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-reputation" visible="1"/>
-    <Separator focusTraversable="false" id="separator" layoutX="800" layoutY="8" orientation="HORIZONTAL" prefHeight="8" prefWidth="304" styleClass="separator "/>
-    <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic" layoutX="24" layoutY="248" prefHeight="104" prefWidth="168" styleClass="label " text="Униженных хейтеров&#10;Убитых подсосов огср&#10;Выполненные квесты &#10;&#10;Всего" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic" layoutX="24" layoutY="248" prefHeight="104" prefWidth="168" styleClass="label " text="Униженных хейтеров&#10;Убитых подсосов огср&#10;Выполненные квесты &#10;&#10;Всего" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="15"/>
+        <Font name="System Regular" size="14"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-statistic" visible="1"/>
@@ -74,25 +72,19 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-statistic_num" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="name_label" layoutX="936" layoutY="40" prefHeight="32" prefWidth="328" styleClass="label " text="   Саня Кабан" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="target_label" layoutX="368" layoutY="64" prefHeight="112" prefWidth="392" styleClass="label " text="События происходят в 2033 году&#10;В это болото меня сюда заслал Kosta Krut. Он смог поразить алекса, но оказалось что поразил он не алекса, а его двойника!!!&#10;Теперь мне нужно устранить настоящего алекса" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
-        <Font name="System Bold" size="15"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-name_label" visible="1"/>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="target_label" layoutX="368" layoutY="64" prefHeight="80" prefWidth="408" styleClass="label " text="События происходят в 2033 году&#10;В это болото меня сюда заслал Kosta Krut. Он смог поразить алекса, но оказалось что поразил он не алекса, а его двойника!!!&#10;Теперь мне нужно устранить настоящего алекса" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
-      <font>
-        <Font name="System Regular" size="12"/>
+        <Font name="System Regular" size="14"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-target_label" visible="1"/>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="final_label" layoutX="360" layoutY="192" prefHeight="280" prefWidth="408" styleClass="label " text="" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="final_label" layoutX="368" layoutY="224" prefHeight="240" prefWidth="392" styleClass="label " text="" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
-        <Font name="System Regular" size="12"/>
+        <Font name="System Regular" size="14"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-final_label" visible=""/>
-    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tab_final" layoutX="360" layoutY="144" prefHeight="32" prefWidth="408" styleClass="x-flat-button " text="Что же произошло?" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tab_final" layoutX="360" layoutY="176" prefHeight="32" prefWidth="408" styleClass="x-flat-button " text="Что же произошло?" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
@@ -111,5 +103,17 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/info1.png" id="data-statistic_norm" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="e_fail" layoutX="816" layoutY="8" prefHeight="16" prefWidth="96" styleClass="label " text="Вот я и победил алекса, во время боевого контакта он вколол мне укол, на котором было написано 'Гомосекоптомин'&#10;Теперь, кажись, Kosta Krut со мной будет сражаться... А пока иду в местную больницу, колоть противоядие&#10;Чуствую себя как мусор.." textAlignment="LEFT" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="" id="data-e_fail" visible=""/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="a_fail" layoutX="816" layoutY="32" prefHeight="16" prefWidth="96" styleClass="label " text="Я проиграл... Алекс остался жив.. Теперь возможно он заразит Kosta Kruta!!!" textAlignment="LEFT" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="" id="data-a_fail" visible=""/>
   </children>
 </AnchorPane>

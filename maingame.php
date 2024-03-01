@@ -41,8 +41,7 @@ class maingame extends AbstractForm
         if ($this->fight_label->visible) {$this->fight_label->hide();} 
         if ($this->leave_btn->visible) {$this->leave_btn->hide();}        
         if ($this->fragment_act_fail->visible) {$this->fragment_act_fail->hide();}     
-        if ($this->fragment_enm_fail->visible) {$this->fragment_enm_fail->hide();}    
-        if ($this->pda_icon->visible) {$this->pda_icon->hide();}            
+        if ($this->fragment_enm_fail->visible) {$this->fragment_enm_fail->hide();}             
         
         if ($this->item_vodka_0000->visible) 
         {
@@ -55,7 +54,9 @@ class maingame extends AbstractForm
         
         $this->fragment_pda->content->fragment_contacts->content->AddEnemyContacts();   
         $this->fragment_pda->content->fragment_tasks->content->DeleteTask();    
-        $this->fragment_pda->content->fragment_tasks->content->StepReset();          
+        $this->fragment_pda->content->fragment_tasks->content->ShowActiveTasks();        
+        $this->fragment_pda->content->fragment_tasks->content->StepReset();       
+        $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();             
         $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();  
                   
         $this->dlg_btn->show();
@@ -506,12 +507,11 @@ class maingame extends AbstractForm
         $this->fight_label->hide();
         $this->fragment_act_fail->show();
         $this->fragment_pda->content->fragment_stat->content->ActorFailText();
-        $this->pda_icon->show(); 
         $this->idle_static_actor->show(); $this->actor->x = 112;
         $this->idle_static_enemy->show(); $this->enemy->x = 1312;  
         $this->item_vodka_0000->enabled = false; 
-        //$this->fragment_pda->content->fragment_tasks->content->DeleteTask();  
-        $this->fragment_pda->content->fragment_tasks->content->Step2_Failed();        
+        $this->fragment_pda->content->fragment_tasks->content->Step2_Failed(); 
+        $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();                
         $this->actor->opacity = 0;    
         $this->StopAllSounds();           
         if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');}                            
@@ -520,14 +520,13 @@ class maingame extends AbstractForm
     {
         $this->fight_label->hide();
         $this->fragment_enm_fail->show();
-        $this->fragment_pda->content->fragment_stat->content->EnemyFailText();   
-        $this->pda_icon->show();     
+        $this->fragment_pda->content->fragment_stat->content->EnemyFailText();     
         $this->idle_static_actor->show(); $this->actor->x = 112;
         $this->idle_static_enemy->show(); $this->enemy->x = 1312;  
         $this->item_vodka_0000->enabled = false;  
         $this->fragment_pda->content->fragment_contacts->content->DeleteEnemyContacts();    
-        //$this->fragment_pda->content->fragment_tasks->content->DeleteTask(); 
-        $this->fragment_pda->content->fragment_tasks->content->Step2_Complete();         
+        $this->fragment_pda->content->fragment_tasks->content->Step2_Complete();       
+        $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();   
         $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();             
         $this->enemy->opacity = 0;
         $this->StopAllSounds();     
