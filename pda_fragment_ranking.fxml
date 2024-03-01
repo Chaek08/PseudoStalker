@@ -69,13 +69,13 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-bio" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="goblin_in_raiting" layoutX="32" layoutY="96" prefHeight="32" prefWidth="408" styleClass="label " text="501.               Гоблиндав" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="goblin_in_raiting" layoutX="32" layoutY="104" prefHeight="32" prefWidth="408" styleClass="label " text="3.                   Гоблиндав                                                  501" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-goblin_in_raiting" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_in_raiting" layoutX="32" layoutY="48" prefHeight="32" prefWidth="408" styleClass="label " text="10699.           Саня Кабан" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="actor_in_raiting" layoutX="32" layoutY="56" prefHeight="32" prefWidth="408" styleClass="label " text="1.                   Саня Кабан                                             10699" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
@@ -87,7 +87,7 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_icon" image=".data/ui/icon_npc/actor.png" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="valerok_in_raiting" layoutX="32" layoutY="72" prefHeight="32" prefWidth="408" styleClass="label " text="999.               Валерок" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="valerok_in_raiting" layoutX="32" layoutY="80" prefHeight="32" prefWidth="408" styleClass="label " text="2.                   Валерок                                                      999" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
@@ -110,7 +110,7 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-reyn_icon" image=".data/ui/icon_npc/reyn.png" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="reyn_in_raiting" layoutX="32" layoutY="120" prefHeight="32" prefWidth="408" styleClass="label " text="500.               Рейн" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="reyn_in_raiting" layoutX="32" layoutY="128" prefHeight="32" prefWidth="408" styleClass="label " text="4.                   Рейн                                                            500" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
@@ -122,12 +122,14 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/info1.png" id="data-bio_new" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="xernya" layoutX="32" layoutY="24" prefHeight="21" prefWidth="424" styleClass="label " text="Ранг                     Имя                                                            ##" textAlignment="LEFT" textFill="#808080" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="xernya" layoutX="32" layoutY="24" prefHeight="21" prefWidth="416" styleClass="label " text="##                        Имя                                                        Ранг" textAlignment="LEFT" textFill="#808080" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-xernya" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-image" visible="1"/>
+    <Separator focusTraversable="false" id="separatorAlt" layoutX="32" layoutY="48" opacity="0.25609756097561" orientation="HORIZONTAL" prefHeight="8" prefWidth="408" styleClass="separator "/>
+    <Data cursor="DEFAULT" enabled="1" id="data-separatorAlt" visible="1"/>
   </children>
 </AnchorPane>
