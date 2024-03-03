@@ -20,13 +20,13 @@
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_tasks" layoutX="384" layoutY="144" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="488" prefWidth="784" spacing="0" styleClass="fragment-pane "/>
     <Data content="pda_fragment_tasks" cursor="DEFAULT" enabled="1" id="data-fragment_tasks" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-toolbar_frame_main" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="10" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="toolbar_frame_time" layoutX="1000" layoutY="632" prefHeight="40" prefWidth="160" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="10" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="7.4074074074074" id="toolbar_frame_time" layoutX="1000" layoutY="632" prefHeight="40" prefWidth="160" styleClass="x-flat-button " text="-----" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-toolbar_frame_time" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="time_year" layoutX="1064" layoutY="632" prefHeight="40" prefWidth="88" styleClass="label " text="01.02.2023" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-toolbar_frame_time" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="time_year" layoutX="1072" layoutY="632" prefHeight="40" prefWidth="88" styleClass="label " text="01.02.2023" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="14"/>
       </font>

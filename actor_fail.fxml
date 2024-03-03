@@ -31,17 +31,17 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-labelAlt" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#666666" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d4d4d" id="exitbtn" layoutX="944" layoutY="752" prefHeight="48" prefWidth="208" styleClass="x-flat-button " text="Выйти в главное меню" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#666666" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d4d4d" id="exitbtn" layoutX="928" layoutY="744" prefHeight="56" prefWidth="224" styleClass="x-flat-button " text="Выйти в главное меню" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-exitbtn" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#666666" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d4d4d" id="returnbtn" layoutX="728" layoutY="752" prefHeight="48" prefWidth="208" styleClass="x-flat-button " text="Вернуться в игру" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/end_wnd/exit_icon.png" id="data-exitbtn" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#666666" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d4d4d" id="returnbtn" layoutX="712" layoutY="744" prefHeight="56" prefWidth="208" styleClass="x-flat-button " text="Вернуться в игру" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-returnbtn" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/end_wnd/cumback_icon.png" id="data-returnbtn" visible="1"/>
   </children>
 </AnchorPane>
