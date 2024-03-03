@@ -12,7 +12,6 @@ class dialog extends AbstractForm
     {    
         $this->StartDialog();
     }
-    
     function StopVoice()
     {
         if ($this->form('maingame')->fragment_opt->content->sound->visible)
