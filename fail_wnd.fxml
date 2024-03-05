@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900" prefWidth="1600" styleClass="">
+  <children>
+    <FlatButton alignment="CENTER" color="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="trans" layoutX="0" layoutY="0" prefHeight="900" prefWidth="1600" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <FlatButton alignment="CENTER" borderRadius="30" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="main_frame" layoutX="416" layoutY="64" prefHeight="752" prefWidth="752" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-trans" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="7" id="Win_fail_text" layoutX="416" layoutY="496" prefHeight="51" prefWidth="752" styleClass="label " text="Win_fail_text&#10;" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="30"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/fail_wnd/enemy_fail.png" id="data-Win_fail_text" visible="1"/>
+    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="344" id="Win_object" layoutX="704" layoutY="128" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="160">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Win_object" image=".data/ui/maingame/sprite/goblindav.png" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Win_fail_desc" layoutX="416" layoutY="528" prefHeight="152" prefWidth="752" styleClass="label " text="Win_fail_desc" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="true">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Win_fail_desc" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-main_frame" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#666666" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d4d4d" id="returnbtn" layoutX="712" layoutY="744" prefHeight="56" prefWidth="208" styleClass="x-flat-button " text="Вернуться в игру" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/end_wnd/cumback_icon.png" id="data-returnbtn" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#666666" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d4d4d" id="exitbtn" layoutX="928" layoutY="744" prefHeight="56" prefWidth="224" styleClass="x-flat-button " text="Выйти в главное меню" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/end_wnd/exit_icon.png" id="data-exitbtn" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="a_fail" layoutX="1616" layoutY="80" prefHeight="16" prefWidth="96" styleClass="label " text="Я пытался победить гоблиндава, но он оказался сильнее...&#10;Что-ж, не получилось, не фортануло" textAlignment="LEFT" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-a_fail" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="e_fail" layoutX="1616" layoutY="104" prefHeight="16" prefWidth="96" styleClass="label " text="ЕБУЧИЙ гоблиндав повержен. Это был нелёгкий бой, но я проявил максимальный энтузиазм и уничтожил хуесоса!" textAlignment="LEFT" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-e_fail" visible="1"/>
+  </children>
+</AnchorPane>

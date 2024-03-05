@@ -40,8 +40,7 @@ class maingame extends AbstractForm
     {  
         if ($this->fight_label->visible) {$this->fight_label->hide();} 
         if ($this->leave_btn->visible) {$this->leave_btn->hide();}        
-        if ($this->fragment_act_fail->visible) {$this->fragment_act_fail->hide();}     
-        if ($this->fragment_enm_fail->visible) {$this->fragment_enm_fail->hide();}             
+        if ($this->fragment_win_fail->visible) {$this->fragment_win_fail->hide();}                  
         
         if ($this->item_vodka_0000->visible) 
         {
@@ -145,11 +144,11 @@ class maingame extends AbstractForm
         if($this->fragment_dlg->visible)
         {
             return;
-        }         
-        if ($this->fragment_act_fail->visible || $this->fragment_enm_fail->visible)
+        }  
+        if ($this->fragment_win_fail->visible)
         {
             return;
-        }
+        }        
         $this->ResetFragmentsVisible();
         $this->fragment_pda->show();      
     }
@@ -174,10 +173,10 @@ class maingame extends AbstractForm
         {
             return;
         }           
-        if ($this->fragment_act_fail->show || $this->fragment_enm_fail->show)
+        if ($this->fragment_win_fail->visible)
         {
             return;
-        }               
+        }                        
               
         if ($this->fragment_opt->content->sound->visible){ Media::open('res://.data/audio/inv_open.mp3', true);} 
         $this->ResetFragmentsVisible();       
@@ -207,11 +206,11 @@ class maingame extends AbstractForm
         if($this->fragment_dlg->visible)
         {
             return;
-        }           
-        if ($this->fragment_act_fail->visible || $this->fragment_enm_fail->visible)
+        }  
+        if ($this->fragment_win_fail->visible)
         {
             return;
-        }                           
+        }                                     
         $this->ResetFragmentsVisible();    
         $this->ShowExitDialog();   
     }
@@ -227,8 +226,7 @@ class maingame extends AbstractForm
         if ($this->fragment_opt->visible) {$this->fragment_opt->hide();}      
         if ($this->fragment_dlg->visible) {$this->fragment_dlg->hide();}      
         if ($this->fragment_exit->visible) {$this->fragment_exit->hide();}   
-        if ($this->fragment_act_fail->visible) {$this->fragment_act_fail->hide();}     
-        if ($this->fragment_enm_fail->visible) {$this->fragment_enm_fail->hide();}                              
+        if ($this->fragment_win_fail->visible) {$this->fragment_win_fail->hide();}                                      
     }
     /**
      * @event dlg_btn.click-Left 
@@ -257,18 +255,13 @@ class maingame extends AbstractForm
     /**
      * @event leave_btn.click-Left 
      */
-    function LeaveBtn(UXMouseEvent $e = null) //после появления fail или win
+    function LeaveBtn(UXMouseEvent $e = null)
     {    
-        if ($this->skull_actor->visible)
+        $this->fragment_win_fail->show();
+        if ($this->fragment_opt->content->sound->visible)
         {
-            $this->fragment_act_fail->show();
-            Media::pause('main_ambient');    
-        }
-        if ($this->skull_enemy->visible)
-        {
-            $this->fragment_enm_fail->show();
-            Media::pause('main_ambient');             
-        }   
+            Media::pause('main_ambient');
+        }          
     }
     /**
      * @event button.click-Left 
@@ -505,7 +498,8 @@ class maingame extends AbstractForm
     function ActorFail()
     {
         $this->fight_label->hide();
-        $this->fragment_act_fail->show();
+        $this->fragment_win_fail->show();
+        $this->fragment_win_fail->content->SetActorFail();
         $this->fragment_pda->content->fragment_stat->content->ActorFailText();
         $this->idle_static_actor->show(); $this->actor->x = 112;
         $this->idle_static_enemy->show(); $this->enemy->x = 1312;  
@@ -519,7 +513,8 @@ class maingame extends AbstractForm
     function EnemyFail()
     {
         $this->fight_label->hide();
-        $this->fragment_enm_fail->show();
+        $this->fragment_win_fail->show();
+        $this->fragment_win_fail->content->SetEnemyFail();
         $this->fragment_pda->content->fragment_stat->content->EnemyFailText();     
         $this->idle_static_actor->show(); $this->actor->x = 112;
         $this->idle_static_enemy->show(); $this->enemy->x = 1312;  
