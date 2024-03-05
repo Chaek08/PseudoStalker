@@ -11,11 +11,6 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button3" layoutX="1456" layoutY="240" prefHeight="32" prefWidth="144" styleClass="button " text="bugdetect system" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
     <Data content="mainmenu" cursor="DEFAULT" enabled="1" id="data-fragment_menu" visible="1"/>
     <Data content="inventory" cursor="DEFAULT" enabled="1" id="data-fragment_inv" visible=""/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="93" id="item_vodka_0000" layoutX="256" layoutY="696" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="30">
@@ -115,26 +110,12 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-hitmark_static" image=".data/ui/maingame/hitmark/hitmark.png" visible=""/>
-    <Data content="actor_fail" cursor="DEFAULT" enabled="1" id="data-fragment_act_fail" visible=""/>
-    <Data content="enemy_fail" cursor="DEFAULT" enabled="1" id="data-fragment_enm_fail" visible=""/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="144" id="sound_debug" layoutX="1608" layoutY="-8" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="200">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="72" id="sound_debug" layoutX="1608" layoutY="-8" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="64">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-sound_debug" visible=""/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button" layoutX="1456" layoutY="176" prefHeight="32" prefWidth="144" styleClass="button " text="reset game client" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-button" visible=""/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="buttonAlt" layoutX="1456" layoutY="208" prefHeight="32" prefWidth="144" styleClass="button " text="start fighting" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-buttonAlt" visible=""/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="56" id="pda_icon" layoutX="304" layoutY="16" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="56">
       <font>
         <Font name="System Regular" size="12"/>
@@ -143,14 +124,11 @@
     <Data cursor="DEFAULT" enabled="1" id="data-pda_icon" image=".data/ui/ui_hud_pda.png" visible=""/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_menu" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_pda" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_enm_fail" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_act_fail" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_dlg" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_inv" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_opt" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_exit" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <Data animated="1" cursor="DEFAULT" enabled="1" id="data-anim_cursor" sprite="game_cursor" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" id="data-button3" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-blood_ui" image=".data/ui/maingame/blood_mini.png" visible=""/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_win_fail" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <Data content="fail_wnd" cursor="DEFAULT" enabled="1" id="data-fragment_win_fail" visible=""/>

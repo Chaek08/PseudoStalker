@@ -264,20 +264,6 @@ class maingame extends AbstractForm
         }          
     }
     /**
-     * @event button.click-Left 
-     */
-    function OLD_DELETE_PLS_2(UXMouseEvent $e = null)
-    {    
-        $this->ResetGameClient();
-    }
-    /**
-     * @event buttonAlt.click-Left 
-     */
-    function OLD_DELETE_PLS_3(UXMouseEvent $e = null)
-    {    
-        $this->fragment_dlg->content->Talk_3();
-    }
-    /**
      * @event item_vodka_0000.click-2x
      */
     function VodkaAttack(UXMouseEvent $e = null)
@@ -525,7 +511,6 @@ class maingame extends AbstractForm
         $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();             
         $this->enemy->opacity = 0;
         $this->StopAllSounds();     
-        
         if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor'); }                                               
     }
     function BugDetectSystem()
@@ -533,11 +518,4 @@ class maingame extends AbstractForm
         app()->showForm('bugdetect');
         app()->hideForm('maingame');
     }
-    /**
-     * @event button3.click-Left 
-     */
-    function OLD_DELETE_PLS_1(UXMouseEvent $e = null)
-    {    
-        $this->BugDetectSystem();
-    }    
 }
