@@ -12,7 +12,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->goblindav_icon->hide();
         $this->actor_icon->hide();
         $this->valerok_icon->hide(); 
-        $this->reyn_icon->hide();
+        $this->name_icon->hide();
             
         $this->community_desc->hide();
         $this->community->hide(); 
@@ -47,7 +47,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->actor_in_raiting->textColor = '#999999';
         $this->goblin_in_raiting->textColor = '#999999';   
         $this->valerok_in_raiting->textColor = '#999999';   
-        $this->reyn_in_raiting->textColor = '#999999';                  
+        $this->name_in_raiting->textColor = '#999999';                  
     }
     /**
      * @event actor_in_raiting.click-Left 
@@ -88,19 +88,18 @@ class pda_fragment_ranking extends AbstractForm
         $this->ResetBtnColor();
         $this->goblin_in_raiting->textColor = 'white';                      
     }
-
     /**
-     * @event reyn_in_raiting.click-Left 
+     * @event name_in_raiting.click-Left 
      */
-    function ReynInListBtn(UXMouseEvent $e = null)
+    function NameInListBtn(UXMouseEvent $e = null)
     {
         $this->ResetUserInfo();
         $this->ShowUserInfo();
-        $this->reyn_icon->show();
+        $this->name_icon->show();
         $this->SetUserInfo();  
         
         $this->ResetBtnColor();
-        $this->reyn_in_raiting->textColor = 'white';                      
+        $this->name_in_raiting->textColor = 'white';                      
     }
     function ResetRole()
     {
@@ -126,12 +125,6 @@ class pda_fragment_ranking extends AbstractForm
         $this->community->textColor = '#16a4cd';         
         $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/pidoras_role.png'));                
     }
-    function NacistRole()
-    {
-        Element::setText($this->community, 'Нацисты');  
-        $this->community->textColor = '#8a2bff';         
-        $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/nacik_role.png'));               
-    }
     function SetUserInfo()
     {
         if ($this->goblindav_icon->visible)
@@ -151,16 +144,7 @@ class pda_fragment_ranking extends AbstractForm
             Element::setText($this->bio, 'Хозяин LADCEGA, попускает тупых огсровцев, лежит нож в гараже'); 
             Element::setText($this->relationship, 'друг'); 
             $this->relationship->textColor = ('#669966');                       
-        }
-        if ($this->reyn_icon->visible)
-        {
-            $this->ResetRole();        
-            $this->NacistRole();
-            Element::setText($this->rank, 'ветеран');
-            Element::setText($this->bio, 'Легендарный вредитель на сталкерских Дискорд серверах, особо опасен. Получил свое звание из-за гадств и забанен на многих серверах.'); 
-            Element::setText($this->relationship, 'нейтрал'); 
-            $this->relationship->textColor = ('#b3b31a');                       
-        }        
+        }       
         if ($this->actor_icon->visible)
         {
             $this->ResetRole();        

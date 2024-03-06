@@ -149,12 +149,14 @@ class inventory extends AbstractForm
     {
         Element::setText($this->weight_desc, 'Вес  3.8 / 50.0');
         $this->inv_item_vodka->hide();
+        $this->vodka_selected->hide();
         $this->form('maingame')->item_vodka_0000->show();                
     }
     function DespawnVodka()
     {
         Element::setText($this->weight_desc, 'Вес  4.3 / 50.0');
         $this->inv_item_vodka->show();
+        $this->vodka_selected->show();
         $this->form('maingame')->item_vodka_0000->hide();    
         $this->form('maingame')->item_vodka_0000->x = 240;
         $this->form('maingame')->item_vodka_0000->y = 704;                           

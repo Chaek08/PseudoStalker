@@ -29,7 +29,7 @@ class maingame extends AbstractForm
              Media::play('main_ambient');      
         }         
     }
-    function StopMainAmbient()
+    function PauseMainAmbient()
     {
         if ($this->fragment_opt->content->sound->visible)
         {
@@ -64,7 +64,7 @@ class maingame extends AbstractForm
         $this->actor->opacity = 100; 
         $this->enemy->opacity = 100;                 
         $this->fragment_dlg->content->StartDialog();
-        $this->fragment_menu->content->Btn__NewGame();
+        $this->fragment_menu->content->BtnNGameState();
         $this->fragment_pda->content->fragment_stat->content->ResetFinalText();
         $this->StopAllSounds();
     }
@@ -72,14 +72,14 @@ class maingame extends AbstractForm
     {
         if ($this->fragment_opt->content->sound->visible)
         {
-            Media::stop('fight_sound');
-            Media::stop('main_ambient');
-            Media::stop('v_enemy');
-            Media::stop('v_actor');
-            Media::stop('hit_alex');
-            Media::stop('hit_alex_damage');       
-            Media::stop('hit_actor');
-            Media::stop('hit_actor_damage');                               
+                Media::stop('fight_sound');
+                Media::stop('main_ambient');
+                Media::stop('v_enemy');
+                Media::stop('v_actor');
+                Media::stop('hit_alex');
+                Media::stop('hit_alex_damage');       
+                Media::stop('hit_actor');
+                Media::stop('hit_actor_damage');                                              
         }        
     }
     /**
@@ -105,7 +105,7 @@ class maingame extends AbstractForm
         if ($this->fragment_exit->visible) {$this->HideExitDialog(); return;}    
         if ($this->fragment_opt->visible) {return;}    
         $this->ShowMenu();
-        $this->StopMainAmbient();
+        $this->PauseMainAmbient();
         
     }
     function ShowMenu()

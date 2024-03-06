@@ -23,14 +23,14 @@ class mainmenu extends AbstractForm
            
         }            
     }
-    function Btn__ContinueGame()
+    function BtnCGameState()
     {             
         $this->btn_start_game->image = new UXImage('res://.data/ui/mainmenu/btn_default/btn4.png');   
         $this->btn_start_game->hoverImage = new UXImage('res://.data/ui/mainmenu/btn_cursor/btn4.png'); 
         $this->btn_start_game->clickImage = new UXImage('res://.data/ui/mainmenu/btn_clicked/btn4.png');                     
            
     }
-    function Btn__NewGame()
+    function BtnNGameState()
     {
         $this->btn_start_game->image = new UXImage('res://.data/ui/mainmenu/btn_default/btn1.png');   
         $this->btn_start_game->hoverImage = new UXImage('res://.data/ui/mainmenu/btn_cursor/btn1.png'); 
@@ -42,7 +42,7 @@ class mainmenu extends AbstractForm
     function NewGameBtn(UXMouseEvent $e = null)
     {    
         $this->form('maingame')->fragment_menu->hide();
-        $this->Btn__ContinueGame();
+        $this->BtnCGameState();
         Media::pause("menu_sound");
         $this->form('maingame')->PlayMainAmbient();
         if ($this->form('maingame')->fight_label->visible)
