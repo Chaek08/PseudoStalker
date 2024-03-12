@@ -294,6 +294,7 @@ class maingame extends AbstractForm
             Animation::displace($this->item_vodka_0000, 500, -1030, $y); 
         }
     }
+
     function HideExitDialog()
     {
         if ($this->fragment_exit->visible) {$this->fragment_exit->hide();}  

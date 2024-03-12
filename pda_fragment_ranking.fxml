@@ -109,7 +109,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-name_icon" image=".data/ui/icon_npc/reyn.png" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" id="data-name_icon" image="" visible=""/>
     <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="name_in_raiting" layoutX="32" layoutY="128" prefHeight="32" prefWidth="408" styleClass="label " text="0.                   name                                                            000" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>

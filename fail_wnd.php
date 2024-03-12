@@ -28,19 +28,17 @@ class fail_wnd extends AbstractForm
     }
     function SetActorFail()
     {
-        $this->Win_fail_text->text = 'Ну ты лох блять...';       
-        $this->Win_fail_text->graphic = new UXImageView(new UXImage('res://.data/ui/fail_wnd/actor_fail.png'));
-        $this->Win_object->image = new UXImage('res://.data/ui/maingame/sprite/goblindav.png');
+        $this->Win_fail_text->image = new UXImage('res://.data/ui/fail_wnd/fail_text.png');
+        $this->Win_fail_desc->image = new UXImage('res://.data/ui/fail_wnd/fail_text_desc.png');
         
-        $this->Win_fail_desc->text = $this->a_fail->text; 
+        $this->Win_object->image = new UXImage('res://.data/ui/fail_wnd/goblindav.png');             
     }
     function SetEnemyFail()
-    {
-        $this->Win_fail_text->text = 'Александр, харош!!!';
-        $this->Win_fail_text->graphic = new UXImageView(new UXImage('res://.data/ui/fail_wnd/enemy_fail.png'));  
-        $this->Win_object->image = new UXImage('res://.data/ui/maingame/sprite/actor.png');        
-        
-        $this->Win_fail_desc->text = $this->e_fail->text;                
+    {        
+        $this->Win_fail_text->image = new UXImage('res://.data/ui/fail_wnd/win_text.png');
+        $this->Win_fail_desc->image = new UXImage('res://.data/ui/fail_wnd/win_text_desc.png');  
+             
+        $this->Win_object->image = new UXImage('res://.data/ui/fail_wnd/actor.png');                               
     }
 
 }
