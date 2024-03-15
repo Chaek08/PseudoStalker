@@ -6,7 +6,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="880" id="Win_object" layoutX="984" layoutY="8" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="584">
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="880" id="Win_object" layoutX="992" layoutY="8" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="584">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

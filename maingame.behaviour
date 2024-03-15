@@ -13,13 +13,13 @@
     <behaviour animated="1" direction="LEFT_RIGHT" gridX="1" gridY="1" limitedByParent="" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
   </target>
   <target id="dlg_btn">
-    <behaviour color="#333333" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
   <target id="health_static_enemy">
-    <behaviour color="#333333" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
   <target id="health_static_gg">
-    <behaviour color="#333333" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
   <target id="fight_label">
     <behaviour animated="1" delay="0" duration="1000" maxOpacity="1" minOpacity="0.3" repeatCount="-1" type="behaviour\custom\BlinkAnimationBehaviour" when="ALWAYS"/>
@@ -32,7 +32,7 @@
     <behaviour delay="0" duration="1000" initialOpacity="1" opacity="1" repeatCount="-1" type="behaviour\custom\FadeAnimationBehaviour" when="ALWAYS"/>
   </target>
   <target id="leave_btn">
-    <behaviour color="#000000" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
   <target id="pda_icon">
     <behaviour animated="1" delay="0" duration="1000" maxOpacity="1" minOpacity="0.3" repeatCount="-1" type="behaviour\custom\BlinkAnimationBehaviour" when="ALWAYS"/>
