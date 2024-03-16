@@ -23,7 +23,7 @@
   </target>
   <target id="fight_label">
     <behaviour animated="1" delay="0" duration="1000" maxOpacity="1" minOpacity="0.3" repeatCount="-1" type="behaviour\custom\BlinkAnimationBehaviour" when="ALWAYS"/>
-    <behaviour color="#333333" offsetX="0" offsetY="0" radius="12.439024390244" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+    <behaviour color="#cc3333" offsetX="0" offsetY="0" radius="12.439024390244" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
   <target id="hitmark">
     <behaviour bodyType="DYNAMIC" fixtureType="INHERITED" solid="" solidType="NONE" startVelocity="[0,0]" type="behaviour\custom\GameEntityBehaviour"/>
@@ -43,5 +43,11 @@
   </target>
   <target id="blood_ui">
     <behaviour animated="1" delay="0" duration="1000" maxOpacity="1" minOpacity="0.3" repeatCount="-1" type="behaviour\custom\BlinkAnimationBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="health_bar_gg">
+    <behaviour color="#999999" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="health_bar_enemy">
+    <behaviour color="#999999" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
 </behaviours>
