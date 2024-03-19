@@ -42,7 +42,7 @@ class opt extends AbstractForm
         $this->form('maingame')->leave_btn->dropShadowEffect->disable();  
         $this->form('maingame')->health_static_enemy->dropShadowEffect->disable();     
         $this->form('maingame')->health_static_gg->dropShadowEffect->disable();     
-        $this->form('maingame')->fight_label->dropShadowEffect->disable();                                                                         
+        $this->form('maingame')->fight_image->dropShadowEffect->disable();                                                                         
     }
     /**
      * @event shadows_on.click-Left 
@@ -56,7 +56,7 @@ class opt extends AbstractForm
         $this->form('maingame')->leave_btn->dropShadowEffect->enable();  
         $this->form('maingame')->health_static_enemy->dropShadowEffect->enable();     
         $this->form('maingame')->health_static_gg->dropShadowEffect->enable(); 
-        $this->form('maingame')->fight_label->dropShadowEffect->enable();                                
+        $this->form('maingame')->fight_image->dropShadowEffect->enable();                                
     }
     /**
      * @event allsound_off.click-Left 
