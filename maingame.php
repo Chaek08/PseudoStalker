@@ -38,7 +38,7 @@ class maingame extends AbstractForm
     }
     function ResetGameClient()
     {  
-        if ($this->fight_label->visible) {$this->fight_label->hide();} 
+        if ($this->fight_image->visible) {$this->fight_image->hide();} 
         if ($this->leave_btn->visible) {$this->leave_btn->hide();}        
         if ($this->fragment_win_fail->visible) {$this->fragment_win_fail->hide();}                  
         
@@ -59,10 +59,8 @@ class maingame extends AbstractForm
         $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();  
                   
         $this->dlg_btn->show();
-        $this->idle_static_actor->show(); $this->actor->x = 112;
-        $this->idle_static_enemy->show(); $this->enemy->x = 1312; 
-        $this->actor->opacity = 100; 
-        $this->enemy->opacity = 100;                 
+        $this->idle_static_actor->show(); $this->actor->x = 112; $this->actor->opacity = 100; 
+        $this->idle_static_enemy->show(); $this->enemy->x = 1312; $this->enemy->opacity = 100;           
         $this->fragment_dlg->content->StartDialog();
         $this->fragment_menu->content->BtnNGameState();
         $this->fragment_pda->content->fragment_stat->content->ResetFinalText();
@@ -484,7 +482,7 @@ class maingame extends AbstractForm
     }
     function ActorFail()
     {
-        $this->fight_label->hide();
+        $this->fight_image->hide();
         $this->fragment_win_fail->show();
         $this->fragment_win_fail->content->SetActorFail();
         $this->fragment_pda->content->fragment_stat->content->ActorFailText();
@@ -499,7 +497,7 @@ class maingame extends AbstractForm
     }
     function EnemyFail()
     {
-        $this->fight_label->hide();
+        $this->fight_image->hide();
         $this->fragment_win_fail->show();
         $this->fragment_win_fail->content->SetEnemyFail();
         $this->fragment_pda->content->fragment_stat->content->EnemyFailText();     

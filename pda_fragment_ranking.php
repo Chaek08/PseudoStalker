@@ -125,6 +125,12 @@ class pda_fragment_ranking extends AbstractForm
         $this->community->textColor = '#16a4cd';         
         $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/pidoras_role.png'));                
     }
+    function EblanRole()
+    {
+        Element::setText($this->community, 'Гандоны');  
+        $this->community->textColor = '#990000';         
+        $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/ebln.png'));         
+    }
     function SetUserInfo()
     {
         if ($this->goblindav_icon->visible)
@@ -154,5 +160,14 @@ class pda_fragment_ranking extends AbstractForm
             $this->relationship->hide();
             Element::setText($this->bio, 'Самый опасный на районе, попустит абсолютно любого, и неважно, админ он, или нет...');              
         }
+        if ($this->name_icon->visible)
+        {
+            $this->ResetRole();        
+            $this->EblanRole();
+            Element::setText($this->rank, 'опытный');
+            Element::setText($this->bio, 'Вредитель на сталкерских Дискорд серверах, не опасен. Получил свое звание из-за гадств и забанен на многих серверах.');    
+            Element::setText($this->relationship, 'враг');  
+            $this->relationship->textColor = ('#cc3333');                       
+        }        
     }
 }

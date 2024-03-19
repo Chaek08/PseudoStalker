@@ -15,7 +15,5 @@
   <target id="pda_background">
     <behaviour color="#000000" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="pda_panel">
-    <behaviour color="#333333" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
-  </target>
+  <target id="pda_panel"/>
 </behaviours>

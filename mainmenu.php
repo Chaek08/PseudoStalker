@@ -45,7 +45,7 @@ class mainmenu extends AbstractForm
         $this->BtnCGameState();
         Media::pause("menu_sound");
         $this->form('maingame')->PlayMainAmbient();
-        if ($this->form('maingame')->fight_label->visible)
+        if ($this->form('maingame')->fight_image->visible)
         {
             if ($this->form('maingame')->fragment_opt->content->sound->visible)
             {
@@ -72,7 +72,7 @@ class mainmenu extends AbstractForm
     {
         if ($this->debug_build->visible)
         {
-            $this->label_version->text = "PseudoStalker, Build 447, Mar 15 2024"; //start date 24.12.2022
+            $this->label_version->text = "PseudoStalker, Build 451, Mar 19 2024"; //start date 24.12.2022
         }
         else
         {

@@ -61,7 +61,7 @@ class inventory extends AbstractForm
         }
         if ($this->inv_maket_select->visible)
         {
-            Element::setText($this->maket_label, "Броня Сани Кабана");
+            Element::setText($this->maket_label, "Броня Сани");
             Element::setText($this->maket_desc, "100% защита от радиации и едкого пердежа гоблиндава, сделано из плоти кабанов");    
             Element::setText($this->maket_count, "1000 RU"); 
             Element::setText($this->maket_weight, "1.0kg");           
@@ -96,8 +96,11 @@ class inventory extends AbstractForm
     function ShowCombobox()
     {     
         $this->PropertiesSound();
-        $this->main->show();
-        $this->button_drop->show();             
+        if ($this->main->toggle() || $this->button_drop->toggle())
+        {
+            $this->main->show();
+            $this->button_drop->show();
+        }          
     }
     function CloseInventory()
     {
@@ -138,11 +141,18 @@ class inventory extends AbstractForm
      */
     function DropVodka(UXMouseEvent $e = null)
     {       
-        $this->DropSound();   
-        $this->HideVodkaMaket();
-        $this->HideUIText();   
+        $this->DropSound();  
         $this->HideCombobox(); 
-        $this->SpawnVodka();  
+        $this->SpawnVodka();          
+        if ($this->inv_maket_select_2->visible)
+        {
+            $this->HideVodkaMaket();
+            $this->HideUIText();
+            if ($this->inv_maket_select->visible)
+            {
+                $this->inv_maket_select->hide();
+            }
+        }  
 
     }
     function SpawnVodka()

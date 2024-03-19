@@ -27,12 +27,12 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Win_fail_desc" image=".data/ui/fail_wnd/win_text_desc.png" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#333333" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d4d4d" id="returnbtn" layoutX="1104" layoutY="832" prefHeight="56" prefWidth="240" styleClass="x-flat-button " text="Вернуться в игру" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#333333" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d4d4d" id="returnbtn" layoutX="1088" layoutY="824" prefHeight="56" prefWidth="240" styleClass="x-flat-button " text="Вернуться в игру" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#333333" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d4d4d" id="exitbtn" layoutX="1352" layoutY="832" prefHeight="56" prefWidth="240" styleClass="x-flat-button " text="Выйти в главное меню" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#333333" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d4d4d" id="exitbtn" layoutX="1336" layoutY="824" prefHeight="56" prefWidth="240" styleClass="x-flat-button " text="Выйти в главное меню" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
