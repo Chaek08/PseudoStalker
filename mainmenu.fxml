@@ -11,7 +11,7 @@
         <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-label_version" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-label_version" visible=""/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="32" id="debug_build" layoutX="1568" layoutY="0" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="32">
       <font>
         <Font name="System Regular" size="12"/>

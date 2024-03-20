@@ -11,7 +11,6 @@ class mainmenu extends AbstractForm
      */
     function InitGameClient(UXWindowEvent $e = null)
     {    
-        $this->GetVersion(); 
         Media::open('res://.data/audio/menu/menu_sound.mp3', false, "menu_sound");
         Media::play("menu_sound");     
     }
@@ -67,16 +66,5 @@ class mainmenu extends AbstractForm
     {        
         $this->form('maingame')->fragment_menu->hide();
         $this->form('maingame')->fragment_opt->show();    
-    }
-    function GetVersion()
-    {
-        if ($this->debug_build->visible)
-        {
-            $this->label_version->text = "PseudoStalker, Build 451, Mar 19 2024"; //start date 24.12.2022
-        }
-        else
-        {
-            $this->label_version->text = "PseudoStalker\nVersion 1.0";
-        }
     }
 }

@@ -12,8 +12,22 @@ class maingame extends AbstractForm
      */
     function MainGame(UXWindowEvent $e = null)
     {    
+        $this->GetVersion();
         $this->GetHealth();
         $this->OpenMainAmbient();
+    }
+    function GetVersion()
+    {
+        if ($this->debug_build->visible)
+        {
+            $this->label_version->show();
+            $this->label_version->text = "PseudoStalker, Build 452, Mar 20 2024"; //start date 24.12.2022
+        }
+        else
+        {
+            $this->fragment_menu->content->label_version->show();
+            $this->fragment_menu->content->label_version->text = "PseudoStalker\nUnknown Version";
+        }        
     }
     function OpenMainAmbient()
     {

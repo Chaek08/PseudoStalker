@@ -85,17 +85,31 @@ class opt extends AbstractForm
     /**
      * @event version_off.click-Left 
      */
-    function WatermarkMenuOff(UXMouseEvent $e = null)
+    function WatermarkOff(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->fragment_menu->content->label_version->hide();
+        if ($this->form('maingame')->debug_build->visible)
+        {
+            $this->form('maingame')->label_version->hide();             
+        }
+        else 
+        {
+            $this->form('maingame')->fragment_menu->content->label_version->hide(); 
+        }          
     }
 
     /**
      * @event version_on.click-Left 
      */
-    function WatermarkMenuOn(UXMouseEvent $e = null)
+    function WatermarkOn(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->fragment_menu->content->label_version->show();        
+        if ($this->form('maingame')->debug_build->visible)
+        {
+            $this->form('maingame')->label_version->show();             
+        }
+        else 
+        {
+            $this->form('maingame')->fragment_menu->content->label_version->show(); 
+        }    
     }
 
     /**
