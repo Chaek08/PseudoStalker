@@ -55,7 +55,6 @@ class maingame extends AbstractForm
         if ($this->fight_image->visible) {$this->fight_image->hide();} 
         if ($this->leave_btn->visible) {$this->leave_btn->hide();}        
         if ($this->fragment_win_fail->visible) {$this->fragment_win_fail->hide();}                  
-        if ($this->blood_ui->visible) {$this->blood_ui->hide();}
         
         if ($this->item_vodka_0000->visible) 
         {

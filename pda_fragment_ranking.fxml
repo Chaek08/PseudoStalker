@@ -21,12 +21,6 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="goblindav_icon" layoutX="488" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#ffffff" width="128">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-goblindav_icon" image=".data/ui/icon_npc/goblindav.png" visible=""/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_desc" layoutX="624" layoutY="24" prefHeight="15.9609375" prefWidth="24.6796875" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
@@ -81,35 +75,17 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_in_raiting" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="actor_icon" layoutX="488" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="128">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-actor_icon" image=".data/ui/icon_npc/actor.png" visible=""/>
     <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="valerok_in_raiting" layoutX="32" layoutY="80" prefHeight="32" prefWidth="408" styleClass="label " text="2.                   Валерок                                                      999" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-valerok_in_raiting" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="valerok_icon" layoutX="488" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="128">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-valerok_icon" image=".data/ui/icon_npc/valerok.png" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-frame_01" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-button" visible="1"/>
     <Separator focusTraversable="false" id="separator" layoutX="488" layoutY="160" orientation="HORIZONTAL" prefHeight="8" prefWidth="272" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-frame_hide" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="name_icon" layoutX="488" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="128">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-name_icon" image=".data/ui/icon_npc/eblan.png" visible=""/>
     <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="name_in_raiting" layoutX="32" layoutY="128" prefHeight="32" prefWidth="408" styleClass="label " text="4.                   Рейн                                                            150" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
@@ -131,5 +107,35 @@
     <Data cursor="DEFAULT" enabled="1" id="data-image" visible="1"/>
     <Separator focusTraversable="false" id="separatorAlt" layoutX="32" layoutY="48" opacity="0.25609756097561" orientation="HORIZONTAL" prefHeight="8" prefWidth="408" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separatorAlt" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="user_actor" layoutX="800" layoutY="0" prefHeight="16" prefWidth="96" styleClass="label " text="user_actor" textAlignment="LEFT" underline="false" wrapText="false">
+      <font>
+        <Font name="Yu Gothic Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-user_actor" visible=""/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="user_valerok" layoutX="800" layoutY="24" prefHeight="16" prefWidth="96" styleClass="label " text="user_valerok" textAlignment="LEFT" underline="false" wrapText="false">
+      <font>
+        <Font name="Yu Gothic Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-user_valerok" visible=""/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="user_goblindav" layoutX="800" layoutY="48" prefHeight="16" prefWidth="96" styleClass="label " text="user_goblindav" textAlignment="LEFT" underline="false" wrapText="false">
+      <font>
+        <Font name="Yu Gothic Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-user_goblindav" visible=""/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="user_name" layoutX="800" layoutY="72" prefHeight="16" prefWidth="96" styleClass="label " text="user_name" textAlignment="LEFT" underline="false" wrapText="false">
+      <font>
+        <Font name="Yu Gothic Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-user_name" visible=""/>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="user_icon" layoutX="488" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="128">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-user_icon" image=".data/ui/icon_npc/no_icon.png" visible=""/>
   </children>
 </AnchorPane>

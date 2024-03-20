@@ -9,10 +9,10 @@ class pda_fragment_ranking extends AbstractForm
 {
     function ResetUserInfo()
     {
-        $this->goblindav_icon->hide();
-        $this->actor_icon->hide();
-        $this->valerok_icon->hide(); 
-        $this->name_icon->hide();
+        $this->user_actor->hide();
+        $this->user_valerok->hide();
+        $this->user_goblindav->hide();
+        $this->user_name->hide();
             
         $this->community_desc->hide();
         $this->community->hide(); 
@@ -21,7 +21,8 @@ class pda_fragment_ranking extends AbstractForm
         $this->relationship->hide(); 
         $this->attitude->hide(); 
         $this->bio->hide();         
-        $this->bio_new->hide();             
+        $this->bio_new->hide(); 
+        $this->user_icon->hide();            
     }
     function ShowUserInfo()
     {
@@ -32,7 +33,8 @@ class pda_fragment_ranking extends AbstractForm
         $this->relationship->show(); 
         $this->attitude->show(); 
         $this->bio->show();         
-        $this->bio_new->show();           
+        $this->bio_new->show(); 
+        $this->user_icon->show();          
     }
     /**
      * @event frame_hide.click-Left 
@@ -56,7 +58,7 @@ class pda_fragment_ranking extends AbstractForm
     {    
         $this->ResetUserInfo();
         $this->ShowUserInfo();
-        $this->actor_icon->show();
+        $this->user_actor->show();
         $this->SetUserInfo();    
         
         $this->ResetBtnColor();
@@ -69,7 +71,7 @@ class pda_fragment_ranking extends AbstractForm
     {    
         $this->ResetUserInfo();
         $this->ShowUserInfo();
-        $this->valerok_icon->show();
+        $this->user_valerok->show();
         $this->SetUserInfo();  
         
         $this->ResetBtnColor();
@@ -82,7 +84,7 @@ class pda_fragment_ranking extends AbstractForm
     {    
         $this->ResetUserInfo();
         $this->ShowUserInfo();
-        $this->goblindav_icon->show();
+        $this->user_goblindav->show();
         $this->SetUserInfo();  
         
         $this->ResetBtnColor();
@@ -95,7 +97,7 @@ class pda_fragment_ranking extends AbstractForm
     {
         $this->ResetUserInfo();
         $this->ShowUserInfo();
-        $this->name_icon->show();
+        $this->user_name->show();
         $this->SetUserInfo();  
         
         $this->ResetBtnColor();
@@ -133,37 +135,41 @@ class pda_fragment_ranking extends AbstractForm
     }
     function SetUserInfo()
     {
-        if ($this->goblindav_icon->visible)
+        if ($this->user_goblindav->visible)
         {
             $this->ResetRole();
             $this->PidorasRole();
+            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/goblindav.png');
             Element::setText($this->rank, 'ветеринар');
             Element::setText($this->bio, 'САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ');  
             Element::setText($this->relationship, 'враг');  
             $this->relationship->textColor = ('#cc3333');            
         }
-        if ($this->valerok_icon->visible)
+        if ($this->user_valerok->visible)
         {
             $this->ResetRole();        
             $this->LadcegaRole();
+            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/valerok.png');            
             Element::setText($this->rank, 'мастер');
             Element::setText($this->bio, 'Хозяин LADCEGA, попускает тупых огсровцев, лежит нож в гараже'); 
             Element::setText($this->relationship, 'друг'); 
             $this->relationship->textColor = ('#669966');                       
         }       
-        if ($this->actor_icon->visible)
+        if ($this->user_actor->visible)
         {
             $this->ResetRole();        
             $this->DanilaEmojiRole();
+            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/actor.png');                
             Element::setText($this->rank, 'мастер');
+            Element::setText($this->bio, 'Самый опасный на районе, попустит абсолютно любого, и неважно, админ он, или нет...');            
             $this->attitude->hide();
-            $this->relationship->hide();
-            Element::setText($this->bio, 'Самый опасный на районе, попустит абсолютно любого, и неважно, админ он, или нет...');              
+            $this->relationship->hide();              
         }
-        if ($this->name_icon->visible)
+        if ($this->user_name->visible)
         {
             $this->ResetRole();        
             $this->EblanRole();
+            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/eblan.png');              
             Element::setText($this->rank, 'опытный');
             Element::setText($this->bio, 'Вредитель на сталкерских Дискорд серверах, не опасен. Получил свое звание из-за гадств и забанен на многих серверах.');    
             Element::setText($this->relationship, 'враг');  
