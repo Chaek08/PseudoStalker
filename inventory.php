@@ -96,6 +96,18 @@ class inventory extends AbstractForm
     function ShowCombobox()
     {     
         $this->PropertiesSound();
+        
+        $this->main->x = $this->form('maingame')->anim_cursor->x;
+        $this->main->y = $this->form('maingame')->anim_cursor->y;
+        $this->button_drop->x = $this->main->x + 8;
+        $this->button_drop->y = $this->main->y + 8;   
+        
+        if (Geometry::intersect($this->main, $this->vodka_selected))  
+        {
+            $this->main->x = 104;
+            $this->button_drop->x = 112;
+        }      
+             
         if ($this->main->toggle() || $this->button_drop->toggle())
         {
             $this->main->show();

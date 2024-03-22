@@ -107,16 +107,6 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-rci" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="5" color="#ff7d00" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="main" layoutX="104" layoutY="80" opacity="0.75609756097561" prefHeight="40" prefWidth="168" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#b3661a" color="#b3661a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#994d00" id="button_drop" layoutX="112" layoutY="88" prefHeight="24" prefWidth="152" styleClass="x-flat-button " text="выбросить" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </FlatButton>
     <FlatButton alignment="CENTER" borderRadius="10" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="health_static_gg" layoutX="1136" layoutY="808" prefHeight="56" prefWidth="432" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
@@ -175,5 +165,15 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
+    <FlatButton alignment="CENTER" borderRadius="5" color="#ff7d00" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="main" layoutX="104" layoutY="80" opacity="0.75609756097561" prefHeight="40" prefWidth="168" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#b3661a" color="#b3661a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#994d00" id="button_drop" layoutX="112" layoutY="88" prefHeight="24" prefWidth="152" styleClass="x-flat-button " text="выбросить" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
   </children>
 </AnchorPane>
