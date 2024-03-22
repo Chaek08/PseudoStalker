@@ -38,7 +38,8 @@ class inventory extends AbstractForm
         $this->maket_label->show();
         $this->maket_count->show();
         $this->maket_desc->show();
-        $this->maket_cond_static->show();
+        $this->button9->y = 536;
+        $this->button9->height = 328;     
         $this->maket_weight->show();        
     }
     function HideUIText()
@@ -46,7 +47,8 @@ class inventory extends AbstractForm
         $this->maket_label->hide();
         $this->maket_count->hide();
         $this->maket_desc->hide();
-        $this->maket_cond_static->hide();
+        $this->button9->y = 480;
+        $this->button9->height = 384;                 
         $this->maket_cond->hide();
         $this->maket_weight->hide();         
     }
@@ -56,14 +58,14 @@ class inventory extends AbstractForm
         {
             Element::setText($this->maket_label, "Водка Казаки");
             Element::setText($this->maket_desc, "Огненная водичка! Можно устроить пожар в заднице гоблиндава , метнув в него бутылку.\n\nУправление бутылкой:\nЛКМ - Метнуть бутылку\nПКМ - Отметнуть к себе");    
-            Element::setText($this->maket_count, "100 RU"); 
+            Element::setText($this->maket_count, "250 RU"); 
             Element::setText($this->maket_weight, "0.5kg");            
         }
         if ($this->inv_maket_select->visible)
         {
             Element::setText($this->maket_label, "Броня Сани");
             Element::setText($this->maket_desc, "100% защита от радиации и едкого пердежа гоблиндава, сделано из плоти кабанов");    
-            Element::setText($this->maket_count, "1000 RU"); 
+            Element::setText($this->maket_count, "1250 RU"); 
             Element::setText($this->maket_weight, "1.0kg");           
         }
     }
@@ -196,28 +198,28 @@ class inventory extends AbstractForm
     {
         if ($this->form('maingame')->health_bar_gg->width == 164)
         {
-            $this->maket_cond->text = "75 %"; 
-            $this->maket_cond->width = 139;            
+            $this->maket_cond->text = "Condition [75 %]"; 
+            $this->maket_cond->width = 344;            
         }
         if ($this->form('maingame')->health_bar_gg->width == 114)
         {
-            $this->maket_cond->text = "55 %";     
-            $this->maket_cond->width = 104;                                           
+            $this->maket_cond->text = "Condition [55 %]";     
+            $this->maket_cond->width = 278;                                           
         }           
         if ($this->form('maingame')->health_bar_gg->width == 24)
         {
-            $this->maket_cond->text = "45 %";   
-            $this->maket_cond->width = 49;                                                    
+            $this->maket_cond->text = "Condition [45 %]";   
+            $this->maket_cond->width = 244;                                                    
         }   
     } 
     function ResetOutfitCondition()
     {
-        $this->maket_cond->text = "100 %";       
-        $this->maket_cond->width = 216;         
+        $this->maket_cond->text = "Condition [100 %]";       
+        $this->maket_cond->width = 488;         
     }
     function SetVodkaCondition()
     {
-        $this->maket_cond->text = "100 %";       
-        $this->maket_cond->width = 216; 
+        $this->maket_cond->text = "Condition [100 %]";       
+        $this->maket_cond->width = 488; 
     }
 }
