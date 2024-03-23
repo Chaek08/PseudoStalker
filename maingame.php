@@ -160,7 +160,11 @@ class maingame extends AbstractForm
             return;
         }        
         //$this->ResetFragmentsVisible();
-        $this->fragment_pda->toggle() == $this->fragment_pda->visible;      
+        $this->fragment_pda->toggle() == $this->fragment_pda->visible;    
+        if ($this->fragment_pda->content->fragment_stat->visible)
+        {
+            if ($this->pda_icon->visible) {$this->pda_icon->hide();}
+        }          
     }
     /**
      * @event keyDown-I 

@@ -113,8 +113,15 @@ class pda_fragment_tasks extends AbstractForm
     { 
         if ($this->form('maingame')->skull_actor->visible || $this->form('maingame')->skull_enemy->visible)
         {
-           $this->form('maingame')->pda_icon->show();
-           $this->form('maingame')->fragment_pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_new_icon.png'));             
+           if ($this->form('maingame')->fragment_pda->content->fragment_stat->visible)
+           {
+               $this->form('maingame')->pda_icon->show();
+           }
+           else
+           {
+               $this->form('maingame')->pda_icon->show();
+               $this->form('maingame')->fragment_pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_new_icon.png'));                
+           }            
         }
         else 
         {
