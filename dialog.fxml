@@ -116,19 +116,19 @@
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-alex_desc_3" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-answer_1_new" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#cccc33" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#999900" id="answer_2_new" layoutX="440" layoutY="824" opacity="0.3476381599259" prefHeight="40" prefWidth="704" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="answer_2_new" layoutX="440" layoutY="824" opacity="0.3476381599259" prefHeight="40" prefWidth="704" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-answer_2_new" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#cccc33" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#999900" id="answer_3_new" layoutX="440" layoutY="824" opacity="0.3476381599259" prefHeight="40" prefWidth="704" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="answer_3_new" layoutX="440" layoutY="824" opacity="0.3476381599259" prefHeight="40" prefWidth="704" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-answer_3_new" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#cccc33" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#999900" id="answer_1_new" layoutX="440" layoutY="824" opacity="0.3476381599259" prefHeight="40" prefWidth="704" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="answer_1_new" layoutX="440" layoutY="824" opacity="0.3476381599259" prefHeight="40" prefWidth="704" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

@@ -22,7 +22,8 @@ class pda_fragment_ranking extends AbstractForm
         $this->attitude->hide(); 
         $this->bio->hide();         
         $this->bio_new->hide(); 
-        $this->user_icon->hide();            
+        $this->user_icon->hide();       
+        $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/no_icon.png');     
     }
     function ShowUserInfo()
     {

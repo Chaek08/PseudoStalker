@@ -6,12 +6,17 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button4" layoutX="24" layoutY="72" opacity="0.95121951219512" prefHeight="800" prefWidth="568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button3" layoutX="600" layoutY="72" prefHeight="800" prefWidth="520" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button3" layoutX="600" layoutY="72" prefHeight="800" prefWidth="520" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#666666" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button15" layoutX="608" layoutY="416" prefHeight="88" prefWidth="504" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button4" layoutX="24" layoutY="72" opacity="0.95121951219512" prefHeight="800" prefWidth="568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -24,7 +29,7 @@
     <Data cursor="DEFAULT" enabled="" id="data-inv_maket_visual" image=".data/ui/maingame/sprite/actor.png" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_label" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_count" visible=""/>
-    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="272" id="inv_maket_select" layoutX="608" layoutY="136" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="504">
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="328" id="inv_maket_select" layoutX="608" layoutY="80" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="504">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -44,7 +49,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-weight_desc" visible="1"/>
-    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="272" id="inv_maket_select_2" layoutX="608" layoutY="136" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="504">
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="328" id="inv_maket_select_2" layoutX="608" layoutY="80" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="504">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -74,20 +79,9 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/inventory/outfit_ic.png" id="data-button7" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#666666" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button8" layoutX="608" layoutY="416" prefHeight="56" prefWidth="504" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="maket_label" layoutX="632" layoutY="424" prefHeight="48" prefWidth="232" styleClass="label " text="maket_label" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="10"/>
-      </font>
-    </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-button8" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="maket_label" layoutX="624" layoutY="416" prefHeight="40" prefWidth="232" styleClass="label " text="maket_label" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
-      <font>
-        <Font name="Arial" size="15"/>
-      </font>
-    </LabelEx>
-    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="maket_count" layoutX="1016" layoutY="416" prefHeight="56" prefWidth="80" styleClass="label " text="---- RU" textAlignment="CENTER" textFill="#ee991a" underline="false" wrapText="false">
-      <font>
-        <Font name="System Bold" size="15"/>
+        <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-button9" visible="1"/>
@@ -103,30 +97,14 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-health_static_gg" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="10" color="#990000" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="health_bar_gg" layoutX="1144" layoutY="816" prefHeight="40" prefWidth="416" styleClass="x-flat-button " text="100%" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <Data cursor="DEFAULT" enabled="1" id="data-health_bar_gg" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-skull_actor" image=".data/ui/maingame/skull_new.png" visible=""/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="maket_weight" layoutX="632" layoutY="456" prefHeight="32" prefWidth="96" styleClass="label " text="maket_weight" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
-    </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-health_bar_gg" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="40" id="skull_actor" layoutX="1328" layoutY="816" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="40">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-skull_actor" image=".data/ui/maingame/skull_new.png" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="maket_weight" layoutX="624" layoutY="440" prefHeight="24" prefWidth="96" styleClass="label " text="maket_weight" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_weight" visible=""/>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#666666" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="maket_cond_static" layoutX="608" layoutY="480" prefHeight="48" prefWidth="504" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-maket_cond_static" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_cond" visible=""/>
     <FlatButton alignment="CENTER" borderRadius="10" clickColor="#cccccc" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#b3b3b3" id="vodka_selected" layoutX="32" layoutY="80" opacity="0.29036739734486" prefHeight="120" prefWidth="64" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
@@ -160,26 +138,60 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <FlatButton alignment="CENTER" borderRadius="10" color="#80b380" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button" layoutX="616" layoutY="488" prefHeight="32" prefWidth="488" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="15"/>
-      </font>
-    </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-button" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="10" color="#669966" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="maket_cond" layoutX="616" layoutY="488" prefHeight="32" prefWidth="488" styleClass="x-flat-button " text="Condition [100 %]" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="15"/>
-      </font>
-    </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#666666" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button9" layoutX="608" layoutY="480" prefHeight="384" prefWidth="504" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#666666" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button9" layoutX="608" layoutY="512" prefHeight="352" prefWidth="504" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="10"/>
       </font>
     </FlatButton>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="maket_desc" layoutX="624" layoutY="552" prefHeight="296" prefWidth="472" styleClass="label " text="maket_desc" textAlignment="LEFT" textFill="#e6e6e6" underline="false" wrapText="true">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="maket_desc" layoutX="624" layoutY="528" prefHeight="320" prefWidth="472" styleClass="label " text="maket_desc" textAlignment="LEFT" textFill="#e6e6e6" underline="false" wrapText="true">
       <font>
         <Font name="Arial" size="15"/>
       </font>
     </LabelEx>
+    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="maket_count" layoutX="888" layoutY="424" prefHeight="48" prefWidth="208" styleClass="label " text="(null) RU" textAlignment="CENTER" textFill="#ee991a" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="20"/>
+      </font>
+    </LabelEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="label4" layoutX="1984" layoutY="256" prefHeight="32" prefWidth="64" styleClass="label " text="состояние" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-label4" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" id="data-button15" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="cond_label" layoutX="808" layoutY="456" opacity="0" prefHeight="32" prefWidth="72" styleClass="label " text="состояние" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-cond_label" visible=""/>
+    <FlatButton alignment="CENTER" borderRadius="10" color="#808080" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="cond_background" layoutX="888" layoutY="464" prefHeight="16" prefWidth="208" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-cond_background" visible=""/>
+    <FlatButton alignment="CENTER" borderRadius="10" color="#669966" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="maket_cond" layoutX="888" layoutY="464" prefHeight="16" prefWidth="208" styleClass="x-flat-button " text="100 %" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <FlatButton alignment="CENTER" borderRadius="10" color="#e6e6e6" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="health_bar_gg_b" layoutX="1144" layoutY="816" prefHeight="40" prefWidth="416" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-health_bar_gg_b" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" color="#990000" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="health_bar_gg" layoutX="1144" layoutY="816" prefHeight="40" prefWidth="416" styleClass="x-flat-button " text="100%" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="40" id="skull_actor" layoutX="1328" layoutY="816" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="40">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
   </children>
 </AnchorPane>

@@ -21,7 +21,7 @@ class maingame extends AbstractForm
         if ($this->debug_build->visible)
         {
             $this->label_version->show();
-            $this->label_version->text = "PseudoStalker, Build 452, Mar 20 2024"; //start date 24.12.2022
+            $this->label_version->text = "PseudoStalker, Build 456, Mar 24 2024"; //start date 24.12.2022
         }
         else
         {
@@ -54,7 +54,8 @@ class maingame extends AbstractForm
     {  
         if ($this->fight_image->visible) {$this->fight_image->hide();} 
         if ($this->leave_btn->visible) {$this->leave_btn->hide();}        
-        if ($this->fragment_win_fail->visible) {$this->fragment_win_fail->hide();}                  
+        if ($this->fragment_win_fail->visible) {$this->fragment_win_fail->hide();}
+        if ($this->blood_ui->visible) {$this->blood_ui->hide();}                          
         
         if ($this->item_vodka_0000->visible) 
         {
@@ -107,10 +108,7 @@ class maingame extends AbstractForm
         }     
         if ($this->fragment_dlg->visible)
         {
-            $this->HideDialog();
-            $this->fragment_dlg->content->StopVoice();   
-            $this->fragment_dlg->content->ClearDialog();
-            $this->fragment_dlg->content->ResetAnswerVisible();                      
+            $this->HideDialog();                     
             return;
         }   
         if ($this->fragment_pda->visible) {$this->HidePda(); return;}        
@@ -161,8 +159,8 @@ class maingame extends AbstractForm
         {
             return;
         }        
-        $this->ResetFragmentsVisible();
-        $this->fragment_pda->show();      
+        //$this->ResetFragmentsVisible();
+        $this->fragment_pda->toggle() == $this->fragment_pda->visible;      
     }
     /**
      * @event keyDown-I 
@@ -191,8 +189,8 @@ class maingame extends AbstractForm
         }                        
               
         if ($this->fragment_opt->content->sound->visible){ Media::open('res://.data/audio/inv_open.mp3', true);} 
-        $this->ResetFragmentsVisible();       
-        $this->fragment_inv->show();   
+        //$this->ResetFragmentsVisible();       
+        $this->fragment_inv->toggle() == $this->fragment_inv->visible;  
     }    
     /**
      * @event keyDown-F4 
@@ -223,7 +221,7 @@ class maingame extends AbstractForm
         {
             return;
         }                                     
-        $this->ResetFragmentsVisible();    
+        //$this->ResetFragmentsVisible();    
         $this->ShowExitDialog();   
     }
     function ShowExitDialog()
@@ -245,7 +243,7 @@ class maingame extends AbstractForm
      */
     function ShowDialog(UXMouseEvent $e = null)
     {          
-        $this->ResetFragmentsVisible();
+        //$this->ResetFragmentsVisible();
         $this->fragment_dlg->show();   
         $this->fragment_dlg->content->StartDialog();          
         $this->fragment_dlg->content->VoiceStart();    
@@ -313,7 +311,14 @@ class maingame extends AbstractForm
     }
     function HideDialog()
     {
-        if ($this->fragment_dlg->visible) {$this->fragment_dlg->hide();}         
+        if ($this->fragment_dlg->visible)
+        {
+            $this->fragment_dlg->hide();
+            $this->fragment_dlg->content->StopVoice();   
+            $this->fragment_dlg->content->ClearDialog();
+            $this->fragment_dlg->content->ResetAnswerVisible(); 
+        } 
+                
     }
     function HideInventory()
     {
@@ -339,12 +344,15 @@ class maingame extends AbstractForm
         $this->health_bar_gg->width = 264;
         $this->health_bar_gg->text = "100%";
         $this->health_bar_gg->show();
+        $this->health_bar_gg_b->show();
         
         $this->fragment_inv->content->health_bar_gg->show();
+        $this->fragment_inv->content->health_bar_gg_b->show();        
         $this->fragment_inv->content->health_bar_gg->width = 416; //100%
         $this->fragment_inv->content->health_bar_gg->text = "100%";               
                 
-        $this->health_bar_enemy->show();                
+        $this->health_bar_enemy->show();     
+        $this->health_bar_enemy_b->show();           
         $this->health_bar_enemy->width = 264;    
         $this->health_bar_enemy->text = "100%"; 
         
@@ -373,6 +381,7 @@ class maingame extends AbstractForm
         {
             $this->skull_enemy->show();
             $this->health_bar_enemy->hide();
+            $this->health_bar_enemy_b->hide();
             $this->leave_btn->show();
             $this->dlg_btn->hide();                       
             if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex'); }   
@@ -419,8 +428,10 @@ class maingame extends AbstractForm
         {
             $this->skull_actor->show();
             $this->health_bar_gg->hide();
+            $this->health_bar_gg_b->hide();
             $this->Bleeding();
             $this->fragment_inv->content->health_bar_gg->hide();
+            $this->fragment_inv->content->health_bar_gg_b->hide();            
             $this->fragment_inv->content->skull_actor->show();
             $this->leave_btn->show();
             $this->dlg_btn->hide();             
