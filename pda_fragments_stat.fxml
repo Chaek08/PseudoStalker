@@ -72,7 +72,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-statistic_num" visible="1"/>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="target_label" layoutX="368" layoutY="64" prefHeight="112" prefWidth="392" styleClass="label " text="События происходят в 2033 году&#10;В это болото меня сюда заслал Kosta Krut. Он смог поразить алекса, но оказалось что поразил он не алекса, а его двойника!!!&#10;Теперь мне нужно устранить настоящего алекса" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="target_label" layoutX="368" layoutY="64" prefHeight="112" prefWidth="392" styleClass="label " text="События происходят в 2033 году&#10;В это болото меня сюда заслал данила!!! Он смог поразить гоблиндава, но оказалось что поразил он не гоблиндава, а его двойника!!!&#10;Теперь мне нужно устранить настоящего гоблиндава" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="14"/>
       </font>
@@ -103,13 +103,13 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/info1.png" id="data-statistic_norm" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="e_fail" layoutX="816" layoutY="8" prefHeight="16" prefWidth="96" styleClass="label " text="Вот я и победил алекса, во время боевого контакта он вколол мне укол, на котором было написано 'Гомосекоптомин'&#10;Теперь, кажись, Kosta Krut со мной будет сражаться... А пока иду в местную больницу, колоть противоядие&#10;Чуствую себя как мусор.." textAlignment="LEFT" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="e_fail" layoutX="816" layoutY="8" prefHeight="16" prefWidth="96" styleClass="label " text="Вот я и победил гоблиндава, во время боевого контакта он вколол мне укол, на котором было написано 'Гомосекоптомин'&#10;Теперь, кажись, данила со мной будет сражаться... А пока иду в местную больницу, колоть противоядие&#10;Чуствую себя как мусор.." textAlignment="LEFT" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="" id="data-e_fail" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="a_fail" layoutX="816" layoutY="32" prefHeight="16" prefWidth="96" styleClass="label " text="Я проиграл... Алекс остался жив.. Теперь возможно он заразит Kosta Kruta!!!" textAlignment="LEFT" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="a_fail" layoutX="816" layoutY="32" prefHeight="16" prefWidth="96" styleClass="label " text="Я проиграл... Гоблиндав остался жив.. Теперь возможно он заразит данилу!!!" textAlignment="LEFT" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

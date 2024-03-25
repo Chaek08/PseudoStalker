@@ -12,4 +12,7 @@
   <target id="exitbtn">
     <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
+  <target id="Win_object">
+    <behaviour color="#333333" offsetX="0" offsetY="0" radius="19.268292682927" spread="0.3780487804878" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
 </behaviours>
