@@ -89,7 +89,7 @@
     <Data cursor="DEFAULT" enabled="1" id="data-rank_desc" visible="1"/>
     <Circle fill="#54bc54" focusTraversable="false" id="online_icon" layoutX="33" layoutY="34" radius="8" strokeType="INSIDE" strokeWidth="2" styleClass=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-online_icon" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="13" color="#999900" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="selected_new" layoutX="16" layoutY="16" opacity="0.3476381599259" prefHeight="112" prefWidth="400" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="13" color="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="selected_new" layoutX="16" layoutY="16" opacity="0.35" prefHeight="112" prefWidth="400" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

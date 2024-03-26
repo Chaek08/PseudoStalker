@@ -61,13 +61,13 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-actor_label_1" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_desc_1" layoutX="456" layoutY="400" prefHeight="21" prefWidth="680" styleClass="label " text="Даю тебе зелье натурала!" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_desc_1" layoutX="456" layoutY="400" prefHeight="21" prefWidth="680" styleClass="label " text="ахуел гей нефар&#10;" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_desc_1" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="answer_desc" layoutX="448" layoutY="832" prefHeight="21" prefWidth="680" styleClass="label " text="Даю тебе зелье натурала!" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="answer_desc" layoutX="448" layoutY="832" prefHeight="21" prefWidth="680" styleClass="label " text="ахуел гей нефар" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -85,7 +85,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-alex_label_2" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_2" layoutX="456" layoutY="480" prefHeight="21" prefWidth="680" styleClass="label " text="Ты ахуел" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_2" layoutX="456" layoutY="480" prefHeight="21" prefWidth="680" styleClass="label " text="Пупсик)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -97,7 +97,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-actor_label_3" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_desc_3" layoutX="456" layoutY="560" prefHeight="21" prefWidth="680" styleClass="label " text="Ахуел твой муж, когда узнал что ты скоро станешь натуралом!!!" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_desc_3" layoutX="456" layoutY="560" prefHeight="21" prefWidth="680" styleClass="label " text="иди нахуй заднипривадный геюган" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -109,7 +109,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-alex_label_3" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_3" layoutX="456" layoutY="640" prefHeight="21" prefWidth="680" styleClass="label " text="Ах ах... ой отвлёкся!! Сейчас я пакажу кто сдесь нотурал а гто муш" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_3" layoutX="456" layoutY="640" prefHeight="21" prefWidth="680" styleClass="label " text="Ах ах... ой отвлёкся!! Сейчас я покажу, кто здесь натурал, а кто муж" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>

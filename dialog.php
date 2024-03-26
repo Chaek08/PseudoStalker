@@ -55,7 +55,7 @@ class dialog extends AbstractForm
      */
     function Talk_1(UXMouseEvent $e = null)
     {    
-        Element::setText($this->answer_desc, "Ахуел твой муж, когда узнал что ты скоро станешь натуралом!!!");
+        Element::setText($this->answer_desc, "иди нахуй заднипривадный геюган");
         $this->StopVoice();
         $this->VoiceTalk_1();    
             
@@ -71,7 +71,7 @@ class dialog extends AbstractForm
      */
     function Talk_2(UXMouseEvent $e = null)
     {
-        Element::setText($this->answer_desc, "Фу изврощенес.. погнали драться!!!");
+        Element::setText($this->answer_desc, "фу изврощенис.. пагнали дратся!!!");
         $this->StopVoice();        
         $this->VoiceTalk_2();
             
@@ -105,7 +105,7 @@ class dialog extends AbstractForm
     function StartDialog()
     {
         $this->answer_1_new->show(); 
-        $this->answer_desc->text = "Даю тебе зелье натурала!";    
+        $this->answer_desc->text = "ахуел гей нефар";    
         $this->ClearDialog();        
     }
     function ClearDialog()

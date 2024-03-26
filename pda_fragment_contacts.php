@@ -16,6 +16,14 @@ class pda_fragment_contacts extends AbstractForm
         $this->bio->show();                     
     }
     /**
+     * @event alex_frame.click-2x 
+     */
+    function RedirectRaiting(UXMouseEvent $e = null)
+    {    
+        $this->form('maingame')->fragment_pda->content->RankingBtn();
+        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->OtherinListBtn();        
+    }    
+    /**
      * @event frame.click-Left 
      */
     function HideCharacter(UXMouseEvent $e = null)

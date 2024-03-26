@@ -123,7 +123,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#b3661a" color="#b3661a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#994d00" id="button_drop" layoutX="112" layoutY="88" prefHeight="24" prefWidth="152" styleClass="x-flat-button " text="выбросить" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#cc8033" color="#cc8033" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#cc8033" id="button_drop" layoutX="112" layoutY="88" prefHeight="24" prefWidth="152" styleClass="x-flat-button " text="выбросить" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

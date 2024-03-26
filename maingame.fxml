@@ -79,7 +79,7 @@
     <SpriteView animationEnabled="false" focusTraversable="false" height="256" id="hitmark" layoutX="672" layoutY="40" styleClass="" width="256"/>
     <Data animated="1" cursor="DEFAULT" enabled="1" id="data-hitmark" sprite="damage_on_actor" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-hitmark_static" image=".data/ui/maingame/hitmark/hitmark.png" visible=""/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="72" id="sound_debug" layoutX="1608" layoutY="-8" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="64">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="32" id="sound_debug" layoutX="1608" layoutY="-8" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="32">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -106,7 +106,7 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label_version" visible=""/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="32" id="debug_build" layoutX="1672" layoutY="-8" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="32">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="32" id="debug_build" layoutX="1640" layoutY="-8" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="32">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

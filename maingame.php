@@ -159,8 +159,8 @@ class maingame extends AbstractForm
         {
             return;
         }        
-        //$this->ResetFragmentsVisible();
-        $this->fragment_pda->toggle() == $this->fragment_pda->visible;    
+        $this->ResetFragmentsVisible();
+        $this->fragment_pda->show();   
         if ($this->fragment_pda->content->fragment_stat->visible)
         {
             if ($this->pda_icon->visible) {$this->pda_icon->hide();}
@@ -193,13 +193,13 @@ class maingame extends AbstractForm
         }                        
               
         if ($this->fragment_opt->content->sound->visible){ Media::open('res://.data/audio/inv_open.mp3', true);} 
-        //$this->ResetFragmentsVisible();       
-        $this->fragment_inv->toggle() == $this->fragment_inv->visible;  
+        $this->ResetFragmentsVisible();       
+        $this->fragment_inv->show();  
     }    
     /**
      * @event keyDown-F4 
      */
-    function ShowExitDialog_KF4(UXKeyEvent $e = null)
+    function ShowExitDialogF4(UXKeyEvent $e = null)
     {          
         if($this->fragment_menu->visible)
         {
@@ -225,13 +225,10 @@ class maingame extends AbstractForm
         {
             return;
         }                                     
-        //$this->ResetFragmentsVisible();    
+        $this->ResetFragmentsVisible();    
         $this->ShowExitDialog();   
     }
-    function ShowExitDialog()
-    {
-        $this->fragment_exit->toggle() == $this->fragment_exit->visible;  
-    }
+    function ShowExitDialog() {$this->fragment_exit->show();}
     function ResetFragmentsVisible()
     {
         if ($this->fragment_menu->visible) {$this->fragment_menu->hide();}
@@ -247,7 +244,6 @@ class maingame extends AbstractForm
      */
     function ShowDialog(UXMouseEvent $e = null)
     {          
-        //$this->ResetFragmentsVisible();
         $this->fragment_dlg->show();   
         $this->fragment_dlg->content->StartDialog();          
         $this->fragment_dlg->content->VoiceStart();    
@@ -317,10 +313,10 @@ class maingame extends AbstractForm
     {
         if ($this->fragment_dlg->visible)
         {
-            $this->fragment_dlg->hide();
             $this->fragment_dlg->content->StopVoice();   
             $this->fragment_dlg->content->ClearDialog();
-            $this->fragment_dlg->content->ResetAnswerVisible(); 
+            $this->fragment_dlg->content->ResetAnswerVisible();
+            $this->fragment_dlg->hide();             
         } 
                 
     }
@@ -330,7 +326,8 @@ class maingame extends AbstractForm
         {
             $this->fragment_inv->content->HideOutfitMaket();
             $this->fragment_inv->content->HideVodkaMaket(); 
-            $this->fragment_inv->content->HideUIText();                   
+            $this->fragment_inv->content->HideUIText(); 
+            $this->fragment_inv->content->HideCombobox();                              
             $this->fragment_inv->hide();                
         }
         
