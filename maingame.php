@@ -100,6 +100,10 @@ class maingame extends AbstractForm
      */
     function EscBtn(UXKeyEvent $e = null)
     {    
+        if ($this->fragment_menu->visible)
+        {
+            return;
+        }    
         if ($this->fragment_inv->visible) 
         {
             $this->HideInventory(); 
@@ -139,6 +143,10 @@ class maingame extends AbstractForm
      */    
     function ShowPda()
     {
+        if ($this->fragment_pda->visible)
+        {
+            return;
+        }    
         if($this->fragment_menu->visible)
         {
             return;
@@ -171,6 +179,10 @@ class maingame extends AbstractForm
      */
     function ShowInventory(UXKeyEvent $e = null)
     {       
+        if ($this->fragment_inv->visible)
+        {
+            return;
+        }
         if($this->fragment_menu->visible)
         {
             return;
@@ -191,16 +203,21 @@ class maingame extends AbstractForm
         {
             return;
         }                        
-              
-        if ($this->fragment_opt->content->sound->visible){ Media::open('res://.data/audio/inv_open.mp3', true);} 
+               
         $this->ResetFragmentsVisible();       
-        $this->fragment_inv->show();  
+        $this->fragment_inv->show(); 
+        if ($this->fragment_opt->content->sound->visible){ Media::open('res://.data/audio/inv_open.mp3', true);}     
+            
     }    
     /**
      * @event keyDown-F4 
      */
     function ShowExitDialogF4(UXKeyEvent $e = null)
     {          
+        if ($this->fragment_exit->visible)
+        {
+            return;
+        }    
         if($this->fragment_menu->visible)
         {
             return;
