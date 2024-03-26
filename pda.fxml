@@ -55,30 +55,10 @@
     <Data cursor="DEFAULT" enabled="1" id="data-contacts_btn" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-ranking_btn" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-stat_btn" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="tasks_label" layoutX="408" layoutY="632" prefHeight="40" prefWidth="59" styleClass="label " text="Задачи" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="14"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/mainbtn_icon.png" id="data-tasks_label" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="contacts_label" layoutX="480" layoutY="632" prefHeight="40" prefWidth="75" styleClass="label " text="Контанты" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="14"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/mainbtn_icon.png" id="data-contacts_label" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="ranks_label" layoutX="568" layoutY="632" prefHeight="40" prefWidth="75" styleClass="label " text="Ранги" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="14"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/mainbtn_icon.png" id="data-ranks_label" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="stat_label" layoutX="632" layoutY="632" prefHeight="40" prefWidth="75" styleClass="label " text="Данные" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="14"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/mainbtn_icon.png" id="data-stat_label" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" graphic=".data/ui/pda/mainbtn_icon.png" id="data-tasks_label" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" graphic=".data/ui/pda/mainbtn_icon.png" id="data-contacts_label" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" graphic=".data/ui/pda/mainbtn_icon.png" id="data-ranks_label" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" graphic=".data/ui/pda/mainbtn_icon.png" id="data-stat_label" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="10" clickColor="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="tasks_btn" layoutX="392" layoutY="632" opacity="0.35365853658537" prefHeight="40" prefWidth="80" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
@@ -99,5 +79,25 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="tasks_label" layoutX="408" layoutY="632" prefHeight="40" prefWidth="59" styleClass="label " text="Задачи" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="14"/>
+      </font>
+    </LabelEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="stat_label" layoutX="632" layoutY="632" prefHeight="40" prefWidth="75" styleClass="label " text="Данные" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="14"/>
+      </font>
+    </LabelEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="ranks_label" layoutX="568" layoutY="632" prefHeight="40" prefWidth="75" styleClass="label " text="Ранги" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="14"/>
+      </font>
+    </LabelEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="contacts_label" layoutX="480" layoutY="632" prefHeight="40" prefWidth="75" styleClass="label " text="Контанты" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="14"/>
+      </font>
+    </LabelEx>
   </children>
 </AnchorPane>

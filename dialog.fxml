@@ -67,12 +67,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_desc_1" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="answer_desc" layoutX="448" layoutY="832" prefHeight="21" prefWidth="680" styleClass="label " text="ахуел гей нефар" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="15"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-answer_desc" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" id="data-answer_desc" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="answer_name" layoutX="448" layoutY="792" prefHeight="26.6015625" prefWidth="124.716796875" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
@@ -85,7 +80,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-alex_label_2" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_2" layoutX="456" layoutY="480" prefHeight="21" prefWidth="680" styleClass="label " text="Пупсик)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_2" layoutX="456" layoutY="480" prefHeight="21" prefWidth="680" styleClass="label " text="В ебло щёлкну - улетишь" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -181,5 +176,10 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-community_enemy" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="answer_desc" layoutX="448" layoutY="832" prefHeight="21" prefWidth="680" styleClass="label " text="ахуел гей нефар" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </LabelEx>
   </children>
 </AnchorPane>

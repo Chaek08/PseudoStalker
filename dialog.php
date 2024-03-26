@@ -11,6 +11,7 @@ class dialog extends AbstractForm
     function ShowDialogWnd(UXWindowEvent $e = null)
     {    
         $this->StartDialog();
+        $this->answer_desc->opacity = 100;
     }
     function StopVoice()
     {

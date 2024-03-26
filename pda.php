@@ -7,6 +7,17 @@ use std, gui, framework, app;
 class pda extends AbstractForm
 {
     /**
+     * @event show 
+     */
+    function doShow(UXWindowEvent $e = null) {$this->SetBtnOpacity();}
+    function SetBtnOpacity()
+    {
+        $this->tasks_label->opacity = 100;
+        $this->contacts_label->opacity = 100;
+        $this->ranks_label->opacity = 100;
+        $this->stat_label->opacity = 100;
+    }
+    /**
      * @event pda_panel.click-Left 
      */
     function PanelPdaClick(UXMouseEvent $e = null)
