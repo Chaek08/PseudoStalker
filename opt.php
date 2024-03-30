@@ -174,11 +174,17 @@ class opt extends AbstractForm
     {   
         $this->sound->hide();
         $this->menusound_off->enabled = false;
-        $this->menusound_on->enabled = false;        
-        Media::stop('menu_sound');
-        Media::stop('main_ambient');
-        Media::stop('fight_sound');
-        Media::stop();
+        $this->menusound_on->enabled = false;    
+            
+        if (Media::isStatus('PLAYING', 'fight_sound')){Media::stop('fight_sound');}
+        if (Media::isStatus('PLAYING', 'main_ambient')){Media::stop('main_ambient');}
+        if (Media::isStatus('PLAYING', 'menu_sound')){Media::stop('menu_sound');}        
+        if (Media::isStatus('PLAYING', 'v_enemy')){Media::stop('v_enemy');}
+        if (Media::isStatus('PLAYING', 'v_actor')){Media::stop('v_actor');}
+        if (Media::isStatus('PLAYING', 'hit_alex')){Media::stop('hit_alex');}
+        if (Media::isStatus('PLAYING', 'hit_alex_damage')){Media::stop('hit_alex_damage');}      
+        if (Media::isStatus('PLAYING', 'hit_actor')){Media::stop('hit_actor');}
+        if (Media::isStatus('PLAYING', 'hit_actor_damage')){Media::stop('hit_actor_damage');}             
     }
     /**
      * @event allsound_on.click-Left 

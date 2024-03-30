@@ -21,7 +21,7 @@ class maingame extends AbstractForm
         if ($this->debug_build->visible)
         {
             $this->label_version->show();
-            $this->label_version->text = "PseudoStalker, Build 456, Mar 24 2024"; //start date 24.12.2022
+            $this->label_version->text = "PseudoStalker, Build 459, Mar 27 2024"; //start date 24.12.2022
         }
         else
         {
@@ -84,15 +84,15 @@ class maingame extends AbstractForm
     function StopAllSounds()
     {
         if ($this->fragment_opt->content->sound->visible)
-        {
-                Media::stop('fight_sound');
-                Media::stop('main_ambient');
-                Media::stop('v_enemy');
-                Media::stop('v_actor');
-                Media::stop('hit_alex');
-                Media::stop('hit_alex_damage');       
-                Media::stop('hit_actor');
-                Media::stop('hit_actor_damage');                                              
+        { 
+            if (Media::isStatus('PLAYING', 'fight_sound')){Media::stop('fight_sound');}
+            if (Media::isStatus('PLAYING', 'main_ambient')){Media::stop('main_ambient');}
+            if (Media::isStatus('PLAYING', 'v_enemy')){Media::stop('v_enemy');}
+            if (Media::isStatus('PLAYING', 'v_actor')){Media::stop('v_actor');}
+            if (Media::isStatus('PLAYING', 'hit_alex')){Media::stop('hit_alex');}
+            if (Media::isStatus('PLAYING', 'hit_alex_damage')){Media::stop('hit_alex_damage');}      
+            if (Media::isStatus('PLAYING', 'hit_actor')){Media::stop('hit_actor');}
+            if (Media::isStatus('PLAYING', 'hit_actor_damage')){Media::stop('hit_actor_damage');}                                                                                                                          
         }        
     }
     /**
@@ -457,7 +457,7 @@ class maingame extends AbstractForm
             {
                 $this->hitmark_static->hide();
             }
-            if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');  }  
+            if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');}  
             $this->ActorFail();          
             return;
         }   
