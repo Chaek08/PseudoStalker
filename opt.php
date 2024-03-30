@@ -63,8 +63,8 @@ class opt extends AbstractForm
         $this->form('maingame')->fragment_pda->content->toolbar_frame_time->dropShadowEffect->disable();
         $this->form('maingame')->fragment_pda->content->fragment_tasks->content->frame_01->dropShadowEffect->disable(); 
         $this->form('maingame')->fragment_pda->content->fragment_tasks->content->frame_detail_02->dropShadowEffect->disable();  
-        $this->form('maingame')->fragment_pda->content->fragment_tasks->content->icon_task->dropShadowEffect->disable();  
-        $this->form('maingame')->fragment_pda->content->fragment_tasks->content->quest_detail_btn->dropShadowEffect->disable();                  
+        //$this->form('maingame')->fragment_pda->content->fragment_tasks->content->icon_task->dropShadowEffect->disable();  
+        //$this->form('maingame')->fragment_pda->content->fragment_tasks->content->quest_detail_btn->dropShadowEffect->disable();                  
         $this->form('maingame')->fragment_pda->content->fragment_contacts->content->frame_01->dropShadowEffect->disable();    
         $this->form('maingame')->fragment_pda->content->fragment_contacts->content->button->dropShadowEffect->disable();    
         $this->form('maingame')->fragment_pda->content->fragment_contacts->content->icon->dropShadowEffect->disable();                                                 
@@ -128,8 +128,8 @@ class opt extends AbstractForm
         $this->form('maingame')->fragment_pda->content->toolbar_frame_time->dropShadowEffect->enable();
         $this->form('maingame')->fragment_pda->content->fragment_tasks->content->frame_01->dropShadowEffect->enable(); 
         $this->form('maingame')->fragment_pda->content->fragment_tasks->content->frame_detail_02->dropShadowEffect->enable();  
-        $this->form('maingame')->fragment_pda->content->fragment_tasks->content->icon_task->dropShadowEffect->enable();  
-        $this->form('maingame')->fragment_pda->content->fragment_tasks->content->quest_detail_btn->dropShadowEffect->enable();                  
+        //$this->form('maingame')->fragment_pda->content->fragment_tasks->content->icon_task->dropShadowEffect->enable();  
+        //$this->form('maingame')->fragment_pda->content->fragment_tasks->content->quest_detail_btn->dropShadowEffect->enable();                  
         $this->form('maingame')->fragment_pda->content->fragment_contacts->content->frame_01->dropShadowEffect->enable();    
         $this->form('maingame')->fragment_pda->content->fragment_contacts->content->button->dropShadowEffect->enable();    
         $this->form('maingame')->fragment_pda->content->fragment_contacts->content->icon->dropShadowEffect->enable();                                                 
