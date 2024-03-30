@@ -104,6 +104,16 @@ class pda_fragment_ranking extends AbstractForm
         $this->ResetBtnColor();
         $this->name_in_raiting->textColor = 'white';                      
     }
+    /**
+     * @event user_icon.click-2x 
+     */
+    function RedirectStats(UXMouseEvent $e = null)
+    {    
+        if ($this->user_actor->visible)
+        {
+            $this->form('maingame')->fragment_pda->content->StatisticBtn();
+        }
+    }
     function ResetRole()
     {
         Element::setText($this->community, '-');
