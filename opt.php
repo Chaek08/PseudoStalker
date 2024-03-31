@@ -184,7 +184,9 @@ class opt extends AbstractForm
         if (Media::isStatus('PLAYING', 'hit_alex')){Media::stop('hit_alex');}
         if (Media::isStatus('PLAYING', 'hit_alex_damage')){Media::stop('hit_alex_damage');}      
         if (Media::isStatus('PLAYING', 'hit_actor')){Media::stop('hit_actor');}
-        if (Media::isStatus('PLAYING', 'hit_actor_damage')){Media::stop('hit_actor_damage');}             
+        if (Media::isStatus('PLAYING', 'hit_actor_damage')){Media::stop('hit_actor_damage');} 
+        if (Media::isStatus('PLAYING', 'die_alex')){Media::stop('die_alex');}
+        if (Media::isStatus('PLAYING', 'die_actor')){Media::stop('die_actor');}                    
     }
     /**
      * @event allsound_on.click-Left 
