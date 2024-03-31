@@ -23,7 +23,15 @@ class fail_wnd extends AbstractForm
         $this->form('maingame')->fragment_win_fail->hide();   
         if ($this->form('maingame')->fragment_opt->content->sound->visible)
         {        
-            Media::play('main_ambient');    
+            Media::play('main_ambient'); 
+            if ($this->form('maingame')->skull_actor->visible)
+            {
+                if (Media::isStatus('PLAYING','v_enemy')) {Media::stop('v_enemy');}
+            }
+            if ($this->form('maingame')->skull_enemy->visible)
+            {
+                if (Media::isStatus('PLAYING','v_actor')) {Media::stop('v_actor');}                
+            }                
         }                 
     }
     function SetActorFail()
