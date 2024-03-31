@@ -24,25 +24,25 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-allsound_label" image=".data/ui/mainmenu/opt/allsound_label.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-allsound_label" image=".data/ui/mainmenu/opt/allsound_label.png" tooltipText="" visible="1"/>
     <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="menusound_label" layoutX="112" layoutY="368" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="257">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-menusound_label" image=".data/ui/mainmenu/opt/menusound_label.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-menusound_label" image=".data/ui/mainmenu/opt/menusound_label.png" tooltipText="" visible="1"/>
     <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="shadows_label" layoutX="112" layoutY="440" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="257">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-shadows_label" image=".data/ui/mainmenu/opt/shadows_label.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-shadows_label" image=".data/ui/mainmenu/opt/shadows_label.png" tooltipText="Отключает/Включает все тени в игре (даже в UI)." visible="1"/>
     <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="version_label" layoutX="112" layoutY="512" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="257">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-version_label" image=".data/ui/mainmenu/opt/version_label.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-version_label" image=".data/ui/mainmenu/opt/version_label.png" tooltipText="Отключает/Включает отображаемую версию игры в левом нижнем углу экрана." visible="1"/>
     <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="allsound_off" layoutX="408" layoutY="296" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="163">
       <font>
         <Font name="System Regular" size="12"/>
@@ -97,5 +97,29 @@
       </font>
     </ImageViewEx>
     <Data clickImage=".data/ui/mainmenu/opt/return_btn_clicked.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/opt/return_btn_cursor.png" id="data-return_btn" image=".data/ui/mainmenu/opt/return_btn.png" visible="1"/>
+    <FlatButton alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tooltip_allsounds" layoutX="104" layoutY="288" opacity="0" prefHeight="80" prefWidth="312" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-tooltip_allsounds" tooltipText="Отключает/Включает весь звук в игре." visible="1"/>
+    <FlatButton alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tooltip_menusound" layoutX="96" layoutY="368" opacity="0" prefHeight="80" prefWidth="312" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-tooltip_menusound" tooltipText="Отключает/Включает только звук в меню." visible="1"/>
+    <FlatButton alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tooltip_shadows" layoutX="96" layoutY="432" opacity="0" prefHeight="80" prefWidth="312" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-tooltip_shadows" tooltipText="Отключает/Включает все тени в игре (даже в UI)." visible="1"/>
+    <FlatButton alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tooltip_version" layoutX="88" layoutY="504" opacity="0" prefHeight="80" prefWidth="312" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-tooltip_version" tooltipText="Отключает/Включает отображаемую версию игры в левом нижнем углу экрана." visible="1"/>
   </children>
 </AnchorPane>

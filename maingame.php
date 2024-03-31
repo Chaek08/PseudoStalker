@@ -21,7 +21,7 @@ class maingame extends AbstractForm
         if ($this->debug_build->visible)
         {
             $this->label_version->show();
-            $this->label_version->text = "PseudoStalker, Build 459, Mar 27 2024"; //start date 24.12.2022
+            $this->label_version->text = "PseudoStalker, Build 463, Mar 31 2024"; //start date 24.12.2022
         }
         else
         {
