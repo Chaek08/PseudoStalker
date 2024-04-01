@@ -107,12 +107,20 @@ class pda_fragment_ranking extends AbstractForm
     /**
      * @event user_icon.click-2x 
      */
-    function RedirectStats(UXMouseEvent $e = null)
+    function Redirect(UXMouseEvent $e = null)
     {    
         if ($this->user_actor->visible)
         {
             $this->form('maingame')->fragment_pda->content->StatisticBtn();
         }
+        if ($this->form('maingame')->fragment_pda->content->fragment_contacts->content->icon->visible)
+        {
+            if ($this->user_goblindav->visible)
+            {
+                $this->form('maingame')->fragment_pda->content->ContactsBtn();
+                $this->form('maingame')->fragment_pda->content->fragment_contacts->content->CharacterClick(); 
+            }                     
+        } 
     }
     function ResetRole()
     {

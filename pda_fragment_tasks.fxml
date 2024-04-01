@@ -44,7 +44,7 @@
     <Data cursor="DEFAULT" enabled="1" id="data-frame_01" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-frame_detail_02" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-frame_hide" visible="1"/>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="task_detail_text" layoutX="384" layoutY="24" prefHeight="448" prefWidth="376" styleClass="label " text="Вчера поздно вечером соседи услышали гачи звуки из квартиры алекса, они заподозрили что алекс не натурал! Бабки - соседки начали стучаться ему в дверь, он открыл и сказал &quot;Welcome to the club, body&quot; Тогда всё сразу стало понятно!!! Так вот.. нам необходимо натурализовать алекса" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="task_detail_text" layoutX="384" layoutY="24" prefHeight="448" prefWidth="376" styleClass="label " text="Вчера поздно вечером соседи услышали гачи звуки из квартиры гоблиндава, они заподозрили что гоблиндав не натурал! Бабки - соседки начали стучаться ему в дверь, он открыл и сказал &quot;Welcome to the club, body&quot; Тогда всё сразу стало понятно!!! Так вот.. нам необходимо натурализовать ебаната!!" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="15"/>
       </font>

@@ -9,6 +9,4 @@
   <target id="frame_detail_02">
     <behaviour color="#000000" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="icon_task"/>
-  <target id="quest_detail_btn"/>
 </behaviours>

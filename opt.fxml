@@ -102,24 +102,24 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-tooltip_allsounds" tooltipText="Отключает/Включает весь звук в игре." visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-tooltip_allsounds" tooltipText="Отключает/Включает весь звук в игре" visible="1"/>
     <FlatButton alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tooltip_menusound" layoutX="96" layoutY="368" opacity="0" prefHeight="80" prefWidth="312" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-tooltip_menusound" tooltipText="Отключает/Включает только звук в меню." visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-tooltip_menusound" tooltipText="Отключает/Включает только звук в меню" visible="1"/>
     <FlatButton alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tooltip_shadows" layoutX="96" layoutY="432" opacity="0" prefHeight="80" prefWidth="312" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-tooltip_shadows" tooltipText="Отключает/Включает все тени в игре (даже в UI)." visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-tooltip_shadows" tooltipText="Отключает/Включает все тени в игре (даже в UI)" visible="1"/>
     <FlatButton alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tooltip_version" layoutX="88" layoutY="504" opacity="0" prefHeight="80" prefWidth="312" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-tooltip_version" tooltipText="Отключает/Включает отображаемую версию игры в левом нижнем углу экрана." visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-tooltip_version" tooltipText="Отключает/Включает отображаемую версию игры в левом нижнем углу экрана" visible="1"/>
   </children>
 </AnchorPane>

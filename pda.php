@@ -29,7 +29,10 @@ class pda extends AbstractForm
      */
     function RankingBtn(UXMouseEvent $e = null)
     { 
-        $this->DefaultState();    
+        if ($this->fragment_ranking->visible) {} else 
+        {
+            $this->DefaultState(); 
+        }    
         $this->fragment_ranking->show();  
         $this->pda_background->hide();                                             
     }
@@ -38,7 +41,10 @@ class pda extends AbstractForm
      */
     function TasksBtn(UXMouseEvent $e = null)
     {  
-        $this->DefaultState();    
+        if ($this->fragment_tasks->visible) {} else 
+        {
+            $this->DefaultState(); 
+        }     
         $this->fragment_tasks->show();
         $this->pda_background->hide();                                                                                             
     }   
@@ -47,7 +53,10 @@ class pda extends AbstractForm
      */
     function ContactsBtn(UXMouseEvent $e = null)
     {   
-        $this->DefaultState();     
+        if ($this->fragment_contacts->visible) {} else 
+        {
+            $this->DefaultState(); 
+        }      
         $this->fragment_contacts->show(); 
         $this->pda_background->hide();                                                                                
     } 
@@ -56,7 +65,10 @@ class pda extends AbstractForm
      */
     function StatisticBtn(UXMouseEvent $e = null)
     {    
-        $this->DefaultState();
+        if ($this->fragment_stat->visible) {} else 
+        {
+            $this->DefaultState(); 
+        } 
         $this->fragment_stat->show(); 
         $this->pda_background->hide();  
         $this->form('maingame')->fragment_pda->content->fragment_tasks->content->Step_DeletePda();                                                                  

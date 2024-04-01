@@ -90,7 +90,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-pda_icon" image=".data/ui/maingame/ui_hud_pda.png" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" id="data-pda_icon" image=".data/ui/maingame/ui_hud_pda.png" tooltipText="Необходимо проверить PDA" visible=""/>
     <Data animated="1" cursor="DEFAULT" enabled="1" id="data-anim_cursor" sprite="game_cursor" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-blood_ui" image=".data/ui/maingame/blood_mini.png" visible=""/>
     <Data content="fail_wnd" cursor="DEFAULT" enabled="1" id="data-fragment_win_fail" visible=""/>
