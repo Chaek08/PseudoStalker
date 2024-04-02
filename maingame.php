@@ -520,7 +520,7 @@ class maingame extends AbstractForm
         {
             $this->blood_ui->image = new UXImage('res://.data/ui/maingame/blood_medium.png');            
         }
-        if ($this->health_bar_gg->width == 24)
+        if ($this->health_bar_gg->width == 34)
         {
             $this->blood_ui->image = new UXImage('res://.data/ui/maingame/blood_ultra.png');            
         }        
