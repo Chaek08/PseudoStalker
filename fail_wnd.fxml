@@ -27,14 +27,14 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Win_fail_desc" image=".data/ui/fail_wnd/win_text_desc.png" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="returnbtn" layoutX="1088" layoutY="824" prefHeight="56" prefWidth="240" styleClass="x-flat-button " text="Вернуться в игру" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="returnbtn" layoutX="1048" layoutY="816" prefHeight="64" prefWidth="248" styleClass="x-flat-button " text="Вернуться в игру" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="15"/>
+        <Font name="System Regular" size="20"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="exitbtn" layoutX="1336" layoutY="824" prefHeight="56" prefWidth="240" styleClass="x-flat-button " text="Выйти в главное меню" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="exitbtn" layoutX="1304" layoutY="816" prefHeight="64" prefWidth="272" styleClass="x-flat-button " text="Выйти в главное меню" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="15"/>
+        <Font name="System Regular" size="20"/>
       </font>
     </FlatButton>
   </children>

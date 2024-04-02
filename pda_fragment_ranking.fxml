@@ -59,7 +59,7 @@
     <Data cursor="DEFAULT" enabled="1" id="data-relationship" visible=""/>
     <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="bio" layoutX="488" layoutY="208" prefHeight="256" prefWidth="272" styleClass="label " text="" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
-        <Font name="System Regular" size="14"/>
+        <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-bio" visible=""/>

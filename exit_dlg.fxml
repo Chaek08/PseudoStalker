@@ -10,18 +10,18 @@
     <Data cursor="DEFAULT" enabled="1" hoverImage=".data/ui/button/button_active_2.png" id="data-btn_yes" image=".data/ui/button/button_noactive_2.png" visible="1"/>
     <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="dialog_text" layoutX="712" layoutY="392" prefHeight="80" prefWidth="312" styleClass="label " text="Действительно ли вы хотите выйти в Windows?&#10;" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="13"/>
+        <Font name="System Regular" size="14"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-dialog_text" visible="1"/>
     <ImageViewEx AnchorPane.bottomAnchor="235" AnchorPane.leftAnchor="792" AnchorPane.rightAnchor="114" AnchorPane.topAnchor="504" autoSize="true" centered="false" focusTraversable="false" height="29" id="btn_yes" layoutX="792" layoutY="504" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" text="Да" textFill="#ffffff" width="118">
       <font>
-        <Font name="System Regular" size="14"/>
+        <Font name="System Regular" size="19"/>
       </font>
     </ImageViewEx>
     <ImageViewEx AnchorPane.bottomAnchor="235" AnchorPane.leftAnchor="912" AnchorPane.rightAnchor="-6" AnchorPane.topAnchor="504" autoSize="true" centered="false" focusTraversable="false" height="29" id="btn_no" layoutX="912" layoutY="504" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" text="Нет" textFill="#ffffff" width="118">
       <font>
-        <Font name="System Regular" size="14"/>
+        <Font name="System Regular" size="19"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" hoverImage=".data/ui/button/button_active_2.png" id="data-btn_no" image=".data/ui/button/button_noactive_2.png" visible="1"/>

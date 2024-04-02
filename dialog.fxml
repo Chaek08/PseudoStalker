@@ -1,185 +1,185 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900" prefWidth="1600" styleClass="">
   <children>
-    <FlatButton alignment="CENTER" borderRadius="30" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="main_frame" layoutX="416" layoutY="16" prefHeight="872" prefWidth="752" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="30" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="main_frame" layoutX="408" layoutY="16" prefHeight="872" prefWidth="784" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="30" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="alex_character" layoutX="824" layoutY="40" prefHeight="208" prefWidth="312" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="30" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="alex_character" layoutX="808" layoutY="40" prefHeight="208" prefWidth="360" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="30" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="actor_character" layoutX="448" layoutY="40" prefHeight="208" prefWidth="360" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="30" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="actor_character" layoutX="432" layoutY="40" prefHeight="208" prefWidth="360" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="160" id="icon_gg" layoutX="472" layoutY="64" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="160">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-icon_gg" image=".data/ui/icon_npc/actor.png" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="160" id="icon_enemy" layoutX="960" layoutY="64" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="160">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-icon_enemy" image=".data/ui/icon_npc/goblindav.png" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="enemy_name" layoutX="840" layoutY="64" prefHeight="30" prefWidth="120" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
-      <font>
-        <Font name="System Bold" size="20"/>
-      </font>
-    </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-enemy_name" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="gg_name" layoutX="648" layoutY="64" prefHeight="30" prefWidth="152" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
-      <font>
-        <Font name="System Bold" size="20"/>
-      </font>
-    </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-gg_name" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-main_frame" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_character" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-alex_character" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_label_1" layoutX="456" layoutY="280" prefHeight="26.6015625" prefWidth="118.14453125" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_label_1" layoutX="448" layoutY="280" prefHeight="33.251953125" prefWidth="142.6806640625" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="20"/>
+        <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-alex_label_1" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_1" layoutX="456" layoutY="320" prefHeight="21" prefWidth="680" styleClass="label " text="Как дела мой сладкий?)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_label_1" layoutX="448" layoutY="368" prefHeight="33.251953125" prefWidth="150.89599609375" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="15"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-alex_desc_1" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_label_1" layoutX="456" layoutY="360" prefHeight="26.6015625" prefWidth="124.716796875" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="20"/>
+        <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-actor_label_1" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_desc_1" layoutX="456" layoutY="400" prefHeight="21" prefWidth="680" styleClass="label " text="ахуел гей нефар&#10;" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_desc_1" layoutX="448" layoutY="408" prefHeight="21" prefWidth="680" styleClass="label " text="ахуел гей нефар&#10;" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="15"/>
+        <Font name="System Regular" size="19"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_desc_1" visible=""/>
     <Data cursor="DEFAULT" enabled="" id="data-answer_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="answer_name" layoutX="448" layoutY="792" prefHeight="26.6015625" prefWidth="124.716796875" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="answer_name" layoutX="448" layoutY="784" prefHeight="33.251953125" prefWidth="150.89599609375" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="20"/>
+        <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-answer_name" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_label_2" layoutX="456" layoutY="440" prefHeight="26.6015625" prefWidth="118.14453125" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_label_2" layoutX="448" layoutY="456" prefHeight="33.251953125" prefWidth="142.6806640625" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="20"/>
+        <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-alex_label_2" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_2" layoutX="456" layoutY="480" prefHeight="21" prefWidth="680" styleClass="label " text="В ебло щёлкну - улетишь" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_2" layoutX="448" layoutY="496" prefHeight="21" prefWidth="680" styleClass="label " text="В ебло щёлкну - улетишь" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="15"/>
+        <Font name="System Regular" size="19"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-alex_desc_2" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_label_3" layoutX="456" layoutY="520" prefHeight="26.6015625" prefWidth="124.716796875" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_label_3" layoutX="448" layoutY="544" prefHeight="33.251953125" prefWidth="150.89599609375" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="20"/>
+        <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-actor_label_3" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_desc_3" layoutX="456" layoutY="560" prefHeight="21" prefWidth="680" styleClass="label " text="иди нахуй заднипривадный геюган" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_desc_3" layoutX="448" layoutY="584" prefHeight="21" prefWidth="680" styleClass="label " text="иди нахуй заднипривадный геюган" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="15"/>
+        <Font name="System Regular" size="19"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_desc_3" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_label_3" layoutX="456" layoutY="600" prefHeight="26.6015625" prefWidth="118.14453125" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_label_3" layoutX="448" layoutY="632" prefHeight="33.251953125" prefWidth="142.6806640625" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="20"/>
+        <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-alex_label_3" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_3" layoutX="456" layoutY="640" prefHeight="21" prefWidth="680" styleClass="label " text="Ах ах... ой отвлёкся!! Сейчас я покажу, кто здесь натурал, а кто муж" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_3" layoutX="448" layoutY="672" prefHeight="21" prefWidth="680" styleClass="label " text="Ах ах... ой отвлёкся!! Сейчас я покажу, кто здесь натурал, а кто муж" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="15"/>
+        <Font name="System Regular" size="19"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-alex_desc_3" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-answer_1_new" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="answer_2_new" layoutX="440" layoutY="824" opacity="0.3476381599259" prefHeight="40" prefWidth="704" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="answer_2_new" layoutX="432" layoutY="816" opacity="0.3476381599259" prefHeight="48" prefWidth="736" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-answer_2_new" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="answer_3_new" layoutX="440" layoutY="824" opacity="0.3476381599259" prefHeight="40" prefWidth="704" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="answer_3_new" layoutX="432" layoutY="816" opacity="0.3476381599259" prefHeight="48" prefWidth="736" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-answer_3_new" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="answer_1_new" layoutX="440" layoutY="824" opacity="0.3476381599259" prefHeight="40" prefWidth="704" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="answer_1_new" layoutX="432" layoutY="816" opacity="0.3476381599259" prefHeight="48" prefWidth="736" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_desc" layoutX="648" layoutY="96" prefHeight="19.951171875" prefWidth="30.849609375" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-rank_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="648" layoutY="112" prefHeight="19.951171875" prefWidth="51.15966796875" styleClass="label " text="мастер" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Bold" size="15"/>
-      </font>
-    </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-rank" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_desc" layoutX="648" layoutY="136" prefHeight="17" prefWidth="48" styleClass="label " text="группа" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-community_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_actor" layoutX="648" layoutY="152" prefHeight="19.951171875" prefWidth="108.359375" styleClass="label " text="Danila Emoji" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
-      <font>
-        <Font name="System Bold" size="15"/>
-      </font>
-    </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-community_actor" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="840" layoutY="96" prefHeight="19.951171875" prefWidth="30.849609375" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="832" layoutY="104" prefHeight="23.94140625" prefWidth="37.01953125" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="12"/>
+        <Font name="System Regular" size="18"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="labelAlt" layoutX="840" layoutY="112" prefHeight="19.951171875" prefWidth="63.017578125" styleClass="label " text="новичок" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="labelAlt" layoutX="832" layoutY="128" prefHeight="22.611328125" prefWidth="71.419921875" styleClass="label " text="новичок" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Bold" size="15"/>
+        <Font name="System Bold" size="17"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-labelAlt" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label3" layoutX="840" layoutY="136" prefHeight="17" prefWidth="48" styleClass="label " text="группа" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label3" layoutX="832" layoutY="160" prefHeight="23.94140625" prefWidth="56.1181640625" styleClass="label " text="группа" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="12"/>
+        <Font name="System Regular" size="18"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label3" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_enemy" layoutX="840" layoutY="152" prefHeight="19.951171875" prefWidth="108.359375" styleClass="label " text="Пидорасы" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_enemy" layoutX="832" layoutY="184" prefHeight="19.951171875" prefWidth="108.359375" styleClass="label " text="Пидорасы" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
       <font>
-        <Font name="System Bold" size="15"/>
+        <Font name="System Bold" size="17"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-community_enemy" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="answer_desc" layoutX="448" layoutY="832" prefHeight="21" prefWidth="680" styleClass="label " text="ахуел гей нефар" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="answer_desc" layoutX="448" layoutY="824" prefHeight="28" prefWidth="688" styleClass="label " text="ахуел гей нефар" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="15"/>
+        <Font name="System Regular" size="19"/>
       </font>
     </LabelEx>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="160" id="icon_gg" layoutX="456" layoutY="64" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="160">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="gg_name" layoutX="632" layoutY="64" prefHeight="30" prefWidth="152" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="25"/>
+      </font>
+    </LabelEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_desc" layoutX="632" layoutY="104" prefHeight="23.94140625" prefWidth="37.01953125" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="18"/>
+      </font>
+    </LabelEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="632" layoutY="128" prefHeight="22.611328125" prefWidth="57.98095703125" styleClass="label " text="мастер" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="17"/>
+      </font>
+    </LabelEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_desc" layoutX="632" layoutY="160" prefHeight="23.94140625" prefWidth="56.1181640625" styleClass="label " text="группа" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="18"/>
+      </font>
+    </LabelEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_actor" layoutX="632" layoutY="184" prefHeight="22.611328125" prefWidth="120.140625" styleClass="label " text="Danila Emoji" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="17"/>
+      </font>
+    </LabelEx>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="160" id="icon_enemy" layoutX="984" layoutY="64" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="160">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="enemy_name" layoutX="832" layoutY="64" prefHeight="36" prefWidth="144" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="25"/>
+      </font>
+    </LabelEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_1" layoutX="448" layoutY="320" prefHeight="21" prefWidth="680" styleClass="label " text="Как дела, мой сладкий?)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="19"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-alex_desc_1" visible="1"/>
   </children>
 </AnchorPane>

@@ -26,7 +26,7 @@ class maingame extends AbstractForm
         else
         {
             $this->fragment_menu->content->label_version->show();
-            $this->fragment_menu->content->label_version->text = "PseudoStalker\nUnknown Version";
+            $this->fragment_menu->content->label_version->text = "PseudoStalker\nRTM";
         }        
     }
     function OpenMainAmbient()
@@ -388,7 +388,7 @@ class maingame extends AbstractForm
     }    
     function DamageEnemy()
     { 
-        if ($this->health_bar_enemy->width != 24)
+        if ($this->health_bar_enemy->width != 34)
         {
             $this->health_bar_enemy->width -= 50;        
             if ($this->fragment_opt->content->sound->visible)
@@ -427,12 +427,12 @@ class maingame extends AbstractForm
         if ($this->health_bar_enemy->width == 14)
         {
             $this->health_bar_enemy->text = "1%";
-            $this->health_bar_enemy->width += 10;
+            $this->health_bar_enemy->width += 20;
         }                    
     }
     function DamageActor()
     { 
-        if ($this->health_bar_gg->width != 24)
+        if ($this->health_bar_gg->width != 34)
         {
             $this->health_bar_gg->width -= 50;  
             Animation::fadeIn($this->hitmark_static, 250);  
@@ -494,9 +494,9 @@ class maingame extends AbstractForm
         if ($this->health_bar_gg->width == 14)
         {
             $this->health_bar_gg->text = "1%";
-            $this->fragment_inv->content->health_bar_gg->width -= 50;            
+            $this->fragment_inv->content->health_bar_gg->width -= 40;            
             $this->fragment_inv->content->health_bar_gg->text = "1%"; 
-            $this->health_bar_gg->width += 10;
+            $this->health_bar_gg->width += 20;
             $this->Bleeding();   
             $this->fragment_inv->content->SetOutfitCondition();                           
         }                     
