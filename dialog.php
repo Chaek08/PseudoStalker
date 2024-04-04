@@ -92,7 +92,7 @@ class dialog extends AbstractForm
         $this->VoiceTalk_3();         
         if ($this->form('maingame')->fragment_opt->content->sound->visible)
         {
-            Media::open('res://.data/audio/fight/new_track.mp3', true, "fight_sound");
+            Media::open('res://.data/audio/fight/fight_sound.mp3', true, "fight_sound");
             Media::pause('main_ambient');
         }    
         $this->form('maingame')->idle_static_actor->hide();

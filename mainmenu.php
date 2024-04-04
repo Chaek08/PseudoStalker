@@ -18,8 +18,10 @@ class mainmenu extends AbstractForm
     {
         if ($this->form('maingame')->fragment_opt->content->sound->visible)
         {
-            Media::play("menu_sound");
-           
+            if ($this->form('maingame')->fragment_opt->content->mutesound->visible) {} else
+            {
+                Media::play("menu_sound");
+            }
         }            
     }
     function BtnCGameState()

@@ -21,19 +21,19 @@ class maingame extends AbstractForm
         if ($this->debug_build->visible)
         {
             $this->label_version->show();
-            $this->label_version->text = "PseudoStalker, Build 463, Mar 31 2024"; //start date 24.12.2022
+            $this->label_version->text = "PseudoStalker, Build 465, Apr 2 2024"; //start date 24.12.2022
         }
         else
         {
             $this->fragment_menu->content->label_version->show();
-            $this->fragment_menu->content->label_version->text = "PseudoStalker\nRTM";
+            $this->fragment_menu->content->label_version->text = "PseudoStalker\nRTM\nBuild 465, Apr 2 2024";
         }        
     }
     function OpenMainAmbient()
     {
         if ($this->fragment_opt->content->sound->visible)
         {
-             Media::open('res://.data/audio/game/krip.mp3', false, 'main_ambient');
+             Media::open('res://.data/audio/game/krip1.mp3', false, 'main_ambient');
         }        
     }
     function PlayMainAmbient()
@@ -117,6 +117,7 @@ class maingame extends AbstractForm
             $this->HideDialog();                     
             return;
         }   
+        if (Media::isStatus('PLAYING', 'voice_talk3')) {Media::stop('voice_talk3');}
         if ($this->fragment_pda->visible) {$this->HidePda(); return;}        
         if ($this->fragment_exit->visible) {$this->HideExitDialog(); return;}    
         if ($this->fragment_opt->visible) {return;}    
