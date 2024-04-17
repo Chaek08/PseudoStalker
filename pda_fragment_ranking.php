@@ -49,8 +49,7 @@ class pda_fragment_ranking extends AbstractForm
     {
         $this->actor_in_raiting->textColor = '#999999';
         $this->goblin_in_raiting->textColor = '#999999';   
-        $this->valerok_in_raiting->textColor = '#999999';   
-        $this->name_in_raiting->textColor = '#999999';                  
+        $this->valerok_in_raiting->textColor = '#999999';                    
     }
     /**
      * @event actor_in_raiting.click-Left 
@@ -90,19 +89,6 @@ class pda_fragment_ranking extends AbstractForm
         
         $this->ResetBtnColor();
         $this->goblin_in_raiting->textColor = 'white';                      
-    }
-    /**
-     * @event name_in_raiting.click-Left 
-     */
-    function NameInListBtn(UXMouseEvent $e = null)
-    {
-        $this->ResetUserInfo();
-        $this->ShowUserInfo();
-        $this->user_name->show();
-        $this->SetUserInfo();  
-        
-        $this->ResetBtnColor();
-        $this->name_in_raiting->textColor = 'white';                      
     }
     /**
      * @event user_icon.click-2x 
@@ -183,16 +169,6 @@ class pda_fragment_ranking extends AbstractForm
             Element::setText($this->bio, 'Самый опасный на районе, попустит абсолютно любого, и неважно, админ он, или нет...');            
             $this->attitude->hide();
             $this->relationship->hide();              
-        }
-        if ($this->user_name->visible)
-        {
-            $this->ResetRole();        
-            $this->EblanRole();
-            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/eblan.png');              
-            Element::setText($this->rank, 'опытный');
-            Element::setText($this->bio, 'Вредитель на сталкерских Дискорд серверах, не опасен. Получил свое звание из-за гадств и забанен на многих серверах.');    
-            Element::setText($this->relationship, 'враг');  
-            $this->relationship->textColor = ('#cc3333');                       
-        }        
+        }       
     }
 }

@@ -86,12 +86,6 @@
     <Separator focusTraversable="false" id="separator" layoutX="488" layoutY="160" orientation="HORIZONTAL" prefHeight="8" prefWidth="272" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-frame_hide" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="name_in_raiting" layoutX="32" layoutY="128" prefHeight="32" prefWidth="408" styleClass="label " text="4.                   Рейн                                                            150" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
-      <font>
-        <Font name="System Bold" size="15"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-name_in_raiting" visible="1"/>
     <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="bio_new" layoutX="480" layoutY="160" prefHeight="40" prefWidth="288" styleClass="x-flat-button " text="Биография" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>

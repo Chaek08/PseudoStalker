@@ -23,18 +23,18 @@
     <Data cursor="DEFAULT" enabled="1" id="data-main_frame" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_character" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-alex_character" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_label_1" layoutX="448" layoutY="280" prefHeight="33.251953125" prefWidth="142.6806640625" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_label_1" layoutX="448" layoutY="280" prefHeight="33.251953125" prefWidth="150.6806640625" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-alex_label_1" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_label_1" layoutX="448" layoutY="368" prefHeight="33.251953125" prefWidth="150.89599609375" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/dialog_wnd/pidoras_roleicon.png" id="data-alex_label_1" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_label_1" layoutX="448" layoutY="368" prefHeight="33.251953125" prefWidth="158.89599609375" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-actor_label_1" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/dialog_wnd/danila_emoji_roleicon.png" id="data-actor_label_1" visible=""/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_desc_1" layoutX="448" layoutY="408" prefHeight="21" prefWidth="680" styleClass="label " text="ахуел гей нефар&#10;" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="19"/>
@@ -42,42 +42,42 @@
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_desc_1" visible=""/>
     <Data cursor="DEFAULT" enabled="" id="data-answer_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="answer_name" layoutX="448" layoutY="784" prefHeight="33.251953125" prefWidth="150.89599609375" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="answer_name" layoutX="448" layoutY="784" prefHeight="33.251953125" prefWidth="158.89599609375" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-answer_name" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_label_2" layoutX="448" layoutY="456" prefHeight="33.251953125" prefWidth="142.6806640625" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/dialog_wnd/danila_emoji_roleicon.png" id="data-answer_name" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_label_2" layoutX="448" layoutY="456" prefHeight="33.251953125" prefWidth="150.6806640625" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-alex_label_2" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/dialog_wnd/pidoras_roleicon.png" id="data-alex_label_2" visible=""/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_2" layoutX="448" layoutY="496" prefHeight="21" prefWidth="680" styleClass="label " text="В ебло щёлкну - улетишь" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="19"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-alex_desc_2" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_label_3" layoutX="448" layoutY="544" prefHeight="33.251953125" prefWidth="150.89599609375" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_label_3" layoutX="448" layoutY="544" prefHeight="33.251953125" prefWidth="158.89599609375" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-actor_label_3" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/dialog_wnd/danila_emoji_roleicon.png" id="data-actor_label_3" visible=""/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_desc_3" layoutX="448" layoutY="584" prefHeight="21" prefWidth="680" styleClass="label " text="иди нахуй заднипривадный геюган" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="19"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_desc_3" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_label_3" layoutX="448" layoutY="632" prefHeight="33.251953125" prefWidth="142.6806640625" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_label_3" layoutX="448" layoutY="632" prefHeight="33.251953125" prefWidth="150.6806640625" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-alex_label_3" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/dialog_wnd/pidoras_roleicon.png" id="data-alex_label_3" visible=""/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_3" layoutX="448" layoutY="672" prefHeight="21" prefWidth="680" styleClass="label " text="Ах ах... ой отвлёкся!! Сейчас я покажу, кто здесь натурал, а кто муж" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="19"/>

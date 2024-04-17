@@ -60,13 +60,13 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-reputation" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic" layoutX="24" layoutY="248" prefHeight="104" prefWidth="168" styleClass="label " text="Униженных хейтеров&#10;Убитых подсосов огср&#10;Выполненные квесты &#10;&#10;Всего" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic" layoutX="24" layoutY="248" prefHeight="168" prefWidth="216" styleClass="label " text="Униженных хейтеров&#10;Убитых подсосов OGSR&#10;Выполненные квесты &#10;&#10;Всего" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="14"/>
+        <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-statistic" visible="1"/>
-    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic_num" layoutX="280" layoutY="248" prefHeight="104" prefWidth="48" styleClass="label " text="9700&#10;999&#10;0&#10;&#10;10699" textAlignment="RIGHT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="TOP_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic_num" layoutX="200" layoutY="248" prefHeight="152" prefWidth="128" styleClass="label " text="9700&#10;999&#10;0&#10;&#10;10699" textAlignment="RIGHT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
