@@ -16,9 +16,9 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="task_label" layoutX="120" layoutY="24" prefHeight="21" prefWidth="184" styleClass="label " text="Поразить пiдораса" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="task_label" layoutX="120" layoutY="24" prefHeight="21.28125" prefWidth="138.078125" styleClass="label " text="Поразить пiдораса" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="15"/>
+        <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-task_label" visible="1"/>
@@ -28,9 +28,9 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-icon_task" image=".data/ui/pda/icon_Task.png" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="time_quest_date" layoutX="120" layoutY="48" prefHeight="17.291015625" prefWidth="66.193359375" styleClass="label " text="04/01/2023" textAlignment="LEFT" textFill="#99b3ff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="time_quest_date" layoutX="120" layoutY="48" prefHeight="20" prefWidth="80" styleClass="label " text="04/01/2023" textAlignment="LEFT" textFill="#8099ff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="13"/>
+        <Font name="System Regular" size="14"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-time_quest_date" visible="1"/>
@@ -81,9 +81,9 @@
     <Data cursor="DEFAULT" enabled="1" id="data-failed_task" tooltipText="Показать проваленные задания" visible="1"/>
     <Separator focusTraversable="false" id="separator" layoutX="24" layoutY="416" opacity="0.23170731707317" orientation="HORIZONTAL" prefHeight="8" prefWidth="320" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="time_quest_hm" layoutX="192" layoutY="48" prefHeight="17.291015625" prefWidth="30.849609375" styleClass="label " text="00:16" textAlignment="LEFT" textFill="#99b3ff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="time_quest_hm" layoutX="200" layoutY="48" prefHeight="20" prefWidth="48" styleClass="label " text="00:16" textAlignment="LEFT" textFill="#8099ff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="13"/>
+        <Font name="System Regular" size="14"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-time_quest_hm" visible="1"/>

@@ -111,15 +111,6 @@ class pda_fragment_tasks extends AbstractForm
             $this->DeleteTask();
         }        
     }
-
-    /**
-     * @event temp_time_hm.mouseEnter 
-     */
-    function doTemp_time_hmMouseEnter(UXMouseEvent $e = null)
-    {    
-        
-    }
-
     function ResetBtnColor()
     {
         $this->active_task->textColor = "white";
@@ -131,7 +122,8 @@ class pda_fragment_tasks extends AbstractForm
         $this->task_label->show();
         $this->icon_task->show();
         $this->quest_detail_btn->show();
-        $this->time_quest->show();
+        $this->time_quest_hm->show();
+        $this->time_quest_date->show();        
         $this->step1->show();
         $this->step2->show();
     }
@@ -203,7 +195,8 @@ class pda_fragment_tasks extends AbstractForm
         $this->quest_detail_btn->image = new UXImage('res://.data/ui/pda/task_detail_off.png');
         $this->quest_detail_btn->hoverImage = new UXImage('res://.data/ui/pda/task_detail_on.png'); 
         $this->quest_detail_btn->clickImage = new UXImage('res://.data/ui/pda/task_detail_on.png');        
-        $this->time_quest->hide();
+        $this->time_quest_hm->hide();
+        $this->time_quest_date->hide(); 
         $this->step1->hide();
         $this->step2->hide();                     
     }
