@@ -9,10 +9,7 @@ class opt extends AbstractForm
     /**
      * @event show 
      */
-    function InitOptions(UXWindowEvent $e = null)
-    {    
-        $this->background->image = $this->form('mainmenu')->background->image;
-    }
+    function InitOptions(UXWindowEvent $e = null) {}
     /**
      * @event return_btn.click-Left
      */

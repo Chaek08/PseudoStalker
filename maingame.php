@@ -469,6 +469,7 @@ class maingame extends AbstractForm
             $this->health_bar_gg->text = "75%";
             $this->fragment_inv->content->health_bar_gg->width -= 100;           
             $this->fragment_inv->content->health_bar_gg->text = "75%";
+            $this->Bleeding(); 
         }
         if ($this->health_bar_gg->width == 164)
         {
@@ -481,16 +482,15 @@ class maingame extends AbstractForm
         {
             $this->health_bar_gg->text = "50%";
             $this->fragment_inv->content->health_bar_gg->width -= 40;            
-            $this->fragment_inv->content->health_bar_gg->text = "50%"; 
-            $this->Bleeding();               
-            $this->fragment_inv->content->SetOutfitCondition();                      
+            $this->fragment_inv->content->health_bar_gg->text = "50%";               
+            $this->fragment_inv->content->SetOutfitCondition();   
+            $this->Bleeding();                   
         }  
         if ($this->health_bar_gg->width == 64)
         {
             $this->health_bar_gg->text = "33%";
             $this->fragment_inv->content->health_bar_gg->width -= 150;            
-            $this->fragment_inv->content->health_bar_gg->text = "33%";   
-            $this->Bleeding();                       
+            $this->fragment_inv->content->health_bar_gg->text = "33%";                          
         }    
         if ($this->health_bar_gg->width == 14)
         {
@@ -512,12 +512,12 @@ class maingame extends AbstractForm
         {
             $this->blood_ui->show();
         }
-
-        if ($this->health_bar_gg->width == 114)
+        
+        if ($this->health_bar_gg->width == 214)
         {
             $this->blood_ui->image = new UXImage('res://.data/ui/maingame/blood_mini.png');
         }
-        if ($this->health_bar_gg->width == 64)
+        if ($this->health_bar_gg->width == 114)
         {
             $this->blood_ui->image = new UXImage('res://.data/ui/maingame/blood_medium.png');            
         }
@@ -537,8 +537,9 @@ class maingame extends AbstractForm
         $this->item_vodka_0000->enabled = false; 
         $this->fragment_pda->content->fragment_tasks->content->Step2_Failed(); 
         $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();                
-        $this->actor->opacity = 0;    
-        $this->StopAllSounds();           
+        $this->actor->opacity = 0; 
+           
+        $this->StopAllSounds();  
         if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');}                            
     }
     function EnemyFail()
@@ -555,7 +556,8 @@ class maingame extends AbstractForm
         $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();   
         $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();             
         $this->enemy->opacity = 0;
-        $this->StopAllSounds();     
+        
+        $this->StopAllSounds();  
         if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor'); }                                               
     }
     function BugDetectSystem()

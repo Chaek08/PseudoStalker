@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <behaviours>
-  <target id="time_quest">
-    <behaviour format="dd.MM.YYYY" type="behaviour\custom\WatchMakerBehaviour"/>
-  </target>
   <target id="frame_01">
     <behaviour color="#000000" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
   <target id="frame_detail_02">
     <behaviour color="#000000" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="time_quest_date">
+    <behaviour enabled="" format="dd.MM.YYYY" type="behaviour\custom\WatchMakerBehaviour"/>
+  </target>
+  <target id="temp_time_hm">
+    <behaviour format="dd.MM.YY" type="behaviour\custom\WatchMakerBehaviour"/>
+  </target>
+  <target id="temp_time_date">
+    <behaviour format="dd.MM.YYYY" type="behaviour\custom\WatchMakerBehaviour"/>
+  </target>
+  <target id="time_quest_hm">
+    <behaviour enabled="" format="HH:mm" type="behaviour\custom\WatchMakerBehaviour"/>
   </target>
 </behaviours>

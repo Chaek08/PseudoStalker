@@ -7,6 +7,23 @@ use std, gui, framework, app;
 class pda_fragment_tasks extends AbstractForm
 {
     /**
+     * @event show 
+     */
+    function InitTasks(UXWindowEvent $e = null) {$this->GetQuestTime();}
+    
+    function GetQuestTime()
+    {
+        $this->time_quest_hm->watchMaker->enable();
+        $this->temp_time_hm->text = $this->time_quest_hm->text;
+        $this->time_quest_hm->watchMaker->disable();
+        $this->time_quest_hm->text = $this->temp_time_hm->text; 
+        
+        $this->time_quest_date->watchMaker->enable();
+        $this->temp_time_date->text = $this->time_quest_date->text;
+        $this->time_quest_date->watchMaker->disable();
+        $this->time_quest_date->text = $this->temp_time_date->text;
+    }
+    /**
     * @event quest_detail_btn.click-Left 
      */
     function DetailTask(UXMouseEvent $e = null)
@@ -94,6 +111,15 @@ class pda_fragment_tasks extends AbstractForm
             $this->DeleteTask();
         }        
     }
+
+    /**
+     * @event temp_time_hm.mouseEnter 
+     */
+    function doTemp_time_hmMouseEnter(UXMouseEvent $e = null)
+    {    
+        
+    }
+
     function ResetBtnColor()
     {
         $this->active_task->textColor = "white";
