@@ -69,7 +69,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-goblin_in_raiting" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="actor_in_raiting" layoutX="32" layoutY="56" prefHeight="32" prefWidth="408" styleClass="label " text="1.                   Саня Кабан                                             10699" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="actor_in_raiting" layoutX="32" layoutY="56" prefHeight="32" prefWidth="408" styleClass="label " text="1.                   Саня Зверь                                             10699" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>

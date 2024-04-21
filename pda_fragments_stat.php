@@ -28,11 +28,11 @@ class pda_fragments_stat extends AbstractForm
         if ($this->form('maingame')->skull_enemy->visible)
         {
             $this->statistic_num->text = "10021\n1000\n1\n\n11022";  
-            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting->text = "1.                   Саня Кабан                                             11022";                           
+            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting->text = "1.                   Саня Зверь                                             11022";                           
         }     
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting->text = "1.                   Саня Кабан                                             10699"; 
+            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting->text = "1.                   Саня Зверь                                             10699"; 
             $this->InitRaiting();           
         }  
     }

@@ -12,7 +12,7 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-frame_01" visible="1"/>
-    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tab_button" layoutX="16" layoutY="16" prefHeight="32" prefWidth="320" styleClass="x-flat-button " text="Саня Кабан" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tab_button" layoutX="16" layoutY="16" prefHeight="32" prefWidth="320" styleClass="x-flat-button " text="Саня Зверь" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>

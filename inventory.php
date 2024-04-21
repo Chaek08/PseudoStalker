@@ -63,7 +63,7 @@ class inventory extends AbstractForm
         }
         if ($this->inv_maket_select->visible)
         {
-            Element::setText($this->maket_label, "Броня Сани Кабана");
+            Element::setText($this->maket_label, "Броня Сани Зверя");
             Element::setText($this->maket_desc, "100% защита от радиации и едкого пердежа гоблиндава, сделано из плоти кабанов");    
             Element::setText($this->maket_count, "1337 RU"); 
             Element::setText($this->maket_weight, "1.00kg");           
