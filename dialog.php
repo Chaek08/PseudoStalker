@@ -23,6 +23,13 @@ class dialog extends AbstractForm
             if (Media::isStatus('PLAYING', 'voice_talk3')) {Media::stop('voice_talk3');}             
         }          
     }
+    function ForcedStopVoice()
+    {
+        Media::stop('voice_start');
+        Media::stop('voice_talk1');
+        Media::stop('voice_talk2');
+        Media::stop('voice_talk3');                        
+    }
     function VoiceStart()
     {
         if ($this->form('maingame')->fragment_opt->content->sound->visible)
@@ -88,7 +95,7 @@ class dialog extends AbstractForm
      */
     function Talk_3(UXMouseEvent $e = null)
     {       
-        $this->StopVoice();    
+        $this->form('maingame')->HideDialog();    
         $this->VoiceTalk_3();         
         if ($this->form('maingame')->fragment_opt->content->sound->visible)
         {
@@ -98,15 +105,13 @@ class dialog extends AbstractForm
         $this->form('maingame')->idle_static_actor->hide();
         $this->form('maingame')->idle_static_enemy->hide(); 
         $this->form('maingame')->fight_image->show();               
-        $this->form('maingame')->dlg_btn->hide();
-        $this->form('maingame')->HideDialog();    
-        $this->form('maingame')->fragment_pda->content->fragment_tasks->content->Step1_Complete();             
-        $this->ResetAnswerVisible();           
+        $this->form('maingame')->dlg_btn->hide();    
+        $this->form('maingame')->fragment_pda->content->fragment_tasks->content->Step1_Complete();                       
     }
     function StartDialog()
     {
         $this->answer_1_new->show(); 
-        $this->answer_desc->text = "ахуел гей нефар";    
+        $this->answer_desc->text = "ахуел гей нефар";   
         $this->ClearDialog();        
     }
     function ClearDialog()

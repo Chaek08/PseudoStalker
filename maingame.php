@@ -109,12 +109,11 @@ class maingame extends AbstractForm
         if ($this->fragment_inv->visible) 
         {
             $this->HideInventory(); 
-            if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/inv_close.mp3', true);}
             return;
         }     
         if ($this->fragment_dlg->visible)
         {
-            $this->HideDialog();                     
+            $this->HideDialog();                      
             return;
         }   
         if (Media::isStatus('PLAYING', 'voice_talk3')) {Media::stop('voice_talk3');}
@@ -332,11 +331,11 @@ class maingame extends AbstractForm
     function HideDialog()
     {
         if ($this->fragment_dlg->visible)
-        {
-            $this->fragment_dlg->content->StopVoice();   
+        {  
             $this->fragment_dlg->content->ClearDialog();
             $this->fragment_dlg->content->ResetAnswerVisible();
-            $this->fragment_dlg->hide();             
+            $this->fragment_dlg->content->ForcedStopVoice();      
+            $this->fragment_dlg->hide();                           
         } 
                 
     }
@@ -348,7 +347,8 @@ class maingame extends AbstractForm
             $this->fragment_inv->content->HideVodkaMaket(); 
             $this->fragment_inv->content->HideUIText(); 
             $this->fragment_inv->content->HideCombobox();                              
-            $this->fragment_inv->hide();                
+            $this->fragment_inv->hide();     
+            if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/inv_close.mp3', true);}           
         }
         
     }
