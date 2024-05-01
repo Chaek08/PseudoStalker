@@ -8,7 +8,7 @@
     </ImageViewEx>
     <LabelEx alignment="BOTTOM_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label_version" layoutX="8" layoutY="800" prefHeight="96" prefWidth="360" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="19"/>
+        <Font name="System Regular" size="17"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label_version" visible=""/>

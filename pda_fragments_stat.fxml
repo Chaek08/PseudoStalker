@@ -12,9 +12,9 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-frame_01" visible="1"/>
-    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tab_button" layoutX="16" layoutY="16" prefHeight="32" prefWidth="320" styleClass="x-flat-button " text="Саня Зверь" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tab_button" layoutX="16" layoutY="16" prefHeight="32" prefWidth="320" styleClass="x-flat-button " text="Саня Бетон" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Bold" size="15"/>
+        <Font name="System Regular" size="17"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/actor.png" id="data-tab_button" visible="1"/>
@@ -23,7 +23,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-icon" image=".data/ui/icon_npc/actor.png" tooltipText="Показать в рейтинге (2x клик)" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-icon" image=".data/ui/icon_npc/actor.png" tooltipText="" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="160" layoutY="80" prefHeight="19.951171875" prefWidth="51.15966796875" styleClass="label " text="мастер" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
@@ -60,7 +60,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-reputation" visible="1"/>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic" layoutX="24" layoutY="248" prefHeight="168" prefWidth="216" styleClass="label " text="Униженных хейтеров&#10;Убитых подсосов OGSR&#10;Выполненные квесты &#10;&#10;Всего" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic" layoutX="24" layoutY="248" prefHeight="168" prefWidth="256" styleClass="label " text="Униженных хейтеров&#10;Уничтоженных подсосов OGSR&#10;Выполненные квесты &#10;&#10;Всего" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -84,22 +84,22 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-final_label" visible=""/>
-    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tab_final" layoutX="360" layoutY="176" prefHeight="32" prefWidth="408" styleClass="x-flat-button " text="Что же произошло?" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="tab_final" layoutX="360" layoutY="176" prefHeight="32" prefWidth="408" styleClass="x-flat-button " text="Хронология событий" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Bold" size="15"/>
+        <Font name="System Regular" size="17"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/info1.png" id="data-tab_final" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-button" visible="1"/>
     <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="2.5316455696203" id="buttonAlt" layoutX="360" layoutY="16" prefHeight="32" prefWidth="408" styleClass="x-flat-button " text="Информация" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Bold" size="15"/>
+        <Font name="System Regular" size="17"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/info.png" id="data-buttonAlt" visible="1"/>
     <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="statistic_norm" layoutX="16" layoutY="200" prefHeight="40" prefWidth="320" styleClass="x-flat-button " text="Статистика" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Bold" size="15"/>
+        <Font name="System Regular" size="17"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/info1.png" id="data-statistic_norm" visible="1"/>
@@ -115,5 +115,11 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="" id="data-a_fail" visible=""/>
+    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="128" id="death_filter" layoutX="24" layoutY="64" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="128">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="" id="data-death_filter" image=".data/ui/icon_npc/death_filter.png" visible=""/>
   </children>
 </AnchorPane>

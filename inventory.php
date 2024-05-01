@@ -57,15 +57,15 @@ class inventory extends AbstractForm
         if ($this->inv_maket_select_2->visible)
         {
             Element::setText($this->maket_label, "Водка Казаки");
-            Element::setText($this->maket_desc, "Огненная водичка! Можно устроить пожар в заднице гоблиндава , метнув в него бутылку.\n\nУправление бутылкой:\nЛКМ - Метнуть бутылку\nПКМ - Отметнуть к себе");    
+            Element::setText($this->maket_desc, "Огненная водичка! Можно устроить пожар в заднице гоблиндава , метнув в него бутылку.\n\nУправление бутылкой:\nЛКМ - Метнуть бутылку во врага\nПКМ - Метнуть бутылку к себе");    
             Element::setText($this->maket_count, "250 RU"); 
             Element::setText($this->maket_weight, "0.50kg");            
         }
         if ($this->inv_maket_select->visible)
         {
-            Element::setText($this->maket_label, "Броня Сани Зверя");
+            Element::setText($this->maket_label, "Броня Сани Бетона");
             Element::setText($this->maket_desc, "100% защита от радиации и едкого пердежа гоблиндава, сделано из плоти кабанов");    
-            Element::setText($this->maket_count, "1337 RU"); 
+            Element::setText($this->maket_count, "2599 RU"); 
             Element::setText($this->maket_weight, "1.00kg");           
         }
     }
@@ -193,7 +193,19 @@ class inventory extends AbstractForm
         $this->ShowCombobox();
     }  
 
-
+    /**
+     * @event inv_maket_select_2.click-2x 
+     */
+    function VodkaMaketClickLeft(UXMouseEvent $e = null)
+    {    
+        if ($this->form('maingame')->skull_actor->visible || $this->form('maingame')->skull_enemy->visible)
+        {
+            if ($this->form('maingame')->fragment_opt->content->sound->visible)
+            {        
+                Media::open('res://.data/audio/movie_1.mp3', true, 'movie_1');  
+            }           
+        }
+    }
     function SetOutfitCondition()
     {
         if ($this->form('maingame')->health_bar_gg->width == 164)

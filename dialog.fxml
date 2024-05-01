@@ -29,7 +29,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/dialog_wnd/pidoras_roleicon.png" id="data-alex_label_1" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_label_1" layoutX="448" layoutY="368" prefHeight="33.251953125" prefWidth="157.16259765625" styleClass="label " text="Саня Зверь" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_label_1" layoutX="448" layoutY="368" prefHeight="33.251953125" prefWidth="156.74755859375" styleClass="label " text="Саня Бетон" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
@@ -42,7 +42,7 @@
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_desc_1" visible=""/>
     <Data cursor="DEFAULT" enabled="" id="data-answer_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="answer_name" layoutX="448" layoutY="784" prefHeight="33.251953125" prefWidth="157.16259765625" styleClass="label " text="Саня Зверь" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="answer_name" layoutX="448" layoutY="784" prefHeight="33.251953125" prefWidth="156.74755859375" styleClass="label " text="Саня Бетон" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
@@ -60,7 +60,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-alex_desc_2" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_label_3" layoutX="448" layoutY="544" prefHeight="33.251953125" prefWidth="157.16259765625" styleClass="label " text="Саня Зверь" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_label_3" layoutX="448" layoutY="544" prefHeight="33.251953125" prefWidth="156.74755859375" styleClass="label " text="Саня Бетон" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
@@ -140,7 +140,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="gg_name" layoutX="632" layoutY="64" prefHeight="30" prefWidth="152" styleClass="label " text="Саня Зверь" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="gg_name" layoutX="632" layoutY="64" prefHeight="30" prefWidth="152" styleClass="label " text="Саня Бетон" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="25"/>
       </font>

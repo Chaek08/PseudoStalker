@@ -12,7 +12,6 @@ class pda_fragment_ranking extends AbstractForm
         $this->user_actor->hide();
         $this->user_valerok->hide();
         $this->user_goblindav->hide();
-        $this->user_name->hide();
             
         $this->community_desc->hide();
         $this->community->hide(); 
@@ -24,6 +23,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->bio_new->hide(); 
         $this->user_icon->hide();       
         $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/no_icon.png');     
+        if ($this->death_filter->visible) {$this->death_filter->hide();}
     }
     function ShowUserInfo()
     {
@@ -101,6 +101,10 @@ class pda_fragment_ranking extends AbstractForm
         }
         if ($this->form('maingame')->fragment_pda->content->fragment_contacts->content->icon->visible)
         {
+            if ($this->form('maingame')->skull_enemy->visible)
+            {
+                return;
+            }
             if ($this->user_goblindav->visible)
             {
                 $this->form('maingame')->fragment_pda->content->ContactsBtn();
@@ -145,6 +149,14 @@ class pda_fragment_ranking extends AbstractForm
             $this->ResetRole();
             $this->PidorasRole();
             $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/goblindav.png');
+            if ($this->form('maingame')->skull_enemy->visible)
+            {
+                $this->death_filter->show();
+            }           
+            else 
+            {
+                $this->death_filter->hide();
+            }                
             Element::setText($this->rank, 'ветеринар');
             Element::setText($this->bio, 'САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ');  
             Element::setText($this->relationship, 'враг');  
@@ -154,7 +166,8 @@ class pda_fragment_ranking extends AbstractForm
         {
             $this->ResetRole();        
             $this->LadcegaRole();
-            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/valerok.png');            
+            if ($this->death_filter->visible) {$this->death_filter->hide();}
+            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/valerok.png');       
             Element::setText($this->rank, 'мастер');
             Element::setText($this->bio, 'Хозяин LADCEGA, попускает тупых огсровцев, лежит нож в гараже'); 
             Element::setText($this->relationship, 'друг'); 
@@ -163,8 +176,16 @@ class pda_fragment_ranking extends AbstractForm
         if ($this->user_actor->visible)
         {
             $this->ResetRole();        
-            $this->DanilaEmojiRole();
-            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/actor.png');                
+            $this->DanilaEmojiRole();          
+            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/actor.png');  
+            if ($this->form('maingame')->skull_actor->visible)
+            {
+                $this->death_filter->show();
+            } 
+            else 
+            {
+                $this->death_filter->hide();
+            }                                   
             Element::setText($this->rank, 'мастер');
             Element::setText($this->bio, 'Самый опасный на районе, попустит абсолютно любого, и неважно, админ он, или нет...');            
             $this->attitude->hide();

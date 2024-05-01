@@ -21,12 +21,12 @@ class maingame extends AbstractForm
         if ($this->debug_build->visible)
         {
             $this->label_version->show();
-            $this->label_version->text = "PseudoStalker, Build 465, Apr 2 2024"; //start date 24.12.2022
+            $this->label_version->text = "PseudoStalker, Build 494, May 1 2024"; //start date 24.12.2022
         }
         else
         {
             $this->fragment_menu->content->label_version->show();
-            $this->fragment_menu->content->label_version->text = "PseudoStalker\nRTM\nBuild 465, Apr 2 2024";
+            $this->fragment_menu->content->label_version->text = "Version 1.0 (Build 494, May 1 2024)";
         }        
     }
     function OpenMainAmbient()
@@ -66,6 +66,7 @@ class maingame extends AbstractForm
         $this->fragment_inv->content->ResetOutfitCondition();                
         $this->GetHealth();  
         
+        $this->fragment_pda->content->DefaultState();        
         $this->fragment_pda->content->fragment_contacts->content->AddEnemyContacts();   
         $this->fragment_pda->content->fragment_tasks->content->DeleteTask();    
         $this->fragment_pda->content->fragment_tasks->content->ShowActiveTasks();        
@@ -354,7 +355,11 @@ class maingame extends AbstractForm
     }
     function HidePda()
     {
-        if ($this->fragment_pda->visible) {$this->fragment_pda->hide();}        
+        if ($this->fragment_pda->visible)
+        {
+            $this->fragment_pda->hide();
+            $this->fragment_pda->content->DefaultState();             
+        }        
     }
     function HideOpt()
     {
@@ -381,6 +386,8 @@ class maingame extends AbstractForm
         {
             $this->skull_actor->hide();
             $this->skull_enemy->hide();
+            $this->fragment_pda->content->fragment_stat->content->DeathFilter();
+            $this->fragment_pda->content->fragment_ranking->content->death_filter->hide();
         }    
         if ($this->fragment_inv->content->skull_actor->visible)  
         {
@@ -532,6 +539,7 @@ class maingame extends AbstractForm
         $this->fragment_win_fail->show();
         $this->fragment_win_fail->content->SetActorFail();
         $this->fragment_pda->content->fragment_stat->content->ActorFailText();
+        $this->fragment_pda->content->fragment_stat->content->DeathFilter();
         $this->idle_static_actor->show(); $this->actor->x = 112;
         $this->idle_static_enemy->show(); $this->enemy->x = 1312;  
         $this->item_vodka_0000->enabled = false; 

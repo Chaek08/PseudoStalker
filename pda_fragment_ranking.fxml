@@ -63,19 +63,19 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-bio" visible=""/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="goblin_in_raiting" layoutX="32" layoutY="104" prefHeight="32" prefWidth="408" styleClass="label " text="3.                   Гоблиндав                                                  501" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="goblin_in_raiting" layoutX="32" layoutY="104" prefHeight="32" prefWidth="408" styleClass="label " text="3.                   Гоблиндав                                                  228" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-goblin_in_raiting" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="actor_in_raiting" layoutX="32" layoutY="56" prefHeight="32" prefWidth="408" styleClass="label " text="1.                   Саня Зверь                                             10699" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="actor_in_raiting" layoutX="32" layoutY="56" prefHeight="32" prefWidth="408" styleClass="label " text="1.                   Саня Бетон                                             10699" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_in_raiting" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="valerok_in_raiting" layoutX="32" layoutY="80" prefHeight="32" prefWidth="408" styleClass="label " text="2.                   Валерок                                                      999" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="valerok_in_raiting" layoutX="32" layoutY="80" prefHeight="32" prefWidth="408" styleClass="label " text="2.                   Валерок                                                    1337" textAlignment="RIGHT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
@@ -88,7 +88,7 @@
     <Data cursor="DEFAULT" enabled="1" id="data-frame_hide" visible="1"/>
     <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="bio_new" layoutX="480" layoutY="160" prefHeight="40" prefWidth="288" styleClass="x-flat-button " text="Биография" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Bold" size="15"/>
+        <Font name="System Regular" size="17"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/info1.png" id="data-bio_new" visible=""/>
@@ -119,17 +119,17 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-user_goblindav" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="user_name" layoutX="800" layoutY="72" prefHeight="16" prefWidth="96" styleClass="label " text="user_name" textAlignment="LEFT" underline="false" wrapText="false">
-      <font>
-        <Font name="Yu Gothic Regular" size="12"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-user_name" visible=""/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="user_icon" layoutX="488" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="128">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-user_icon" image=".data/ui/icon_npc/no_icon.png" visible=""/>
+    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="128" id="death_filter" layoutX="488" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="128">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="" id="data-death_filter" image=".data/ui/icon_npc/death_filter.png" visible=""/>
   </children>
 </AnchorPane>
