@@ -54,15 +54,4 @@ class pda_fragments_stat extends AbstractForm
         $this->final_label->hide();
         $this->final_label->text = "";
     }
-    function DeathFilter()
-    {
-        if ($this->form('maingame')->skull_actor->visible)
-        {
-            $this->death_filter->show();
-        }
-        else 
-        {
-            $this->death_filter->hide();
-        }   
-    }
 }

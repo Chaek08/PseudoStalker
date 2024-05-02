@@ -386,8 +386,7 @@ class maingame extends AbstractForm
         {
             $this->skull_actor->hide();
             $this->skull_enemy->hide();
-            $this->fragment_pda->content->fragment_stat->content->DeathFilter();
-            $this->fragment_pda->content->fragment_ranking->content->death_filter->hide();
+            $this->fragment_pda->content->fragment_ranking->content->DeathFilter();
         }    
         if ($this->fragment_inv->content->skull_actor->visible)  
         {
@@ -539,7 +538,7 @@ class maingame extends AbstractForm
         $this->fragment_win_fail->show();
         $this->fragment_win_fail->content->SetActorFail();
         $this->fragment_pda->content->fragment_stat->content->ActorFailText();
-        $this->fragment_pda->content->fragment_stat->content->DeathFilter();
+        $this->fragment_pda->content->fragment_ranking->content->DeathFilter();
         $this->idle_static_actor->show(); $this->actor->x = 112;
         $this->idle_static_enemy->show(); $this->enemy->x = 1312;  
         $this->item_vodka_0000->enabled = false; 
@@ -555,7 +554,8 @@ class maingame extends AbstractForm
         $this->fight_image->hide();
         $this->fragment_win_fail->show();
         $this->fragment_win_fail->content->SetEnemyFail();
-        $this->fragment_pda->content->fragment_stat->content->EnemyFailText();     
+        $this->fragment_pda->content->fragment_stat->content->EnemyFailText();
+        $this->fragment_pda->content->fragment_ranking->content->DeathFilter();             
         $this->idle_static_actor->show(); $this->actor->x = 112;
         $this->idle_static_enemy->show(); $this->enemy->x = 1312;  
         $this->item_vodka_0000->enabled = false;  

@@ -51,6 +51,37 @@ class pda_fragment_ranking extends AbstractForm
         $this->goblin_in_raiting->textColor = '#999999';   
         $this->valerok_in_raiting->textColor = '#999999';                    
     }
+    function DeathFilter() // Cake-crypto
+    {
+        if ($this->user_actor->visible) //Проверяем, выбран ли сейчас нужный user
+        {
+            if ($this->form('maingame')->skull_actor->visible) //Проверяем, мёртв ли актёр, чтобы в дальнейшем прописать ему DeathFilter
+            {
+                $this->death_filter->show();
+                $this->form('maingame')->fragment_pda->content->fragment_stat->content->death_filter->show();
+            }
+            else
+            {
+                $this->death_filter->hide();
+                $this->form('maingame')->fragment_pda->content->fragment_stat->content->death_filter->hide();            
+            }
+        }
+        if ($this->user_goblindav->visible) //Проверяем, выбран ли сейчас нужный user
+        {
+            if ($this->form('maingame')->skull_enemy->visible) //Проверяем, мёртв ли противник, чтобы в дальнейшем прописать ему DeathFilter
+            {
+                $this->death_filter->show();
+            }
+            else
+            {
+                $this->death_filter->hide();
+            }
+        }
+        if ($this->user_valerok->visible) //Проверяем, выбран ли сейчас нужный user
+        {
+            $this->death_filter->hide();
+        }
+    }
     /**
      * @event actor_in_raiting.click-Left 
      */
@@ -149,14 +180,7 @@ class pda_fragment_ranking extends AbstractForm
             $this->ResetRole();
             $this->PidorasRole();
             $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/goblindav.png');
-            if ($this->form('maingame')->skull_enemy->visible)
-            {
-                $this->death_filter->show();
-            }           
-            else 
-            {
-                $this->death_filter->hide();
-            }                
+            $this->DeathFilter();
             Element::setText($this->rank, 'ветеринар');
             Element::setText($this->bio, 'САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ');  
             Element::setText($this->relationship, 'враг');  
@@ -166,8 +190,8 @@ class pda_fragment_ranking extends AbstractForm
         {
             $this->ResetRole();        
             $this->LadcegaRole();
-            if ($this->death_filter->visible) {$this->death_filter->hide();}
-            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/valerok.png');       
+            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/valerok.png');    
+            $this->DeathFilter();
             Element::setText($this->rank, 'мастер');
             Element::setText($this->bio, 'Хозяин LADCEGA, попускает тупых огсровцев, лежит нож в гараже'); 
             Element::setText($this->relationship, 'друг'); 
@@ -178,14 +202,7 @@ class pda_fragment_ranking extends AbstractForm
             $this->ResetRole();        
             $this->DanilaEmojiRole();          
             $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/actor.png');  
-            if ($this->form('maingame')->skull_actor->visible)
-            {
-                $this->death_filter->show();
-            } 
-            else 
-            {
-                $this->death_filter->hide();
-            }                                   
+            $this->DeathFilter();
             Element::setText($this->rank, 'мастер');
             Element::setText($this->bio, 'Самый опасный на районе, попустит абсолютно любого, и неважно, админ он, или нет...');            
             $this->attitude->hide();
