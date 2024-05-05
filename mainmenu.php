@@ -18,7 +18,7 @@ class mainmenu extends AbstractForm
     {
         if ($this->form('maingame')->fragment_opt->content->sound->visible)
         {
-            if ($this->form('maingame')->fragment_opt->content->mutesound->visible) {} else
+            if ($this->form('maingame')->fragment_opt->content->mute_menu_sound->visible) {} else
             {
                 Media::play("menu_sound");
             }
