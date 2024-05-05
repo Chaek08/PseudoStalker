@@ -126,6 +126,10 @@ class inventory extends AbstractForm
      */
     function OutfitMaketFunc(UXMouseEvent $e = null)
     {
+        if ($this->inv_maket_select->visible)
+        {
+            return;
+        }
         $this->SlotUseSound();
         $this->ShowOutfitMaket();
         $this->ShowUIText();
@@ -136,6 +140,10 @@ class inventory extends AbstractForm
      */
     function VodkaMaketFunc(UXMouseEvent $e = null)
     {    
+        if ($this->inv_maket_select_2->visible)
+        {
+            return;
+        }    
         $this->SlotUseSound();
         $this->ShowVodkaMaket();
         $this->ShowUIText();
