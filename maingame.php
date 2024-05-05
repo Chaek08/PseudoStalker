@@ -31,21 +31,21 @@ class maingame extends AbstractForm
     }
     function OpenMainAmbient()
     {
-        if ($this->fragment_opt->content->sound->visible)
+        if ($this->fragment_opt->content->all_sounds->visible)
         {
              Media::open('res://.data/audio/game/krip1.mp3', false, 'main_ambient');
         }        
     }
     function PlayMainAmbient()
     {
-        if ($this->fragment_opt->content->sound->visible)
+        if ($this->fragment_opt->content->all_sounds->visible)
         {
              Media::play('main_ambient');      
         }         
     }
     function PauseMainAmbient()
     {
-        if ($this->fragment_opt->content->sound->visible)
+        if ($this->fragment_opt->content->all_sounds->visible)
         {
              Media::pause('main_ambient');             
         }            
@@ -84,7 +84,7 @@ class maingame extends AbstractForm
     }
     function StopAllSounds()
     {
-        if ($this->fragment_opt->content->sound->visible)
+        if ($this->fragment_opt->content->all_sounds->visible)
         { 
             if (Media::isStatus('PLAYING', 'fight_sound')){Media::stop('fight_sound');}
             if (Media::isStatus('PLAYING', 'main_ambient')){Media::stop('main_ambient');}
@@ -128,9 +128,9 @@ class maingame extends AbstractForm
     function ShowMenu()
     {
         $this->fragment_menu->show();
-        if ($this->fragment_opt->content->sound->visible)
+        if ($this->fragment_opt->content->all_sounds->visible)
         {
-            if ($this->fragment_opt->content->mutesound->visible)
+            if ($this->fragment_opt->content->mute_menu_sound->visible)
             {
                  Media::pause("fight_sound"); 
             }
@@ -209,7 +209,7 @@ class maingame extends AbstractForm
                
         $this->ResetFragmentsVisible();       
         $this->fragment_inv->show(); 
-        if ($this->fragment_opt->content->sound->visible){ Media::open('res://.data/audio/inv_open.mp3', true);}     
+        if ($this->fragment_opt->content->all_sounds->visible){ Media::open('res://.data/audio/inv_open.mp3', true);}     
             
     }    
     /**
@@ -288,7 +288,7 @@ class maingame extends AbstractForm
     function LeaveBtn(UXMouseEvent $e = null)
     {    
         $this->fragment_win_fail->show();
-        if ($this->fragment_opt->content->sound->visible)
+        if ($this->fragment_opt->content->all_sounds->visible)
         {
             Media::pause('main_ambient');
         }          
@@ -349,7 +349,7 @@ class maingame extends AbstractForm
             $this->fragment_inv->content->HideUIText(); 
             $this->fragment_inv->content->HideCombobox();                              
             $this->fragment_inv->hide();     
-            if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/inv_close.mp3', true);}           
+            if ($this->fragment_opt->content->all_sounds->visible){Media::open('res://.data/audio/inv_close.mp3', true);}           
         }
         
     }
@@ -398,7 +398,7 @@ class maingame extends AbstractForm
         if ($this->health_bar_enemy->width != 34)
         {
             $this->health_bar_enemy->width -= 50;        
-            if ($this->fragment_opt->content->sound->visible)
+            if ($this->fragment_opt->content->all_sounds->visible)
             {
                 Media::open('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex');
                 Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_alex_damage');
@@ -411,7 +411,7 @@ class maingame extends AbstractForm
             $this->health_bar_enemy_b->hide();
             $this->leave_btn->show();
             $this->dlg_btn->hide();                       
-            if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex'); }   
+            if ($this->fragment_opt->content->all_sounds->visible){Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex'); }   
             $this->EnemyFail();         
             return;
         }   
@@ -445,7 +445,7 @@ class maingame extends AbstractForm
             Animation::fadeIn($this->hitmark_static, 250);  
             $this->hitmark_static->show();
             Animation::fadeOut($this->hitmark_static, 500);
-            if ($this->fragment_opt->content->sound->visible)
+            if ($this->fragment_opt->content->all_sounds->visible)
             {
                 Media::open('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor'); 
                 Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_actor_damage'); 
@@ -466,7 +466,7 @@ class maingame extends AbstractForm
             {
                 $this->hitmark_static->hide();
             }
-            if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');}  
+            if ($this->fragment_opt->content->all_sounds->visible){Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');}  
             $this->ActorFail();          
             return;
         }   
@@ -547,7 +547,7 @@ class maingame extends AbstractForm
         $this->actor->opacity = 0; 
            
         $this->StopAllSounds();  
-        if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');}                            
+        if ($this->fragment_opt->content->all_sounds->visible){Media::open('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');}                            
     }
     function EnemyFail()
     {
@@ -566,7 +566,7 @@ class maingame extends AbstractForm
         $this->enemy->opacity = 0;
         
         $this->StopAllSounds();  
-        if ($this->fragment_opt->content->sound->visible){Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor'); }                                               
+        if ($this->fragment_opt->content->all_sounds->visible){Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor'); }                                               
     }
     function BugDetectSystem()
     {

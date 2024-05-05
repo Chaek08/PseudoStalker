@@ -169,7 +169,7 @@ class opt extends AbstractForm
      */
     function AllSoundOff(UXMouseEvent $e = null)
     {   
-        $this->sound->hide();
+        $this->all_sounds->hide();
         $this->menusound_off->enabled = false;
         $this->menusound_on->enabled = false;    
             
@@ -190,7 +190,7 @@ class opt extends AbstractForm
      */
     function AllSoundOn(UXMouseEvent $e = null)
     {   
-        $this->sound->show();
+        $this->all_sounds->show();
         $this->OptUnMuteMenuSound();
         $this->menusound_off->enabled = true;
         $this->menusound_on->enabled = true;          

@@ -16,7 +16,7 @@ class mainmenu extends AbstractForm
     }
     function StartMenuSound()
     {
-        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
         {
             if ($this->form('maingame')->fragment_opt->content->mute_menu_sound->visible) {} else
             {
@@ -48,7 +48,7 @@ class mainmenu extends AbstractForm
         $this->form('maingame')->PlayMainAmbient();
         if ($this->form('maingame')->fight_image->visible)
         {
-            if ($this->form('maingame')->fragment_opt->content->sound->visible)
+            if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
             {
                  Media::play("fight_sound");
             }

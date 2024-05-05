@@ -15,7 +15,7 @@ class dialog extends AbstractForm
     }
     function StopVoice()
     {
-        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
         {
             if (Media::isStatus('PLAYING', 'voice_start')) {Media::stop('voice_start');}
             if (Media::isStatus('PLAYING', 'voice_talk1')) {Media::stop('voice_talk1');}            
@@ -32,28 +32,28 @@ class dialog extends AbstractForm
     }
     function VoiceStart()
     {
-        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
         {
             Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start");
         }    
     }
     function VoiceTalk_1()
     {
-        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
         {
             Media::open('res://.data/audio/voice/voice_talk1.mp3', true, "voice_talk1");
         }           
     }
     function VoiceTalk_2()
     {
-        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
         {
             Media::open('res://.data/audio/voice/voice_talk2.mp3', true, "voice_talk2");
         }           
     }    
     function VoiceTalk_3()
     {
-        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
         {
             Media::open('res://.data/audio/voice/voice_talk3.mp3', true, "voice_talk3");
         }           
@@ -97,7 +97,7 @@ class dialog extends AbstractForm
     {       
         $this->form('maingame')->HideDialog();    
         $this->VoiceTalk_3();         
-        if ($this->form('maingame')->fragment_opt->content->sound->visible)
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
         {
             Media::open('res://.data/audio/fight/fight_sound.mp3', true, "fight_sound");
             Media::pause('main_ambient');
