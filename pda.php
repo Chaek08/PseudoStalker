@@ -9,7 +9,7 @@ class pda extends AbstractForm
     /**
      * @event show 
      */
-    function doShow(UXWindowEvent $e = null) {$this->SetBtnOpacity();}
+    function InitPda(UXWindowEvent $e = null) {$this->SetBtnOpacity();}
     function SetBtnOpacity()
     {
         $this->tasks_label->opacity = 100;
@@ -20,7 +20,7 @@ class pda extends AbstractForm
     /**
      * @event pda_panel.click-Left 
      */
-    function PanelPdaClick(UXMouseEvent $e = null)
+    function PdaPanelClick(UXMouseEvent $e = null)
     {    
         $this->DefaultState();                                    
     }  

@@ -26,7 +26,7 @@ class maingame extends AbstractForm
         else
         {
             $this->fragment_menu->content->label_version->show();
-            $this->fragment_menu->content->label_version->text = "Version 1.0 (Build 494, May 1 2024)";
+            $this->fragment_menu->content->label_version->text = "PseudoStalker 1.0 (Build 494, May 1 2024)";
         }        
     }
     function OpenMainAmbient()
@@ -324,7 +324,6 @@ class maingame extends AbstractForm
             Animation::displace($this->item_vodka_0000, 500, -1030, $y); 
         }
     }
-
     function HideExitDialog()
     {
         if ($this->fragment_exit->visible) {$this->fragment_exit->hide();}  
