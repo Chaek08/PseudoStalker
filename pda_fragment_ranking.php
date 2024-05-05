@@ -193,7 +193,7 @@ class pda_fragment_ranking extends AbstractForm
             $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/valerok.png');    
             $this->DeathFilter();
             Element::setText($this->rank, 'мастер');
-            Element::setText($this->bio, 'Хозяин LADCEGA, попускает тупых огсровцев, лежит нож в гараже'); 
+            Element::setText($this->bio, 'Хозяин LADCEGA, попускает тупых огсровцев, В его гараже всегда лежит нож, готовый помочь в любых делах.'); 
             Element::setText($this->relationship, 'друг'); 
             $this->relationship->textColor = ('#669966');                       
         }       
@@ -204,7 +204,7 @@ class pda_fragment_ranking extends AbstractForm
             $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/actor.png');  
             $this->DeathFilter();
             Element::setText($this->rank, 'мастер');
-            Element::setText($this->bio, 'Самый опасный на районе, попустит абсолютно любого, и неважно, админ он, или нет...');            
+            Element::setText($this->bio, 'Известен как самый бескомпромиссный в районе, этот человек дает пиздюлей каждому, без разницы - будь то админ или нет.');            
             $this->attitude->hide();
             $this->relationship->hide();              
         }       

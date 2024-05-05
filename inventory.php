@@ -58,14 +58,14 @@ class inventory extends AbstractForm
         if ($this->inv_maket_select_2->visible)
         {
             Element::setText($this->maket_label, "Водка Казаки");
-            Element::setText($this->maket_desc, "Огненная водичка! Можно устроить пожар в заднице гоблиндава , метнув в него бутылку.\n\nУправление бутылкой:\nЛКМ - Метнуть бутылку во врага\nПКМ - Метнуть бутылку к себе");    
+            Element::setText($this->maket_desc, "С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.\n\nУправление бутылкой:\nЛКМ - Метнуть бутылку во врага\nПКМ - Метнуть бутылку к себе");    
             Element::setText($this->maket_count, "250 RU"); 
             Element::setText($this->maket_weight, "0.50kg");            
         }
         if ($this->inv_maket_select->visible)
         {
             Element::setText($this->maket_label, "Броня Сани Бетона");
-            Element::setText($this->maket_desc, "100% защита от радиации и едкого пердежа гоблиндава, сделано из плоти кабанов");    
+            Element::setText($this->maket_desc, "Этот продукт обеспечивает полную защиту от радиации и ужасного запаха гоблиндава! И что самое важное - он сделан из натуральной кабаньей плоти. Теперь я могу быть уверенным в своей безопасности и комфорте в любых условиях.");    
             Element::setText($this->maket_count, "2599 RU"); 
             Element::setText($this->maket_weight, "1.00kg");           
         }
@@ -122,7 +122,7 @@ class inventory extends AbstractForm
         $this->form('maingame')->fragment_inv->hide();
     }
     /**
-     * @event outfit_selected.click-Left 
+     * @event inv_maket_visual.click-Left 
      */
     function OutfitMaketFunc(UXMouseEvent $e = null)
     {
@@ -201,7 +201,6 @@ class inventory extends AbstractForm
     {    
         $this->ShowCombobox();
     }  
-
     /**
      * @event inv_maket_select_2.click-2x 
      */
