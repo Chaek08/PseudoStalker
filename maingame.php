@@ -63,7 +63,7 @@ class maingame extends AbstractForm
             $this->item_vodka_0000->enabled = true;  
         }
                                
-        $this->fragment_inv->content->ResetOutfitCondition();                
+        $this->fragment_inv->content->SetItemCondition();                
         $this->GetHealth();  
         
         $this->fragment_pda->content->DefaultState();        
@@ -482,15 +482,15 @@ class maingame extends AbstractForm
             $this->health_bar_gg->text = "55%";
             $this->fragment_inv->content->health_bar_gg->width -= 50;            
             $this->fragment_inv->content->health_bar_gg->text = "55%";   
-            $this->fragment_inv->content->SetOutfitCondition();      
+            $this->fragment_inv->content->SetItemCondition();
         }      
         if ($this->health_bar_gg->width == 114)
         {
             $this->health_bar_gg->text = "50%";
-            $this->fragment_inv->content->health_bar_gg->width -= 40;            
-            $this->fragment_inv->content->health_bar_gg->text = "50%";               
-            $this->fragment_inv->content->SetOutfitCondition();   
-            $this->Bleeding();                   
+            $this->fragment_inv->content->health_bar_gg->width -= 40;     
+            $this->fragment_inv->content->health_bar_gg->text = "50%";         
+            $this->fragment_inv->content->SetItemCondition();
+            $this->Bleeding();  
         }  
         if ($this->health_bar_gg->width == 64)
         {
@@ -505,7 +505,7 @@ class maingame extends AbstractForm
             $this->fragment_inv->content->health_bar_gg->text = "1%"; 
             $this->health_bar_gg->width += 20;
             $this->Bleeding();   
-            $this->fragment_inv->content->SetOutfitCondition();                           
+            $this->fragment_inv->content->SetItemCondition();                           
         }                     
     }    
     function Bleeding()
