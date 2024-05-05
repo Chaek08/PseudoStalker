@@ -1,29 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900" prefWidth="1600" styleClass="">
   <children>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="202" id="main_frame" layoutX="549" layoutY="349" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="502">
+    <FlatButton alignment="CENTER" borderRadius="10" color="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="main_frame" layoutX="516" layoutY="338" prefHeight="224" prefWidth="568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-main_frame" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="frame_01" layoutX="624" layoutY="352" prefHeight="128" prefWidth="448" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-frame_01" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#cccccc" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#e6e6e6" id="btn_no" layoutX="920" layoutY="504" prefHeight="40" prefWidth="144" styleClass="x-flat-button " text="Нет" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="18"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-btn_no" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#cccccc" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#e6e6e6" id="btn_yes" layoutX="768" layoutY="504" prefHeight="40" prefWidth="144" styleClass="x-flat-button " text="Да" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="18"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-btn_yes" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="dialog_text" layoutX="624" layoutY="352" prefHeight="128" prefWidth="448" styleClass="label " text="Действительно ли вы хотите выйти в Windows?" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="19"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-dialog_text" visible="1"/>
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="128" id="dialog_warning" layoutX="520" layoutY="352" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="104">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-main_frame" image=".data/ui/exit_dialog/main_frame.png" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" hoverImage=".data/ui/button/button_active_2.png" id="data-btn_yes" image=".data/ui/button/button_noactive_2.png" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="dialog_text" layoutX="712" layoutY="392" prefHeight="80" prefWidth="312" styleClass="label " text="Действительно ли вы хотите выйти в Windows?&#10;" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="14"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-dialog_text" visible="1"/>
-    <ImageViewEx AnchorPane.bottomAnchor="235" AnchorPane.leftAnchor="792" AnchorPane.rightAnchor="114" AnchorPane.topAnchor="504" autoSize="true" centered="false" focusTraversable="false" height="29" id="btn_yes" layoutX="792" layoutY="504" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" text="Да" textFill="#ffffff" width="118">
-      <font>
-        <Font name="System Regular" size="19"/>
-      </font>
-    </ImageViewEx>
-    <ImageViewEx AnchorPane.bottomAnchor="235" AnchorPane.leftAnchor="912" AnchorPane.rightAnchor="-6" AnchorPane.topAnchor="504" autoSize="true" centered="false" focusTraversable="false" height="29" id="btn_no" layoutX="912" layoutY="504" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" text="Нет" textFill="#ffffff" width="118">
-      <font>
-        <Font name="System Regular" size="19"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" hoverImage=".data/ui/button/button_active_2.png" id="data-btn_no" image=".data/ui/button/button_noactive_2.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-dialog_warning" image=".data/ui/exit_dialog/dialog_warning.png" visible="1"/>
   </children>
 </AnchorPane>
