@@ -13,7 +13,6 @@ class fail_wnd extends AbstractForm
     {
         $this->form('maingame')->ShowMenu();
         $this->form('maingame')->ResetGameClient();
-        //$this->form('mainmenu')->StartMenuSound();     
     }
     /**
      * @event returnbtn.click-Left 

@@ -14,16 +14,6 @@ class mainmenu extends AbstractForm
         Media::open('res://.data/audio/menu/menu_sound.mp3', false, "menu_sound");
         Media::play("menu_sound");     
     }
-    function StartMenuSound()
-    {
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
-        {
-            if ($this->form('maingame')->fragment_opt->content->mute_menu_sound->visible) {} else
-            {
-                Media::play("menu_sound");
-            }
-        }            
-    }
     function BtnCGameState()
     {             
         $this->btn_start_game->image = new UXImage('res://.data/ui/mainmenu/btn_default/btn4.png');   
