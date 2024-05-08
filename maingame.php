@@ -78,7 +78,7 @@ class maingame extends AbstractForm
         $this->idle_static_actor->show(); $this->actor->x = 112; $this->actor->opacity = 100; 
         $this->idle_static_enemy->show(); $this->enemy->x = 1312; $this->enemy->opacity = 100;           
         $this->fragment_dlg->content->StartDialog();
-        $this->fragment_menu->content->BtnNGameState();
+        $this->fragment_menu->content->NewGameMenu();
         $this->fragment_pda->content->fragment_stat->content->ResetFinalText();
         $this->StopAllSounds();
     }

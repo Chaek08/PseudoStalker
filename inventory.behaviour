@@ -10,13 +10,4 @@
   <target id="health_bar_gg">
     <behaviour color="#999999" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="button8"/>
-  <target id="button9"/>
-  <target id="button10"/>
-  <target id="button5"/>
-  <target id="button6"/>
-  <target id="button7"/>
-  <target id="button4"/>
-  <target id="button3"/>
-  <target id="buttonAlt"/>
 </behaviours>
