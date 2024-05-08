@@ -72,6 +72,5 @@ class mainmenu extends AbstractForm
     function EndGameBtn(UXMouseEvent $e = null)
     {
         $this->form('maingame')->ResetGameClient();
-        $this->NewGameMenu();
     }
 }
