@@ -353,7 +353,7 @@ class maingame extends AbstractForm
         {  
             $this->fragment_dlg->content->ClearDialog();
             $this->fragment_dlg->content->ResetAnswerVisible();
-            $this->fragment_dlg->content->ForcedStopVoice();      
+            $this->fragment_dlg->content->StopVoice();      
             $this->fragment_dlg->hide();                           
         } 
                 

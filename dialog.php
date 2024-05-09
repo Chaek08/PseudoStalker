@@ -16,18 +16,11 @@ class dialog extends AbstractForm
     {
         if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
         {
-            if (Media::isStatus('PLAYING', 'voice_start')) {Media::stop('voice_start');}
-            if (Media::isStatus('PLAYING', 'voice_talk1')) {Media::stop('voice_talk1');}            
-            if (Media::isStatus('PLAYING', 'voice_talk2')) {Media::stop('voice_talk2');}           
-            if (Media::isStatus('PLAYING', 'voice_talk3')) {Media::stop('voice_talk3');}             
+            Media::stop('voice_start');
+            Media::stop('voice_talk1');
+            Media::stop('voice_talk2');
+            Media::stop('voice_talk3');          
         }          
-    }
-    function ForcedStopVoice()
-    {
-        Media::stop('voice_start');
-        Media::stop('voice_talk1');
-        Media::stop('voice_talk2');
-        Media::stop('voice_talk3');                        
     }
     function VoiceStart()
     {
