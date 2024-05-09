@@ -151,5 +151,7 @@
       </font>
     </LabelEx>
     <SpriteView animationEnabled="false" focusTraversable="false" height="64" id="anim_cursor" layoutX="1648" layoutY="112" styleClass="" width="64"/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_load" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <Data content="load_screen" cursor="DEFAULT" enabled="1" id="data-fragment_load" visible=""/>
   </children>
 </AnchorPane>

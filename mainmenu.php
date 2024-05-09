@@ -38,7 +38,7 @@ class mainmenu extends AbstractForm
      * @event btn_start_game.click-Left 
      */
     function NewGameBtn(UXMouseEvent $e = null)
-    {    
+    {      
         $this->form('maingame')->fragment_menu->hide();
         $this->ContinueGameMenu(); //Continue Game
         Media::pause("menu_sound");
@@ -47,7 +47,10 @@ class mainmenu extends AbstractForm
         {
             if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
             {
-                 Media::play("fight_sound");
+                 if($this->form('maingame')->fragment_opt->content->mute_fight_sound->visible) {} else 
+                 {
+                     Media::play("fight_sound");
+                 }     
             }
         }
     }

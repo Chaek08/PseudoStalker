@@ -39,4 +39,13 @@
   <target id="version_on">
     <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
+  <target id="fightsound_label">
+    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="fightsound_off">
+    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="fightsound_on">
+    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
 </behaviours>

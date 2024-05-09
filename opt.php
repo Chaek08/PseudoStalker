@@ -60,8 +60,6 @@ class opt extends AbstractForm
         $this->form('maingame')->fragment_pda->content->toolbar_frame_time->dropShadowEffect->disable();
         $this->form('maingame')->fragment_pda->content->fragment_tasks->content->frame_01->dropShadowEffect->disable(); 
         $this->form('maingame')->fragment_pda->content->fragment_tasks->content->frame_detail_02->dropShadowEffect->disable();  
-        //$this->form('maingame')->fragment_pda->content->fragment_tasks->content->icon_task->dropShadowEffect->disable();  
-        //$this->form('maingame')->fragment_pda->content->fragment_tasks->content->quest_detail_btn->dropShadowEffect->disable();                  
         $this->form('maingame')->fragment_pda->content->fragment_contacts->content->frame_01->dropShadowEffect->disable();    
         $this->form('maingame')->fragment_pda->content->fragment_contacts->content->button->dropShadowEffect->disable();    
         $this->form('maingame')->fragment_pda->content->fragment_contacts->content->icon->dropShadowEffect->disable();                                                 
@@ -97,7 +95,12 @@ class opt extends AbstractForm
         $this->form('maingame')->fragment_opt->content->shadows_on->dropShadowEffect->disable();              
         $this->form('maingame')->fragment_opt->content->version_label->dropShadowEffect->disable();    
         $this->form('maingame')->fragment_opt->content->version_off->dropShadowEffect->disable();   
-        $this->form('maingame')->fragment_opt->content->version_on->dropShadowEffect->disable();                                                                                                                                                                                                                
+        $this->form('maingame')->fragment_opt->content->version_on->dropShadowEffect->disable();
+        $this->form('maingame')->fragment_opt->content->fightsound_label->dropShadowEffect->disable();    
+        $this->form('maingame')->fragment_opt->content->fightsound_off->dropShadowEffect->disable();   
+        $this->form('maingame')->fragment_opt->content->fightsound_on->dropShadowEffect->disable();          
+        //exit_dlg
+        $this->form('maingame')->fragment_exit->content->main_frame->dropShadowEffect->disable();
     }
     /**
      * @event shadows_on.click-Left 
@@ -125,8 +128,6 @@ class opt extends AbstractForm
         $this->form('maingame')->fragment_pda->content->toolbar_frame_time->dropShadowEffect->enable();
         $this->form('maingame')->fragment_pda->content->fragment_tasks->content->frame_01->dropShadowEffect->enable(); 
         $this->form('maingame')->fragment_pda->content->fragment_tasks->content->frame_detail_02->dropShadowEffect->enable();  
-        //$this->form('maingame')->fragment_pda->content->fragment_tasks->content->icon_task->dropShadowEffect->enable();  
-        //$this->form('maingame')->fragment_pda->content->fragment_tasks->content->quest_detail_btn->dropShadowEffect->enable();                  
         $this->form('maingame')->fragment_pda->content->fragment_contacts->content->frame_01->dropShadowEffect->enable();    
         $this->form('maingame')->fragment_pda->content->fragment_contacts->content->button->dropShadowEffect->enable();    
         $this->form('maingame')->fragment_pda->content->fragment_contacts->content->icon->dropShadowEffect->enable();                                                 
@@ -163,6 +164,11 @@ class opt extends AbstractForm
         $this->form('maingame')->fragment_opt->content->version_label->dropShadowEffect->enable();    
         $this->form('maingame')->fragment_opt->content->version_off->dropShadowEffect->enable();   
         $this->form('maingame')->fragment_opt->content->version_on->dropShadowEffect->enable();                                 
+        $this->form('maingame')->fragment_opt->content->fightsound_label->dropShadowEffect->enable();    
+        $this->form('maingame')->fragment_opt->content->fightsound_off->dropShadowEffect->enable();   
+        $this->form('maingame')->fragment_opt->content->fightsound_on->dropShadowEffect->enable();         
+        //exit_dlg
+        $this->form('maingame')->fragment_exit->content->main_frame->dropShadowEffect->enable();        
     }
     /**
      * @event allsound_off.click-Left 
@@ -195,7 +201,6 @@ class opt extends AbstractForm
         $this->menusound_off->enabled = true;
         $this->menusound_on->enabled = true;          
     }
-
     /**
      * @event version_off.click-Left 
      */
@@ -210,7 +215,6 @@ class opt extends AbstractForm
             $this->form('maingame')->fragment_menu->content->label_version->hide(); 
         }          
     }
-
     /**
      * @event version_on.click-Left 
      */
@@ -224,5 +228,19 @@ class opt extends AbstractForm
         {
             $this->form('maingame')->fragment_menu->content->label_version->show(); 
         }    
+    }
+    /**
+     * @event fightsound_on.click-Left 
+     */
+    function FightSoundOn(UXMouseEvent $e = null)
+    {    
+        $this->mute_fight_sound->hide();
+    }
+    /**
+     * @event fightsound_off.click-Left 
+     */
+    function FightSoundOff(UXMouseEvent $e = null)
+    {    
+        $this->mute_fight_sound->show();
     }
 }

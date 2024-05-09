@@ -26,9 +26,21 @@ class maingame extends AbstractForm
         else
         {
             $this->fragment_menu->content->label_version->show();
-            $this->fragment_menu->content->label_version->text = "PseudoStalker 1.0 (Build 494, May 1 2024)";
+            $this->fragment_menu->content->label_version->text = "PseudoStalker 1.1 (Build ???, May 8 2024)";
         }        
     }
+    function LoadScreen()
+    {
+        $this->fragment_load->show();
+        $this->anim_cursor->hide();
+        
+        Animation::fadeTo($this->fragment_load, 650, 1, function()
+        {
+           Animation::fadeIn($this->fragment_load, 1);
+           $this->fragment_load->hide();    
+           $this->anim_cursor->show();       
+        });            
+    }  
     function OpenMainAmbient()
     {
         if ($this->fragment_opt->content->all_sounds->visible)
@@ -52,6 +64,7 @@ class maingame extends AbstractForm
     }
     function ResetGameClient()
     {  
+        $this->LoadScreen();
         if ($this->fight_image->visible) {$this->fight_image->hide();} 
         if ($this->leave_btn->visible) {$this->leave_btn->hide();}        
         if ($this->fragment_win_fail->visible) {$this->fragment_win_fail->hide();}
@@ -121,6 +134,7 @@ class maingame extends AbstractForm
         {
             if (Media::isStatus('PLAYING', 'voice_talk3')) {Media::stop('voice_talk3');}
         }
+        if ($this->fragment_load->visible) {return;}
         if ($this->fragment_pda->visible) {$this->HidePda(); return;}        
         if ($this->fragment_exit->visible) {$this->HideExitDialog(); return;}    
         if ($this->fragment_opt->visible) {return;}    
@@ -172,7 +186,8 @@ class maingame extends AbstractForm
         if ($this->fragment_win_fail->visible)
         {
             return;
-        }        
+        }   
+        if ($this->fragment_load->visible) {return;}             
         $this->ResetFragmentsVisible();
         $this->fragment_pda->show();   
         if ($this->fragment_pda->content->fragment_stat->visible)
@@ -209,7 +224,7 @@ class maingame extends AbstractForm
         {
             return;
         }                        
-               
+        if ($this->fragment_load->visible) {return;}               
         $this->ResetFragmentsVisible();       
         $this->fragment_inv->show(); 
         if ($this->fragment_opt->content->all_sounds->visible){ Media::open('res://.data/audio/inv_open.mp3', true);}     
@@ -247,7 +262,8 @@ class maingame extends AbstractForm
         if ($this->fragment_win_fail->visible)
         {
             return;
-        }                                     
+        }     
+        if ($this->fragment_load->visible) {return;}                                        
         $this->ResetFragmentsVisible();    
         $this->ShowExitDialog();   
     }

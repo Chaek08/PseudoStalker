@@ -95,12 +95,15 @@ class dialog extends AbstractForm
     function Talk_3(UXMouseEvent $e = null)
     {       
         $this->form('maingame')->HideDialog();    
-        $this->VoiceTalk_3();         
+        $this->VoiceTalk_3();       
         if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
         {
-            Media::open('res://.data/audio/fight/fight_sound.mp3', true, "fight_sound");
-            Media::pause('main_ambient');
-        }    
+            if ($this->form('maingame')->fragment_opt->content->mute_fight_sound->visible) {} else
+            {
+                Media::open('res://.data/audio/fight/fight_sound.mp3', true, "fight_sound");
+                Media::pause('main_ambient');                
+            }     
+        }
         $this->form('maingame')->idle_static_actor->hide();
         $this->form('maingame')->idle_static_enemy->hide(); 
         $this->form('maingame')->fight_image->show();               
