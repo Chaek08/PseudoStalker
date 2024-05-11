@@ -26,7 +26,7 @@ class maingame extends AbstractForm
         else
         {
             $this->fragment_menu->content->label_version->show();
-            $this->fragment_menu->content->label_version->text = "PseudoStalker 1.1 (Build ???, May 8 2024)";
+            $this->fragment_menu->content->label_version->text = "PseudoStalker 1.1 (Build ???, May 11 2024)";
         }        
     }
     function LoadScreen()
@@ -65,19 +65,19 @@ class maingame extends AbstractForm
     function ResetGameClient()
     {  
         $this->LoadScreen();
+        $this->GetHealth();       
+         
         if ($this->fight_image->visible) {$this->fight_image->hide();} 
         if ($this->leave_btn->visible) {$this->leave_btn->hide();}        
         if ($this->fragment_win_fail->visible) {$this->fragment_win_fail->hide();}
-        if ($this->blood_ui->visible) {$this->blood_ui->hide();}                          
-        
+        if ($this->blood_ui->visible) {$this->blood_ui->hide();}    
+                              
         if ($this->item_vodka_0000->visible) 
         {
             $this->fragment_inv->content->DespawnVodka();
-            $this->item_vodka_0000->enabled = true;  
         }
-                               
-        $this->fragment_inv->content->SetItemCondition();                
-        $this->GetHealth();  
+        $this->fragment_inv->content->SetItemCondition();     
+                     
         
         $this->fragment_pda->content->DefaultState();        
         $this->fragment_pda->content->fragment_contacts->content->AddEnemyContacts();   
