@@ -10,7 +10,7 @@ class maingame extends AbstractForm
     /**
      * @event show 
      */
-    function MainGame(UXWindowEvent $e = null)
+    function InitMainGame(UXWindowEvent $e = null)
     {    
         $this->GetVersion();
         $this->GetHealth();
@@ -21,12 +21,12 @@ class maingame extends AbstractForm
         if ($this->debug_build->visible)
         {
             $this->label_version->show();
-            $this->label_version->text = "PseudoStalker, Build 494, May 1 2024"; //start date 24.12.2022
+            $this->label_version->text = "PseudoStalker, Build 505, May 12 2024"; //start date 24.12.2022
         }
         else
         {
             $this->fragment_menu->content->label_version->show();
-            $this->fragment_menu->content->label_version->text = "PseudoStalker 1.1 (Build ???, May 11 2024)";
+            $this->fragment_menu->content->label_version->text = "PseudoStalker 1.1 (Build 505, May 12 2024)";
         }        
     }
     function LoadScreen()
@@ -587,10 +587,5 @@ class maingame extends AbstractForm
         
         $this->StopAllSounds();  
         if ($this->fragment_opt->content->all_sounds->visible){Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor'); }                                               
-    }
-    function BugDetectSystem()
-    {
-        app()->showForm('bugdetect');
-        app()->hideForm('maingame');
     }
 }
