@@ -116,8 +116,10 @@ class maingame extends AbstractForm
      */
     function EscBtn(UXKeyEvent $e = null)
     {    
+        if ($this->fragment_load->visible) {return;}    
         if ($this->fragment_menu->visible)
         {      
+            $this->fragment_menu->content->NewGameBtn();
             return;
         }    
         if ($this->fragment_inv->visible) 
@@ -134,7 +136,6 @@ class maingame extends AbstractForm
         {
             if (Media::isStatus('PLAYING', 'voice_talk3')) {Media::stop('voice_talk3');}
         }
-        if ($this->fragment_load->visible) {return;}
         if ($this->fragment_pda->visible) {$this->HidePda(); return;}        
         if ($this->fragment_exit->visible) {$this->HideExitDialog(); return;}    
         if ($this->fragment_opt->visible) {return;}    
@@ -163,6 +164,7 @@ class maingame extends AbstractForm
      */    
     function ShowPda()
     {
+        if ($this->fragment_load->visible) {return;}    
         if ($this->fragment_pda->visible)
         {
             return;
@@ -186,8 +188,7 @@ class maingame extends AbstractForm
         if ($this->fragment_win_fail->visible)
         {
             return;
-        }   
-        if ($this->fragment_load->visible) {return;}             
+        }             
         $this->ResetFragmentsVisible();
         $this->fragment_pda->show();   
         if ($this->fragment_pda->content->fragment_stat->visible)
@@ -200,6 +201,7 @@ class maingame extends AbstractForm
      */
     function ShowInventory(UXKeyEvent $e = null)
     {       
+        if ($this->fragment_load->visible) {return;}    
         if ($this->fragment_inv->visible)
         {
             return;
@@ -224,7 +226,6 @@ class maingame extends AbstractForm
         {
             return;
         }                        
-        if ($this->fragment_load->visible) {return;}               
         $this->ResetFragmentsVisible();       
         $this->fragment_inv->show(); 
         if ($this->fragment_opt->content->all_sounds->visible){ Media::open('res://.data/audio/inv_open.mp3', true);}     
@@ -235,6 +236,7 @@ class maingame extends AbstractForm
      */
     function ShowExitDialogF4(UXKeyEvent $e = null)
     {          
+        if ($this->fragment_load->visible) {return;}    
         if ($this->fragment_exit->visible)
         {
             return;
@@ -263,7 +265,6 @@ class maingame extends AbstractForm
         {
             return;
         }     
-        if ($this->fragment_load->visible) {return;}                                        
         $this->ResetFragmentsVisible();    
         $this->ShowExitDialog();   
     }
