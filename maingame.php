@@ -189,7 +189,6 @@ class maingame extends AbstractForm
         {
             return;
         }             
-        $this->ResetFragmentsVisible();
         $this->fragment_pda->show();   
         if ($this->fragment_pda->content->fragment_stat->visible)
         {
@@ -226,7 +225,6 @@ class maingame extends AbstractForm
         {
             return;
         }                        
-        $this->ResetFragmentsVisible();       
         $this->fragment_inv->show(); 
         if ($this->fragment_opt->content->all_sounds->visible){ Media::open('res://.data/audio/inv_open.mp3', true);}     
             
@@ -265,19 +263,11 @@ class maingame extends AbstractForm
         {
             return;
         }     
-        $this->ResetFragmentsVisible();    
         $this->ShowExitDialog();   
     }
-    function ShowExitDialog() {$this->fragment_exit->show();}
-    function ResetFragmentsVisible()
+    function ShowExitDialog()
     {
-        if ($this->fragment_menu->visible) {$this->fragment_menu->hide();}
-        if ($this->fragment_inv->visible) {$this->fragment_inv->hide();}
-        if ($this->fragment_pda->visible) {$this->fragment_pda->hide();}  
-        if ($this->fragment_opt->visible) {$this->fragment_opt->hide();}      
-        if ($this->fragment_dlg->visible) {$this->fragment_dlg->hide();}      
-        if ($this->fragment_exit->visible) {$this->fragment_exit->hide();}   
-        if ($this->fragment_win_fail->visible) {$this->fragment_win_fail->hide();}                                      
+        $this->fragment_exit->show();
     }
     /**
      * @event dlg_btn.click-Left 
