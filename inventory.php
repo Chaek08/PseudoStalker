@@ -192,8 +192,8 @@ class inventory extends AbstractForm
         $this->vodka_selected->show();
         $this->form('maingame')->item_vodka_0000->hide();    
         $this->form('maingame')->item_vodka_0000->enable = true;       
-        $this->form('maingame')->item_vodka_0000->x = 240;
-        $this->form('maingame')->item_vodka_0000->y = 704;                           
+        $this->form('maingame')->item_vodka_0000->x = 256;
+        $this->form('maingame')->item_vodka_0000->y = 696;                           
     }    
     /**
      * @event vodka_selected.click-Right 
