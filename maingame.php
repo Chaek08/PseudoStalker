@@ -286,6 +286,49 @@ class maingame extends AbstractForm
         $this->fragment_dlg->content->StartDialog();          
         $this->fragment_dlg->content->VoiceStart();    
     }
+    function HideExitDialog()
+    {
+        if ($this->fragment_exit->visible)
+        {
+            $this->fragment_exit->hide();
+        }  
+    }
+    function HideDialog()
+    {
+        if ($this->fragment_dlg->visible)
+        {  
+            $this->fragment_dlg->content->ClearDialog();
+            $this->fragment_dlg->content->ResetAnswerVisible();
+            $this->fragment_dlg->content->StopVoice();      
+            $this->fragment_dlg->hide();                           
+        } 
+                
+    }
+    function HideInventory()
+    {
+        if ($this->fragment_inv->visible)
+        {
+            $this->fragment_inv->content->HideOutfitMaket();
+            $this->fragment_inv->content->HideVodkaMaket(); 
+            $this->fragment_inv->content->HideUIText(); 
+            $this->fragment_inv->content->HideCombobox();                              
+            $this->fragment_inv->hide();     
+            if ($this->fragment_opt->content->all_sounds->visible){Media::open('res://.data/audio/inv_close.mp3', true);}           
+        }
+        
+    }
+    function HidePda()
+    {
+        if ($this->fragment_pda->visible)
+        {
+            $this->fragment_pda->hide();
+            $this->fragment_pda->content->DefaultState();             
+        }        
+    }
+    function HideOpt()
+    {
+        if ($this->fragment_opt->visible) {$this->fragment_opt->hide();}          
+    }    
     /**
      * @event actor.click-2x
      */
@@ -341,49 +384,6 @@ class maingame extends AbstractForm
         {
             Animation::displace($this->item_vodka_0000, 500, -1030, $y); 
         }
-    }
-    function HideExitDialog()
-    {
-        if ($this->fragment_exit->visible)
-        {
-            $this->fragment_exit->hide();
-        }  
-    }
-    function HideDialog()
-    {
-        if ($this->fragment_dlg->visible)
-        {  
-            $this->fragment_dlg->content->ClearDialog();
-            $this->fragment_dlg->content->ResetAnswerVisible();
-            $this->fragment_dlg->content->StopVoice();      
-            $this->fragment_dlg->hide();                           
-        } 
-                
-    }
-    function HideInventory()
-    {
-        if ($this->fragment_inv->visible)
-        {
-            $this->fragment_inv->content->HideOutfitMaket();
-            $this->fragment_inv->content->HideVodkaMaket(); 
-            $this->fragment_inv->content->HideUIText(); 
-            $this->fragment_inv->content->HideCombobox();                              
-            $this->fragment_inv->hide();     
-            if ($this->fragment_opt->content->all_sounds->visible){Media::open('res://.data/audio/inv_close.mp3', true);}           
-        }
-        
-    }
-    function HidePda()
-    {
-        if ($this->fragment_pda->visible)
-        {
-            $this->fragment_pda->hide();
-            $this->fragment_pda->content->DefaultState();             
-        }        
-    }
-    function HideOpt()
-    {
-        if ($this->fragment_opt->visible) {$this->fragment_opt->hide();}          
     }    
     function GetHealth() 
     {
