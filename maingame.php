@@ -116,7 +116,10 @@ class maingame extends AbstractForm
      */
     function EscBtn(UXKeyEvent $e = null)
     {    
-        if ($this->fragment_load->visible) {return;}    
+        if ($this->fragment_load->visible)
+        {
+            return;
+        }    
         if ($this->fragment_menu->visible)
         {      
             $this->fragment_menu->content->NewGameBtn();
@@ -164,7 +167,10 @@ class maingame extends AbstractForm
      */    
     function ShowPda()
     {
-        if ($this->fragment_load->visible) {return;}    
+        if ($this->fragment_load->visible)
+        {
+            return;
+        }    
         if ($this->fragment_pda->visible)
         {
             return;
@@ -200,7 +206,10 @@ class maingame extends AbstractForm
      */
     function ShowInventory(UXKeyEvent $e = null)
     {       
-        if ($this->fragment_load->visible) {return;}    
+        if ($this->fragment_load->visible)
+        {
+            return;
+        }    
         if ($this->fragment_inv->visible)
         {
             return;
@@ -232,17 +241,20 @@ class maingame extends AbstractForm
     /**
      * @event keyDown-F4 
      */
-    function ShowExitDialogF4(UXKeyEvent $e = null)
+    function ShowExitDialog(UXKeyEvent $e = null)
     {          
-        if ($this->fragment_load->visible) {return;}    
+        if ($this->fragment_load->visible)
+        {
+            return;
+        }    
+        if ($this->fragment_menu->visible)
+        {
+            return;
+        }
         if ($this->fragment_exit->visible)
         {
             return;
-        }    
-        if($this->fragment_menu->visible)
-        {
-            return;
-        }    
+        }     
         if ($this->fragment_inv->visible)
         {
             return;
@@ -262,12 +274,8 @@ class maingame extends AbstractForm
         if ($this->fragment_win_fail->visible)
         {
             return;
-        }     
-        $this->ShowExitDialog();   
-    }
-    function ShowExitDialog()
-    {
-        $this->fragment_exit->show();
+        }   
+        $this->fragment_exit->show();  
     }
     /**
      * @event dlg_btn.click-Left 
@@ -336,7 +344,10 @@ class maingame extends AbstractForm
     }
     function HideExitDialog()
     {
-        if ($this->fragment_exit->visible) {$this->fragment_exit->hide();}  
+        if ($this->fragment_exit->visible)
+        {
+            $this->fragment_exit->hide();
+        }  
     }
     function HideDialog()
     {
