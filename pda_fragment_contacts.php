@@ -12,7 +12,6 @@ class pda_fragment_contacts extends AbstractForm
      */
     function InitPdaContacts(UXWindowEvent $e = null)
     {    
-        $this->online_icon->opacity = 100;
         $this->name->opacity = 100;
         $this->selected_new->opacity = 0;
         
