@@ -9,8 +9,7 @@ class pda extends AbstractForm
     /**
      * @event show 
      */
-    function InitPda(UXWindowEvent $e = null) {$this->SetBtnOpacity();}
-    function SetBtnOpacity()
+    function InitPda(UXWindowEvent $e = null)
     {
         $this->tasks_label->opacity = 100;
         $this->contacts_label->opacity = 100;

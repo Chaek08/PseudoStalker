@@ -9,8 +9,10 @@ class pda_fragment_tasks extends AbstractForm
     /**
      * @event show 
      */
-    function InitTasks(UXWindowEvent $e = null) {$this->GetQuestTime();}
-    
+    function InitTasks(UXWindowEvent $e = null)
+    {
+        $this->GetQuestTime();
+    }
     function GetQuestTime()
     {
         $this->time_quest_hm->watchMaker->enable();

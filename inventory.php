@@ -8,7 +8,7 @@ class inventory extends AbstractForm
     /**
      * @event show 
      */
-    function Inventory(UXWindowEvent $e = null) 
+    function InitInventory(UXWindowEvent $e = null) 
     {
         
     }
