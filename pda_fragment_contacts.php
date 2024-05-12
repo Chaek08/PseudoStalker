@@ -2,21 +2,40 @@
 namespace app\forms;
 
 use std, gui, framework, app;
+use php\gui\event\UXWindowEvent; 
 
 
 class pda_fragment_contacts extends AbstractForm
 {
-
     /**
-     * @event alex_frame.click-Left 
+     * @event show 
+     */
+    function InitPdaContacts(UXWindowEvent $e = null)
+    {    
+        $this->online_icon->opacity = 100;
+        $this->name->opacity = 100;
+        $this->selected_new->opacity = 0;
+        
+        $this->rank_desc->opacity = 100;
+        $this->community_desc->opacity = 100;                
+        $this->relationship_desc->opacity = 100;
+        $this->reputation_desc->opacity = 100;
+        
+        $this->rank->opacity = 100;
+        $this->community->opacity = 100;
+        $this->relationship->opacity = 100;
+        $this->reputation->opacity = 100;
+    }
+    /**
+     * @event selected_new.click-Left 
      */
     function CharacterClick(UXMouseEvent $e = null)
     {    
-        $this->selected_new->show();
+        $this->selected_new->opacity = 0.35;
         $this->bio->show();                     
     }
     /**
-     * @event alex_frame.click-2x 
+     * @event selected_new.click-2x 
      */
     function RedirectRaiting(UXMouseEvent $e = null)
     {    
@@ -28,9 +47,9 @@ class pda_fragment_contacts extends AbstractForm
      */
     function HideCharacter(UXMouseEvent $e = null)
     {    
-        if ($this->selected_new->visible)
+        if ($this->selected_new->opacity == 0.35)
         {
-            $this->selected_new->hide();
+            $this->selected_new->opacity = 0;
             $this->bio->hide();            
         }          
     }
@@ -67,7 +86,7 @@ class pda_fragment_contacts extends AbstractForm
         $this->online_icon->hide();
         $this->alex_frame->hide();
         $this->icon->hide();
-        $this->selected_new->hide();
+        $this->selected_new->opacity = 0;
         if($this->bio->visible)
         {
             $this->bio->hide();
