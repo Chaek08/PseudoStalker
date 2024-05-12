@@ -558,38 +558,56 @@ class maingame extends AbstractForm
     }
     function ActorFail()
     {
-        $this->fight_image->hide();
-        $this->fragment_win_fail->show();
+        $this->actor->hide();            
+    
+        $this->idle_static_actor->show();
+        $this->idle_static_enemy->show();
+        $this->actor->x = 112;
+        $this->enemy->x = 1312;     
+        
+        $this->fight_image->hide();  
+        $this->fragment_win_fail->show();               
+        $this->item_vodka_0000->enabled = false; 
+           
         $this->fragment_win_fail->content->SetActorFail();
         $this->fragment_pda->content->fragment_stat->content->ActorFailText();
         $this->fragment_pda->content->fragment_ranking->content->DeathFilter();
-        $this->idle_static_actor->show(); $this->actor->x = 112;
-        $this->idle_static_enemy->show(); $this->enemy->x = 1312;  
-        $this->item_vodka_0000->enabled = false; 
         $this->fragment_pda->content->fragment_tasks->content->Step2_Failed(); 
         $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();                
-        $this->actor->hide();
            
         $this->StopAllSounds();  
-        if ($this->fragment_opt->content->all_sounds->visible){Media::open('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');}                            
+        
+        if ($this->fragment_opt->content->all_sounds->visible)
+        {
+            Media::open('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');
+        }                            
     }
     function EnemyFail()
     {
+        $this->enemy->hide();
+    
+        $this->idle_static_actor->show();
+        $this->idle_static_enemy->show(); 
+        $this->enemy->x = 1312;
+        $this->actor->x = 112;
+    
         $this->fight_image->hide();
         $this->fragment_win_fail->show();
+        $this->item_vodka_0000->enabled = false; 
+                
         $this->fragment_win_fail->content->SetEnemyFail();
         $this->fragment_pda->content->fragment_stat->content->EnemyFailText();
-        $this->fragment_pda->content->fragment_ranking->content->DeathFilter();             
-        $this->idle_static_actor->show(); $this->actor->x = 112;
-        $this->idle_static_enemy->show(); $this->enemy->x = 1312;  
-        $this->item_vodka_0000->enabled = false;  
+        $this->fragment_pda->content->fragment_ranking->content->DeathFilter();              
         $this->fragment_pda->content->fragment_contacts->content->DeleteEnemyContacts();    
         $this->fragment_pda->content->fragment_tasks->content->Step2_Complete();       
         $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();   
         $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();             
-        $this->enemy->hide();
-        
+
         $this->StopAllSounds();  
-        if ($this->fragment_opt->content->all_sounds->visible){Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor'); }                                               
+        
+        if ($this->fragment_opt->content->all_sounds->visible)
+        {
+            Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor');
+        }
     }
 }
