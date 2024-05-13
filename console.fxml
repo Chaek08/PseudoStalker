@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456" prefWidth="568" styleClass="">
+  <children>
+    <FlatButton alignment="CENTER" color="#999999" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="main" layoutX="0" layoutY="0" opacity="0.81012658227848" prefHeight="450" prefWidth="568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-main" visible="1"/>
+    <FlatButton alignment="CENTER" color="#e6e6e6" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="edit_background" layoutX="0" layoutY="424" prefHeight="32" prefWidth="568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-edit_background" visible="1"/>
+    <com.jfoenix.controls.JFXTextField alignment="CENTER_LEFT" editable="true" focusColor="#4059a900" focusTraversable="true" id="edit" layoutX="8" layoutY="424" opacity="0.79746835443038" prefColumnCount="12" prefHeight="32" prefWidth="552" promptText="" text="" unFocusColor="#4059a900">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+      <styleClass xmlns:fx="http://javafx.com/fxml">
+        <String fx:value="text-input"/>
+        <String fx:value="text-field"/>
+        <String fx:value="jfx-text-field"/>
+      </styleClass>
+    </com.jfoenix.controls.JFXTextField>
+    <Data cursor="DEFAULT" enabled="1" id="data-edit" visible="1"/>
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="console_list" layoutX="8" layoutY="8" prefHeight="408" prefWidth="520" styleClass="label " text="" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="true">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-console_list" visible="1"/>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="24" id="close_btn" layoutX="536" layoutY="8" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="24">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="1" hoverImage=".data/ui/console/closebtn_cursor.png" id="data-close_btn" image=".data/ui/console/closebtn.png" visible="1"/>
+  </children>
+</AnchorPane>

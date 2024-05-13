@@ -101,19 +101,19 @@
     <Data cursor="DEFAULT" enabled="1" id="data-image" visible="1"/>
     <Separator focusTraversable="false" id="separatorAlt" layoutX="32" layoutY="48" opacity="0.25609756097561" orientation="HORIZONTAL" prefHeight="8" prefWidth="408" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separatorAlt" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="user_actor" layoutX="800" layoutY="0" prefHeight="16" prefWidth="96" styleClass="label " text="user_actor" textAlignment="LEFT" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="user_actor" layoutX="800" layoutY="0" prefHeight="16" prefWidth="96" styleClass="label " text="user_actor" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="Yu Gothic Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-user_actor" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="user_valerok" layoutX="800" layoutY="24" prefHeight="16" prefWidth="96" styleClass="label " text="user_valerok" textAlignment="LEFT" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="user_valerok" layoutX="800" layoutY="24" prefHeight="16" prefWidth="96" styleClass="label " text="user_valerok" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="Yu Gothic Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-user_valerok" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="user_goblindav" layoutX="800" layoutY="48" prefHeight="16" prefWidth="96" styleClass="label " text="user_goblindav" textAlignment="LEFT" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="user_goblindav" layoutX="800" layoutY="48" prefHeight="16" prefWidth="96" styleClass="label " text="user_goblindav" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="Yu Gothic Regular" size="12"/>
       </font>

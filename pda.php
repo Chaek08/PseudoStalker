@@ -32,6 +32,7 @@ class pda extends AbstractForm
         {
             $this->DefaultState(); 
         }    
+        
         $this->fragment_ranking->show();  
         $this->pda_background->hide();                                             
     }
@@ -44,6 +45,7 @@ class pda extends AbstractForm
         {
             $this->DefaultState(); 
         }     
+        
         $this->fragment_tasks->show();
         $this->pda_background->hide();                                                                                             
     }   
@@ -56,6 +58,7 @@ class pda extends AbstractForm
         {
             $this->DefaultState(); 
         }      
+        
         $this->fragment_contacts->show(); 
         $this->pda_background->hide();                                                                                
     } 
@@ -68,6 +71,7 @@ class pda extends AbstractForm
         {
             $this->DefaultState(); 
         } 
+        
         $this->fragment_stat->show(); 
         $this->pda_background->hide();  
         $this->form('maingame')->fragment_pda->content->fragment_tasks->content->Step_DeletePda();                                                                  

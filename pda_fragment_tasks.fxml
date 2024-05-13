@@ -87,13 +87,13 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-time_quest_hm" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="temp_time_hm" layoutX="800" layoutY="8" prefHeight="16" prefWidth="96" styleClass="label " text="" textAlignment="LEFT" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="temp_time_hm" layoutX="800" layoutY="8" prefHeight="16" prefWidth="96" styleClass="label " text="" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-temp_time_hm" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="temp_time_date" layoutX="808" layoutY="64" prefHeight="16" prefWidth="96" styleClass="label " text="" textAlignment="LEFT" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="temp_time_date" layoutX="808" layoutY="64" prefHeight="16" prefWidth="96" styleClass="label " text="" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

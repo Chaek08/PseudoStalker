@@ -147,11 +147,13 @@
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_exit" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane fragment_form "/>
     <LabelEx alignment="BOTTOM_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label_version" layoutX="8" layoutY="862" prefHeight="30" prefWidth="416" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="17"/>
+        <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
-    <SpriteView animationEnabled="false" focusTraversable="false" height="64" id="anim_cursor" layoutX="1648" layoutY="112" styleClass="" width="64"/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_load" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <Data content="load_screen" cursor="DEFAULT" enabled="1" id="data-fragment_load" visible=""/>
+    <SpriteView animationEnabled="false" focusTraversable="false" height="64" id="anim_cursor" layoutX="1632" layoutY="64" styleClass="" width="64"/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_console" layoutX="984" layoutY="32" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="456" prefWidth="568" spacing="0" styleClass="fragment-pane "/>
+    <Data content="console" cursor="DEFAULT" enabled="1" id="data-fragment_console" visible=""/>
   </children>
 </AnchorPane>

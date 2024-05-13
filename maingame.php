@@ -4,6 +4,7 @@ namespace app\forms;
 use std, gui, framework, app;
 use action\Geometry;
 use script\MediaPlayerScript;
+use php\gui\event\UXKeyEvent; 
 
 class maingame extends AbstractForm
 {
@@ -610,4 +611,14 @@ class maingame extends AbstractForm
             Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor');
         }
     }
+    /**
+     * @event keyDown-Tab 
+     */
+    function OpenConsole(UXKeyEvent $e = null)
+    {    
+        if ($this->fragment_console->toggle())
+        {
+            $this->fragment_console->visible;
+        }
+    }    
 }
