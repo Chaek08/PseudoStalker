@@ -32,7 +32,7 @@ class console extends AbstractForm
             
             case "help":
             $this->edit->text = "";   
-            Element::appendText($this->console_list, "> exit,  clear,  help,  version,  hide_watermark, show_watermark, reset_game_client\n");
+            Element::appendText($this->console_list, "> exit,  clear,  help,  version, r_watermark [off/on], reset_game_client, r_shadows [off/on], snd_all [off/on]\n\nЕсли при открытой консоли вы не можете открывать пда, инвентарь и т.д, то нажмите клавишу TAB, чтобы переключить фокус!\n");
             break;  
             
             case "exit":
@@ -42,17 +42,41 @@ class console extends AbstractForm
             $this->form('exit_dlg')->AcceptButton();
             break;    
             
-            case "hide_watermark":
+            case "r_watermark off":
             $this->edit->text = "";   
             Element::appendText($this->console_list, "> Watermark hidden..\n");
             $this->form('maingame')->fragment_opt->content->WatermarkOff();
             break;
         
-            case "show_watermark":
+            case "r_watermark on":
             $this->edit->text = "";   
             Element::appendText($this->console_list, "> Watermark visible..\n");                                
             $this->form('maingame')->fragment_opt->content->WatermarkOn();
             break;  
+            
+            case "r_shadows on":
+            $this->edit->text = "";   
+            Element::appendText($this->console_list, "> r_shadows on\n");                                
+            $this->form('maingame')->fragment_opt->content->ShadowOptOn();
+            break;    
+            
+            case "r_shadows off":
+            $this->edit->text = "";   
+            Element::appendText($this->console_list, "> r_shadows off\n");                                
+            $this->form('maingame')->fragment_opt->content->ShadowOptOff();
+            break;   
+            
+            case "snd_all off":
+            $this->edit->text = "";   
+            Element::appendText($this->console_list, "> snd_all off\n");                                
+            $this->form('maingame')->fragment_opt->content->AllSoundOff();
+            break;    
+            
+            case "snd_all on":
+            $this->edit->text = "";   
+            Element::appendText($this->console_list, "> snd_all on\n");                                
+            $this->form('maingame')->fragment_opt->content->AllSoundOn();
+            break;                                           
             
             case "reset_game_client":
             $this->edit->text = "";   
@@ -68,8 +92,7 @@ class console extends AbstractForm
             break;
             
             default:
-            if ($this->edit->text == '') {}   
-            else
+            if ($this->edit->text == '') {} else
             {
                 $this->edit->text = "";                                  
                 Element::appendText($this->console_list, "> There is no such command\n");                                    

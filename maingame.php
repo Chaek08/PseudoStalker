@@ -612,7 +612,7 @@ class maingame extends AbstractForm
         }
     }
     /**
-     * @event keyDown-Tab 
+     * @event keyDown-Q 
      */
     function OpenConsole(UXKeyEvent $e = null)
     {    
