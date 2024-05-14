@@ -211,11 +211,13 @@ class opt extends AbstractForm
     {       
         if ($this->form('maingame')->debug_build->visible)
         {
-            $this->form('maingame')->label_version->hide();             
+            $this->form('maingame')->version->hide();             
+            $this->form('maingame')->version_detail->hide();                         
         }
         else 
         {
-            $this->form('maingame')->fragment_menu->content->label_version->hide(); 
+            $this->form('maingame')->fragment_menu->content->version->hide(); 
+            $this->form('maingame')->fragment_menu->content->version_detail->hide();             
         }          
     }
     /**
@@ -225,11 +227,13 @@ class opt extends AbstractForm
     {      
         if ($this->form('maingame')->debug_build->visible)
         {
-            $this->form('maingame')->label_version->show();             
+            $this->form('maingame')->version->show();             
+            $this->form('maingame')->version_detail->show();                         
         }
         else 
         {
-            $this->form('maingame')->fragment_menu->content->label_version->show(); 
+            $this->form('maingame')->fragment_menu->content->version->show(); 
+            $this->form('maingame')->fragment_menu->content->version_detail->show();             
         }    
     }
     /**

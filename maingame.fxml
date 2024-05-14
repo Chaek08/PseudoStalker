@@ -99,7 +99,6 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-label_version" visible=""/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="32" id="debug_build" layoutX="1640" layoutY="-8" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="32">
       <font>
         <Font name="System Regular" size="12"/>
@@ -145,15 +144,22 @@
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_pda" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_win_fail" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_exit" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane fragment_form "/>
-    <LabelEx alignment="BOTTOM_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label_version" layoutX="8" layoutY="862" prefHeight="30" prefWidth="416" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="16"/>
-      </font>
-    </LabelEx>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_load" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <Data content="load_screen" cursor="DEFAULT" enabled="1" id="data-fragment_load" visible=""/>
     <SpriteView animationEnabled="false" focusTraversable="false" height="64" id="anim_cursor" layoutX="1632" layoutY="64" styleClass="" width="64"/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_console" layoutX="984" layoutY="32" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="456" prefWidth="568" spacing="0" styleClass="fragment-pane "/>
     <Data content="console" cursor="DEFAULT" enabled="1" id="data-fragment_console" visible=""/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="version_detail" layoutX="138" layoutY="857" prefHeight="48" prefWidth="328" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="13"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-version_detail" visible=""/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="version" layoutX="8" layoutY="856" prefHeight="48" prefWidth="128" styleClass="label " text="PseudoStalker" textAlignment="LEFT" textFill="#e6e6e6" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-version" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_load" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_console" layoutX="1000" layoutY="32" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="456" prefWidth="568" spacing="0" styleClass="fragment-pane "/>
   </children>
 </AnchorPane>

@@ -19,15 +19,18 @@ class maingame extends AbstractForm
     }
     function GetVersion()
     {
+        $this->version_detail->text = "Build 508, May 15 2024"; //start date 24.12.2022   
+        $this->fragment_menu->content->version_detail->text = "v1.1";  
+              
         if ($this->debug_build->visible)
         {
-            $this->label_version->show();
-            $this->label_version->text = "PseudoStalker, Build 505, May 12 2024"; //start date 24.12.2022
+            $this->version->show();
+            $this->version_detail->show();            
         }
         else
         {
-            $this->fragment_menu->content->label_version->show();
-            $this->fragment_menu->content->label_version->text = "PseudoStalker 1.1 (Build 505, May 12 2024)";
+            $this->fragment_menu->content->version->show();
+            $this->fragment_menu->content->version_detail->show();            
         }        
     }
     function LoadScreen()

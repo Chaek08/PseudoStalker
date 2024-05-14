@@ -32,7 +32,7 @@ class console extends AbstractForm
             
             case "help":
             $this->edit->text = "";   
-            Element::appendText($this->console_list, "> exit,  clear,  help,  version, r_watermark [off/on], reset_game_client, r_shadows [off/on], snd_all [off/on]\n\nЕсли при открытой консоли вы не можете открывать пда, инвентарь и т.д, то нажмите клавишу TAB, чтобы переключить фокус!\n");
+            Element::appendText($this->console_list, "> exit,  clear,  help,  version, r_version [off/on], reset_game_client, r_shadows [off/on], snd_all [off/on]\n\nЕсли при открытой консоли вы не можете открывать пда, инвентарь и т.д, то нажмите клавишу TAB, чтобы переключить фокус!\n");
             break;  
             
             case "exit":
@@ -42,15 +42,15 @@ class console extends AbstractForm
             $this->form('exit_dlg')->AcceptButton();
             break;    
             
-            case "r_watermark off":
+            case "r_version off":
             $this->edit->text = "";   
-            Element::appendText($this->console_list, "> Watermark hidden..\n");
+            Element::appendText($this->console_list, "> r_version off\n");
             $this->form('maingame')->fragment_opt->content->WatermarkOff();
             break;
         
-            case "r_watermark on":
+            case "r_version on":
             $this->edit->text = "";   
-            Element::appendText($this->console_list, "> Watermark visible..\n");                                
+            Element::appendText($this->console_list, "> r_version on\n");                                
             $this->form('maingame')->fragment_opt->content->WatermarkOn();
             break;  
             
@@ -87,7 +87,8 @@ class console extends AbstractForm
             case "version":
             $this->edit->text = "";   
             Element::appendText($this->console_list, "> ");
-            Element::appendText($this->console_list, uiText($this->form('maingame')->fragment_menu->content->label_version));
+            Element::appendText($this->console_list, "PseudoStalker, ");
+            Element::appendText($this->console_list, uiText($this->form('maingame')->version_detail));
             Element::appendText($this->console_list, "\n");
             break;
             
