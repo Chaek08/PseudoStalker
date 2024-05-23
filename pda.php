@@ -17,13 +17,6 @@ class pda extends AbstractForm
         $this->stat_label->opacity = 100;
     }
     /**
-     * @event pda_panel.click-Left 
-     */
-    function PdaPanelClick(UXMouseEvent $e = null)
-    {    
-        $this->DefaultState();                                    
-    }  
-    /**
      * @event ranking_btn.click-Left 
      */
     function RankingBtn(UXMouseEvent $e = null)
