@@ -160,6 +160,6 @@
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-version" visible=""/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_load" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_console" layoutX="1000" layoutY="32" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="456" prefWidth="568" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_console" layoutX="960" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="456" prefWidth="568" spacing="0" styleClass="fragment-pane "/>
   </children>
 </AnchorPane>

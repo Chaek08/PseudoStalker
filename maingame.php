@@ -143,10 +143,7 @@ class maingame extends AbstractForm
             $this->HideDialog();                      
             return;
         }   
-        if (!$this->fragment_pda->visible)
-        {
-            if (Media::isStatus('PLAYING', 'voice_talk3')) {Media::stop('voice_talk3');}
-        }
+        Media::stop('voice_talk3');
         if ($this->fragment_pda->visible) {$this->HidePda(); return;}        
         if ($this->fragment_exit->visible) {$this->HideExitDialog(); return;}    
         if ($this->fragment_opt->visible) {return;}    

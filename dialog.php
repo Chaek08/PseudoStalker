@@ -14,41 +14,26 @@ class dialog extends AbstractForm
     }
     function StopVoice()
     {
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
-        {
-            Media::stop('voice_start');
-            Media::stop('voice_talk1');
-            Media::stop('voice_talk2');
-            Media::stop('voice_talk3');          
-        }          
+        Media::stop('voice_start');
+        Media::stop('voice_talk1');
+        Media::stop('voice_talk2');
+        Media::stop('voice_talk3');                   
     }
     function VoiceStart()
     {
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
-        {
-            Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start");
-        }    
+        Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start"); 
     }
     function VoiceTalk_1()
     {
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
-        {
-            Media::open('res://.data/audio/voice/voice_talk1.mp3', true, "voice_talk1");
-        }           
+        Media::open('res://.data/audio/voice/voice_talk1.mp3', true, "voice_talk1");         
     }
     function VoiceTalk_2()
     {
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
-        {
-            Media::open('res://.data/audio/voice/voice_talk2.mp3', true, "voice_talk2");
-        }           
+        Media::open('res://.data/audio/voice/voice_talk2.mp3', true, "voice_talk2");      
     }    
     function VoiceTalk_3()
     {
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
-        {
-            Media::open('res://.data/audio/voice/voice_talk3.mp3', true, "voice_talk3");
-        }           
+        Media::open('res://.data/audio/voice/voice_talk3.mp3', true, "voice_talk3");        
     }    
     /**
      * @event answer_1_new.click-Left 
@@ -56,8 +41,11 @@ class dialog extends AbstractForm
     function Talk_1(UXMouseEvent $e = null)
     {    
         Element::setText($this->answer_desc, "иди нахуй заднипривадный геюган");
-        $this->StopVoice();
-        $this->VoiceTalk_1();    
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        {
+            $this->StopVoice();
+            $this->VoiceTalk_1();              
+        }  
             
         $this->actor_desc_1->show();
         $this->actor_label_1->show();
@@ -72,8 +60,11 @@ class dialog extends AbstractForm
     function Talk_2(UXMouseEvent $e = null)
     {
         Element::setText($this->answer_desc, "фу изврощенис.. пагнали дратся!!!");
-        $this->StopVoice();        
-        $this->VoiceTalk_2();
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        {        
+           $this->StopVoice();        
+           $this->VoiceTalk_2();
+        }
             
         $this->actor_desc_3->show();
         $this->actor_label_3->show();
@@ -87,10 +78,10 @@ class dialog extends AbstractForm
      */
     function Talk_3(UXMouseEvent $e = null)
     {       
-        $this->form('maingame')->HideDialog();    
-        $this->VoiceTalk_3();       
+        $this->form('maingame')->HideDialog();          
         if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
         {
+            $this->VoiceTalk_3();
             if ($this->form('maingame')->fragment_opt->content->mute_fight_sound->visible) {} else
             {
                 Media::open('res://.data/audio/fight/fight_sound.mp3', true, "fight_sound");
