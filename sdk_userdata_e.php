@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\fail_wnd;
 use php\gui\UXImage;
 use action\Element;
 use php\gui\framework\AbstractForm;
@@ -50,6 +51,11 @@ class sdk_userdata_e extends AbstractForm
         else 
         {
             $this->form('maingame')->fragment_pda->content->fragment_stat->content->tab_button->text = $this->edit_actorname->text;            
+            //Dialog wnd 
+            $this->form('maingame')->fragment_dlg->content->actor_label_1->text = $this->edit_actorname->text;
+            $this->form('maingame')->fragment_dlg->content->actor_label_3->text = $this->edit_actorname->text;    
+            $this->form('maingame')->fragment_dlg->content->answer_name->text = $this->edit_actorname->text;   
+            $this->form('maingame')->fragment_dlg->content->gg_name->text = $this->edit_actorname->text;                             
         }
     }
     /**
@@ -67,7 +73,12 @@ class sdk_userdata_e extends AbstractForm
         }
         else      
         {
-            $this->form('maingame')->fragment_pda->content->fragment_contacts->content->name->text = $this->edit_enemyname->text;            
+            $this->form('maingame')->fragment_pda->content->fragment_contacts->content->name->text = $this->edit_enemyname->text;
+            //Dialog wnd 
+            $this->form('maingame')->fragment_dlg->content->alex_label_1->text = $this->edit_enemyname->text;
+            $this->form('maingame')->fragment_dlg->content->alex_label_2->text = $this->edit_enemyname->text;    
+            $this->form('maingame')->fragment_dlg->content->alex_label_3->text = $this->edit_enemyname->text;   
+            $this->form('maingame')->fragment_dlg->content->enemy_name->text = $this->edit_actorname->text;              
         }   
     }
     /**
@@ -88,7 +99,9 @@ class sdk_userdata_e extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_stat->content->icon->image = new UXImage($this->Edit_ActorIcon->text);            
+            $this->form('maingame')->fragment_pda->content->fragment_stat->content->icon->image = new UXImage($this->Edit_ActorIcon->text);
+            //Dialog wnd 
+            $this->form('maingame')->fragment_dlg->content->icon_gg->image = new UXImage($this->Edit_ActorIcon->text);
         }
     }
     /**
@@ -102,7 +115,9 @@ class sdk_userdata_e extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_contacts->content->icon->image = new UXImage($this->Edit_EnemyIcon->text);            
+            $this->form('maingame')->fragment_pda->content->fragment_contacts->content->icon->image = new UXImage($this->Edit_EnemyIcon->text);
+            //Dialog wnd 
+            $this->form('maingame')->fragment_dlg->content->icon_enemy->image = new UXImage($this->Edit_EnemyIcon->text);            
         }
     }    
     /**
