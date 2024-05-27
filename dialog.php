@@ -51,6 +51,7 @@ class dialog extends AbstractForm
         $this->actor_label_1->show();
         $this->alex_desc_2->show();
         $this->alex_label_2->show();
+        
         $this->ResetAnswerVisible();          
         $this->answer_2_new->show();     
     }
@@ -70,6 +71,7 @@ class dialog extends AbstractForm
         $this->actor_label_3->show();
         $this->alex_desc_3->show();
         $this->alex_label_3->show();
+        
         $this->ResetAnswerVisible();       
         $this->answer_3_new->show();              
     }

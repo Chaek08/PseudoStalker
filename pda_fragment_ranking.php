@@ -180,12 +180,21 @@ class pda_fragment_ranking extends AbstractForm
         {
             $this->ResetRole();
             $this->PidorasRole();
-            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/goblindav.png');
             $this->DeathFilter();
             Element::setText($this->rank, 'ветеринар');
-            Element::setText($this->bio, 'САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ');  
             Element::setText($this->relationship, 'враг');  
-            $this->relationship->textColor = ('#cc3333');            
+            $this->relationship->textColor = ('#cc3333');    
+            
+            if ($this->form('maingame')->SDK_Mode->visible)
+            {
+                $this->user_icon->image = new UXImage($this->form('sdk_main')->f_UserDataEditor->content->Edit_EnemyIcon->text);            
+                Element::setText($this->bio, uiText($this->form('sdk_main')->f_UserDataEditor->content->textArea_EnemyBio->text));                 
+            } 
+            else
+            {
+                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/goblindav.png');    
+                Element::setText($this->bio, 'САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ');                              
+            }       
         }
         if ($this->user_valerok->visible)
         {
@@ -202,12 +211,21 @@ class pda_fragment_ranking extends AbstractForm
         {
             $this->ResetRole();        
             $this->DanilaEmojiRole();          
-            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/actor.png');  
             $this->DeathFilter();
             Element::setText($this->rank, 'мастер');
-            Element::setText($this->bio, 'Известен как самый бескомпромиссный в районе, этот человек дает пиздюлей каждому, без разницы - будь то админ или нет.');            
             $this->attitude->hide();
             $this->relationship->hide();              
+            
+            if ($this->form('maingame')->SDK_Mode->visible)
+            {
+                $this->user_icon->image = new UXImage($this->form('sdk_main')->f_UserDataEditor->content->Edit_ActorIcon->text);  
+                Element::setText($this->bio, uiText($this->form('sdk_main')->f_UserDataEditor->content->textArea_ActorBio->text));                                        
+            }
+            else 
+            {
+                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/actor.png');                  
+                Element::setText($this->bio, 'Известен как самый бескомпромиссный в районе, этот человек дает пиздюлей каждому, без разницы - будь то админ или нет.');                            
+            }
         }       
     }
 }

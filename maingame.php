@@ -16,6 +16,17 @@ class maingame extends AbstractForm
         $this->GetVersion();
         $this->GetHealth();
         $this->OpenMainAmbient();
+        
+        if ($this->SDK_Mode->visible) // Включаем SDK версию
+        {
+            $this->fragment_menu->content->opensdk_btn->show();
+        }
+        else
+        {
+            // Очистка элементов в случае, если это не SDK версия
+            $this->fragment_editor->free(); 
+            $this->fragment_menu->content->opensdk_btn->free();            
+        }
     }
     function GetVersion()
     {

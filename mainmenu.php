@@ -3,6 +3,7 @@ namespace app\forms;
 
 use std, gui, framework, app;
 use php\gui\text\UXFont;
+use php\gui\event\UXMouseEvent; 
 
 class mainmenu extends AbstractForm
 {
@@ -77,5 +78,14 @@ class mainmenu extends AbstractForm
     function EndGameBtn(UXMouseEvent $e = null)
     {
         $this->form('maingame')->ResetGameClient();
+    }
+
+    /**
+     * @event opensdk_btn.click-Left 
+     */
+    function OpenSdkBtn(UXMouseEvent $e = null)
+    {    
+        //$this->form('maingame')->fragment_editor->show();
+        app()->showForm('sdk_main');
     }
 }
