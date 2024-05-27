@@ -1,161 +1,165 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="816" prefWidth="1512" styleClass="">
   <children>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="labelAlt" layoutX="32" layoutY="40" prefHeight="40" prefWidth="288" styleClass="label " text="Name (actor)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="labelAlt" layoutX="256" layoutY="40" prefHeight="40" prefWidth="288" styleClass="label " text="Name (actor)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-labelAlt" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="edit_actorname" layoutX="320" layoutY="40" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Саня Бетон" styleClass="text-input text-field " text="Саня Бетон">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="edit_actorname" layoutX="544" layoutY="40" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Саня Бетон" styleClass="text-input text-field " text="Саня Бетон">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-edit_actorname" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label3" layoutX="32" layoutY="200" prefHeight="40" prefWidth="288" styleClass="label " text="Name (enemy)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label3" layoutX="256" layoutY="200" prefHeight="40" prefWidth="288" styleClass="label " text="Name (enemy)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label3" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="edit_enemyname" layoutX="320" layoutY="200" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Гоблиндав" styleClass="text-input text-field " text="Гоблиндав">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="edit_enemyname" layoutX="544" layoutY="200" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Гоблиндав" styleClass="text-input text-field " text="Гоблиндав">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-edit_enemyname" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label4" layoutX="32" layoutY="384" prefHeight="30" prefWidth="280" styleClass="label " text="Bio (actor)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label4" layoutX="256" layoutY="344" prefHeight="30" prefWidth="280" styleClass="label " text="Bio (actor)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label4" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label5" layoutX="32" layoutY="544" prefHeight="30" prefWidth="280" styleClass="label " text="Bio (enemy)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label5" layoutX="256" layoutY="504" prefHeight="30" prefWidth="280" styleClass="label " text="Bio (enemy)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label5" visible="1"/>
-    <TextArea editable="true" focusTraversable="true" id="textArea_ActorBio" layoutX="320" layoutY="384" prefColumnCount="40" prefHeight="144" prefWidth="384" promptText="Известен как самый бескомпромиссный в районе, этот человек дает пиздюлей каждому, без разницы - будь то админ или нет." styleClass="text-input text-area " text="Известен как самый бескомпромиссный в районе, этот человек дает пиздюлей каждому, без разницы - будь то админ или нет." wrapText="true">
+    <TextArea editable="true" focusTraversable="true" id="textArea_ActorBio" layoutX="544" layoutY="344" prefColumnCount="40" prefHeight="144" prefWidth="384" promptText="Известен как самый бескомпромиссный в районе, этот человек дает пиздюлей каждому, без разницы - будь то админ или нет." styleClass="text-input text-area " text="Известен как самый бескомпромиссный в районе, этот человек дает пиздюлей каждому, без разницы - будь то админ или нет." wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextArea>
     <Data cursor="DEFAULT" enabled="1" id="data-textArea_ActorBio" visible="1"/>
-    <TextArea editable="true" focusTraversable="true" id="textArea_EnemyBio" layoutX="320" layoutY="544" prefColumnCount="40" prefHeight="144" prefWidth="384" promptText="САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ" styleClass="text-input text-area " text="САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ" wrapText="true">
+    <TextArea editable="true" focusTraversable="true" id="textArea_EnemyBio" layoutX="544" layoutY="504" prefColumnCount="40" prefHeight="144" prefWidth="384" promptText="САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ" styleClass="text-input text-area " text="САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextArea>
     <Data cursor="DEFAULT" enabled="1" id="data-textArea_EnemyBio" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="reset_actorname_btn" layoutX="808" layoutY="40" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="reset_actorname_btn" layoutX="1032" layoutY="40" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-reset_actorname_btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="reset_enemyname_btn" layoutX="808" layoutY="200" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="reset_enemyname_btn" layoutX="1032" layoutY="200" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-reset_enemyname_btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="reset_actorbio_btn" layoutX="808" layoutY="384" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="reset_actorbio_btn" layoutX="1032" layoutY="344" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-reset_actorbio_btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="reset_enemybio_btn" layoutX="808" layoutY="544" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="reset_enemybio_btn" layoutX="1032" layoutY="504" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-reset_enemybio_btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyEnemyBio_Btn" layoutX="712" layoutY="544" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyEnemyBio_Btn" layoutX="936" layoutY="504" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyEnemyBio_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyActorBio_Btn" layoutX="712" layoutY="384" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyActorBio_Btn" layoutX="936" layoutY="344" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyActorBio_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyActorName_Btn" layoutX="712" layoutY="40" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyActorName_Btn" layoutX="936" layoutY="40" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyActorName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyEnemyName_Btn" layoutX="712" layoutY="200" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyEnemyName_Btn" layoutX="936" layoutY="200" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyEnemyName_Btn" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_ActorIcon" layoutX="320" layoutY="88" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="res://.data/ui/icon_npc/actor.png" styleClass="text-input text-field " text="res://.data/ui/icon_npc/actor.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_ActorIcon" layoutX="544" layoutY="88" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="res://.data/ui/icon_npc/actor.png" styleClass="text-input text-field " text="res://.data/ui/icon_npc/actor.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_ActorIcon" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_EnemyIcon" layoutX="320" layoutY="248" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="res://.data/ui/icon_npc/goblindav.png" styleClass="text-input text-field " text="res://.data/ui/icon_npc/goblindav.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_EnemyIcon" layoutX="544" layoutY="248" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="res://.data/ui/icon_npc/goblindav.png" styleClass="text-input text-field " text="res://.data/ui/icon_npc/goblindav.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_EnemyIcon" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="label" layoutX="32" layoutY="88" prefHeight="40" prefWidth="280" styleClass="label " text="Icon (actor)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="label" layoutX="256" layoutY="88" prefHeight="40" prefWidth="280" styleClass="label " text="Icon (actor)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="label6" layoutX="32" layoutY="248" prefHeight="40" prefWidth="280" styleClass="label " text="Icon (enemy)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="label6" layoutX="256" layoutY="248" prefHeight="40" prefWidth="280" styleClass="label " text="Icon (enemy)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label6" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyActorIcon_Btn" layoutX="712" layoutY="88" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyActorIcon_Btn" layoutX="936" layoutY="88" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyActorIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyEnemyIcon_Btn" layoutX="712" layoutY="248" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyEnemyIcon_Btn" layoutX="936" layoutY="248" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyEnemyIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetEnemyIcon_Btn" layoutX="808" layoutY="248" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetEnemyIcon_Btn" layoutX="1032" layoutY="248" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetEnemyIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetActorIcon_Btn" layoutX="808" layoutY="88" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetActorIcon_Btn" layoutX="1032" layoutY="88" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetActorIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="712" layoutY="720" prefHeight="40" prefWidth="192" styleClass="button " text="Apply all" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="936" layoutY="704" prefHeight="40" prefWidth="192" styleClass="button " text="Apply all" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyAll_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="712" layoutY="760" prefHeight="40" prefWidth="192" styleClass="button " text="Reset all" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="936" layoutY="744" prefHeight="40" prefWidth="192" styleClass="button " text="Reset all" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetAll_Btn" visible="1"/>
+    <Separator focusTraversable="false" id="separator" layoutX="256" layoutY="312" opacity="0.2" orientation="HORIZONTAL" prefHeight="8" prefWidth="872" styleClass="separator "/>
+    <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
+    <Separator focusTraversable="false" id="separatorAlt" layoutX="256" layoutY="664" opacity="0.2" orientation="HORIZONTAL" prefHeight="8" prefWidth="872" styleClass="separator "/>
+    <Data cursor="DEFAULT" enabled="1" id="data-separatorAlt" visible="1"/>
   </children>
 </AnchorPane>
