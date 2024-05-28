@@ -35,7 +35,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/dialog_wnd/danila_emoji_roleicon.png" id="data-actor_label_1" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_desc_1" layoutX="448" layoutY="408" prefHeight="21" prefWidth="680" styleClass="label " text="ахуел гей нефар&#10;" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_desc_1" layoutX="448" layoutY="408" prefHeight="21" prefWidth="680" styleClass="label " text="ахуел гей нефар" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="19"/>
       </font>
@@ -140,7 +140,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="gg_name" layoutX="632" layoutY="64" prefHeight="30" prefWidth="152" styleClass="label " text="Саня Бетон" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="gg_name" layoutX="632" layoutY="64" prefHeight="30" prefWidth="152" styleClass="label " text="Саня Бетон" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="25"/>
       </font>
