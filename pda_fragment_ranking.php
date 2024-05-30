@@ -1,6 +1,8 @@
 <?php
 namespace app\forms;
 
+use php\gui\UXImage;
+use php\gui\UXImageView;
 use std, gui, framework, app;
 use action\Element; 
 
@@ -152,27 +154,48 @@ class pda_fragment_ranking extends AbstractForm
     }
     function LadcegaRole()
     {
-        Element::setText($this->community, 'LADCEGA');
-        $this->community->textColor = '#e64d4d';    
-        $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/ladcega_role.png'));                    
+        if ($this->form('maingame')->SDK_Mode->visible)
+        {
+            Element::setText($this->community, $this->form('sdk_main')->f_RoleEditor->content->Edit_RoleName_Ladcega->text);
+            $this->community->textColor = $this->form('sdk_main')->f_RoleEditor->content->Edit_RoleColor_Ladcega->value;
+            $this->community->graphic = new UXImageView(new UXImage($this->form('sdk_main')->f_RoleEditor->content->Edit_RoleIcon_Ladcega->text));
+        }
+        else 
+        {
+            Element::setText($this->community, 'LADCEGA');
+            $this->community->textColor = '#e64d4d';
+            $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/ladcega_role.png'));            
+        }
     }    
     function DanilaEmojiRole()
     {
-        Element::setText($this->community, 'Danila Emoji');    
-        $this->community->textColor = '#cc8033';          
-        $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/danila_emoji_role.png'));            
+        if ($this->form('maingame')->SDK_Mode->visible)
+        {
+            Element::setText($this->community, $this->form('sdk_main')->f_RoleEditor->content->Edit_RoleName_Danila->text);
+            $this->community->textColor = $this->form('sdk_main')->f_RoleEditor->content->Edit_RoleColor_Danila->value;
+            $this->community->graphic = new UXImageView(new UXImage($this->form('sdk_main')->f_RoleEditor->content->Edit_RoleIcon_Danila->text));
+        }
+        else 
+        {
+            Element::setText($this->community, 'Danila Emoji');    
+            $this->community->textColor = '#cc8033';          
+            $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/danila_emoji_role.png'));            
+        }
     }
     function PidorasRole()
     {
-        Element::setText($this->community, 'Пидорасы');  
-        $this->community->textColor = '#16a4cd';         
-        $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/pidoras_role.png'));                
-    }
-    function EblanRole()
-    {
-        Element::setText($this->community, 'Гандоны');  
-        $this->community->textColor = '#990000';         
-        $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/ebln.png'));         
+        if ($this->form('maingame')->SDK_Mode->visible)
+        {
+            Element::setText($this->community, $this->form('sdk_main')->f_RoleEditor->content->Edit_RoleName_Pido->text);
+            $this->community->textColor = $this->form('sdk_main')->f_RoleEditor->content->Edit_RoleColor_Pido->value;
+            $this->community->graphic = new UXImageView(new UXImage($this->form('sdk_main')->f_RoleEditor->content->Edit_RoleIcon_Pido->text));
+        }
+        else     
+        {
+            Element::setText($this->community, 'Пидорасы');
+            $this->community->textColor = '#16a4cd';
+            $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/pidoras_role.png'));
+        }
     }
     function SetUserInfo()
     {

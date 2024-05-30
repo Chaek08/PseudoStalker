@@ -30,7 +30,7 @@ class maingame extends AbstractForm
     }
     function GetVersion()
     {
-        $this->version_detail->text = "Build 508, May 15 2024"; //start date 24.12.2022   
+        $this->version_detail->text = "Editor Build 524, May 31 2024"; //start date 24.12.2022   
         $this->fragment_menu->content->version_detail->text = "v1.1";  
               
         if ($this->debug_build->visible)

@@ -19,7 +19,7 @@ class sdk_main extends AbstractForm
     {
         if ($this->debug->visible)
         {
-            $this->version->text = "Build 4, May 28 2024";            
+            $this->version->text = "Build 7, May 31 2024";            
         }
         else 
         {

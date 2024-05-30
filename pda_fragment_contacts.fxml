@@ -62,7 +62,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community" layoutX="136" layoutY="48" prefHeight="16" prefWidth="96" styleClass="label " text="Пидорасы" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="community" layoutX="136" layoutY="40" prefHeight="32" prefWidth="168" styleClass="label " text="Пидорасы" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="12"/>
       </font>
