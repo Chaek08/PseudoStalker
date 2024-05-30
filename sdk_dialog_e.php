@@ -173,7 +173,6 @@ class sdk_dialog_e extends AbstractForm
     {    
         $this->Edit_VoiceTalk3->text = $this->Edit_VoiceTalk3->promptText;        
     }
-
     /**
      * @event ResetFinalPhase_Btn.click-Left 
      */

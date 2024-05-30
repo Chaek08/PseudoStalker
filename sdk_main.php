@@ -19,7 +19,7 @@ class sdk_main extends AbstractForm
     {
         if ($this->debug->visible)
         {
-            $this->version->text = "Build 1, May 25 2024";            
+            $this->version->text = "Build 4, May 28 2024";            
         }
         else 
         {
@@ -32,8 +32,9 @@ class sdk_main extends AbstractForm
         $this->userdata_e_btn->textColor = 'black';
         $this->dialog_e_btn->textColor = 'black';
         $this->inv_e_btn->textColor = 'black';
-        $this->mm_e_btn->textColor = 'black';        
-        $this->pda_e_btn->textColor = 'black';                   
+        $this->mm_e_btn->textColor = 'black';
+        $this->pda_e_btn->textColor = 'black';
+        $this->role_e_btn->textColor = 'black';        
     }
     function ResetFragmentsVisible()
     {
@@ -42,6 +43,7 @@ class sdk_main extends AbstractForm
         if ($this->f_MmEditor->visible) $this->f_MmEditor->hide();
         if ($this->f_PdaEditor->visible) $this->f_PdaEditor->hide();
         if ($this->f_UserDataEditor->visible) $this->f_UserDataEditor->hide();
+        if ($this->f_RoleEditor->visible) $this->f_RoleEditor->hide();
     }
     /**
      * @event userdata_e_btn.click-Left 
@@ -98,6 +100,17 @@ class sdk_main extends AbstractForm
         $this->ResetFragmentsVisible();
         $this->f_MmEditor->show();
     }
+    /**
+     * @event role_e_btn.click-Left 
+     */
+    function OpenRoleEditor(UXMouseEvent $e = null)
+    {
+        $this->ResetButtonState();
+        $this->role_e_btn->textColor = 'green';    
+        
+        $this->ResetFragmentsVisible();
+        $this->f_RoleEditor->show();
+    }    
     /**
      * @event start_game_btn.click-Left 
      */
