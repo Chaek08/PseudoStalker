@@ -17,22 +17,28 @@ class maingame extends AbstractForm
         $this->GetHealth();
         $this->OpenMainAmbient();
         
-        if ($this->SDK_Mode->visible) // Включаем SDK версию
+        if ($this->SDK_Mode->visible)
         {
             $this->fragment_menu->content->opensdk_btn->show();
         }
         else
         {
-            // Очистка элементов в случае, если это не SDK версия
             $this->fragment_editor->free(); 
             $this->fragment_menu->content->opensdk_btn->free();            
         }
     }
     function GetVersion()
     {
-        $this->version_detail->text = "Editor Build 524, May 31 2024"; //start date 24.12.2022   
-        $this->fragment_menu->content->version_detail->text = "v1.1";  
-              
+        if ($this->SDK_Mode->visible)
+        {
+            Element::setText($this->version_detail, "Editor Build 524, May 31 2024");
+            Element::setText($this->fragment_menu->content->version_detail, "v1.1 (SDK)");
+        }
+        else
+        {
+            Element::setText($this->version_detail, "Build 524, May 31 2024"); //start date 24.12.2022
+            Element::setText($this->fragment_menu->content->version_detail, "v1.1");
+        }
         if ($this->debug_build->visible)
         {
             $this->version->show();
