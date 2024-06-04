@@ -90,7 +90,7 @@ class inventory extends AbstractForm
             }
         }
     }
-    function SlotUseSound()
+    function UseSlotSound()
     {
         if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
         {
@@ -150,7 +150,7 @@ class inventory extends AbstractForm
         {
             return;
         }
-        $this->SlotUseSound();
+        $this->UseSlotSound();
         $this->ShowOutfitMaket();
         $this->ShowUIText();
         $this->SetUIText();       
@@ -164,7 +164,7 @@ class inventory extends AbstractForm
         {
             return;
         }    
-        $this->SlotUseSound();
+        $this->UseSlotSound();
         $this->ShowVodkaMaket();
         $this->ShowUIText();
         $this->SetUIText();                
