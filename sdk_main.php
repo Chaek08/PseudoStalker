@@ -13,13 +13,13 @@ class sdk_main extends AbstractForm
      */
     function InitSdk(UXWindowEvent $e = null)
     {    
-        $this->GetSdkVersion();
+        
     }
     function GetSdkVersion()
     {
-        if ($this->debug->visible)
+        if ($this->form('maingame')->debug_build->visible)
         {
-            $this->version->text = "Build 7, May 31 2024";            
+            $this->version->text = "Build 11, June 4 2024";            
         }
         else 
         {
