@@ -57,17 +57,37 @@ class inventory extends AbstractForm
     {
         if ($this->inv_maket_select_2->visible)
         {
-            Element::setText($this->maket_label, "Водка Казаки");
-            Element::setText($this->maket_desc, "С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.\n\nУправление бутылкой:\nЛКМ - Метнуть бутылку во врага\nПКМ - Метнуть бутылку к себе");    
-            Element::setText($this->maket_count, "250 RU"); 
-            Element::setText($this->maket_weight, "0.50kg");            
+            if ($this->form('maingame')->SDK_Mode->visible)
+            {
+                Element::setText($this->maket_label, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_ItemName_Vodka->text));
+                Element::setText($this->maket_desc, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_ItemDesc_Vodka->text));
+                Element::setText($this->maket_count, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_Count_Vodka->text));
+                Element::setText($this->maket_weight, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_Weight_Vodka->text));
+            }
+            else 
+            {
+                Element::setText($this->maket_label, "Водка Казаки");
+                Element::setText($this->maket_desc, "С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.\nУправление бутылкой:\nЛКМ - Метнуть бутылку во врага\nПКМ - Метнуть бутылку к себе");
+                Element::setText($this->maket_count, "250 RU");
+                Element::setText($this->maket_weight, "0.50kg");
+            }
         }
         if ($this->inv_maket_select->visible)
         {
-            Element::setText($this->maket_label, "Броня Сани Бетона");
-            Element::setText($this->maket_desc, "Этот продукт обеспечивает полную защиту от радиации и ужасного запаха гоблиндава! И что самое важное - он сделан из натуральной кабаньей плоти. Теперь я могу быть уверенным в своей безопасности и комфорте в любых условиях.");    
-            Element::setText($this->maket_count, "2599 RU"); 
-            Element::setText($this->maket_weight, "1.00kg");           
+            if ($this->form('maingame')->SDK_Mode->visible)
+            {
+                Element::setText($this->maket_label, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_ItemName_Outfit->text));
+                Element::setText($this->maket_desc, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_ItemDesc_Outfit->text));
+                Element::setText($this->maket_count, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_Count_Outfit->text));
+                Element::setText($this->maket_weight, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_Weight_Outfit->text));
+            }
+            else 
+            {
+                Element::setText($this->maket_label, "Броня Сани Бетона");
+                Element::setText($this->maket_desc, "Этот продукт обеспечивает полную защиту от радиации и ужасного запаха гоблиндава! И что самое важное - он сделан из натуральной кабаньей плоти. Теперь я могу быть уверенным в своей безопасности и комфорте в любых условиях.");
+                Element::setText($this->maket_count, "2599 RU");
+                Element::setText($this->maket_weight, "1.00kg");
+            }
         }
     }
     function SlotUseSound()

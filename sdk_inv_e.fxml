@@ -1,11 +1,215 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="816" prefWidth="1512" styleClass="">
   <children>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="776" layoutY="216" prefHeight="16" prefWidth="96" styleClass="label " text="sdk_inv_e" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemName_Outfit" layoutX="312" layoutY="64" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="Броня Сани Бетона" styleClass="text-input text-field " text="Броня Сани Бетона">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
+    </TextField>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_ItemName_Outfit" visible="1"/>
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemName_Vodka" layoutX="312" layoutY="400" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="Водка Казаки" styleClass="text-input text-field " text="Водка Казаки">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </TextField>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_ItemName_Vodka" visible="1"/>
+    <TextArea editable="true" focusTraversable="false" id="Edit_ItemDesc_Vodka" layoutX="312" layoutY="496" prefColumnCount="40" prefHeight="224" prefWidth="376" promptText="С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.\nУправление бутылкой:\nЛКМ - Метнуть бутылку во врага\nПКМ - Метнуть бутылку к себе" styleClass="text-input text-area " text="С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.&#10;&#10;Управление бутылкой:&#10;ЛКМ - Метнуть бутылку во врага&#10;ПКМ - Метнуть бутылку к себе" wrapText="true">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </TextArea>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_ItemDesc_Vodka" visible="1"/>
+    <TextArea editable="true" focusTraversable="false" id="Edit_ItemDesc_Outfit" layoutX="312" layoutY="160" prefColumnCount="40" prefHeight="208" prefWidth="376" promptText="Этот продукт обеспечивает полную защиту от радиации и ужасного запаха гоблиндава! И что самое важное - он сделан из натуральной кабаньей плоти. Теперь я могу быть уверенным в своей безопасности и комфорте в любых условиях." styleClass="text-input text-area " text="Этот продукт обеспечивает полную защиту от радиации и ужасного запаха гоблиндава! И что самое важное - он сделан из натуральной кабаньей плоти. Теперь я могу быть уверенным в своей безопасности и комфорте в любых условиях." wrapText="true">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </TextArea>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_ItemDesc_Outfit" visible="1"/>
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Count_Outfit" layoutX="1176" layoutY="64" prefColumnCount="12" prefHeight="40" prefWidth="144" promptText="2599 RU" styleClass="text-input text-field " text="2599 RU">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </TextField>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_Count_Outfit" visible="1"/>
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Count_Vodka" layoutX="1176" layoutY="400" prefColumnCount="12" prefHeight="40" prefWidth="144" promptText="250 RU" styleClass="text-input text-field " text="250 RU">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </TextField>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_Count_Vodka" visible="1"/>
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Weight_Outfit" layoutX="1176" layoutY="112" prefColumnCount="12" prefHeight="40" prefWidth="144" promptText="1.00kg" styleClass="text-input text-field " text="1.00kg">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </TextField>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_Weight_Outfit" visible="1"/>
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Weight_Vodka" layoutX="1176" layoutY="448" prefColumnCount="12" prefHeight="40" prefWidth="144" promptText="0.50kg" styleClass="text-input text-field " text="0.50kg">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </TextField>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_Weight_Vodka" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="64" layoutY="64" prefHeight="40" prefWidth="248" styleClass="label " text="Item Name (Outfit)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="labelAlt" layoutX="64" layoutY="400" prefHeight="40" prefWidth="248" styleClass="label " text="Item Name (Vodka)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-labelAlt" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label3" layoutX="64" layoutY="160" prefHeight="40" prefWidth="248" styleClass="label " text="Item Description (Outfit)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-label3" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label4" layoutX="64" layoutY="496" prefHeight="40" prefWidth="248" styleClass="label " text="Item Description (Vodka)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-label4" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetOutfitName_Btn" layoutX="696" layoutY="64" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ResetOutfitName_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetOutfitDesc_Btn" layoutX="696" layoutY="160" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ResetOutfitDesc_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetVodkaName_Btn" layoutX="696" layoutY="400" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ResetVodkaName_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetVodkaDesc_Btn" layoutX="696" layoutY="496" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ResetVodkaDesc_Btn" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label5" layoutX="984" layoutY="64" prefHeight="40" prefWidth="192" styleClass="label " text="Item Price (Outfit)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-label5" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label6" layoutX="984" layoutY="112" prefHeight="40" prefWidth="192" styleClass="label " text="Item Weight (Outfit)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-label6" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetOutfitCount_Btn" layoutX="1328" layoutY="64" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ResetOutfitCount_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetOutfitWeight_Btn" layoutX="1328" layoutY="112" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ResetOutfitWeight_Btn" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label7" layoutX="984" layoutY="400" prefHeight="40" prefWidth="192" styleClass="label " text="Item Price (Vodka)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-label7" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label8" layoutX="984" layoutY="448" prefHeight="40" prefWidth="192" styleClass="label " text="Item Weight (Vodka)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-label8" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetVodkaCount_Btn" layoutX="1328" layoutY="400" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ResetVodkaCount_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetVodkaWeight_Btn" layoutX="1328" layoutY="448" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ResetVodkaWeight_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="1328" layoutY="728" prefHeight="40" prefWidth="104" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ResetAll_Btn" visible="1"/>
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemIcon_Outfit" layoutX="312" layoutY="112" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="res://.data/ui/inventory/bandit_outfit.png" styleClass="text-input text-field " text="res://.data/ui/inventory/bandit_outfit.png">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </TextField>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_ItemIcon_Outfit" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label9" layoutX="64" layoutY="112" prefHeight="40" prefWidth="248" styleClass="label " text="Item Icon (Outfit)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-label9" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-ResetOutfitIcon_Btn" visible="1"/>
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemIcon_Vodka" layoutX="312" layoutY="448" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="res://.data/ui/inventory/item_vodka.png" styleClass="text-input text-field " text="res://.data/ui/inventory/item_vodka.png">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </TextField>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_ItemIcon_Vodka" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetVodkaIcon_Btn" layoutX="752" layoutY="448" prefHeight="40" prefWidth="48" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ResetVodkaIcon_Btn" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label10" layoutX="64" layoutY="448" prefHeight="40" prefWidth="248" styleClass="label " text="Item Icon (Vodka)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-label10" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyVodkaIcon_Btn" layoutX="696" layoutY="448" prefHeight="40" prefWidth="56" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ApplyVodkaIcon_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyOutfitIcon_Btn" layoutX="696" layoutY="112" prefHeight="40" prefWidth="56" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ApplyOutfitIcon_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetOutfitIcon_Btn" layoutX="752" layoutY="112" prefHeight="40" prefWidth="48" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="1224" layoutY="728" prefHeight="40" prefWidth="104" styleClass="button " text="Apply All" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ApplyAll_Btn" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label11" layoutX="72" layoutY="728" prefHeight="40" prefWidth="1152" styleClass="label " text="WARNING: У некоторых элементов динамическое значение, поэтому кнопка Apply отсутствует." textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-label11" visible="1"/>
   </children>
 </AnchorPane>
