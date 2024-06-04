@@ -32,7 +32,7 @@ class sdk_main extends AbstractForm
         $this->userdata_e_btn->textColor = 'black';
         $this->dialog_e_btn->textColor = 'black';
         $this->inv_e_btn->textColor = 'black';
-        $this->mm_e_btn->textColor = 'black';
+        $this->mg_e_btn->textColor = 'black';
         $this->pda_e_btn->textColor = 'black';
         $this->role_e_btn->textColor = 'black';        
     }
@@ -40,7 +40,7 @@ class sdk_main extends AbstractForm
     {
         if ($this->f_DialogEditor->visible) $this->f_DialogEditor->hide();
         if ($this->f_InvEditor->visible) $this->f_InvEditor->hide();
-        if ($this->f_MmEditor->visible) $this->f_MmEditor->hide();
+        if ($this->f_MgEditor->visible) $this->f_MgEditor->hide();
         if ($this->f_PdaEditor->visible) $this->f_PdaEditor->hide();
         if ($this->f_UserDataEditor->visible) $this->f_UserDataEditor->hide();
         if ($this->f_RoleEditor->visible) $this->f_RoleEditor->hide();
@@ -90,15 +90,15 @@ class sdk_main extends AbstractForm
         $this->f_PdaEditor->show();
     }
     /**
-     * @event mm_e_btn.click-Left 
+     * @event mg_e_btn.click-Left 
      */
-    function OpenMmEditor(UXMouseEvent $e = null)
+    function OpenMgEditor(UXMouseEvent $e = null)
     {    
         $this->ResetButtonState();
-        $this->mm_e_btn->textColor = 'green';    
+        $this->mg_e_btn->textColor = 'green';    
     
         $this->ResetFragmentsVisible();
-        $this->f_MmEditor->show();
+        $this->f_MgEditor->show();
     }
     /**
      * @event role_e_btn.click-Left 

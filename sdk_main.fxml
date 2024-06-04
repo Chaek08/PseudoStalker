@@ -25,18 +25,18 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-inv_e_btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="pda_e_btn" layoutX="816" layoutY="16" prefHeight="32" prefWidth="144" styleClass="button " text="PDA Editor" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="pda_e_btn" layoutX="960" layoutY="16" prefHeight="32" prefWidth="144" styleClass="button " text="PDA Editor" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-pda_e_btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="mm_e_btn" layoutX="960" layoutY="16" prefHeight="32" prefWidth="144" styleClass="button " text="MM Editor" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
+    <Data cursor="DEFAULT" enabled="1" id="data-pda_e_btn" visible=""/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="mg_e_btn" layoutX="816" layoutY="16" prefHeight="32" prefWidth="144" styleClass="button " text="MainGame Editor" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-mm_e_btn" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-mg_e_btn" visible="1"/>
     <FlatButton alignment="CENTER" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="f_Background" layoutX="72" layoutY="64" prefHeight="816" prefWidth="1512" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
@@ -63,8 +63,8 @@
     <Data content="sdk_inv_e" cursor="DEFAULT" enabled="1" id="data-f_InvEditor" visible=""/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="f_PdaEditor" layoutX="72" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="816" prefWidth="1512" spacing="0" styleClass="fragment-pane "/>
     <Data content="sdk_pda_e" cursor="DEFAULT" enabled="1" id="data-f_PdaEditor" visible=""/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_MmEditor" layoutX="72" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="816" prefWidth="1512" spacing="0" styleClass="fragment-pane "/>
-    <Data content="sdk_mm_e" cursor="DEFAULT" enabled="1" id="data-f_MmEditor" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_MgEditor" layoutX="72" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="816" prefWidth="1512" spacing="0" styleClass="fragment-pane "/>
+    <Data content="sdk_mm_e" cursor="DEFAULT" enabled="1" id="data-f_MgEditor" visible=""/>
     <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="start_game_btn" layoutX="1480" layoutY="16" prefHeight="32" prefWidth="104" styleClass="button " text="Start Game" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
