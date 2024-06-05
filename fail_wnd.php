@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use php\gui\UXImage;
 use std, gui, framework, app;
 
 
@@ -38,14 +39,27 @@ class fail_wnd extends AbstractForm
         $this->Win_fail_text->image = new UXImage('res://.data/ui/fail_wnd/fail_text.png');
         $this->Win_fail_desc->image = new UXImage('res://.data/ui/fail_wnd/fail_text_desc.png');
         
-        $this->Win_object->image = new UXImage('res://.data/ui/fail_wnd/goblindav.png');             
+        if ($this->form('maingame')->SDK_Mode->visible)
+        {
+            $this->Win_object->image = new UXImage($this->form('sdk_main')->f_MgEditor->content->Edit_EnemyModel->text);
+        }
+        else
+        {
+            $this->Win_object->image = new UXImage('res://.data/ui/fail_wnd/goblindav.png');
+        }
     }
     function SetEnemyFail()
     {        
         $this->Win_fail_text->image = new UXImage('res://.data/ui/fail_wnd/win_text.png');
         $this->Win_fail_desc->image = new UXImage('res://.data/ui/fail_wnd/win_text_desc.png');  
-             
-        $this->Win_object->image = new UXImage('res://.data/ui/fail_wnd/actor.png');                               
+        
+        if ($this->form('maingame')->SDK_Mode->visible)
+        {
+            $this->Win_object->image = new UXImage($this->form('sdk_main')->f_MgEditor->content->Edit_ActorModel->text);
+        }
+        else
+        {
+            $this->Win_object->image = new UXImage('res://.data/ui/fail_wnd/actor.png');
+        }             
     }
-
 }
