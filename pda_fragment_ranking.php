@@ -211,7 +211,7 @@ class pda_fragment_ranking extends AbstractForm
             if ($this->form('maingame')->SDK_Mode->visible)
             {
                 $this->user_icon->image = new UXImage($this->form('sdk_main')->f_UserDataEditor->content->Edit_EnemyIcon->text);            
-                Element::setText($this->bio, uiText($this->form('sdk_main')->f_UserDataEditor->content->textArea_EnemyBio->text));                 
+                Element::setText($this->bio, uiText($this->form('sdk_main')->f_UserDataEditor->content->textArea_EnemyBio));                 
             } 
             else
             {
@@ -242,7 +242,7 @@ class pda_fragment_ranking extends AbstractForm
             if ($this->form('maingame')->SDK_Mode->visible)
             {
                 $this->user_icon->image = new UXImage($this->form('sdk_main')->f_UserDataEditor->content->Edit_ActorIcon->text);  
-                Element::setText($this->bio, uiText($this->form('sdk_main')->f_UserDataEditor->content->textArea_ActorBio->text));                                        
+                Element::setText($this->bio, uiText($this->form('sdk_main')->f_UserDataEditor->content->textArea_ActorBio));                                        
             }
             else 
             {

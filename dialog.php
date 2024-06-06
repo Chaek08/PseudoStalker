@@ -70,7 +70,7 @@ class dialog extends AbstractForm
     {    
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Element::setText($this->answer_desc, uiText($this->form('sdk_main')->f_DialogEditor->content->Edit_Actor_Desc_3->text));
+            Element::setText($this->answer_desc, uiText($this->form('sdk_main')->f_DialogEditor->content->Edit_Actor_Desc_3));
         }
         else
         {
@@ -98,7 +98,7 @@ class dialog extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Element::setText($this->answer_desc, uiText($this->form('sdk_main')->f_DialogEditor->content->Edit_Final_Phase->text));
+            Element::setText($this->answer_desc, uiText($this->form('sdk_main')->f_DialogEditor->content->Edit_Final_Phase));
         }
         else    
         {

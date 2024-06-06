@@ -25,7 +25,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-inv_e_btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="pda_e_btn" layoutX="960" layoutY="16" prefHeight="32" prefWidth="144" styleClass="button " text="PDA Editor" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="pda_e_btn" layoutX="960" layoutY="0" prefHeight="32" prefWidth="144" styleClass="button " text="PDA Editor" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
