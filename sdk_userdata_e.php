@@ -40,9 +40,7 @@ class sdk_userdata_e extends AbstractForm
      */
     function ApplyActorName(UXMouseEvent $e = null)
     {    
-        //Element::setText($this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting, "1.                   ");
-        //Element::appendText($this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting, uiText($this->edit_actorname));
-        //Element::appendText($this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting, "                                             10699");
+        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting_name->text = $this->edit_actorname->text;
         
         if ($this->edit_actorname->text == '')
         {
@@ -63,9 +61,7 @@ class sdk_userdata_e extends AbstractForm
      */
     function ApplyEnemyName(UXMouseEvent $e = null)
     {    
-        //Element::setText($this->form('maingame')->fragment_pda->content->fragment_ranking->content->goblin_in_raiting, "3.                   ");
-        //Element::appendText($this->form('maingame')->fragment_pda->content->fragment_ranking->content->goblin_in_raiting, uiText($this->edit_enemyname));
-        //Element::appendText($this->form('maingame')->fragment_pda->content->fragment_ranking->content->goblin_in_raiting, "                                                  228");
+        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->goblindav_in_raiting_name->text = $this->edit_enemyname->text;
         
         if ($this->edit_enemyname->text == '')
         {

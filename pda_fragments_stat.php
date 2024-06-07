@@ -21,18 +21,18 @@ class pda_fragments_stat extends AbstractForm
     function RedirectRaiting(UXMouseEvent $e = null)
     {    
         $this->form('maingame')->fragment_pda->content->RankingBtn();
-        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->ActorinListBtn();        
+        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->ActorInListBtn();        
     }
     function UpdateRaiting()
     {
         if ($this->form('maingame')->skull_enemy->visible)
         {
             $this->statistic_num->text = "10021\n1000\n1\n\n11022";  
-            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting->text = "1.                   Саня Бетон                                             11022";                           
+            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting_rank->text = "11022";                           
         }     
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting->text = "1.                   Саня Бетон                                             10699"; 
+            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting_rank->text = "10699"; 
             $this->InitRaiting();           
         }  
     }

@@ -50,9 +50,17 @@ class pda_fragment_ranking extends AbstractForm
     }
     function ResetBtnColor()
     {
-        $this->actor_in_raiting->textColor = '#999999';
-        $this->goblin_in_raiting->textColor = '#999999';   
-        $this->valerok_in_raiting->textColor = '#999999';                    
+        $this->actor_in_raiting_pos->textColor = '#999999';
+        $this->actor_in_raiting_name->textColor = '#999999';
+        $this->actor_in_raiting_rank->textColor = '#999999';
+        
+        $this->valerok_in_raiting_pos->textColor = '#999999';
+        $this->valerok_in_raiting_name->textColor = '#999999';
+        $this->valerok_in_raiting_rank->textColor = '#999999';
+        
+        $this->goblindav_in_raiting_pos->textColor = '#999999';
+        $this->goblindav_in_raiting_name->textColor = '#999999';
+        $this->goblindav_in_raiting_rank->textColor = '#999999';
     }
     function DeathFilter() // Cake-crypto
     {
@@ -88,41 +96,50 @@ class pda_fragment_ranking extends AbstractForm
     /**
      * @event actor_in_raiting.click-Left 
      */
-    function ActorinListBtn(UXMouseEvent $e = null)
+    function ActorInListBtn(UXMouseEvent $e = null)
     {    
+        $this->ResetBtnColor();
         $this->ResetUserInfo();
         $this->ShowUserInfo();
-        $this->user_actor->show();
-        $this->SetUserInfo();    
         
-        $this->ResetBtnColor();
-        $this->actor_in_raiting->textColor = 'white'; 
+        $this->user_actor->show();
+        $this->SetUserInfo();
+        
+        $this->actor_in_raiting_pos->textColor = 'white';
+        $this->actor_in_raiting_name->textColor = 'white';
+        $this->actor_in_raiting_rank->textColor = 'white';
     }
     /**
      * @event valerok_in_raiting.click-Left 
      */
-    function EnemyinListBtn(UXMouseEvent $e = null)
+    function ValerokInListBtn(UXMouseEvent $e = null)
     {    
+        $this->ResetBtnColor();
         $this->ResetUserInfo();
         $this->ShowUserInfo();
-        $this->user_valerok->show();
-        $this->SetUserInfo();  
         
-        $this->ResetBtnColor();
-        $this->valerok_in_raiting->textColor = 'white';                               
+        $this->user_valerok->show();
+        $this->SetUserInfo();
+        
+        $this->valerok_in_raiting_pos->textColor = 'white';
+        $this->valerok_in_raiting_name->textColor = 'white';
+        $this->valerok_in_raiting_rank->textColor = 'white';
     }
     /**
-     * @event goblin_in_raiting.click-Left 
+     * @event goblindav_in_raiting.click-Left 
      */
-    function OtherinListBtn(UXMouseEvent $e = null)
+    function EnemyInListBtn(UXMouseEvent $e = null)
     {    
+        $this->ResetBtnColor();
         $this->ResetUserInfo();
         $this->ShowUserInfo();
-        $this->user_goblindav->show();
-        $this->SetUserInfo();  
         
-        $this->ResetBtnColor();
-        $this->goblin_in_raiting->textColor = 'white';                      
+        $this->user_goblindav->show();
+        $this->SetUserInfo();
+        
+        $this->goblindav_in_raiting_pos->textColor = 'white';
+        $this->goblindav_in_raiting_name->textColor = 'white';
+        $this->goblindav_in_raiting_rank->textColor = 'white';
     }
     /**
      * @event user_icon.click-2x 

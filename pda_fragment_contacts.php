@@ -39,7 +39,7 @@ class pda_fragment_contacts extends AbstractForm
     function RedirectRaiting(UXMouseEvent $e = null)
     {    
         $this->form('maingame')->fragment_pda->content->RankingBtn();
-        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->OtherinListBtn();        
+        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->EnemyInListBtn();        
     }    
     /**
      * @event frame.click-Left 
