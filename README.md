@@ -1,2 +1,2 @@
 - The project was developed using JPHP programming language in DevelNext development environment.
-- In the future it is planned to release **SDK **for PseudoSTALKER with intuitive interface, which will allow everyone to create their own exciting world without leaving the game.
+- In the future it is planned to release **SDK** for PseudoSTALKER with intuitive interface, which will allow everyone to create their own exciting world without leaving the game.
