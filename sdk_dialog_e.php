@@ -111,7 +111,6 @@ class sdk_dialog_e extends AbstractForm
     function ResetAlexDesc1(UXMouseEvent $e = null)
     {    
         $this->Edit_Alex_Desc_1->text = $this->Edit_Alex_Desc_1->promptText;
-        $this->ApplyAlexDesc1();
     }
     /**
      * @event ResetActor_Desc_1_Btn.click-Left 
@@ -119,7 +118,6 @@ class sdk_dialog_e extends AbstractForm
     function ResetActorDesc1(UXMouseEvent $e = null)
     {    
         $this->Edit_Actor_Desc_1->text = $this->Edit_Actor_Desc_1->promptText;
-        $this->ApplyActorDesc1();
     }
     /**
      * @event ResetAlex_Desc_2_Btn.click-Left 
@@ -127,7 +125,6 @@ class sdk_dialog_e extends AbstractForm
     function ResetAlexDesc2(UXMouseEvent $e = null)
     {    
         $this->Edit_Alex_Desc_2->text = $this->Edit_Alex_Desc_2->promptText;
-        $this->ApplyAlexDesc2();        
     }
     /**
      * @event ResetActor_Desc_3_Btn.click-Left 
@@ -135,15 +132,13 @@ class sdk_dialog_e extends AbstractForm
     function ResetActorDesc3(UXMouseEvent $e = null)
     {    
         $this->Edit_Actor_Desc_3->text = $this->Edit_Actor_Desc_3->promptText;
-        $this->ApplyActorDesc3();        
     }
     /**
      * @event ResetAlex_Desc_3_Btn.click-Left 
      */
     function ResetAlexDesc3(UXMouseEvent $e = null)
     {    
-        $this->Edit_Alex_Desc_3->text = $this->Edit_Alex_Desc_3->promptText;
-        $this->ApplyAlexDesc3();        
+        $this->Edit_Alex_Desc_3->text = $this->Edit_Alex_Desc_3->promptText;  
     }
     /**
      * @event ResetVoiceStart_Btn.click-Left 

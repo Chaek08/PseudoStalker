@@ -136,7 +136,6 @@ class sdk_userdata_e extends AbstractForm
     function ResetActorName(UXMouseEvent $e = null)
     {    
         $this->edit_actorname->text = $this->edit_actorname->promptText;
-        $this->ApplyActorName();
     }
     /**
      * @event reset_enemyname_btn.click-Left 
@@ -144,7 +143,6 @@ class sdk_userdata_e extends AbstractForm
     function ResetEnemyName(UXMouseEvent $e = null)
     {    
         $this->edit_enemyname->text = $this->edit_enemyname->promptText;
-        $this->ApplyEnemyName();        
     }
     /**
      * @event reset_actorbio_btn.click-Left 
@@ -152,7 +150,6 @@ class sdk_userdata_e extends AbstractForm
     function ResetActorBio(UXMouseEvent $e = null)
     {    
         $this->textArea_ActorBio->text = $this->textArea_ActorBio->promptText;
-        $this->ApplyActorBio();
     }
     /**
      * @event reset_enemybio_btn.click-Left 
@@ -160,7 +157,6 @@ class sdk_userdata_e extends AbstractForm
     function ResetEnemyBio(UXMouseEvent $e = null)
     {    
         $this->textArea_EnemyBio->text = $this->textArea_EnemyBio->promptText;
-        $this->ApplyEnemyBio();        
     }
     /**
      * @event ResetEnemyIcon_Btn.click-Left 
@@ -168,7 +164,6 @@ class sdk_userdata_e extends AbstractForm
     function ResetEnemyIcon(UXMouseEvent $e = null)
     {    
         $this->Edit_EnemyIcon->text = $this->Edit_EnemyIcon->promptText;
-        $this->ApplyEnemyIcon();        
     }
     /**
      * @event ResetActorIcon_Btn.click-Left 
@@ -176,6 +171,5 @@ class sdk_userdata_e extends AbstractForm
     function ResetActorIcon(UXMouseEvent $e = null)
     {    
         $this->Edit_ActorIcon->text = $this->Edit_ActorIcon->promptText;
-        $this->ApplyActorIcon();         
     }
 }

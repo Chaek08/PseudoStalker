@@ -94,7 +94,6 @@ class sdk_inv_e extends AbstractForm
     function ResetOutfitIcon(UXMouseEvent $e = null)
     {
         $this->Edit_ItemIcon_Outfit->text = $this->Edit_ItemIcon_Outfit->promptText;
-        $this->ApplyOutfitIcon();
     }
     /**
      * @event ResetVodkaIcon_Btn.click-Left 
@@ -102,7 +101,6 @@ class sdk_inv_e extends AbstractForm
     function ResetVodkaIcon(UXMouseEvent $e = null)
     {
         $this->Edit_ItemIcon_Vodka->text = $this->Edit_ItemIcon_Vodka->promptText;
-        $this->ApplyVodkaIcon();
     }
     /**
      * @event ApplyOutfitIcon_Btn.click-Left 
