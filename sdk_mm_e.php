@@ -94,6 +94,7 @@ class sdk_mm_e extends AbstractForm
     function ApplyHealthBarColorActor(UXMouseEvent $e = null)
     {    
         $this->form('maingame')->health_bar_gg->color = $this->Edit_HealthBarColor_Actor->value;
+        $this->form('maingame')->fragment_inv->content->health_bar_gg->color = $this->Edit_HealthBarColor_Actor->value;
     }
     /**
      * @event ApplyHBarColorEnemy_Btn.click-Left 
