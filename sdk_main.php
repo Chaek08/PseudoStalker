@@ -33,7 +33,6 @@ class sdk_main extends AbstractForm
         $this->dialog_e_btn->textColor = 'black';
         $this->inv_e_btn->textColor = 'black';
         $this->mg_e_btn->textColor = 'black';
-        $this->pda_e_btn->textColor = 'black';
         $this->role_e_btn->textColor = 'black';        
     }
     function ResetFragmentsVisible()
@@ -41,7 +40,6 @@ class sdk_main extends AbstractForm
         if ($this->f_DialogEditor->visible) $this->f_DialogEditor->hide();
         if ($this->f_InvEditor->visible) $this->f_InvEditor->hide();
         if ($this->f_MgEditor->visible) $this->f_MgEditor->hide();
-        if ($this->f_PdaEditor->visible) $this->f_PdaEditor->hide();
         if ($this->f_UserDataEditor->visible) $this->f_UserDataEditor->hide();
         if ($this->f_RoleEditor->visible) $this->f_RoleEditor->hide();
     }
@@ -77,17 +75,6 @@ class sdk_main extends AbstractForm
             
         $this->ResetFragmentsVisible();
         $this->f_InvEditor->show();
-    }
-    /**
-     * @event pda_e_btn.click-Left 
-     */
-    function OpenPdaEditor(UXMouseEvent $e = null)
-    {    
-        $this->ResetButtonState();
-        $this->pda_e_btn->textColor = 'green';
-            
-        $this->ResetFragmentsVisible();
-        $this->f_PdaEditor->show();
     }
     /**
      * @event mg_e_btn.click-Left 
