@@ -73,18 +73,6 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label4" visible="1"/>
-    <ColorPicker focusTraversable="true" id="Edit_HealthBarColor_Actor" layoutX="336" layoutY="256" prefHeight="40" prefWidth="360" styleClass="combo-box-base color-picker ">
-      <value>
-        <Color blue="0" green="0" opacity="1" red="0.60000002384186"/>
-      </value>
-    </ColorPicker>
-    <Data cursor="DEFAULT" enabled="1" id="data-Edit_HealthBarColor_Actor" visible="1"/>
-    <ColorPicker focusTraversable="true" id="Edit_HealthBarColor_Enemy" layoutX="336" layoutY="304" prefHeight="40" prefWidth="360" styleClass="combo-box-base color-picker ">
-      <value>
-        <Color blue="0" green="0" opacity="1" red="0.60000002384186"/>
-      </value>
-    </ColorPicker>
-    <Data cursor="DEFAULT" enabled="1" id="data-Edit_HealthBarColor_Enemy" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label5" layoutX="56" layoutY="304" prefHeight="40" prefWidth="280" styleClass="label " text="Health Bar Enemy (Color)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
@@ -229,5 +217,27 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyAll_Btn" visible="1"/>
+    <com.jfoenix.controls.JFXColorPicker focusTraversable="true" id="Edit_HealthBarColor_Actor" layoutX="336" layoutY="256" prefHeight="40" prefWidth="360">
+      <value>
+        <Color blue="0" green="0" opacity="1" red="0.60000002384186"/>
+      </value>
+      <styleClass xmlns:fx="http://javafx.com/fxml">
+        <String fx:value="combo-box-base"/>
+        <String fx:value="color-picker"/>
+        <String fx:value="jfx-color-picker"/>
+      </styleClass>
+    </com.jfoenix.controls.JFXColorPicker>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_HealthBarColor_Actor" visible="1"/>
+    <com.jfoenix.controls.JFXColorPicker focusTraversable="true" id="Edit_HealthBarColor_Enemy" layoutX="336" layoutY="304" prefHeight="40" prefWidth="360">
+      <value>
+        <Color blue="0" green="0" opacity="1" red="0.60000002384186"/>
+      </value>
+      <styleClass xmlns:fx="http://javafx.com/fxml">
+        <String fx:value="combo-box-base"/>
+        <String fx:value="color-picker"/>
+        <String fx:value="jfx-color-picker"/>
+      </styleClass>
+    </com.jfoenix.controls.JFXColorPicker>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_HealthBarColor_Enemy" visible="1"/>
   </children>
 </AnchorPane>

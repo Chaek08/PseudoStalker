@@ -71,5 +71,13 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-role_e_btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="fail_e_btn" layoutX="960" layoutY="16" prefHeight="32" prefWidth="144" styleClass="button " text="FailWnd Editor" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-fail_e_btn" visible="1"/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_FailEditor" layoutX="72" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="816" prefWidth="1512" spacing="0" styleClass="fragment-pane "/>
+    <Data content="sdk_fail_e" cursor="DEFAULT" enabled="1" id="data-f_FailEditor" visible=""/>
   </children>
 </AnchorPane>

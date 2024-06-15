@@ -37,24 +37,6 @@
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_RoleIcon_Ladcega" visible="1"/>
-    <ColorPicker focusTraversable="false" id="Edit_RoleColor_Danila" layoutX="320" layoutY="112" prefHeight="40" prefWidth="256" styleClass="combo-box-base color-picker ">
-      <value>
-        <Color blue="0.20000000298023" green="0.50196081399918" opacity="1" red="0.80000001192093"/>
-      </value>
-    </ColorPicker>
-    <Data cursor="DEFAULT" enabled="1" id="data-Edit_RoleColor_Danila" visible="1"/>
-    <ColorPicker focusTraversable="false" id="Edit_RoleColor_Pido" layoutX="320" layoutY="160" prefHeight="40" prefWidth="256" styleClass="combo-box-base color-picker ">
-      <value>
-        <Color blue="0.80392158031464" green="0.64313727617264" opacity="1" red="0.086274512112141"/>
-      </value>
-    </ColorPicker>
-    <Data cursor="DEFAULT" enabled="1" id="data-Edit_RoleColor_Pido" visible="1"/>
-    <ColorPicker focusTraversable="false" id="Edit_RoleColor_Ladcega" layoutX="320" layoutY="208" prefHeight="40" prefWidth="256" styleClass="combo-box-base color-picker ">
-      <value>
-        <Color blue="0.30196079611778" green="0.30196079611778" opacity="1" red="0.90196079015732"/>
-      </value>
-    </ColorPicker>
-    <Data cursor="DEFAULT" enabled="1" id="data-Edit_RoleColor_Ladcega" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="72" layoutY="112" prefHeight="40" prefWidth="248" styleClass="label " text="RoleColor (Danila Emoji)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
@@ -235,5 +217,38 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetAll_Btn" visible="1"/>
+    <com.jfoenix.controls.JFXColorPicker focusTraversable="true" id="Edit_RoleColor_Danila" layoutX="320" layoutY="112" prefHeight="40" prefWidth="256">
+      <value>
+        <Color blue="0.20000000298023" green="0.50196081399918" opacity="1" red="0.80000001192093"/>
+      </value>
+      <styleClass xmlns:fx="http://javafx.com/fxml">
+        <String fx:value="combo-box-base"/>
+        <String fx:value="color-picker"/>
+        <String fx:value="jfx-color-picker"/>
+      </styleClass>
+    </com.jfoenix.controls.JFXColorPicker>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_RoleColor_Danila" visible="1"/>
+    <com.jfoenix.controls.JFXColorPicker focusTraversable="true" id="Edit_RoleColor_Pido" layoutX="320" layoutY="160" prefHeight="40" prefWidth="256">
+      <value>
+        <Color blue="0.80392158031464" green="0.64313727617264" opacity="1" red="0.086274512112141"/>
+      </value>
+      <styleClass xmlns:fx="http://javafx.com/fxml">
+        <String fx:value="combo-box-base"/>
+        <String fx:value="color-picker"/>
+        <String fx:value="jfx-color-picker"/>
+      </styleClass>
+    </com.jfoenix.controls.JFXColorPicker>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_RoleColor_Pido" visible="1"/>
+    <com.jfoenix.controls.JFXColorPicker focusTraversable="true" id="Edit_RoleColor_Ladcega" layoutX="320" layoutY="208" prefHeight="40" prefWidth="256">
+      <value>
+        <Color blue="0.30196079611778" green="0.30196079611778" opacity="1" red="0.90196079015732"/>
+      </value>
+      <styleClass xmlns:fx="http://javafx.com/fxml">
+        <String fx:value="combo-box-base"/>
+        <String fx:value="color-picker"/>
+        <String fx:value="jfx-color-picker"/>
+      </styleClass>
+    </com.jfoenix.controls.JFXColorPicker>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_RoleColor_Ladcega" visible="1"/>
   </children>
 </AnchorPane>

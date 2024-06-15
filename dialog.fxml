@@ -124,7 +124,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label3" visible="1"/>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="community_enemy" layoutX="832" layoutY="184" prefHeight="40" prefWidth="152" styleClass="label " text="Пидорасы" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="true">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="community_enemy" layoutX="832" layoutY="184" prefHeight="64" prefWidth="152" styleClass="label " text="Пидорасы" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="true">
       <font>
         <Font name="System Bold" size="17"/>
       </font>
@@ -160,7 +160,7 @@
         <Font name="System Regular" size="18"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="community_actor" layoutX="632" layoutY="184" prefHeight="48" prefWidth="152" styleClass="label " text="Danila Emoji" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="true">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="community_actor" layoutX="632" layoutY="184" prefHeight="64" prefWidth="152" styleClass="label " text="Danila Emoji" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="true">
       <font>
         <Font name="System Bold" size="17"/>
       </font>

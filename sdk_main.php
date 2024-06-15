@@ -33,7 +33,8 @@ class sdk_main extends AbstractForm
         $this->dialog_e_btn->textColor = 'black';
         $this->inv_e_btn->textColor = 'black';
         $this->mg_e_btn->textColor = 'black';
-        $this->role_e_btn->textColor = 'black';        
+        $this->role_e_btn->textColor = 'black';
+        $this->fail_e_btn->textColor = 'black';
     }
     function ResetFragmentsVisible()
     {
@@ -42,6 +43,7 @@ class sdk_main extends AbstractForm
         if ($this->f_MgEditor->visible) $this->f_MgEditor->hide();
         if ($this->f_UserDataEditor->visible) $this->f_UserDataEditor->hide();
         if ($this->f_RoleEditor->visible) $this->f_RoleEditor->hide();
+        if ($this->f_FailEditor->visible) $this->f_FailEditor->hide();        
     }
     /**
      * @event userdata_e_btn.click-Left 
@@ -99,10 +101,21 @@ class sdk_main extends AbstractForm
         $this->f_RoleEditor->show();
     }    
     /**
+     * @event fail_e_btn.click-Left 
+     */
+    function OpenFailEditor(UXMouseEvent $e = null)
+    {
+        $this->ResetButtonState();
+        $this->fail_e_btn->textColor = 'green';    
+        
+        $this->ResetFragmentsVisible();
+        $this->f_FailEditor->show();
+    }
+    /**
      * @event start_game_btn.click-Left 
      */
     function StartMainGame(UXMouseEvent $e = null)
     {    
         $this->form('maingame')->fragment_editor->hide();
-    }
+    }    
 }
