@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use php\gui\UXImageView;
 use php\gui\UXImage;
 use std, gui, framework, app;
 
@@ -36,8 +37,10 @@ class fail_wnd extends AbstractForm
     }
     function SetActorFail()
     {
-        $this->Win_fail_text->image = new UXImage('res://.data/ui/fail_wnd/fail_text.png');
-        $this->Win_fail_desc->image = new UXImage('res://.data/ui/fail_wnd/fail_text_desc.png');
+        $this->Win_fail_text->text = "Ну ты лох блять...";
+        $this->Win_fail_text->graphic = new UXImageView(new UXImage('res://.data/ui/fail_wnd/actor_fail.png'));
+        
+        $this->Win_fail_desc->text = "Я пытался победить гоблиндава, но он оказался сильнее...\nЧто-ж, не получилось, не фортануло.";
         
         if ($this->form('maingame')->SDK_Mode->visible)
         {
@@ -50,8 +53,10 @@ class fail_wnd extends AbstractForm
     }
     function SetEnemyFail()
     {        
-        $this->Win_fail_text->image = new UXImage('res://.data/ui/fail_wnd/win_text.png');
-        $this->Win_fail_desc->image = new UXImage('res://.data/ui/fail_wnd/win_text_desc.png');  
+        $this->Win_fail_text->text = "Харош!!!";
+        $this->Win_fail_text->graphic = new UXImageView(new UXImage('res://.data/ui/fail_wnd/enemy_fail.png'));
+        
+        $this->Win_fail_desc->text = "ЕБУЧИЙ гоблиндав повержен.\nЭто был нелёгкий бой, но я проявил максимальный энтузиазм и уничтожил паразита!";
         
         if ($this->form('maingame')->SDK_Mode->visible)
         {
