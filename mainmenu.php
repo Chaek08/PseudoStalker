@@ -85,7 +85,6 @@ class mainmenu extends AbstractForm
      */
     function OpenSdkBtn(UXMouseEvent $e = null)
     {    
-        //$this->form('maingame')->fragment_editor->show();
-        app()->showForm('sdk_main');
+        $this->form('maingame')->fragment_editor->show();
     }
 }

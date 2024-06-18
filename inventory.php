@@ -59,10 +59,10 @@ class inventory extends AbstractForm
         {
             if ($this->form('maingame')->SDK_Mode->visible)
             {
-                Element::setText($this->maket_label, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_ItemName_Vodka));
-                Element::setText($this->maket_desc, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_ItemDesc_Vodka));
-                Element::setText($this->maket_count, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_Count_Vodka));
-                Element::setText($this->maket_weight, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_Weight_Vodka));
+                Element::setText($this->maket_label, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_ItemName_Vodka));
+                Element::setText($this->maket_desc, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_ItemDesc_Vodka));
+                Element::setText($this->maket_count, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_Count_Vodka));
+                Element::setText($this->maket_weight, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_Weight_Vodka));
             }
             else 
             {
@@ -76,10 +76,10 @@ class inventory extends AbstractForm
         {
             if ($this->form('maingame')->SDK_Mode->visible)
             {
-                Element::setText($this->maket_label, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_ItemName_Outfit));
-                Element::setText($this->maket_desc, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_ItemDesc_Outfit));
-                Element::setText($this->maket_count, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_Count_Outfit));
-                Element::setText($this->maket_weight, uiText($this->form('sdk_main')->f_InvEditor->content->Edit_Weight_Outfit));
+                Element::setText($this->maket_label, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_ItemName_Outfit));
+                Element::setText($this->maket_desc, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_ItemDesc_Outfit));
+                Element::setText($this->maket_count, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_Count_Outfit));
+                Element::setText($this->maket_weight, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_Weight_Outfit));
             }
             else 
             {

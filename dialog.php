@@ -23,7 +23,7 @@ class dialog extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Media::open($this->form('sdk_main')->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
+            Media::open($this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
         }
         else
         {
@@ -34,7 +34,7 @@ class dialog extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Media::open($this->form('sdk_main')->f_DialogEditor->content->Edit_VoiceTalk1->text, true, "voice_talk1");
+            Media::open($this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_VoiceTalk1->text, true, "voice_talk1");
         }
         else
         {
@@ -45,7 +45,7 @@ class dialog extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Media::open($this->form('sdk_main')->f_DialogEditor->content->Edit_VoiceTalk2->text, true, "voice_talk2");
+            Media::open($this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_VoiceTalk2->text, true, "voice_talk2");
         }
         else
         {    
@@ -56,7 +56,7 @@ class dialog extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Media::open($this->form('sdk_main')->f_DialogEditor->content->Edit_VoiceTalk3->text, true, "voice_talk3");
+            Media::open($this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_VoiceTalk3->text, true, "voice_talk3");
         }
         else
         {    
@@ -70,7 +70,7 @@ class dialog extends AbstractForm
     {    
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Element::setText($this->answer_desc, uiText($this->form('sdk_main')->f_DialogEditor->content->Edit_Actor_Desc_3));
+            Element::setText($this->answer_desc, uiText($this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_Actor_Desc_3));
         }
         else
         {
@@ -98,7 +98,7 @@ class dialog extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Element::setText($this->answer_desc, uiText($this->form('sdk_main')->f_DialogEditor->content->Edit_Final_Phase));
+            Element::setText($this->answer_desc, uiText($this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_Final_Phase));
         }
         else    
         {
@@ -146,7 +146,7 @@ class dialog extends AbstractForm
         $this->answer_1_new->show();
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            $this->answer_desc->text = $this->form('sdk_main')->f_DialogEditor->content->Edit_Actor_Desc_1->text;
+            $this->answer_desc->text = $this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_Actor_Desc_1->text;
         }
         else 
         {

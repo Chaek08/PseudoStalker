@@ -20,7 +20,7 @@ class maingame extends AbstractForm
         if ($this->SDK_Mode->visible)
         {
             $this->fragment_menu->content->opensdk_btn->show();
-            $this->form('sdk_main')->GetSdkVersion();            
+            $this->form('maingame')->fragment_editor->content->GetSdkVersion();            
         }
         else
         {

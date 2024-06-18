@@ -173,9 +173,9 @@ class pda_fragment_ranking extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Element::setText($this->community, $this->form('sdk_main')->f_RoleEditor->content->Edit_RoleName_Ladcega->text);
-            $this->community->textColor = $this->form('sdk_main')->f_RoleEditor->content->Edit_RoleColor_Ladcega->value;
-            $this->community->graphic = new UXImageView(new UXImage($this->form('sdk_main')->f_RoleEditor->content->Edit_RoleIcon_Ladcega->text));
+            Element::setText($this->community, $this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleName_Ladcega->text);
+            $this->community->textColor = $this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleColor_Ladcega->value;
+            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleIcon_Ladcega->text));
         }
         else 
         {
@@ -188,9 +188,9 @@ class pda_fragment_ranking extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Element::setText($this->community, $this->form('sdk_main')->f_RoleEditor->content->Edit_RoleName_Danila->text);
-            $this->community->textColor = $this->form('sdk_main')->f_RoleEditor->content->Edit_RoleColor_Danila->value;
-            $this->community->graphic = new UXImageView(new UXImage($this->form('sdk_main')->f_RoleEditor->content->Edit_RoleIcon_Danila->text));
+            Element::setText($this->community, $this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleName_Danila->text);
+            $this->community->textColor = $this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleColor_Danila->value;
+            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleIcon_Danila->text));
         }
         else 
         {
@@ -203,9 +203,9 @@ class pda_fragment_ranking extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Element::setText($this->community, $this->form('sdk_main')->f_RoleEditor->content->Edit_RoleName_Pido->text);
-            $this->community->textColor = $this->form('sdk_main')->f_RoleEditor->content->Edit_RoleColor_Pido->value;
-            $this->community->graphic = new UXImageView(new UXImage($this->form('sdk_main')->f_RoleEditor->content->Edit_RoleIcon_Pido->text));
+            Element::setText($this->community, $this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleName_Pido->text);
+            $this->community->textColor = $this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleColor_Pido->value;
+            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleIcon_Pido->text));
         }
         else     
         {
@@ -227,8 +227,8 @@ class pda_fragment_ranking extends AbstractForm
             
             if ($this->form('maingame')->SDK_Mode->visible)
             {
-                $this->user_icon->image = new UXImage($this->form('sdk_main')->f_UserDataEditor->content->Edit_EnemyIcon->text);            
-                Element::setText($this->bio, uiText($this->form('sdk_main')->f_UserDataEditor->content->textArea_EnemyBio));                 
+                $this->user_icon->image = new UXImage($this->form('maingame')->fragment_editor->content->f_UserDataEditor->content->Edit_EnemyIcon->text);            
+                Element::setText($this->bio, uiText($this->form('maingame')->fragment_editor->content->f_UserDataEditor->content->textArea_EnemyBio));                 
             } 
             else
             {
@@ -258,8 +258,8 @@ class pda_fragment_ranking extends AbstractForm
             
             if ($this->form('maingame')->SDK_Mode->visible)
             {
-                $this->user_icon->image = new UXImage($this->form('sdk_main')->f_UserDataEditor->content->Edit_ActorIcon->text);  
-                Element::setText($this->bio, uiText($this->form('sdk_main')->f_UserDataEditor->content->textArea_ActorBio));                                        
+                $this->user_icon->image = new UXImage($this->form('maingame')->fragment_editor->content->f_UserDataEditor->content->Edit_ActorIcon->text);  
+                Element::setText($this->bio, uiText($this->form('maingame')->fragment_editor->content->f_UserDataEditor->content->textArea_ActorBio));                                        
             }
             else 
             {
