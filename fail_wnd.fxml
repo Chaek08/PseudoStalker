@@ -25,15 +25,15 @@
         <Font name="System Regular" size="20"/>
       </font>
     </FlatButton>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Win_fail_desc" layoutX="0" layoutY="400" prefHeight="184" prefWidth="1208" style="-fx-font-family: 'Graffiti1CTT'" styleClass="label " text="Win_fail_desc" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Win_fail_desc" layoutX="0" layoutY="400" prefHeight="184" prefWidth="1208" styleClass="label " text="Win_fail_desc" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="12"/>
+        <Font name="Comic Sans MS" size="25"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Win_fail_desc" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Win_fail_text" layoutX="0" layoutY="344" prefHeight="66" prefWidth="1208" style="-fx-font-family: 'Graffiti1CTT'" styleClass="label " text="Win_fail_text" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Win_fail_text" layoutX="0" layoutY="344" prefHeight="66" prefWidth="1208" styleClass="label " text="Win_fail_text" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="12"/>
+        <Font name="Comic Sans MS" size="45"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-Win_fail_text" visible="1"/>
