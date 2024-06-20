@@ -592,7 +592,8 @@ class maingame extends AbstractForm
         $this->fragment_pda->content->fragment_stat->content->ActorFailText();
         $this->fragment_pda->content->fragment_ranking->content->DeathFilter();
         $this->fragment_pda->content->fragment_tasks->content->Step2_Failed(); 
-        $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();                
+        $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();
+        $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();        
            
         $this->StopAllSounds();  
         
@@ -620,7 +621,7 @@ class maingame extends AbstractForm
         $this->fragment_pda->content->fragment_contacts->content->DeleteEnemyContacts();    
         $this->fragment_pda->content->fragment_tasks->content->Step2_Complete();       
         $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();   
-        $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();             
+        $this->fragment_pda->content->fragment_stat->content->UpdateRaiting(); 
 
         $this->StopAllSounds();  
         
