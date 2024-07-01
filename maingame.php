@@ -584,9 +584,10 @@ class maingame extends AbstractForm
         $this->actor->x = 112;
         $this->enemy->x = 1312;     
         
-        $this->fight_image->hide();  
-        $this->fragment_win_fail->show();               
-        $this->item_vodka_0000->enabled = false; 
+        $this->fight_image->hide();
+        $this->fragment_win_fail->content->InitFailWnd();        
+        $this->fragment_win_fail->show();
+        $this->item_vodka_0000->enabled = false;
            
         $this->fragment_win_fail->content->SetActorFail();
         $this->fragment_pda->content->fragment_stat->content->ActorFailText();
@@ -612,8 +613,9 @@ class maingame extends AbstractForm
         $this->actor->x = 112;
     
         $this->fight_image->hide();
+        $this->fragment_win_fail->content->InitFailWnd();
         $this->fragment_win_fail->show();
-        $this->item_vodka_0000->enabled = false; 
+        $this->item_vodka_0000->enabled = false;
                 
         $this->fragment_win_fail->content->SetEnemyFail();
         $this->fragment_pda->content->fragment_stat->content->EnemyFailText();

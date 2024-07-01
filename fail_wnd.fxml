@@ -30,12 +30,24 @@
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-Win_fail_desc" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-Win_fail_desc" visible=""/>
     <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Win_fail_text" layoutX="0" layoutY="344" prefHeight="66" prefWidth="1208" styleClass="label " text="Win_fail_text" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="45"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-Win_fail_text" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-Win_fail_text" visible=""/>
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="66" id="Win_fail_text_Legacy" layoutX="0" layoutY="344" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="1208">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Win_fail_text_Legacy" visible=""/>
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="184" id="Win_fail_desc_Legacy" layoutX="0" layoutY="400" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="1208">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Win_fail_desc_Legacy" visible=""/>
   </children>
 </AnchorPane>

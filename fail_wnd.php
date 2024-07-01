@@ -5,10 +5,24 @@ use php\gui\text\UXFont;
 use php\gui\UXImageView;
 use php\gui\UXImage;
 use std, gui, framework, app;
+use php\gui\event\UXWindowEvent; 
 
 
 class fail_wnd extends AbstractForm
 {
+    function InitFailWnd()
+    {    
+        if ($this->form('maingame')->SDK_Mode->visible)
+        {
+            $this->Win_fail_text->show();
+            $this->Win_fail_desc->show();
+        }
+        else
+        {
+            $this->Win_fail_text_Legacy->show();
+            $this->Win_fail_desc_Legacy->show();
+        }
+    }
     /**
      * @event exitbtn.click-Left 
      */
@@ -48,9 +62,8 @@ class fail_wnd extends AbstractForm
         else
         {
             $this->Win_object->image = new UXImage('res://.data/ui/fail_wnd/goblindav.png');
-            $this->Win_fail_text->graphic = new UXImageView(new UXImage('res://.data/ui/fail_wnd/actor_fail.png'));
-            $this->Win_fail_text->text = "Ну ты лох блять...";
-            $this->Win_fail_desc->text = "Я пытался победить гоблиндава, но он оказался сильнее...\nЧто-ж, не получилось, не фортануло.";
+            $this->Win_fail_text_Legacy->image = new UXImage('res://.data/ui/fail_wnd/fail_text.png');
+            $this->Win_fail_desc_Legacy->image = new UXImage('res://.data/ui/fail_wnd/fail_text_desc.png');
         }
     }
     function SetEnemyFail()
@@ -65,9 +78,8 @@ class fail_wnd extends AbstractForm
         else
         {
             $this->Win_object->image = new UXImage('res://.data/ui/fail_wnd/actor.png');
-            $this->Win_fail_text->graphic = new UXImageView(new UXImage('res://.data/ui/fail_wnd/enemy_fail.png'));
-            $this->Win_fail_text->text = "Харош!!!";
-            $this->Win_fail_desc->text = "ЕБУЧИЙ гоблиндав повержен.\nЭто был нелёгкий бой, но я проявил максимальный энтузиазм и уничтожил паразита!";
+            $this->Win_fail_text_Legacy->image = new UXImage('res://.data/ui/fail_wnd/win_text.png');
+            $this->Win_fail_desc_Legacy->image = new UXImage('res://.data/ui/fail_wnd/win_text_desc.png');
         }             
     }
 }
