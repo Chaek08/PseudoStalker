@@ -31,6 +31,7 @@ class sdk_mm_e extends AbstractForm
         $this->ResetEnemyModel();
         $this->ResetHealthBarColorActor();
         $this->ResetHealthBarColorEnemy();
+        $this->ResetFightSound();
     }
     /**
      * @event ApplyBackground_Btn.click-Left 
@@ -213,5 +214,19 @@ class sdk_mm_e extends AbstractForm
         {
             $this->form('maingame')->enemy->stretch = false;
         }
+    }
+    /**
+     * @event ResetFightSound_Btn.click-Left 
+     */
+    function ResetFightSound(UXMouseEvent $e = null)
+    {    
+        $this->Edit_FightSound->text = $this->Edit_FightSound->promptText;
+    }
+    /**
+     * @event ClearFightSound_Btn.click-Left 
+     */
+    function ClearFightSound(UXMouseEvent $e = null)
+    {    
+        $this->Edit_FightSound->text = '';
     }
 }

@@ -130,7 +130,14 @@ class dialog extends AbstractForm
             $this->VoiceTalk_3();
             if ($this->form('maingame')->fragment_opt->content->mute_fight_sound->visible) {} else
             {
-                Media::open('res://.data/audio/fight/fight_sound.mp3', true, "fight_sound");
+                if ($this->form('maingame')->SDK_Mode->visible)
+                {
+                    Media::open($this->form('maingame')->fragment_editor->content->f_MgEditor->content->Edit_FightSound->text, true, "fight_sound");
+                }
+                else 
+                {
+                    Media::open('res://.data/audio/fight/fight_sound.mp3', true, "fight_sound");
+                }
                 Media::pause('main_ambient');                
             }     
         }

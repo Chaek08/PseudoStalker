@@ -205,13 +205,13 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-EnemyModelStretchOff_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="840" layoutY="704" prefHeight="40" prefWidth="120" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="840" layoutY="736" prefHeight="40" prefWidth="120" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetAll_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="712" layoutY="704" prefHeight="40" prefWidth="120" styleClass="button " text="Apply All" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="704" layoutY="736" prefHeight="40" prefWidth="128" styleClass="button " text="Apply All" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -239,5 +239,29 @@
       </styleClass>
     </com.jfoenix.controls.JFXColorPicker>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_HealthBarColor_Enemy" visible="1"/>
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_FightSound" layoutX="336" layoutY="616" prefColumnCount="12" prefHeight="40" prefWidth="360" promptText="res://.data/audio/fight/fight_sound.mp3" styleClass="text-input text-field " text="res://.data/audio/fight/fight_sound.mp3">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </TextField>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_FightSound" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label10" layoutX="56" layoutY="616" prefHeight="40" prefWidth="280" styleClass="label " text="Fight Sound" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-label10" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetFightSound_Btn" layoutX="704" layoutY="616" prefHeight="40" prefWidth="128" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ResetFightSound_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearFightSound_Btn" layoutX="840" layoutY="616" prefHeight="40" prefWidth="120" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ClearFightSound_Btn" visible="1"/>
   </children>
 </AnchorPane>
