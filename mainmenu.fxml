@@ -49,11 +49,11 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-version_detail" visible=""/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="opensdk_btn" layoutX="1424" layoutY="824" prefHeight="56" prefWidth="144" styleClass="button " text="Open SDK" textAlignment="CENTER" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="opensdk_btn" layoutX="1376" layoutY="808" prefHeight="64" prefWidth="192" styleClass="x-flat-button " text="Open SDK" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="20"/>
+        <Font name="System Regular" size="25"/>
       </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-opensdk_btn" visible=""/>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/mainmenu/sdk_btn.png" id="data-opensdk_btn" visible="1"/>
   </children>
 </AnchorPane>

@@ -15,4 +15,7 @@
   <target id="btn_end_game">
     <behaviour color="#333333" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
+  <target id="opensdk_btn">
+    <behaviour color="#999999" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
 </behaviours>
