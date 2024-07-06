@@ -8,25 +8,25 @@ use php\gui\event\UXWindowEvent;
 
 class sdk_main extends AbstractForm
 {
-    /**
-     * @event show 
-     */
-    function InitSdk(UXWindowEvent $e = null)
-    {    
-        
-    }
     function GetSdkVersion()
     {
         if ($this->form('maingame')->debug_build->visible)
         {
-            $this->version->text = "Build 11, June 4 2024";            
+            $this->version->text = "Build 43, Jule 6 2024"; //start date: 24 may 2024           
         }
         else 
         {
-            $this->version->text = "...";
+            $this->version->text = "v1.0";
         }
     }
-    
+    /**
+     * @event SDK_Icon.click-2x
+     */
+    function DefaultSdkState(UXMouseEvent $e = null)
+    {    
+        $this->ResetButtonState();
+        $this->ResetFragmentsVisible();
+    }    
     function ResetButtonState()
     {
         $this->userdata_e_btn->textColor = 'black';
@@ -118,4 +118,16 @@ class sdk_main extends AbstractForm
     {    
         $this->form('maingame')->fragment_editor->hide();
     }    
+    /**
+     * @event reset_all_btn.click-Left 
+     */
+    function ResetAllChanges(UXMouseEvent $e = null)
+    {    
+        $this->f_DialogEditor->content->ResetAll();
+        $this->f_FailEditor->content->ResetAll();
+        $this->f_InvEditor->content->ResetAll();   
+        $this->f_MgEditor->content->ResetAll();      
+        $this->f_RoleEditor->content->ResetAll();
+        $this->f_UserDataEditor->content->ResetAll();                       
+    }
 }

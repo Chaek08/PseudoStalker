@@ -6,7 +6,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-SDK_Icon" image=".data/ui/icon_npc/icon_vovchik.png" tooltipText="PseudoSDK" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-SDK_Icon" image=".data/ui/icon_npc/icon_vovchik.png" tooltipText="Двойное нажатие сбрасывает интерфейс SDK" visible="1"/>
     <FlatButton alignment="CENTER" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="f_Background" layoutX="72" layoutY="64" prefHeight="816" prefWidth="1512" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
@@ -19,7 +19,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-productname_label" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="version" layoutX="72" layoutY="24" prefHeight="48" prefWidth="160" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="version" layoutX="72" layoutY="24" prefHeight="48" prefWidth="152" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="13"/>
       </font>
@@ -73,11 +73,17 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_fail_wnd_editor_btn.png" id="data-fail_e_btn" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="start_game_btn" layoutX="1448" layoutY="8" prefHeight="48" prefWidth="136" styleClass="x-flat-button " text="Start Game" textAlignment="CENTER" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="start_game_btn" layoutX="1464" layoutY="8" prefHeight="48" prefWidth="120" styleClass="x-flat-button " text="Start Game" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_play_btn.png" id="data-start_game_btn" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="reset_all_btn" layoutX="1336" layoutY="8" prefHeight="48" prefWidth="120" styleClass="x-flat-button " text="Reset&#10;All Changes&#10;" textAlignment="CENTER" underline="false" wrapText="true">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_resetallchanges_btn.png" id="data-reset_all_btn" visible="1"/>
   </children>
 </AnchorPane>

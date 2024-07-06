@@ -145,5 +145,11 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearEnemyFailIcon_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="1360" layoutY="744" prefHeight="40" prefWidth="120" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ResetAll_Btn" visible="1"/>
   </children>
 </AnchorPane>
