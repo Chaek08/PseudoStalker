@@ -50,7 +50,7 @@ class maingame extends AbstractForm
             $this->fragment_menu->content->version->show();
             $this->fragment_menu->content->version_detail->show();            
         }        
-    }
+    }     
     function LoadScreen()
     {
         $this->fragment_load->show();
@@ -62,7 +62,7 @@ class maingame extends AbstractForm
            $this->fragment_load->hide();    
            $this->anim_cursor->show();       
         });            
-    }  
+    }     
     function OpenMainAmbient()
     {
         if ($this->fragment_opt->content->all_sounds->visible)
@@ -84,6 +84,22 @@ class maingame extends AbstractForm
              Media::pause('main_ambient');             
         }            
     }
+    function StopAllSounds()
+    {
+        if ($this->fragment_opt->content->all_sounds->visible)
+        { 
+            if (Media::isStatus('PLAYING', 'fight_sound')){Media::stop('fight_sound');}
+            if (Media::isStatus('PLAYING', 'main_ambient')){Media::stop('main_ambient');}
+            if (Media::isStatus('PLAYING', 'v_enemy')){Media::stop('v_enemy');}
+            if (Media::isStatus('PLAYING', 'v_actor')){Media::stop('v_actor');}
+            if (Media::isStatus('PLAYING', 'hit_alex')){Media::stop('hit_alex');}
+            if (Media::isStatus('PLAYING', 'hit_alex_damage')){Media::stop('hit_alex_damage');}      
+            if (Media::isStatus('PLAYING', 'hit_actor')){Media::stop('hit_actor');}
+            if (Media::isStatus('PLAYING', 'hit_actor_damage')){Media::stop('hit_actor_damage');}
+            if (Media::isStatus('PLAYING', 'die_alex')){Media::stop('die_alex');}
+            if (Media::isStatus('PLAYING', 'die_actor')){Media::stop('die_actor');}                                                                                                                                      
+        }        
+    }    
     function ResetGameClient()
     {  
         $this->LoadScreen();
@@ -121,22 +137,6 @@ class maingame extends AbstractForm
         $this->fragment_menu->content->NewGameMenu();
         $this->fragment_pda->content->fragment_stat->content->ResetFinalText();
     }
-    function StopAllSounds()
-    {
-        if ($this->fragment_opt->content->all_sounds->visible)
-        { 
-            if (Media::isStatus('PLAYING', 'fight_sound')){Media::stop('fight_sound');}
-            if (Media::isStatus('PLAYING', 'main_ambient')){Media::stop('main_ambient');}
-            if (Media::isStatus('PLAYING', 'v_enemy')){Media::stop('v_enemy');}
-            if (Media::isStatus('PLAYING', 'v_actor')){Media::stop('v_actor');}
-            if (Media::isStatus('PLAYING', 'hit_alex')){Media::stop('hit_alex');}
-            if (Media::isStatus('PLAYING', 'hit_alex_damage')){Media::stop('hit_alex_damage');}      
-            if (Media::isStatus('PLAYING', 'hit_actor')){Media::stop('hit_actor');}
-            if (Media::isStatus('PLAYING', 'hit_actor_damage')){Media::stop('hit_actor_damage');}
-            if (Media::isStatus('PLAYING', 'die_alex')){Media::stop('die_alex');}
-            if (Media::isStatus('PLAYING', 'die_actor')){Media::stop('die_actor');}                                                                                                                                      
-        }        
-    }
     /**
      * @event keyDown-Esc 
      */
@@ -160,7 +160,14 @@ class maingame extends AbstractForm
         {
             $this->HideDialog();                      
             return;
-        }   
+        }
+        if ($this->SDK_Mode->visible)
+        {
+            if ($this->fragment_editor->visible)
+            {
+                return;
+            }
+        }
         Media::stop('voice_talk3');
         if ($this->fragment_pda->visible) {$this->HidePda(); return;}        
         if ($this->fragment_exit->visible) {$this->HideExitDialog(); return;}    
@@ -217,7 +224,14 @@ class maingame extends AbstractForm
         if ($this->fragment_win_fail->visible)
         {
             return;
-        }             
+        }  
+        if ($this->SDK_Mode->visible)
+        {
+            if ($this->fragment_editor->visible)
+            {
+                return;
+            }
+        }                   
         $this->fragment_pda->show();   
         if ($this->fragment_pda->content->fragment_stat->visible)
         {
@@ -256,7 +270,14 @@ class maingame extends AbstractForm
         if ($this->fragment_win_fail->visible)
         {
             return;
-        }                        
+        }
+        if ($this->SDK_Mode->visible)
+        {
+            if ($this->fragment_editor->visible)
+            {
+                return;
+            }
+        }                           
         $this->fragment_inv->show(); 
         if ($this->fragment_opt->content->all_sounds->visible){ Media::open('res://.data/audio/inv_open.mp3', true);}     
             
@@ -297,8 +318,15 @@ class maingame extends AbstractForm
         if ($this->fragment_win_fail->visible)
         {
             return;
-        }   
-        $this->fragment_exit->show();  
+        }
+        if ($this->SDK_Mode->visible)
+        {
+            if ($this->fragment_editor->visible)
+            {
+                return;
+            }
+        }
+        $this->fragment_exit->show();
     }
     /**
      * @event dlg_btn.click-Left 
