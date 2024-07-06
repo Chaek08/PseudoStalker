@@ -18,7 +18,6 @@ class sdk_userdata_e extends AbstractForm
     {    
         $this->ApplyActorName();
         $this->ApplyActorIcon();
-        $this->ApplyActorBio();
         $this->ApplyEnemyName();
         $this->ApplyEnemyIcon();
         $this->ApplyEnemyBio();
@@ -76,13 +75,6 @@ class sdk_userdata_e extends AbstractForm
             $this->form('maingame')->fragment_dlg->content->alex_label_3->text = $this->edit_enemyname->text;   
             $this->form('maingame')->fragment_dlg->content->enemy_name->text = $this->edit_enemyname->text;              
         }   
-    }
-    /**
-     * @event ApplyActorBio_Btn.click-Left 
-     */
-    function ApplyActorBio(UXMouseEvent $e = null)
-    {    
-        
     }
     /**
      * @event ApplyActorIcon_Btn.click-Left 
