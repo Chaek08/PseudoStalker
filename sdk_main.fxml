@@ -7,12 +7,12 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-SDK_Icon" image=".data/ui/icon_npc/icon_vovchik.png" tooltipText="Двойное нажатие сбрасывает интерфейс SDK" visible="1"/>
-    <FlatButton alignment="CENTER" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="f_Background" layoutX="72" layoutY="64" prefHeight="816" prefWidth="1512" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="f_Background" layoutX="72" layoutY="64" prefHeight="816" prefWidth="1512" styleClass="x-flat-button " text="Get started" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="12"/>
+        <Font name="System Regular" size="40"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-f_Background" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/pda_background_image.png" id="data-f_Background" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="productname_label" layoutX="72" layoutY="0" prefHeight="48" prefWidth="102" styleClass="label " text="PseudoSDK" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
