@@ -46,6 +46,25 @@ class sdk_main extends AbstractForm
         if ($this->f_FailEditor->visible) $this->f_FailEditor->hide();        
     }
     /**
+     * @event reset_all_btn.click-Left 
+     */
+    function ResetAllChanges(UXMouseEvent $e = null)
+    {    
+        $this->f_DialogEditor->content->ResetAll();
+        $this->f_FailEditor->content->ResetAll();
+        $this->f_InvEditor->content->ResetAll();   
+        $this->f_MgEditor->content->ResetAll();      
+        $this->f_RoleEditor->content->ResetAll();
+        $this->f_UserDataEditor->content->ResetAll();                       
+    }
+    /**
+     * @event start_game_btn.click-Left 
+     */
+    function StartMainGame(UXMouseEvent $e = null)
+    {    
+        $this->form('maingame')->fragment_editor->hide();
+    }      
+    /**
      * @event userdata_e_btn.click-Left 
      */
     function OpenUserDataEditor(UXMouseEvent $e = null)
@@ -110,24 +129,5 @@ class sdk_main extends AbstractForm
         
         $this->ResetFragmentsVisible();
         $this->f_FailEditor->show();
-    }
-    /**
-     * @event start_game_btn.click-Left 
-     */
-    function StartMainGame(UXMouseEvent $e = null)
-    {    
-        $this->form('maingame')->fragment_editor->hide();
-    }    
-    /**
-     * @event reset_all_btn.click-Left 
-     */
-    function ResetAllChanges(UXMouseEvent $e = null)
-    {    
-        $this->f_DialogEditor->content->ResetAll();
-        $this->f_FailEditor->content->ResetAll();
-        $this->f_InvEditor->content->ResetAll();   
-        $this->f_MgEditor->content->ResetAll();      
-        $this->f_RoleEditor->content->ResetAll();
-        $this->f_UserDataEditor->content->ResetAll();                       
-    }
+    }  
 }
