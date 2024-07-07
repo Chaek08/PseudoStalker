@@ -36,7 +36,22 @@ class sdk_userdata_e extends AbstractForm
         $this->ResetValerokName();
         $this->ResetValerokIcon();
         $this->ResetValerokBio();        
-    }    
+    }  
+    /**
+     * @event ClearAll_Btn.click-Left 
+     */
+    function ClearAll(UXMouseEvent $e = null)
+    {
+        $this->ClearActorName();
+        $this->ClearActorBio();
+        $this->ClearActorIcon();
+        $this->ClearValerokName();
+        $this->ClearValerokBio();
+        $this->ClearValerokIcon();
+        $this->ClearEnemyName();
+        $this->ClearEnemyBio();
+        $this->ClearEnemyIcon();                
+    }      
     /**
      * @event ApplyActorName_Btn.click-Left
      */
