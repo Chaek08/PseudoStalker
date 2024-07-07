@@ -238,14 +238,23 @@ class pda_fragment_ranking extends AbstractForm
         }
         if ($this->user_valerok->visible)
         {
-            $this->ResetRole();        
+            $this->ResetRole();
             $this->LadcegaRole();
-            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/valerok.png');    
             $this->DeathFilter();
             Element::setText($this->rank, 'мастер');
-            Element::setText($this->bio, 'Хозяин LADCEGA, попускает тупых огсровцев, В его гараже всегда лежит нож, готовый помочь в любых делах.'); 
-            Element::setText($this->relationship, 'друг'); 
-            $this->relationship->textColor = ('#669966');                       
+            Element::setText($this->relationship, 'друг');  
+            $this->relationship->textColor = ('#669966');    
+            
+            if ($this->form('maingame')->SDK_Mode->visible)
+            {
+                $this->user_icon->image = new UXImage($this->form('maingame')->fragment_editor->content->f_UserDataEditor->content->Edit_ValerokIcon->text);            
+                Element::setText($this->bio, uiText($this->form('maingame')->fragment_editor->content->f_UserDataEditor->content->textArea_ValerokBio));                 
+            } 
+            else
+            {
+                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/valerok.png');    
+                Element::setText($this->bio, 'Хозяин LADCEGA, попускает тупых огсровцев, В его гараже всегда лежит нож, готовый помочь в любых делах.');                              
+            }                                   
         }       
         if ($this->user_actor->visible)
         {

@@ -37,13 +37,13 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetActorFailEdit_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearActorFailEdit_Btn" layoutX="752" layoutY="152" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearActorFailEdit_Btn" layoutX="744" layoutY="152" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearActorFailEdit_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearActorFailDesc_Btn" layoutX="752" layoutY="200" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearActorFailDesc_Btn" layoutX="744" layoutY="200" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -91,13 +91,13 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetEnemyFailDesc_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearEnemyFailEdit_Btn" layoutX="752" layoutY="464" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearEnemyFailEdit_Btn" layoutX="744" layoutY="464" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearEnemyFailEdit_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearEnemyFailDesc_Btn" layoutX="752" layoutY="512" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearEnemyFailDesc_Btn" layoutX="744" layoutY="512" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -133,13 +133,13 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetEnemyFailIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearActorFailIcon_Btn" layoutX="1424" layoutY="152" prefHeight="40" prefWidth="56" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearActorFailIcon_Btn" layoutX="1416" layoutY="152" prefHeight="40" prefWidth="56" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearActorFailIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearEnemyFailIcon_Btn" layoutX="1424" layoutY="464" prefHeight="40" prefWidth="56" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearEnemyFailIcon_Btn" layoutX="1416" layoutY="464" prefHeight="40" prefWidth="56" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

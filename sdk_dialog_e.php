@@ -29,7 +29,6 @@ class sdk_dialog_e extends AbstractForm
         $this->ResetAlexDesc2();
         $this->ResetAlexDesc3();
         $this->ResetFinalPhase();
-        //Voice
         $this->ResetVoiceStart();
         $this->ResetVoiceTalk1();
         $this->ResetVoiceTalk2();
