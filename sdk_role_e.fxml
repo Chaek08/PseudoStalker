@@ -73,12 +73,6 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyPidoRoleColor_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyLaRoleColor_Btn" layoutX="584" layoutY="208" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ApplyLaRoleColor_Btn" visible="1"/>
     <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetDeRoleColor_Btn" layoutX="688" layoutY="112" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
@@ -91,7 +85,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetPidoRoleColor_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetLaRoleColor_Btn" layoutX="688" layoutY="208" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetLaRoleColor_Btn" layoutX="584" layoutY="208" prefHeight="40" prefWidth="200" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -127,13 +121,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetPidoRoleName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyLaRoleName_Btn" layoutX="584" layoutY="408" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ApplyLaRoleName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetLaRoleName_Btn" layoutX="688" layoutY="408" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetLaRoleName_Btn" layoutX="584" layoutY="408" prefHeight="40" prefWidth="200" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -187,21 +175,15 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetPidoRoleIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyLaRoleIcon_Btn" layoutX="584" layoutY="608" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ApplyLaRoleIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetLaRoleIcon_Btn" layoutX="688" layoutY="608" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetLaRoleIcon_Btn" layoutX="584" layoutY="608" prefHeight="40" prefWidth="200" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetLaRoleIcon_Btn" visible="1"/>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label10" layoutX="792" layoutY="512" prefHeight="136" prefWidth="624" styleClass="label " text="Размеры для иконок: 24x24, 16x16&#10;Более большие размеры приведут к проблемам в UI&#10;" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label10" layoutX="792" layoutY="512" prefHeight="144" prefWidth="624" styleClass="label " text="Размеры для иконок: 24x24, 16x16&#10;Более большие размеры приведут к проблемам в UI&#10;&#10;Если вы хотите убрать иконку роли, то пропишите специальный путь к иконке:&#10;res://.data/ui/dialog/no_role.png&#10;" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
-        <Font name="System Regular" size="20"/>
+        <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label10" visible="1"/>
