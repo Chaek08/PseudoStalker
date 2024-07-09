@@ -3,6 +3,7 @@ namespace app\forms;
 
 use php\gui\framework\AbstractForm;
 use php\gui\event\UXMouseEvent; 
+use php\gui\event\UXEvent; 
 
 
 class sdk_dialog_e extends AbstractForm
@@ -33,7 +34,23 @@ class sdk_dialog_e extends AbstractForm
         $this->ResetVoiceTalk1();
         $this->ResetVoiceTalk2();
         $this->ResetVoiceTalk3();
-    }    
+    }
+    /**
+     * @event ClearAll_Btn.click-Left 
+     */
+    function ClearAll(UXMouseEvent $e = null)
+    {    
+        $this->ClearActor_Desc_1();
+        $this->ClearActor_Desc_3();
+        $this->ClearAlex_Desc_1();
+        $this->ClearAlex_Desc_2();
+        $this->ClearAlex_Desc_3();
+        $this->ClearFinalPhase();
+        $this->ClearVoiceStart();
+        $this->ClearVoiceTalk1();
+        $this->ClearVoiceTalk2();
+        $this->ClearVoiceTalk3();
+    }       
     /**
      * @event ApplyAlex_Desc_1_Btn.click-Left 
      */
@@ -173,5 +190,75 @@ class sdk_dialog_e extends AbstractForm
     function ResetFinalPhase(UXMouseEvent $e = null)
     {    
         $this->Edit_Final_Phase->text = $this->Edit_Final_Phase->promptText;
+    }
+    /**
+     * @event ClearAlex_Desc_1_Btn.click-Left 
+     */
+    function ClearAlex_Desc_1(UXMouseEvent $e = null)
+    {    
+        $this->Edit_Alex_Desc_1->text = '';
+    }
+    /**
+     * @event ClearActor_Desc_1_Btn.click-Left 
+     */
+    function ClearActor_Desc_1(UXMouseEvent $e = null)
+    {    
+        $this->Edit_Actor_Desc_1->text = '';
+    }
+    /**
+     * @event ClearAlex_Desc_2_Btn.click-Left 
+     */
+    function ClearAlex_Desc_2(UXMouseEvent $e = null)
+    {    
+        $this->Edit_Alex_Desc_2->text = '';
+    }
+    /**
+     * @event ClearActor_Desc_3_Btn.click-Left 
+     */
+    function ClearActor_Desc_3(UXMouseEvent $e = null)
+    {    
+        $this->Edit_Actor_Desc_3->text = '';
+    }
+    /**
+     * @event ClearAlex_Desc_3_Btn.click-Left 
+     */
+    function ClearAlex_Desc_3(UXMouseEvent $e = null)
+    {    
+        $this->Edit_Alex_Desc_3->text = '';
+    }
+    /**
+     * @event ClearFinalPhase_Btn.click-Left 
+     */
+    function ClearFinalPhase(UXMouseEvent $e = null)
+    {    
+        $this->Edit_Final_Phase->text = '';
+    }
+    /**
+     * @event ClearVoiceStart_Btn.click-Left 
+     */
+    function ClearVoiceStart(UXMouseEvent $e = null)
+    {    
+        $this->Edit_VoiceStart->text = '';
+    }
+    /**
+     * @event ClearVoiceTalk1_Btn.click-Left 
+     */
+    function ClearVoiceTalk1(UXMouseEvent $e = null)
+    {    
+        $this->Edit_VoiceTalk1->text = '';
+    }
+    /**
+     * @event ClearVoiceTalk2_Btn.click-Left 
+     */
+    function ClearVoiceTalk2(UXMouseEvent $e = null)
+    {    
+        $this->Edit_VoiceTalk2->text = '';
+    }
+    /**
+     * @event ClearVoiceTalk3_Btn.click-Left 
+     */
+    function ClearVoiceTalk3(UXMouseEvent $e = null)
+    {    
+        $this->Edit_VoiceTalk3->text = '';
     }
 }

@@ -38,6 +38,18 @@ class sdk_role_e extends AbstractForm
         $this->ResetLadcegaRoleName();
     }
     /**
+     * @event ClearAll_Btn.click-Left 
+     */
+    function ClearAll(UXMouseEvent $e = null)
+    {    
+        $this->ClearDeRoleName();
+        $this->ClearDeRoleIcon();
+        $this->ClearLaRoleName();
+        $this->ClearLaRoleIcon();
+        $this->ClearPidoRoleName();
+        $this->ClearPidoRoleIcon();
+    }    
+    /**
      * @event ApplyDeRoleColor_Btn.click-Left 
      */
     function ApplyDeRoleColor(UXMouseEvent $e = null)
@@ -169,5 +181,47 @@ class sdk_role_e extends AbstractForm
     function ResetLadcegaRoleIcon(UXMouseEvent $e = null)
     {    
         $this->Edit_RoleIcon_Ladcega->text = $this->Edit_RoleIcon_Ladcega->promptText;
+    }
+    /**
+     * @event ClearDeRoleName_Btn.click-Left 
+     */
+    function ClearDeRoleName(UXMouseEvent $e = null)
+    {    
+        $this->Edit_RoleName_Danila->text = '';
+    }
+    /**
+     * @event ClearPidoRoleName_Btn.click-Left 
+     */
+    function ClearPidoRoleName(UXMouseEvent $e = null)
+    {    
+        $this->Edit_RoleName_Pido->text = '';
+    }
+    /**
+     * @event ClearLaRoleName_Btn.click-Left 
+     */
+    function ClearLaRoleName(UXMouseEvent $e = null)
+    {    
+        $this->Edit_RoleName_Ladcega->text = '';
+    }
+    /**
+     * @event ClearDeRoleIcon_Btn.click-Left 
+     */
+    function ClearDeRoleIcon(UXMouseEvent $e = null)
+    {    
+        $this->Edit_RoleIcon_Danila->text = '';
+    }
+    /**
+     * @event CleaarPidoRoleIcon_Btn.click-Left 
+     */
+    function ClearPidoRoleIcon(UXMouseEvent $e = null)
+    {    
+        $this->Edit_RoleIcon_Pido->text = '';
+    }
+    /**
+     * @event ClearLaRoleIcon_Btn.click-Left 
+     */
+    function ClearLaRoleIcon(UXMouseEvent $e = null)
+    {    
+        $this->Edit_RoleIcon_Ladcega->text = '';
     }
 }
