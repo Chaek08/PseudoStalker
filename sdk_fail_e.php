@@ -20,6 +20,18 @@ class sdk_fail_e extends AbstractForm
         $this->ResetEnemyFailIcon();
     }
     /**
+     * @event ClearAll_Btn.click-Left 
+     */
+    function ClearAll(UXMouseEvent $e = null)
+    {    
+        $this->ClearActorFailDesc();
+        $this->ClearActorFailEdit();
+        $this->ClearActorFailIcon();
+        $this->ClearEnemyFailDesc();
+        $this->ClearEnemyFailEdit();
+        $this->ClearEnemyFailIcon();        
+    }    
+    /**
      * @event ResetActorFailEdit_Btn.click-Left 
      */
     function ResetActorFailEdit(UXMouseEvent $e = null)

@@ -9,6 +9,14 @@ use php\gui\event\UXMouseEvent;
 class sdk_inv_e extends AbstractForm
 {
     /**
+     * @event ApplyAll_Btn.click-Left 
+     */
+    function ApplyAll(UXMouseEvent $e = null)
+    {
+        $this->ApplyOutfitIcon();
+        $this->ApplyVodkaIcon();
+    }
+    /**
      * @event ResetAll_Btn.click-Left 
      */
     function ResetAll(UXMouseEvent $e = null)
@@ -25,12 +33,20 @@ class sdk_inv_e extends AbstractForm
         $this->ResetVodkaIcon();
     }
     /**
-     * @event ApplyAll_Btn.click-Left 
+     * @event ClearAll_Btn.click-Left 
      */
-    function ApplyAll(UXMouseEvent $e = null)
-    {
-        $this->ApplyOutfitIcon();
-        $this->ApplyVodkaIcon();
+    function ClearAll(UXMouseEvent $e = null)
+    {    
+        $this->ClearOutfitName();
+        $this->ClearOutfitDesc();
+        $this->ClearOutfitCount();
+        $this->ClearOutfitWeight();
+        $this->ClearOutfitIcon();
+        $this->ClearVodkaName();
+        $this->ClearVodkaDesc();
+        $this->ClearVodkaCount();
+        $this->ClearVodkaWeight();
+        $this->ClearVodkaIcon();
     }    
     /**
      * @event ResetOutfitName_Btn.click-Left 
@@ -115,5 +131,75 @@ class sdk_inv_e extends AbstractForm
     function ApplyVodkaIcon(UXMouseEvent $e = null)
     {    
         $this->form('maingame')->fragment_inv->content->inv_maket_select_2->image = new UXImage($this->Edit_ItemIcon_Vodka->text);        
+    }
+    /**
+     * @event ClearOutfitName_Btn.click-Left 
+     */
+    function ClearOutfitName(UXMouseEvent $e = null)
+    {    
+        $this->Edit_ItemName_Outfit->text = '';
+    }
+    /**
+     * @event ClearOutfitIcon_Btn.click-Left 
+     */
+    function ClearOutfitIcon(UXMouseEvent $e = null)
+    {    
+        $this->Edit_ItemIcon_Outfit->text = '';
+    }
+    /**
+     * @event ClearOutfitDesc_Btn.click-Left 
+     */
+    function ClearOutfitDesc(UXMouseEvent $e = null)
+    {    
+        $this->Edit_ItemDesc_Outfit->text = '';
+    }
+    /**
+     * @event ClearVodkaName_Btn.click-Left 
+     */
+    function ClearVodkaName(UXMouseEvent $e = null)
+    {    
+        $this->Edit_ItemName_Vodka->text = '';
+    }
+    /**
+     * @event ClearVodkaIcon_Btn.click-Left 
+     */
+    function ClearVodkaIcon(UXMouseEvent $e = null)
+    {    
+        $this->Edit_ItemIcon_Vodka->text = '';
+    }
+    /**
+     * @event ClearVodkaDesc_Btn.click-Left 
+     */
+    function ClearVodkaDesc(UXMouseEvent $e = null)
+    {    
+        $this->Edit_ItemDesc_Vodka->text = '';
+    }
+    /**
+     * @event ClearOutfitCount_Btn.click-Left 
+     */
+    function ClearOutfitCount(UXMouseEvent $e = null)
+    {    
+        $this->Edit_Count_Outfit->text = '';
+    }
+    /**
+     * @event ClearOutfitWeight_Btn.click-Left 
+     */
+    function ClearOutfitWeight(UXMouseEvent $e = null)
+    {    
+        $this->Edit_Weight_Outfit->text = '';
+    }
+    /**
+     * @event ClearVodkaCount_Btn.click-Left 
+     */
+    function ClearVodkaCount(UXMouseEvent $e = null)
+    {    
+        $this->Edit_Count_Vodka->text = '';
+    }
+    /**
+     * @event ClearVodkaWeight_Btn.click-Left 
+     */
+    function ClearVodkaWeight(UXMouseEvent $e = null)
+    {    
+        $this->Edit_Weight_Vodka->text = '';
     }
 }

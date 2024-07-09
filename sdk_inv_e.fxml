@@ -73,25 +73,25 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label4" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetOutfitName_Btn" layoutX="696" layoutY="64" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetOutfitName_Btn" layoutX="696" layoutY="64" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetOutfitName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetOutfitDesc_Btn" layoutX="696" layoutY="160" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetOutfitDesc_Btn" layoutX="696" layoutY="160" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetOutfitDesc_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetVodkaName_Btn" layoutX="696" layoutY="400" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetVodkaName_Btn" layoutX="696" layoutY="400" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetVodkaName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetVodkaDesc_Btn" layoutX="696" layoutY="496" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetVodkaDesc_Btn" layoutX="696" layoutY="496" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -109,13 +109,13 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label6" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetOutfitCount_Btn" layoutX="1328" layoutY="64" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetOutfitCount_Btn" layoutX="1328" layoutY="64" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetOutfitCount_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetOutfitWeight_Btn" layoutX="1328" layoutY="112" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetOutfitWeight_Btn" layoutX="1328" layoutY="112" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -133,19 +133,19 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label8" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetVodkaCount_Btn" layoutX="1328" layoutY="400" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetVodkaCount_Btn" layoutX="1328" layoutY="400" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetVodkaCount_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetVodkaWeight_Btn" layoutX="1328" layoutY="448" prefHeight="40" prefWidth="104" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetVodkaWeight_Btn" layoutX="1328" layoutY="448" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetVodkaWeight_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="1328" layoutY="728" prefHeight="40" prefWidth="104" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="1312" layoutY="728" prefHeight="40" prefWidth="80" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -199,7 +199,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="1224" layoutY="728" prefHeight="40" prefWidth="104" styleClass="button " text="Apply All" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="1224" layoutY="728" prefHeight="40" prefWidth="88" styleClass="button " text="Apply All" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -211,5 +211,71 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label11" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearOutfitName_Btn" layoutX="776" layoutY="64" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ClearOutfitName_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearOutfitIcon_Btn" layoutX="800" layoutY="112" prefHeight="40" prefWidth="56" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ClearOutfitIcon_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearOutfitDesc_Btn" layoutX="776" layoutY="160" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ClearOutfitDesc_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearVodkaName_Btn" layoutX="776" layoutY="400" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ClearVodkaName_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearVodkaIcon_Btn" layoutX="800" layoutY="448" prefHeight="40" prefWidth="56" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ClearVodkaIcon_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearVodkaDesc_Btn" layoutX="776" layoutY="496" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ClearVodkaDesc_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearOutfitCount_Btn" layoutX="1408" layoutY="64" prefHeight="40" prefWidth="72" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ClearOutfitCount_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearOutfitWeight_Btn" layoutX="1408" layoutY="112" prefHeight="40" prefWidth="72" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ClearOutfitWeight_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearVodkaCount_Btn" layoutX="1408" layoutY="400" prefHeight="40" prefWidth="72" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ClearVodkaCount_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearVodkaWeight_Btn" layoutX="1408" layoutY="448" prefHeight="40" prefWidth="72" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ClearVodkaWeight_Btn" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearAll_Btn" layoutX="1392" layoutY="728" prefHeight="40" prefWidth="88" styleClass="button " text="Clear All" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" id="data-ClearAll_Btn" visible="1"/>
   </children>
 </AnchorPane>

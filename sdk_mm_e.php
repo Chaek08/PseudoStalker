@@ -34,6 +34,16 @@ class sdk_mm_e extends AbstractForm
         $this->ResetFightSound();
     }
     /**
+     * @event ClearAll_Btn.click-Left 
+     */
+    function ClearAll(UXMouseEvent $e = null)
+    {    
+        $this->ClearEdit();
+        $this->ClearEditActorModel();
+        $this->ClearEditEnemyModel();
+        $this->ClearFightSound();        
+    }    
+    /**
      * @event ApplyBackground_Btn.click-Left 
      */
     function ApplyBackground(UXMouseEvent $e = null)
