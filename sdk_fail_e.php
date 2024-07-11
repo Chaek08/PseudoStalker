@@ -43,7 +43,7 @@ class sdk_fail_e extends AbstractForm
      */
     function ResetActorFailDesc(UXMouseEvent $e = null)
     {    
-        $this->Win_Fail_Desc_Actor_Edit->text = $this->Win_Fail_Desc_Actor_Edit->promptText;
+        $this->Win_Fail_Desc_Actor_Edit->text = $this->Win_Fail_Desc_Actor_Default->text;
     }
     /**
      * @event ResetEnemyFailEdit_Btn.click-Left 
@@ -57,7 +57,7 @@ class sdk_fail_e extends AbstractForm
      */
     function ResetEnemyFailDesc(UXMouseEvent $e = null)
     {    
-        $this->Win_Fail_Desc_Enemy_Edit->text = $this->Win_Fail_Desc_Enemy_Edit->promptText;
+        $this->Win_Fail_Desc_Enemy_Edit->text = $this->Win_Fail_Desc_Enemy_Default->text;
     }
     /**
      * @event ResetActorFailIcon_Btn.click-Left 

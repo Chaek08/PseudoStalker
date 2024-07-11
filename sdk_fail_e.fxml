@@ -157,5 +157,17 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearAll_Btn" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Win_Fail_Desc_Actor_Default" layoutX="0" layoutY="0" prefHeight="0" prefWidth="0" styleClass="label " text="Я пытался победить гоблиндава, но он оказался сильнее...&#10;Что-ж, не получилось, не фортануло." textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Win_Fail_Desc_Actor_Default" visible=""/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Win_Fail_Desc_Enemy_Default" layoutX="0" layoutY="0" prefHeight="0" prefWidth="0" styleClass="label " text="ЕБУЧИЙ гоблиндав повержен.&#10;Это был нелёгкий бой, но я проявил максимальный энтузиазм и уничтожил паразита!" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Win_Fail_Desc_Enemy_Default" visible=""/>
   </children>
 </AnchorPane>

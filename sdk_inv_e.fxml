@@ -282,6 +282,6 @@
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-Default_ItemDesc_Vodka" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-Default_ItemDesc_Vodka" visible=""/>
   </children>
 </AnchorPane>
