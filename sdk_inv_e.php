@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use action\Element;
 use php\gui\UXImage;
 use php\gui\framework\AbstractForm;
 use php\gui\event\UXMouseEvent; 
@@ -74,7 +75,7 @@ class sdk_inv_e extends AbstractForm
      */
     function ResetVodkaDesc(UXMouseEvent $e = null)
     {    
-        $this->Edit_ItemDesc_Vodka->text = $this->Edit_ItemDesc_Vodka->promptText;
+        $this->Edit_ItemDesc_Vodka->text = $this->Default_ItemDesc_Vodka->text;
     }
     /**
      * @event ResetOutfitCount_Btn.click-Left 
