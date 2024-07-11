@@ -13,7 +13,7 @@
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_ItemName_Vodka" visible="1"/>
-    <TextArea editable="true" focusTraversable="false" id="Edit_ItemDesc_Vodka" layoutX="312" layoutY="496" prefColumnCount="40" prefHeight="224" prefWidth="376" promptText="С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.\nУправление бутылкой:\nЛКМ - Метнуть бутылку во врага\nПКМ - Метнуть бутылку к себе" styleClass="text-input text-area " text="С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.&#10;&#10;Управление бутылкой:&#10;ЛКМ - Метнуть бутылку во врага&#10;ПКМ - Метнуть бутылку к себе" wrapText="true">
+    <TextArea editable="true" focusTraversable="false" id="Edit_ItemDesc_Vodka" layoutX="312" layoutY="496" prefColumnCount="40" prefHeight="224" prefWidth="376" promptText="С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.Управление бутылкой:ЛКМ - Метнуть бутылку во врагаПКМ - Метнуть бутылку к себе" styleClass="text-input text-area " text="С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.&#10;&#10;Управление бутылкой:&#10;ЛКМ - Метнуть бутылку во врага&#10;ПКМ - Метнуть бутылку к себе" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -277,5 +277,11 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearAll_Btn" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Default_ItemDesc_Vodka" layoutX="0" layoutY="0" prefHeight="0" prefWidth="0" styleClass="label " text="С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.&#10;&#10;Управление бутылкой:&#10;ЛКМ - Метнуть бутылку во врага&#10;ПКМ - Метнуть бутылку к себе" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Default_ItemDesc_Vodka" visible="1"/>
   </children>
 </AnchorPane>
