@@ -12,29 +12,37 @@ class sdk_main extends AbstractForm
     {
         if ($this->form('maingame')->debug_build->visible)
         {
-            $this->version->text = "Build 43, Jule 6 2024"; //start date: 24 may 2024           
+            $this->pseudosdk_label->tooltipText = "Build 43, Jule 6 2024"; //start date: 24 may 2024
         }
         else 
         {
-            $this->version->text = "v1.0";
+            $this->pseudosdk_label->tooltipText = "v1.0";
         }
     }
+    function SdkStatus()
+    {
+        if ($this->f_Background->visible)
+        {
+            $this->status_label->text = 'Main';
+        
+            $this->status_label->hide();
+            $this->pseudosdk_label->y = 8;
+        }
+        else
+        {
+            $this->status_label->text = 'Main';
+        
+            $this->status_label->show();
+            $this->pseudosdk_label->y = 0;
+        }
+    }   
     /**
-     * @event SDK_Icon.click-2x
+     * @event SDK_Icon.click-left
      */
     function DefaultSdkState(UXMouseEvent $e = null)
-    {    
-        $this->ResetButtonState();
+    {         
+        $this->SdkStatus();
         $this->ResetFragmentsVisible();
-    }    
-    function ResetButtonState()
-    {
-        $this->userdata_e_btn->textColor = 'black';
-        $this->dialog_e_btn->textColor = 'black';
-        $this->inv_e_btn->textColor = 'black';
-        $this->mg_e_btn->textColor = 'black';
-        $this->role_e_btn->textColor = 'black';
-        $this->fail_e_btn->textColor = 'black';
     }
     function ResetFragmentsVisible()
     {
@@ -43,19 +51,9 @@ class sdk_main extends AbstractForm
         if ($this->f_MgEditor->visible) $this->f_MgEditor->hide();
         if ($this->f_UserDataEditor->visible) $this->f_UserDataEditor->hide();
         if ($this->f_RoleEditor->visible) $this->f_RoleEditor->hide();
-        if ($this->f_FailEditor->visible) $this->f_FailEditor->hide();        
-    }
-    /**
-     * @event reset_all_btn.click-Left 
-     */
-    function ResetAllChanges(UXMouseEvent $e = null)
-    {    
-        $this->f_DialogEditor->content->ResetAll();
-        $this->f_FailEditor->content->ResetAll();
-        $this->f_InvEditor->content->ResetAll();   
-        $this->f_MgEditor->content->ResetAll();      
-        $this->f_RoleEditor->content->ResetAll();
-        $this->f_UserDataEditor->content->ResetAll();                       
+        if ($this->f_FailEditor->visible) $this->f_FailEditor->hide();
+        
+        $this->f_Background->show();
     }
     /**
      * @event start_game_btn.click-Left 
@@ -69,8 +67,10 @@ class sdk_main extends AbstractForm
      */
     function OpenUserDataEditor(UXMouseEvent $e = null)
     {    
-        $this->ResetButtonState();
-        $this->userdata_e_btn->textColor = 'green';
+        $this->f_Background->hide();
+           
+        $this->SdkStatus();
+        $this->status_label->text = $this->userdata_e_btn->text;
         
         $this->ResetFragmentsVisible();
         $this->f_UserDataEditor->show();
@@ -79,9 +79,11 @@ class sdk_main extends AbstractForm
      * @event dialog_e_btn.click-Left 
      */
     function OpenDialogEditor(UXMouseEvent $e = null)
-    {    
-        $this->ResetButtonState();
-        $this->dialog_e_btn->textColor = 'green';    
+    {  
+        $this->f_Background->hide();
+             
+        $this->SdkStatus();
+        $this->status_label->text = $this->dialog_e_btn->text;
     
         $this->ResetFragmentsVisible();
         $this->f_DialogEditor->show();
@@ -90,9 +92,11 @@ class sdk_main extends AbstractForm
      * @event inv_e_btn.click-Left 
      */
     function OpenInvEditor(UXMouseEvent $e = null)
-    {    
-        $this->ResetButtonState();
-        $this->inv_e_btn->textColor = 'green';
+    {      
+        $this->f_Background->hide();
+          
+        $this->SdkStatus();
+        $this->status_label->text = $this->inv_e_btn->text;
             
         $this->ResetFragmentsVisible();
         $this->f_InvEditor->show();
@@ -102,8 +106,10 @@ class sdk_main extends AbstractForm
      */
     function OpenMgEditor(UXMouseEvent $e = null)
     {    
-        $this->ResetButtonState();
-        $this->mg_e_btn->textColor = 'green';    
+        $this->f_Background->hide();
+         
+        $this->SdkStatus();
+        $this->status_label->text = $this->mg_e_btn->text;
     
         $this->ResetFragmentsVisible();
         $this->f_MgEditor->show();
@@ -112,9 +118,11 @@ class sdk_main extends AbstractForm
      * @event role_e_btn.click-Left 
      */
     function OpenRoleEditor(UXMouseEvent $e = null)
-    {
-        $this->ResetButtonState();
-        $this->role_e_btn->textColor = 'green';    
+    {  
+        $this->f_Background->hide();
+         
+        $this->SdkStatus();
+        $this->status_label->text = $this->role_e_btn->text;
         
         $this->ResetFragmentsVisible();
         $this->f_RoleEditor->show();
@@ -123,11 +131,13 @@ class sdk_main extends AbstractForm
      * @event fail_e_btn.click-Left 
      */
     function OpenFailEditor(UXMouseEvent $e = null)
-    {
-        $this->ResetButtonState();
-        $this->fail_e_btn->textColor = 'green';    
+    { 
+        $this->f_Background->hide();
+          
+        $this->SdkStatus();
+        $this->status_label->text = $this->fail_e_btn->text;
         
         $this->ResetFragmentsVisible();
         $this->f_FailEditor->show();
-    }  
+    }   
 }

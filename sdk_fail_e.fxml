@@ -1,157 +1,157 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="816" prefWidth="1512" styleClass="">
   <children>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="labelAlt" layoutX="88" layoutY="64" prefHeight="40" prefWidth="248" styleClass="label " text="Win_fail_text (Actor)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="labelAlt" layoutX="64" layoutY="64" prefHeight="40" prefWidth="248" styleClass="label " text="Win_fail_text (Actor)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-labelAlt" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label3" layoutX="88" layoutY="160" prefHeight="40" prefWidth="248" styleClass="label " text="Win_fail_desc (Actor)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label3" layoutX="64" layoutY="160" prefHeight="40" prefWidth="248" styleClass="label " text="Win_fail_desc (Actor)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label3" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label4" layoutX="88" layoutY="112" prefHeight="40" prefWidth="248" styleClass="label " text="Win_fail_text (Icon) (Actor)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label4" layoutX="64" layoutY="112" prefHeight="40" prefWidth="248" styleClass="label " text="Win_fail_text (Icon) (Actor)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label4" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Win_Fail_Text_Actor_Edit" layoutX="336" layoutY="64" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Ну ты лох блять..." styleClass="text-input text-field " text="Ну ты лох блять...">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Win_Fail_Text_Actor_Edit" layoutX="312" layoutY="64" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Ну ты лох блять..." styleClass="text-input text-field " text="Ну ты лох блять...">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Win_Fail_Text_Actor_Edit" visible="1"/>
-    <TextArea editable="true" focusTraversable="true" id="Win_Fail_Desc_Actor_Edit" layoutX="336" layoutY="160" prefColumnCount="40" prefHeight="184" prefWidth="408" promptText="Я пытался победить гоблиндава, но он оказался сильнее...Что-ж, не получилось, не фортануло." styleClass="text-input text-area " text="Я пытался победить гоблиндава, но он оказался сильнее...&#10;Что-ж, не получилось, не фортануло." wrapText="true">
+    <TextArea editable="true" focusTraversable="true" id="Win_Fail_Desc_Actor_Edit" layoutX="312" layoutY="160" prefColumnCount="40" prefHeight="184" prefWidth="408" promptText="Я пытался победить гоблиндава, но он оказался сильнее...Что-ж, не получилось, не фортануло." styleClass="text-input text-area " text="Я пытался победить гоблиндава, но он оказался сильнее...&#10;Что-ж, не получилось, не фортануло." wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextArea>
     <Data cursor="DEFAULT" enabled="1" id="data-Win_Fail_Desc_Actor_Edit" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetActorFailEdit_Btn" layoutX="752" layoutY="64" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetActorFailEdit_Btn" layoutX="728" layoutY="64" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetActorFailEdit_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearActorFailEdit_Btn" layoutX="832" layoutY="64" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearActorFailEdit_Btn" layoutX="808" layoutY="64" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearActorFailEdit_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearActorFailDesc_Btn" layoutX="832" layoutY="160" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearActorFailDesc_Btn" layoutX="808" layoutY="160" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearActorFailDesc_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetActorFailDesc_Btn" layoutX="752" layoutY="160" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetActorFailDesc_Btn" layoutX="728" layoutY="160" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetActorFailDesc_Btn" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="88" layoutY="408" prefHeight="40" prefWidth="248" styleClass="label " text="Win_fail_text (Enemy)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="64" layoutY="408" prefHeight="40" prefWidth="248" styleClass="label " text="Win_fail_text (Enemy)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label5" layoutX="88" layoutY="504" prefHeight="40" prefWidth="248" styleClass="label " text="Win_fail_desc (Enemy)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label5" layoutX="64" layoutY="504" prefHeight="40" prefWidth="248" styleClass="label " text="Win_fail_desc (Enemy)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label5" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Win_Fail_Text_Enemy_Edit" layoutX="336" layoutY="408" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Харош!!!" styleClass="text-input text-field " text="Харош!!!">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Win_Fail_Text_Enemy_Edit" layoutX="312" layoutY="408" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Харош!!!" styleClass="text-input text-field " text="Харош!!!">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Win_Fail_Text_Enemy_Edit" visible="1"/>
-    <TextArea editable="true" focusTraversable="true" id="Win_Fail_Desc_Enemy_Edit" layoutX="336" layoutY="504" prefColumnCount="40" prefHeight="184" prefWidth="408" promptText="ЕБУЧИЙ гоблиндав повержен.Это был нелёгкий бой, но я проявил максимальный энтузиазм и уничтожил паразита!" styleClass="text-input text-area " text="ЕБУЧИЙ гоблиндав повержен.&#10;Это был нелёгкий бой, но я проявил максимальный энтузиазм и уничтожил паразита!" wrapText="true">
+    <TextArea editable="true" focusTraversable="true" id="Win_Fail_Desc_Enemy_Edit" layoutX="312" layoutY="504" prefColumnCount="40" prefHeight="184" prefWidth="408" promptText="ЕБУЧИЙ гоблиндав повержен.Это был нелёгкий бой, но я проявил максимальный энтузиазм и уничтожил паразита!" styleClass="text-input text-area " text="ЕБУЧИЙ гоблиндав повержен.&#10;Это был нелёгкий бой, но я проявил максимальный энтузиазм и уничтожил паразита!" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextArea>
     <Data cursor="DEFAULT" enabled="1" id="data-Win_Fail_Desc_Enemy_Edit" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetEnemyFailEdit_Btn" layoutX="752" layoutY="408" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetEnemyFailEdit_Btn" layoutX="728" layoutY="408" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetEnemyFailEdit_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetEnemyFailDesc_Btn" layoutX="752" layoutY="504" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetEnemyFailDesc_Btn" layoutX="728" layoutY="504" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetEnemyFailDesc_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearEnemyFailEdit_Btn" layoutX="832" layoutY="408" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearEnemyFailEdit_Btn" layoutX="808" layoutY="408" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearEnemyFailEdit_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearEnemyFailDesc_Btn" layoutX="832" layoutY="504" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearEnemyFailDesc_Btn" layoutX="808" layoutY="504" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearEnemyFailDesc_Btn" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="EditActorFailIcon" layoutX="336" layoutY="112" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="res://.data/ui/fail_wnd/actor_fail.png" styleClass="text-input text-field " text="res://.data/ui/fail_wnd/actor_fail.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="EditActorFailIcon" layoutX="312" layoutY="112" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="res://.data/ui/fail_wnd/actor_fail.png" styleClass="text-input text-field " text="res://.data/ui/fail_wnd/actor_fail.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-EditActorFailIcon" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetActorFailIcon_Btn" layoutX="752" layoutY="112" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetActorFailIcon_Btn" layoutX="728" layoutY="112" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetActorFailIcon_Btn" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="label6" layoutX="88" layoutY="456" prefHeight="40" prefWidth="248" styleClass="label " text="Win_fail_text (Icon) (Enemy)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="label6" layoutX="64" layoutY="456" prefHeight="40" prefWidth="248" styleClass="label " text="Win_fail_text (Icon) (Enemy)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label6" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="EditEnemyFailIcon" layoutX="336" layoutY="456" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="res://.data/ui/fail_wnd/enemy_fail.png" styleClass="text-input text-field " text="res://.data/ui/fail_wnd/enemy_fail.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="EditEnemyFailIcon" layoutX="312" layoutY="456" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="res://.data/ui/fail_wnd/enemy_fail.png" styleClass="text-input text-field " text="res://.data/ui/fail_wnd/enemy_fail.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-EditEnemyFailIcon" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetEnemyFailIcon_Btn" layoutX="752" layoutY="456" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetEnemyFailIcon_Btn" layoutX="728" layoutY="456" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetEnemyFailIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearActorFailIcon_Btn" layoutX="832" layoutY="112" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearActorFailIcon_Btn" layoutX="808" layoutY="112" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearActorFailIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearEnemyFailIcon_Btn" layoutX="832" layoutY="456" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearEnemyFailIcon_Btn" layoutX="808" layoutY="456" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearEnemyFailIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="752" layoutY="760" prefHeight="40" prefWidth="80" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="728" layoutY="760" prefHeight="40" prefWidth="80" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetAll_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearAll_Btn" layoutX="832" layoutY="760" prefHeight="40" prefWidth="80" styleClass="button " text="Clear All" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearAll_Btn" layoutX="808" layoutY="760" prefHeight="40" prefWidth="80" styleClass="button " text="Clear All" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
