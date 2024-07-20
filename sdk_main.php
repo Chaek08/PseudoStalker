@@ -21,17 +21,15 @@ class sdk_main extends AbstractForm
     }
     function SdkStatus()
     {
+        $this->status_label->text = 'Main';
+        
         if ($this->f_Background->visible)
         {
-            $this->status_label->text = 'Main';
-        
             $this->status_label->hide();
             $this->pseudosdk_label->y = 8;
         }
         else
         {
-            $this->status_label->text = 'Main';
-        
             $this->status_label->show();
             $this->pseudosdk_label->y = 0;
         }
