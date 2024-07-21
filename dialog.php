@@ -136,7 +136,7 @@ class dialog extends AbstractForm
                 }
                 else 
                 {
-                    Media::open('res://.data/audio/fight/fight_sound.mp3', true, "fight_sound");
+                    Media::open('res://.data/audio/fight/fight_baza.mp3', true, "fight_sound");
                 }
                 Media::pause('main_ambient');                
             }     

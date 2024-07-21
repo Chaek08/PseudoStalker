@@ -72,7 +72,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_play_btn.png" id="data-start_game_btn" tooltipText="Start Game" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_play_btn.png" id="data-start_game_btn" tooltipText="" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="status_label" layoutX="72" layoutY="32" prefHeight="24" prefWidth="144" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="13"/>
