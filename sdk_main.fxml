@@ -78,6 +78,14 @@
         <Font name="System Regular" size="13"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-status_label" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-status_label" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_QuestEditor" layoutX="72" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="816" prefWidth="1512" spacing="0" styleClass="fragment-pane "/>
+    <Data content="sdk_quest_e" cursor="DEFAULT" enabled="1" id="data-f_QuestEditor" visible=""/>
+    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="quest_e_btn" layoutX="1176" layoutY="8" prefHeight="48" prefWidth="152" styleClass="x-flat-button " text="Quest Editor" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_quest_editor_btn.png" id="data-quest_e_btn" tooltipText="" visible="1"/>
   </children>
 </AnchorPane>

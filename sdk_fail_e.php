@@ -8,6 +8,14 @@ use php\gui\event\UXMouseEvent;
 class sdk_fail_e extends AbstractForm
 {
     /**
+     * @event ApplyAll_Btn.click-Left 
+     */
+    function ApplyAll(UXMouseEvent $e = null)
+    {    
+        $this->ApplyActorFailDesc();
+        $this->ApplyEnemyFailDesc();
+    }  
+    /**
      * @event ResetAll_Btn.click-Left 
      */
     function ResetAll(UXMouseEvent $e = null)
@@ -29,8 +37,36 @@ class sdk_fail_e extends AbstractForm
         $this->ClearActorFailIcon();
         $this->ClearEnemyFailDesc();
         $this->ClearEnemyFailEdit();
-        $this->ClearEnemyFailIcon();        
-    }    
+        $this->ClearEnemyFailIcon();
+    }  
+    /**
+     * @event ApplyActorFailDesc_Btn.click-Left 
+     */
+    function ApplyActorFailDesc(UXMouseEvent $e = null)
+    {    
+        if ($this->Win_Fail_Desc_Actor_Edit->text == '')
+        {
+            $this->form('maingame')->toast('enter a (actor) win_fail_text');
+        }
+        else
+        {
+            $this->form('maingame')->fragment_pda->content->fragment_stat->content->a_fail->text = $this->Win_Fail_Desc_Actor_Edit->text;
+        }
+    }
+    /**
+     * @event ApplyEnemyFailDesc_Btn.click-Left 
+     */
+    function ApplyEnemyFailDesc(UXMouseEvent $e = null)
+    {    
+        if ($this->Win_Fail_Desc_Enemy_Edit->text == '')
+        {
+            $this->form('maingame')->toast('enter a (enemy) win_fail_text');
+        }
+        else
+        {
+            $this->form('maingame')->fragment_pda->content->fragment_stat->content->e_fail->text = $this->Win_Fail_Desc_Enemy_Edit->text;
+        }
+    }       
     /**
      * @event ResetActorFailEdit_Btn.click-Left 
      */

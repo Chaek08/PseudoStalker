@@ -50,7 +50,8 @@ class sdk_main extends AbstractForm
         if ($this->f_UserDataEditor->visible) $this->f_UserDataEditor->hide();
         if ($this->f_RoleEditor->visible) $this->f_RoleEditor->hide();
         if ($this->f_FailEditor->visible) $this->f_FailEditor->hide();
-        
+        if ($this->f_QuestEditor->visible) $this->f_QuestEditor->hide();
+                
         $this->f_Background->show();
     }
     /**
@@ -138,4 +139,17 @@ class sdk_main extends AbstractForm
         $this->ResetFragmentsVisible();
         $this->f_FailEditor->show();
     }   
+    /**
+     * @event quest_e_btn.click-Left 
+     */
+    function OpenQuestEditor(UXMouseEvent $e = null)
+    {
+        $this->f_Background->hide();
+          
+        $this->SdkStatus();
+        $this->status_label->text = $this->quest_e_btn->text;
+        
+        $this->ResetFragmentsVisible();
+        $this->f_QuestEditor->show();
+    }
 }
