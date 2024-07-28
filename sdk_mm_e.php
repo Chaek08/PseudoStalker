@@ -100,6 +100,20 @@ class sdk_mm_e extends AbstractForm
         $this->form('maingame')->platform->stretch = false;        
     }
     /**
+     * @event BackgroundCenteredOn_Btn.click-Left 
+     */
+    function BackgroundCenteredOn(UXMouseEvent $e = null)
+    {
+        $this->form('maingame')->platform->centered = true;
+    }
+    /**
+     * @event BackgroundCenteredOff_Btn.click-Left 
+     */
+    function BackgroundCenteredOff(UXMouseEvent $e = null)
+    {
+        $this->form('maingame')->platform->centered = false;        
+    }    
+    /**
      * @event ApplyHBarColorActor_Btn.click-Left 
      */
     function ApplyHealthBarColorActor(UXMouseEvent $e = null)
@@ -128,6 +142,13 @@ class sdk_mm_e extends AbstractForm
     {    
         $this->Edit_HealthBarColor_Enemy->value = UXColor::of('#990000');
     }
+    /**
+     * @event ApplyBackgroundColor_Btn.click-Left 
+     */
+    function ApplyBackgroundColor(UXMouseEvent $e = null)
+    {
+        $this->form('maingame')->layout->backgroundColor = $this->Edit_BackgroundColor->value;
+    }       
     /**
      * @event ApplyActorModel_Btn.click-Left 
      */
@@ -163,14 +184,21 @@ class sdk_mm_e extends AbstractForm
     function ResetActorModel(UXMouseEvent $e = null)
     {
         $this->Edit_ActorModel->text = $this->Edit_ActorModel->promptText;
-    }  
+    }      
     /**
      * @event ResetEnemyModel_Btn.click-Left 
      */
     function ResetEnemyModel(UXMouseEvent $e = null)
     {    
         $this->Edit_EnemyModel->text = $this->Edit_EnemyModel->promptText;
-    }         
+    }
+    /**
+     * @event ResetBackgroundColor_Btn.click-Left 
+     */
+    function ResetBackgroundColor(UXMouseEvent $e = null)
+    {
+        $this->Edit_BackgroundColor->value = UXColor::of('#990000');
+    }              
     /**
      * @event ClearEditAModelEdit_Btn.click-Left 
      */

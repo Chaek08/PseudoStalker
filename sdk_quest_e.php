@@ -215,15 +215,4 @@ class sdk_quest_e extends AbstractForm
     {
         $this->Edit_QuestTarget->text = '';
     }
-    /**
-     * @event preview_btn.click-Left 
-     */
-    function PreviewChanges(UXMouseEvent $e = null)
-    {    
-        $this->F_Preview_Pda->show();
-        $this->F_Preview_Background->show();
-        
-        $this->F_Preview_Pda->content->SetPDAOpacity();        
-        $this->F_Preview_Pda->content->TasksBtn();
-    }
 }

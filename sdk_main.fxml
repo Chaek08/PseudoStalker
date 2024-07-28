@@ -13,7 +13,7 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/pda_background_image.png" id="data-f_Background" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="pseudosdk_label" layoutX="72" layoutY="8" prefHeight="48" prefWidth="144" styleClass="label " text="PseudoSDK" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="pseudosdk_label" layoutX="72" layoutY="8" prefHeight="48" prefWidth="144" styleClass="label " text="PseudoSDK" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
@@ -73,7 +73,7 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_play_btn.png" id="data-start_game_btn" tooltipText="" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="status_label" layoutX="72" layoutY="32" prefHeight="24" prefWidth="144" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="status_label" layoutX="72" layoutY="32" prefHeight="24" prefWidth="144" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="13"/>
       </font>

@@ -1,6 +1,8 @@
 <?php
 namespace app\forms;
 
+use php\gui\UXImageView;
+use php\gui\UXImage;
 use php\gui\framework\AbstractForm;
 use php\gui\event\UXMouseEvent; 
 use php\gui\event\UXWindowEvent; 
@@ -83,7 +85,7 @@ class sdk_main extends AbstractForm
              
         $this->SdkStatus();
         $this->status_label->text = $this->dialog_e_btn->text;
-    
+            
         $this->ResetFragmentsVisible();
         $this->f_DialogEditor->show();
     }
@@ -95,7 +97,7 @@ class sdk_main extends AbstractForm
         $this->f_Background->hide();
           
         $this->SdkStatus();
-        $this->status_label->text = $this->inv_e_btn->text;
+        $this->status_label->text = $this->inv_e_btn->text;  
             
         $this->ResetFragmentsVisible();
         $this->f_InvEditor->show();
@@ -108,7 +110,7 @@ class sdk_main extends AbstractForm
         $this->f_Background->hide();
          
         $this->SdkStatus();
-        $this->status_label->text = $this->mg_e_btn->text;
+        $this->status_label->text = $this->mg_e_btn->text; 
     
         $this->ResetFragmentsVisible();
         $this->f_MgEditor->show();

@@ -76,11 +76,6 @@ class pda extends AbstractForm
         $this->tasks_label->opacity = 100;
         $this->contacts_label->opacity = 100;
         $this->ranks_label->opacity = 100;
-        $this->stat_label->opacity = 100;            
-        
-        $this->fragment_contacts->opacity = 100;
-        $this->fragment_ranking->opacity = 100;
-        $this->fragment_stat->opacity = 100;
-        $this->fragment_tasks->opacity = 100;        
+        $this->stat_label->opacity = 100;                    
     }     
 }
