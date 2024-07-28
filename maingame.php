@@ -231,7 +231,8 @@ class maingame extends AbstractForm
             {
                 return;
             }
-        }                   
+        }
+        $this->fragment_pda->content->SetPDAOpacity();    
         $this->fragment_pda->show();   
         if ($this->fragment_pda->content->fragment_stat->visible)
         {

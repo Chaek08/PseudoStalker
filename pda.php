@@ -7,13 +7,6 @@ use std, gui, framework, app;
 class pda extends AbstractForm
 {
     /**
-     * @event show 
-     */
-    function InitPda(UXWindowEvent $e = null)
-    {
-        $this->SetOpacity();
-    }
-    /**
      * @event ranking_btn.click-Left 
      */
     function RankingBtn(UXMouseEvent $e = null)
@@ -78,15 +71,12 @@ class pda extends AbstractForm
         $this->form('maingame')->fragment_pda->content->fragment_tasks->content->ClearDetailTask();  
         $this->form('maingame')->fragment_pda->content->fragment_contacts->content->HideCharacter();                 
     }
-    function SetOpacity()
+    function SetPDAOpacity()
     {
-        if ($this->form('maingame')->fragment_pda->visible)
-        {
-            $this->tasks_label->opacity = 100;
-            $this->contacts_label->opacity = 100;
-            $this->ranks_label->opacity = 100;
-            $this->stat_label->opacity = 100;            
-        }
+        $this->tasks_label->opacity = 100;
+        $this->contacts_label->opacity = 100;
+        $this->ranks_label->opacity = 100;
+        $this->stat_label->opacity = 100;            
         
         $this->fragment_contacts->opacity = 100;
         $this->fragment_ranking->opacity = 100;
