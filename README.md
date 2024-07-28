@@ -14,6 +14,7 @@ List of implemented editors in the SDK, obviously they are not fully ready and w
 - [X] **Role Editor**
 - [X] **Inventory Editor**
 - [X] **MainGame Editor**
+- [X] **Quest Editor** 
 
 # ![Emoji](https://github.com/Chaek08/PseudoStalker/blob/main/Resources/1.png) Links
 Game Versions:
