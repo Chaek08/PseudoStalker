@@ -199,5 +199,19 @@
       </font>
     </TextArea>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_QuestTarget" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_preview_btn.png" id="data-preview_btn" visible="1"/>
+    <Data content="pda" cursor="DEFAULT" enabled="" id="data-F_Preview_Pda" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" id="data-F_Preview_Background" visible=""/>
+    <FlatButton alignment="CENTER" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="F_Preview_Background" layoutX="0" layoutY="0" prefHeight="816" prefWidth="1512" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="F_Preview_Pda" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="816" prefWidth="1512" spacing="0" styleClass="fragment-pane "/>
+    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="preview_btn" layoutX="1456" layoutY="8" prefHeight="48" prefWidth="48" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
   </children>
 </AnchorPane>

@@ -5,13 +5,6 @@ use std, gui, framework, app;
 
 class inventory extends AbstractForm
 {
-    /**
-     * @event show 
-     */
-    function InitInventory(UXWindowEvent $e = null) 
-    {
-        
-    }
     function HideVodkaMaket()
     {
         $this->inv_maket_select_2->hide();
