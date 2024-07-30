@@ -27,10 +27,6 @@ class maingame extends AbstractForm
             $this->fragment_menu->content->opensdk_btn->free();
         }
     }
-    function GetAppTitle()
-    {
-        app()->form('maingame')->title = "PseudoStalker";
-    }
     function GetVersion()
     {
         if ($this->SDK_Mode->visible)
