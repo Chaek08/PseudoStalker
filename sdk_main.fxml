@@ -6,7 +6,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-SDK_Icon" image=".data/ui/icon_npc/icon_vovchik.png" tooltipText="" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-SDK_Icon" image=".data/ui/icon_npc/icon_vovchik.png" visible="1"/>
     <FlatButton alignment="CENTER" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="f_Background" layoutX="72" layoutY="64" prefHeight="816" prefWidth="1512" styleClass="x-flat-button " text="Get started" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="40"/>
@@ -36,43 +36,43 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_userdata_editor_btn.png" id="data-userdata_e_btn" tooltipText="" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_userdata_editor_btn.png" id="data-userdata_e_btn" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="dialog_e_btn" layoutX="376" layoutY="8" prefHeight="48" prefWidth="152" styleClass="x-flat-button " text="Dialog Editor" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_dialog_editor_btn.png" id="data-dialog_e_btn" tooltipText="" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_dialog_editor_btn.png" id="data-dialog_e_btn" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="role_e_btn" layoutX="536" layoutY="8" prefHeight="48" prefWidth="152" styleClass="x-flat-button " text="Role Editor" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_role_editor_btn.png" id="data-role_e_btn" tooltipText="" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_role_editor_btn.png" id="data-role_e_btn" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="inv_e_btn" layoutX="696" layoutY="8" prefHeight="48" prefWidth="152" styleClass="x-flat-button " text="Inventory Editor" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_inv_editor_btn.png" id="data-inv_e_btn" tooltipText="" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_inv_editor_btn.png" id="data-inv_e_btn" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="mg_e_btn" layoutX="856" layoutY="8" prefHeight="48" prefWidth="152" styleClass="x-flat-button " text="Main Game Editor" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_maingame_editor_btn.png" id="data-mg_e_btn" tooltipText="" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_maingame_editor_btn.png" id="data-mg_e_btn" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="fail_e_btn" layoutX="1016" layoutY="8" prefHeight="48" prefWidth="152" styleClass="x-flat-button " text="Fail Wnd Editor" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_fail_wnd_editor_btn.png" id="data-fail_e_btn" tooltipText="" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_fail_wnd_editor_btn.png" id="data-fail_e_btn" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="start_game_btn" layoutX="1456" layoutY="8" prefHeight="48" prefWidth="128" styleClass="x-flat-button " text="Start Game" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_play_btn.png" id="data-start_game_btn" tooltipText="" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_play_btn.png" id="data-start_game_btn" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="status_label" layoutX="72" layoutY="32" prefHeight="24" prefWidth="144" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="13"/>
@@ -86,6 +86,6 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_quest_editor_btn.png" id="data-quest_e_btn" tooltipText="" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_quest_editor_btn.png" id="data-quest_e_btn" visible="1"/>
   </children>
 </AnchorPane>

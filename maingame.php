@@ -20,13 +20,17 @@ class maingame extends AbstractForm
         if ($this->SDK_Mode->visible)
         {
             $this->fragment_menu->content->opensdk_btn->show();
-            $this->form('maingame')->fragment_editor->content->GetSdkVersion();            
+            $this->fragment_editor->content->GetSdkVersion();           
         }
         else
         {
             $this->fragment_editor->free(); 
-            $this->fragment_menu->content->opensdk_btn->free();            
+            $this->fragment_menu->content->opensdk_btn->free();
         }
+    }
+    function GetAppTitle()
+    {
+        app()->form('maingame')->title = "PseudoStalker";
     }
     function GetVersion()
     {

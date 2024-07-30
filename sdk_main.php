@@ -18,7 +18,7 @@ class sdk_main extends AbstractForm
         }
         else 
         {
-            $this->pseudosdk_label->tooltipText = "v0.0";
+            $this->pseudosdk_label->tooltipText  = "v0.0";
         }
     }
     function SdkStatus()
@@ -61,6 +61,7 @@ class sdk_main extends AbstractForm
      */
     function StartMainGame(UXMouseEvent $e = null)
     {    
+        $this->form('maingame')->GetAppTitle();
         $this->form('maingame')->fragment_editor->hide();
     }      
     /**
