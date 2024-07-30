@@ -14,7 +14,6 @@ class maingame extends AbstractForm
     function InitMainGame(UXWindowEvent $e = null)
     {    
         $this->GetVersion();
-        $this->GetHealth();
         $this->OpenMainAmbient();
         
         if ($this->SDK_Mode->visible)
