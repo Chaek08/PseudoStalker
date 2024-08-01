@@ -31,12 +31,12 @@ class maingame extends AbstractForm
     {
         if ($this->SDK_Mode->visible)
         {
-            Element::setText($this->version_detail, "Editor Build 576, Jule 22 2024");
+            Element::setText($this->version_detail, "Editor Build 588, August 1 2024");
             Element::setText($this->fragment_menu->content->version_detail, "v1.1 SDK");
         }
         else
         {
-            Element::setText($this->version_detail, "Build 576, Jule 22 2024"); //start date 24.12.2022
+            Element::setText($this->version_detail, "Build 588, August 1 2024"); //start date 24.12.2022
             Element::setText($this->fragment_menu->content->version_detail, "v1.1");
         }
         if ($this->debug_build->visible)
@@ -144,7 +144,14 @@ class maingame extends AbstractForm
         if ($this->fragment_load->visible)
         {
             return;
-        }    
+        }
+        if ($this->SDK_Mode->visible)
+        {
+            if ($this->fragment_editor->visible)
+            {
+                return;
+            }
+        }         
         if ($this->fragment_menu->visible)
         {      
             $this->fragment_menu->content->NewGameBtn();
@@ -159,13 +166,6 @@ class maingame extends AbstractForm
         {
             $this->HideDialog();                      
             return;
-        }
-        if ($this->SDK_Mode->visible)
-        {
-            if ($this->fragment_editor->visible)
-            {
-                return;
-            }
         }
         Media::stop('voice_talk3');
         if ($this->fragment_pda->visible) {$this->HidePda(); return;}        
