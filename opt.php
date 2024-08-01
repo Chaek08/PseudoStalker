@@ -31,10 +31,7 @@ class opt extends AbstractForm
      */
     function OptUnMuteMenuSound(UXMouseEvent $e = null)
     {    
-        if ($this->form('maingame')->fragment_menu->visible)
-        {
-            Media::play('menu_sound');
-        }
+        Media::play('menu_sound');
         $this->mute_menu_sound->hide();             
     }
     /**
