@@ -14,26 +14,18 @@ class sdk_main extends AbstractForm
     {
         if ($this->form('maingame')->debug_build->visible)
         {
-            $this->pseudosdk_label->tooltipText = "Build 59, Jule 22 2024"; //start date: 24 may 2024
+            $this->status_label->text = "Build 70, August 1 2024"; //start date: 24 may 2024
         }
         else 
         {
-            $this->pseudosdk_label->tooltipText  = "v0.0";
+            $this->status_label->text  = "v0.0";
         }
     }
     function SdkStatus()
     {
-        $this->status_label->text = 'Main';
-        
         if ($this->f_Background->visible)
         {
-            $this->status_label->hide();
-            $this->pseudosdk_label->y = 8;
-        }
-        else
-        {
-            $this->status_label->show();
-            $this->pseudosdk_label->y = 0;
+            $this->GetSdkVersion();
         }
     }   
     /**
@@ -61,7 +53,6 @@ class sdk_main extends AbstractForm
      */
     function StartMainGame(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->GetAppTitle();
         $this->form('maingame')->fragment_editor->hide();
     }      
     /**

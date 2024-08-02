@@ -145,13 +145,13 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearEnemyFailIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="808" layoutY="760" prefHeight="40" prefWidth="80" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="1240" layoutY="64" prefHeight="40" prefWidth="104" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetAll_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearAll_Btn" layoutX="888" layoutY="760" prefHeight="40" prefWidth="80" styleClass="button " text="Clear All" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearAll_Btn" layoutX="1344" layoutY="64" prefHeight="40" prefWidth="104" styleClass="button " text="Clear All" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -181,11 +181,21 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyEnemyFailDesc_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="728" layoutY="760" prefHeight="40" prefWidth="80" styleClass="button " text="Apply All" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="1136" layoutY="64" prefHeight="40" prefWidth="104" styleClass="button " text="Apply All" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyAll_Btn" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="label11" layoutX="64" layoutY="720" prefHeight="40" prefWidth="1152" styleClass="label " text="У некоторых элементов динамическое значение, поэтому кнопка Apply отсутствует." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/question_icon_24.png" id="data-label11" visible="1"/>
+    <Separator focusTraversable="false" id="separator" layoutX="64" layoutY="368" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="912" styleClass="separator "/>
+    <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
+    <Separator focusTraversable="false" id="separatorAlt" layoutX="64" layoutY="712" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="904" styleClass="separator "/>
+    <Data cursor="DEFAULT" enabled="1" id="data-separatorAlt" visible="1"/>
   </children>
 </AnchorPane>

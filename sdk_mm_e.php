@@ -16,6 +16,7 @@ class sdk_mm_e extends AbstractForm
     function ApplyAll(UXMouseEvent $e = null)
     {    
         $this->ApplyBackground();
+        $this->ApplyMenuBackground();
         $this->ApplyActorModel();
         $this->ApplyEnemyModel();
         $this->ApplyHealthBarColorActor();
@@ -27,6 +28,7 @@ class sdk_mm_e extends AbstractForm
     function ResetAll(UXMouseEvent $e = null)
     {    
         $this->ResetBackground();
+        $this->ResetMenuBackground();
         $this->ResetActorModel();
         $this->ResetEnemyModel();
         $this->ResetHealthBarColorActor();
@@ -39,9 +41,10 @@ class sdk_mm_e extends AbstractForm
     function ClearAll(UXMouseEvent $e = null)
     {    
         $this->ClearEdit();
+        $this->ClearMenuBackground();
         $this->ClearEditActorModel();
         $this->ClearEditEnemyModel();
-        $this->ClearFightSound();        
+        $this->ClearFightSound();   
     }    
     /**
      * @event ApplyBackground_Btn.click-Left 
@@ -70,48 +73,6 @@ class sdk_mm_e extends AbstractForm
     function ClearEdit(UXMouseEvent $e = null)
     {    
         $this->Edit_Background->text = '';
-    }    
-    /**
-     * @event BackgroundMosaicOn_Btn.click-Left 
-     */
-    function BackgroundMosaicOn(UXMouseEvent $e = null)
-    {    
-        $this->form('maingame')->platform->mosaic = true;
-    }
-    /**
-     * @event BackgroundMosaicOff_Btn.click-Left 
-     */
-    function BackgroundMosaicOff(UXMouseEvent $e = null)
-    {    
-        $this->form('maingame')->platform->mosaic = false;        
-    }
-    /**
-     * @event BackgroundStretchOn_Btn.click-Left 
-     */
-    function BackgroundStretchOn(UXMouseEvent $e = null)
-    {
-        $this->form('maingame')->platform->stretch = true;
-    }
-    /**
-     * @event BackgroundStretchOff_Btn.click-Left 
-     */
-    function BackgroundStretchOff(UXMouseEvent $e = null)
-    {
-        $this->form('maingame')->platform->stretch = false;        
-    }
-    /**
-     * @event BackgroundCenteredOn_Btn.click-Left 
-     */
-    function BackgroundCenteredOn(UXMouseEvent $e = null)
-    {
-        $this->form('maingame')->platform->centered = true;
-    }
-    /**
-     * @event BackgroundCenteredOff_Btn.click-Left 
-     */
-    function BackgroundCenteredOff(UXMouseEvent $e = null)
-    {
-        $this->form('maingame')->platform->centered = false;        
     }    
     /**
      * @event ApplyHBarColorActor_Btn.click-Left 
@@ -143,13 +104,6 @@ class sdk_mm_e extends AbstractForm
         $this->Edit_HealthBarColor_Enemy->value = UXColor::of('#990000');
     }
     /**
-     * @event ApplyBackgroundColor_Btn.click-Left 
-     */
-    function ApplyBackgroundColor(UXMouseEvent $e = null)
-    {
-        $this->form('maingame')->layout->backgroundColor = $this->Edit_BackgroundColor->value;
-    }       
-    /**
      * @event ApplyActorModel_Btn.click-Left 
      */
     function ApplyActorModel(UXMouseEvent $e = null)
@@ -177,7 +131,21 @@ class sdk_mm_e extends AbstractForm
         {
             $this->form('maingame')->enemy->image = new UXImage($this->Edit_EnemyModel->text);  
         }    
-    } 
+    }
+    /**
+     * @event ApplyMenuBackground_Btn.click-Left 
+     */
+    function ApplyMenuBackground(UXMouseEvent $e = null)
+    {
+        if ($this->Edit_Background->text == '')
+        {
+            $this->form('sdk_main')->toast("enter background url");
+        }
+        else 
+        {
+            $this->form('maingame')->fragment_menu->content->background->image = new UXImage($this->Edit_MenuBackground->text);            
+        }
+    }    
     /**
      * @event ResetActorModel_Btn.click-Left 
      */
@@ -193,12 +161,19 @@ class sdk_mm_e extends AbstractForm
         $this->Edit_EnemyModel->text = $this->Edit_EnemyModel->promptText;
     }
     /**
-     * @event ResetBackgroundColor_Btn.click-Left 
+     * @event ResetMenuBackground_Btn.click-Left 
      */
-    function ResetBackgroundColor(UXMouseEvent $e = null)
+    function ResetMenuBackground(UXMouseEvent $e = null)
     {
-        $this->Edit_BackgroundColor->value = UXColor::of('#990000');
-    }              
+        $this->Edit_MenuBackground->text = $this->Edit_MenuBackground->promptText;
+    }
+    /**
+     * @event ResetFightSound_Btn.click-Left 
+     */
+    function ResetFightSound(UXMouseEvent $e = null)
+    {    
+        $this->Edit_FightSound->text = $this->Edit_FightSound->promptText;
+    }                     
     /**
      * @event ClearEditAModelEdit_Btn.click-Left 
      */
@@ -213,6 +188,20 @@ class sdk_mm_e extends AbstractForm
     {    
         $this->Edit_EnemyModel->text = '';
     }
+    /**
+     * @event ClearMenuBackground_Btn.click-Left 
+     */
+    function ClearMenuBackground(UXMouseEvent $e = null)
+    {
+        $this->Edit_MenuBackground->text = '';
+    }
+    /**
+     * @event ClearFightSound_Btn.click-Left 
+     */
+    function ClearFightSound(UXMouseEvent $e = null)
+    {    
+        $this->Edit_FightSound->text = '';
+    }       
     /**
      * @event ActorModelStretchOn_Btn.click-Left 
      */
@@ -252,19 +241,5 @@ class sdk_mm_e extends AbstractForm
         {
             $this->form('maingame')->enemy->stretch = false;
         }
-    }
-    /**
-     * @event ResetFightSound_Btn.click-Left 
-     */
-    function ResetFightSound(UXMouseEvent $e = null)
-    {    
-        $this->Edit_FightSound->text = $this->Edit_FightSound->promptText;
-    }
-    /**
-     * @event ClearFightSound_Btn.click-Left 
-     */
-    function ClearFightSound(UXMouseEvent $e = null)
-    {    
-        $this->Edit_FightSound->text = '';
     }
 }
