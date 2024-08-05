@@ -1,207 +1,213 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="816" prefWidth="1512" styleClass="">
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="832" prefWidth="1528" styleClass="">
   <children>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="labelAlt" layoutX="96" layoutY="112" prefHeight="40" prefWidth="248" styleClass="label " text="Quest Name" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="6" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="f_Background" layoutX="8" layoutY="8" prefHeight="816" prefWidth="1512" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="labelAlt" layoutX="104" layoutY="120" prefHeight="40" prefWidth="248" styleClass="label " text="Quest Name" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-labelAlt" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="96" layoutY="208" prefHeight="40" prefWidth="248" styleClass="label " text="Quest Desc" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="104" layoutY="216" prefHeight="40" prefWidth="248" styleClass="label " text="Quest Desc" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label3" layoutX="96" layoutY="160" prefHeight="40" prefWidth="248" styleClass="label " text="Quest Icon" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label3" layoutX="104" layoutY="168" prefHeight="40" prefWidth="248" styleClass="label " text="Quest Icon" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label3" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label4" layoutX="96" layoutY="408" prefHeight="40" prefWidth="248" styleClass="label " text="Quest Step 1" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label4" layoutX="104" layoutY="416" prefHeight="40" prefWidth="248" styleClass="label " text="Quest Step 1" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label4" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label5" layoutX="96" layoutY="456" prefHeight="40" prefWidth="248" styleClass="label " text="Quest Step 2" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label5" layoutX="104" layoutY="464" prefHeight="40" prefWidth="248" styleClass="label " text="Quest Step 2" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label5" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestName" layoutX="344" layoutY="112" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Поразить пiдораса" styleClass="text-input text-field " text="Поразить пiдораса">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestName" layoutX="352" layoutY="120" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Поразить пiдораса" styleClass="text-input text-field " text="Поразить пiдораса">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_QuestName" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestIcon" layoutX="344" layoutY="160" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="res://.data/ui/pda/icon_Task.png" styleClass="text-input text-field " text="res://.data/ui/pda/icon_Task.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestIcon" layoutX="352" layoutY="168" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="res://.data/ui/pda/icon_Task.png" styleClass="text-input text-field " text="res://.data/ui/pda/icon_Task.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_QuestIcon" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestStep1" layoutX="344" layoutY="408" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Поговорить с гоблиндавом" styleClass="text-input text-field " text="Поговорить с гоблиндавом">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestStep1" layoutX="352" layoutY="416" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Поговорить с гоблиндавом" styleClass="text-input text-field " text="Поговорить с гоблиндавом">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_QuestStep1" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestStep2" layoutX="344" layoutY="456" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Дать жоск пиздюлей гоблиндаву" styleClass="text-input text-field " text="Дать жоск пиздюлей гоблиндаву">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestStep2" layoutX="352" layoutY="464" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Дать жоск пиздюлей гоблиндаву" styleClass="text-input text-field " text="Дать жоск пиздюлей гоблиндаву">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_QuestStep2" visible="1"/>
-    <TextArea editable="true" focusTraversable="true" id="Edit_QuestDesc" layoutX="344" layoutY="208" prefColumnCount="40" prefHeight="152" prefWidth="408" promptText="Вчера поздно вечером соседи услышали гачи звуки из квартиры гоблиндава, они заподозрили что гоблиндав не натурал! Бабки - соседки начали стучаться ему в дверь, он открыл и сказал &quot;Welcome to the club, body&quot; Тогда всё сразу стало понятно!!! Так вот.. нам необходимо натурализовать ебаната!!" styleClass="text-input text-area " text="Вчера поздно вечером соседи услышали гачи звуки из квартиры гоблиндава, они заподозрили что гоблиндав не натурал! Бабки - соседки начали стучаться ему в дверь, он открыл и сказал &quot;Welcome to the club, body&quot; Тогда всё сразу стало понятно!!! Так вот.. нам необходимо натурализовать ебаната!!" wrapText="true">
+    <TextArea editable="true" focusTraversable="true" id="Edit_QuestDesc" layoutX="352" layoutY="216" prefColumnCount="40" prefHeight="152" prefWidth="408" promptText="Вчера поздно вечером соседи услышали гачи звуки из квартиры гоблиндава, они заподозрили что гоблиндав не натурал! Бабки - соседки начали стучаться ему в дверь, он открыл и сказал &quot;Welcome to the club, body&quot; Тогда всё сразу стало понятно!!! Так вот.. нам необходимо натурализовать ебаната!!" styleClass="text-input text-area " text="Вчера поздно вечером соседи услышали гачи звуки из квартиры гоблиндава, они заподозрили что гоблиндав не натурал! Бабки - соседки начали стучаться ему в дверь, он открыл и сказал &quot;Welcome to the club, body&quot; Тогда всё сразу стало понятно!!! Так вот.. нам необходимо натурализовать ебаната!!" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextArea>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_QuestDesc" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyQuestName_Btn" layoutX="760" layoutY="112" prefHeight="40" prefWidth="80" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyQuestName_Btn" layoutX="768" layoutY="120" prefHeight="40" prefWidth="80" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyQuestName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetQuestName_Btn" layoutX="840" layoutY="112" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetQuestName_Btn" layoutX="848" layoutY="120" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetQuestName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearQuestName_Btn" layoutX="920" layoutY="112" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearQuestName_Btn" layoutX="928" layoutY="120" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearQuestName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyQuestIcon_Btn" layoutX="760" layoutY="160" prefHeight="40" prefWidth="80" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyQuestIcon_Btn" layoutX="768" layoutY="168" prefHeight="40" prefWidth="80" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyQuestIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetQuestIcon_Btn" layoutX="840" layoutY="160" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetQuestIcon_Btn" layoutX="848" layoutY="168" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetQuestIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearQuestIcon_Btn" layoutX="920" layoutY="160" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearQuestIcon_Btn" layoutX="928" layoutY="168" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearQuestIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyQuestDesc_Btn" layoutX="760" layoutY="208" prefHeight="40" prefWidth="80" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyQuestDesc_Btn" layoutX="768" layoutY="216" prefHeight="40" prefWidth="80" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyQuestDesc_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetQuestDesc_Btn" layoutX="840" layoutY="208" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetQuestDesc_Btn" layoutX="848" layoutY="216" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetQuestDesc_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearQuestDesc_Btn" layoutX="920" layoutY="208" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearQuestDesc_Btn" layoutX="928" layoutY="216" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearQuestDesc_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyQuestStep1_Btn" layoutX="760" layoutY="408" prefHeight="40" prefWidth="80" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyQuestStep1_Btn" layoutX="768" layoutY="416" prefHeight="40" prefWidth="80" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyQuestStep1_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetQuestStep1_Btn" layoutX="840" layoutY="408" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetQuestStep1_Btn" layoutX="848" layoutY="416" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetQuestStep1_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearQuestStep1_Btn" layoutX="920" layoutY="408" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearQuestStep1_Btn" layoutX="928" layoutY="416" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearQuestStep1_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyQuestStep2_Btn" layoutX="760" layoutY="456" prefHeight="40" prefWidth="80" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyQuestStep2_Btn" layoutX="768" layoutY="464" prefHeight="40" prefWidth="80" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyQuestStep2_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetQuestStep2_Btn" layoutX="840" layoutY="456" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetQuestStep2_Btn" layoutX="848" layoutY="464" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetQuestStep2_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearQuestStep2_Btn" layoutX="920" layoutY="456" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearQuestStep2_Btn" layoutX="928" layoutY="464" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearQuestStep2_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="1152" layoutY="112" prefHeight="40" prefWidth="88" styleClass="button " text="Apply All" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="1160" layoutY="120" prefHeight="40" prefWidth="88" styleClass="button " text="Apply All" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyAll_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="1240" layoutY="112" prefHeight="40" prefWidth="88" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="1248" layoutY="120" prefHeight="40" prefWidth="88" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetAll_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearAll_Btn" layoutX="1328" layoutY="112" prefHeight="40" prefWidth="88" styleClass="button " text="Clear All" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearAll_Btn" layoutX="1336" layoutY="120" prefHeight="40" prefWidth="88" styleClass="button " text="Clear All" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearAll_Btn" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label6" layoutX="96" layoutY="552" prefHeight="40" prefWidth="248" styleClass="label " text="Quest Target" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label6" layoutX="104" layoutY="560" prefHeight="40" prefWidth="248" styleClass="label " text="Quest Target" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label6" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyQuestTarget_Btn" layoutX="760" layoutY="552" prefHeight="40" prefWidth="80" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyQuestTarget_Btn" layoutX="768" layoutY="560" prefHeight="40" prefWidth="80" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyQuestTarget_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetQuestTarget_Btn" layoutX="840" layoutY="552" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetQuestTarget_Btn" layoutX="848" layoutY="560" prefHeight="40" prefWidth="80" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetQuestTarget_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearQuestTarget_Btn" layoutX="920" layoutY="552" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearQuestTarget_Btn" layoutX="928" layoutY="560" prefHeight="40" prefWidth="80" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearQuestTarget_Btn" visible="1"/>
-    <TextArea editable="true" focusTraversable="true" id="Edit_QuestTarget" layoutX="344" layoutY="552" prefColumnCount="40" prefHeight="152" prefWidth="408" promptText="События происходят в 2033 годуВ это болото меня сюда заслал данила!!! Он смог поразить гоблиндава, но оказалось что поразил он не гоблиндава, а его двойника!!!Теперь мне нужно устранить настоящего гоблиндава" styleClass="text-input text-area " text="События происходят в 2033 году&#10;В это болото меня сюда заслал данила!!! Он смог поразить гоблиндава, но оказалось что поразил он не гоблиндава, а его двойника!!!&#10;Теперь мне нужно устранить настоящего гоблиндава" wrapText="true">
+    <TextArea editable="true" focusTraversable="true" id="Edit_QuestTarget" layoutX="352" layoutY="560" prefColumnCount="40" prefHeight="152" prefWidth="408" promptText="События происходят в 2033 годуВ это болото меня сюда заслал данила!!! Он смог поразить гоблиндава, но оказалось что поразил он не гоблиндава, а его двойника!!!Теперь мне нужно устранить настоящего гоблиндава" styleClass="text-input text-area " text="События происходят в 2033 году&#10;В это болото меня сюда заслал данила!!! Он смог поразить гоблиндава, но оказалось что поразил он не гоблиндава, а его двойника!!!&#10;Теперь мне нужно устранить настоящего гоблиндава" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextArea>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_QuestTarget" visible="1"/>
-    <Separator focusTraversable="false" id="separator" layoutX="96" layoutY="376" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="904" styleClass="separator "/>
+    <Separator focusTraversable="false" id="separator" layoutX="104" layoutY="384" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="904" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
-    <Separator focusTraversable="false" id="separatorAlt" layoutX="96" layoutY="520" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="904" styleClass="separator "/>
+    <Separator focusTraversable="false" id="separatorAlt" layoutX="104" layoutY="528" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="904" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separatorAlt" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-f_Background" visible="1"/>
   </children>
 </AnchorPane>

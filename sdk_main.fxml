@@ -6,8 +6,8 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-SDK_Icon" image=".data/ui/icon_npc/icon_vovchik.png" visible="1"/>
-    <FlatButton alignment="CENTER" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="f_Background" layoutX="72" layoutY="64" prefHeight="816" prefWidth="1512" styleClass="x-flat-button " text="Get started" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <Data cursor="DEFAULT" enabled="1" id="data-SDK_Icon" image=".data/ui/sdk/icon.png" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="6" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="f_Background" layoutX="72" layoutY="64" prefHeight="816" prefWidth="1512" styleClass="x-flat-button " text="Get started" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="40"/>
       </font>
@@ -19,17 +19,17 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-pseudosdk_label" visible="1"/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_UserDataEditor" layoutX="72" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="816" prefWidth="1512" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_UserDataEditor" layoutX="64" layoutY="56" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="832" prefWidth="1528" spacing="0" styleClass="fragment-pane "/>
     <Data content="sdk_userdata_e" cursor="DEFAULT" enabled="1" id="data-f_UserDataEditor" visible=""/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_DialogEditor" layoutX="72" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="816" prefWidth="1512" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_DialogEditor" layoutX="64" layoutY="56" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="832" prefWidth="1528" spacing="0" styleClass="fragment-pane "/>
     <Data content="sdk_dialog_e" cursor="DEFAULT" enabled="1" id="data-f_DialogEditor" visible=""/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_InvEditor" layoutX="72" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="816" prefWidth="1512" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_InvEditor" layoutX="64" layoutY="56" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="832" prefWidth="1528" spacing="0" styleClass="fragment-pane "/>
     <Data content="sdk_inv_e" cursor="DEFAULT" enabled="1" id="data-f_InvEditor" visible=""/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_MgEditor" layoutX="72" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="816" prefWidth="1512" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_MgEditor" layoutX="64" layoutY="56" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="832" prefWidth="1528" spacing="0" styleClass="fragment-pane "/>
     <Data content="sdk_mm_e" cursor="DEFAULT" enabled="1" id="data-f_MgEditor" visible=""/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_RoleEditor" layoutX="72" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="816" prefWidth="1512" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_RoleEditor" layoutX="64" layoutY="56" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="832" prefWidth="1528" spacing="0" styleClass="fragment-pane "/>
     <Data content="sdk_role_e" cursor="DEFAULT" enabled="1" id="data-f_RoleEditor" visible=""/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_FailEditor" layoutX="72" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="816" prefWidth="1512" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_FailEditor" layoutX="64" layoutY="56" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="832" prefWidth="1528" spacing="0" styleClass="fragment-pane "/>
     <Data content="sdk_fail_e" cursor="DEFAULT" enabled="1" id="data-f_FailEditor" visible=""/>
     <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="userdata_e_btn" layoutX="248" layoutY="8" prefHeight="48" prefWidth="152" styleClass="x-flat-button " text="User Data Editor" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
@@ -79,7 +79,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-status_label" visible="1"/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_QuestEditor" layoutX="72" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="816" prefWidth="1512" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="f_QuestEditor" layoutX="64" layoutY="56" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="832" prefWidth="1528" spacing="0" styleClass="fragment-pane "/>
     <Data content="sdk_quest_e" cursor="DEFAULT" enabled="1" id="data-f_QuestEditor" visible=""/>
     <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="quest_e_btn" layoutX="1208" layoutY="8" prefHeight="48" prefWidth="152" styleClass="x-flat-button " text="Quest Editor" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
