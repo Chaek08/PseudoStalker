@@ -162,7 +162,7 @@ class sdk_quest_e extends AbstractForm
      */
     function ResetQuestTarget(UXMouseEvent $e = null)
     {
-        $this->Edit_QuestTarget->text = $this->Edit_QuestTarget->promptText;
+        $this->Edit_QuestTarget->text = $this->Prompt_QuestTarget->text;
     }    
     /**
      * @event ClearQuestName_Btn.click-Left 
