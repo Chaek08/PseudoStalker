@@ -192,18 +192,6 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/question_icon_24.png" id="data-label10" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="1144" layoutY="64" prefHeight="40" prefWidth="96" styleClass="button " text="Apply All" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ApplyAll_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="1240" layoutY="64" prefHeight="40" prefWidth="96" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-ResetAll_Btn" visible="1"/>
     <com.jfoenix.controls.JFXColorPicker focusTraversable="true" id="Edit_RoleColor_Danila" layoutX="320" layoutY="64" prefHeight="40" prefWidth="256">
       <value>
         <Color blue="0.20000000298023" green="0.50196081399918" opacity="1" red="0.80000001192093"/>
@@ -273,12 +261,6 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearLaRoleIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearAll_Btn" layoutX="1336" layoutY="64" prefHeight="40" prefWidth="96" styleClass="button " text="Clear All" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ClearAll_Btn" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="14" id="label11" layoutX="72" layoutY="680" prefHeight="60" prefWidth="696" styleClass="label " text="Если вы хотите убрать иконку роли, то пропишите специальный путь к иконке:&#10;res://.data/ui/dialog/no_role.png&#10;&#10;" textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="15"/>

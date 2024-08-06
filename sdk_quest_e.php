@@ -11,10 +11,7 @@ use php\gui\event\UXMouseEvent;
 
 class sdk_quest_e extends AbstractForm
 {
-    /**
-     * @event ApplyAll_Btn.click-Left 
-     */
-    function ApplyAll(UXMouseEvent $e = null)
+    function ApplyAll()
     {    
         $this->ApplyQuestName();
         $this->ApplyQuestIcon();
@@ -23,10 +20,7 @@ class sdk_quest_e extends AbstractForm
         $this->ApplyQuestStep2();
         $this->ApplyQuestTarget();
     }
-    /**
-     * @event ResetAll_Btn.click-Left 
-     */
-    function ResetAll(UXMouseEvent $e = null)
+    function ResetAll()
     {    
         $this->ResetQuestName();
         $this->ResetQuestIcon();
@@ -35,10 +29,7 @@ class sdk_quest_e extends AbstractForm
         $this->ResetQuestStep2();
         $this->ResetQuestTarget();
     }
-    /**
-     * @event ClearAll_Btn.click-Left 
-     */
-    function ClearAll(UXMouseEvent $e = null)
+    function ClearAll()
     {    
         $this->ClearQuestName();
         $this->ClearQuestIcon();

@@ -11,10 +11,7 @@ use php\gui\event\UXMouseEvent;
 
 class sdk_userdata_e extends AbstractForm
 {
-    /**
-     * @event ApplyAll_Btn.click-Left 
-     */
-    function ApplyAll(UXMouseEvent $e = null)
+    function ApplyAll()
     {    
         $this->ApplyActorName();
         $this->ApplyActorIcon();
@@ -22,10 +19,7 @@ class sdk_userdata_e extends AbstractForm
         $this->ApplyEnemyIcon();
         $this->ApplyEnemyBio();
     }
-    /**
-     * @event ResetAll_Btn.click-Left 
-     */
-    function ResetAll(UXMouseEvent $e = null)
+    function ResetAll()
     {
         $this->ResetActorName();
         $this->ResetActorIcon();
@@ -37,10 +31,7 @@ class sdk_userdata_e extends AbstractForm
         $this->ResetValerokIcon();
         $this->ResetValerokBio();        
     }  
-    /**
-     * @event ClearAll_Btn.click-Left 
-     */
-    function ClearAll(UXMouseEvent $e = null)
+    function ClearAll()
     {
         $this->ClearActorName();
         $this->ClearActorBio();

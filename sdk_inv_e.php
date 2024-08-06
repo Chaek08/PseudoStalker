@@ -9,18 +9,12 @@ use php\gui\event\UXMouseEvent;
 
 class sdk_inv_e extends AbstractForm
 {
-    /**
-     * @event ApplyAll_Btn.click-Left 
-     */
-    function ApplyAll(UXMouseEvent $e = null)
+    function ApplyAll()
     {
         $this->ApplyOutfitIcon();
         $this->ApplyVodkaIcon();
     }
-    /**
-     * @event ResetAll_Btn.click-Left 
-     */
-    function ResetAll(UXMouseEvent $e = null)
+    function ResetAll()
     {    
         $this->ResetOutfitName();
         $this->ResetOutfitDesc();
@@ -33,10 +27,7 @@ class sdk_inv_e extends AbstractForm
         $this->ResetVodkaWeight();
         $this->ResetVodkaIcon();
     }
-    /**
-     * @event ClearAll_Btn.click-Left 
-     */
-    function ClearAll(UXMouseEvent $e = null)
+    function ClearAll()
     {    
         $this->ClearOutfitName();
         $this->ClearOutfitDesc();

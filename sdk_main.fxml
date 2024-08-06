@@ -87,5 +87,25 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_quest_editor_btn.png" id="data-quest_e_btn" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="TOP" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Apply_All_Btn" layoutX="8" layoutY="88" prefHeight="56" prefWidth="56" styleClass="x-flat-button " text="Apply All" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_applyallchanges_btn.png" id="data-Apply_All_Btn" visible=""/>
+    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="TOP" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Reset_All_Btn" layoutX="8" layoutY="152" prefHeight="56" prefWidth="56" styleClass="x-flat-button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_resetallchanges_btn.png" id="data-Reset_All_Btn" visible=""/>
+    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="TOP" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Clear_All_Btn" layoutX="8" layoutY="216" prefHeight="56" prefWidth="56" styleClass="x-flat-button " text="Clear All" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_clearallchanges_btn.png" id="data-Clear_All_Btn" visible=""/>
+    <Separator focusTraversable="false" id="Separator" layoutX="8" layoutY="72" opacity="0.25" orientation="HORIZONTAL" prefHeight="8" prefWidth="56" styleClass="separator "/>
+    <Data cursor="DEFAULT" enabled="1" id="data-Separator" visible=""/>
   </children>
 </AnchorPane>

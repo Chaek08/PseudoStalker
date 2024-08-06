@@ -10,10 +10,7 @@ use php\gui\event\UXMouseEvent;
 
 class sdk_role_e extends AbstractForm
 {
-    /**
-     * @event ApplyAll_Btn.click-Left 
-     */
-    function ApplyAll(UXMouseEvent $e = null)
+    function ApplyAll()
     {    
         $this->ApplyDeRoleColor();
         $this->ApplyDeRoleIcon();
@@ -22,10 +19,7 @@ class sdk_role_e extends AbstractForm
         $this->ApplyPidorasRoleIcon();
         $this->ApplyPidorasRoleName();
     }
-    /**
-     * @event ResetAll_Btn.click-Left 
-     */
-    function ResetAll(UXMouseEvent $e = null)
+    function ResetAll()
     {    
         $this->ResetDeRoleColor();
         $this->ResetDeRoleIcon();
@@ -37,10 +31,7 @@ class sdk_role_e extends AbstractForm
         $this->ResetLadcegaRoleIcon();
         $this->ResetLadcegaRoleName();
     }
-    /**
-     * @event ClearAll_Btn.click-Left 
-     */
-    function ClearAll(UXMouseEvent $e = null)
+    function ClearAll()
     {    
         $this->ClearDeRoleName();
         $this->ClearDeRoleIcon();

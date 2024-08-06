@@ -150,12 +150,6 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetVodkaWeight_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="1288" layoutY="56" prefHeight="40" prefWidth="80" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ResetAll_Btn" visible="1"/>
     <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemIcon_Outfit" layoutX="320" layoutY="104" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="res://.data/ui/inventory/bandit_outfit.png" styleClass="text-input text-field " text="res://.data/ui/inventory/bandit_outfit.png">
       <font>
         <Font name="System Regular" size="12"/>
@@ -204,12 +198,6 @@
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="1200" layoutY="56" prefHeight="40" prefWidth="88" styleClass="button " text="Apply All" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ApplyAll_Btn" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="label11" layoutX="72" layoutY="768" prefHeight="40" prefWidth="784" styleClass="label " text="У некоторых элементов динамическое значение, поэтому кнопка Apply отсутствует." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
@@ -276,12 +264,6 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearVodkaWeight_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearAll_Btn" layoutX="1368" layoutY="56" prefHeight="40" prefWidth="88" styleClass="button " text="Clear All" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ClearAll_Btn" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Default_ItemDesc_Vodka" layoutX="8" layoutY="16" prefHeight="0" prefWidth="0" styleClass="label " text="С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.&#10;&#10;Управление бутылкой:&#10;ЛКМ - Метнуть бутылку во врага&#10;ПКМ - Метнуть бутылку к себе" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>

@@ -10,10 +10,7 @@ use php\gui\event\UXMouseEvent;
 
 class sdk_mm_e extends AbstractForm
 {
-    /**
-     * @event ApplyAll_Btn.click-Left 
-     */
-    function ApplyAll(UXMouseEvent $e = null)
+    function ApplyAll()
     {    
         $this->ApplyBackground();
         $this->ApplyMenuBackground();
@@ -22,10 +19,7 @@ class sdk_mm_e extends AbstractForm
         $this->ApplyHealthBarColorActor();
         $this->ApplyHealthBarColorEnemy();
     }
-    /**
-     * @event ResetAll_Btn.click-Left 
-     */
-    function ResetAll(UXMouseEvent $e = null)
+    function ResetAll()
     {    
         $this->ResetBackground();
         $this->ResetMenuBackground();
@@ -35,10 +29,7 @@ class sdk_mm_e extends AbstractForm
         $this->ResetHealthBarColorEnemy();
         $this->ResetFightSound();
     }
-    /**
-     * @event ClearAll_Btn.click-Left 
-     */
-    function ClearAll(UXMouseEvent $e = null)
+    function ClearAll()
     {    
         $this->ClearEdit();
         $this->ClearMenuBackground();

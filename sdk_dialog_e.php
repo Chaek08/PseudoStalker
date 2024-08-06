@@ -8,10 +8,7 @@ use php\gui\event\UXEvent;
 
 class sdk_dialog_e extends AbstractForm
 {
-    /**
-     * @event ApplyAll_Btn.click-Left 
-     */
-    function ApplyAll(UXMouseEvent $e = null)
+    function ApplyAll()
     {    
         $this->ApplyActorDesc1();
         $this->ApplyActorDesc3();
@@ -19,10 +16,7 @@ class sdk_dialog_e extends AbstractForm
         $this->ApplyAlexDesc2();
         $this->ApplyAlexDesc3();
     }
-    /**
-     * @event ResetAll_Btn.click-Left 
-     */
-    function ResetAll(UXMouseEvent $e = null)
+    function ResetAll()
     {    
         $this->ResetActorDesc1();
         $this->ResetActorDesc3();
@@ -35,10 +29,7 @@ class sdk_dialog_e extends AbstractForm
         $this->ResetVoiceTalk2();
         $this->ResetVoiceTalk3();
     }
-    /**
-     * @event ClearAll_Btn.click-Left 
-     */
-    function ClearAll(UXMouseEvent $e = null)
+    function ClearAll()
     {    
         $this->ClearActor_Desc_1();
         $this->ClearActor_Desc_3();

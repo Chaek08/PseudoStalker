@@ -174,18 +174,6 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-EnemyModelStretchOff_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="1296" layoutY="152" prefHeight="40" prefWidth="80" styleClass="button " text="Reset All" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ResetAll_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="1216" layoutY="152" prefHeight="40" prefWidth="80" styleClass="button " text="Apply All" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ApplyAll_Btn" visible="1"/>
     <com.jfoenix.controls.JFXColorPicker focusTraversable="true" id="Edit_HealthBarColor_Actor" layoutX="352" layoutY="280" prefHeight="40" prefWidth="360">
       <value>
         <Color blue="0" green="0" opacity="1" red="0.60000002384186"/>
@@ -232,12 +220,6 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearFightSound_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearAll_Btn" layoutX="1376" layoutY="152" prefHeight="40" prefWidth="80" styleClass="button " text="Clear All" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ClearAll_Btn" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label14" layoutX="72" layoutY="200" prefHeight="40" prefWidth="280" styleClass="label " text="Background (mainmenu)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>

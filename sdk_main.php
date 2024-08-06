@@ -26,6 +26,20 @@ class sdk_main extends AbstractForm
         if ($this->f_Background->visible)
         {
             $this->GetSdkVersion();
+            
+            $this->Separator->hide(); //😭😭😭😭
+            
+            $this->Apply_All_Btn->hide();
+            $this->Reset_All_Btn->hide();
+            $this->Clear_All_Btn->hide();
+        }
+        else 
+        {
+            $this->Separator->show(); //RENDER SEPARATOR
+          
+            $this->Apply_All_Btn->show();
+            $this->Reset_All_Btn->show();
+            $this->Clear_All_Btn->show();
         }
     }   
     /**
@@ -145,5 +159,44 @@ class sdk_main extends AbstractForm
         
         $this->ResetFragmentsVisible();
         $this->f_QuestEditor->show();
+    }
+    /**
+     * @event Apply_All_Btn.click-Left 
+     */
+    function ApplyAllChanges(UXMouseEvent $e = null)
+    {
+        if ($this->f_UserDataEditor->visible) $this->f_UserDataEditor->content->ApplyAll();
+        if ($this->f_DialogEditor->visible) $this->f_DialogEditor->content->ApplyAll();
+        if ($this->f_RoleEditor->visible) $this->f_RoleEditor->content->ApplyAll();
+        if ($this->f_InvEditor->visible) $this->f_InvEditor->content->ApplyAll();
+        if ($this->f_MgEditor->visible) $this->f_MgEditor->content->ApplyAll();
+        if ($this->f_FailEditor->visible) $this->f_FailEditor->content->ApplyAll();
+        if ($this->f_QuestEditor->visible) $this->f_QuestEditor->content->ApplyAll();
+    }
+    /**
+     * @event Reset_All_Btn.click-Left 
+     */
+    function ResetAllChanges(UXMouseEvent $e = null)
+    {
+        if ($this->f_UserDataEditor->visible) $this->f_UserDataEditor->content->ResetAll();
+        if ($this->f_DialogEditor->visible) $this->f_DialogEditor->content->ResetAll();
+        if ($this->f_RoleEditor->visible) $this->f_RoleEditor->content->ResetAll();
+        if ($this->f_InvEditor->visible) $this->f_InvEditor->content->ResetAll();
+        if ($this->f_MgEditor->visible) $this->f_MgEditor->content->ResetAll();
+        if ($this->f_FailEditor->visible) $this->f_FailEditor->content->ResetAll();
+        if ($this->f_QuestEditor->visible) $this->f_QuestEditor->content->ResetAll();       
+    }
+    /**
+     * @event Clear_All_Btn.click-Left 
+     */
+    function ClearAllChanges(UXMouseEvent $e = null)
+    {
+        if ($this->f_UserDataEditor->visible) $this->f_UserDataEditor->content->ClearAll();
+        if ($this->f_DialogEditor->visible) $this->f_DialogEditor->content->ClearAll();
+        if ($this->f_RoleEditor->visible) $this->f_RoleEditor->content->ClearAll();
+        if ($this->f_InvEditor->visible) $this->f_InvEditor->content->ClearAll();
+        if ($this->f_MgEditor->visible) $this->f_MgEditor->content->ClearAll();
+        if ($this->f_FailEditor->visible) $this->f_FailEditor->content->ClearAll();
+        if ($this->f_QuestEditor->visible) $this->f_QuestEditor->content->ClearAll();
     }
 }

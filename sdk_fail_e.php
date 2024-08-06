@@ -7,18 +7,12 @@ use php\gui\event\UXMouseEvent;
 
 class sdk_fail_e extends AbstractForm
 {
-    /**
-     * @event ApplyAll_Btn.click-Left 
-     */
-    function ApplyAll(UXMouseEvent $e = null)
+    function ApplyAll()
     {    
         $this->ApplyActorFailDesc();
         $this->ApplyEnemyFailDesc();
     }  
-    /**
-     * @event ResetAll_Btn.click-Left 
-     */
-    function ResetAll(UXMouseEvent $e = null)
+    function ResetAll()
     {
         $this->ResetActorFailDesc();
         $this->ResetActorFailEdit();
@@ -27,10 +21,7 @@ class sdk_fail_e extends AbstractForm
         $this->ResetEnemyFailEdit();
         $this->ResetEnemyFailIcon();
     }
-    /**
-     * @event ClearAll_Btn.click-Left 
-     */
-    function ClearAll(UXMouseEvent $e = null)
+    function ClearAll()
     {    
         $this->ClearActorFailDesc();
         $this->ClearActorFailEdit();

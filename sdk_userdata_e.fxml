@@ -144,13 +144,6 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetActorIcon_Btn" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" id="data-ApplyAll_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="1232" layoutY="72" prefHeight="40" prefWidth="96" styleClass="button " text="Reset all" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ResetAll_Btn" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="label11" layoutX="104" layoutY="760" prefHeight="40" prefWidth="880" styleClass="label " text="У некоторых элементов динамическое значение, поэтому кнопка Apply отсутствует" textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
@@ -271,17 +264,6 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyValerokName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearAll_Btn" layoutX="1328" layoutY="72" prefHeight="40" prefWidth="96" styleClass="button " text="Clear All" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ClearAll_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="1136" layoutY="72" prefHeight="40" prefWidth="96" styleClass="button " text="Apply all" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
     <Separator focusTraversable="false" id="separator" layoutX="104" layoutY="752" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="872" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-f_Background" visible="1"/>

@@ -138,18 +138,6 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetAlex_Desc_3_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyAll_Btn" layoutX="1128" layoutY="120" prefHeight="40" prefWidth="96" styleClass="button " text="Apply all" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ApplyAll_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetAll_Btn" layoutX="1224" layoutY="120" prefHeight="40" prefWidth="96" styleClass="button " text="Reset all" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ResetAll_Btn" visible="1"/>
     <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceStart" layoutX="288" layoutY="440" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="res://.data/audio/voice/voice_start.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_start.mp3">
       <font>
         <Font name="System Regular" size="12"/>
@@ -294,12 +282,6 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearVoiceTalk3_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearAll_Btn" layoutX="1320" layoutY="120" prefHeight="40" prefWidth="96" styleClass="button " text="Clear All" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </Button>
-    <Data cursor="DEFAULT" enabled="1" id="data-ClearAll_Btn" visible="1"/>
     <Separator focusTraversable="false" id="separator" layoutX="96" layoutY="416" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="776" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
     <Separator focusTraversable="false" id="separatorAlt" layoutX="96" layoutY="640" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="776" styleClass="separator "/>
