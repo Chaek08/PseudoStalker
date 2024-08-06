@@ -36,9 +36,10 @@ class pda_fragments_stat extends AbstractForm
         }
         if (!$this->form('maingame')->skull_actor->visible && !$this->form('maingame')->skull_enemy->visible)
         {
+            $this->InitRaiting();
+            
             $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting_rank->text = "10699";
-            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->goblindav_in_raiting_rank->text = "228";
-            $this->InitRaiting();            
+            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->goblindav_in_raiting_rank->text = "228";           
         }
     }
     function ActorFailText()
