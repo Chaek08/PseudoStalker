@@ -18,6 +18,7 @@ class sdk_userdata_e extends AbstractForm
         $this->ApplyEnemyName();
         $this->ApplyEnemyIcon();
         $this->ApplyEnemyBio();
+        $this->ApplyValerokName();
     }
     function ResetAll()
     {
@@ -36,12 +37,12 @@ class sdk_userdata_e extends AbstractForm
         $this->ClearActorName();
         $this->ClearActorBio();
         $this->ClearActorIcon();
-        $this->ClearValerokName();
-        $this->ClearValerokBio();
-        $this->ClearValerokIcon();
         $this->ClearEnemyName();
         $this->ClearEnemyBio();
-        $this->ClearEnemyIcon();                
+        $this->ClearEnemyIcon();
+        $this->ClearValerokName();
+        $this->ClearValerokBio();
+        $this->ClearValerokIcon();                      
     }      
     /**
      * @event ApplyActorName_Btn.click-Left
