@@ -627,59 +627,51 @@ class maingame extends AbstractForm
             $this->blood_ui->image = new UXImage('res://.data/ui/maingame/blood_ultra.png');            
         }        
     }
-    function ActorFail()
+    function FailAction()
     {
-        $this->actor->hide();            
-    
+        $this->ReplayBtn->hide();
+        $this->fight_image->hide();
+        $this->fragment_win_fail->content->InitFailWnd();  
+        $this->fragment_win_fail->show();
+        $this->item_vodka_0000->enabled = false;
+        
         $this->idle_static_actor->show();
         $this->idle_static_enemy->show();
         $this->actor->x = 112;
-        $this->enemy->x = 1312;     
+        $this->enemy->x = 1312;
+              
+        $this->fragment_pda->content->fragment_ranking->content->DeathFilter();   
+        $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();
+        $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();
         
-        $this->ReplayBtn->hide();
-        $this->fight_image->hide();
-        $this->fragment_win_fail->content->InitFailWnd();        
-        $this->fragment_win_fail->show();
-        $this->item_vodka_0000->enabled = false;
+        $this->StopAllSounds();                   
+    }
+    function ActorFail()
+    {
+        $this->FailAction();
+    
+        $this->actor->hide();      
            
         $this->fragment_win_fail->content->SetActorFail();
         $this->fragment_pda->content->fragment_stat->content->ActorFailText();
-        $this->fragment_pda->content->fragment_ranking->content->DeathFilter();
-        $this->fragment_pda->content->fragment_tasks->content->Step2_Failed(); 
-        $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();
-        $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();        
-           
-        $this->StopAllSounds();  
+        $this->fragment_pda->content->fragment_tasks->content->Step2_Failed();         
         
         if ($this->fragment_opt->content->all_sounds->visible)
         {
             Media::open('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');
-        }                            
+        }
     }
     function EnemyFail()
     {
+        $this->FailAction();   
+    
         $this->enemy->hide();
-    
-        $this->idle_static_actor->show();
-        $this->idle_static_enemy->show(); 
-        $this->enemy->x = 1312;
-        $this->actor->x = 112;
-    
-        $this->ReplayBtn->hide();
-        $this->fight_image->hide();
-        $this->fragment_win_fail->content->InitFailWnd();
-        $this->fragment_win_fail->show();
-        $this->item_vodka_0000->enabled = false;
                 
         $this->fragment_win_fail->content->SetEnemyFail();
-        $this->fragment_pda->content->fragment_stat->content->EnemyFailText();
-        $this->fragment_pda->content->fragment_ranking->content->DeathFilter();              
-        $this->fragment_pda->content->fragment_contacts->content->DeleteEnemyContacts();    
-        $this->fragment_pda->content->fragment_tasks->content->Step2_Complete();       
-        $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();   
-        $this->fragment_pda->content->fragment_stat->content->UpdateRaiting(); 
-
-        $this->StopAllSounds();  
+        $this->fragment_pda->content->fragment_stat->content->EnemyFailText();    
+        $this->fragment_pda->content->fragment_tasks->content->Step2_Complete();
+        
+        $this->fragment_pda->content->fragment_contacts->content->DeleteEnemyContacts();            
         
         if ($this->fragment_opt->content->all_sounds->visible)
         {
