@@ -15,7 +15,7 @@ class mainmenu extends AbstractForm
         Media::open('res://.data/audio/menu/menu_sound.mp3', false, "menu_sound");
         Media::play("menu_sound");     
     }
-    function ContinueGameMenu() //Continue Game
+    function ContinueGameMenu()
     {             
         $this->btn_start_game->image = new UXImage('res://.data/ui/mainmenu/btn_default/btn4.png');   
         $this->btn_start_game->hoverImage = new UXImage('res://.data/ui/mainmenu/btn_cursor/btn4.png'); 
@@ -41,17 +41,17 @@ class mainmenu extends AbstractForm
     function NewGameBtn(UXMouseEvent $e = null)
     {      
         $this->form('maingame')->fragment_menu->hide();
-        $this->ContinueGameMenu(); //Continue Game
-        Media::pause("menu_sound");
+        
+        $this->ContinueGameMenu(); //Continue Game Status Activate
         $this->form('maingame')->PlayMainAmbient();
+                
+        Media::pause("menu_sound");
+        
         if ($this->form('maingame')->fight_image->visible)
         {
             if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
             {
-                 if($this->form('maingame')->fragment_opt->content->mute_fight_sound->visible) {} else 
-                 {
-                     Media::play("fight_sound");
-                 }     
+                 $this->form('maingame')->ReplayFightSong();
             }
         }
     }

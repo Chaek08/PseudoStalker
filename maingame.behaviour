@@ -54,4 +54,7 @@
   <target id="fragment_console">
     <behaviour animated="1" direction="ALL" gridX="1" gridY="1" limitedByParent="" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
   </target>
+  <target id="ReplayBtn">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
 </behaviours>

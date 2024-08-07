@@ -176,8 +176,12 @@ class opt extends AbstractForm
     function AllSoundOff(UXMouseEvent $e = null)
     {   
         $this->all_sounds->hide();
+        
         $this->menusound_off->enabled = false;
-        $this->menusound_on->enabled = false;    
+        $this->menusound_on->enabled = false;
+        
+        $this->form('maingame')->ReplayBtn->enabled = false;
+        $this->form('maingame')->ReplayBtn->opacity = 0;
             
         if (Media::isStatus('PLAYING', 'fight_sound')){Media::stop('fight_sound');}
         if (Media::isStatus('PLAYING', 'main_ambient')){Media::stop('main_ambient');}
@@ -196,10 +200,15 @@ class opt extends AbstractForm
      */
     function AllSoundOn(UXMouseEvent $e = null)
     {   
-        $this->all_sounds->show();
         $this->OptUnMuteMenuSound();
+        
+        $this->all_sounds->show();
+        
         $this->menusound_off->enabled = true;
-        $this->menusound_on->enabled = true;          
+        $this->menusound_on->enabled = true;        
+        
+        $this->form('maingame')->ReplayBtn->enabled = true;       
+        $this->form('maingame')->ReplayBtn->opacity = 100;               
     }
     /**
      * @event version_off.click-Left 

@@ -5,6 +5,7 @@ use std, gui, framework, app;
 use action\Geometry;
 use script\MediaPlayerScript;
 use php\gui\event\UXKeyEvent; 
+use php\gui\event\UXMouseEvent; 
 
 class maingame extends AbstractForm
 {
@@ -73,7 +74,10 @@ class maingame extends AbstractForm
     {
         if ($this->fragment_opt->content->all_sounds->visible)
         {
-             Media::play('main_ambient');      
+             if (!$this->fight_image->visible)
+             {
+                 Media::play('main_ambient');                 
+             }      
         }         
     }
     function PauseMainAmbient()
@@ -98,7 +102,27 @@ class maingame extends AbstractForm
             if (Media::isStatus('PLAYING', 'die_alex')){Media::stop('die_alex');}
             if (Media::isStatus('PLAYING', 'die_actor')){Media::stop('die_actor');}                                                                                                                                      
         }        
-    }    
+    }  
+    /**
+     * @event ReplayBtn.click-Left 
+     */
+    function ReplayFightSong(UXMouseEvent $e = null)
+    {    
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        {
+            if ($this->form('maingame')->fragment_opt->content->mute_fight_sound->visible) {} else
+            {
+                if ($this->form('maingame')->SDK_Mode->visible)
+                {
+                    Media::open($this->form('maingame')->fragment_editor->content->f_MgEditor->content->Edit_FightSound->text, true, "fight_sound");
+                }
+                else 
+                {
+                    Media::open('res://.data/audio/fight/fight_baza.mp3', true, "fight_sound");
+                }               
+            }     
+        }      
+    }      
     function ResetGameClient()
     {  
         $this->LoadScreen();
@@ -106,7 +130,7 @@ class maingame extends AbstractForm
         $this->StopAllSounds();
          
         if ($this->fight_image->visible) {$this->fight_image->hide();} 
-        if ($this->leave_btn->visible) {$this->leave_btn->hide();}        
+       if ($this->leave_btn->visible) {$this->leave_btn->hide();}        
         if ($this->fragment_win_fail->visible) {$this->fragment_win_fail->hide();}
         if ($this->blood_ui->visible) {$this->blood_ui->hide();}    
                               
@@ -612,6 +636,7 @@ class maingame extends AbstractForm
         $this->actor->x = 112;
         $this->enemy->x = 1312;     
         
+        $this->ReplayBtn->hide();
         $this->fight_image->hide();
         $this->fragment_win_fail->content->InitFailWnd();        
         $this->fragment_win_fail->show();
@@ -640,6 +665,7 @@ class maingame extends AbstractForm
         $this->enemy->x = 1312;
         $this->actor->x = 112;
     
+        $this->ReplayBtn->hide();
         $this->fight_image->hide();
         $this->fragment_win_fail->content->InitFailWnd();
         $this->fragment_win_fail->show();

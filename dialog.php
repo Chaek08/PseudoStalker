@@ -124,33 +124,29 @@ class dialog extends AbstractForm
      */
     function Talk_3(UXMouseEvent $e = null)
     {       
-        $this->form('maingame')->HideDialog();          
+        $this->form('maingame')->HideDialog();
+        
         if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
         {
             $this->VoiceTalk_3();
-            if ($this->form('maingame')->fragment_opt->content->mute_fight_sound->visible) {} else
-            {
-                if ($this->form('maingame')->SDK_Mode->visible)
-                {
-                    Media::open($this->form('maingame')->fragment_editor->content->f_MgEditor->content->Edit_FightSound->text, true, "fight_sound");
-                }
-                else 
-                {
-                    Media::open('res://.data/audio/fight/fight_baza.mp3', true, "fight_sound");
-                }
-                Media::pause('main_ambient');                
-            }     
+            Media::pause('main_ambient');
         }
+        
+        $this->form('maingame')->ReplayFightSong();
+        
+        $this->form('maingame')->ReplayBtn->show();
         $this->form('maingame')->idle_static_actor->hide();
         $this->form('maingame')->idle_static_enemy->hide(); 
         $this->form('maingame')->fight_image->show();               
-        $this->form('maingame')->dlg_btn->hide();    
+        $this->form('maingame')->dlg_btn->hide();
+            
         $this->form('maingame')->fragment_pda->content->fragment_tasks->content->Step1_Complete();                       
     }
     function StartDialog()
     {
         $this->answer_desc->opacity = 100;
         $this->answer_1_new->show();
+        
         if ($this->form('maingame')->SDK_Mode->visible)
         {
             $this->answer_desc->text = $this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_Actor_Desc_1->text;
@@ -159,6 +155,7 @@ class dialog extends AbstractForm
         {
             $this->answer_desc->text = "ахуел гей нефар";
         }
+        
         $this->ClearDialog();        
     }
     function ClearDialog()
