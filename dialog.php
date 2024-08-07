@@ -23,11 +23,17 @@ class dialog extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Media::open($this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
+            if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+            {        
+                Media::open($this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
+            }
         }
         else
         {
-            Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start");            
+            if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+            {
+                Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start");
+            }            
         }
     }
     function VoiceTalk_1()
