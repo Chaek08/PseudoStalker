@@ -6,7 +6,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemName_Outfit" layoutX="320" layoutY="56" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="Броня Сани Бетона" styleClass="text-input text-field " text="Броня Сани Бетона">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemName_Outfit" layoutX="320" layoutY="56" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="Броня Сани Кабана" styleClass="text-input text-field " text="Броня Сани Кабана">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

@@ -12,7 +12,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-labelAlt" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="edit_actorname" layoutX="392" layoutY="72" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Саня Бетон" styleClass="text-input text-field " text="Саня Бетон">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="edit_actorname" layoutX="392" layoutY="72" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Саня Кабан" styleClass="text-input text-field " text="Саня Кабан">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -36,7 +36,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label4" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label5" layoutX="104" layoutY="640" prefHeight="30" prefWidth="288" styleClass="label " text="Bio (enemy)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label5" layoutX="104" layoutY="536" prefHeight="30" prefWidth="288" styleClass="label " text="Bio (enemy)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
@@ -48,7 +48,7 @@
       </font>
     </TextArea>
     <Data cursor="DEFAULT" enabled="1" id="data-textArea_ActorBio" visible="1"/>
-    <TextArea editable="true" focusTraversable="false" id="textArea_EnemyBio" layoutX="392" layoutY="640" prefColumnCount="40" prefHeight="96" prefWidth="384" promptText="САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ" styleClass="text-input text-area " text="САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ" wrapText="true">
+    <TextArea editable="true" focusTraversable="false" id="textArea_EnemyBio" layoutX="392" layoutY="536" prefColumnCount="40" prefHeight="96" prefWidth="384" promptText="САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ" styleClass="text-input text-area " text="САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -72,13 +72,13 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-reset_actorbio_btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="reset_enemybio_btn" layoutX="848" layoutY="640" prefHeight="40" prefWidth="64" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="reset_enemybio_btn" layoutX="848" layoutY="536" prefHeight="40" prefWidth="64" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-reset_enemybio_btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyEnemyBio_Btn" layoutX="784" layoutY="640" prefHeight="40" prefWidth="64" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyEnemyBio_Btn" layoutX="784" layoutY="536" prefHeight="40" prefWidth="64" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -186,25 +186,25 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetValerokName_Btn" visible="1"/>
-    <TextArea editable="true" focusTraversable="false" id="textArea_ValerokBio" layoutX="392" layoutY="536" prefColumnCount="40" prefHeight="96" prefWidth="384" promptText="Хозяин LADCEGA, попускает тупых огсровцев, В его гараже всегда лежит нож, готовый помочь в любых делах." styleClass="text-input text-area " text="Хозяин LADCEGA, попускает тупых огсровцев, В его гараже всегда лежит нож, готовый помочь в любых делах." wrapText="true">
+    <TextArea editable="true" focusTraversable="false" id="textArea_ValerokBio" layoutX="392" layoutY="640" prefColumnCount="40" prefHeight="96" prefWidth="384" promptText="Хозяин LADCEGA, попускает тупых огсровцев, В его гараже всегда лежит нож, готовый помочь в любых делах." styleClass="text-input text-area " text="Хозяин LADCEGA, попускает тупых огсровцев, В его гараже всегда лежит нож, готовый помочь в любых делах." wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextArea>
     <Data cursor="DEFAULT" enabled="1" id="data-textArea_ValerokBio" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label9" layoutX="104" layoutY="536" prefHeight="30" prefWidth="288" styleClass="label " text="Bio (valerok)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label9" layoutX="104" layoutY="640" prefHeight="30" prefWidth="288" styleClass="label " text="Bio (valerok)" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label9" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetValerokBio_Btn" layoutX="784" layoutY="536" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetValerokBio_Btn" layoutX="784" layoutY="640" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetValerokBio_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearValerokBio_Btn" layoutX="880" layoutY="536" prefHeight="40" prefWidth="96" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearValerokBio_Btn" layoutX="880" layoutY="640" prefHeight="40" prefWidth="96" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -216,7 +216,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearActorBio_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearEnemyBio_Btn" layoutX="912" layoutY="640" prefHeight="40" prefWidth="64" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearEnemyBio_Btn" layoutX="912" layoutY="536" prefHeight="40" prefWidth="64" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

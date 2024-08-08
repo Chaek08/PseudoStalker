@@ -76,7 +76,7 @@ class inventory extends AbstractForm
             }
             else 
             {
-                Element::setText($this->maket_label, "Броня Сани Бетона");
+                Element::setText($this->maket_label, "Броня Сани Кабана");
                 Element::setText($this->maket_desc, "Этот продукт обеспечивает полную защиту от радиации и ужасного запаха гоблиндава! И что самое важное - он сделан из натуральной кабаньей плоти. Теперь я могу быть уверенным в своей безопасности и комфорте в любых условиях.");
                 Element::setText($this->maket_count, "2599 RU");
                 Element::setText($this->maket_weight, "1.00kg");

@@ -108,7 +108,7 @@
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_in_raiting_pos" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_in_raiting_rank" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="actor_in_raiting_name" layoutX="72" layoutY="64" prefHeight="21" prefWidth="312" styleClass="label " text="Саня Бетон" textAlignment="CENTER" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="actor_in_raiting_name" layoutX="72" layoutY="64" prefHeight="21" prefWidth="312" styleClass="label " text="Саня Кабан" textAlignment="CENTER" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
