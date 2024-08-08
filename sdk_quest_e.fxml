@@ -191,11 +191,11 @@
     <Separator focusTraversable="false" id="separatorAlt" layoutX="104" layoutY="528" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="904" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separatorAlt" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-f_Background" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Prompt_QuestTarget" layoutX="0" layoutY="0" prefHeight="0" prefWidth="0" styleClass="label " text="События происходят в 2033 году&#10;В это болото меня сюда заслал данила!!! Он смог поразить гоблиндава, но оказалось что поразил он не гоблиндава, а его двойника!!!&#10;Теперь мне нужно устранить настоящего гоблиндава" textAlignment="LEFT" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Prompt_QuestTarget" layoutX="0" layoutY="0" prefHeight="0" prefWidth="0" styleClass="label " text="События происходят в 2033 году&#10;В это болото меня сюда заслал данила!!! Он смог поразить гоблиндава, но оказалось что поразил он не гоблиндава, а его двойника!!!&#10;Теперь мне нужно устранить настоящего гоблиндава" textAlignment="LEFT" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-Prompt_QuestTarget" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-Prompt_QuestTarget" visible=""/>
   </children>
 </AnchorPane>

@@ -51,7 +51,10 @@ class mainmenu extends AbstractForm
         {
             if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
             {
-                 $this->form('maingame')->ReplayFightSong();
+                 if (!$this->form('maingame')->fragment_opt->content->mute_fight_sound->visible)
+                 {
+                     Media::play('fight_sound');
+                 }
             }
         }
     }
@@ -79,7 +82,6 @@ class mainmenu extends AbstractForm
     {
         $this->form('maingame')->ResetGameClient();
     }
-
     /**
      * @event opensdk_btn.click-Left 
      */

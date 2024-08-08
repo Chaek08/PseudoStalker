@@ -14,11 +14,11 @@ class sdk_main extends AbstractForm
     {
         if ($this->form('maingame')->debug_build->visible)
         {
-            $this->status_label->text = "Build 70, August 1 2024"; //start date: 24 may 2024
+            $this->status_label->text = "Build 77, August 8 2024"; //start date: 24 may 2024
         }
         else 
         {
-            $this->status_label->text  = "v0.0";
+            $this->status_label->text  = "v1.0";
         }
     }
     function SdkStatus()

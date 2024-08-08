@@ -8,7 +8,7 @@
     </FlatButton>
     <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="TOP" ellipsisString="..." focusTraversable="true" graphicTextGap="0" id="pda_background" layoutX="392" layoutY="160" prefHeight="472" prefWidth="768" styleClass="x-flat-button " text="Выберите пункт" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="40"/>
+        <Font name="System Regular" size="35"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-time" visible="1"/>
@@ -50,7 +50,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-pda_label" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/pda_background.png" id="data-pda_background" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/pda_background_image.png" id="data-pda_background" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-tasks_btn" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-contacts_btn" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-ranking_btn" visible="1"/>

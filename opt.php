@@ -49,7 +49,8 @@ class opt extends AbstractForm
         $this->form('maingame')->health_static_gg->dropShadowEffect->disable();     
         $this->form('maingame')->health_bar_enemy->dropShadowEffect->disable();     
         $this->form('maingame')->health_bar_gg->dropShadowEffect->disable();          
-        $this->form('maingame')->fight_image->dropShadowEffect->disable();  
+        $this->form('maingame')->fight_image->dropShadowEffect->disable();
+        $this->form('maingame')->ReplayBtn->dropShadowEffect->disable();        
         //dialog
         $this->form('maingame')->fragment_dlg->content->actor_character->dropShadowEffect->disable();
         $this->form('maingame')->fragment_dlg->content->alex_character->dropShadowEffect->disable();
@@ -81,7 +82,8 @@ class opt extends AbstractForm
         $this->form('maingame')->fragment_win_fail->content->returnbtn->dropShadowEffect->disable(); 
         //mainmenu + opt                
         $this->form('maingame')->fragment_menu->content->btn_exit_windows->dropShadowEffect->disable();    
-        $this->form('maingame')->fragment_menu->content->btn_start_game->dropShadowEffect->disable();  
+        $this->form('maingame')->fragment_menu->content->btn_start_game->dropShadowEffect->disable();
+        $this->form('maingame')->fragment_menu->content->btn_end_game->dropShadowEffect->disable();          
         $this->form('maingame')->fragment_menu->content->btn_opt->dropShadowEffect->disable();  
         $this->form('maingame')->fragment_menu->content->logo->dropShadowEffect->disable();
         $this->form('maingame')->fragment_opt->content->allsound_label->dropShadowEffect->disable();
@@ -117,7 +119,8 @@ class opt extends AbstractForm
         $this->form('maingame')->health_static_gg->dropShadowEffect->enable();     
         $this->form('maingame')->health_bar_enemy->dropShadowEffect->enable();     
         $this->form('maingame')->health_bar_gg->dropShadowEffect->enable();          
-        $this->form('maingame')->fight_image->dropShadowEffect->enable();  
+        $this->form('maingame')->fight_image->dropShadowEffect->enable();
+        $this->form('maingame')->ReplayBtn->dropShadowEffect->enable();
         //dialog
         $this->form('maingame')->fragment_dlg->content->actor_character->dropShadowEffect->enable();
         $this->form('maingame')->fragment_dlg->content->alex_character->dropShadowEffect->enable();
@@ -149,7 +152,8 @@ class opt extends AbstractForm
         $this->form('maingame')->fragment_win_fail->content->returnbtn->dropShadowEffect->enable(); 
         //mainmenu + opt                
         $this->form('maingame')->fragment_menu->content->btn_exit_windows->dropShadowEffect->enable();    
-        $this->form('maingame')->fragment_menu->content->btn_start_game->dropShadowEffect->enable();  
+        $this->form('maingame')->fragment_menu->content->btn_start_game->dropShadowEffect->enable();
+        $this->form('maingame')->fragment_menu->content->btn_end_game->dropShadowEffect->enable();
         $this->form('maingame')->fragment_menu->content->btn_opt->dropShadowEffect->enable();  
         $this->form('maingame')->fragment_menu->content->logo->dropShadowEffect->enable();
         $this->form('maingame')->fragment_opt->content->allsound_label->dropShadowEffect->enable();
@@ -208,7 +212,16 @@ class opt extends AbstractForm
         $this->menusound_on->enabled = true;        
         
         $this->form('maingame')->ReplayBtn->enabled = true;       
-        $this->form('maingame')->ReplayBtn->opacity = 100;               
+        $this->form('maingame')->ReplayBtn->opacity = 100;
+        
+        if ($this->form('maingame')->SDK_Mode->visible)
+        {
+            Media::open($this->form('maingame')->fragment_editor->content->f_MgEditor->content->Edit_FightSound->text, false, "fight_sound");
+        }
+        else 
+        {
+            Media::open('res://.data/audio/fight/fight_baza.mp3', false, "fight_sound");
+        }            
     }
     /**
      * @event version_off.click-Left 
@@ -248,6 +261,9 @@ class opt extends AbstractForm
     function FightSoundOn(UXMouseEvent $e = null)
     {    
         $this->mute_fight_sound->hide();
+        
+        $this->form('maingame')->ReplayBtn->enabled = true;
+        $this->form('maingame')->ReplayBtn->opacity = 100; 
     }
     /**
      * @event fightsound_off.click-Left 
@@ -255,5 +271,8 @@ class opt extends AbstractForm
     function FightSoundOff(UXMouseEvent $e = null)
     {    
         $this->mute_fight_sound->show();
+        
+        $this->form('maingame')->ReplayBtn->enabled = false;       
+        $this->form('maingame')->ReplayBtn->opacity = 0;
     }
 }

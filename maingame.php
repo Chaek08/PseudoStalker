@@ -32,13 +32,13 @@ class maingame extends AbstractForm
     {
         if ($this->SDK_Mode->visible)
         {
-            Element::setText($this->version_detail, "Editor Build 589, August 1 2024");
-            Element::setText($this->fragment_menu->content->version_detail, "v1.1 SDK");
+            Element::setText($this->version_detail, "Editor Build 593, August 8 2024");
+            Element::setText($this->fragment_menu->content->version_detail, "v1.2 + SDK");
         }
         else
         {
-            Element::setText($this->version_detail, "Build 589, August 1 2024"); //start date 24.12.2022
-            Element::setText($this->fragment_menu->content->version_detail, "v1.1");
+            Element::setText($this->version_detail, "Build 593, August 8 2024"); //start date 24.12.2022
+            Element::setText($this->fragment_menu->content->version_detail, "v1.2");
         }
         if ($this->debug_build->visible)
         {
@@ -129,10 +129,11 @@ class maingame extends AbstractForm
         $this->GetHealth();  
         $this->StopAllSounds();
          
-        if ($this->fight_image->visible) {$this->fight_image->hide();} 
-       if ($this->leave_btn->visible) {$this->leave_btn->hide();}        
-        if ($this->fragment_win_fail->visible) {$this->fragment_win_fail->hide();}
-        if ($this->blood_ui->visible) {$this->blood_ui->hide();}    
+        if ($this->fight_image->visible) $this->fight_image->hide();
+        if ($this->leave_btn->visible) $this->leave_btn->hide();
+        if ($this->fragment_win_fail->visible) $this->fragment_win_fail->hide();
+        if ($this->blood_ui->visible) $this->blood_ui->hide();
+        if ($this->ReplayBtn->visible) $this->ReplayBtn->hide();
                               
         if ($this->item_vodka_0000->visible) 
         {
