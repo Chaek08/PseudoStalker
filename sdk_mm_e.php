@@ -134,7 +134,8 @@ class sdk_mm_e extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_menu->content->background->image = new UXImage($this->Edit_MenuBackground->text);            
+            $this->form('maingame')->fragment_menu->content->background->image = new UXImage($this->Edit_MenuBackground->text);
+            $this->form('maingame')->fragment_opt->content->background->image = new UXImage($this->Edit_MenuBackground->text);
         }
     }    
     /**

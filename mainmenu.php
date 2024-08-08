@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use php\gui\UXImage;
 use std, gui, framework, app;
 use php\gui\text\UXFont;
 use php\gui\event\UXMouseEvent; 
@@ -13,7 +14,7 @@ class mainmenu extends AbstractForm
     function InitGameClient(UXWindowEvent $e = null)
     {    
         Media::open('res://.data/audio/menu/menu_sound.mp3', false, "menu_sound");
-        Media::play("menu_sound");     
+        Media::play("menu_sound");
     }
     function ContinueGameMenu()
     {             
