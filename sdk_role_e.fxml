@@ -261,13 +261,13 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearLaRoleIcon_Btn" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="14" id="label11" layoutX="72" layoutY="680" prefHeight="60" prefWidth="696" styleClass="label " text="Если вы хотите убрать иконку роли, то пропишите специальный путь к иконке:&#10;res://.data/ui/dialog/no_role.png&#10;&#10;" textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="true">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="14" id="label11" layoutX="72" layoutY="680" prefHeight="60" prefWidth="696" styleClass="label " text="Если вы хотите убрать иконку роли, пропишите специальный путь к иконке:&#10;res://.data/ui/dialog/no_role.png&#10;&#10;" textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/no_role.png" id="data-label11" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="label12" layoutX="72" layoutY="736" prefHeight="40" prefWidth="1152" styleClass="label " text="У некоторых элементов динамическое значение, поэтому кнопка Apply отсутствует." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="label12" layoutX="72" layoutY="736" prefHeight="40" prefWidth="1152" styleClass="label " text="У некоторых элементов динамические значения, поэтому кнопка Apply отсутствует." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>

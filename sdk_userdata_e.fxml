@@ -144,7 +144,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetActorIcon_Btn" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="label11" layoutX="104" layoutY="760" prefHeight="40" prefWidth="880" styleClass="label " text="У некоторых элементов динамическое значение, поэтому кнопка Apply отсутствует" textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="label11" layoutX="104" layoutY="760" prefHeight="40" prefWidth="880" styleClass="label " text="У некоторых элементов динамические значения, поэтому кнопка Apply отсутствует" textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
