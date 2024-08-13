@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use action\Media;
 use php\gui\UXAlert;
 use php\gui\paint\UXColor;
 use php\gui\UXImage;
@@ -233,5 +234,22 @@ class sdk_mm_e extends AbstractForm
         {
             $this->form('maingame')->enemy->stretch = false;
         }
+    }
+    /**
+     * @event FightSound_PreviewBtn.click-Left 
+     */
+    function PreviewFightSound(UXMouseEvent $e = null)
+    {
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        {        
+            Media::open($this->Edit_FightSound->text, true, 'PreviewFightSound');
+        }
+    }
+    /**
+     * @event FightSound_PreviewBtn.click-Right 
+     */
+    function StopPreviewFightSound(UXMouseEvent $e = null)
+    {
+        Media::stop('PreviewFightSound');
     }
 }

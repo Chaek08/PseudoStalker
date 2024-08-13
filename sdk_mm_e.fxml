@@ -196,7 +196,7 @@
       </styleClass>
     </com.jfoenix.controls.JFXColorPicker>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_HealthBarColor_Enemy" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_FightSound" layoutX="352" layoutY="632" prefColumnCount="12" prefHeight="40" prefWidth="360" promptText="res://.data/audio/fight/fight_baza.mp3" styleClass="text-input text-field " text="res://.data/audio/fight/fight_baza.mp3">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_FightSound" layoutX="352" layoutY="632" prefColumnCount="12" prefHeight="41" prefWidth="320" promptText="res://.data/audio/fight/fight_baza.mp3" styleClass="text-input text-field " text="res://.data/audio/fight/fight_baza.mp3">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -265,5 +265,11 @@
     <Separator focusTraversable="false" id="separator4" layoutX="72" layoutY="688" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="888" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator4" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-f_Background" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="FightSound_PreviewBtn" layoutX="672" layoutY="632" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/previewsongbtn.png" id="data-FightSound_PreviewBtn" tooltipText="Preview Song" visible="1"/>
   </children>
 </AnchorPane>

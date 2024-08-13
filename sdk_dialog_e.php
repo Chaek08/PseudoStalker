@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use action\Media;
 use php\gui\framework\AbstractForm;
 use php\gui\event\UXMouseEvent; 
 use php\gui\event\UXEvent; 
@@ -252,4 +253,83 @@ class sdk_dialog_e extends AbstractForm
     {    
         $this->Edit_VoiceTalk3->text = '';
     }
+    function ResetVoice()
+    {
+        Media::stop('PreviewVoiceStart');
+        Media::stop('PreviewVoiceTalk1');
+        Media::stop('PreviewVoiceTalk2');
+        Media::stop('PreviewVoiceTalk3');                        
+    }
+    /**
+     * @event VoiceStart_PreviewBtn.click-Left 
+     */
+    function PreviewVoiceStart(UXMouseEvent $e = null)
+    {    
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        {
+            $this->ResetVoice();        
+            Media::open($this->Edit_VoiceStart->text, true, 'PreviewVoiceStart');
+        }
+    }
+    /**
+     * @event VoiceStart_PreviewBtn.click-Right 
+     */
+    function StopPreviewVoiceStart(UXMouseEvent $e = null)
+    {    
+        $this->ResetVoice();
+    }    
+    /**
+     * @event VoiceTalk1_PreviewBtn.click-Left 
+     */
+    function PreviewVoiceTalk1(UXMouseEvent $e = null)
+    {
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        {
+            $this->ResetVoice();        
+            Media::open($this->Edit_VoiceTalk1->text, true, 'PreviewVoiceTalk1');
+        }
+    }
+    /**
+     * @event VoiceTalk1_PreviewBtn.click-Right 
+     */
+    function StopPreviewVoiceTalk1(UXMouseEvent $e = null)
+    {    
+        $this->ResetVoice();
+    }     
+    /**
+     * @event VoiceTalk2_PreviewBtn.click-Left 
+     */
+    function PreviewVoiceTalk2(UXMouseEvent $e = null)
+    {
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        {
+            $this->ResetVoice();        
+            Media::open($this->Edit_VoiceTalk2->text, true, 'PreviewVoiceTalk2');
+        }
+    }
+    /**
+     * @event VoiceTalk2_PreviewBtn.click-Right 
+     */
+    function StopPreviewVoiceTalk2(UXMouseEvent $e = null)
+    {    
+        $this->ResetVoice();
+    }    
+    /**
+     * @event VoiceTalk3_PreviewBtn.click-Left 
+     */
+    function PreviewVoiceTalk3(UXMouseEvent $e = null)
+    {
+        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        {
+            $this->ResetVoice();        
+            Media::open($this->Edit_VoiceTalk3->text, true, 'PreviewVoiceTalk3');
+        }
+    }
+    /**
+     * @event VoiceTalk3_PreviewBtn.click-Right 
+     */
+    function StopPreviewVoiceTalk3(UXMouseEvent $e = null)
+    {    
+        $this->ResetVoice();
+    }    
 }

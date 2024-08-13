@@ -138,25 +138,25 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetAlex_Desc_3_Btn" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceStart" layoutX="288" layoutY="440" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="res://.data/audio/voice/voice_start.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_start.mp3">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceStart" layoutX="288" layoutY="440" prefColumnCount="12" prefHeight="41" prefWidth="344" promptText="res://.data/audio/voice/voice_start.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_start.mp3">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_VoiceStart" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk1" layoutX="288" layoutY="488" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="res://.data/audio/voice/voice_talk1.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk1.mp3">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk1" layoutX="288" layoutY="488" prefColumnCount="12" prefHeight="41" prefWidth="344" promptText="res://.data/audio/voice/voice_talk1.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk1.mp3">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_VoiceTalk1" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk2" layoutX="288" layoutY="536" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="res://.data/audio/voice/voice_talk2.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk2.mp3">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk2" layoutX="288" layoutY="536" prefColumnCount="12" prefHeight="41" prefWidth="344" promptText="res://.data/audio/voice/voice_talk2.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk2.mp3">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_VoiceTalk2" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk3" layoutX="288" layoutY="584" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="res://.data/audio/voice/voice_talk3.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk3.mp3">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk3" layoutX="288" layoutY="584" prefColumnCount="12" prefHeight="41" prefWidth="344" promptText="res://.data/audio/voice/voice_talk3.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk3.mp3">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -287,5 +287,29 @@
     <Separator focusTraversable="false" id="separatorAlt" layoutX="96" layoutY="640" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="776" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separatorAlt" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-f_Background" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="VoiceStart_PreviewBtn" layoutX="632" layoutY="440" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/previewsongbtn.png" id="data-VoiceStart_PreviewBtn" tooltipText="Preview Song" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="VoiceTalk1_PreviewBtn" layoutX="632" layoutY="488" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/previewsongbtn.png" id="data-VoiceTalk1_PreviewBtn" tooltipText="Preview Song" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="VoiceTalk2_PreviewBtn" layoutX="632" layoutY="536" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/previewsongbtn.png" id="data-VoiceTalk2_PreviewBtn" tooltipText="Preview Song" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="VoiceTalk3_PreviewBtn" layoutX="632" layoutY="584" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/previewsongbtn.png" id="data-VoiceTalk3_PreviewBtn" tooltipText="Preview Song" visible="1"/>
   </children>
 </AnchorPane>
