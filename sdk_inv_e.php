@@ -115,14 +115,14 @@ class sdk_inv_e extends AbstractForm
      */
     function ApplyOutfitIcon(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->fragment_inv->content->inv_maket_select->image = new UXImage($this->Edit_ItemIcon_Outfit->text);
+        $this->form('maingame')->Inventory->content->inv_maket_select->image = new UXImage($this->Edit_ItemIcon_Outfit->text);
     }
     /**
      * @event ApplyVodkaIcon_Btn.click-Left 
      */
     function ApplyVodkaIcon(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->fragment_inv->content->inv_maket_select_2->image = new UXImage($this->Edit_ItemIcon_Vodka->text);        
+        $this->form('maingame')->Inventory->content->inv_maket_select_2->image = new UXImage($this->Edit_ItemIcon_Vodka->text);        
     }
     /**
      * @event ClearOutfitName_Btn.click-Left 

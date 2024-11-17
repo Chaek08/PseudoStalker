@@ -19,13 +19,13 @@ class maingame extends AbstractForm
         
         if ($this->SDK_Mode->visible)
         {
-            $this->fragment_menu->content->opensdk_btn->show();
-            $this->fragment_editor->content->GetSDKVersion();           
+            $this->MainMenu->content->opensdk_btn->show();
+            $this->Editor->content->GetSDKVersion();           
         }
         else
         {
-            $this->fragment_editor->free(); 
-            $this->fragment_menu->content->opensdk_btn->free();
+            $this->Editor->free(); 
+            $this->MainMenu->content->opensdk_btn->free();
         }
     }
     function GetVersion()
@@ -33,12 +33,12 @@ class maingame extends AbstractForm
         if ($this->SDK_Mode->visible)
         {
             Element::setText($this->version_detail, "Editor Build 593, August 8 2024");
-            Element::setText($this->fragment_menu->content->version_detail, "v1.2 + SDK");
+            Element::setText($this->MainMenu->content->version_detail, "v1.2 + SDK");
         }
         else
         {
             Element::setText($this->version_detail, "Build 593, August 8 2024"); //start date 24.12.2022
-            Element::setText($this->fragment_menu->content->version_detail, "v1.2");
+            Element::setText($this->MainMenu->content->version_detail, "v1.2");
         }
         if ($this->debug_build->visible)
         {
@@ -47,33 +47,33 @@ class maingame extends AbstractForm
         }
         else
         {
-            $this->fragment_menu->content->version->show();
-            $this->fragment_menu->content->version_detail->show();            
+            $this->MainMenu->content->version->show();
+            $this->MainMenu->content->version_detail->show();            
         }        
     }     
     function LoadScreen()
     {
-        $this->fragment_load->show();
+        $this->LoadScreen->show();
         $this->CustomCursor->hide();
         
-        Animation::fadeTo($this->fragment_load, 650, 1, function()
+        Animation::fadeTo($this->LoadScreen, 650, 1, function()
         {
-           Animation::fadeIn($this->fragment_load, 1);
-           $this->fragment_load->hide();    
+           Animation::fadeIn($this->LoadScreen, 1);
+           $this->LoadScreen->hide(); 
            $this->CustomCursor->show();       
         });            
     }     
     function OpenMainAmbient()
     {
-        if ($this->fragment_opt->content->all_sounds->visible) Media::open('res://.data/audio/game/krip1.mp3', false, 'main_ambient');       
+        if ($this->Options->content->all_sounds->visible) Media::open('res://.data/audio/game/krip1.mp3', false, 'main_ambient');       
     }
     function PauseMainAmbient()
     {
-        if ($this->fragment_opt->content->all_sounds->visible) Media::pause('main_ambient');   
+        if ($this->Options->content->all_sounds->visible) Media::pause('main_ambient');   
     }    
     function PlayMainAmbient()
     {
-        if ($this->fragment_opt->content->all_sounds->visible)
+        if ($this->Options->content->all_sounds->visible)
         {
              if (!$this->fight_image->visible)
              {
@@ -83,7 +83,7 @@ class maingame extends AbstractForm
     }
     function StopAllSounds()
     {
-        if ($this->fragment_opt->content->all_sounds->visible)
+        if ($this->Options->content->all_sounds->visible)
         { 
             if (Media::isStatus('PLAYING', 'fight_sound')) Media::stop('fight_sound');
             if (Media::isStatus('PLAYING', 'main_ambient')) Media::stop('main_ambient');
@@ -102,13 +102,13 @@ class maingame extends AbstractForm
      */
     function ReplayFightSong(UXMouseEvent $e = null)
     {    
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {
-            if ($this->form('maingame')->fragment_opt->content->mute_fight_sound->visible) {} else
+            if ($this->form('maingame')->Options->content->mute_fight_sound->visible) {} else
             {
                 if ($this->form('maingame')->SDK_Mode->visible)
                 {
-                    Media::open($this->form('maingame')->fragment_editor->content->f_MgEditor->content->Edit_FightSound->text, true, "fight_sound");
+                    Media::open($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_FightSound->text, true, "fight_sound");
                 }
                 else 
                 {
@@ -125,15 +125,15 @@ class maingame extends AbstractForm
          
         if ($this->fight_image->visible) $this->fight_image->hide();
         if ($this->leave_btn->visible) $this->leave_btn->hide();
-        if ($this->fragment_win_fail->visible) $this->fragment_win_fail->hide();
+        if ($this->Fail->visible) $this->Fail->hide();
         if ($this->blood_ui->visible) $this->blood_ui->hide();
         if ($this->ReplayBtn->visible) $this->ReplayBtn->hide();
                               
         if ($this->item_vodka_0000->visible) 
         {
-            $this->fragment_inv->content->DespawnVodka();
+            $this->Inventory->content->DespawnVodka();
         }
-        $this->fragment_inv->content->SetItemCondition();     
+        $this->Inventory->content->SetItemCondition();     
         
         $this->idle_static_actor->show();
         $this->idle_static_enemy->show();    
@@ -142,50 +142,50 @@ class maingame extends AbstractForm
         $this->actor->x = 112;
         $this->enemy->x = 1312;        
                      
-        $this->fragment_pda->content->DefaultState();        
-        $this->fragment_pda->content->fragment_contacts->content->AddEnemyContacts();   
-        $this->fragment_pda->content->fragment_tasks->content->DeleteTask();    
-        $this->fragment_pda->content->fragment_tasks->content->ShowActiveTasks();        
-        $this->fragment_pda->content->fragment_tasks->content->StepReset();       
-        $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();             
-        $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();  
+        $this->Pda->content->DefaultState();        
+        $this->Pda->content->Pda_Contacts->content->AddEnemyContacts();   
+        $this->Pda->content->Pda_Tasks->content->DeleteTask();    
+        $this->Pda->content->Pda_Tasks->content->ShowActiveTasks();        
+        $this->Pda->content->Pda_Tasks->content->StepReset();       
+        $this->Pda->content->Pda_Tasks->content->Step_UpdatePda();             
+        $this->Pda->content->Pda_Statistic->content->UpdateRaiting();  
                   
         $this->dlg_btn->show();         
-        $this->fragment_dlg->content->StartDialog();
-        $this->fragment_menu->content->NewGameMenu();
-        $this->fragment_pda->content->fragment_stat->content->ResetFinalText();
+        $this->Dialog->content->StartDialog();
+        $this->MainMenu->content->NewGameMenu();
+        $this->Pda->content->Pda_Statistic->content->ResetFinalText();
     }
     /**
      * @event keyDown-Esc 
      */
     function EscBtn(UXKeyEvent $e = null)
     {    
-        if ($this->fragment_load->visible) return;
+        if ($this->LoadScreen->visible) return;
         
         if ($this->SDK_Mode->visible)
         {
-            if ($this->fragment_editor->visible)
+            if ($this->Editor->visible)
             {
                 return;
             }
         }
              
-        if ($this->fragment_menu->visible) $this->fragment_menu->content->NewGameBtn(); return; 
-        if ($this->fragment_inv->visible) $this->HideInventory(); return;    
-        if ($this->fragment_dlg->visible) $this->HideDialog(); return; Media::stop('voice_talk3');
-        if ($this->fragment_pda->visible) $this->HidePda(); return;
-        if ($this->fragment_exit->visible) $this->HideExitDialog(); return;
-        if ($this->fragment_opt->visible) return;
+        if ($this->MainMenu->visible) { $this->MainMenu->content->NewGameBtn(); return; }
+        if ($this->Inventory->visible) { $this->HideInventory(); return; }
+        if ($this->Dialog->visible) { $this->HideDialog(); Media::stop('voice_talk3'); return; }
+        if ($this->Pda->visible) { $this->HidePda(); return; }
+        if ($this->ExitDialog->visible) { $this->HideExitDialog(); return; }
+        if ($this->Options->visible) return; 
         
         $this->ShowMenu();
         $this->PauseMainAmbient();
     }
     function ShowMenu()
     {
-        $this->fragment_menu->show();
-        if ($this->fragment_opt->content->all_sounds->visible)
+        $this->MainMenu->show();
+        if ($this->Options->content->all_sounds->visible)
         {
-            if ($this->fragment_opt->content->mute_menu_sound->visible)
+            if ($this->Options->content->mute_menu_sound->visible)
             {
                  Media::pause("fight_sound"); 
             }
@@ -201,22 +201,22 @@ class maingame extends AbstractForm
      */    
     function ShowPda()
     {
-        if ($this->fragment_load->visible) return;  
-        if ($this->fragment_pda->visible) return; 
-        if ($this->fragment_menu->visible) return;
-        if ($this->fragment_opt->visible) return;      
-        if ($this->fragment_inv->visible) return;
-        if ($this->fragment_dlg->visible) return;
-        if ($this->fragment_win_fail->visible) return;
+        if ($this->LoadScreen->visible) return;  
+        if ($this->Pda->visible) return; 
+        if ($this->MainMenu->visible) return;
+        if ($this->Options->visible) return;      
+        if ($this->Inventory->visible) return;
+        if ($this->Dialog->visible) return;
+        if ($this->Fail->visible) return;
         
         if ($this->SDK_Mode->visible)
         {
-            if ($this->fragment_editor->visible) return;
+            if ($this->Editor->visible) return;
         }
         
-        $this->fragment_pda->content->SetPDAOpacity();
-        $this->fragment_pda->show();
-        if ($this->fragment_pda->content->fragment_stat->visible)
+        $this->Pda->content->SetPDAOpacity();
+        $this->Pda->show();
+        if ($this->Pda->content->Pda_Statistic->visible)
         {
             if ($this->pda_icon->visible) $this->pda_icon->hide();
         }          
@@ -226,106 +226,106 @@ class maingame extends AbstractForm
      */
     function ShowInventory(UXKeyEvent $e = null)
     {       
-        if ($this->fragment_load->visible) return;  
-        if ($this->fragment_inv->visible) return;
-        if ($this->fragment_menu->visible) return;
-        if ($this->fragment_opt->visible) return;
-        if ($this->fragment_pda->visible) return;
-        if ($this->fragment_dlg->visible) return;          
-        if ($this->fragment_win_fail->visible) return;
+        if ($this->LoadScreen->visible) return;  
+        if ($this->Inventory->visible) return;
+        if ($this->MainMenu->visible) return;
+        if ($this->Options->visible) return;
+        if ($this->Pda->visible) return;
+        if ($this->Dialog->visible) return;          
+        if ($this->Fail->visible) return;
         
         if ($this->SDK_Mode->visible)
         {
-            if ($this->fragment_editor->visible)
+            if ($this->Editor->visible)
             {
                 return;
             }
         }
         
-        $this->fragment_inv->show();
-        if ($this->fragment_opt->content->all_sounds->visible) Media::open('res://.data/audio/inv_open.mp3', true);
+        $this->Inventory->show();
+        if ($this->Options->content->all_sounds->visible) Media::open('res://.data/audio/inv_open.mp3', true);
     }    
     /**
      * @event keyDown-F4 
      */
     function ShowExitDialog(UXKeyEvent $e = null)
     {          
-        if ($this->fragment_load->visible) return;  
-        if ($this->fragment_menu->visible) return;
-        if ($this->fragment_exit->visible) return;  
-        if ($this->fragment_inv->visible) return;
-        if ($this->fragment_pda->visible) return;
-        if ($this->fragment_opt->visible) return;  
-        if ($this->fragment_dlg->visible) return;
-        if ($this->fragment_win_fail->visible) return;
+        if ($this->LoadScreen->visible) return;  
+        if ($this->MainMenu->visible) return;
+        if ($this->ExitDialog->visible) return;  
+        if ($this->Inventory->visible) return;
+        if ($this->Pda->visible) return;
+        if ($this->Options->visible) return;  
+        if ($this->Dialog->visible) return;
+        if ($this->Fail->visible) return;
         
         if ($this->SDK_Mode->visible)
         {
-            if ($this->fragment_editor->visible)
+            if ($this->Editor->visible)
             {
                 return;
             }
         }
         
-        $this->fragment_exit->show();
+        $this->ExitDialog->show();
     }
     /**
      * @event dlg_btn.click-Left 
      */
     function ShowDialog(UXMouseEvent $e = null)
     {          
-        $this->fragment_dlg->show();  
-        $this->fragment_dlg->content->StartDialog();          
-        $this->fragment_dlg->content->VoiceStart();    
+        $this->Dialog->show();  
+        $this->Dialog->content->StartDialog();          
+        $this->Dialog->content->VoiceStart();    
     }
     function HideExitDialog()
     {
-        if ($this->fragment_exit->visible) $this->fragment_exit->hide();
+        if ($this->ExitDialog->visible) $this->ExitDialog->hide();
     }
     function HideDialog()
     {
-        if ($this->fragment_dlg->visible)
+        if ($this->Dialog->visible)
         {  
-            $this->fragment_dlg->content->ClearDialog();
-            $this->fragment_dlg->content->ResetAnswerVisible();
-            $this->fragment_dlg->content->StopVoice();
-            $this->fragment_dlg->hide();                           
+            $this->Dialog->content->ClearDialog();
+            $this->Dialog->content->ResetAnswerVisible();
+            $this->Dialog->content->StopVoice();
+            $this->Dialog->hide();                           
         } 
     }
     function HideInventory()
     {
-        if ($this->fragment_inv->visible)
+        if ($this->Inventory->visible)
         {
-            $this->fragment_inv->content->HideOutfitMaket();
-            $this->fragment_inv->content->HideVodkaMaket(); 
-            $this->fragment_inv->content->HideUIText(); 
-            $this->fragment_inv->content->HideCombobox();                              
-            $this->fragment_inv->hide();
+            $this->Inventory->content->HideOutfitMaket();
+            $this->Inventory->content->HideVodkaMaket(); 
+            $this->Inventory->content->HideUIText(); 
+            $this->Inventory->content->HideCombobox();                              
+            $this->Inventory->hide();
                 
-            if ($this->fragment_opt->content->all_sounds->visible) Media::open('res://.data/audio/inv_close.mp3', true);         
+            if ($this->Options->content->all_sounds->visible) Media::open('res://.data/audio/inv_close.mp3', true);         
         }
         
     }
     function HidePda()
     {
-        if ($this->fragment_pda->visible)
+        if ($this->Pda->visible)
         {
-            $this->fragment_pda->hide();
-            $this->fragment_pda->content->DefaultState();             
+            $this->Pda->hide();
+            $this->Pda->content->DefaultState();             
         }        
     }
     function HideOpt()
     {
-        if ($this->fragment_opt->visible) $this->fragment_opt->hide();      
+        if ($this->Options->visible) $this->Options->hide();      
     }
     /**
      * @event leave_btn.click-Left 
      */
     function LeaveBtn(UXMouseEvent $e = null)
     {    
-        $this->fragment_win_fail->show();
+        $this->Fail->show();
         
-        if ($this->fragment_opt->content->all_sounds->visible)
+        if ($this->Options->content->all_sounds->visible)
         {
             Media::pause('main_ambient');
         }          
@@ -368,10 +368,10 @@ class maingame extends AbstractForm
         $this->health_bar_gg->show();
         $this->health_bar_gg_b->show();
         
-        $this->fragment_inv->content->health_bar_gg->show();
-        $this->fragment_inv->content->health_bar_gg_b->show();        
-        $this->fragment_inv->content->health_bar_gg->width = 416; //100%
-        $this->fragment_inv->content->health_bar_gg->text = "100%";               
+        $this->Inventory->content->health_bar_gg->show();
+        $this->Inventory->content->health_bar_gg_b->show();        
+        $this->Inventory->content->health_bar_gg->width = 416; //100%
+        $this->Inventory->content->health_bar_gg->text = "100%";               
                 
         $this->health_bar_enemy->show();     
         $this->health_bar_enemy_b->show();           
@@ -382,11 +382,11 @@ class maingame extends AbstractForm
         {
             $this->skull_actor->hide();
             $this->skull_enemy->hide();
-            $this->fragment_pda->content->fragment_ranking->content->DeathFilter();
+            $this->Pda->content->Pda_Ranking->content->DeathFilter();
         }    
-        if ($this->fragment_inv->content->skull_actor->visible)  
+        if ($this->Inventory->content->skull_actor->visible)  
         {
-            $this->fragment_inv->content->skull_actor->hide();
+            $this->Inventory->content->skull_actor->hide();
         }
     }
     /**
@@ -398,7 +398,7 @@ class maingame extends AbstractForm
         {
             $this->health_bar_enemy->width -= 50;
              
-            if ($this->fragment_opt->content->all_sounds->visible)
+            if ($this->Options->content->all_sounds->visible)
             {
                 Media::open('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex');
                 Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_alex_damage');
@@ -412,7 +412,7 @@ class maingame extends AbstractForm
             $this->leave_btn->show();
             $this->dlg_btn->hide();
             
-            if ($this->fragment_opt->content->all_sounds->visible) Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex');
+            if ($this->Options->content->all_sounds->visible) Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex');
              
             $this->EnemyFail();
             return;
@@ -450,7 +450,7 @@ class maingame extends AbstractForm
             Animation::fadeIn($this->hitmark_static, 250);  
             $this->hitmark_static->show();
             Animation::fadeOut($this->hitmark_static, 500);
-            if ($this->fragment_opt->content->all_sounds->visible)
+            if ($this->Options->content->all_sounds->visible)
             {
                 Media::open('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor'); 
                 Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_actor_damage'); 
@@ -462,9 +462,9 @@ class maingame extends AbstractForm
             $this->health_bar_gg->hide();
             $this->health_bar_gg_b->hide();
             $this->Bleeding();
-            $this->fragment_inv->content->health_bar_gg->hide();
-            $this->fragment_inv->content->health_bar_gg_b->hide();            
-            $this->fragment_inv->content->skull_actor->show();
+            $this->Inventory->content->health_bar_gg->hide();
+            $this->Inventory->content->health_bar_gg_b->hide();            
+            $this->Inventory->content->skull_actor->show();
             $this->leave_btn->show();
             $this->dlg_btn->hide();
                        
@@ -473,7 +473,7 @@ class maingame extends AbstractForm
                 $this->hitmark_static->hide();
             }
             
-            if ($this->fragment_opt->content->all_sounds->visible) Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');
+            if ($this->Options->content->all_sounds->visible) Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');
             
             $this->ActorFail();
             return;
@@ -481,39 +481,39 @@ class maingame extends AbstractForm
         if ($this->health_bar_gg->width == 214)
         {
             $this->health_bar_gg->text = "75%";
-            $this->fragment_inv->content->health_bar_gg->width -= 100;           
-            $this->fragment_inv->content->health_bar_gg->text = "75%";
+            $this->Inventory->content->health_bar_gg->width -= 100;           
+            $this->Inventory->content->health_bar_gg->text = "75%";
             $this->Bleeding(); 
         }
         if ($this->health_bar_gg->width == 164)
         {
             $this->health_bar_gg->text = "55%";
-            $this->fragment_inv->content->health_bar_gg->width -= 50;            
-            $this->fragment_inv->content->health_bar_gg->text = "55%";   
-            $this->fragment_inv->content->SetItemCondition();
+            $this->Inventory->content->health_bar_gg->width -= 50;            
+            $this->Inventory->content->health_bar_gg->text = "55%";   
+            $this->Inventory->content->SetItemCondition();
         }      
         if ($this->health_bar_gg->width == 114)
         {
             $this->health_bar_gg->text = "50%";
-            $this->fragment_inv->content->health_bar_gg->width -= 40;     
-            $this->fragment_inv->content->health_bar_gg->text = "50%";         
-            $this->fragment_inv->content->SetItemCondition();
+            $this->Inventory->content->health_bar_gg->width -= 40;     
+            $this->Inventory->content->health_bar_gg->text = "50%";         
+            $this->Inventory->content->SetItemCondition();
             $this->Bleeding();  
         }  
         if ($this->health_bar_gg->width == 64)
         {
             $this->health_bar_gg->text = "33%";
-            $this->fragment_inv->content->health_bar_gg->width -= 150;            
-            $this->fragment_inv->content->health_bar_gg->text = "33%";                          
+            $this->Inventory->content->health_bar_gg->width -= 150;            
+            $this->Inventory->content->health_bar_gg->text = "33%";                          
         }    
         if ($this->health_bar_gg->width == 14)
         {
             $this->health_bar_gg->text = "1%";
-            $this->fragment_inv->content->health_bar_gg->width -= 40;            
-            $this->fragment_inv->content->health_bar_gg->text = "1%"; 
+            $this->Inventory->content->health_bar_gg->width -= 40;            
+            $this->Inventory->content->health_bar_gg->text = "1%"; 
             $this->health_bar_gg->width += 20;
             $this->Bleeding();   
-            $this->fragment_inv->content->SetItemCondition();                           
+            $this->Inventory->content->SetItemCondition();                           
         }                     
     }    
     function Bleeding()
@@ -544,8 +544,8 @@ class maingame extends AbstractForm
     {
         $this->ReplayBtn->hide();
         $this->fight_image->hide();
-        $this->fragment_win_fail->content->InitFailWnd();  
-        $this->fragment_win_fail->show();
+        $this->Fail->content->InitFailWnd();  
+        $this->Fail->show();
         $this->item_vodka_0000->enabled = false;
         
         $this->idle_static_actor->show();
@@ -553,9 +553,9 @@ class maingame extends AbstractForm
         $this->actor->x = 112;
         $this->enemy->x = 1312;
               
-        $this->fragment_pda->content->fragment_ranking->content->DeathFilter();   
-        $this->fragment_pda->content->fragment_tasks->content->Step_UpdatePda();
-        $this->fragment_pda->content->fragment_stat->content->UpdateRaiting();
+        $this->Pda->content->Pda_Ranking->content->DeathFilter();   
+        $this->Pda->content->Pda_Tasks->content->Step_UpdatePda();
+        $this->Pda->content->Pda_Statistic->content->UpdateRaiting();
         
         $this->StopAllSounds();                   
     }
@@ -565,11 +565,11 @@ class maingame extends AbstractForm
     
         $this->actor->hide();      
            
-        $this->fragment_win_fail->content->SetActorFail();
-        $this->fragment_pda->content->fragment_stat->content->ActorFailText();
-        $this->fragment_pda->content->fragment_tasks->content->Step2_Failed();         
+        $this->Fail->content->SetActorFail();
+        $this->Pda->content->Pda_Statistic->content->ActorFailText();
+        $this->Pda->content->Pda_Tasks->content->Step2_Failed();         
         
-        if ($this->fragment_opt->content->all_sounds->visible)
+        if ($this->Options->content->all_sounds->visible)
         {
             Media::open('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');
         }
@@ -580,13 +580,13 @@ class maingame extends AbstractForm
     
         $this->enemy->hide();
                 
-        $this->fragment_win_fail->content->SetEnemyFail();
-        $this->fragment_pda->content->fragment_stat->content->EnemyFailText();    
-        $this->fragment_pda->content->fragment_tasks->content->Step2_Complete();
+        $this->Fail->content->SetEnemyFail();
+        $this->Pda->content->Pda_Statistic->content->EnemyFailText();    
+        $this->Pda->content->Pda_Tasks->content->Step2_Complete();
         
-        $this->fragment_pda->content->fragment_contacts->content->DeleteEnemyContacts();            
+        $this->Pda->content->Pda_Contacts->content->DeleteEnemyContacts();            
         
-        if ($this->fragment_opt->content->all_sounds->visible)
+        if ($this->Options->content->all_sounds->visible)
         {
             Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor');
         }
@@ -596,6 +596,6 @@ class maingame extends AbstractForm
      */
     function OpenConsole(UXKeyEvent $e = null)
     {    
-        if ($this->fragment_console->toggle()) $this->fragment_console->visible;
+        if ($this->Console->toggle()) $this->Console->visible;
     }
 }

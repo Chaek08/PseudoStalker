@@ -36,8 +36,8 @@ class fail_wnd extends AbstractForm
      */
     function ReturnBtn(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->fragment_win_fail->hide();   
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        $this->form('maingame')->Fail->hide();   
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {        
             Media::play('main_ambient'); 
             if ($this->form('maingame')->skull_actor->visible)
@@ -54,10 +54,10 @@ class fail_wnd extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            $this->Win_object->image = new UXImage($this->form('maingame')->fragment_editor->content->f_MgEditor->content->Edit_EnemyModel->text);
-            $this->Win_fail_text->graphic = new UXImageView(new UXImage($this->form('maingame')->fragment_editor->content->f_FailEditor->content->EditActorFailIcon->text));
-            $this->Win_fail_text->text = uiText($this->form('maingame')->fragment_editor->content->f_FailEditor->content->Win_Fail_Text_Actor_Edit);
-            $this->Win_fail_desc->text = uiText($this->form('maingame')->fragment_editor->content->f_FailEditor->content->Win_Fail_Desc_Actor_Edit);
+            $this->Win_object->image = new UXImage($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_EnemyModel->text);
+            $this->Win_fail_text->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_FailEditor->content->EditActorFailIcon->text));
+            $this->Win_fail_text->text = uiText($this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Text_Actor_Edit);
+            $this->Win_fail_desc->text = uiText($this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Desc_Actor_Edit);
         }
         else
         {
@@ -70,10 +70,10 @@ class fail_wnd extends AbstractForm
     {        
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            $this->Win_object->image = new UXImage($this->form('maingame')->fragment_editor->content->f_MgEditor->content->Edit_ActorModel->text);
-            $this->Win_fail_text->graphic = new UXImageView(new UXImage($this->form('maingame')->fragment_editor->content->f_FailEditor->content->EditEnemyFailIcon->text));
-            $this->Win_fail_text->text = uiText($this->form('maingame')->fragment_editor->content->f_FailEditor->content->Win_Fail_Text_Enemy_Edit);
-            $this->Win_fail_desc->text = uiText($this->form('maingame')->fragment_editor->content->f_FailEditor->content->Win_Fail_Desc_Enemy_Edit);
+            $this->Win_object->image = new UXImage($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_ActorModel->text);
+            $this->Win_fail_text->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_FailEditor->content->EditEnemyFailIcon->text));
+            $this->Win_fail_text->text = uiText($this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Text_Enemy_Edit);
+            $this->Win_fail_desc->text = uiText($this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Desc_Enemy_Edit);
         }
         else
         {

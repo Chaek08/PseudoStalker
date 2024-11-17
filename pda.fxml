@@ -13,12 +13,12 @@
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-time" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-time_year" visible="1"/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_ranking" layoutX="384" layoutY="152" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="488" prefWidth="784" spacing="0" styleClass="fragment-pane "/>
-    <Data content="pda_fragment_ranking" cursor="DEFAULT" enabled="1" id="data-fragment_ranking" visible=""/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_contacts" layoutX="384" layoutY="152" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="488" prefWidth="784" spacing="0" styleClass="fragment-pane "/>
-    <Data content="pda_fragment_contacts" cursor="DEFAULT" enabled="1" id="data-fragment_contacts" visible=""/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_tasks" layoutX="384" layoutY="152" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="488" prefWidth="784" spacing="0" styleClass="fragment-pane "/>
-    <Data content="pda_fragment_tasks" cursor="DEFAULT" enabled="1" id="data-fragment_tasks" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Pda_Ranking" layoutX="384" layoutY="152" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="488" prefWidth="784" spacing="0" styleClass="fragment-pane "/>
+    <Data content="pda_fragment_ranking" cursor="DEFAULT" enabled="1" id="data-Pda_Ranking" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Pda_Contacts" layoutX="384" layoutY="152" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="488" prefWidth="784" spacing="0" styleClass="fragment-pane "/>
+    <Data content="pda_fragment_contacts" cursor="DEFAULT" enabled="1" id="data-Pda_Contacts" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Pda_Tasks" layoutX="384" layoutY="152" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="488" prefWidth="784" spacing="0" styleClass="fragment-pane "/>
+    <Data content="pda_fragment_tasks" cursor="DEFAULT" enabled="1" id="data-Pda_Tasks" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-toolbar_frame_main" visible="1"/>
     <FlatButton alignment="CENTER" borderRadius="10" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="7.4074074074074" id="toolbar_frame_time" layoutX="992" layoutY="640" prefHeight="40" prefWidth="168" styleClass="x-flat-button " text="" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
@@ -41,8 +41,8 @@
         <Font name="System Regular" size="14"/>
       </font>
     </FlatButton>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_stat" layoutX="384" layoutY="152" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="488" prefWidth="784" spacing="0" styleClass="fragment-pane "/>
-    <Data content="pda_fragments_stat" cursor="DEFAULT" enabled="1" id="data-fragment_stat" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Pda_Statistic" layoutX="384" layoutY="152" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="488" prefWidth="784" spacing="0" styleClass="fragment-pane "/>
+    <Data content="pda_fragments_stat" cursor="DEFAULT" enabled="1" id="data-Pda_Statistic" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-pda_panel" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="pda_label" layoutX="392" layoutY="128" prefHeight="32" prefWidth="55" styleClass="label " text="PDA " textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>

@@ -52,10 +52,10 @@ class inventory extends AbstractForm
         {
             if ($this->form('maingame')->SDK_Mode->visible)
             {
-                Element::setText($this->maket_label, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_ItemName_Vodka));
-                Element::setText($this->maket_desc, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_ItemDesc_Vodka));
-                Element::setText($this->maket_count, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_Count_Vodka));
-                Element::setText($this->maket_weight, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_Weight_Vodka));
+                Element::setText($this->maket_label, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Vodka));
+                Element::setText($this->maket_desc, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Vodka));
+                Element::setText($this->maket_count, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Count_Vodka));
+                Element::setText($this->maket_weight, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Vodka));
             }
             else 
             {
@@ -69,10 +69,10 @@ class inventory extends AbstractForm
         {
             if ($this->form('maingame')->SDK_Mode->visible)
             {
-                Element::setText($this->maket_label, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_ItemName_Outfit));
-                Element::setText($this->maket_desc, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_ItemDesc_Outfit));
-                Element::setText($this->maket_count, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_Count_Outfit));
-                Element::setText($this->maket_weight, uiText($this->form('maingame')->fragment_editor->content->f_InvEditor->content->Edit_Weight_Outfit));
+                Element::setText($this->maket_label, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Outfit));
+                Element::setText($this->maket_desc, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Outfit));
+                Element::setText($this->maket_count, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Count_Outfit));
+                Element::setText($this->maket_weight, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Outfit));
             }
             else 
             {
@@ -85,21 +85,21 @@ class inventory extends AbstractForm
     }
     function UseSlotSound()
     {
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {
             Media::open('res://.data/audio/inv_slot.mp3', true, 'inv_use_slot'); 
         }     
     }
     function PropertiesSound()
     {
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {
             Media::open('res://.data/audio/inv_properties.mp3', true, 'inv_properties'); 
         }          
     }
     function DropSound()
     {
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {
             Media::open('res://.data/audio/inv_drop.mp3', true, 'inv_drop'); 
         }               
@@ -132,7 +132,7 @@ class inventory extends AbstractForm
     }
     function CloseInventory()
     {
-        $this->form('maingame')->fragment_inv->hide();
+        $this->form('maingame')->Inventory->hide();
     }
     /**
      * @event inv_maket_visual.click-Left 
@@ -222,7 +222,7 @@ class inventory extends AbstractForm
     {    
         if ($this->form('maingame')->skull_actor->visible || $this->form('maingame')->skull_enemy->visible)
         {
-            if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+            if ($this->form('maingame')->Options->content->all_sounds->visible)
             {        
                 Media::open('res://.data/audio/movie_1.mp3', true, 'movie_1');  
             }           

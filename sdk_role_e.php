@@ -45,70 +45,70 @@ class sdk_role_e extends AbstractForm
      */
     function ApplyDeRoleColor(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->fragment_dlg->content->community_actor->textColor = $this->Edit_RoleColor_Danila->value;
-        $this->form('maingame')->fragment_dlg->content->gg_name->textColor = $this->Edit_RoleColor_Danila->value;        
+        $this->form('maingame')->Dialog->content->community_actor->textColor = $this->Edit_RoleColor_Danila->value;
+        $this->form('maingame')->Dialog->content->gg_name->textColor = $this->Edit_RoleColor_Danila->value;        
             
-        $this->form('maingame')->fragment_dlg->content->actor_label_1->textColor = $this->Edit_RoleColor_Danila->value;
-        $this->form('maingame')->fragment_dlg->content->actor_label_3->textColor = $this->Edit_RoleColor_Danila->value;
-        $this->form('maingame')->fragment_dlg->content->answer_name->textColor = $this->Edit_RoleColor_Danila->value;
+        $this->form('maingame')->Dialog->content->actor_label_1->textColor = $this->Edit_RoleColor_Danila->value;
+        $this->form('maingame')->Dialog->content->actor_label_3->textColor = $this->Edit_RoleColor_Danila->value;
+        $this->form('maingame')->Dialog->content->answer_name->textColor = $this->Edit_RoleColor_Danila->value;
         
-        $this->form('maingame')->fragment_pda->content->fragment_stat->content->community->textColor = $this->Edit_RoleColor_Danila->value;
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->community->textColor = $this->Edit_RoleColor_Danila->value;
     }
     /**
      * @event ApplyPidoRoleColor_Btn.click-Left 
      */
     function ApplyPidorasRoleColor(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->fragment_dlg->content->community_enemy->textColor = $this->Edit_RoleColor_Pido->value;
-        $this->form('maingame')->fragment_dlg->content->enemy_name->textColor = $this->Edit_RoleColor_Pido->value;
+        $this->form('maingame')->Dialog->content->community_enemy->textColor = $this->Edit_RoleColor_Pido->value;
+        $this->form('maingame')->Dialog->content->enemy_name->textColor = $this->Edit_RoleColor_Pido->value;
         
-        $this->form('maingame')->fragment_dlg->content->alex_label_1->textColor = $this->Edit_RoleColor_Pido->value;
-        $this->form('maingame')->fragment_dlg->content->alex_label_2->textColor = $this->Edit_RoleColor_Pido->value;
-        $this->form('maingame')->fragment_dlg->content->alex_label_3->textColor = $this->Edit_RoleColor_Pido->value;
+        $this->form('maingame')->Dialog->content->alex_label_1->textColor = $this->Edit_RoleColor_Pido->value;
+        $this->form('maingame')->Dialog->content->alex_label_2->textColor = $this->Edit_RoleColor_Pido->value;
+        $this->form('maingame')->Dialog->content->alex_label_3->textColor = $this->Edit_RoleColor_Pido->value;
         
-        $this->form('maingame')->fragment_pda->content->fragment_contacts->content->community->textColor = $this->Edit_RoleColor_Pido->value;
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->community->textColor = $this->Edit_RoleColor_Pido->value;
     }
     /**
      * @event ApplyDeRoleName_Btn.click-Left 
      */
     function ApplyDeRoleName(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->fragment_dlg->content->community_actor->text = $this->Edit_RoleName_Danila->text;
-        $this->form('maingame')->fragment_pda->content->fragment_stat->content->community->text = $this->Edit_RoleName_Danila->text;
+        $this->form('maingame')->Dialog->content->community_actor->text = $this->Edit_RoleName_Danila->text;
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->community->text = $this->Edit_RoleName_Danila->text;
     }
     /**
      * @event ApplyPidoRoleName_Btn.click-Left 
      */
     function ApplyPidorasRoleName(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->fragment_dlg->content->community_enemy->text = $this->Edit_RoleName_Pido->text;
-        $this->form('maingame')->fragment_pda->content->fragment_contacts->content->community->text = $this->Edit_RoleName_Pido->text;
+        $this->form('maingame')->Dialog->content->community_enemy->text = $this->Edit_RoleName_Pido->text;
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->community->text = $this->Edit_RoleName_Pido->text;
     }
     /**
      * @event ApplyDeRoleIcon_Btn.click-Left 
      */
     function ApplyDeRoleIcon(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->fragment_dlg->content->community_actor->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
+        $this->form('maingame')->Dialog->content->community_actor->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
         
-        $this->form('maingame')->fragment_dlg->content->actor_label_1->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
-        $this->form('maingame')->fragment_dlg->content->actor_label_3->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
-        $this->form('maingame')->fragment_dlg->content->answer_name->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
+        $this->form('maingame')->Dialog->content->actor_label_1->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
+        $this->form('maingame')->Dialog->content->actor_label_3->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
+        $this->form('maingame')->Dialog->content->answer_name->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
         
-        $this->form('maingame')->fragment_pda->content->fragment_stat->content->community->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->community->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
     }
     /**
      * @event ApplyPidoRoleIcon_Btn.click-Left 
      */
     function ApplyPidorasRoleIcon(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->fragment_dlg->content->community_enemy->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
+        $this->form('maingame')->Dialog->content->community_enemy->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
         
-        $this->form('maingame')->fragment_dlg->content->alex_label_1->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
-        $this->form('maingame')->fragment_dlg->content->alex_label_2->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
-        $this->form('maingame')->fragment_dlg->content->alex_label_3->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
+        $this->form('maingame')->Dialog->content->alex_label_1->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
+        $this->form('maingame')->Dialog->content->alex_label_2->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
+        $this->form('maingame')->Dialog->content->alex_label_3->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
         
-        $this->form('maingame')->fragment_pda->content->fragment_contacts->content->community->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->community->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
     }
     /**
      * @event ResetDeRoleColor_Btn.click-Left 

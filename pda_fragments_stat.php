@@ -20,26 +20,26 @@ class pda_fragments_stat extends AbstractForm
      */
     function RedirectRaiting(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->fragment_pda->content->RankingBtn();
-        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->ActorInListBtn();        
+        $this->form('maingame')->Pda->content->RankingBtn();
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->ActorInListBtn();        
     }
     function UpdateRaiting()
     {
         if ($this->form('maingame')->skull_enemy->visible)
         {
             $this->statistic_num->text = "10021\n1000\n1\n\n11022";  
-            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting_rank->text = "11022";                           
+            $this->form('maingame')->Pda->content->Pda_Ranking->content->actor_in_raiting_rank->text = "11022";                           
         }
         if ($this->form('maingame')->skull_actor->visible)
         {
-            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->goblindav_in_raiting_rank->text = "301";
+            $this->form('maingame')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_rank->text = "301";
         }
         if (!$this->form('maingame')->skull_actor->visible && !$this->form('maingame')->skull_enemy->visible)
         {
             $this->InitRaiting();
             
-            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting_rank->text = "10699";
-            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->goblindav_in_raiting_rank->text = "228";           
+            $this->form('maingame')->Pda->content->Pda_Ranking->content->actor_in_raiting_rank->text = "10699";
+            $this->form('maingame')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_rank->text = "228";           
         }
     }
     function ActorFailText()

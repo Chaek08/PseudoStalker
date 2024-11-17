@@ -41,7 +41,7 @@ class sdk_fail_e extends AbstractForm
         }
         else
         {
-            $this->form('maingame')->fragment_pda->content->fragment_stat->content->a_fail->text = $this->Win_Fail_Desc_Actor_Edit->text;
+            $this->form('maingame')->Pda->content->Pda_Statistic->content->a_fail->text = $this->Win_Fail_Desc_Actor_Edit->text;
         }
     }
     /**
@@ -55,7 +55,7 @@ class sdk_fail_e extends AbstractForm
         }
         else
         {
-            $this->form('maingame')->fragment_pda->content->fragment_stat->content->e_fail->text = $this->Win_Fail_Desc_Enemy_Edit->text;
+            $this->form('maingame')->Pda->content->Pda_Statistic->content->e_fail->text = $this->Win_Fail_Desc_Enemy_Edit->text;
         }
     }       
     /**

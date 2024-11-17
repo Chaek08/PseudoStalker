@@ -23,14 +23,14 @@ class dialog extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+            if ($this->form('maingame')->Options->content->all_sounds->visible)
             {        
-                Media::open($this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
+                Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
             }
         }
         else
         {
-            if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+            if ($this->form('maingame')->Options->content->all_sounds->visible)
             {
                 Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start");
             }            
@@ -40,7 +40,7 @@ class dialog extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Media::open($this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_VoiceTalk1->text, true, "voice_talk1");
+            Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceTalk1->text, true, "voice_talk1");
         }
         else
         {
@@ -51,7 +51,7 @@ class dialog extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Media::open($this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_VoiceTalk2->text, true, "voice_talk2");
+            Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceTalk2->text, true, "voice_talk2");
         }
         else
         {    
@@ -62,7 +62,7 @@ class dialog extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Media::open($this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_VoiceTalk3->text, true, "voice_talk3");
+            Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceTalk3->text, true, "voice_talk3");
         }
         else
         {    
@@ -76,14 +76,14 @@ class dialog extends AbstractForm
     {    
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Element::setText($this->answer_desc, uiText($this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_Actor_Desc_3));
+            Element::setText($this->answer_desc, uiText($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_3));
         }
         else
         {
             Element::setText($this->answer_desc, "иди нахуй заднипривадный геюган");            
         }
         
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {
             $this->StopVoice();
             $this->VoiceTalk_1();              
@@ -104,14 +104,14 @@ class dialog extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Element::setText($this->answer_desc, uiText($this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_Final_Phase));
+            Element::setText($this->answer_desc, uiText($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Final_Phase));
         }
         else    
         {
             Element::setText($this->answer_desc, "фу изврощенис.. пагнали дратся!!!");            
         }
         
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {        
            $this->StopVoice();        
            $this->VoiceTalk_2();
@@ -132,7 +132,7 @@ class dialog extends AbstractForm
     {       
         $this->form('maingame')->HideDialog();
         
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {
             $this->VoiceTalk_3();
             Media::pause('main_ambient');
@@ -146,7 +146,7 @@ class dialog extends AbstractForm
         $this->form('maingame')->fight_image->show();               
         $this->form('maingame')->dlg_btn->hide();
             
-        $this->form('maingame')->fragment_pda->content->fragment_tasks->content->Step1_Complete();                       
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->Step1_Complete();                       
     }
     function StartDialog()
     {
@@ -155,7 +155,7 @@ class dialog extends AbstractForm
         
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            $this->answer_desc->text = $this->form('maingame')->fragment_editor->content->f_DialogEditor->content->Edit_Actor_Desc_1->text;
+            $this->answer_desc->text = $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_1->text;
         }
         else 
         {

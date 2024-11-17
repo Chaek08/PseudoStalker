@@ -11,12 +11,12 @@ class pda extends AbstractForm
      */
     function RankingBtn(UXMouseEvent $e = null)
     { 
-        if ($this->fragment_ranking->visible) {} else 
+        if ($this->Pda_Ranking->visible) {} else 
         {
             $this->DefaultState(); 
         }    
         
-        $this->fragment_ranking->show();  
+        $this->Pda_Ranking->show();  
         $this->pda_background->hide();                                             
     }
     /**
@@ -24,12 +24,12 @@ class pda extends AbstractForm
      */
     function TasksBtn(UXMouseEvent $e = null)
     {  
-        if ($this->fragment_tasks->visible) {} else 
+        if ($this->Pda_Tasks->visible) {} else 
         {
             $this->DefaultState(); 
         }     
         
-        $this->fragment_tasks->show();
+        $this->Pda_Tasks->show();
         $this->pda_background->hide();                                                                                             
     }   
     /**
@@ -37,12 +37,12 @@ class pda extends AbstractForm
      */
     function ContactsBtn(UXMouseEvent $e = null)
     {   
-        if ($this->fragment_contacts->visible) {} else 
+        if ($this->Pda_Contacts->visible) {} else 
         {
             $this->DefaultState(); 
         }      
         
-        $this->fragment_contacts->show(); 
+        $this->Pda_Contacts->show(); 
         $this->pda_background->hide();                                                                                
     } 
     /**
@@ -50,26 +50,26 @@ class pda extends AbstractForm
      */
     function StatisticBtn(UXMouseEvent $e = null)
     {    
-        if ($this->fragment_stat->visible) {} else 
+        if ($this->Pda_Statistic->visible) {} else 
         {
-            $this->DefaultState(); 
+            $this->DefaultState();
         } 
         
-        $this->fragment_stat->show(); 
+        $this->Pda_Statistic->show(); 
         $this->pda_background->hide();  
-        $this->form('maingame')->fragment_pda->content->fragment_tasks->content->Step_DeletePda();                                                                  
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->Step_DeletePda();                                                                  
     }  
     function DefaultState()
     {
-        $this->fragment_ranking->hide(); 
-        $this->fragment_contacts->hide();
-        $this->fragment_tasks->hide();
-        $this->fragment_stat->hide();   
+        $this->Pda_Ranking->hide(); 
+        $this->Pda_Contacts->hide();
+        $this->Pda_Tasks->hide();
+        $this->Pda_Statistic->hide();   
         $this->pda_background->show();
             
-        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->HideUserInfo();    
-        $this->form('maingame')->fragment_pda->content->fragment_tasks->content->ClearDetailTask();  
-        $this->form('maingame')->fragment_pda->content->fragment_contacts->content->HideCharacter();                 
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->HideUserInfo();    
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->ClearDetailTask();  
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->HideCharacter();                 
     }
     function SetPDAOpacity()
     {

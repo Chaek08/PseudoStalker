@@ -15,8 +15,8 @@ class opt extends AbstractForm
      */
     function BackBtn(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->fragment_menu->show();    
-        $this->form('maingame')->fragment_opt->hide();      
+        $this->form('maingame')->MainMenu->show();    
+        $this->form('maingame')->Options->hide();      
     }
     /**
      * @event menusound_off.click-Left 
@@ -52,57 +52,57 @@ class opt extends AbstractForm
         $this->form('maingame')->fight_image->dropShadowEffect->disable();
         $this->form('maingame')->ReplayBtn->dropShadowEffect->disable();        
         //dialog
-        $this->form('maingame')->fragment_dlg->content->actor_character->dropShadowEffect->disable();
-        $this->form('maingame')->fragment_dlg->content->alex_character->dropShadowEffect->disable();
-        $this->form('maingame')->fragment_dlg->content->icon_enemy->dropShadowEffect->disable(); 
-        $this->form('maingame')->fragment_dlg->content->icon_gg->dropShadowEffect->disable();      
+        $this->form('maingame')->Dialog->content->actor_character->dropShadowEffect->disable();
+        $this->form('maingame')->Dialog->content->alex_character->dropShadowEffect->disable();
+        $this->form('maingame')->Dialog->content->icon_enemy->dropShadowEffect->disable(); 
+        $this->form('maingame')->Dialog->content->icon_gg->dropShadowEffect->disable();      
         //pda + all fragments
-        $this->form('maingame')->fragment_pda->content->toolbar_frame_main->dropShadowEffect->disable();
-        $this->form('maingame')->fragment_pda->content->toolbar_frame_time->dropShadowEffect->disable();
-        $this->form('maingame')->fragment_pda->content->fragment_tasks->content->frame_01->dropShadowEffect->disable(); 
-        $this->form('maingame')->fragment_pda->content->fragment_tasks->content->frame_detail_02->dropShadowEffect->disable();  
-        $this->form('maingame')->fragment_pda->content->fragment_contacts->content->frame_01->dropShadowEffect->disable();    
-        $this->form('maingame')->fragment_pda->content->fragment_contacts->content->button->dropShadowEffect->disable();    
-        $this->form('maingame')->fragment_pda->content->fragment_contacts->content->icon->dropShadowEffect->disable();                                                 
-        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->user_icon->dropShadowEffect->disable(); 
-        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->frame_01->dropShadowEffect->disable();    
-        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->button->dropShadowEffect->disable();   
-        $this->form('maingame')->fragment_pda->content->fragment_stat->content->frame_01->dropShadowEffect->disable();    
-        $this->form('maingame')->fragment_pda->content->fragment_stat->content->button->dropShadowEffect->disable();  
-        $this->form('maingame')->fragment_pda->content->fragment_stat->content->icon->dropShadowEffect->disable();   
+        $this->form('maingame')->Pda->content->toolbar_frame_main->dropShadowEffect->disable();
+        $this->form('maingame')->Pda->content->toolbar_frame_time->dropShadowEffect->disable();
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->frame_01->dropShadowEffect->disable(); 
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->frame_detail_02->dropShadowEffect->disable();  
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->frame_01->dropShadowEffect->disable();    
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->button->dropShadowEffect->disable();    
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->icon->dropShadowEffect->disable();                                                 
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->user_icon->dropShadowEffect->disable(); 
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->frame_01->dropShadowEffect->disable();    
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->button->dropShadowEffect->disable();   
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->frame_01->dropShadowEffect->disable();    
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->button->dropShadowEffect->disable();  
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->icon->dropShadowEffect->disable();   
         //inventory
-        $this->form('maingame')->fragment_inv->content->health_bar_gg->dropShadowEffect->disable();   
-        $this->form('maingame')->fragment_inv->content->health_static_gg->dropShadowEffect->disable(); 
-        $this->form('maingame')->fragment_inv->content->main->dropShadowEffect->disable();   
+        $this->form('maingame')->Inventory->content->health_bar_gg->dropShadowEffect->disable();   
+        $this->form('maingame')->Inventory->content->health_static_gg->dropShadowEffect->disable(); 
+        $this->form('maingame')->Inventory->content->main->dropShadowEffect->disable();   
         //fail wnd             
-        $this->form('maingame')->fragment_win_fail->content->Win_fail_desc->dropShadowEffect->disable(); 
-        $this->form('maingame')->fragment_win_fail->content->Win_fail_text->dropShadowEffect->disable();   
-        $this->form('maingame')->fragment_win_fail->content->Win_object->dropShadowEffect->disable(); 
-        $this->form('maingame')->fragment_win_fail->content->exitbtn->dropShadowEffect->disable(); 
-        $this->form('maingame')->fragment_win_fail->content->returnbtn->dropShadowEffect->disable(); 
+        $this->form('maingame')->Fail->content->Win_fail_desc->dropShadowEffect->disable(); 
+        $this->form('maingame')->Fail->content->Win_fail_text->dropShadowEffect->disable();   
+        $this->form('maingame')->Fail->content->Win_object->dropShadowEffect->disable(); 
+        $this->form('maingame')->Fail->content->exitbtn->dropShadowEffect->disable(); 
+        $this->form('maingame')->Fail->content->returnbtn->dropShadowEffect->disable(); 
         //mainmenu + opt                
-        $this->form('maingame')->fragment_menu->content->btn_exit_windows->dropShadowEffect->disable();    
-        $this->form('maingame')->fragment_menu->content->btn_start_game->dropShadowEffect->disable();
-        $this->form('maingame')->fragment_menu->content->btn_end_game->dropShadowEffect->disable();          
-        $this->form('maingame')->fragment_menu->content->btn_opt->dropShadowEffect->disable();  
-        $this->form('maingame')->fragment_menu->content->logo->dropShadowEffect->disable();
-        $this->form('maingame')->fragment_opt->content->allsound_label->dropShadowEffect->disable();
-        $this->form('maingame')->fragment_opt->content->allsound_off->dropShadowEffect->disable();   
-        $this->form('maingame')->fragment_opt->content->allsound_on->dropShadowEffect->disable();               
-        $this->form('maingame')->fragment_opt->content->menusound_label->dropShadowEffect->disable(); 
-        $this->form('maingame')->fragment_opt->content->menusound_off->dropShadowEffect->disable();  
-        $this->form('maingame')->fragment_opt->content->menusound_on->dropShadowEffect->disable();              
-        $this->form('maingame')->fragment_opt->content->shadows_label->dropShadowEffect->disable();
-        $this->form('maingame')->fragment_opt->content->shadows_off->dropShadowEffect->disable();  
-        $this->form('maingame')->fragment_opt->content->shadows_on->dropShadowEffect->disable();              
-        $this->form('maingame')->fragment_opt->content->version_label->dropShadowEffect->disable();    
-        $this->form('maingame')->fragment_opt->content->version_off->dropShadowEffect->disable();   
-        $this->form('maingame')->fragment_opt->content->version_on->dropShadowEffect->disable();
-        $this->form('maingame')->fragment_opt->content->fightsound_label->dropShadowEffect->disable();    
-        $this->form('maingame')->fragment_opt->content->fightsound_off->dropShadowEffect->disable();   
-        $this->form('maingame')->fragment_opt->content->fightsound_on->dropShadowEffect->disable();
+        $this->form('maingame')->MainMenu->content->btn_exit_windows->dropShadowEffect->disable();    
+        $this->form('maingame')->MainMenu->content->btn_start_game->dropShadowEffect->disable();
+        $this->form('maingame')->MainMenu->content->btn_end_game->dropShadowEffect->disable();          
+        $this->form('maingame')->MainMenu->content->btn_opt->dropShadowEffect->disable();  
+        $this->form('maingame')->MainMenu->content->logo->dropShadowEffect->disable();
+        $this->form('maingame')->Options->content->allsound_label->dropShadowEffect->disable();
+        $this->form('maingame')->Options->content->allsound_off->dropShadowEffect->disable();   
+        $this->form('maingame')->Options->content->allsound_on->dropShadowEffect->disable();               
+        $this->form('maingame')->Options->content->menusound_label->dropShadowEffect->disable(); 
+        $this->form('maingame')->Options->content->menusound_off->dropShadowEffect->disable();  
+        $this->form('maingame')->Options->content->menusound_on->dropShadowEffect->disable();              
+        $this->form('maingame')->Options->content->shadows_label->dropShadowEffect->disable();
+        $this->form('maingame')->Options->content->shadows_off->dropShadowEffect->disable();  
+        $this->form('maingame')->Options->content->shadows_on->dropShadowEffect->disable();              
+        $this->form('maingame')->Options->content->version_label->dropShadowEffect->disable();    
+        $this->form('maingame')->Options->content->version_off->dropShadowEffect->disable();   
+        $this->form('maingame')->Options->content->version_on->dropShadowEffect->disable();
+        $this->form('maingame')->Options->content->fightsound_label->dropShadowEffect->disable();    
+        $this->form('maingame')->Options->content->fightsound_off->dropShadowEffect->disable();   
+        $this->form('maingame')->Options->content->fightsound_on->dropShadowEffect->disable();
         //exit_dlg
-        $this->form('maingame')->fragment_exit->content->main_frame->dropShadowEffect->disable();
+        $this->form('maingame')->ExitDialog->content->main_frame->dropShadowEffect->disable();
     }
     /**
      * @event shadows_on.click-Left 
@@ -122,57 +122,57 @@ class opt extends AbstractForm
         $this->form('maingame')->fight_image->dropShadowEffect->enable();
         $this->form('maingame')->ReplayBtn->dropShadowEffect->enable();
         //dialog
-        $this->form('maingame')->fragment_dlg->content->actor_character->dropShadowEffect->enable();
-        $this->form('maingame')->fragment_dlg->content->alex_character->dropShadowEffect->enable();
-        $this->form('maingame')->fragment_dlg->content->icon_enemy->dropShadowEffect->enable(); 
-        $this->form('maingame')->fragment_dlg->content->icon_gg->dropShadowEffect->enable();      
+        $this->form('maingame')->Dialog->content->actor_character->dropShadowEffect->enable();
+        $this->form('maingame')->Dialog->content->alex_character->dropShadowEffect->enable();
+        $this->form('maingame')->Dialog->content->icon_enemy->dropShadowEffect->enable(); 
+        $this->form('maingame')->Dialog->content->icon_gg->dropShadowEffect->enable();      
         //pda + all fragments
-        $this->form('maingame')->fragment_pda->content->toolbar_frame_main->dropShadowEffect->enable();
-        $this->form('maingame')->fragment_pda->content->toolbar_frame_time->dropShadowEffect->enable();
-        $this->form('maingame')->fragment_pda->content->fragment_tasks->content->frame_01->dropShadowEffect->enable(); 
-        $this->form('maingame')->fragment_pda->content->fragment_tasks->content->frame_detail_02->dropShadowEffect->enable();  
-        $this->form('maingame')->fragment_pda->content->fragment_contacts->content->frame_01->dropShadowEffect->enable();    
-        $this->form('maingame')->fragment_pda->content->fragment_contacts->content->button->dropShadowEffect->enable();    
-        $this->form('maingame')->fragment_pda->content->fragment_contacts->content->icon->dropShadowEffect->enable();                                                 
-        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->user_icon->dropShadowEffect->enable(); 
-        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->frame_01->dropShadowEffect->enable();    
-        $this->form('maingame')->fragment_pda->content->fragment_ranking->content->button->dropShadowEffect->enable();   
-        $this->form('maingame')->fragment_pda->content->fragment_stat->content->frame_01->dropShadowEffect->enable();    
-        $this->form('maingame')->fragment_pda->content->fragment_stat->content->button->dropShadowEffect->enable();  
-        $this->form('maingame')->fragment_pda->content->fragment_stat->content->icon->dropShadowEffect->enable();   
+        $this->form('maingame')->Pda->content->toolbar_frame_main->dropShadowEffect->enable();
+        $this->form('maingame')->Pda->content->toolbar_frame_time->dropShadowEffect->enable();
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->frame_01->dropShadowEffect->enable(); 
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->frame_detail_02->dropShadowEffect->enable();  
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->frame_01->dropShadowEffect->enable();    
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->button->dropShadowEffect->enable();    
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->icon->dropShadowEffect->enable();                                                 
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->user_icon->dropShadowEffect->enable(); 
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->frame_01->dropShadowEffect->enable();    
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->button->dropShadowEffect->enable();   
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->frame_01->dropShadowEffect->enable();    
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->button->dropShadowEffect->enable();  
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->icon->dropShadowEffect->enable();   
         //inventory
-        $this->form('maingame')->fragment_inv->content->health_bar_gg->dropShadowEffect->enable();   
-        $this->form('maingame')->fragment_inv->content->health_static_gg->dropShadowEffect->enable(); 
-        $this->form('maingame')->fragment_inv->content->main->dropShadowEffect->enable();   
+        $this->form('maingame')->Inventory->content->health_bar_gg->dropShadowEffect->enable();   
+        $this->form('maingame')->Inventory->content->health_static_gg->dropShadowEffect->enable(); 
+        $this->form('maingame')->Inventory->content->main->dropShadowEffect->enable();   
         //fail wnd             
-        $this->form('maingame')->fragment_win_fail->content->Win_fail_desc->dropShadowEffect->enable(); 
-        $this->form('maingame')->fragment_win_fail->content->Win_fail_text->dropShadowEffect->enable();   
-        $this->form('maingame')->fragment_win_fail->content->Win_object->dropShadowEffect->enable(); 
-        $this->form('maingame')->fragment_win_fail->content->exitbtn->dropShadowEffect->enable(); 
-        $this->form('maingame')->fragment_win_fail->content->returnbtn->dropShadowEffect->enable(); 
+        $this->form('maingame')->Fail->content->Win_fail_desc->dropShadowEffect->enable(); 
+        $this->form('maingame')->Fail->content->Win_fail_text->dropShadowEffect->enable();   
+        $this->form('maingame')->Fail->content->Win_object->dropShadowEffect->enable(); 
+        $this->form('maingame')->Fail->content->exitbtn->dropShadowEffect->enable(); 
+        $this->form('maingame')->Fail->content->returnbtn->dropShadowEffect->enable(); 
         //mainmenu + opt                
-        $this->form('maingame')->fragment_menu->content->btn_exit_windows->dropShadowEffect->enable();    
-        $this->form('maingame')->fragment_menu->content->btn_start_game->dropShadowEffect->enable();
-        $this->form('maingame')->fragment_menu->content->btn_end_game->dropShadowEffect->enable();
-        $this->form('maingame')->fragment_menu->content->btn_opt->dropShadowEffect->enable();  
-        $this->form('maingame')->fragment_menu->content->logo->dropShadowEffect->enable();
-        $this->form('maingame')->fragment_opt->content->allsound_label->dropShadowEffect->enable();
-        $this->form('maingame')->fragment_opt->content->allsound_off->dropShadowEffect->enable();   
-        $this->form('maingame')->fragment_opt->content->allsound_on->dropShadowEffect->enable();               
-        $this->form('maingame')->fragment_opt->content->menusound_label->dropShadowEffect->enable(); 
-        $this->form('maingame')->fragment_opt->content->menusound_off->dropShadowEffect->enable();  
-        $this->form('maingame')->fragment_opt->content->menusound_on->dropShadowEffect->enable();              
-        $this->form('maingame')->fragment_opt->content->shadows_label->dropShadowEffect->enable();
-        $this->form('maingame')->fragment_opt->content->shadows_off->dropShadowEffect->enable();  
-        $this->form('maingame')->fragment_opt->content->shadows_on->dropShadowEffect->enable();              
-        $this->form('maingame')->fragment_opt->content->version_label->dropShadowEffect->enable();    
-        $this->form('maingame')->fragment_opt->content->version_off->dropShadowEffect->enable();   
-        $this->form('maingame')->fragment_opt->content->version_on->dropShadowEffect->enable();                                 
-        $this->form('maingame')->fragment_opt->content->fightsound_label->dropShadowEffect->enable();    
-        $this->form('maingame')->fragment_opt->content->fightsound_off->dropShadowEffect->enable();   
-        $this->form('maingame')->fragment_opt->content->fightsound_on->dropShadowEffect->enable();      
+        $this->form('maingame')->MainMenu->content->btn_exit_windows->dropShadowEffect->enable();    
+        $this->form('maingame')->MainMenu->content->btn_start_game->dropShadowEffect->enable();
+        $this->form('maingame')->MainMenu->content->btn_end_game->dropShadowEffect->enable();
+        $this->form('maingame')->MainMenu->content->btn_opt->dropShadowEffect->enable();  
+        $this->form('maingame')->MainMenu->content->logo->dropShadowEffect->enable();
+        $this->form('maingame')->Options->content->allsound_label->dropShadowEffect->enable();
+        $this->form('maingame')->Options->content->allsound_off->dropShadowEffect->enable();   
+        $this->form('maingame')->Options->content->allsound_on->dropShadowEffect->enable();               
+        $this->form('maingame')->Options->content->menusound_label->dropShadowEffect->enable(); 
+        $this->form('maingame')->Options->content->menusound_off->dropShadowEffect->enable();  
+        $this->form('maingame')->Options->content->menusound_on->dropShadowEffect->enable();              
+        $this->form('maingame')->Options->content->shadows_label->dropShadowEffect->enable();
+        $this->form('maingame')->Options->content->shadows_off->dropShadowEffect->enable();  
+        $this->form('maingame')->Options->content->shadows_on->dropShadowEffect->enable();              
+        $this->form('maingame')->Options->content->version_label->dropShadowEffect->enable();    
+        $this->form('maingame')->Options->content->version_off->dropShadowEffect->enable();   
+        $this->form('maingame')->Options->content->version_on->dropShadowEffect->enable();                                 
+        $this->form('maingame')->Options->content->fightsound_label->dropShadowEffect->enable();    
+        $this->form('maingame')->Options->content->fightsound_off->dropShadowEffect->enable();   
+        $this->form('maingame')->Options->content->fightsound_on->dropShadowEffect->enable();      
         //exit_dlg
-        $this->form('maingame')->fragment_exit->content->main_frame->dropShadowEffect->enable();        
+        $this->form('maingame')->ExitDialog->content->main_frame->dropShadowEffect->enable();        
     }
     /**
      * @event allsound_off.click-Left 
@@ -216,7 +216,7 @@ class opt extends AbstractForm
         
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Media::open($this->form('maingame')->fragment_editor->content->f_MgEditor->content->Edit_FightSound->text, false, "fight_sound");
+            Media::open($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_FightSound->text, false, "fight_sound");
         }
         else 
         {
@@ -235,8 +235,8 @@ class opt extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_menu->content->version->hide(); 
-            $this->form('maingame')->fragment_menu->content->version_detail->hide();             
+            $this->form('maingame')->MainMenu->content->version->hide(); 
+            $this->form('maingame')->MainMenu->content->version_detail->hide();             
         }          
     }
     /**
@@ -251,8 +251,8 @@ class opt extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_menu->content->version->show(); 
-            $this->form('maingame')->fragment_menu->content->version_detail->show();             
+            $this->form('maingame')->MainMenu->content->version->show(); 
+            $this->form('maingame')->MainMenu->content->version_detail->show();             
         }    
     }
     /**

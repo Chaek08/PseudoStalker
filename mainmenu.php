@@ -41,7 +41,7 @@ class mainmenu extends AbstractForm
      */
     function NewGameBtn(UXMouseEvent $e = null)
     {      
-        $this->form('maingame')->fragment_menu->hide();
+        $this->form('maingame')->MainMenu->hide();
         
         $this->ContinueGameMenu(); //Continue Game Status Activate
         $this->form('maingame')->PlayMainAmbient();
@@ -50,9 +50,9 @@ class mainmenu extends AbstractForm
         
         if ($this->form('maingame')->fight_image->visible)
         {
-            if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+            if ($this->form('maingame')->Options->content->all_sounds->visible)
             {
-                 if (!$this->form('maingame')->fragment_opt->content->mute_fight_sound->visible)
+                 if (!$this->form('maingame')->Options->content->mute_fight_sound->visible)
                  {
                      Media::play('fight_sound');
                  }
@@ -66,15 +66,15 @@ class mainmenu extends AbstractForm
     {    
         $this->ShowExitDialog();
     }
-    function ShowExitDialog() {$this->form('maingame')->fragment_exit->show();}
-    function HideExitDialog() {$this->form('maingame')->fragment_exit->hide();}
+    function ShowExitDialog() {$this->form('maingame')->ExitDialog->show();}
+    function HideExitDialog() {$this->form('maingame')->ExitDialog->hide();}
     /**
      * @event btn_opt.click-Left 
      */
     function OptBtn(UXMouseEvent $e = null)
     {        
-        $this->form('maingame')->fragment_menu->hide();
-        $this->form('maingame')->fragment_opt->show();    
+        $this->form('maingame')->MainMenu->hide();
+        $this->form('maingame')->Options->show();    
     }
     /**
      * @event btn_end_game.click-Left 
@@ -88,6 +88,6 @@ class mainmenu extends AbstractForm
      */
     function OpenSdkBtn(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->fragment_editor->show();
+        $this->form('maingame')->Editor->show();
     }
 }

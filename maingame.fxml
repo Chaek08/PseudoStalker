@@ -16,15 +16,15 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data content="mainmenu" cursor="DEFAULT" enabled="1" id="data-fragment_menu" visible="1"/>
-    <Data content="inventory" cursor="DEFAULT" enabled="1" id="data-fragment_inv" visible=""/>
+    <Data content="mainmenu" cursor="DEFAULT" enabled="1" id="data-MainMenu" visible="1"/>
+    <Data content="inventory" cursor="DEFAULT" enabled="1" id="data-Inventory" visible=""/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="93" id="item_vodka_0000" layoutX="256" layoutY="696" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="30">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-item_vodka_0000" image=".data/ui/inventory/item_vodka.png" visible=""/>
-    <Data content="pda" cursor="DEFAULT" enabled="1" id="data-fragment_pda" visible=""/>
+    <Data content="pda" cursor="DEFAULT" enabled="1" id="data-Pda" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-platform" image=".data/ui/maingame/background.png" visible="1"/>
     <ImageViewEx autoSize="false" centered="true" focusTraversable="true" height="344" id="actor" layoutX="80" layoutY="448" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="160">
       <font>
@@ -44,8 +44,8 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/maingame/talk_icon.png" id="data-dlg_btn" visible="1"/>
-    <Data content="dialog" cursor="DEFAULT" enabled="1" id="data-fragment_dlg" visible=""/>
-    <Data content="exit_dlg" cursor="DEFAULT" enabled="1" id="data-fragment_exit" visible=""/>
+    <Data content="dialog" cursor="DEFAULT" enabled="1" id="data-Dialog" visible=""/>
+    <Data content="exit_dlg" cursor="DEFAULT" enabled="1" id="data-ExitDialog" visible=""/>
     <FlatButton alignment="CENTER" borderRadius="10" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="health_static_gg" layoutX="32" layoutY="24" prefHeight="56" prefWidth="280" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="13"/>
@@ -68,7 +68,7 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/maingame/exit_icon.png" id="data-leave_btn" visible=""/>
-    <Data content="opt" cursor="DEFAULT" enabled="1" id="data-fragment_opt" visible=""/>
+    <Data content="opt" cursor="DEFAULT" enabled="1" id="data-Options" visible=""/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="384" id="idle_static_actor" layoutX="88" layoutY="416" mosaic="false" mosaicGap="0" opacity="0.4390243902439" proportional="false" stretch="true" styleClass="" textFill="#000000" width="208">
       <font>
         <Font name="System Regular" size="12"/>
@@ -92,7 +92,7 @@
     <Data cursor="DEFAULT" enabled="1" id="data-pda_icon" image=".data/ui/maingame/ui_hud_pda.png" tooltipText="Необходимо проверить PDA" visible=""/>
     <Data animated="1" cursor="DEFAULT" enabled="1" id="data-CustomCursor" sprite="game_cursor" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-blood_ui" image=".data/ui/maingame/blood_mini.png" visible=""/>
-    <Data content="fail_wnd" cursor="DEFAULT" enabled="1" id="data-fragment_win_fail" visible=""/>
+    <Data content="fail_wnd" cursor="DEFAULT" enabled="1" id="data-Fail" visible=""/>
     <ImageViewEx autoSize="true" centered="true" focusTraversable="false" height="185" id="fight_image" layoutX="548" layoutY="168" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="486">
       <font>
         <Font name="System Regular" size="12"/>
@@ -142,15 +142,15 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_inv" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_dlg" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_opt" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_menu" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_pda" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_win_fail" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_exit" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane fragment_form "/>
-    <Data content="load_screen" cursor="DEFAULT" enabled="1" id="data-fragment_load" visible=""/>
-    <Data content="console" cursor="DEFAULT" enabled="1" id="data-fragment_console" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Inventory" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Dialog" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Options" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="MainMenu" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Pda" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Fail" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="ExitDialog" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane fragment_form "/>
+    <Data content="load_screen" cursor="DEFAULT" enabled="1" id="data-LoadScreen" visible=""/>
+    <Data content="console" cursor="DEFAULT" enabled="1" id="data-Console" visible=""/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="version_detail" layoutX="138" layoutY="857" prefHeight="48" prefWidth="328" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="13"/>
@@ -163,16 +163,16 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-version" visible=""/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_load" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_console" layoutX="944" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="456" prefWidth="568" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="LoadScreen" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Console" layoutX="944" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="456" prefWidth="568" spacing="0" styleClass="fragment-pane "/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="32" id="SDK_Mode" layoutX="1608" layoutY="-8" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="32">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-SDK_Mode" visible="1"/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="fragment_editor" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
-    <Data content="sdk_main" cursor="DEFAULT" enabled="1" id="data-fragment_editor" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Editor" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <Data content="sdk_main" cursor="DEFAULT" enabled="1" id="data-Editor" visible=""/>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/maingame/replay_icon.png" id="data-ReplayBtn" tooltipText="Перезапустить музыку" visible=""/>
     <SpriteView animationEnabled="false" focusTraversable="false" height="64" id="CustomCursor" layoutX="768" layoutY="418" styleClass="" width="64"/>
   </children>

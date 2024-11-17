@@ -55,12 +55,12 @@ class sdk_userdata_e extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->actor_in_raiting_name->text = $this->edit_actorname->text;        
-            $this->form('maingame')->fragment_pda->content->fragment_stat->content->tab_button->text = $this->edit_actorname->text;            
-            $this->form('maingame')->fragment_dlg->content->actor_label_1->text = $this->edit_actorname->text;
-            $this->form('maingame')->fragment_dlg->content->actor_label_3->text = $this->edit_actorname->text;    
-            $this->form('maingame')->fragment_dlg->content->answer_name->text = $this->edit_actorname->text;   
-            $this->form('maingame')->fragment_dlg->content->gg_name->text = $this->edit_actorname->text;                             
+            $this->form('maingame')->Pda->content->Pda_Ranking->content->actor_in_raiting_name->text = $this->edit_actorname->text;        
+            $this->form('maingame')->Pda->content->Pda_Statistic->content->tab_button->text = $this->edit_actorname->text;            
+            $this->form('maingame')->Dialog->content->actor_label_1->text = $this->edit_actorname->text;
+            $this->form('maingame')->Dialog->content->actor_label_3->text = $this->edit_actorname->text;    
+            $this->form('maingame')->Dialog->content->answer_name->text = $this->edit_actorname->text;   
+            $this->form('maingame')->Dialog->content->gg_name->text = $this->edit_actorname->text;                             
         }
     }
     /**
@@ -74,12 +74,12 @@ class sdk_userdata_e extends AbstractForm
         }
         else      
         {
-            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->goblindav_in_raiting_name->text = $this->edit_enemyname->text;        
-            $this->form('maingame')->fragment_pda->content->fragment_contacts->content->name->text = $this->edit_enemyname->text;
-            $this->form('maingame')->fragment_dlg->content->alex_label_1->text = $this->edit_enemyname->text;
-            $this->form('maingame')->fragment_dlg->content->alex_label_2->text = $this->edit_enemyname->text;    
-            $this->form('maingame')->fragment_dlg->content->alex_label_3->text = $this->edit_enemyname->text;   
-            $this->form('maingame')->fragment_dlg->content->enemy_name->text = $this->edit_enemyname->text;              
+            $this->form('maingame')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_name->text = $this->edit_enemyname->text;        
+            $this->form('maingame')->Pda->content->Pda_Contacts->content->name->text = $this->edit_enemyname->text;
+            $this->form('maingame')->Dialog->content->alex_label_1->text = $this->edit_enemyname->text;
+            $this->form('maingame')->Dialog->content->alex_label_2->text = $this->edit_enemyname->text;    
+            $this->form('maingame')->Dialog->content->alex_label_3->text = $this->edit_enemyname->text;   
+            $this->form('maingame')->Dialog->content->enemy_name->text = $this->edit_enemyname->text;              
         }   
     }
     /**
@@ -93,7 +93,7 @@ class sdk_userdata_e extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_ranking->content->valerok_in_raiting_name->text = $this->Edit_ValerokName->text;             
+            $this->form('maingame')->Pda->content->Pda_Ranking->content->valerok_in_raiting_name->text = $this->Edit_ValerokName->text;             
         }       
     }    
     /**
@@ -107,8 +107,8 @@ class sdk_userdata_e extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_stat->content->icon->image = new UXImage($this->Edit_ActorIcon->text);
-            $this->form('maingame')->fragment_dlg->content->icon_gg->image = new UXImage($this->Edit_ActorIcon->text);
+            $this->form('maingame')->Pda->content->Pda_Statistic->content->icon->image = new UXImage($this->Edit_ActorIcon->text);
+            $this->form('maingame')->Dialog->content->icon_gg->image = new UXImage($this->Edit_ActorIcon->text);
         }
     }
     /**
@@ -122,8 +122,8 @@ class sdk_userdata_e extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_contacts->content->icon->image = new UXImage($this->Edit_EnemyIcon->text);
-            $this->form('maingame')->fragment_dlg->content->icon_enemy->image = new UXImage($this->Edit_EnemyIcon->text);            
+            $this->form('maingame')->Pda->content->Pda_Contacts->content->icon->image = new UXImage($this->Edit_EnemyIcon->text);
+            $this->form('maingame')->Dialog->content->icon_enemy->image = new UXImage($this->Edit_EnemyIcon->text);            
         }
     }    
     /**
@@ -137,7 +137,7 @@ class sdk_userdata_e extends AbstractForm
         }    
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_contacts->content->bio->text = $this->textArea_EnemyBio->text;            
+            $this->form('maingame')->Pda->content->Pda_Contacts->content->bio->text = $this->textArea_EnemyBio->text;            
         }
     } 
     /**

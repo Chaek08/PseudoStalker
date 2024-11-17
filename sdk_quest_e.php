@@ -49,7 +49,7 @@ class sdk_quest_e extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_tasks->content->task_label->text = $this->Edit_QuestName->text;
+            $this->form('maingame')->Pda->content->Pda_Tasks->content->task_label->text = $this->Edit_QuestName->text;
         }
     }
     /**
@@ -63,7 +63,7 @@ class sdk_quest_e extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_tasks->content->icon_task->image = new UXImage($this->Edit_QuestIcon->text);
+            $this->form('maingame')->Pda->content->Pda_Tasks->content->icon_task->image = new UXImage($this->Edit_QuestIcon->text);
         }
     }
     /**
@@ -77,7 +77,7 @@ class sdk_quest_e extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_tasks->content->task_detail_text->text = $this->Edit_QuestDesc->text;
+            $this->form('maingame')->Pda->content->Pda_Tasks->content->task_detail_text->text = $this->Edit_QuestDesc->text;
         }
     }
     /**
@@ -91,7 +91,7 @@ class sdk_quest_e extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_tasks->content->step1->text = $this->Edit_QuestStep1->text;
+            $this->form('maingame')->Pda->content->Pda_Tasks->content->step1->text = $this->Edit_QuestStep1->text;
         }
     }
     /**
@@ -105,7 +105,7 @@ class sdk_quest_e extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_tasks->content->step2->text = $this->Edit_QuestStep2->text;
+            $this->form('maingame')->Pda->content->Pda_Tasks->content->step2->text = $this->Edit_QuestStep2->text;
         }
     }
     /**
@@ -119,7 +119,7 @@ class sdk_quest_e extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_pda->content->fragment_stat->content->target_label->text = $this->Edit_QuestTarget->text;
+            $this->form('maingame')->Pda->content->Pda_Statistic->content->target_label->text = $this->Edit_QuestTarget->text;
         }
     }    
     /**

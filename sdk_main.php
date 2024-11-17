@@ -73,7 +73,7 @@ class sdk_main extends AbstractForm
      */
     function StartMainGame(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->fragment_editor->hide();
+        $this->form('maingame')->Editor->hide();
         $this->DefaultSdkState();
     }      
     /**

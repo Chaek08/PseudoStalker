@@ -45,37 +45,37 @@ class console extends AbstractForm
             case "r_version off":
             $this->edit->text = "";   
             Element::appendText($this->console_list, "> r_version off\n");
-            $this->form('maingame')->fragment_opt->content->WatermarkOff();
+            $this->form('maingame')->Options->content->WatermarkOff();
             break;
         
             case "r_version on":
             $this->edit->text = "";   
             Element::appendText($this->console_list, "> r_version on\n");                                
-            $this->form('maingame')->fragment_opt->content->WatermarkOn();
+            $this->form('maingame')->Options->content->WatermarkOn();
             break;  
             
             case "r_shadows on":
             $this->edit->text = "";   
             Element::appendText($this->console_list, "> r_shadows on\n");                                
-            $this->form('maingame')->fragment_opt->content->ShadowOptOn();
+            $this->form('maingame')->Options->content->ShadowOptOn();
             break;    
             
             case "r_shadows off":
             $this->edit->text = "";   
             Element::appendText($this->console_list, "> r_shadows off\n");                                
-            $this->form('maingame')->fragment_opt->content->ShadowOptOff();
+            $this->form('maingame')->Options->content->ShadowOptOff();
             break;   
             
             case "snd_all off":
             $this->edit->text = "";   
             Element::appendText($this->console_list, "> snd_all off\n");                                
-            $this->form('maingame')->fragment_opt->content->AllSoundOff();
+            $this->form('maingame')->Options->content->AllSoundOff();
             break;    
             
             case "snd_all on":
             $this->edit->text = "";   
             Element::appendText($this->console_list, "> snd_all on\n");                                
-            $this->form('maingame')->fragment_opt->content->AllSoundOn();
+            $this->form('maingame')->Options->content->AllSoundOn();
             break;                                           
             
             case "reset_game_client":
@@ -106,6 +106,6 @@ class console extends AbstractForm
      */
     function CloseConsole(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->fragment_console->hide();
+        $this->form('maingame')->Console->hide();
     }
 }

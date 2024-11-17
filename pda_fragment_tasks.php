@@ -136,20 +136,20 @@ class pda_fragment_tasks extends AbstractForm
     { 
         if ($this->form('maingame')->skull_actor->visible || $this->form('maingame')->skull_enemy->visible)
         {
-           if ($this->form('maingame')->fragment_pda->content->fragment_stat->visible)
+           if ($this->form('maingame')->Pda->content->Pda_Statistic->visible)
            {
                $this->form('maingame')->pda_icon->show();
            }
            else
            {
                $this->form('maingame')->pda_icon->show();
-               $this->form('maingame')->fragment_pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_new_icon.png'));                
+               $this->form('maingame')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_new_icon.png'));                
            }            
         }
         else 
         {
            $this->form('maingame')->pda_icon->hide();
-           $this->form('maingame')->fragment_pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));              
+           $this->form('maingame')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));              
         }
     }
     function Step_DeletePda()
@@ -157,14 +157,14 @@ class pda_fragment_tasks extends AbstractForm
         if ($this->form('maingame')->pda_icon->visible)
         {
            $this->form('maingame')->pda_icon->hide();
-           $this->form('maingame')->fragment_pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));              
+           $this->form('maingame')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));              
         }        
     }
     function Step1_Complete()
     {
         $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));        
         
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
         }    
@@ -174,7 +174,7 @@ class pda_fragment_tasks extends AbstractForm
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));
         $this->DeleteTask();   
         
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
         }                
@@ -189,7 +189,7 @@ class pda_fragment_tasks extends AbstractForm
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png')); 
         $this->DeleteTask();  
         
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
         }                           

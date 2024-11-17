@@ -54,7 +54,7 @@ class sdk_dialog_e extends AbstractForm
         }
         else
         {
-            $this->form('maingame')->fragment_dlg->content->alex_desc_1->text = $this->Edit_Alex_Desc_1->text;            
+            $this->form('maingame')->Dialog->content->alex_desc_1->text = $this->Edit_Alex_Desc_1->text;            
         }
     }
     /**
@@ -68,7 +68,7 @@ class sdk_dialog_e extends AbstractForm
         }
         else    
         {
-            $this->form('maingame')->fragment_dlg->content->actor_desc_1->text = $this->Edit_Actor_Desc_1->text;            
+            $this->form('maingame')->Dialog->content->actor_desc_1->text = $this->Edit_Actor_Desc_1->text;            
         }
     }
     /**
@@ -82,7 +82,7 @@ class sdk_dialog_e extends AbstractForm
         }
         else  
         {
-            $this->form('maingame')->fragment_dlg->content->alex_desc_2->text = $this->Edit_Alex_Desc_2->text;            
+            $this->form('maingame')->Dialog->content->alex_desc_2->text = $this->Edit_Alex_Desc_2->text;            
         }    
     }
     /**
@@ -96,7 +96,7 @@ class sdk_dialog_e extends AbstractForm
         }
         else    
         {
-            $this->form('maingame')->fragment_dlg->content->actor_desc_3->text = $this->Edit_Actor_Desc_3->text;            
+            $this->form('maingame')->Dialog->content->actor_desc_3->text = $this->Edit_Actor_Desc_3->text;            
         }       
     }
     /**
@@ -110,7 +110,7 @@ class sdk_dialog_e extends AbstractForm
         }
         else  
         {
-            $this->form('maingame')->fragment_dlg->content->alex_desc_3->text = $this->Edit_Alex_Desc_3->text;            
+            $this->form('maingame')->Dialog->content->alex_desc_3->text = $this->Edit_Alex_Desc_3->text;            
         }  
     }
     /**
@@ -265,7 +265,7 @@ class sdk_dialog_e extends AbstractForm
      */
     function PreviewVoiceStart(UXMouseEvent $e = null)
     {    
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {
             $this->ResetVoice();        
             Media::open($this->Edit_VoiceStart->text, true, 'PreviewVoiceStart');
@@ -283,7 +283,7 @@ class sdk_dialog_e extends AbstractForm
      */
     function PreviewVoiceTalk1(UXMouseEvent $e = null)
     {
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {
             $this->ResetVoice();        
             Media::open($this->Edit_VoiceTalk1->text, true, 'PreviewVoiceTalk1');
@@ -301,7 +301,7 @@ class sdk_dialog_e extends AbstractForm
      */
     function PreviewVoiceTalk2(UXMouseEvent $e = null)
     {
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {
             $this->ResetVoice();        
             Media::open($this->Edit_VoiceTalk2->text, true, 'PreviewVoiceTalk2');
@@ -319,7 +319,7 @@ class sdk_dialog_e extends AbstractForm
      */
     function PreviewVoiceTalk3(UXMouseEvent $e = null)
     {
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {
             $this->ResetVoice();        
             Media::open($this->Edit_VoiceTalk3->text, true, 'PreviewVoiceTalk3');

@@ -72,7 +72,7 @@ class sdk_mm_e extends AbstractForm
     function ApplyHealthBarColorActor(UXMouseEvent $e = null)
     {    
         $this->form('maingame')->health_bar_gg->color = $this->Edit_HealthBarColor_Actor->value;
-        $this->form('maingame')->fragment_inv->content->health_bar_gg->color = $this->Edit_HealthBarColor_Actor->value;
+        $this->form('maingame')->Inventory->content->health_bar_gg->color = $this->Edit_HealthBarColor_Actor->value;
     }
     /**
      * @event ApplyHBarColorEnemy_Btn.click-Left 
@@ -107,7 +107,7 @@ class sdk_mm_e extends AbstractForm
         else
         {
             $this->form('maingame')->actor->image = new UXImage($this->Edit_ActorModel->text);
-            $this->form('maingame')->fragment_inv->content->inv_maket_visual->image = new UXImage($this->Edit_ActorModel->text);
+            $this->form('maingame')->Inventory->content->inv_maket_visual->image = new UXImage($this->Edit_ActorModel->text);
         }
     }
     /**
@@ -135,8 +135,8 @@ class sdk_mm_e extends AbstractForm
         }
         else 
         {
-            $this->form('maingame')->fragment_menu->content->background->image = new UXImage($this->Edit_MenuBackground->text);
-            $this->form('maingame')->fragment_opt->content->background->image = new UXImage($this->Edit_MenuBackground->text);
+            $this->form('maingame')->MainMenu->content->background->image = new UXImage($this->Edit_MenuBackground->text);
+            $this->form('maingame')->Options->content->background->image = new UXImage($this->Edit_MenuBackground->text);
         }
     }    
     /**
@@ -240,7 +240,7 @@ class sdk_mm_e extends AbstractForm
      */
     function PreviewFightSound(UXMouseEvent $e = null)
     {
-        if ($this->form('maingame')->fragment_opt->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->all_sounds->visible)
         {        
             Media::open($this->Edit_FightSound->text, true, 'PreviewFightSound');
         }

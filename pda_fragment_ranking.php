@@ -69,12 +69,12 @@ class pda_fragment_ranking extends AbstractForm
             if ($this->form('maingame')->skull_actor->visible) //Проверяем, мёртв ли актёр, чтобы в дальнейшем прописать ему DeathFilter
             {
                 $this->death_filter->show();
-                $this->form('maingame')->fragment_pda->content->fragment_stat->content->death_filter->show();
+                $this->form('maingame')->Pda->content->Pda_Statistic->content->death_filter->show();
             }
             else
             {
                 $this->death_filter->hide();
-                $this->form('maingame')->fragment_pda->content->fragment_stat->content->death_filter->hide();            
+                $this->form('maingame')->Pda->content->Pda_Statistic->content->death_filter->hide();            
             }
         }
         if ($this->user_goblindav->visible) //Проверяем, выбран ли сейчас нужный user
@@ -148,9 +148,9 @@ class pda_fragment_ranking extends AbstractForm
     {    
         if ($this->user_actor->visible)
         {
-            $this->form('maingame')->fragment_pda->content->StatisticBtn();
+            $this->form('maingame')->Pda->content->StatisticBtn();
         }
-        if ($this->form('maingame')->fragment_pda->content->fragment_contacts->content->icon->visible)
+        if ($this->form('maingame')->Pda->content->Pda_Contacts->content->icon->visible)
         {
             if ($this->form('maingame')->skull_enemy->visible)
             {
@@ -158,8 +158,8 @@ class pda_fragment_ranking extends AbstractForm
             }
             if ($this->user_goblindav->visible)
             {
-                $this->form('maingame')->fragment_pda->content->ContactsBtn();
-                $this->form('maingame')->fragment_pda->content->fragment_contacts->content->CharacterClick(); 
+                $this->form('maingame')->Pda->content->ContactsBtn();
+                $this->form('maingame')->Pda->content->Pda_Contacts->content->CharacterClick(); 
             }                     
         } 
     }
@@ -173,9 +173,9 @@ class pda_fragment_ranking extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Element::setText($this->community, $this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleName_Ladcega->text);
-            $this->community->textColor = $this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleColor_Ladcega->value;
-            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleIcon_Ladcega->text));
+            Element::setText($this->community, $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Ladcega->text);
+            $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Ladcega->value;
+            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleIcon_Ladcega->text));
         }
         else 
         {
@@ -188,9 +188,9 @@ class pda_fragment_ranking extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Element::setText($this->community, $this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleName_Danila->text);
-            $this->community->textColor = $this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleColor_Danila->value;
-            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleIcon_Danila->text));
+            Element::setText($this->community, $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Danila->text);
+            $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Danila->value;
+            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleIcon_Danila->text));
         }
         else 
         {
@@ -203,9 +203,9 @@ class pda_fragment_ranking extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            Element::setText($this->community, $this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleName_Pido->text);
-            $this->community->textColor = $this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleColor_Pido->value;
-            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->fragment_editor->content->f_RoleEditor->content->Edit_RoleIcon_Pido->text));
+            Element::setText($this->community, $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Pido->text);
+            $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Pido->value;
+            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleIcon_Pido->text));
         }
         else     
         {
@@ -227,8 +227,8 @@ class pda_fragment_ranking extends AbstractForm
             
             if ($this->form('maingame')->SDK_Mode->visible)
             {
-                $this->user_icon->image = new UXImage($this->form('maingame')->fragment_editor->content->f_UserDataEditor->content->Edit_EnemyIcon->text);            
-                Element::setText($this->bio, uiText($this->form('maingame')->fragment_editor->content->f_UserDataEditor->content->textArea_EnemyBio));                 
+                $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_EnemyIcon->text);            
+                Element::setText($this->bio, uiText($this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_EnemyBio));                 
             } 
             else
             {
@@ -247,8 +247,8 @@ class pda_fragment_ranking extends AbstractForm
             
             if ($this->form('maingame')->SDK_Mode->visible)
             {
-                $this->user_icon->image = new UXImage($this->form('maingame')->fragment_editor->content->f_UserDataEditor->content->Edit_ValerokIcon->text);            
-                Element::setText($this->bio, uiText($this->form('maingame')->fragment_editor->content->f_UserDataEditor->content->textArea_ValerokBio));                 
+                $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_ValerokIcon->text);            
+                Element::setText($this->bio, uiText($this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_ValerokBio));                 
             } 
             else
             {
@@ -267,8 +267,8 @@ class pda_fragment_ranking extends AbstractForm
             
             if ($this->form('maingame')->SDK_Mode->visible)
             {
-                $this->user_icon->image = new UXImage($this->form('maingame')->fragment_editor->content->f_UserDataEditor->content->Edit_ActorIcon->text);  
-                Element::setText($this->bio, uiText($this->form('maingame')->fragment_editor->content->f_UserDataEditor->content->textArea_ActorBio));                                        
+                $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_ActorIcon->text);  
+                Element::setText($this->bio, uiText($this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_ActorBio));                                        
             }
             else 
             {
