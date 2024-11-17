@@ -10,7 +10,7 @@ use php\gui\event\UXWindowEvent;
 
 class sdk_main extends AbstractForm
 {
-    function GetSdkVersion()
+    function GetSDKVersion()
     {
         if ($this->form('maingame')->debug_build->visible)
         {
@@ -25,12 +25,12 @@ class sdk_main extends AbstractForm
     {
         if ($this->f_Background->visible)
         {
-            $this->GetSdkVersion();
+            $this->GetSDKVersion();
             
             $this->status_label->hide();
             $this->pseudosdk_label->y = 8;
             
-            $this->Separator->hide(); //😭😭😭😭
+            $this->Separator->hide();
             
             $this->Apply_All_Btn->hide();
             $this->Reset_All_Btn->hide();
@@ -38,7 +38,7 @@ class sdk_main extends AbstractForm
         }
         else 
         {
-            $this->Separator->show(); //RENDER SEPARATOR
+            $this->Separator->show();
             
             $this->status_label->show();
             $this->pseudosdk_label->y = 0;

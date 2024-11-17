@@ -113,10 +113,10 @@ class inventory extends AbstractForm
     {     
         $this->PropertiesSound();
         
-        $this->main->x = $this->form('maingame')->anim_cursor->x;
-        $this->main->y = $this->form('maingame')->anim_cursor->y;
+        $this->main->x = $this->form('maingame')->CustomCursor->x;
+        $this->main->y = $this->form('maingame')->CustomCursor->y;
         $this->button_drop->x = $this->main->x + 8;
-        $this->button_drop->y = $this->main->y + 8;   
+        $this->button_drop->y = $this->main->y + 8;
         
         if (Geometry::intersect($this->main, $this->vodka_selected))  
         {
