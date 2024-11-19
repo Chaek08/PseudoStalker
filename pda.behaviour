@@ -12,7 +12,7 @@
   <target id="toolbar_frame_time">
     <behaviour color="#000000" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="pda_background">
+  <target id="Pda_Background">
     <behaviour color="#000000" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
 </behaviours>

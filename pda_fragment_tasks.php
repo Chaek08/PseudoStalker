@@ -164,7 +164,7 @@ class pda_fragment_tasks extends AbstractForm
     {
         $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));        
         
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
         }    
@@ -174,7 +174,7 @@ class pda_fragment_tasks extends AbstractForm
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));
         $this->DeleteTask();   
         
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
         }                
@@ -189,7 +189,7 @@ class pda_fragment_tasks extends AbstractForm
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png')); 
         $this->DeleteTask();  
         
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
         }                           

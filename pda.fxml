@@ -6,7 +6,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="TOP" ellipsisString="..." focusTraversable="true" graphicTextGap="0" id="pda_background" layoutX="392" layoutY="160" prefHeight="472" prefWidth="768" styleClass="x-flat-button " text="Выберите пункт" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="TOP" ellipsisString="..." focusTraversable="true" graphicTextGap="0" id="Pda_Background" layoutX="392" layoutY="160" prefHeight="472" prefWidth="768" styleClass="x-flat-button " text="Выберите пункт" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="35"/>
       </font>
@@ -50,7 +50,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-pda_label" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/pda_background_image.png" id="data-pda_background" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/pda_background_image.png" id="data-Pda_Background" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-tasks_btn" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-contacts_btn" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-ranking_btn" visible="1"/>
@@ -79,22 +79,22 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="tasks_label" layoutX="408" layoutY="640" prefHeight="40" prefWidth="75" styleClass="label " text="Задачи" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="tasks_label" layoutX="408" layoutY="640" prefHeight="40" prefWidth="75" style="-fx-opacity: 1;;" styleClass="label " text="Задачи" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="stat_label" layoutX="656" layoutY="640" prefHeight="40" prefWidth="82" styleClass="label " text="Данные" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="stat_label" layoutX="656" layoutY="640" prefHeight="40" prefWidth="82" style="-fx-opacity: 1;" styleClass="label " text="Данные" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="ranks_label" layoutX="584" layoutY="640" prefHeight="40" prefWidth="63" styleClass="label " text="Ранги" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="ranks_label" layoutX="584" layoutY="640" prefHeight="40" prefWidth="63" style="-fx-opacity: 1;" styleClass="label " text="Ранги" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="contacts_label" layoutX="488" layoutY="640" prefHeight="40" prefWidth="88" styleClass="label " text="Контакты" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="contacts_label" layoutX="488" layoutY="640" prefHeight="40" prefWidth="88" style="-fx-opacity: 1;" styleClass="label " text="Контакты" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>
