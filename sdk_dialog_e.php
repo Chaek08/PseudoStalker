@@ -265,7 +265,7 @@ class sdk_dialog_e extends AbstractForm
      */
     function PreviewVoiceStart(UXMouseEvent $e = null)
     {    
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             $this->ResetVoice();        
             Media::open($this->Edit_VoiceStart->text, true, 'PreviewVoiceStart');
@@ -283,7 +283,7 @@ class sdk_dialog_e extends AbstractForm
      */
     function PreviewVoiceTalk1(UXMouseEvent $e = null)
     {
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             $this->ResetVoice();        
             Media::open($this->Edit_VoiceTalk1->text, true, 'PreviewVoiceTalk1');
@@ -301,7 +301,7 @@ class sdk_dialog_e extends AbstractForm
      */
     function PreviewVoiceTalk2(UXMouseEvent $e = null)
     {
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             $this->ResetVoice();        
             Media::open($this->Edit_VoiceTalk2->text, true, 'PreviewVoiceTalk2');
@@ -319,7 +319,7 @@ class sdk_dialog_e extends AbstractForm
      */
     function PreviewVoiceTalk3(UXMouseEvent $e = null)
     {
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             $this->ResetVoice();        
             Media::open($this->Edit_VoiceTalk3->text, true, 'PreviewVoiceTalk3');
