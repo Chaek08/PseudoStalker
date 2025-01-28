@@ -240,7 +240,7 @@ class sdk_mm_e extends AbstractForm
      */
     function PreviewFightSound(UXMouseEvent $e = null)
     {
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {        
             Media::open($this->Edit_FightSound->text, true, 'PreviewFightSound');
         }

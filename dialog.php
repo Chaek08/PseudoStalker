@@ -23,14 +23,14 @@ class dialog extends AbstractForm
     {
         if ($this->form('maingame')->SDK_Mode->visible)
         {
-            if ($this->form('maingame')->Options->content->all_sounds->visible)
+            if ($this->form('maingame')->Options->content->All_Sounds->visible)
             {        
                 Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
             }
         }
         else
         {
-            if ($this->form('maingame')->Options->content->all_sounds->visible)
+            if ($this->form('maingame')->Options->content->All_Sounds->visible)
             {
                 Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start");
             }            
@@ -83,7 +83,7 @@ class dialog extends AbstractForm
             Element::setText($this->answer_desc, "иди нахуй заднипривадный геюган");            
         }
         
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             $this->StopVoice();
             $this->VoiceTalk_1();              
@@ -111,7 +111,7 @@ class dialog extends AbstractForm
             Element::setText($this->answer_desc, "фу изврощенис.. пагнали дратся!!!");            
         }
         
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {        
            $this->StopVoice();        
            $this->VoiceTalk_2();
@@ -132,7 +132,7 @@ class dialog extends AbstractForm
     {       
         $this->form('maingame')->HideDialog();
         
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             $this->VoiceTalk_3();
             Media::pause('main_ambient');

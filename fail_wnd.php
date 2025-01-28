@@ -37,7 +37,7 @@ class fail_wnd extends AbstractForm
     function ReturnBtn(UXMouseEvent $e = null)
     {
         $this->form('maingame')->Fail->hide();   
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {        
             Media::play('main_ambient'); 
             if ($this->form('maingame')->skull_actor->visible)

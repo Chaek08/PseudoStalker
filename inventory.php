@@ -85,21 +85,21 @@ class inventory extends AbstractForm
     }
     function UseSlotSound()
     {
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             Media::open('res://.data/audio/inv_slot.mp3', true, 'inv_use_slot'); 
         }     
     }
     function PropertiesSound()
     {
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             Media::open('res://.data/audio/inv_properties.mp3', true, 'inv_properties'); 
         }          
     }
     function DropSound()
     {
-        if ($this->form('maingame')->Options->content->all_sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             Media::open('res://.data/audio/inv_drop.mp3', true, 'inv_drop'); 
         }               
@@ -222,7 +222,7 @@ class inventory extends AbstractForm
     {    
         if ($this->form('maingame')->skull_actor->visible || $this->form('maingame')->skull_enemy->visible)
         {
-            if ($this->form('maingame')->Options->content->all_sounds->visible)
+            if ($this->form('maingame')->Options->content->All_Sounds->visible)
             {        
                 Media::open('res://.data/audio/movie_1.mp3', true, 'movie_1');  
             }           
