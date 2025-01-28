@@ -88,6 +88,8 @@ class mainmenu extends AbstractForm
      */
     function OpenSdkBtn(UXMouseEvent $e = null)
     {    
+        if ($this->form('maingame')->MainMenu->visible) Media::pause("menu_sound");
+        
         $this->form('maingame')->Editor->show();
     }
 }

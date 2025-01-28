@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use action\Media;
 use php\gui\UXImageView;
 use php\gui\UXImage;
 use php\gui\framework\AbstractForm;
@@ -73,6 +74,8 @@ class sdk_main extends AbstractForm
      */
     function StartMainGame(UXMouseEvent $e = null)
     {
+        if (Media::isStatus('PAUSED', 'menu_sound')) Media::play("menu_sound");
+        
         $this->form('maingame')->Editor->hide();
         $this->DefaultSdkState();
     }      
