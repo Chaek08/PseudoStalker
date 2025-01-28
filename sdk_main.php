@@ -48,7 +48,16 @@ class sdk_main extends AbstractForm
             $this->Reset_All_Btn->show();
             $this->Clear_All_Btn->show();
         }
-    }   
+    }
+    function StopSDKSounds()
+    {
+        if (Media::isStatus('PLAYING', 'PreviewVoiceStart')) Media::stop('PreviewVoiceStart');
+        if (Media::isStatus('PLAYING', 'PreviewVoiceTalk1')) Media::stop('PreviewVoiceTalk1');
+        if (Media::isStatus('PLAYING', 'PreviewVoiceTalk2')) Media::stop('PreviewVoiceTalk2');
+        if (Media::isStatus('PLAYING', 'PreviewVoiceTalk3')) Media::stop('PreviewVoiceTalk3');
+        
+        if (Media::isStatus('PLAYING', 'PreviewFightSound')) Media::stop('PreviewFightSound');  
+    }                                                                                                                             
     /**
      * @event SDK_Icon.click-left
      */
@@ -74,6 +83,7 @@ class sdk_main extends AbstractForm
      */
     function StartMainGame(UXMouseEvent $e = null)
     {
+        $this->StopSDKSounds();
         if (Media::isStatus('PAUSED', 'menu_sound')) Media::play("menu_sound");
         
         $this->form('maingame')->Editor->hide();
