@@ -49,11 +49,5 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-version_detail" visible=""/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="opensdk_btn" layoutX="1376" layoutY="808" prefHeight="64" prefWidth="192" styleClass="x-flat-button " text="Open SDK" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="25"/>
-      </font>
-    </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/mainmenu/sdk_btn.png" id="data-opensdk_btn" visible="1"/>
   </children>
 </AnchorPane>

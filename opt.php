@@ -214,14 +214,7 @@ class opt extends AbstractForm
         $this->form('maingame')->ReplayBtn->enabled = true;       
         $this->form('maingame')->ReplayBtn->opacity = 100;
         
-        if ($this->form('maingame')->SDK_Mode->visible)
-        {
-            Media::open($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_FightSound->text, false, "fight_sound");
-        }
-        else 
-        {
-            Media::open('res://.data/audio/fight/fight_baza.mp3', false, "fight_sound");
-        }            
+        Media::open('res://.data/audio/fight/fight_baza.mp3', false, "fight_sound");          
     }
     /**
      * @event version_off.click-Left 

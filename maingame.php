@@ -16,30 +16,12 @@ class maingame extends AbstractForm
     {    
         $this->GetVersion();
         $this->OpenMainAmbient();
-        
-        if ($this->SDK_Mode->visible)
-        {
-            $this->MainMenu->content->opensdk_btn->show();
-            $this->Editor->content->GetSDKVersion();           
-        }
-        else
-        {
-            $this->Editor->free(); 
-            $this->MainMenu->content->opensdk_btn->free();
-        }
     }
     function GetVersion()
     {
-        if ($this->SDK_Mode->visible)
-        {
-            Element::setText($this->version_detail, "Editor Build 593, August 8 2024");
-            Element::setText($this->MainMenu->content->version_detail, "v1.2 + SDK");
-        }
-        else
-        {
-            Element::setText($this->version_detail, "Build 593, August 8 2024"); //start date 24.12.2022
-            Element::setText($this->MainMenu->content->version_detail, "v1.2");
-        }
+        Element::setText($this->version_detail, "Build 593, August 8 2024"); //start date 24.12.2022
+        Element::setText($this->MainMenu->content->version_detail, "v1.2");
+        
         if ($this->debug_build->visible)
         {
             $this->version->show();
@@ -104,16 +86,9 @@ class maingame extends AbstractForm
     {    
         if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
-            if ($this->form('maingame')->Options->content->mute_fight_sound->visible) {} else
+            if (!$this->form('maingame')->Options->content->mute_fight_sound->visible)
             {
-                if ($this->form('maingame')->SDK_Mode->visible)
-                {
-                    Media::open($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_FightSound->text, true, "fight_sound");
-                }
-                else 
-                {
-                    Media::open('res://.data/audio/fight/fight_baza.mp3', true, "fight_sound");
-                }               
+                Media::open('res://.data/audio/fight/fight_baza.mp3', true, "fight_sound");              
             }     
         }      
     }      
@@ -161,16 +136,7 @@ class maingame extends AbstractForm
     function EscBtn(UXKeyEvent $e = null)
     {    
         if ($this->LoadScreen->visible) return;
-        
-        if ($this->SDK_Mode->visible)
-        {
-            if ($this->Editor->visible)
-            {
-                return;
-            }
-        }
-             
-        if ($this->MainMenu->visible) { $this->MainMenu->content->NewGameBtn(); return; }
+        if ($this->MainMenu->visible) {$this->MainMenu->content->NewGameBtn(); return; }
         if ($this->Inventory->visible) { $this->HideInventory(); return; }
         if ($this->Dialog->visible) { $this->HideDialog(); Media::stop('voice_talk3'); return; }
         if ($this->Pda->visible) { $this->HidePda(); return; }
@@ -209,11 +175,6 @@ class maingame extends AbstractForm
         if ($this->Dialog->visible) return;
         if ($this->Fail->visible) return;
         
-        if ($this->SDK_Mode->visible)
-        {
-            if ($this->Editor->visible) return;
-        }
-        
         $this->Pda->show();
         if ($this->Pda->content->Pda_Statistic->visible)
         {
@@ -233,14 +194,6 @@ class maingame extends AbstractForm
         if ($this->Dialog->visible) return;          
         if ($this->Fail->visible) return;
         
-        if ($this->SDK_Mode->visible)
-        {
-            if ($this->Editor->visible)
-            {
-                return;
-            }
-        }
-        
         $this->Inventory->show();
         if ($this->Options->content->All_Sounds->visible) Media::open('res://.data/audio/inv_open.mp3', true);
     }    
@@ -257,14 +210,6 @@ class maingame extends AbstractForm
         if ($this->Options->visible) return;  
         if ($this->Dialog->visible) return;
         if ($this->Fail->visible) return;
-        
-        if ($this->SDK_Mode->visible)
-        {
-            if ($this->Editor->visible)
-            {
-                return;
-            }
-        }
         
         $this->ExitDialog->show();
     }

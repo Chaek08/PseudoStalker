@@ -26,7 +26,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->user_icon->hide();       
         $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/no_icon.png');     
         
-        if ($this->death_filter->visible) {$this->death_filter->hide();}
+        if ($this->death_filter->visible) $this->death_filter->hide();
     }
     function ShowUserInfo()
     {
@@ -171,48 +171,21 @@ class pda_fragment_ranking extends AbstractForm
     }
     function LadcegaRole()
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
-        {
-            Element::setText($this->community, $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Ladcega->text);
-            $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Ladcega->value;
-            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleIcon_Ladcega->text));
-        }
-        else 
-        {
-            Element::setText($this->community, 'LADCEGA');
-            $this->community->textColor = '#e64d4d';
-            $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/ladcega_role.png'));            
-        }
+        Element::setText($this->community, 'LADCEGA');
+        $this->community->textColor = '#e64d4d';
+        $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/ladcega_role.png'));            
     }    
     function DanilaEmojiRole()
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
-        {
-            Element::setText($this->community, $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Danila->text);
-            $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Danila->value;
-            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleIcon_Danila->text));
-        }
-        else 
-        {
-            Element::setText($this->community, 'Danila Emoji');    
-            $this->community->textColor = '#cc8033';          
-            $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/danila_emoji_role.png'));            
-        }
+        Element::setText($this->community, 'Danila Emoji');    
+        $this->community->textColor = '#cc8033';          
+        $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/danila_emoji_role.png'));            
     }
     function PidorasRole()
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
-        {
-            Element::setText($this->community, $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Pido->text);
-            $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Pido->value;
-            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleIcon_Pido->text));
-        }
-        else     
-        {
-            Element::setText($this->community, 'Пидорасы');
-            $this->community->textColor = '#16a4cd';
-            $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/pidoras_role.png'));
-        }
+        Element::setText($this->community, 'Пидорасы');
+        $this->community->textColor = '#16a4cd';
+        $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/pidoras_role.png'));
     }
     function SetUserInfo()
     {
@@ -223,18 +196,9 @@ class pda_fragment_ranking extends AbstractForm
             $this->DeathFilter();
             Element::setText($this->rank, 'ветеринар');
             Element::setText($this->relationship, 'враг');  
-            $this->relationship->textColor = ('#cc3333');    
-            
-            if ($this->form('maingame')->SDK_Mode->visible)
-            {
-                $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_EnemyIcon->text);            
-                Element::setText($this->bio, uiText($this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_EnemyBio));                 
-            } 
-            else
-            {
-                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/goblindav.png');    
-                Element::setText($this->bio, 'САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ');                              
-            }       
+            $this->relationship->textColor = ('#cc3333');
+            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/goblindav.png');    
+            Element::setText($this->bio, 'САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ');                                   
         }
         if ($this->user_valerok->visible)
         {
@@ -244,17 +208,8 @@ class pda_fragment_ranking extends AbstractForm
             Element::setText($this->rank, 'мастер');
             Element::setText($this->relationship, 'друг');  
             $this->relationship->textColor = ('#669966');    
-            
-            if ($this->form('maingame')->SDK_Mode->visible)
-            {
-                $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_ValerokIcon->text);            
-                Element::setText($this->bio, uiText($this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_ValerokBio));                 
-            } 
-            else
-            {
-                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/valerok.png');    
-                Element::setText($this->bio, 'Хозяин LADCEGA, попускает тупых огсровцев, В его гараже всегда лежит нож, готовый помочь в любых делах.');                              
-            }                                   
+            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/valerok.png');    
+            Element::setText($this->bio, 'Хозяин LADCEGA, попускает тупых огсровцев, В его гараже всегда лежит нож, готовый помочь в любых делах.');                                                              
         }       
         if ($this->user_actor->visible)
         {
@@ -264,17 +219,8 @@ class pda_fragment_ranking extends AbstractForm
             Element::setText($this->rank, 'мастер');
             $this->attitude->hide();
             $this->relationship->hide();              
-            
-            if ($this->form('maingame')->SDK_Mode->visible)
-            {
-                $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_ActorIcon->text);  
-                Element::setText($this->bio, uiText($this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_ActorBio));                                        
-            }
-            else 
-            {
-                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/actor.png');                  
-                Element::setText($this->bio, 'Известен как самый бескомпромиссный в районе, этот человек дает пиздюлей каждому, без разницы - будь то админ или нет.');                            
-            }
+            $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/actor.png');                  
+            Element::setText($this->bio, 'Известен как самый бескомпромиссный в районе, этот человек дает пиздюлей каждому, без разницы - будь то админ или нет.');                            
         }       
     }
 }

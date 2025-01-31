@@ -83,13 +83,4 @@ class mainmenu extends AbstractForm
     {
         $this->form('maingame')->ResetGameClient();
     }
-    /**
-     * @event opensdk_btn.click-Left 
-     */
-    function OpenSdkBtn(UXMouseEvent $e = null)
-    {    
-        if ($this->form('maingame')->MainMenu->visible) Media::pause("menu_sound");
-        
-        $this->form('maingame')->Editor->show();
-    }
 }

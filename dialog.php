@@ -21,67 +21,29 @@ class dialog extends AbstractForm
     }
     function VoiceStart()
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
-            if ($this->form('maingame')->Options->content->All_Sounds->visible)
-            {        
-                Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
-            }
-        }
-        else
-        {
-            if ($this->form('maingame')->Options->content->All_Sounds->visible)
-            {
-                Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start");
-            }            
-        }
+            Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start");
+        }            
     }
     function VoiceTalk_1()
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
-        {
-            Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceTalk1->text, true, "voice_talk1");
-        }
-        else
-        {
-            Media::open('res://.data/audio/voice/voice_talk1.mp3', true, "voice_talk1");            
-        }
+        Media::open('res://.data/audio/voice/voice_talk1.mp3', true, "voice_talk1");            
     }
     function VoiceTalk_2()
-    {
-        if ($this->form('maingame')->SDK_Mode->visible)
-        {
-            Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceTalk2->text, true, "voice_talk2");
-        }
-        else
-        {    
-            Media::open('res://.data/audio/voice/voice_talk2.mp3', true, "voice_talk2");   
-        }   
+    {  
+        Media::open('res://.data/audio/voice/voice_talk2.mp3', true, "voice_talk2");     
     }    
     function VoiceTalk_3()
-    {
-        if ($this->form('maingame')->SDK_Mode->visible)
-        {
-            Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceTalk3->text, true, "voice_talk3");
-        }
-        else
-        {    
-            Media::open('res://.data/audio/voice/voice_talk3.mp3', true, "voice_talk3");     
-        }   
+    {   
+        Media::open('res://.data/audio/voice/voice_talk3.mp3', true, "voice_talk3");       
     }    
     /**
      * @event answer_1_new.click-Left 
      */
     function Talk_1(UXMouseEvent $e = null)
     {    
-        if ($this->form('maingame')->SDK_Mode->visible)
-        {
-            Element::setText($this->answer_desc, uiText($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_3));
-        }
-        else
-        {
-            Element::setText($this->answer_desc, "иди нахуй заднипривадный геюган");            
-        }
+        Element::setText($this->answer_desc, "иди нахуй заднипривадный геюган");
         
         if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
@@ -102,14 +64,7 @@ class dialog extends AbstractForm
      */
     function Talk_2(UXMouseEvent $e = null)
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
-        {
-            Element::setText($this->answer_desc, uiText($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Final_Phase));
-        }
-        else    
-        {
-            Element::setText($this->answer_desc, "фу изврощенис.. пагнали дратся!!!");            
-        }
+        Element::setText($this->answer_desc, "фу изврощенис.. пагнали дратся!!!");
         
         if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {        
@@ -153,14 +108,7 @@ class dialog extends AbstractForm
         $this->answer_desc->opacity = 100;
         $this->answer_1_new->show();
         
-        if ($this->form('maingame')->SDK_Mode->visible)
-        {
-            $this->answer_desc->text = $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_1->text;
-        }
-        else 
-        {
-            $this->answer_desc->text = "ахуел гей нефар";
-        }
+        $this->answer_desc->text = "ахуел гей нефар";
         
         $this->ClearDialog();        
     }
