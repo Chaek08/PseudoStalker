@@ -183,7 +183,7 @@ class maingame extends AbstractForm
         {
             if ($this->Editor->visible)
             {
-                return;
+                $this->Editor->content->StartMainGame(); return;
             }
         }
              
