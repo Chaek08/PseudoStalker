@@ -73,12 +73,9 @@ class maingame extends AbstractForm
     }    
     function PlayMainAmbient()
     {
-        if ($this->Options->content->All_Sounds->visible)
+        if ($this->Options->content->All_Sounds->visible && !$this->fight_image->visible)
         {
-             if (!$this->fight_image->visible)
-             {
-                 Media::play('main_ambient');                 
-             }      
+            Media::play('main_ambient');                      
         }         
     }
     function StopAllSounds()
@@ -104,7 +101,7 @@ class maingame extends AbstractForm
     {    
         if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
-            if ($this->form('maingame')->Options->content->mute_fight_sound->visible) {} else
+            if (!$this->form('maingame')->Options->content->mute_fight_sound->visible)
             {
                 if ($this->form('maingame')->SDK_Mode->visible)
                 {
@@ -165,10 +162,7 @@ class maingame extends AbstractForm
         if ($this->Dialog->visible) return true;
         if ($this->Fail->visible) return true;
         
-        if ($this->SDK_Mode->visible)
-        {
-            if ($this->Editor->visible) return true;
-        }
+        if ($this->SDK_Mode->visible && $this->Editor->visible) return true;
         
         return false;
     }     
@@ -179,12 +173,10 @@ class maingame extends AbstractForm
     {    
         if ($this->LoadScreen->visible) return;
         
-        if ($this->SDK_Mode->visible)
+        if ($this->SDK_Mode->visible && $this->Editor->visible)
         {
-            if ($this->Editor->visible)
-            {
-                $this->Editor->content->StartMainGame(); return;
-            }
+            $this->Editor->content->StartMainGame();
+            return;
         }
              
         if ($this->MainMenu->visible) { $this->MainMenu->content->NewGameBtn(); return; }
@@ -221,9 +213,9 @@ class maingame extends AbstractForm
         if ($this->CheckVisibledFragments()) return;
         
         $this->Pda->show();
-        if ($this->Pda->content->Pda_Statistic->visible)
+        if ($this->Pda->content->Pda_Statistic->visible && $this->pda_icon->visible)
         {
-            if ($this->pda_icon->visible) $this->pda_icon->hide();
+            $this->pda_icon->hide();
         }          
     }
     /**
@@ -388,7 +380,10 @@ class maingame extends AbstractForm
             $this->leave_btn->show();
             $this->dlg_btn->hide();
             
-            if ($this->Options->content->All_Sounds->visible) Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex');
+            if ($this->Options->content->All_Sounds->visible) 
+            {
+                Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex'); 
+            }
              
             $this->EnemyFail();
             return;
@@ -426,6 +421,7 @@ class maingame extends AbstractForm
             Animation::fadeIn($this->hitmark_static, 250);  
             $this->hitmark_static->show();
             Animation::fadeOut($this->hitmark_static, 500);
+            
             if ($this->Options->content->All_Sounds->visible)
             {
                 Media::open('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor'); 
@@ -444,12 +440,12 @@ class maingame extends AbstractForm
             $this->leave_btn->show();
             $this->dlg_btn->hide();
                        
-            if ($this->hitmark_static->visible)
-            {
-                $this->hitmark_static->hide();
-            }
+            if ($this->hitmark_static->visible) $this->hitmark_static->hide();
             
-            if ($this->Options->content->All_Sounds->visible) Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');
+            if ($this->Options->content->All_Sounds->visible)
+            {
+                Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');
+            }
             
             $this->ActorFail();
             return;
@@ -572,6 +568,9 @@ class maingame extends AbstractForm
      */
     function OpenConsole(UXKeyEvent $e = null)
     {    
-        if ($this->Console->toggle()) $this->Console->visible;
+        if ($this->Console->toggle()) 
+        {
+            $this->Console->visible;
+        }
     }
 }
