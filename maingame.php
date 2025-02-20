@@ -155,6 +155,23 @@ class maingame extends AbstractForm
         $this->MainMenu->content->NewGameMenu();
         $this->Pda->content->Pda_Statistic->content->ResetFinalText();
     }
+    function CheckVisibledFragments()
+    {
+        if ($this->MainMenu->visible) return true;    
+        if ($this->LoadScreen->visible) return true;
+        if ($this->Pda->visible) return true;
+        if ($this->Options->visible) return true;
+        if ($this->Inventory->visible) return true;
+        if ($this->Dialog->visible) return true;
+        if ($this->Fail->visible) return true;
+        
+        if ($this->SDK_Mode->visible)
+        {
+            if ($this->Editor->visible) return true;
+        }
+        
+        return false;
+    }     
     /**
      * @event keyDown-Esc 
      */
@@ -201,18 +218,7 @@ class maingame extends AbstractForm
      */    
     function ShowPda()
     {
-        if ($this->LoadScreen->visible) return;  
-        if ($this->Pda->visible) return; 
-        if ($this->MainMenu->visible) return;
-        if ($this->Options->visible) return;      
-        if ($this->Inventory->visible) return;
-        if ($this->Dialog->visible) return;
-        if ($this->Fail->visible) return;
-        
-        if ($this->SDK_Mode->visible)
-        {
-            if ($this->Editor->visible) return;
-        }
+        if ($this->CheckVisibledFragments()) return;
         
         $this->Pda->show();
         if ($this->Pda->content->Pda_Statistic->visible)
@@ -225,21 +231,7 @@ class maingame extends AbstractForm
      */
     function ShowInventory(UXKeyEvent $e = null)
     {       
-        if ($this->LoadScreen->visible) return;  
-        if ($this->Inventory->visible) return;
-        if ($this->MainMenu->visible) return;
-        if ($this->Options->visible) return;
-        if ($this->Pda->visible) return;
-        if ($this->Dialog->visible) return;          
-        if ($this->Fail->visible) return;
-        
-        if ($this->SDK_Mode->visible)
-        {
-            if ($this->Editor->visible)
-            {
-                return;
-            }
-        }
+        if ($this->CheckVisibledFragments()) return;
         
         $this->Inventory->show();
         if ($this->Options->content->All_Sounds->visible) Media::open('res://.data/audio/inv_open.mp3', true);
@@ -249,22 +241,7 @@ class maingame extends AbstractForm
      */
     function ShowExitDialog(UXKeyEvent $e = null)
     {          
-        if ($this->LoadScreen->visible) return;  
-        if ($this->MainMenu->visible) return;
-        if ($this->ExitDialog->visible) return;  
-        if ($this->Inventory->visible) return;
-        if ($this->Pda->visible) return;
-        if ($this->Options->visible) return;  
-        if ($this->Dialog->visible) return;
-        if ($this->Fail->visible) return;
-        
-        if ($this->SDK_Mode->visible)
-        {
-            if ($this->Editor->visible)
-            {
-                return;
-            }
-        }
+        if ($this->CheckVisibledFragments()) return;
         
         $this->ExitDialog->show();
     }
