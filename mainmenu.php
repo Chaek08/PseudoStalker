@@ -64,10 +64,8 @@ class mainmenu extends AbstractForm
      */
     function ExitWindowsBtn(UXMouseEvent $e = null)
     {    
-        $this->ShowExitDialog();
+        $this->form('maingame')->ExitDialog->show();
     }
-    function ShowExitDialog() {$this->form('maingame')->ExitDialog->show();}
-    function HideExitDialog() {$this->form('maingame')->ExitDialog->hide();}
     /**
      * @event btn_opt.click-Left 
      */

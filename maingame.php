@@ -183,7 +183,7 @@ class maingame extends AbstractForm
         if ($this->Inventory->visible) { $this->HideInventory(); return; }
         if ($this->Dialog->visible) { $this->HideDialog(); Media::stop('voice_talk3'); return; }
         if ($this->Pda->visible) { $this->HidePda(); return; }
-        if ($this->ExitDialog->visible) { $this->HideExitDialog(); return; }
+        if ($this->ExitDialog->visible) { $this->ExitDialog->hide(); return; }
         if ($this->Options->visible) return; 
         
         $this->ShowMenu();
@@ -245,10 +245,6 @@ class maingame extends AbstractForm
         $this->Dialog->show();  
         $this->Dialog->content->StartDialog();          
         $this->Dialog->content->VoiceStart();    
-    }
-    function HideExitDialog()
-    {
-        if ($this->ExitDialog->visible) $this->ExitDialog->hide();
     }
     function HideDialog()
     {
