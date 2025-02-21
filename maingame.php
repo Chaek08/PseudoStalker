@@ -278,10 +278,6 @@ class maingame extends AbstractForm
             $this->Pda->content->DefaultState();             
         }        
     }
-    function HideOpt()
-    {
-        if ($this->Options->visible) $this->Options->hide();      
-    }
     /**
      * @event leave_btn.click-Left 
      */
