@@ -184,7 +184,7 @@ class maingame extends AbstractForm
         if ($this->Dialog->visible) { $this->HideDialog(); Media::stop('voice_talk3'); return; }
         if ($this->Pda->visible) { $this->HidePda(); return; }
         if ($this->ExitDialog->visible) { $this->ExitDialog->hide(); return; }
-        if ($this->Options->visible) return; 
+        if ($this->Options->visible) {$this->Options->content->BackBtn(); return;}
         
         $this->ShowMenu();
         $this->PauseMainAmbient();
