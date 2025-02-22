@@ -104,11 +104,6 @@ class inventory extends AbstractForm
             Media::open('res://.data/audio/inv_drop.mp3', true, 'inv_drop'); 
         }               
     }
-    function HideCombobox()
-    {  
-        $this->main->hide();
-        $this->button_drop->hide();
-    }
     function ShowCombobox()
     {     
         $this->PropertiesSound();
@@ -130,19 +125,18 @@ class inventory extends AbstractForm
             $this->button_drop->show();
         }          
     }
-    function CloseInventory()
-    {
-        $this->form('maingame')->Inventory->hide();
-    }
+    function HideCombobox()
+    {  
+        $this->main->hide();
+        $this->button_drop->hide();
+    }    
     /**
      * @event inv_maket_visual.click-Left 
      */
     function OutfitMaketFunc(UXMouseEvent $e = null)
     {
-        if ($this->inv_maket_select->visible)
-        {
-            return;
-        }
+        if ($this->inv_maket_select->visible) return;
+
         $this->UseSlotSound();
         $this->ShowOutfitMaket();
         $this->ShowUIText();
@@ -153,10 +147,8 @@ class inventory extends AbstractForm
      */
     function VodkaMaketFunc(UXMouseEvent $e = null)
     {    
-        if ($this->inv_maket_select_2->visible)
-        {
-            return;
-        }    
+        if ($this->inv_maket_select_2->visible) return;
+  
         $this->UseSlotSound();
         $this->ShowVodkaMaket();
         $this->ShowUIText();
@@ -184,10 +176,8 @@ class inventory extends AbstractForm
         {
             $this->HideVodkaMaket();
             $this->HideUIText();
-            if ($this->inv_maket_select->visible)
-            {
-                $this->inv_maket_select->hide();
-            }
+            
+            if ($this->inv_maket_select->visible) $this->inv_maket_select->hide();
         }  
 
     }
