@@ -108,8 +108,7 @@ class inventory extends AbstractForm
     {     
         $this->PropertiesSound();
         
-        $this->main->x = $this->form('maingame')->CustomCursor->x;
-        $this->main->y = $this->form('maingame')->CustomCursor->y;
+        $this->main->position = $this->form('maingame')->CustomCursor->position;
         $this->button_drop->x = $this->main->x + 8;
         $this->button_drop->y = $this->main->y + 8;
         
@@ -195,8 +194,7 @@ class inventory extends AbstractForm
         $this->vodka_selected->show();
         $this->form('maingame')->item_vodka_0000->hide();    
         $this->form('maingame')->item_vodka_0000->enabled = true;       
-        $this->form('maingame')->item_vodka_0000->x = 256;
-        $this->form('maingame')->item_vodka_0000->y = 696;                           
+        $this->form('maingame')->item_vodka_0000->position = [256,696];
     }    
     /**
      * @event vodka_selected.click-Right 

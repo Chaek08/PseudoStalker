@@ -5,13 +5,6 @@ use std, gui, framework, app;
 
 class dialog extends AbstractForm
 {
-    /**
-     * @event show 
-     */
-    function InitDialogWnd(UXWindowEvent $e = null)
-    {    
-        
-    }
     function StopVoice()
     {
         Media::stop('voice_start');
@@ -21,19 +14,13 @@ class dialog extends AbstractForm
     }
     function VoiceStart()
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
-        {
-            if ($this->form('maingame')->Options->content->All_Sounds->visible)
-            {        
-                Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
-            }
+        if ($this->form('maingame')->SDK_Mode->visible && $this->form('maingame')->Options->content->All_Sounds->visible)
+        {   
+            Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
         }
         else
         {
-            if ($this->form('maingame')->Options->content->All_Sounds->visible)
-            {
-                Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start");
-            }            
+            Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start");
         }
     }
     function VoiceTalk_1()
@@ -150,7 +137,6 @@ class dialog extends AbstractForm
     }
     function StartDialog()
     {
-        $this->answer_desc->opacity = 100;
         $this->answer_1_new->show();
         
         if ($this->form('maingame')->SDK_Mode->visible)
