@@ -13,6 +13,7 @@ class sdk_main extends AbstractForm
 {
     function GetSDKVersion()
     {
+    /*
         if ($this->form('maingame')->debug_build->visible)
         {
             $this->pseudosdk_label->tooltipText = "Build 77, August 8 2024"; //start date: 24 may 2024
@@ -21,8 +22,9 @@ class sdk_main extends AbstractForm
         {
             $this->pseudosdk_label->tooltipText= "v1.0";
         }
+     */  
     }
-    function SdkStatus()
+    function SDKStatus()
     {
         if ($this->f_Background->visible)
         {
@@ -61,12 +63,12 @@ class sdk_main extends AbstractForm
     /**
      * @event SDK_Icon.click-left
      */
-    function DefaultSdkState(UXMouseEvent $e = null)
+    function DefaultSDKState(UXMouseEvent $e = null)
     {         
-        $this->SdkStatus();
-        $this->ResetFragmentsVisible();
+        $this->SDKStatus();
+        $this->ResetTabs();
     }
-    function ResetFragmentsVisible()
+    function ResetTabs()
     {
         if ($this->f_DialogEditor->visible) $this->f_DialogEditor->hide();
         if ($this->f_InvEditor->visible) $this->f_InvEditor->hide();
@@ -75,6 +77,8 @@ class sdk_main extends AbstractForm
         if ($this->f_RoleEditor->visible) $this->f_RoleEditor->hide();
         if ($this->f_FailEditor->visible) $this->f_FailEditor->hide();
         if ($this->f_QuestEditor->visible) $this->f_QuestEditor->hide();
+        
+        $this->StopSDKSounds();
                 
         $this->f_Background->show();
     }
@@ -83,11 +87,10 @@ class sdk_main extends AbstractForm
      */
     function StartMainGame(UXMouseEvent $e = null)
     {
-        $this->StopSDKSounds();
         if (Media::isStatus('PAUSED', 'menu_sound')) Media::play("menu_sound");
         
         $this->form('maingame')->Editor->hide();
-        $this->DefaultSdkState();
+        $this->DefaultSDKState();
     }      
     /**
      * @event userdata_e_btn.click-Left 
@@ -96,10 +99,10 @@ class sdk_main extends AbstractForm
     {    
         $this->f_Background->hide();
            
-        $this->SdkStatus();
+        $this->SDKStatus();
         $this->status_label->text = $this->userdata_e_btn->text;
         
-        $this->ResetFragmentsVisible();
+        $this->ResetTabs();
         $this->f_UserDataEditor->show();
     }
     /**
@@ -109,10 +112,10 @@ class sdk_main extends AbstractForm
     {  
         $this->f_Background->hide();
              
-        $this->SdkStatus();
+        $this->SDKStatus();
         $this->status_label->text = $this->dialog_e_btn->text;
             
-        $this->ResetFragmentsVisible();
+        $this->ResetTabs();
         $this->f_DialogEditor->show();
     }
     /**
@@ -122,10 +125,10 @@ class sdk_main extends AbstractForm
     {      
         $this->f_Background->hide();
           
-        $this->SdkStatus();
+        $this->SDKStatus();
         $this->status_label->text = $this->inv_e_btn->text;  
             
-        $this->ResetFragmentsVisible();
+        $this->ResetTabs();
         $this->f_InvEditor->show();
     }
     /**
@@ -135,10 +138,10 @@ class sdk_main extends AbstractForm
     {    
         $this->f_Background->hide();
          
-        $this->SdkStatus();
+        $this->SDKStatus();
         $this->status_label->text = $this->mg_e_btn->text; 
     
-        $this->ResetFragmentsVisible();
+        $this->ResetTabs();
         $this->f_MgEditor->show();
     }
     /**
@@ -148,10 +151,10 @@ class sdk_main extends AbstractForm
     {  
         $this->f_Background->hide();
          
-        $this->SdkStatus();
+        $this->SDKStatus();
         $this->status_label->text = $this->role_e_btn->text;
         
-        $this->ResetFragmentsVisible();
+        $this->ResetTabs();
         $this->f_RoleEditor->show();
     }    
     /**
@@ -161,10 +164,10 @@ class sdk_main extends AbstractForm
     { 
         $this->f_Background->hide();
           
-        $this->SdkStatus();
+        $this->SDKStatus();
         $this->status_label->text = $this->fail_e_btn->text;
         
-        $this->ResetFragmentsVisible();
+        $this->ResetTabs();
         $this->f_FailEditor->show();
     }   
     /**
@@ -174,10 +177,10 @@ class sdk_main extends AbstractForm
     {
         $this->f_Background->hide();
           
-        $this->SdkStatus();
+        $this->SDKStatus();
         $this->status_label->text = $this->quest_e_btn->text;
         
-        $this->ResetFragmentsVisible();
+        $this->ResetTabs();
         $this->f_QuestEditor->show();
     }
     /**

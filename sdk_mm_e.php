@@ -250,6 +250,9 @@ class sdk_mm_e extends AbstractForm
      */
     function StopPreviewFightSound(UXMouseEvent $e = null)
     {
-        Media::stop('PreviewFightSound');
+        if ($this->form('maingame')->Options->content->All_Sounds->visible)
+        {
+            Media::stop('PreviewFightSound');
+        }
     }
 }
