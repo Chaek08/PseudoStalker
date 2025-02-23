@@ -53,20 +53,26 @@ class sdk_main extends AbstractForm
     }
     function StopSDKSounds()
     {
-        if (Media::isStatus('PLAYING', 'PreviewVoiceStart')) Media::stop('PreviewVoiceStart');
-        if (Media::isStatus('PLAYING', 'PreviewVoiceTalk1')) Media::stop('PreviewVoiceTalk1');
-        if (Media::isStatus('PLAYING', 'PreviewVoiceTalk2')) Media::stop('PreviewVoiceTalk2');
-        if (Media::isStatus('PLAYING', 'PreviewVoiceTalk3')) Media::stop('PreviewVoiceTalk3');
+        if (!$this->f_DialogEditor->visible || !$this->form('maingame')->Editor->visible)
+        {
+            if (Media::isStatus('PLAYING', 'PreviewVoiceStart')) Media::stop('PreviewVoiceStart');
+            if (Media::isStatus('PLAYING', 'PreviewVoiceTalk1')) Media::stop('PreviewVoiceTalk1');
+            if (Media::isStatus('PLAYING', 'PreviewVoiceTalk2')) Media::stop('PreviewVoiceTalk2');
+            if (Media::isStatus('PLAYING', 'PreviewVoiceTalk3')) Media::stop('PreviewVoiceTalk3');
+        }
         
-        if (Media::isStatus('PLAYING', 'PreviewFightSound')) Media::stop('PreviewFightSound');  
+        if (!$this->f_MgEditor->visible || !$this->form('maingame')->Editor->visible)
+        {
+            if (Media::isStatus('PLAYING', 'PreviewFightSound')) Media::stop('PreviewFightSound');
+        }  
     }                                                                                                                             
     /**
      * @event SDK_Icon.click-left
      */
     function DefaultSDKState(UXMouseEvent $e = null)
     {         
-        $this->SDKStatus();
         $this->ResetTabs();
+        $this->SDKStatus();
     }
     function ResetTabs()
     {
@@ -77,9 +83,7 @@ class sdk_main extends AbstractForm
         if ($this->f_RoleEditor->visible) $this->f_RoleEditor->hide();
         if ($this->f_FailEditor->visible) $this->f_FailEditor->hide();
         if ($this->f_QuestEditor->visible) $this->f_QuestEditor->hide();
-        
-        $this->StopSDKSounds();
-                
+                        
         $this->f_Background->show();
     }
     /**
@@ -87,10 +91,11 @@ class sdk_main extends AbstractForm
      */
     function StartMainGame(UXMouseEvent $e = null)
     {
-        if (Media::isStatus('PAUSED', 'menu_sound')) Media::play("menu_sound");
-        
         $this->form('maingame')->Editor->hide();
         $this->DefaultSDKState();
+        
+        $this->StopSDKSounds();
+        if (Media::isStatus('PAUSED', 'menu_sound')) Media::play("menu_sound");
     }      
     /**
      * @event userdata_e_btn.click-Left 
@@ -99,11 +104,12 @@ class sdk_main extends AbstractForm
     {    
         $this->f_Background->hide();
            
-        $this->SDKStatus();
+        $this->DefaultSDKState();
         $this->status_label->text = $this->userdata_e_btn->text;
         
-        $this->ResetTabs();
         $this->f_UserDataEditor->show();
+        
+        $this->StopSDKSounds();
     }
     /**
      * @event dialog_e_btn.click-Left 
@@ -112,11 +118,12 @@ class sdk_main extends AbstractForm
     {  
         $this->f_Background->hide();
              
-        $this->SDKStatus();
+        $this->DefaultSDKState();
         $this->status_label->text = $this->dialog_e_btn->text;
             
-        $this->ResetTabs();
         $this->f_DialogEditor->show();
+        
+        $this->StopSDKSounds();        
     }
     /**
      * @event inv_e_btn.click-Left 
@@ -125,11 +132,12 @@ class sdk_main extends AbstractForm
     {      
         $this->f_Background->hide();
           
-        $this->SDKStatus();
+        $this->DefaultSDKState();
         $this->status_label->text = $this->inv_e_btn->text;  
             
-        $this->ResetTabs();
         $this->f_InvEditor->show();
+        
+        $this->StopSDKSounds();        
     }
     /**
      * @event mg_e_btn.click-Left 
@@ -138,11 +146,12 @@ class sdk_main extends AbstractForm
     {    
         $this->f_Background->hide();
          
-        $this->SDKStatus();
+        $this->DefaultSDKState();
         $this->status_label->text = $this->mg_e_btn->text; 
     
-        $this->ResetTabs();
         $this->f_MgEditor->show();
+        
+        $this->StopSDKSounds();        
     }
     /**
      * @event role_e_btn.click-Left 
@@ -151,11 +160,12 @@ class sdk_main extends AbstractForm
     {  
         $this->f_Background->hide();
          
-        $this->SDKStatus();
+        $this->DefaultSDKState();
         $this->status_label->text = $this->role_e_btn->text;
         
-        $this->ResetTabs();
         $this->f_RoleEditor->show();
+        
+        $this->StopSDKSounds();        
     }    
     /**
      * @event fail_e_btn.click-Left 
@@ -164,11 +174,12 @@ class sdk_main extends AbstractForm
     { 
         $this->f_Background->hide();
           
-        $this->SDKStatus();
+        $this->DefaultSDKState();
         $this->status_label->text = $this->fail_e_btn->text;
         
-        $this->ResetTabs();
         $this->f_FailEditor->show();
+        
+        $this->StopSDKSounds();        
     }   
     /**
      * @event quest_e_btn.click-Left 
@@ -177,11 +188,12 @@ class sdk_main extends AbstractForm
     {
         $this->f_Background->hide();
           
-        $this->SDKStatus();
+        $this->DefaultSDKState();
         $this->status_label->text = $this->quest_e_btn->text;
         
-        $this->ResetTabs();
         $this->f_QuestEditor->show();
+        
+        $this->StopSDKSounds();        
     }
     /**
      * @event Apply_All_Btn.click-Left 
