@@ -16,31 +16,36 @@ class mainmenu extends AbstractForm
         Media::open('res://.data/audio/menu/menu_sound.mp3', false, "menu_sound");
         Media::play("menu_sound");
     }
-    function ContinueGameMenu()
-    {             
-        $this->btn_start_game->image = new UXImage('res://.data/ui/mainmenu/btn_default/btn4.png');   
-        $this->btn_start_game->hoverImage = new UXImage('res://.data/ui/mainmenu/btn_cursor/btn4.png'); 
-        $this->btn_start_game->clickImage = new UXImage('res://.data/ui/mainmenu/btn_clicked/btn4.png');
+    /**
+     * @event opensdk_btn.click-Left 
+     */
+    function OpenSdkBtn(UXMouseEvent $e = null)
+    {    
+        if ($this->form('maingame')->MainMenu->visible) Media::pause("menu_sound");
         
-        $this->btn_opt->y = 496;
-        $this->btn_exit_windows->y = 568;
-        $this->btn_end_game->show();
-    }
-    function NewGameMenu() //New Game
-    {
-        $this->btn_start_game->image = new UXImage('res://.data/ui/mainmenu/btn_default/btn1.png');   
-        $this->btn_start_game->hoverImage = new UXImage('res://.data/ui/mainmenu/btn_cursor/btn1.png'); 
-        $this->btn_start_game->clickImage = new UXImage('res://.data/ui/mainmenu/btn_clicked/btn1.png');
-        
-        $this->btn_opt->y = 424;
-        $this->btn_exit_windows->y = 496;
-        $this->btn_end_game->hide();
+        $this->form('maingame')->Editor->show();
     }
     /**
-     * @event btn_start_game.click-Left 
+     * @event Btn_Start_Game.mouseExit 
      */
-    function NewGameBtn(UXMouseEvent $e = null)
-    {      
+    function BtnStartGame_MouseExit(UXMouseEvent $e = null)
+    {
+        $this->Btn_Start_Game->textColor = '#ffffff';
+    }
+    /**
+     * @event Btn_Start_Game.mouseEnter 
+     */
+    function BtnStartGame_MouseEnter(UXMouseEvent $e = null)
+    {
+        $this->Btn_Start_Game->textColor = '#b3b3b3';
+    }
+    /**
+     * @event Btn_Start_Game.mouseDown-Left 
+     */
+    function BtnStartGame_MouseDownLeft(UXMouseEvent $e = null)
+    {
+        $this->Btn_Start_Game->textColor = '#808080';
+    
         $this->form('maingame')->MainMenu->hide();
         
         $this->ContinueGameMenu(); //Continue Game Status Activate
@@ -54,37 +59,124 @@ class mainmenu extends AbstractForm
             {
                  Media::play('fight_sound');
             }
-        }
+        }            
     }
-    /**
-     * @event btn_exit_windows.click-Left 
-     */
-    function ExitWindowsBtn(UXMouseEvent $e = null)
-    {    
-        $this->form('maingame')->ExitDialog->show();
-    }
-    /**
-     * @event btn_opt.click-Left 
-     */
-    function OptBtn(UXMouseEvent $e = null)
-    {        
-        $this->form('maingame')->MainMenu->hide();
-        $this->form('maingame')->Options->show();    
-    }
-    /**
-     * @event btn_end_game.click-Left 
-     */
-    function EndGameBtn(UXMouseEvent $e = null)
+    function ContinueGameMenu()
     {
+        $this->Btn_Start_Game->text = "Продолжить игру";
+        
+        $this->Btn_Opt->y = 496;
+        $this->Btn_Exit_Windows->y = 568;
+        $this->Btn_End_Game->show();
+    }
+    function NewGameMenu()
+    {
+        $this->Btn_Start_Game->text = "Новая игра";
+        
+        $this->Btn_Opt->y = 424;
+        $this->Btn_Exit_Windows->y = 496;
+        $this->Btn_End_Game->hide();
+    }    
+    /**
+     * @event Btn_Start_Game.mouseUp-Left 
+     */
+    function BtnStartGame_MouseUpLeft(UXMouseEvent $e = null)
+    {
+        $this->BtnStartGame_MouseExit();
+        $this->BtnStartGame_MouseEnter();
+    }
+    /**
+     * @event Btn_End_Game.mouseExit 
+     */
+    function BtnEndGame_MouseExit(UXMouseEvent $e = null)
+    {
+        $this->Btn_End_Game->textColor = '#ffffff';
+    }
+    /**
+     * @event Btn_End_Game.mouseEnter 
+     */
+    function BtnEndGame_MouseEnter(UXMouseEvent $e = null)
+    {
+        $this->Btn_End_Game->textColor = '#b3b3b3';
+    }
+    /**
+     * @event Btn_End_Game.mouseDown-Left 
+     */
+    function BtnEndGame_MouseDownLeft(UXMouseEvent $e = null)
+    {
+        $this->Btn_End_Game->textColor = '#808080';
+        
         $this->form('maingame')->ResetGameClient();
     }
     /**
-     * @event opensdk_btn.click-Left 
+     * @event Btn_End_Game.mouseUp-Left 
      */
-    function OpenSdkBtn(UXMouseEvent $e = null)
-    {    
-        if ($this->form('maingame')->MainMenu->visible) Media::pause("menu_sound");
+    function BtnEndGame_MouseUpLeft(UXMouseEvent $e = null)
+    {
+        $this->BtnEndGame_MouseExit();
+        $this->BtnEndGame_MouseEnter();
+    }
+    /**
+     * @event Btn_Exit_Windows.mouseExit 
+     */
+    function BtnExitWindows_MouseExit(UXMouseEvent $e = null)
+    {
+        $this->Btn_Exit_Windows->textColor = '#ffffff';
+    }
+    /**
+     * @event Btn_Exit_Windows.mouseEnter 
+     */
+    function BtnExitWindows_MouseEnter(UXMouseEvent $e = null)
+    {
+        $this->Btn_Exit_Windows->textColor = '#b3b3b3';
+    }
+    /**
+     * @event Btn_Exit_Windows.mouseDown-Left 
+     */
+    function BtnExitWindows_MouseDownLeft(UXMouseEvent $e = null)
+    {
+        $this->Btn_Exit_Windows->textColor = '#808080';
         
-        $this->form('maingame')->Editor->show();
+        $this->form('maingame')->ExitDialog->show();
+    }
+    /**
+     * @event Btn_Exit_Windows.mouseUp-Left 
+     */
+    function BtnExitWindowsMouseUpLeft(UXMouseEvent $e = null)
+    {
+        $this->BtnExitWindows_MouseExit();
+        $this->BtnExitWindows_MouseEnter();
+    }
+    /**
+     * @event Btn_Opt.mouseExit 
+     */
+    function BtnOpt_MouseExit(UXMouseEvent $e = null)
+    {
+        $this->Btn_Opt->textColor = '#ffffff';
+    }
+    /**
+     * @event Btn_Opt.mouseEnter 
+     */
+    function BtnOpt_MouseEnter(UXMouseEvent $e = null)
+    {
+        $this->Btn_Opt->textColor = '#b3b3b3';
+    }
+    /**
+     * @event Btn_Opt.mouseDown-Left 
+     */
+    function BtnOpt_MouseDownLeft(UXMouseEvent $e = null)
+    {
+        $this->Btn_Opt->textColor = '#808080';
+        
+        $this->form('maingame')->MainMenu->hide();
+        $this->form('maingame')->Options->show();
+    }
+    /**
+     * @event Btn_Opt.mouseUp-Left 
+     */
+    function BtnOpt_MouseUpLeft(UXMouseEvent $e = null)
+    {
+        $this->BtnOpt_MouseExit();
+        $this->BtnOpt_MouseEnter();
     }
 }

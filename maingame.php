@@ -13,7 +13,7 @@ class maingame extends AbstractForm
      * @event show 
      */
     function InitClient(UXWindowEvent $e = null)
-    {    
+    {
         $this->GetVersion();
         $this->OpenMainAmbient();
         

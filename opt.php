@@ -81,10 +81,10 @@ class opt extends AbstractForm
         $this->form('maingame')->Fail->content->exitbtn->dropShadowEffect->disable(); 
         $this->form('maingame')->Fail->content->returnbtn->dropShadowEffect->disable(); 
         //mainmenu + opt                
-        $this->form('maingame')->MainMenu->content->btn_exit_windows->dropShadowEffect->disable();    
-        $this->form('maingame')->MainMenu->content->btn_start_game->dropShadowEffect->disable();
-        $this->form('maingame')->MainMenu->content->btn_end_game->dropShadowEffect->disable();          
-        $this->form('maingame')->MainMenu->content->btn_opt->dropShadowEffect->disable();  
+        $this->form('maingame')->MainMenu->content->Btn_Exit_Windows->dropShadowEffect->disable();    
+        $this->form('maingame')->MainMenu->content->Btn_Start_Game->dropShadowEffect->disable();
+        $this->form('maingame')->MainMenu->content->Btn_End_Game->dropShadowEffect->disable();          
+        $this->form('maingame')->MainMenu->content->Btn_Opt->dropShadowEffect->disable();  
         $this->form('maingame')->MainMenu->content->logo->dropShadowEffect->disable();
         $this->form('maingame')->Options->content->allsound_label->dropShadowEffect->disable();
         $this->form('maingame')->Options->content->allsound_off->dropShadowEffect->disable();   
@@ -151,10 +151,10 @@ class opt extends AbstractForm
         $this->form('maingame')->Fail->content->exitbtn->dropShadowEffect->enable(); 
         $this->form('maingame')->Fail->content->returnbtn->dropShadowEffect->enable(); 
         //mainmenu + opt                
-        $this->form('maingame')->MainMenu->content->btn_exit_windows->dropShadowEffect->enable();    
-        $this->form('maingame')->MainMenu->content->btn_start_game->dropShadowEffect->enable();
-        $this->form('maingame')->MainMenu->content->btn_end_game->dropShadowEffect->enable();
-        $this->form('maingame')->MainMenu->content->btn_opt->dropShadowEffect->enable();  
+        $this->form('maingame')->MainMenu->content->Btn_Exit_Windows->dropShadowEffect->enable();    
+        $this->form('maingame')->MainMenu->content->Btn_Start_Game->dropShadowEffect->enable();
+        $this->form('maingame')->MainMenu->content->Btn_End_Game->dropShadowEffect->enable();
+        $this->form('maingame')->MainMenu->content->Btn_Opt->dropShadowEffect->enable();  
         $this->form('maingame')->MainMenu->content->logo->dropShadowEffect->enable();
         $this->form('maingame')->Options->content->allsound_label->dropShadowEffect->enable();
         $this->form('maingame')->Options->content->allsound_off->dropShadowEffect->enable();   

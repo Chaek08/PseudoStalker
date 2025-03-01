@@ -12,31 +12,7 @@
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-logo" image=".data/ui/mainmenu/logo_alt.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="btn_start_game" layoutX="144" layoutY="352" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="257">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data clickImage=".data/ui/mainmenu/btn_clicked/btn1.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/btn_cursor/btn1.png" id="data-btn_start_game" image=".data/ui/mainmenu/btn_default/btn1.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="btn_opt" layoutX="144" layoutY="424" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="257">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data clickImage=".data/ui/mainmenu/btn_clicked/btn2.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/btn_cursor/btn2.png" id="data-btn_opt" image=".data/ui/mainmenu/btn_default/btn2.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="btn_exit_windows" layoutX="144" layoutY="496" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="257">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data clickImage=".data/ui/mainmenu/btn_clicked/btn3.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/btn_cursor/btn3.png" id="data-btn_exit_windows" image=".data/ui/mainmenu/btn_default/btn3.png" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-background" image=".data/ui/mainmenu/background_1_2.png" visible="1"/>
-    <Data clickImage=".data/ui/mainmenu/btn_clicked/btn5.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/btn_cursor/btn5.png" id="data-btn_end_game" image=".data/ui/mainmenu/btn_default/btn5.png" visible=""/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="btn_end_game" layoutX="144" layoutY="424" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="257">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="version" layoutX="8" layoutY="856" prefHeight="48" prefWidth="128" styleClass="label " text="PseudoStalker" textAlignment="LEFT" textFill="#e6e6e6" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
@@ -55,5 +31,29 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/mainmenu/sdk_btn.png" id="data-opensdk_btn" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Btn_Start_Game" layoutX="144" layoutY="352" prefHeight="74" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Новая игра" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="true">
+      <font>
+        <Font name="System Regular" size="35"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Btn_Start_Game" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Btn_End_Game" layoutX="144" layoutY="424" prefHeight="74" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Завершить игру" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+      <font>
+        <Font name="System Regular" size="35"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Btn_End_Game" visible=""/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Btn_Exit_Windows" layoutX="144" layoutY="496" prefHeight="74" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Выйти в Windows" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="true">
+      <font>
+        <Font name="System Regular" size="35"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Btn_Exit_Windows" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Btn_Opt" layoutX="144" layoutY="424" prefHeight="74" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Опции" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="true">
+      <font>
+        <Font name="System Regular" size="35"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Btn_Opt" visible="1"/>
   </children>
 </AnchorPane>
