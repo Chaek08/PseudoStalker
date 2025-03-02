@@ -100,7 +100,7 @@ class maingame extends AbstractForm
     {    
         if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
-            if (!$this->form('maingame')->Options->content->mute_fight_sound->visible)
+            if (!$this->form('maingame')->Options->content->MuteFightSound->visible)
             {
                 if ($this->form('maingame')->SDK_Mode->visible)
                 {
@@ -189,7 +189,7 @@ class maingame extends AbstractForm
     function ShowMenu()
     {
         $this->MainMenu->show();
-        if ($this->Options->content->All_Sounds->visible || $this->Options->content->mute_menu_sound->visible)
+        if ($this->Options->content->All_Sounds->visible || $this->Options->content->MuteMenuSound->visible)
         {
              Media::pause("fight_sound"); 
         }

@@ -193,7 +193,7 @@ class opt extends AbstractForm
             $this->MenuSound_Switcher_Btn->textColor = '#880911';
             
             Media::stop('menu_sound');
-            $this->mute_menu_sound->show();
+            $this->MuteMenuSound->show();
             
             return;
         }
@@ -204,7 +204,7 @@ class opt extends AbstractForm
             $this->MenuSound_Switcher_Btn->textColor = '#099209';
             
             Media::play('menu_sound');
-            $this->mute_menu_sound->hide();
+            $this->MuteMenuSound->hide();
             
             return;
         }
@@ -259,7 +259,7 @@ class opt extends AbstractForm
             
             $this->FightSound_Switcher_Btn->textColor = '#880911';
             
-            $this->mute_fight_sound->show();
+            $this->MuteFightSound->show();
         
             $this->form('maingame')->ReplayBtn->enabled = false;
             $this->form('maingame')->ReplayBtn->opacity = 0;
@@ -272,7 +272,7 @@ class opt extends AbstractForm
             
             $this->FightSound_Switcher_Btn->textColor = '#099209';
             
-            $this->mute_fight_sound->hide();
+            $this->MuteFightSound->hide();
         
             $this->form('maingame')->ReplayBtn->enabled = true;
             $this->form('maingame')->ReplayBtn->opacity = 100;            

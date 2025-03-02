@@ -55,7 +55,7 @@ class mainmenu extends AbstractForm
         
         if ($this->form('maingame')->fight_image->visible)
         {
-            if ($this->form('maingame')->Options->content->All_Sounds->visible && !$this->form('maingame')->Options->content->mute_fight_sound->visible)
+            if ($this->form('maingame')->Options->content->All_Sounds->visible && !$this->form('maingame')->Options->content->MuteFightSound->visible)
             {
                  Media::play('fight_sound');
             }
