@@ -83,7 +83,6 @@ class mainmenu extends AbstractForm
     function BtnStartGame_MouseUpLeft(UXMouseEvent $e = null)
     {
         $this->BtnStartGame_MouseExit();
-        $this->BtnStartGame_MouseEnter();
     }
     /**
      * @event Btn_End_Game.mouseExit 
@@ -114,7 +113,6 @@ class mainmenu extends AbstractForm
     function BtnEndGame_MouseUpLeft(UXMouseEvent $e = null)
     {
         $this->BtnEndGame_MouseExit();
-        $this->BtnEndGame_MouseEnter();
     }
     /**
      * @event Btn_Exit_Windows.mouseExit 
@@ -145,7 +143,6 @@ class mainmenu extends AbstractForm
     function BtnExitWindowsMouseUpLeft(UXMouseEvent $e = null)
     {
         $this->BtnExitWindows_MouseExit();
-        $this->BtnExitWindows_MouseEnter();
     }
     /**
      * @event Btn_Opt.mouseExit 
@@ -177,6 +174,5 @@ class mainmenu extends AbstractForm
     function BtnOpt_MouseUpLeft(UXMouseEvent $e = null)
     {
         $this->BtnOpt_MouseExit();
-        $this->BtnOpt_MouseEnter();
     }
 }

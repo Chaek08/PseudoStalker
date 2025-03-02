@@ -19,107 +19,77 @@
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-All_Sounds" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-background" image=".data/ui/mainmenu/background_1_2.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="allsound_label" layoutX="112" layoutY="296" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="257">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-allsound_label" image=".data/ui/mainmenu/opt/allsound_label.png" tooltipText="" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="menusound_label" layoutX="112" layoutY="368" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="257">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-menusound_label" image=".data/ui/mainmenu/opt/menusound_label.png" tooltipText="" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" id="data-shadows_label" image=".data/ui/mainmenu/opt/shadows_label.png" tooltipText="Отключает/Включает все тени в игре (даже в UI)." visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" id="data-version_label" image=".data/ui/mainmenu/opt/version_label.png" tooltipText="Отключает/Включает отображаемую версию игры в левом нижнем углу экрана." visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="allsound_off" layoutX="408" layoutY="296" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="163">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data clickImage=".data/ui/mainmenu/opt/btn_off_clicked.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/opt/btn_off_cursor.png" id="data-allsound_off" image=".data/ui/mainmenu/opt/btn_off.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="allsound_on" layoutX="568" layoutY="296" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="131">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data clickImage=".data/ui/mainmenu/opt/btn_on_clicked.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/opt/btn_on_cursor.png" id="data-allsound_on" image=".data/ui/mainmenu/opt/btn_on.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="menusound_off" layoutX="408" layoutY="368" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="163">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data clickImage=".data/ui/mainmenu/opt/btn_off_clicked.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/opt/btn_off_cursor.png" id="data-menusound_off" image=".data/ui/mainmenu/opt/btn_off.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="menusound_on" layoutX="568" layoutY="368" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="131">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data clickImage=".data/ui/mainmenu/opt/btn_on_clicked.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/opt/btn_on_cursor.png" id="data-menusound_on" image=".data/ui/mainmenu/opt/btn_on.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="shadows_off" layoutX="408" layoutY="512" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="163">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data clickImage=".data/ui/mainmenu/opt/btn_off_clicked.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/opt/btn_off_cursor.png" id="data-shadows_off" image=".data/ui/mainmenu/opt/btn_off.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="shadows_on" layoutX="568" layoutY="512" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="131">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data clickImage=".data/ui/mainmenu/opt/btn_on_clicked.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/opt/btn_on_cursor.png" id="data-shadows_on" image=".data/ui/mainmenu/opt/btn_on.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="version_off" layoutX="408" layoutY="584" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="163">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data clickImage=".data/ui/mainmenu/opt/btn_off_clicked.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/opt/btn_off_cursor.png" id="data-version_off" image=".data/ui/mainmenu/opt/btn_off.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="version_on" layoutX="568" layoutY="584" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="131">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data clickImage=".data/ui/mainmenu/opt/btn_on_clicked.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/opt/btn_on_cursor.png" id="data-version_on" image=".data/ui/mainmenu/opt/btn_on.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="return_btn" layoutX="16" layoutY="40" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="257">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data clickImage=".data/ui/mainmenu/opt/return_btn_clicked.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/opt/return_btn_cursor.png" id="data-return_btn" image=".data/ui/mainmenu/opt/return_btn.png" visible="1"/>
     <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="0" id="mute_fight_sound" layoutX="0" layoutY="0" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="0">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-mute_fight_sound" visible=""/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="fightsound_label" layoutX="112" layoutY="440" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="257">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="AllSound_Label" layoutX="112" layoutY="296" prefHeight="74" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Общий звук" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="12"/>
+        <Font name="System Regular" size="50"/>
       </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-fightsound_label" image=".data/ui/mainmenu/opt/fightsound_label.png" tooltipText="Отключает/Включает все тени в игре (даже в UI)." visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="shadows_label" layoutX="112" layoutY="512" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="257">
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-AllSound_Label" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="MenuSound_Label" layoutX="112" layoutY="376" prefHeight="74" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Звук в меню" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="12"/>
+        <Font name="System Regular" size="50"/>
       </font>
-    </ImageViewEx>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="version_label" layoutX="112" layoutY="584" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="257">
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-MenuSound_Label" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="FightSound_Label" layoutX="112" layoutY="456" prefHeight="74" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Звук боя" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="12"/>
+        <Font name="System Regular" size="50"/>
       </font>
-    </ImageViewEx>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="fightsound_off" layoutX="408" layoutY="440" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="163">
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-FightSound_Label" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Shadows_Label" layoutX="112" layoutY="536" prefHeight="74" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Тени" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="12"/>
+        <Font name="System Regular" size="50"/>
       </font>
-    </ImageViewEx>
-    <Data clickImage=".data/ui/mainmenu/opt/btn_off_clicked.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/opt/btn_off_cursor.png" id="data-fightsound_off" image=".data/ui/mainmenu/opt/btn_off.png" visible="1"/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="74" id="fightsound_on" layoutX="568" layoutY="440" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="131">
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Shadows_Label" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Version_Label" layoutX="112" layoutY="616" prefHeight="74" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Версия игры" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="12"/>
+        <Font name="System Regular" size="50"/>
       </font>
-    </ImageViewEx>
-    <Data clickImage=".data/ui/mainmenu/opt/btn_on_clicked.png" cursor="DEFAULT" enabled="1" hoverImage=".data/ui/mainmenu/opt/btn_on_cursor.png" id="data-fightsound_on" image=".data/ui/mainmenu/opt/btn_on.png" visible="1"/>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Version_Label" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Return_Btn" layoutX="16" layoutY="40" prefHeight="74" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Назад" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="50"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Return_Btn" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="AllSound_Switcher_Btn" layoutX="408" layoutY="296" prefHeight="74" prefWidth="163" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="50"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-AllSound_Switcher_Btn" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="MenuSound_Switcher_Btn" layoutX="408" layoutY="376" prefHeight="74" prefWidth="163" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="50"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-MenuSound_Switcher_Btn" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="FightSound_Switcher_Btn" layoutX="408" layoutY="456" prefHeight="74" prefWidth="163" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="50"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-FightSound_Switcher_Btn" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Shadows_Switcher_Btn" layoutX="408" layoutY="536" prefHeight="74" prefWidth="163" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="50"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Shadows_Switcher_Btn" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Version_Switcher_Btn" layoutX="408" layoutY="616" prefHeight="74" prefWidth="163" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="50"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Version_Switcher_Btn" visible="1"/>
   </children>
 </AnchorPane>

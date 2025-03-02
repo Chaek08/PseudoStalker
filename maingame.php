@@ -174,12 +174,12 @@ class maingame extends AbstractForm
             return;
         }
              
-        if ($this->MainMenu->visible) { $this->MainMenu->content->NewGameBtn(); return; }
+        if ($this->MainMenu->visible) { $this->MainMenu->content->BtnStartGame_MouseDownLeft(); return; }
         if ($this->Inventory->visible) { $this->HideInventory(); return; }
         if ($this->Dialog->visible) { $this->HideDialog(); Media::stop('voice_talk3'); return; }
         if ($this->Pda->visible) { $this->HidePda(); return; }
         if ($this->ExitDialog->visible) { $this->ExitDialog->hide(); return; }
-        if ($this->Options->visible) {$this->Options->content->BackBtn(); return;}
+        if ($this->Options->visible) {$this->Options->content->ReturnBtn_MouseDownLeft(); return;}
         
         $this->ShowMenu();
         $this->PauseMainAmbient();
@@ -187,17 +187,14 @@ class maingame extends AbstractForm
     function ShowMenu()
     {
         $this->MainMenu->show();
-        if ($this->Options->content->All_Sounds->visible)
+        if ($this->Options->content->All_Sounds->visible || $this->Options->content->mute_menu_sound->visible)
         {
-            if ($this->Options->content->mute_menu_sound->visible)
-            {
-                 Media::pause("fight_sound"); 
-            }
-            else 
-            {
-                 Media::play("menu_sound");
-                 Media::pause("fight_sound");        
-            }  
+             Media::pause("fight_sound"); 
+        }
+        else 
+        {
+             Media::play("menu_sound");
+             Media::pause("fight_sound");
         }
     }
     /**
