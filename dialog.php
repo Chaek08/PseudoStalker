@@ -18,6 +18,10 @@ class dialog extends AbstractForm
         {   
             Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
         }
+        else if ($this->form('maingame')->SDK_Mode->visible)
+        {
+            return;
+        }
         else
         {
             Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start");

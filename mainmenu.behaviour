@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <behaviours>
-  <target id="btn_start_game">
-    <behaviour color="#333333" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
-  </target>
-  <target id="btn_opt">
-    <behaviour color="#333333" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
-  </target>
-  <target id="btn_exit_windows">
-    <behaviour color="#333333" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
-  </target>
   <target id="logo">
     <behaviour color="#333333" offsetX="0" offsetY="0" radius="28.536585365854" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="btn_end_game">
-    <behaviour color="#333333" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  <target id="Btn_Start_Game">
+    <behaviour color="#333333" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Btn_Opt">
+    <behaviour color="#333333" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Btn_Exit_Windows">
+    <behaviour color="#333333" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Btn_End_Game">
+    <behaviour color="#333333" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
 </behaviours>

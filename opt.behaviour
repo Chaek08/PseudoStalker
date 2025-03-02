@@ -1,51 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <behaviours>
-  <target id="return_btn">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  <target id="Return_Btn">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="allsound_label">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  <target id="AllSound_Label">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="menusound_label">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  <target id="MenuSound_Label">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="shadows_label">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  <target id="FightSound_Label">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="version_label">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  <target id="Shadows_Label">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="allsound_off">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  <target id="Version_Label">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="allsound_on">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  <target id="AllSound_Switcher_Btn">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="menusound_off">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  <target id="MenuSound_Switcher_Btn">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="menusound_on">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  <target id="FightSound_Switcher_Btn">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="shadows_off">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  <target id="Shadows_Switcher_Btn">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="shadows_on">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
-  </target>
-  <target id="version_off">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
-  </target>
-  <target id="version_on">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
-  </target>
-  <target id="fightsound_label">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
-  </target>
-  <target id="fightsound_off">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
-  </target>
-  <target id="fightsound_on">
-    <behaviour color="#1a1a1ad9" offsetX="0" offsetY="0" radius="20.243902439024" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  <target id="Version_Switcher_Btn">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
 </behaviours>
