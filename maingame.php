@@ -22,7 +22,7 @@ class maingame extends AbstractForm
             $this->MainMenu->content->opensdk_btn->show();
             $this->Editor->content->GetSDKVersion();
             
-            if ($this->debug_build->visible) $this->Editor->dragging->enabled = true;   
+            if ($this->debug_build->visible) $this->Editor->dragging->enabled = true;
         }
         else
         {
@@ -488,7 +488,6 @@ class maingame extends AbstractForm
     {
         $this->ReplayBtn->hide();
         $this->fight_image->hide();
-        $this->Fail->content->InitFailWnd();  
         $this->Fail->show();
         $this->item_vodka_0000->enabled = false;
         
