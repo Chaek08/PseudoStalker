@@ -34,12 +34,12 @@ class maingame extends AbstractForm
     {
         if ($this->SDK_Mode->visible)
         {
-            Element::setText($this->version_detail, "Editor Build 593, August 8 2024");
+            Element::setText($this->version_detail, "Editor Build 799, Mar 2 2025");
             Element::setText($this->MainMenu->content->version_detail, "v1.2 + SDK");
         }
         else
         {
-            Element::setText($this->version_detail, "Build 593, August 8 2024"); //start date 24.12.2022
+            Element::setText($this->version_detail, "Build 799, Mar 2 2025"); //start date 24.12.2022
             Element::setText($this->MainMenu->content->version_detail, "v1.2");
         }
         if ($this->debug_build->visible)

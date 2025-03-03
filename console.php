@@ -45,37 +45,43 @@ class console extends AbstractForm
             case "r_version off":
             $this->edit->text = "";   
             Element::appendText($this->console_list, "> r_version off\n");
-            $this->form('maingame')->Options->content->WatermarkOff();
+            if ($this->form('maingame')->Options->content->Version_Switcher_Btn->text == 'Вкл') {
+            $this->form('maingame')->Options->content->VersionSwitcher_MouseDownLeft();}
             break;
         
             case "r_version on":
             $this->edit->text = "";   
-            Element::appendText($this->console_list, "> r_version on\n");                                
-            $this->form('maingame')->Options->content->WatermarkOn();
+            Element::appendText($this->console_list, "> r_version on\n");
+            if ($this->form('maingame')->Options->content->Version_Switcher_Btn->text == 'Выкл') {
+            $this->form('maingame')->Options->content->VersionSwitcher_MouseDownLeft();}
             break;  
             
             case "r_shadows on":
             $this->edit->text = "";   
             Element::appendText($this->console_list, "> r_shadows on\n");                                
-            $this->form('maingame')->Options->content->ShadowOptOn();
+            if ($this->form('maingame')->Options->content->Shadows_Switcher_Btn->text == 'Выкл') {
+            $this->form('maingame')->Options->content->ShadowsSwitcher_MouseDownLeft();}
             break;    
             
             case "r_shadows off":
             $this->edit->text = "";   
             Element::appendText($this->console_list, "> r_shadows off\n");                                
-            $this->form('maingame')->Options->content->ShadowOptOff();
+            if ($this->form('maingame')->Options->content->Shadows_Switcher_Btn->text == 'Вкл') {
+            $this->form('maingame')->Options->content->ShadowsSwitcher_MouseDownLeft();}
             break;   
             
             case "snd_all off":
             $this->edit->text = "";   
             Element::appendText($this->console_list, "> snd_all off\n");                                
-            $this->form('maingame')->Options->content->AllSoundOff();
+            if ($this->form('maingame')->Options->content->AllSound_Switcher_Btn->text == 'Вкл') {
+            $this->form('maingame')->Options->content->AllSoundSwitcher_MouseDownLeft();}
             break;    
             
             case "snd_all on":
             $this->edit->text = "";   
-            Element::appendText($this->console_list, "> snd_all on\n");                                
-            $this->form('maingame')->Options->content->AllSoundOn();
+            Element::appendText($this->console_list, "> snd_all on\n");                           
+            if ($this->form('maingame')->Options->content->AllSound_Switcher_Btn->text == 'Выкл') {
+            $this->form('maingame')->Options->content->AllSoundSwitcher_MouseDownLeft();}
             break;                                           
             
             case "reset_game_client":

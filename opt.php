@@ -75,7 +75,8 @@ class opt extends AbstractForm
         {
             $this->AllSound_Switcher_Btn->text = 'Выкл';
             
-            $this->AllSound_Switcher_Btn->textColor = '#880911';
+            if ($this->form('maingame')->Console->focused == false || !$this->form('maingame')->Console->visible) {
+            $this->AllSound_Switcher_Btn->textColor = '#880911';} //костыль ебучий
             
             $this->All_Sounds->hide();
         
@@ -113,7 +114,8 @@ class opt extends AbstractForm
         {
             $this->AllSound_Switcher_Btn->text = 'Вкл';
             
-            $this->AllSound_Switcher_Btn->textColor = '#099209';
+            if ($this->form('maingame')->Console->focused == false || !$this->form('maingame')->Console->visible) {            
+            $this->AllSound_Switcher_Btn->textColor = '#099209';} //костыль ебучий
         
             $this->All_Sounds->show();
         
@@ -325,7 +327,8 @@ class opt extends AbstractForm
         {
             $this->Shadows_Switcher_Btn->text = 'Выкл';
             
-            $this->Shadows_Switcher_Btn->textColor = '#880911';
+            if ($this->form('maingame')->Console->focused == false || !$this->form('maingame')->Console->visible) {
+            $this->Shadows_Switcher_Btn->textColor = '#880911';} //костыль ебучий
             
             //maingame
             $this->form('maingame')->item_vodka_0000->dropShadowEffect->disable();   
@@ -394,7 +397,8 @@ class opt extends AbstractForm
         {
             $this->Shadows_Switcher_Btn->text = 'Вкл';
             
-            $this->Shadows_Switcher_Btn->textColor = '#099209';
+            if ($this->form('maingame')->Console->focused == false || !$this->form('maingame')->Console->visible) {            
+            $this->Shadows_Switcher_Btn->textColor = '#099209';} //костыль ебучий
             
             //maingame
             $this->form('maingame')->item_vodka_0000->dropShadowEffect->enable();
@@ -505,7 +509,8 @@ class opt extends AbstractForm
         {
             $this->Version_Switcher_Btn->text = 'Выкл';
             
-            $this->Version_Switcher_Btn->textColor = '#880911';
+            if ($this->form('maingame')->Console->focused == false || !$this->form('maingame')->Console->visible) {            
+            $this->Version_Switcher_Btn->textColor = '#880911';} //костыль ебучий
             
             if ($this->form('maingame')->debug_build->visible)
             {
@@ -524,7 +529,8 @@ class opt extends AbstractForm
         {
             $this->Version_Switcher_Btn->text = 'Вкл';
             
-            $this->Version_Switcher_Btn->textColor = '#099209';
+            if ($this->form('maingame')->Console->focused == false || !$this->form('maingame')->Console->visible) {            
+            $this->Version_Switcher_Btn->textColor = '#099209';} //костыль ебучий
             
             if ($this->form('maingame')->debug_build->visible)
             {
