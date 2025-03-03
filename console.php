@@ -22,6 +22,8 @@ class console extends AbstractForm
      */
     function EnterCommands(UXKeyEvent $e = null)
     {    
+        $this->requestFocus();
+    
         $command = $this->edit->text;
         switch($command) 
         {

@@ -13,7 +13,7 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-edit_background" visible="1"/>
-    <com.jfoenix.controls.JFXTextField alignment="CENTER_LEFT" editable="true" focusColor="#4059a900" focusTraversable="false" id="edit" layoutX="8" layoutY="424" opacity="0.79746835443038" prefColumnCount="12" prefHeight="32" prefWidth="552" promptText="" text="" unFocusColor="#4059a900">
+    <com.jfoenix.controls.JFXTextField alignment="CENTER_LEFT" editable="true" focusColor="#4059a900" focusTraversable="true" id="edit" layoutX="8" layoutY="424" opacity="0.79746835443038" prefColumnCount="12" prefHeight="32" prefWidth="552" promptText="" text="" unFocusColor="#4059a900">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
