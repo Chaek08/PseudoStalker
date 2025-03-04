@@ -144,19 +144,19 @@
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_VoiceStart" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk1" layoutX="288" layoutY="488" prefColumnCount="12" prefHeight="41" prefWidth="344" promptText="res://.data/audio/voice/voice_talk1.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk1.mp3">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk1" layoutX="288" layoutY="488" prefColumnCount="12" prefHeight="41" prefWidth="304" promptText="res://.data/audio/voice/voice_talk1.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk1.mp3">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_VoiceTalk1" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk2" layoutX="288" layoutY="536" prefColumnCount="12" prefHeight="41" prefWidth="344" promptText="res://.data/audio/voice/voice_talk2.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk2.mp3">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk2" layoutX="288" layoutY="536" prefColumnCount="12" prefHeight="41" prefWidth="304" promptText="res://.data/audio/voice/voice_talk2.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk2.mp3">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_VoiceTalk2" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk3" layoutX="288" layoutY="584" prefColumnCount="12" prefHeight="41" prefWidth="344" promptText="res://.data/audio/voice/voice_talk3.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk3.mp3">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk3" layoutX="288" layoutY="584" prefColumnCount="12" prefHeight="41" prefWidth="304" promptText="res://.data/audio/voice/voice_talk3.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk3.mp3">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -317,5 +317,29 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/question_icon_24.png" id="data-label12" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseVoiceStart_Btn" layoutX="592" layoutY="440" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseVoiceStart_Btn" tooltipText="Choose sound" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseVoiceTalk1_Btn" layoutX="592" layoutY="488" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseVoiceTalk1_Btn" tooltipText="Choose sound" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseVoiceTalk2_Btn" layoutX="592" layoutY="536" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseVoiceTalk2_Btn" tooltipText="Choose sound" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseVoiceTalk3_Btn" layoutX="592" layoutY="584" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseVoiceTalk3_Btn" tooltipText="Choose sound" visible="1"/>
   </children>
 </AnchorPane>

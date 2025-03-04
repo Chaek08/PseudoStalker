@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <root>
-  <class name="sdk_mm_e"/>
+  <class name="sdk_mm_e">
+    <method name="doChooseSound_BtnClickL">
+      <callScript async="1" async-type="" script="" script-type="object" wait="1" wait-type="flag"/>
+    </method>
+  </class>
 </root>

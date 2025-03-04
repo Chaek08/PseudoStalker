@@ -255,4 +255,17 @@ class sdk_mm_e extends AbstractForm
             Media::stop('PreviewFightSound');
         }
     }
+    /**
+     * @event ChooseFightSound_Btn.click-Left 
+     */
+    function ChooseFightSound(UXMouseEvent $e = null)
+    { 
+        $this->FileChooser->inputNode = $this->Edit_FightSound;
+        if ($this->FileChooser->execute())
+        {
+            $this->Edit_FightSound->text = $this->FileChooser->file;
+            
+            $this->StopPreviewFightSound();
+        }
+    }
 }

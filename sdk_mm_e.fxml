@@ -196,7 +196,7 @@
       </styleClass>
     </com.jfoenix.controls.JFXColorPicker>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_HealthBarColor_Enemy" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_FightSound" layoutX="352" layoutY="600" prefColumnCount="12" prefHeight="41" prefWidth="320" promptText="res://.data/audio/fight/fight_baza.mp3" styleClass="text-input text-field " text="res://.data/audio/fight/fight_baza.mp3">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_FightSound" layoutX="352" layoutY="600" prefColumnCount="12" prefHeight="41" prefWidth="280" promptText="res://.data/audio/fight/fight_baza.mp3" styleClass="text-input text-field " text="res://.data/audio/fight/fight_baza.mp3">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -277,5 +277,11 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/question_icon_24.png" id="data-label3" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseFightSound_Btn" layoutX="632" layoutY="600" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseFightSound_Btn" tooltipText="Choose sound" visible="1"/>
   </children>
 </AnchorPane>

@@ -303,7 +303,7 @@ class sdk_dialog_e extends AbstractForm
     {
         if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
-            $this->ResetVoice();        
+            $this->ResetVoice();
             Media::open($this->Edit_VoiceTalk2->text, true, 'PreviewVoiceTalk2');
         }
     }
@@ -332,4 +332,56 @@ class sdk_dialog_e extends AbstractForm
     {    
         $this->ResetVoice();
     }    
+    /**
+     * @event ChooseVoiceStart_Btn.click-Left 
+     */
+    function ChooseVoiceStart(UXMouseEvent $e = null)
+    {
+        $this->FileChooser->inputNode = $this->Edit_VoiceStart;
+        if ($this->FileChooser->execute())
+        {
+            $this->Edit_VoiceStart->text = $this->FileChooser->file;
+            
+            $this->StopPreviewVoiceStart();
+        }
+    }
+    /**
+     * @event ChooseVoiceTalk1_Btn.click-Left 
+     */
+    function ChooseVoiceTalk1(UXMouseEvent $e = null)
+    {
+        $this->FileChooser->inputNode = $this->Edit_VoiceTalk1;
+        if ($this->FileChooser->execute())
+        {
+            $this->Edit_VoiceTalk1->text = $this->FileChooser->file;
+            
+            $this->StopPreviewVoiceTalk1();
+        }
+    }
+    /**
+     * @event ChooseVoiceTalk2_Btn.click-Left 
+     */
+    function ChooseVoiceTalk2(UXMouseEvent $e = null)
+    {
+        $this->FileChooser->inputNode = $this->Edit_VoiceTalk2;
+        if ($this->FileChooser->execute())
+        {
+            $this->Edit_VoiceTalk2->text = $this->FileChooser->file;
+            
+            $this->StopPreviewVoiceTalk2();
+        }
+    }
+    /**
+     * @event ChooseVoiceTalk3_Btn.click-Left 
+     */
+    function ChooseVoiceTalk3(UXMouseEvent $e = null)
+    {
+        $this->FileChooser->inputNode = $this->Edit_VoiceTalk3;
+        if ($this->FileChooser->execute())
+        {
+            $this->Edit_VoiceTalk3->text = $this->FileChooser->file;
+            
+            $this->StopPreviewVoiceTalk3();
+        }
+    }
 }
