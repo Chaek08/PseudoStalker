@@ -101,7 +101,7 @@ class console extends AbstractForm
             break;
             
             default:
-            if ($this->edit->text == '') {} else
+            if ($this->edit->text != '')
             {
                 $this->edit->text = "";                                  
                 Element::appendText($this->console_list, "> There is no such command\n");                                    
