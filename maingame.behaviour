@@ -60,4 +60,7 @@
   <target id="Editor">
     <behaviour animated="1" direction="ALL" enabled="" gridX="1" gridY="1" limitedByParent="" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
   </target>
+  <target id="ForwardSDK_Btn">
+    <behaviour animated="1" direction="ALL" gridX="1" gridY="1" limitedByParent="" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
+  </target>
 </behaviours>

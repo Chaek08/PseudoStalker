@@ -107,5 +107,11 @@
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_clearallchanges_btn.png" id="data-Clear_All_Btn" visible=""/>
     <Separator focusTraversable="false" id="Separator" layoutX="8" layoutY="72" opacity="0.25" orientation="HORIZONTAL" prefHeight="8" prefWidth="56" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-Separator" visible=""/>
+    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="MinimizeSDK_Btn" layoutX="1400" layoutY="8" prefHeight="48" prefWidth="48" styleClass="x-flat-button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/minimizesdk.png" id="data-MinimizeSDK_Btn" tooltipText="Minimize SDK" visible=""/>
   </children>
 </AnchorPane>

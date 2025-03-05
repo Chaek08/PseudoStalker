@@ -234,4 +234,19 @@ class sdk_main extends AbstractForm
         if ($this->f_FailEditor->visible) $this->f_FailEditor->content->ClearAll();
         if ($this->f_QuestEditor->visible) $this->f_QuestEditor->content->ClearAll();
     }
+    /**
+     * @event MinimizeSDK_Btn.click-Left 
+     */
+    function MinimizeSDK(UXMouseEvent $e = null)
+    {
+        $this->form('maingame')->Editor->hide();
+        
+        $this->form('maingame')->ForwardSDK_Btn->show();
+        
+        $this->start_game_btn->enabled = false;
+        $this->form('maingame')->MainMenu->content->opensdk_btn->enabled = false;
+        $this->form('maingame')->MainMenu->content->opensdk_btn->text = 'Opened';
+        
+        if (Media::isStatus('PAUSED', 'menu_sound') && $this->form('maingame')->MainMenu->visible) Media::play("menu_sound");
+    }
 }

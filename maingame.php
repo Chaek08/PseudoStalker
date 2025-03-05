@@ -535,4 +535,17 @@ class maingame extends AbstractForm
             $this->Console->visible;
         }
     }
+    /**
+     * @event ForwardSDK_Btn.click-2x
+     */
+    function ForwardSDK(UXMouseEvent $e = null)
+    {    
+        $this->MainMenu->content->OpenSdkBtn();
+        
+        $this->ForwardSDK_Btn->hide();
+        
+        //$this->Editor->content->start_game_btn->enabled = true;
+        $this->form('maingame')->MainMenu->content->opensdk_btn->enabled = true;
+        $this->form('maingame')->MainMenu->content->opensdk_btn->text = 'Open SDK';
+    }
 }
