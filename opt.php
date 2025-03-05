@@ -99,8 +99,7 @@ class opt extends AbstractForm
             //$this->menusound_off_Legacy->enabled = false;
             //$this->menusound_on_Legacy->enabled = false;
         
-            $this->form('maingame')->ReplayBtn->enabled = false;
-            $this->form('maingame')->ReplayBtn->opacity = 0;
+            if ($this->form('maingame')->fight_image->visible) $this->form('maingame')->ReplayBtn->hide();
             
             if (Media::isStatus('PLAYING', 'fight_sound')) Media::stop('fight_sound');
             if (Media::isStatus('PLAYING', 'main_ambient')) Media::stop('main_ambient');
@@ -144,8 +143,7 @@ class opt extends AbstractForm
             //$this->menusound_off_Legacy->enabled = true;
             //$this->menusound_on_Legacy->enabled = true;        
         
-            $this->form('maingame')->ReplayBtn->enabled = true;       
-            $this->form('maingame')->ReplayBtn->opacity = 100;
+            if ($this->form('maingame')->fight_image->visible) $this->form('maingame')->ReplayBtn->show();
         
             if ($this->form('maingame')->SDK_Mode->visible)
             {
@@ -275,8 +273,7 @@ class opt extends AbstractForm
             
             $this->MuteFightSound->show();
         
-            $this->form('maingame')->ReplayBtn->enabled = false;
-            $this->form('maingame')->ReplayBtn->opacity = 0;
+            if ($this->form('maingame')->fight_image->visible) $this->form('maingame')->ReplayBtn->hide();
             
             return;
         }
@@ -288,8 +285,7 @@ class opt extends AbstractForm
             
             $this->MuteFightSound->hide();
         
-            $this->form('maingame')->ReplayBtn->enabled = true;
-            $this->form('maingame')->ReplayBtn->opacity = 100;            
+            if ($this->form('maingame')->fight_image->visible) $this->form('maingame')->ReplayBtn->show();
             
             return;
         }

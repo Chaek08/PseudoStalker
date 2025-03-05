@@ -126,12 +126,14 @@ class dialog extends AbstractForm
         if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             $this->VoiceTalk_3();
+            
             Media::pause('main_ambient');
+            
+            $this->form('maingame')->ReplayFightSong();
+            
+            $this->form('maingame')->ReplayBtn->show();
         }
         
-        $this->form('maingame')->ReplayFightSong();
-        
-        $this->form('maingame')->ReplayBtn->show();
         $this->form('maingame')->idle_static_actor->hide();
         $this->form('maingame')->idle_static_enemy->hide(); 
         $this->form('maingame')->fight_image->show();               

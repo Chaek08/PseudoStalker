@@ -75,10 +75,7 @@ class maingame extends AbstractForm
     }    
     function PlayMainAmbient()
     {
-        if ($this->Options->content->All_Sounds->visible && !$this->fight_image->visible)
-        {
-            Media::play('main_ambient');                      
-        }         
+        if ($this->Options->content->All_Sounds->visible && !$this->fight_image->visible) Media::play('main_ambient');
     }
     function StopAllSounds()
     {
@@ -98,19 +95,16 @@ class maingame extends AbstractForm
      */
     function ReplayFightSong(UXMouseEvent $e = null)
     {    
-        if ($this->form('maingame')->Options->content->All_Sounds->visible)
+        if ($this->form('maingame')->Options->content->All_Sounds->visible || !$this->form('maingame')->Options->content->MuteFightSound->visible)
         {
-            if (!$this->form('maingame')->Options->content->MuteFightSound->visible)
+            if ($this->form('maingame')->SDK_Mode->visible)
             {
-                if ($this->form('maingame')->SDK_Mode->visible)
-                {
-                    Media::open($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_FightSound->text, true, "fight_sound");
-                }
-                else 
-                {
-                    Media::open('res://.data/audio/fight/fight_baza.mp3', true, "fight_sound");
-                }               
-            }     
+                Media::open($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_FightSound->text, true, "fight_sound");
+            }
+            else
+            {
+                Media::open('res://.data/audio/fight/fight_baza.mp3', true, "fight_sound");
+            }
         }      
     }      
     function ResetGameClient()
@@ -486,7 +480,6 @@ class maingame extends AbstractForm
     }
     function FailAction()
     {
-        $this->ReplayBtn->hide();
         $this->fight_image->hide();
         $this->Fail->show();
         $this->item_vodka_0000->enabled = false;
@@ -500,7 +493,11 @@ class maingame extends AbstractForm
         $this->Pda->content->Pda_Tasks->content->Step_UpdatePda();
         $this->Pda->content->Pda_Statistic->content->UpdateRaiting();
         
-        if ($this->Options->content->All_Sounds->visible) $this->StopAllSounds();                   
+        if ($this->Options->content->All_Sounds->visible) 
+        {
+            $this->ReplayBtn->hide();
+            $this->StopAllSounds();
+        }
     }
     function ActorFail()
     {
