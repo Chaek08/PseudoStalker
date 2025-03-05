@@ -242,7 +242,10 @@ class sdk_mm_e extends AbstractForm
     {
         if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {        
-            Media::open($this->Edit_FightSound->text, true, 'PreviewFightSound');
+            if ($this->Edit_FightSound->text != '')
+            {
+                Media::open($this->Edit_FightSound->text, true, 'PreviewFightSound');
+            }
         }
     }
     /**

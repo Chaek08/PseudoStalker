@@ -267,8 +267,11 @@ class sdk_dialog_e extends AbstractForm
     {    
         if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
-            $this->ResetVoice();        
-            Media::open($this->Edit_VoiceStart->text, true, 'PreviewVoiceStart');
+            $this->ResetVoice();
+            if ($this->Edit_VoiceStart->text != '')
+            {
+                Media::open($this->Edit_VoiceStart->text, true, 'PreviewVoiceStart');
+            }
         }
     }
     /**
@@ -285,8 +288,11 @@ class sdk_dialog_e extends AbstractForm
     {
         if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
-            $this->ResetVoice();        
-            Media::open($this->Edit_VoiceTalk1->text, true, 'PreviewVoiceTalk1');
+            $this->ResetVoice();
+            if ($this->Edit_VoiceTalk1->text != '')
+            {                   
+                Media::open($this->Edit_VoiceTalk1->text, true, 'PreviewVoiceTalk1');
+            }
         }
     }
     /**
@@ -304,7 +310,10 @@ class sdk_dialog_e extends AbstractForm
         if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             $this->ResetVoice();
-            Media::open($this->Edit_VoiceTalk2->text, true, 'PreviewVoiceTalk2');
+            if ($this->Edit_VoiceTalk2->text != '')
+            {
+                Media::open($this->Edit_VoiceTalk2->text, true, 'PreviewVoiceTalk2');
+            }    
         }
     }
     /**
@@ -322,7 +331,10 @@ class sdk_dialog_e extends AbstractForm
         if ($this->form('maingame')->Options->content->All_Sounds->visible)
         {
             $this->ResetVoice();        
-            Media::open($this->Edit_VoiceTalk3->text, true, 'PreviewVoiceTalk3');
+            if ($this->Edit_VoiceTalk3->text != '')
+            {
+                Media::open($this->Edit_VoiceTalk3->text, true, 'PreviewVoiceTalk3');
+            } 
         }
     }
     /**
