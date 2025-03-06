@@ -194,4 +194,26 @@ class sdk_inv_e extends AbstractForm
     {    
         $this->Edit_Weight_Vodka->text = '';
     }
+    /**
+     * @event ChooseOutfitIcon_Btn.click-Left 
+     */
+    function ChooseOutfitIcon(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->Edit_ItemIcon_Outfit;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->Edit_ItemIcon_Outfit->text = $this->ImageFileChooser->file;
+        }
+    }
+    /**
+     * @event ChooseItemIcon_Btn.click-Left 
+     */
+    function ChooseItemIcon(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->Edit_ItemIcon_Vodka;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->Edit_ItemIcon_Vodka->text = $this->ImageFileChooser->file;
+        }
+    }
 }

@@ -263,12 +263,56 @@ class sdk_mm_e extends AbstractForm
      */
     function ChooseFightSound(UXMouseEvent $e = null)
     { 
-        $this->FileChooser->inputNode = $this->Edit_FightSound;
-        if ($this->FileChooser->execute())
+        $this->MediaFileChooser->inputNode = $this->Edit_FightSound;
+        if ($this->MediaFileChooser->execute())
         {
-            $this->Edit_FightSound->text = $this->FileChooser->file;
+            $this->Edit_FightSound->text = $this->MediaFileChooser->file;
             
             $this->StopPreviewFightSound();
+        }
+    }
+    /**
+     * @event ChooseActorModel_Btn.click-Left 
+     */
+    function ChooseActorModel(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->Edit_ActorModel;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->Edit_ActorModel->text = $this->ImageFileChooser->file;
+        }
+    }
+    /**
+     * @event ChooseEnemyModel_Btn.click-Left 
+     */
+    function ChooseEnemyModel(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->Edit_EnemyModel;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->Edit_EnemyModel->text = $this->ImageFileChooser->file;
+        }
+    }
+    /**
+     * @event ChooseBMaingame_Btn.click-Left 
+     */
+    function ChooseBMaingame(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->Edit_Background;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->Edit_Background->text = $this->ImageFileChooser->file;
+        }
+    }
+    /**
+     * @event ChooseBMainMenu_Btn.click-Left 
+     */
+    function ChooseBMainMenu(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->Edit_MenuBackground;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->Edit_MenuBackground->text = $this->ImageFileChooser->file;
         }
     }
 }

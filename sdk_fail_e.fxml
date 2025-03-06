@@ -108,7 +108,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearEnemyFailDesc_Btn" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="EditActorFailIcon" layoutX="320" layoutY="120" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="res://.data/ui/fail_wnd/actor_fail.png" styleClass="text-input text-field " text="res://.data/ui/fail_wnd/actor_fail.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="EditActorFailIcon" layoutX="320" layoutY="120" prefColumnCount="12" prefHeight="40" prefWidth="368" promptText="res://.data/ui/fail_wnd/actor_fail.png" styleClass="text-input text-field " text="res://.data/ui/fail_wnd/actor_fail.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -126,7 +126,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label6" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="EditEnemyFailIcon" layoutX="320" layoutY="464" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="res://.data/ui/fail_wnd/enemy_fail.png" styleClass="text-input text-field " text="res://.data/ui/fail_wnd/enemy_fail.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="EditEnemyFailIcon" layoutX="320" layoutY="464" prefColumnCount="12" prefHeight="40" prefWidth="368" promptText="res://.data/ui/fail_wnd/enemy_fail.png" styleClass="text-input text-field " text="res://.data/ui/fail_wnd/enemy_fail.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -185,5 +185,17 @@
     <Separator focusTraversable="false" id="separatorAlt" layoutX="72" layoutY="720" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="904" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separatorAlt" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-f_Background" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseActorFailIcon_Btn" layoutX="688" layoutY="120" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseActorFailIcon_Btn" tooltipText="Choose sound" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseEnemyFailIcon_Btn" layoutX="688" layoutY="464" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseEnemyFailIcon_Btn" tooltipText="Choose sound" visible="1"/>
   </children>
 </AnchorPane>

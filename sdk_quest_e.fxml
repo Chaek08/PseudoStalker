@@ -42,7 +42,7 @@
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_QuestName" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestIcon" layoutX="352" layoutY="168" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="res://.data/ui/pda/icon_Task.png" styleClass="text-input text-field " text="res://.data/ui/pda/icon_Task.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestIcon" layoutX="352" layoutY="168" prefColumnCount="12" prefHeight="40" prefWidth="368" promptText="res://.data/ui/pda/icon_Task.png" styleClass="text-input text-field " text="res://.data/ui/pda/icon_Task.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -197,5 +197,11 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Prompt_QuestTarget" visible=""/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseQuestIcon_Btn" layoutX="720" layoutY="168" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseQuestIcon_Btn" tooltipText="Choose sound" visible="1"/>
   </children>
 </AnchorPane>

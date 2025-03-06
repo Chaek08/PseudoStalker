@@ -266,4 +266,37 @@ class sdk_userdata_e extends AbstractForm
     {    
         $this->textArea_EnemyBio->text = '';
     }
+    /**
+     * @event ChooseActorIcon_Btn.click-Left 
+     */
+    function ChooseActorIcon(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->Edit_ActorIcon;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->Edit_ActorIcon->text = $this->ImageFileChooser->file;
+        }
+    }
+    /**
+     * @event ChooseEnemyIcon_Btn.click-Left 
+     */
+    function ChooseEnemyIcon(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->Edit_EnemyIcon;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->Edit_EnemyIcon->text = $this->ImageFileChooser->file;
+        }
+    }
+    /**
+     * @event ChooseValerokIcon_Btn.click-Left 
+     */
+    function ChooseValerokIcon(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->Edit_ValerokIcon;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->Edit_ValerokIcon->text = $this->ImageFileChooser->file;
+        }
+    }
 }

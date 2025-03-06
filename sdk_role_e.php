@@ -215,4 +215,37 @@ class sdk_role_e extends AbstractForm
     {    
         $this->Edit_RoleIcon_Ladcega->text = '';
     }
+    /**
+     * @event ChooseDERoleIcon_Btn.click-Left 
+     */
+    function ChooseDERoleIcon(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->Edit_RoleIcon_Danila;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->Edit_RoleIcon_Danila->text = $this->ImageFileChooser->file;
+        }
+    }
+    /**
+     * @event ChoosePidoRoleIcon_Btn.click-Left 
+     */
+    function ChoosePidoRoleIcon(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->Edit_RoleIcon_Pido;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->Edit_RoleIcon_Pido->text = $this->ImageFileChooser->file;
+        }
+    }
+    /**
+     * @event ChooseLARoleIcon_Btn.click-Left 
+     */
+    function ChooseLARoleIcon(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->Edit_RoleIcon_Ladcega;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->Edit_RoleIcon_Ladcega->text = $this->ImageFileChooser->file;
+        }
+    }
 }

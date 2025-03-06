@@ -96,13 +96,13 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyEnemyName_Btn" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ActorIcon" layoutX="392" layoutY="120" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="res://.data/ui/icon_npc/actor.png" styleClass="text-input text-field " text="res://.data/ui/icon_npc/actor.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ActorIcon" layoutX="392" layoutY="120" prefColumnCount="12" prefHeight="40" prefWidth="344" promptText="res://.data/ui/icon_npc/actor.png" styleClass="text-input text-field " text="res://.data/ui/icon_npc/actor.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_ActorIcon" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_EnemyIcon" layoutX="392" layoutY="240" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="res://.data/ui/icon_npc/goblindav.png" styleClass="text-input text-field " text="res://.data/ui/icon_npc/goblindav.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_EnemyIcon" layoutX="392" layoutY="240" prefColumnCount="12" prefHeight="40" prefWidth="344" promptText="res://.data/ui/icon_npc/goblindav.png" styleClass="text-input text-field " text="res://.data/ui/icon_npc/goblindav.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -156,7 +156,7 @@
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_ValerokName" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_ValerokIcon" layoutX="392" layoutY="360" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="res://.data/ui/icon_npc/valerok.png" styleClass="text-input text-field " text="res://.data/ui/icon_npc/valerok.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_ValerokIcon" layoutX="392" layoutY="360" prefColumnCount="12" prefHeight="40" prefWidth="344" promptText="res://.data/ui/icon_npc/valerok.png" styleClass="text-input text-field " text="res://.data/ui/icon_npc/valerok.png">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -267,5 +267,23 @@
     <Separator focusTraversable="false" id="separator" layoutX="104" layoutY="752" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="872" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-f_Background" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseActorIcon_Btn" layoutX="736" layoutY="120" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseActorIcon_Btn" tooltipText="Choose sound" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseEnemyIcon_Btn" layoutX="736" layoutY="240" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseEnemyIcon_Btn" tooltipText="Choose sound" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseValerokIcon_Btn" layoutX="736" layoutY="360" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseValerokIcon_Btn" tooltipText="Choose sound" visible="1"/>
   </children>
 </AnchorPane>

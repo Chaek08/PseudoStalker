@@ -142,4 +142,26 @@ class sdk_fail_e extends AbstractForm
     {    
         $this->Win_Fail_Desc_Enemy_Edit->text = '';
     }
+    /**
+     * @event ChooseActorFailIcon_Btn.click-Left 
+     */
+    function ChooseActorFailIcon(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->EditActorFailIcon;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->EditActorFailIcon->text = $this->ImageFileChooser->file;
+        }
+    }
+    /**
+     * @event ChooseEnemyFailIcon_Btn.click-Left 
+     */
+    function ChooseEnemyFailIcon(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->EditEnemyFailIcon;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->EditEnemyFailIcon->text = $this->ImageFileChooser->file;
+        }
+    }
 }

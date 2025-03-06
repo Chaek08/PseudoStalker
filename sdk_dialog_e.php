@@ -349,10 +349,10 @@ class sdk_dialog_e extends AbstractForm
      */
     function ChooseVoiceStart(UXMouseEvent $e = null)
     {
-        $this->FileChooser->inputNode = $this->Edit_VoiceStart;
-        if ($this->FileChooser->execute())
+        $this->MediaFileChooser->inputNode = $this->Edit_VoiceStart;
+        if ($this->MediaFileChooser->execute())
         {
-            $this->Edit_VoiceStart->text = $this->FileChooser->file;
+            $this->Edit_VoiceStart->text = $this->MediaFileChooser->file;
             
             $this->StopPreviewVoiceStart();
         }
@@ -362,10 +362,10 @@ class sdk_dialog_e extends AbstractForm
      */
     function ChooseVoiceTalk1(UXMouseEvent $e = null)
     {
-        $this->FileChooser->inputNode = $this->Edit_VoiceTalk1;
-        if ($this->FileChooser->execute())
+        $this->MediaFileChooser->inputNode = $this->Edit_VoiceTalk1;
+        if ($this->MediaFileChooser->execute())
         {
-            $this->Edit_VoiceTalk1->text = $this->FileChooser->file;
+            $this->Edit_VoiceTalk1->text = $this->MediaFileChooser->file;
             
             $this->StopPreviewVoiceTalk1();
         }
@@ -375,10 +375,10 @@ class sdk_dialog_e extends AbstractForm
      */
     function ChooseVoiceTalk2(UXMouseEvent $e = null)
     {
-        $this->FileChooser->inputNode = $this->Edit_VoiceTalk2;
-        if ($this->FileChooser->execute())
+        $this->MediaFileChooser->inputNode = $this->Edit_VoiceTalk2;
+        if ($this->MediaFileChooser->execute())
         {
-            $this->Edit_VoiceTalk2->text = $this->FileChooser->file;
+            $this->Edit_VoiceTalk2->text = $this->MediaFileChooser->file;
             
             $this->StopPreviewVoiceTalk2();
         }
@@ -388,10 +388,10 @@ class sdk_dialog_e extends AbstractForm
      */
     function ChooseVoiceTalk3(UXMouseEvent $e = null)
     {
-        $this->FileChooser->inputNode = $this->Edit_VoiceTalk3;
-        if ($this->FileChooser->execute())
+        $this->MediaFileChooser->inputNode = $this->Edit_VoiceTalk3;
+        if ($this->MediaFileChooser->execute())
         {
-            $this->Edit_VoiceTalk3->text = $this->FileChooser->file;
+            $this->Edit_VoiceTalk3->text = $this->MediaFileChooser->file;
             
             $this->StopPreviewVoiceTalk3();
         }

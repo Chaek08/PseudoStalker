@@ -206,4 +206,15 @@ class sdk_quest_e extends AbstractForm
     {
         $this->Edit_QuestTarget->text = '';
     }
+    /**
+     * @event ChooseQuestIcon_Btn.click-Left 
+     */
+    function ChooseQuestIcon(UXMouseEvent $e = null)
+    {
+        $this->ImageFileChooser->inputNode = $this->Edit_QuestIcon;
+        if ($this->ImageFileChooser->execute())
+        {
+            $this->Edit_QuestIcon->text = $this->ImageFileChooser->file;
+        }
+    }
 }

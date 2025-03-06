@@ -24,19 +24,19 @@
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_RoleName_Ladcega" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_RoleIcon_Danila" layoutX="320" layoutY="464" prefColumnCount="12" prefHeight="40" prefWidth="256" promptText="res://.data/ui/dialog/danila_emoji_role.png" styleClass="text-input text-field " text="res://.data/ui/dialog/danila_emoji_role.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_RoleIcon_Danila" layoutX="320" layoutY="464" prefColumnCount="12" prefHeight="40" prefWidth="216" promptText="res://.data/ui/dialog/danila_emoji_role.png" styleClass="text-input text-field " text="res://.data/ui/dialog/danila_emoji_role.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_RoleIcon_Danila" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_RoleIcon_Pido" layoutX="320" layoutY="512" prefColumnCount="12" prefHeight="40" prefWidth="256" promptText="res://.data/ui/dialog/pidoras_role.png" styleClass="text-input text-field " text="res://.data/ui/dialog/pidoras_role.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_RoleIcon_Pido" layoutX="320" layoutY="512" prefColumnCount="12" prefHeight="40" prefWidth="216" promptText="res://.data/ui/dialog/pidoras_role.png" styleClass="text-input text-field " text="res://.data/ui/dialog/pidoras_role.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_RoleIcon_Pido" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_RoleIcon_Ladcega" layoutX="320" layoutY="560" prefColumnCount="12" prefHeight="40" prefWidth="256" promptText="res://.data/ui/dialog/ladcega_role.png" styleClass="text-input text-field " text="res://.data/ui/dialog/ladcega_role.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_RoleIcon_Ladcega" layoutX="320" layoutY="560" prefColumnCount="12" prefHeight="40" prefWidth="216" promptText="res://.data/ui/dialog/ladcega_role.png" styleClass="text-input text-field " text="res://.data/ui/dialog/ladcega_role.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -280,5 +280,23 @@
     <Separator focusTraversable="false" id="separator3" layoutX="72" layoutY="232" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="704" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator3" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-f_Background" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseDERoleIcon_Btn" layoutX="536" layoutY="464" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseDERoleIcon_Btn" tooltipText="Choose sound" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChoosePidoRoleIcon_Btn" layoutX="536" layoutY="512" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChoosePidoRoleIcon_Btn" tooltipText="Choose sound" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseLARoleIcon_Btn" layoutX="536" layoutY="560" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseLARoleIcon_Btn" tooltipText="Choose sound" visible="1"/>
   </children>
 </AnchorPane>

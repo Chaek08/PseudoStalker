@@ -150,7 +150,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetVodkaWeight_Btn" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemIcon_Outfit" layoutX="320" layoutY="104" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="res://.data/ui/inventory/bandit_outfit.png" styleClass="text-input text-field " text="res://.data/ui/inventory/bandit_outfit.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemIcon_Outfit" layoutX="320" layoutY="104" prefColumnCount="12" prefHeight="40" prefWidth="336" promptText="res://.data/ui/inventory/bandit_outfit.png" styleClass="text-input text-field " text="res://.data/ui/inventory/bandit_outfit.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -163,7 +163,7 @@
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label9" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetOutfitIcon_Btn" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemIcon_Vodka" layoutX="320" layoutY="480" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="res://.data/ui/inventory/item_vodka.png" styleClass="text-input text-field " text="res://.data/ui/inventory/item_vodka.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemIcon_Vodka" layoutX="320" layoutY="480" prefColumnCount="12" prefHeight="40" prefWidth="336" promptText="res://.data/ui/inventory/item_vodka.png" styleClass="text-input text-field " text="res://.data/ui/inventory/item_vodka.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -275,5 +275,17 @@
     <Separator focusTraversable="false" id="separatorAlt" layoutX="72" layoutY="760" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="792" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separatorAlt" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-f_Background" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseOutfitIcon_Btn" layoutX="656" layoutY="104" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseOutfitIcon_Btn" tooltipText="Choose sound" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseItemIcon_Btn" layoutX="656" layoutY="480" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseItemIcon_Btn" tooltipText="Choose sound" visible="1"/>
   </children>
 </AnchorPane>

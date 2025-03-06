@@ -12,7 +12,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_Background" layoutX="352" layoutY="120" prefColumnCount="12" prefHeight="40" prefWidth="360" promptText="res://.data/ui/maingame/background.png" styleClass="text-input text-field " text="res://.data/ui/maingame/background.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_Background" layoutX="352" layoutY="120" prefColumnCount="12" prefHeight="40" prefWidth="320" promptText="res://.data/ui/maingame/background.png" styleClass="text-input text-field " text="res://.data/ui/maingame/background.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -78,7 +78,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label6" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_ActorModel" layoutX="352" layoutY="376" prefColumnCount="12" prefHeight="40" prefWidth="360" promptText="res://.data/ui/maingame/sprite/actor.png" styleClass="text-input text-field " text="res://.data/ui/maingame/sprite/actor.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_ActorModel" layoutX="352" layoutY="376" prefColumnCount="12" prefHeight="40" prefWidth="320" promptText="res://.data/ui/maingame/sprite/actor.png" styleClass="text-input text-field " text="res://.data/ui/maingame/sprite/actor.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -90,7 +90,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label7" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_EnemyModel" layoutX="352" layoutY="424" prefColumnCount="12" prefHeight="40" prefWidth="360" promptText="res://.data/ui/maingame/sprite/goblindav.png" styleClass="text-input text-field " text="res://.data/ui/maingame/sprite/goblindav.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_EnemyModel" layoutX="352" layoutY="424" prefColumnCount="12" prefHeight="40" prefWidth="320" promptText="res://.data/ui/maingame/sprite/goblindav.png" styleClass="text-input text-field " text="res://.data/ui/maingame/sprite/goblindav.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -226,7 +226,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label14" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_MenuBackground" layoutX="352" layoutY="168" prefColumnCount="12" prefHeight="40" prefWidth="360" promptText="res://.data/ui/mainmenu/background_1_2.png" styleClass="text-input text-field " text="res://.data/ui/mainmenu/background_1_2.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_MenuBackground" layoutX="352" layoutY="168" prefColumnCount="12" prefHeight="40" prefWidth="320" promptText="res://.data/ui/mainmenu/background_1_2.png" styleClass="text-input text-field " text="res://.data/ui/mainmenu/background_1_2.png">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -283,5 +283,29 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseFightSound_Btn" tooltipText="Choose sound" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseActorModel_Btn" layoutX="672" layoutY="376" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseActorModel_Btn" tooltipText="Choose sound" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseEnemyModel_Btn" layoutX="672" layoutY="424" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseEnemyModel_Btn" tooltipText="Choose sound" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseBMaingame_Btn" layoutX="672" layoutY="120" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseBMaingame_Btn" tooltipText="Choose sound" visible="1"/>
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseBMainMenu_Btn" layoutX="672" layoutY="168" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </Button>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseBMainMenu_Btn" tooltipText="Choose sound" visible="1"/>
   </children>
 </AnchorPane>
