@@ -107,98 +107,105 @@ class sdk_main extends AbstractForm
      */
     function OpenUserDataEditor(UXMouseEvent $e = null)
     {    
-        $this->f_Background->hide();
-           
         $this->DefaultSDKState();
-        $this->status_label->text = $this->userdata_e_btn->text;
-        
-        $this->f_UserDataEditor->show();
         
         $this->StopSDKSounds();
+        
+        $this->f_Background->hide();
+        $this->f_UserDataEditor->show();
+                
+        $this->SDKStatus();
+        $this->status_label->text = $this->userdata_e_btn->text;
     }
     /**
      * @event dialog_e_btn.click-Left 
      */
     function OpenDialogEditor(UXMouseEvent $e = null)
     {  
-        $this->f_Background->hide();
-             
         $this->DefaultSDKState();
-        $this->status_label->text = $this->dialog_e_btn->text;
-            
+        
+        $this->StopSDKSounds();
+
+        $this->f_Background->hide();
         $this->f_DialogEditor->show();
         
-        $this->StopSDKSounds();        
+        $this->SDKStatus();        
+        $this->status_label->text = $this->dialog_e_btn->text;
     }
     /**
      * @event inv_e_btn.click-Left 
      */
     function OpenInvEditor(UXMouseEvent $e = null)
-    {      
-        $this->f_Background->hide();
-          
+    {
         $this->DefaultSDKState();
-        $this->status_label->text = $this->inv_e_btn->text;  
-            
+        
+        $this->StopSDKSounds();
+           
+        $this->f_Background->hide();
         $this->f_InvEditor->show();
         
-        $this->StopSDKSounds();        
+        $this->SDKStatus();
+        $this->status_label->text = $this->inv_e_btn->text;
     }
     /**
      * @event mg_e_btn.click-Left 
      */
     function OpenMgEditor(UXMouseEvent $e = null)
     {    
-        $this->f_Background->hide();
-         
         $this->DefaultSDKState();
-        $this->status_label->text = $this->mg_e_btn->text; 
-    
+        
+        $this->StopSDKSounds();
+        
+        $this->f_Background->hide();
         $this->f_MgEditor->show();
         
-        $this->StopSDKSounds();        
+        $this->SDKStatus();
+        $this->status_label->text = $this->mg_e_btn->text;
     }
     /**
      * @event role_e_btn.click-Left 
      */
     function OpenRoleEditor(UXMouseEvent $e = null)
     {  
-        $this->f_Background->hide();
-         
         $this->DefaultSDKState();
-        $this->status_label->text = $this->role_e_btn->text;
         
+        $this->StopSDKSounds();
+        
+        $this->f_Background->hide();
         $this->f_RoleEditor->show();
         
-        $this->StopSDKSounds();        
+        $this->SDKStatus();
+        $this->status_label->text = $this->role_e_btn->text;
     }    
     /**
      * @event fail_e_btn.click-Left 
      */
     function OpenFailEditor(UXMouseEvent $e = null)
     { 
-        $this->f_Background->hide();
-          
         $this->DefaultSDKState();
-        $this->status_label->text = $this->fail_e_btn->text;
         
+        $this->StopSDKSounds();
+        
+        $this->f_Background->hide();
         $this->f_FailEditor->show();
         
-        $this->StopSDKSounds();        
+        $this->SDKStatus();        
+        $this->status_label->text = $this->fail_e_btn->text;         
     }   
     /**
      * @event quest_e_btn.click-Left 
      */
     function OpenQuestEditor(UXMouseEvent $e = null)
     {
-        $this->f_Background->hide();
-          
         $this->DefaultSDKState();
-        $this->status_label->text = $this->quest_e_btn->text;
         
+        $this->StopSDKSounds();
+        
+        $this->f_Background->hide();
         $this->f_QuestEditor->show();
         
-        $this->StopSDKSounds();        
+        $this->SDKStatus();
+        $this->status_label->text = $this->quest_e_btn->text;
     }
     /**
      * @event Apply_All_Btn.click-Left 
