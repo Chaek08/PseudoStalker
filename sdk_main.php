@@ -92,10 +92,15 @@ class sdk_main extends AbstractForm
     function StartMainGame(UXMouseEvent $e = null)
     {
         $this->form('maingame')->Editor->hide();
+        $this->form('maingame')->ForwardSDK_Btn->hide();
+        
+        $this->form('maingame')->MainMenu->content->opensdk_btn->enabled = true;
+        $this->form('maingame')->MainMenu->content->opensdk_btn->text = 'Open SDK';
+        
         $this->DefaultSDKState();
         
         $this->StopSDKSounds();
-        if (Media::isStatus('PAUSED', 'menu_sound')) Media::play("menu_sound");
+        if (Media::isStatus('PAUSED', 'menu_sound') && $this->form('maingame')->MainMenu->visible) Media::play("menu_sound");
     }      
     /**
      * @event userdata_e_btn.click-Left 
@@ -243,7 +248,6 @@ class sdk_main extends AbstractForm
         
         $this->form('maingame')->ForwardSDK_Btn->show();
         
-        $this->start_game_btn->enabled = false;
         $this->form('maingame')->MainMenu->content->opensdk_btn->enabled = false;
         $this->form('maingame')->MainMenu->content->opensdk_btn->text = 'Opened';
         

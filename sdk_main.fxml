@@ -67,12 +67,12 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_fail_wnd_editor_btn.png" id="data-fail_e_btn" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="start_game_btn" layoutX="1456" layoutY="8" prefHeight="48" prefWidth="128" styleClass="x-flat-button " text="Start Game" textAlignment="CENTER" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="start_game_btn" layoutX="1536" layoutY="8" prefHeight="48" prefWidth="48" styleClass="x-flat-button " text="" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_play_btn.png" id="data-start_game_btn" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_play_btn.png" id="data-start_game_btn" tooltipText="Start game" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="status_label" layoutX="72" layoutY="32" prefHeight="24" prefWidth="176" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="13"/>
@@ -107,11 +107,11 @@
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/sdk_clearallchanges_btn.png" id="data-Clear_All_Btn" visible=""/>
     <Separator focusTraversable="false" id="Separator" layoutX="8" layoutY="72" opacity="0.25" orientation="HORIZONTAL" prefHeight="8" prefWidth="56" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-Separator" visible=""/>
-    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="MinimizeSDK_Btn" layoutX="1400" layoutY="8" prefHeight="48" prefWidth="48" styleClass="x-flat-button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="MinimizeSDK_Btn" layoutX="1480" layoutY="8" prefHeight="48" prefWidth="48" styleClass="x-flat-button " text="" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/minimizesdk.png" id="data-MinimizeSDK_Btn" tooltipText="Minimize SDK" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/minimizesdk.png" id="data-MinimizeSDK_Btn" tooltipText="Minimize SDK" visible="1"/>
   </children>
 </AnchorPane>

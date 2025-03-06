@@ -544,7 +544,6 @@ class maingame extends AbstractForm
         
         $this->ForwardSDK_Btn->hide();
         
-        //$this->Editor->content->start_game_btn->enabled = true;
         $this->form('maingame')->MainMenu->content->opensdk_btn->enabled = true;
         $this->form('maingame')->MainMenu->content->opensdk_btn->text = 'Open SDK';
     }
