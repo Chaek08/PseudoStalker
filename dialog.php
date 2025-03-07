@@ -14,11 +14,11 @@ class dialog extends AbstractForm
     }
     function VoiceStart()
     {
-        if ($this->form('maingame')->SDK_Mode->visible && $this->form('maingame')->Options->content->All_Sounds->visible)
+        if (SDK_Mode && $this->form('maingame')->Options->content->All_Sounds->visible)
         {   
             Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
         }
-        else if ($this->form('maingame')->SDK_Mode->visible)
+        else if (SDK_Mode)
         {
             return;
         }
@@ -29,7 +29,7 @@ class dialog extends AbstractForm
     }
     function VoiceTalk_1()
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
+        if (SDK_Mode)
         {
             Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceTalk1->text, true, "voice_talk1");
         }
@@ -40,7 +40,7 @@ class dialog extends AbstractForm
     }
     function VoiceTalk_2()
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
+        if (SDK_Mode)
         {
             Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceTalk2->text, true, "voice_talk2");
         }
@@ -51,7 +51,7 @@ class dialog extends AbstractForm
     }    
     function VoiceTalk_3()
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
+        if (SDK_Mode)
         {
             Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceTalk3->text, true, "voice_talk3");
         }
@@ -65,7 +65,7 @@ class dialog extends AbstractForm
      */
     function Talk_1(UXMouseEvent $e = null)
     {    
-        if ($this->form('maingame')->SDK_Mode->visible)
+        if (SDK_Mode)
         {
             Element::setText($this->answer_desc, uiText($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_3));
         }
@@ -93,7 +93,7 @@ class dialog extends AbstractForm
      */
     function Talk_2(UXMouseEvent $e = null)
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
+        if (SDK_Mode)
         {
             Element::setText($this->answer_desc, uiText($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Final_Phase));
         }
@@ -145,7 +145,7 @@ class dialog extends AbstractForm
     {
         $this->answer_1_new->show();
         
-        if ($this->form('maingame')->SDK_Mode->visible)
+        if (SDK_Mode)
         {
             $this->answer_desc->text = $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_1->text;
         }

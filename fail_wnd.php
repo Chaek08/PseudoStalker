@@ -39,7 +39,7 @@ class fail_wnd extends AbstractForm
     }
     function SetActorFail()
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
+        if (SDK_Mode)
         {
             $this->Win_object->image = new UXImage($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_EnemyModel->text);
             $this->Win_fail_text->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_FailEditor->content->EditActorFailIcon->text));
@@ -56,7 +56,7 @@ class fail_wnd extends AbstractForm
     }
     function SetEnemyFail()
     {        
-        if ($this->form('maingame')->SDK_Mode->visible)
+        if (SDK_Mode)
         {
             $this->Win_object->image = new UXImage($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_ActorModel->text);
             $this->Win_fail_text->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_FailEditor->content->EditEnemyFailIcon->text));

@@ -51,7 +51,7 @@ class inventory extends AbstractForm
     {
         if ($this->inv_maket_select_2->visible)
         {
-            if ($this->form('maingame')->SDK_Mode->visible)
+            if (SDK_Mode)
             {
                 Element::setText($this->maket_label, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Vodka));
                 Element::setText($this->maket_desc, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Vodka));
@@ -68,7 +68,7 @@ class inventory extends AbstractForm
         }
         if ($this->inv_maket_select->visible)
         {
-            if ($this->form('maingame')->SDK_Mode->visible)
+            if (SDK_Mode)
             {
                 Element::setText($this->maket_label, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Outfit));
                 Element::setText($this->maket_desc, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Outfit));

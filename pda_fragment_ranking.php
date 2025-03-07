@@ -171,7 +171,7 @@ class pda_fragment_ranking extends AbstractForm
     }
     function LadcegaRole()
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
+        if (SDK_Mode)
         {
             Element::setText($this->community, $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Ladcega->text);
             $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Ladcega->value;
@@ -186,7 +186,7 @@ class pda_fragment_ranking extends AbstractForm
     }    
     function DanilaEmojiRole()
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
+        if (SDK_Mode)
         {
             Element::setText($this->community, $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Danila->text);
             $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Danila->value;
@@ -201,7 +201,7 @@ class pda_fragment_ranking extends AbstractForm
     }
     function PidorasRole()
     {
-        if ($this->form('maingame')->SDK_Mode->visible)
+        if (SDK_Mode)
         {
             Element::setText($this->community, $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Pido->text);
             $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Pido->value;
@@ -225,7 +225,7 @@ class pda_fragment_ranking extends AbstractForm
             Element::setText($this->relationship, 'враг');  
             $this->relationship->textColor = ('#cc3333');    
             
-            if ($this->form('maingame')->SDK_Mode->visible)
+            if (SDK_Mode)
             {
                 $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_EnemyIcon->text);            
                 Element::setText($this->bio, uiText($this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_EnemyBio));                 
@@ -245,7 +245,7 @@ class pda_fragment_ranking extends AbstractForm
             Element::setText($this->relationship, 'друг');  
             $this->relationship->textColor = ('#669966');    
             
-            if ($this->form('maingame')->SDK_Mode->visible)
+            if (SDK_Mode)
             {
                 $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_ValerokIcon->text);            
                 Element::setText($this->bio, uiText($this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_ValerokBio));                 
@@ -265,7 +265,7 @@ class pda_fragment_ranking extends AbstractForm
             $this->attitude->hide();
             $this->relationship->hide();              
             
-            if ($this->form('maingame')->SDK_Mode->visible)
+            if (SDK_Mode)
             {
                 $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_ActorIcon->text);  
                 Element::setText($this->bio, uiText($this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_ActorBio));                                        

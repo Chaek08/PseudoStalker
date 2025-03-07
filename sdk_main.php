@@ -14,7 +14,7 @@ class sdk_main extends AbstractForm
     function GetSDKVersion()
     {
     /*
-        if ($this->form('maingame')->debug_build->visible)
+        if (Debug_Build)
         {
             $this->pseudosdk_label->tooltipText = "Build 77, August 8 2024"; //start date: 24 may 2024
         }

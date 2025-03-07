@@ -145,7 +145,7 @@ class opt extends AbstractForm
         
             if ($this->form('maingame')->fight_image->visible) $this->form('maingame')->ReplayBtn->show();
         
-            if ($this->form('maingame')->SDK_Mode->visible)
+            if (SDK_Mode)
             {
                 Media::open($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_FightSound->text, false, "fight_sound");
             }
@@ -538,7 +538,7 @@ class opt extends AbstractForm
                 $this->VersionSwitcher_MouseEnter();
             }
             
-            if ($this->form('maingame')->debug_build->visible)
+            if (Debug_Build)
             {
                 $this->form('maingame')->version->hide();
                 $this->form('maingame')->version_detail->hide();
@@ -564,7 +564,7 @@ class opt extends AbstractForm
                 $this->VersionSwitcher_MouseEnter();
             }            
             
-            if ($this->form('maingame')->debug_build->visible)
+            if (Debug_Build)
             {
                 $this->form('maingame')->version->show();
                 $this->form('maingame')->version_detail->show();           

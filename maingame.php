@@ -14,15 +14,18 @@ class maingame extends AbstractForm
      */
     function InitClient(UXWindowEvent $e = null)
     {
+        define('Debug_Build', true);
+        define('SDK_Mode', true);
+     
         $this->GetVersion();
         $this->OpenMainAmbient();
         
-        if ($this->SDK_Mode->visible)
+        if (SDK_Mode)
         {
             $this->MainMenu->content->opensdk_btn->show();
             $this->Editor->content->GetSDKVersion();
             
-            if ($this->debug_build->visible) $this->Editor->dragging->enabled = true;
+            if (Debug_Build) $this->Editor->dragging->enabled = true;
         }
         else
         {
@@ -32,17 +35,17 @@ class maingame extends AbstractForm
     }
     function GetVersion()
     {
-        if ($this->SDK_Mode->visible)
+        if (SDK_Mode)
         {
-            Element::setText($this->version_detail, "Editor Build 799, Mar 2 2025");
+            Element::setText($this->version_detail, "Editor Build 804, Mar 7 2025");
             Element::setText($this->MainMenu->content->version_detail, "v1.2 + SDK");
         }
         else
         {
-            Element::setText($this->version_detail, "Build 799, Mar 2 2025"); //start date 24.12.2022
+            Element::setText($this->version_detail, "Build 804, Mar 7 2025"); //start date 24.12.2022
             Element::setText($this->MainMenu->content->version_detail, "v1.2");
         }
-        if ($this->debug_build->visible)
+        if (Debug_Build)
         {
             $this->version->show();
             $this->version_detail->show();            
@@ -97,7 +100,7 @@ class maingame extends AbstractForm
     {    
         if ($this->form('maingame')->Options->content->All_Sounds->visible || !$this->form('maingame')->Options->content->MuteFightSound->visible)
         {
-            if ($this->form('maingame')->SDK_Mode->visible)
+            if (SDK_Mode)
             {
                 Media::open($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_FightSound->text, true, "fight_sound");
             }
@@ -153,7 +156,7 @@ class maingame extends AbstractForm
         if ($this->Dialog->visible) return true;
         if ($this->Fail->visible) return true;
         
-        if ($this->SDK_Mode->visible && $this->Editor->visible) return true;
+        if (SDK_Mode && $this->Editor->visible) return true;
         
         return false;
     }     
@@ -164,7 +167,7 @@ class maingame extends AbstractForm
     {    
         if ($this->LoadScreen->visible) return;
         
-        if ($this->SDK_Mode->visible && $this->Editor->visible)
+        if (SDK_Mode && $this->Editor->visible)
         {
             $this->Editor->content->StartMainGame();
             return;
