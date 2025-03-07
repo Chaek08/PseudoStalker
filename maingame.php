@@ -23,13 +23,10 @@ class maingame extends AbstractForm
         if (SDK_Mode)
         {
             $this->MainMenu->content->opensdk_btn->show();
-            $this->Editor->content->GetSDKVersion();
-            
-            if (Debug_Build) $this->Editor->dragging->enabled = true;
         }
         else
         {
-            $this->Editor->free(); 
+            $this->Editor->free();
             $this->MainMenu->content->opensdk_btn->free();
         }
     }

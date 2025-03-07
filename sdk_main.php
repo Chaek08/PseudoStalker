@@ -11,29 +11,14 @@ use php\gui\event\UXWindowEvent;
 
 class sdk_main extends AbstractForm
 {
-    function GetSDKVersion()
-    {
-    /*
-        if (Debug_Build)
-        {
-            $this->pseudosdk_label->tooltipText = "Build 77, August 8 2024"; //start date: 24 may 2024
-        }
-        else 
-        {
-            $this->pseudosdk_label->tooltipText= "v1.0";
-        }
-     */  
-    }
     function SDKStatus()
     {
         if ($this->f_Background->visible)
         {
-            $this->GetSDKVersion();
-            
+            $this->Separator->hide();
+        
             $this->status_label->hide();
             $this->pseudosdk_label->y = 8;
-            
-            $this->Separator->hide();
             
             $this->Apply_All_Btn->hide();
             $this->Reset_All_Btn->hide();
