@@ -193,5 +193,12 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
+    <org.develnext.jphp.ext.javafx.support.control.MediaViewBox backgroundColor="#000000" borderColor="#c0c0c0" borderRadius="0" borderStyle="SOLID" borderWidth="0" focusTraversable="false" id="Video_EasterEgg" layoutX="352" layoutY="110" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="680" prefWidth="896" proportional="true" smooth="true" styleClass="" titleColor="#333333" titleOffset="15" titlePosition="TOP_LEFT">
+      <titleFont>
+        <Font name="System Regular" size="12"/>
+      </titleFont>
+      <children/>
+    </org.develnext.jphp.ext.javafx.support.control.MediaViewBox>
+    <Data cursor="DEFAULT" enabled="1" id="data-Video_EasterEgg" visible=""/>
   </children>
 </AnchorPane>

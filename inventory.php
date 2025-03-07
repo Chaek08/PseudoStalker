@@ -2,6 +2,7 @@
 namespace app\forms;
 
 use std, gui, framework, app;
+use php\gui\event\UXMouseEvent; 
 
 class inventory extends AbstractForm
 {
@@ -208,13 +209,19 @@ class inventory extends AbstractForm
      */
     function VodkaMaketClickLeft(UXMouseEvent $e = null)
     {    
-        if ($this->form('maingame')->skull_actor->visible || $this->form('maingame')->skull_enemy->visible)
-        {
-            if ($this->form('maingame')->Options->content->All_Sounds->visible)
-            {        
-                Media::open('res://.data/audio/movie_1.mp3', true, 'movie_1');  
-            }           
-        }
+        $this->VideoPlayerEasterEgg->view = $this->Video_EasterEgg;
+        $this->Video_EasterEgg->open('src/.data/video/easteregg.mp4');
+                        
+        $this->Video_EasterEgg->show();
+    }
+    /**
+     * @event Video_EasterEgg.click-Left 
+     */
+    function VideoEasterEggClickLeft(UXMouseEvent $e = null)
+    {    
+        $this->Video_EasterEgg->stop();
+        
+        $this->Video_EasterEgg->hide();
     }
     function SetItemCondition()
     {
