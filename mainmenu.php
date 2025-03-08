@@ -8,13 +8,13 @@ use php\gui\event\UXMouseEvent;
 
 class mainmenu extends AbstractForm
 {
-    /**
-     * @event show 
-     */
-    function InitGameClient(UXWindowEvent $e = null)
-    {    
-        Media::open('res://.data/audio/menu/menu_sound.mp3', false, "menu_sound");
-        Media::play("menu_sound");
+    function InitMainMenu()
+    {
+        if ($GLOBALS['AllSounds'] || $GLOBALS['MenuSound'])
+        {
+            Media::open('res://.data/audio/menu/menu_sound.mp3', false, "menu_sound");
+            Media::play("menu_sound");
+        }
     }
     /**
      * @event opensdk_btn.click-Left 
@@ -49,13 +49,15 @@ class mainmenu extends AbstractForm
         $this->form('maingame')->MainMenu->hide();
         
         $this->ContinueGameMenu(); //Continue Game Status Activate
+        
+        $this->form('maingame')->OpenMainAmbient();
         $this->form('maingame')->PlayMainAmbient();
                 
         Media::pause("menu_sound");
         
         if ($this->form('maingame')->fight_image->visible)
         {
-            if ($this->form('maingame')->Options->content->All_Sounds->visible && !$this->form('maingame')->Options->content->MuteFightSound->visible)
+            if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
             {
                  Media::play('fight_sound');
             }

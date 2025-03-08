@@ -71,15 +71,7 @@ class pda_fragment_tasks extends AbstractForm
         $this->ResetBtnColor();    
         $this->active_task->textColor = "#b3b31a";
         
-        if ($this->form('maingame')->skull_actor->visible || $this->form('maingame')->skull_enemy->visible)
-        {
-            $this->DeleteTask();          
-        }
-        else
-        {
-            $this->AddTask();
-        }
-        
+        $this->form('maingame')->skull_actor->visible || $this->form('maingame')->skull_enemy->visible ? $this->DeleteTask() : $this->AddTask();
     }
     /**
      * @event passive_task.click-Left 
@@ -89,14 +81,7 @@ class pda_fragment_tasks extends AbstractForm
         $this->ResetBtnColor();    
         $this->passive_task->textColor = "#b3b31a";
         
-        if ($this->form('maingame')->skull_enemy->visible) //актор победил
-        {
-            $this->AddTask();
-        }
-        else
-        {
-            $this->DeleteTask();            
-        }        
+        $this->form('maingame')->skull_enemy->visible ? $this->AddTask() : $this->DeleteTask();
     }
     /**
      * @event failed_task.click-Left 
@@ -164,7 +149,7 @@ class pda_fragment_tasks extends AbstractForm
     {
         $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));        
         
-        if ($this->form('maingame')->Options->content->All_Sounds->visible)
+        if ($GLOBALS['AllSounds'])
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
         }    
@@ -174,7 +159,7 @@ class pda_fragment_tasks extends AbstractForm
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));
         $this->DeleteTask();   
         
-        if ($this->form('maingame')->Options->content->All_Sounds->visible)
+        if ($GLOBALS['AllSounds'])
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
         }                
@@ -189,7 +174,7 @@ class pda_fragment_tasks extends AbstractForm
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png')); 
         $this->DeleteTask();  
         
-        if ($this->form('maingame')->Options->content->All_Sounds->visible)
+        if ($GLOBALS['AllSounds'])
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
         }                           

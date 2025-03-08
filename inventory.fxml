@@ -200,5 +200,11 @@
       <children/>
     </org.develnext.jphp.ext.javafx.support.control.MediaViewBox>
     <Data cursor="DEFAULT" enabled="1" id="data-Video_EasterEgg" visible=""/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="0" layoutY="0" prefHeight="17" prefWidth="376" styleClass="label " text="" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-label" visible="1"/>
   </children>
 </AnchorPane>

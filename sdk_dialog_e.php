@@ -265,7 +265,7 @@ class sdk_dialog_e extends AbstractForm
      */
     function PreviewVoiceStart(UXMouseEvent $e = null)
     {    
-        if ($this->form('maingame')->Options->content->All_Sounds->visible)
+        if ($GLOBALS['AllSounds'])
         {
             $this->ResetVoice();
             if ($this->Edit_VoiceStart->text != '')
@@ -286,7 +286,7 @@ class sdk_dialog_e extends AbstractForm
      */
     function PreviewVoiceTalk1(UXMouseEvent $e = null)
     {
-        if ($this->form('maingame')->Options->content->All_Sounds->visible)
+        if ($GLOBALS['AllSounds'])
         {
             $this->ResetVoice();
             if ($this->Edit_VoiceTalk1->text != '')
@@ -307,7 +307,7 @@ class sdk_dialog_e extends AbstractForm
      */
     function PreviewVoiceTalk2(UXMouseEvent $e = null)
     {
-        if ($this->form('maingame')->Options->content->All_Sounds->visible)
+        if ($GLOBALS['AllSounds'])
         {
             $this->ResetVoice();
             if ($this->Edit_VoiceTalk2->text != '')
@@ -328,7 +328,7 @@ class sdk_dialog_e extends AbstractForm
      */
     function PreviewVoiceTalk3(UXMouseEvent $e = null)
     {
-        if ($this->form('maingame')->Options->content->All_Sounds->visible)
+        if ($GLOBALS['AllSounds'])
         {
             $this->ResetVoice();        
             if ($this->Edit_VoiceTalk3->text != '')

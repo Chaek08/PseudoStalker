@@ -16,6 +16,7 @@ class fail_wnd extends AbstractForm
     function ExitGameBtn(UXMouseEvent $e = null)
     {
         $this->form('maingame')->ShowMenu();
+        
         $this->form('maingame')->ResetGameClient();
     }
     /**
@@ -24,9 +25,10 @@ class fail_wnd extends AbstractForm
     function ReturnBtn(UXMouseEvent $e = null)
     {
         $this->form('maingame')->Fail->hide();
-        if ($this->form('maingame')->Options->content->All_Sounds->visible)
+        if ($GLOBALS['AllSounds'])
         {        
             Media::play('main_ambient'); 
+            
             if ($this->form('maingame')->skull_actor->visible)
             {
                 if (Media::isStatus('PLAYING','v_enemy')) Media::stop('v_enemy');

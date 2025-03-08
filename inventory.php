@@ -86,21 +86,21 @@ class inventory extends AbstractForm
     }
     function UseSlotSound()
     {
-        if ($this->form('maingame')->Options->content->All_Sounds->visible)
+        if ($GLOBALS['AllSounds'])
         {
             Media::open('res://.data/audio/inv_slot.mp3', true, 'inv_use_slot'); 
         }     
     }
     function PropertiesSound()
     {
-        if ($this->form('maingame')->Options->content->All_Sounds->visible)
+        if ($GLOBALS['AllSounds'])
         {
             Media::open('res://.data/audio/inv_properties.mp3', true, 'inv_properties'); 
         }          
     }
     function DropSound()
     {
-        if ($this->form('maingame')->Options->content->All_Sounds->visible)
+        if ($GLOBALS['AllSounds'])
         {
             Media::open('res://.data/audio/inv_drop.mp3', true, 'inv_drop'); 
         }               
@@ -210,7 +210,7 @@ class inventory extends AbstractForm
     function VodkaMaketClickLeft(UXMouseEvent $e = null)
     {    
         $this->VideoPlayerEasterEgg->view = $this->Video_EasterEgg;
-        $this->Video_EasterEgg->open('src/.data/video/easteregg.mp4');
+        Media::open('res://.data/video/easteregg.mp4', true, $this->VideoPlayerEasterEgg);
                         
         $this->Video_EasterEgg->show();
     }

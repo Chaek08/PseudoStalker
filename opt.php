@@ -3,10 +3,31 @@ namespace app\forms;
 
 use std, gui, framework, app;
 use php\gui\event\UXMouseEvent; 
+use php\gui\event\UXWindowEvent; 
 
 
 class opt extends AbstractForm
 {
+    function InitOptions()
+    {
+        if (!$GLOBALS['AllSounds'])
+        {
+            $this->AllSoundSwitcher_MouseDownLeft();
+            $this->AllSoundSwitcher_MouseExit();
+            
+            return;
+        }
+        if (!$GLOBALS['MenuSound'])
+        {
+            $this->MenuSoundSwitcher_MouseDownLeft();
+            $this->MenuSoundSwitcher_MouseExit();
+        }
+        if (!$GLOBALS['FightSound'])
+        {
+            $this->FightSoundSwitcher_MouseDownLeft();
+            $this->FightSoundSwitcher_MouseExit();
+        }
+    }
     /**
      * @event Return_Btn.mouseExit 
      */
@@ -84,7 +105,7 @@ class opt extends AbstractForm
                 $this->AllSoundSwitcher_MouseEnter();
             }
             
-            $this->All_Sounds->hide();
+            $GLOBALS['AllSounds'] = false;
         
             if ($this->MenuSound_Switcher_Btn->text == 'Вкл') 
             {
@@ -96,8 +117,6 @@ class opt extends AbstractForm
                 $this->FightSoundSwitcher_MouseDownLeft();
                 $this->FightSoundSwitcher_MouseExit();
             }
-            //$this->menusound_off_Legacy->enabled = false;
-            //$this->menusound_on_Legacy->enabled = false;
         
             if ($this->form('maingame')->fight_image->visible) $this->form('maingame')->ReplayBtn->hide();
             
@@ -128,7 +147,7 @@ class opt extends AbstractForm
                 $this->AllSoundSwitcher_MouseEnter();
             }
         
-            $this->All_Sounds->show();
+            $GLOBALS['AllSounds'] = true;
         
             if ($this->MenuSound_Switcher_Btn->text == 'Выкл') 
             {
@@ -139,9 +158,7 @@ class opt extends AbstractForm
             {
                 $this->FightSoundSwitcher_MouseDownLeft();
                 $this->FightSoundSwitcher_MouseExit();
-            }
-            //$this->menusound_off_Legacy->enabled = true;
-            //$this->menusound_on_Legacy->enabled = true;        
+            }       
         
             if ($this->form('maingame')->fight_image->visible) $this->form('maingame')->ReplayBtn->show();
         
@@ -205,7 +222,7 @@ class opt extends AbstractForm
             $this->MenuSound_Switcher_Btn->textColor = '#880911';
             
             Media::stop('menu_sound');
-            $this->MuteMenuSound->show();
+            $GLOBALS['MenuSound'] = false;
             
             return;
         }
@@ -216,7 +233,7 @@ class opt extends AbstractForm
             $this->MenuSound_Switcher_Btn->textColor = '#099209';
             
             Media::play('menu_sound');
-            $this->MuteMenuSound->hide();
+            $GLOBALS['MenuSound'] = true;
             
             return;
         }
@@ -271,7 +288,7 @@ class opt extends AbstractForm
             
             $this->FightSound_Switcher_Btn->textColor = '#880911';
             
-            $this->MuteFightSound->show();
+            $GLOBALS['FightSound'] = false;
         
             if ($this->form('maingame')->fight_image->visible) $this->form('maingame')->ReplayBtn->hide();
             
@@ -283,7 +300,7 @@ class opt extends AbstractForm
             
             $this->FightSound_Switcher_Btn->textColor = '#099209';
             
-            $this->MuteFightSound->hide();
+            $GLOBALS['FightSound'] = true;
         
             if ($this->form('maingame')->fight_image->visible) $this->form('maingame')->ReplayBtn->show();
             

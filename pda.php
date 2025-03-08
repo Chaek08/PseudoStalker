@@ -24,10 +24,7 @@ class pda extends AbstractForm
      */
     function RankingBtn(UXMouseEvent $e = null)
     { 
-        if (!$this->Pda_Ranking->visible) 
-        {
-            $this->DefaultState(); 
-        }    
+        if (!$this->Pda_Ranking->visible) $this->DefaultState();
         
         $this->Pda_Ranking->show();
         
@@ -38,10 +35,7 @@ class pda extends AbstractForm
      */
     function TasksBtn(UXMouseEvent $e = null)
     {  
-        if (!$this->Pda_Tasks->visible)
-        {
-            $this->DefaultState(); 
-        }     
+        if (!$this->Pda_Tasks->visible) $this->DefaultState();
         
         $this->Pda_Tasks->show();
         
@@ -52,10 +46,7 @@ class pda extends AbstractForm
      */
     function ContactsBtn(UXMouseEvent $e = null)
     {   
-        if (!$this->Pda_Contacts->visible) 
-        {
-            $this->DefaultState(); 
-        }      
+        if (!$this->Pda_Contacts->visible) $this->DefaultState();      
         
         $this->Pda_Contacts->show();
         
@@ -66,10 +57,7 @@ class pda extends AbstractForm
      */
     function StatisticBtn(UXMouseEvent $e = null)
     {    
-        if (!$this->Pda_Statistic->visible) 
-        {
-            $this->DefaultState();
-        } 
+        if (!$this->Pda_Statistic->visible) $this->DefaultState();
         
         $this->Pda_Statistic->show();
                 

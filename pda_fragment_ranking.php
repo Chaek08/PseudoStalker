@@ -79,14 +79,7 @@ class pda_fragment_ranking extends AbstractForm
         }
         if ($this->user_goblindav->visible) //Проверяем, выбран ли сейчас нужный user
         {
-            if ($this->form('maingame')->skull_enemy->visible) //Проверяем, мёртв ли противник, чтобы в дальнейшем прописать ему DeathFilter
-            {
-                $this->death_filter->show();
-            }
-            else
-            {
-                $this->death_filter->hide();
-            }
+            $this->form('maingame')->skull_enemy->visible ? $this->death_filter->show() : $this->death_filter->hide(); //Проверяем, мёртв ли противник, чтобы в дальнейшем прописать ему DeathFilter
         }
         if ($this->user_valerok->visible) //Проверяем, выбран ли сейчас нужный user
         {

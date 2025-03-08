@@ -12,6 +12,7 @@ class exit_dlg extends AbstractForm
     function AcceptButton(UXMouseEvent $e = null)
     { 
         $this->form('maingame')->LoadScreen();
+        
         app()->shutdown();
     }
     /**
