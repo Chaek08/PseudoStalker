@@ -64,28 +64,14 @@ class opt extends AbstractForm
      */
     function AllSoundSwitcher_MouseExit(UXMouseEvent $e = null)
     {
-        if ($this->AllSound_Switcher_Btn->text == 'Выкл')
-        {
-            $this->AllSound_Switcher_Btn->textColor = '#d60d1b';
-        }
-        else
-        {
-            $this->AllSound_Switcher_Btn->textColor = '#0dd60d';
-        }
+        $this->AllSound_Switcher_Btn->textColor = ($this->AllSound_Switcher_Btn->text == 'Выкл') ? '#d60d1b' : '#0dd60d';
     }
     /**
      * @event AllSound_Switcher_Btn.mouseEnter 
      */
     function AllSoundSwitcher_MouseEnter(UXMouseEvent $e = null)
     {
-        if ($this->AllSound_Switcher_Btn->text == 'Выкл')
-        {
-            $this->AllSound_Switcher_Btn->textColor = '#b50b17';
-        }
-        else 
-        {
-            $this->AllSound_Switcher_Btn->textColor = '#0bb30b';       
-        }
+        $this->AllSound_Switcher_Btn->textColor = ($this->AllSound_Switcher_Btn->text == 'Выкл') ? '#b50b17' : '#0bb30b';
     }
     /**
      * @event AllSound_Switcher_Btn.mouseDown-Left 
@@ -187,28 +173,14 @@ class opt extends AbstractForm
      */
     function MenuSoundSwitcher_MouseExit(UXMouseEvent $e = null)
     {
-        if ($this->MenuSound_Switcher_Btn->text == 'Выкл')
-        {
-            $this->MenuSound_Switcher_Btn->textColor = '#d60d1b';
-        }
-        else
-        {
-            $this->MenuSound_Switcher_Btn->textColor = '#0dd60d';
-        }
+        $this->MenuSound_Switcher_Btn->textColor = ($this->MenuSound_Switcher_Btn->text == 'Выкл') ? '#d60d1b' : '#0dd60d';
     }
     /**
      * @event MenuSound_Switcher_Btn.mouseEnter 
      */
     function MenuSoundSwitcher_MouseEnter(UXMouseEvent $e = null)
     {
-        if ($this->MenuSound_Switcher_Btn->text == 'Выкл')
-        {
-            $this->MenuSound_Switcher_Btn->textColor = '#b50b17';
-        }
-        else 
-        {
-            $this->MenuSound_Switcher_Btn->textColor = '#0bb30b';       
-        }
+        $this->MenuSound_Switcher_Btn->textColor = ($this->MenuSound_Switcher_Btn->text == 'Выкл') ? '#b50b17' : '#0bb30b';
     }
     /**
      * @event MenuSound_Switcher_Btn.mouseDown-Left 
@@ -252,14 +224,7 @@ class opt extends AbstractForm
      */
     function FightSoundSwitcher_MouseExit(UXMouseEvent $e = null)
     {
-        if ($this->FightSound_Switcher_Btn->text == 'Выкл')
-        {
-            $this->FightSound_Switcher_Btn->textColor = '#d60d1b';
-        }
-        else
-        {
-            $this->FightSound_Switcher_Btn->textColor = '#0dd60d';
-        }
+        $this->FightSound_Switcher_Btn->textColor = ($this->FightSound_Switcher_Btn->text == 'Выкл') ? '#d60d1b' : '#0dd60d';
     }
 
     /**
@@ -267,14 +232,7 @@ class opt extends AbstractForm
      */
     function FightSoundSwitcher_MouseEnter(UXMouseEvent $e = null)
     {
-        if ($this->FightSound_Switcher_Btn->text == 'Выкл')
-        {
-            $this->FightSound_Switcher_Btn->textColor = '#b50b17';
-        }
-        else 
-        {
-            $this->FightSound_Switcher_Btn->textColor = '#0bb30b';       
-        }
+        $this->FightSound_Switcher_Btn->textColor = ($this->FightSound_Switcher_Btn->text == 'Выкл') ? '#b50b17' : '#0bb30b';
     }
 
     /**
@@ -320,28 +278,14 @@ class opt extends AbstractForm
      */
     function ShadowsSwitcher_MouseExit(UXMouseEvent $e = null)
     {
-        if ($this->Shadows_Switcher_Btn->text == 'Выкл')
-        {
-            $this->Shadows_Switcher_Btn->textColor = '#d60d1b';
-        }
-        else
-        {
-            $this->Shadows_Switcher_Btn->textColor = '#0dd60d';
-        }
+        $this->Shadows_Switcher_Btn->textColor = ($this->Shadows_Switcher_Btn->text == 'Выкл') ? '#d60d1b' : '#0dd60d';
     }
     /**
      * @event Shadows_Switcher_Btn.mouseEnter 
      */
     function ShadowsSwitcher_MouseEnter(UXMouseEvent $e = null)
     {
-        if ($this->Shadows_Switcher_Btn->text == 'Выкл')
-        {
-            $this->Shadows_Switcher_Btn->textColor = '#b50b17';
-        }
-        else 
-        {
-            $this->Shadows_Switcher_Btn->textColor = '#0bb30b';       
-        }
+        $this->Shadows_Switcher_Btn->textColor = ($this->Shadows_Switcher_Btn->text == 'Выкл') ? '#b50b17' : '#0bb30b';
     }
     /**
      * @event Shadows_Switcher_Btn.mouseDown-Left 
@@ -514,28 +458,14 @@ class opt extends AbstractForm
      */
     function VersionSwitcher_MouseExit(UXMouseEvent $e = null)
     {
-        if ($this->Version_Switcher_Btn->text == 'Выкл')
-        {
-            $this->Version_Switcher_Btn->textColor = '#d60d1b';
-        }
-        else
-        {
-            $this->Version_Switcher_Btn->textColor = '#0dd60d';
-        }
+        $this->Version_Switcher_Btn->textColor = ($this->Version_Switcher_Btn->text == 'Выкл') ? '#d60d1b' : '#0dd60d';
     }
     /**
      * @event Version_Switcher_Btn.mouseEnter 
      */
     function VersionSwitcher_MouseEnter(UXMouseEvent $e = null)
     {
-        if ($this->Version_Switcher_Btn->text == 'Выкл')
-        {
-            $this->Version_Switcher_Btn->textColor = '#b50b17';
-        }
-        else 
-        {
-            $this->Version_Switcher_Btn->textColor = '#0bb30b';       
-        }
+        $this->Version_Switcher_Btn->textColor = ($this->Version_Switcher_Btn->text == 'Выкл') ? '#b50b17' : '#0bb30b';
     }
     /**
      * @event Version_Switcher_Btn.mouseDown-Left 
