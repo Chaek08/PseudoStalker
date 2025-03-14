@@ -99,6 +99,14 @@ class console extends AbstractForm
             Element::appendText($this->console_list, uiText($this->form('maingame')->version_detail));
             Element::appendText($this->console_list, "\n");
             break;
+             
+            case "ToggleHud":
+            $this->edit->text = "";
+            if (ToggleHudFeature){
+            Element::appendText($this->console_list, "> function ToggleHud() executed\n");
+            $this->form('maingame')->ToggleHud();} else { default; } //ебал
+            
+            break;
             
             default:
             if ($this->edit->text != '')

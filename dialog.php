@@ -123,6 +123,8 @@ class dialog extends AbstractForm
     {       
         $this->form('maingame')->HideDialog();
         
+        if (ToggleHudFeature) $this->form('maingame')->ToggleHud();
+        
         if ($GLOBALS['AllSounds'])
         {
             $this->VoiceTalk_3();

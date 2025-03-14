@@ -29,11 +29,11 @@ class fail_wnd extends AbstractForm
         {        
             Media::play('main_ambient'); 
             
-            if ($this->form('maingame')->skull_actor->visible)
+            if ($GLOBALS['ActorFailed'])
             {
                 if (Media::isStatus('PLAYING','v_enemy')) Media::stop('v_enemy');
             }
-            if ($this->form('maingame')->skull_enemy->visible)
+            if ($GLOBALS['EnemyFailed'])
             {
                 if (Media::isStatus('PLAYING','v_actor')) Media::stop('v_actor');                
             }                

@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use php\concurrent\Future;
 use std, gui, framework, app;
 use action\Geometry;
 use script\MediaPlayerScript;
@@ -18,10 +19,13 @@ class maingame extends AbstractForm
         define('SDK_Mode', true);
         
         //define('LegacySoundTrigger', false);
+        define('ToggleHudFeature', true);
         
         $GLOBALS['AllSounds'] = true;
         $GLOBALS['MenuSound'] = true;
         $GLOBALS['FightSound'] = true;
+        
+        if (ToggleHudFeature) $GLOBALS['HudVisible'] = true;
      
         $this->GetVersion();
         
@@ -136,8 +140,14 @@ class maingame extends AbstractForm
         $this->actor->show();  
         $this->enemy->show();  
         $this->actor->x = 112;
-        $this->enemy->x = 1312;        
+        $this->enemy->x = 1312;    
                      
+        if ($GLOBALS['QuestCompleted']) $GLOBALS['QuestCompleted'] = false;
+        if ($GLOBALS['ActorFailed']) $GLOBALS['ActorFailed'] = false;
+        if ($GLOBALS['EnemyFailed']) $GLOBALS['EnemyFailed'] = false;
+        
+        if (ToggleHudFeature && $GLOBALS['NeedToCheckPDA']) $GLOBALS['NeedToCheckPDA'] = false;
+                             
         $this->Pda->content->DefaultState();        
         $this->Pda->content->Pda_Contacts->content->AddEnemyContacts();   
         $this->Pda->content->Pda_Tasks->content->DeleteTask();    
@@ -165,25 +175,106 @@ class maingame extends AbstractForm
         
         return false;
     }     
+    function ToggleHud()
+    {
+        if ($GLOBALS['HudVisible'])
+        {
+            if ($this->skull_actor->visible) $this->skull_actor->hide(); //deprecated in future
+            if ($this->skull_enemy->visible) $this->skull_enemy->hide(); //deprecated in future        
+        
+            $this->health_static_gg->hide();
+            $this->health_bar_gg->hide();
+            $this->health_bar_gg_b->hide();
+        
+            $this->health_static_enemy->hide();
+            $this->health_bar_enemy->hide();
+            $this->health_bar_enemy_b->hide();
+            
+            if ($this->pda_icon->visible) $this->pda_icon->hide();
+            
+            if ($this->fight_image->visible) $this->fight_image->hide();
+        
+            if ($this->dlg_btn->visible || $this->fight_image->visible) $this->dlg_btn->hide();
+            if ($this->leave_btn->visible) $this->leave_btn->hide();
+            if ($this->ReplayBtn->visible) $this->ReplayBtn->hide();
+            
+            $GLOBALS['HudVisible'] = false;
+            return;
+        }
+        else 
+        {
+            if (!$this->actor->visible) $this->skull_actor->show(); //deprecated in future
+            if (!$this->enemy->visible) $this->skull_enemy->show(); //deprecated in Future
+                    
+            $this->health_static_gg->show();
+            if (!$this->skull_actor->visible) 
+            {
+                $this->health_bar_gg->show();
+                $this->health_bar_gg_b->show();
+            }
+            $this->health_static_enemy->show();
+            if (!$this->skull_enemy->visible) 
+            {
+                $this->health_bar_enemy->show();
+                $this->health_bar_enemy_b->show();
+            }
+            
+            if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
+            
+            if (!$this->idle_static_actor->visible) $this->fight_image->show();
+            
+            if ($this->skull_actor->visible || $this->skull_enemy->visible) $this->leave_btn->show();
+            if (!$this->leave_btn->visible && $this->idle_static_actor->visible) $this->dlg_btn->show();
+            if ($this->fight_image->visible && $GLOBALS['AllSounds'] || $GLOBALS['FightSound']) $this->ReplayBtn->show();        
+        
+            $GLOBALS['HudVisible'] = true;
+            return;            
+        }
+    }
     /**
      * @event keyDown-Esc 
      */
     function EscBtn(UXKeyEvent $e = null)
     {    
+        if (ToggleHudFeature) $this->ToggleHud();
+            
         if ($this->LoadScreen->visible) return;
-        
         if (SDK_Mode && $this->Editor->visible)
         {
             $this->Editor->content->StartMainGame();
             return;
+        } 
+        if ($this->MainMenu->visible) 
+        {
+            $this->MainMenu->content->BtnStartGame_MouseDownLeft();
+            return;
         }
-             
-        if ($this->MainMenu->visible) { $this->MainMenu->content->BtnStartGame_MouseDownLeft(); return; }
-        if ($this->Inventory->visible) { $this->HideInventory(); return; }
-        if ($this->Dialog->visible) { $this->HideDialog(); Media::stop('voice_talk3'); return; }
-        if ($this->Pda->visible) { $this->HidePda(); return; }
-        if ($this->ExitDialog->visible) { $this->ExitDialog->hide(); return; }
-        if ($this->Options->visible) {$this->Options->content->ReturnBtn_MouseDownLeft(); return;}
+        if ($this->Inventory->visible)
+        {
+            $this->HideInventory(); 
+            return;
+        }
+        if ($this->Dialog->visible) 
+        {
+            $this->HideDialog();
+            Media::stop('voice_talk3');
+            return;
+        }
+        if ($this->Pda->visible)
+        {
+            $this->HidePda();
+            return;
+        }
+        if ($this->ExitDialog->visible) 
+        {
+            $this->ExitDialog->hide();
+            return;
+        }
+        if ($this->Options->visible)
+        {
+            $this->Options->content->ReturnBtn_MouseDownLeft();
+            return;
+        } 
         
         $this->ShowMenu();
         $this->PauseMainAmbient();
@@ -209,6 +300,8 @@ class maingame extends AbstractForm
     {
         if ($this->CheckVisibledFragments()) return;
         
+        if (ToggleHudFeature && !$this->ExitDialog->visible) $this->ToggleHud();
+        
         $this->Pda->show();
         if ($this->Pda->content->Pda_Statistic->visible && $this->pda_icon->visible) $this->pda_icon->hide();       
     }
@@ -218,6 +311,8 @@ class maingame extends AbstractForm
     function ShowInventory(UXKeyEvent $e = null)
     {       
         if ($this->CheckVisibledFragments()) return;
+        
+        if (ToggleHudFeature && !$this->ExitDialog->visible) $this->ToggleHud();        
         
         $this->Inventory->show();
         if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/inv_open.mp3', true);
@@ -229,6 +324,8 @@ class maingame extends AbstractForm
     {          
         if ($this->CheckVisibledFragments()) return;
         
+        if (ToggleHudFeature && !$this->ExitDialog->visible) $this->ToggleHud();        
+        
         $this->ExitDialog->show();
     }
     /**
@@ -236,7 +333,9 @@ class maingame extends AbstractForm
      */
     function ShowDialog(UXMouseEvent $e = null)
     {          
-        $this->Dialog->show();  
+        if (ToggleHudFeature) $this->ToggleHud();
+    
+        $this->Dialog->show();
         $this->Dialog->content->StartDialog();          
         $this->Dialog->content->VoiceStart();    
     }
@@ -262,7 +361,6 @@ class maingame extends AbstractForm
                 
             if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/inv_close.mp3', true);         
         }
-        
     }
     function HidePda()
     {
@@ -335,6 +433,7 @@ class maingame extends AbstractForm
         {
             $this->skull_actor->hide();
             $this->skull_enemy->hide();
+            
             $this->Pda->content->Pda_Ranking->content->DeathFilter();
         }    
     }
@@ -482,6 +581,9 @@ class maingame extends AbstractForm
     }
     function FailAction()
     {
+        $GLOBALS['QuestCompleted'] = true;
+        if (ToggleHudFeature) $GLOBALS['NeedToCheckPDA'] = true;
+    
         $this->fight_image->hide();
         $this->Fail->show();
         $this->item_vodka_0000->enabled = false;
@@ -502,8 +604,9 @@ class maingame extends AbstractForm
         }
     }
     function ActorFail()
-    {
+    { 
         $this->FailAction();
+        $GLOBALS['ActorFailed'] = true;
     
         $this->actor->hide();      
            
@@ -515,7 +618,8 @@ class maingame extends AbstractForm
     }
     function EnemyFail()
     {
-        $this->FailAction();   
+        $this->FailAction();
+        $GLOBALS['EnemyFailed'] = true;        
     
         $this->enemy->hide();
                 

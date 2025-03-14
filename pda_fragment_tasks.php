@@ -71,7 +71,7 @@ class pda_fragment_tasks extends AbstractForm
         $this->ResetBtnColor();    
         $this->active_task->textColor = "#b3b31a";
         
-        $this->form('maingame')->skull_actor->visible || $this->form('maingame')->skull_enemy->visible ? $this->DeleteTask() : $this->AddTask();
+        $GLOBALS['QuestCompleted'] ? $this->DeleteTask() : $this->AddTask();
     }
     /**
      * @event passive_task.click-Left 
@@ -81,7 +81,7 @@ class pda_fragment_tasks extends AbstractForm
         $this->ResetBtnColor();    
         $this->passive_task->textColor = "#b3b31a";
         
-        $this->form('maingame')->skull_enemy->visible ? $this->AddTask() : $this->DeleteTask();
+        $GLOBALS['EnemyFailed'] ? $this->AddTask() : $this->DeleteTask();
     }
     /**
      * @event failed_task.click-Left 
@@ -91,7 +91,7 @@ class pda_fragment_tasks extends AbstractForm
         $this->ResetBtnColor();
         $this->failed_task->textColor = "#b3b31a";
         
-        if ($this->form('maingame')->skull_actor->visible) //актор проиграл
+        if ($GLOBALS['ActorFailed']) //актор проиграл
         {
             $this->AddTask();
             $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png'));
@@ -119,31 +119,41 @@ class pda_fragment_tasks extends AbstractForm
     }
     function Step_UpdatePda()
     { 
-        if ($this->form('maingame')->skull_actor->visible || $this->form('maingame')->skull_enemy->visible)
+        if ($GLOBALS['QuestCompleted'])
         {
            if ($this->form('maingame')->Pda->content->Pda_Statistic->visible)
            {
-               $this->form('maingame')->pda_icon->show();
+               if (ToggleHudFeature && $GLOBALS['HudVisible'] && NeedToCheckPDA) $this->form('maingame')->pda_icon->show();
            }
            else
            {
-               $this->form('maingame')->pda_icon->show();
+               if (ToggleHudFeature && $GLOBALS['HudVisible'] && NeedToCheckPDA) $this->form('maingame')->pda_icon->show();
                $this->form('maingame')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_new_icon.png'));                
            }            
         }
         else 
         {
-           $this->form('maingame')->pda_icon->hide();
+           if ($this->form('maingame')->pda_icon->visible) $this->form('maingame')->pda_icon->hide();
            $this->form('maingame')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));              
         }
     }
     function Step_DeletePda()
     {
-        if ($this->form('maingame')->pda_icon->visible)
+        if (ToggleHudFeature || $GLOBALS['HudVisible'] && NeedToCheckPDA)
         {
            $this->form('maingame')->pda_icon->hide();
-           $this->form('maingame')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));              
-        }        
+           $this->form('maingame')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));
+           
+           $GLOBALS['NeedToCheckPDA'] = false;
+        }
+        else
+        {
+            if ($this->form('maingame')->pda_icon->visible)
+            {
+                $this->form('maingame')->pda_icon->hide();
+                $this->form('maingame')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));
+            }
+        }
     }
     function Step1_Complete()
     {

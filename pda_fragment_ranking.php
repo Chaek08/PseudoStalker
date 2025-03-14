@@ -66,7 +66,7 @@ class pda_fragment_ranking extends AbstractForm
     {
         if ($this->user_actor->visible) //Проверяем, выбран ли сейчас нужный user
         {
-            if ($this->form('maingame')->skull_actor->visible) //Проверяем, мёртв ли актёр, чтобы в дальнейшем прописать ему DeathFilter
+            if ($GLOBALS['ActorFailed']) //Проверяем, мёртв ли актёр, чтобы в дальнейшем прописать ему DeathFilter
             {
                 $this->death_filter->show();
                 $this->form('maingame')->Pda->content->Pda_Statistic->content->death_filter->show();
@@ -79,7 +79,7 @@ class pda_fragment_ranking extends AbstractForm
         }
         if ($this->user_goblindav->visible) //Проверяем, выбран ли сейчас нужный user
         {
-            $this->form('maingame')->skull_enemy->visible ? $this->death_filter->show() : $this->death_filter->hide(); //Проверяем, мёртв ли противник, чтобы в дальнейшем прописать ему DeathFilter
+            $GLOBALS['EnemyFailed'] ? $this->death_filter->show() : $this->death_filter->hide(); //Проверяем, мёртв ли противник, чтобы в дальнейшем прописать ему DeathFilter
         }
         if ($this->user_valerok->visible) //Проверяем, выбран ли сейчас нужный user
         {
@@ -145,7 +145,7 @@ class pda_fragment_ranking extends AbstractForm
         }
         if ($this->form('maingame')->Pda->content->Pda_Contacts->content->icon->visible)
         {
-            if ($this->form('maingame')->skull_enemy->visible)
+            if ($GLOBALS['EnemyFailed'])
             {
                 return;
             }

@@ -25,16 +25,16 @@ class pda_fragments_stat extends AbstractForm
     }
     function UpdateRaiting()
     {
-        if ($this->form('maingame')->skull_enemy->visible)
+        if ($GLOBALS['EnemyFailed'])
         {
             $this->statistic_num->text = "10021\n1000\n1\n\n11022";  
             $this->form('maingame')->Pda->content->Pda_Ranking->content->actor_in_raiting_rank->text = "11022";                           
         }
-        if ($this->form('maingame')->skull_actor->visible)
+        if ($GLOBALS['ActorFailed'])
         {
             $this->form('maingame')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_rank->text = "301";
         }
-        if (!$this->form('maingame')->skull_actor->visible && !$this->form('maingame')->skull_enemy->visible)
+        if (!$GLOBALS['QuestCompleted'])
         {
             $this->InitRaiting();
             

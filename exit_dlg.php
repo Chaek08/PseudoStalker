@@ -21,5 +21,7 @@ class exit_dlg extends AbstractForm
     function DisagreeButton(UXMouseEvent $e = null)
     {
         $this->form('maingame')->ExitDialog->hide();
+        
+        if (ToggleHudFeature) $this->form('maingame')->ToggleHud();
     }
 }

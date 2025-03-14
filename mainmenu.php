@@ -48,6 +48,9 @@ class mainmenu extends AbstractForm
     
         $this->form('maingame')->MainMenu->hide();
         
+        //if ($this->Btn_Start_Game->text == "Продолжить игру") $this->form('maingame')->ToggleHud(); //ты чё далбаеб чтоли
+        if (ToggleHudFeature && !$GLOBALS['HudVisible']) $this->form('maingame')->ToggleHud(); //вот так нахуй надо
+        
         $this->ContinueGameMenu(); //Continue Game Status Activate
         
         $this->form('maingame')->OpenMainAmbient();
