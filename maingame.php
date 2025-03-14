@@ -15,6 +15,9 @@ class maingame extends AbstractForm
      */
     function InitClient(UXWindowEvent $e = null)
     {
+        define('BuildID', 'Build 811, Mar 14 2025'); //start date 24.12.2022
+        define('VersionID', 'v1.3');
+        
         define('Debug_Build', true);
         define('SDK_Mode', true);
         
@@ -46,13 +49,15 @@ class maingame extends AbstractForm
     {
         if (SDK_Mode)
         {
-            Element::setText($this->version_detail, "Editor Build 805, Mar 8 2025");
-            Element::setText($this->MainMenu->content->version_detail, "v1.2 + SDK");
+            Element::setText($this->version_detail, "Editor ");
+            Element::appendText($this->version_detail, BuildID);
+            Element::setText($this->MainMenu->content->version_detail, VersionID);
+            Element::appendText($this->MainMenu->content->version_detail, ' + SDK');
         }
         else
         {
-            Element::setText($this->version_detail, "Build 805, Mar 8 2025"); //start date 24.12.2022
-            Element::setText($this->MainMenu->content->version_detail, "v1.2");
+            Element::setText($this->version_detail, VersionID); 
+            Element::setText($this->MainMenu->content->version_detail, VersionID);
         }
         if (Debug_Build)
         {
