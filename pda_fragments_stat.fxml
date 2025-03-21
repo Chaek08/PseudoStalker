@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488" prefWidth="784" styleClass="">
   <children>
-    <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button" layoutX="352" layoutY="8" prefHeight="472" prefWidth="424" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button" layoutX="352" layoutY="8" opacity="0.95121951219512" prefHeight="472" prefWidth="424" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="frame_01" layoutX="8" layoutY="8" prefHeight="472" prefWidth="336" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="frame_01" layoutX="8" layoutY="8" opacity="0.95121951219512" prefHeight="472" prefWidth="336" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -72,7 +72,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-statistic_num" visible="1"/>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="target_label" layoutX="368" layoutY="64" prefHeight="112" prefWidth="392" styleClass="label " text="События происходят в 2033 году&#10;В это болото меня сюда заслал данила!!! Он смог поразить гоблиндава, но оказалось что поразил он не гоблиндава, а его двойника!!!&#10;Теперь мне нужно устранить настоящего гоблиндава" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="target_label" layoutX="368" layoutY="64" prefHeight="112" prefWidth="392" styleClass="label " text="События происходят в 2033 году. В это болото меня сюда заслал данила!!! Он смог поразить гоблиндава, но оказалось что поразил он не гоблиндава, а его двойника!!! Теперь мне нужно устранить настоящего гоблиндава" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="14"/>
       </font>

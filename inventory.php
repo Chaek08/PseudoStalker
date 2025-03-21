@@ -3,9 +3,25 @@ namespace app\forms;
 
 use std, gui, framework, app;
 use php\gui\event\UXMouseEvent; 
+use php\gui\event\UXWindowEvent; 
+use app\forms\classes\Localization;
 
 class inventory extends AbstractForm
 {
+    private $localization;
+
+    public function __construct() 
+    {
+        parent::__construct();
+
+        $this->localization = new Localization($language);
+    }
+    
+    function InitInventoryWeight()
+    {    
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->weight_desc->text = $this->localization->get('Weight_Label') . (($this->inv_item_vodka->visible ? " 4.3" : " 3.8") . " / 50.0");
+    }
     function HideVodkaMaket()
     {
         $this->inv_maket_select_2->hide();
@@ -49,6 +65,7 @@ class inventory extends AbstractForm
     }
     function SetUIText()
     {
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
         if ($this->inv_maket_select_2->visible)
         {
             if (SDK_Mode)
@@ -60,10 +77,10 @@ class inventory extends AbstractForm
             }
             else 
             {
-                Element::setText($this->maket_label, "Водка Казаки");
-                Element::setText($this->maket_desc, "С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.\nУправление бутылкой:\nЛКМ - Метнуть бутылку во врага\nПКМ - Метнуть бутылку к себе");
                 Element::setText($this->maket_count, "250 RU");
                 Element::setText($this->maket_weight, "0.50kg");
+                $this->maket_label->text = $this->localization->get('Vodka_Inv_Name');
+                $this->maket_desc->text = $this->localization->get('Vodka_Inv_Desc');
             }
         }
         if ($this->inv_maket_select->visible)
@@ -77,10 +94,10 @@ class inventory extends AbstractForm
             }
             else 
             {
-                Element::setText($this->maket_label, "Броня Сани Кабана");
-                Element::setText($this->maket_desc, "Этот продукт обеспечивает полную защиту от радиации и ужасного запаха гоблиндава! И что самое важное - он сделан из натуральной кабаньей плоти. Теперь я могу быть уверенным в своей безопасности и комфорте в любых условиях.");
                 Element::setText($this->maket_count, "2599 RU");
                 Element::setText($this->maket_weight, "1.00kg");
+                $this->maket_label->text = $this->localization->get('Outfit_Inv_Name');
+                $this->maket_desc->text = $this->localization->get('Outfit_Inv_Desc');
             }
         }
     }
@@ -179,18 +196,21 @@ class inventory extends AbstractForm
             
             if ($this->inv_maket_select->visible) $this->inv_maket_select->hide();
         }  
-
     }
     function SpawnVodka()
     {
-        Element::setText($this->weight_desc, 'Вес  3.8 / 50.0');
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->weight_desc->text = ($this->localization->get('Weight_Label')) . " 3.8 / 50.0";
+        
         $this->inv_item_vodka->hide();
         $this->vodka_selected->hide();
         $this->form('maingame')->item_vodka_0000->show();                
     }
     function DespawnVodka()
     {
-        Element::setText($this->weight_desc, 'Вес  4.3 / 50.0');
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->weight_desc->text = ($this->localization->get('Weight_Label')) . " 4.3 / 50.0";
+
         $this->inv_item_vodka->show();
         $this->vodka_selected->show();
         $this->form('maingame')->item_vodka_0000->hide();    

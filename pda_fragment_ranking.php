@@ -5,10 +5,19 @@ use php\gui\UXImage;
 use php\gui\UXImageView;
 use std, gui, framework, app;
 use action\Element; 
-
+use app\forms\classes\Localization;
 
 class pda_fragment_ranking extends AbstractForm
 {
+    private $localization;
+
+    public function __construct() 
+    {
+        parent::__construct();
+
+        $this->localization = new Localization($language);
+    }
+    
     function ResetUserInfo()
     {
         $this->user_actor->hide();
@@ -139,10 +148,7 @@ class pda_fragment_ranking extends AbstractForm
      */
     function Redirect(UXMouseEvent $e = null)
     {    
-        if ($this->user_actor->visible)
-        {
-            $this->form('maingame')->Pda->content->StatisticBtn();
-        }
+        if ($this->user_actor->visible) $this->form('maingame')->Pda->content->StatisticBtn();
         if ($this->form('maingame')->Pda->content->Pda_Contacts->content->icon->visible)
         {
             if ($GLOBALS['EnemyFailed'])
@@ -172,7 +178,7 @@ class pda_fragment_ranking extends AbstractForm
         }
         else 
         {
-            Element::setText($this->community, 'LADCEGA');
+            $this->community->text = $this->localization->get('LA_Community');
             $this->community->textColor = '#e64d4d';
             $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/ladcega_role.png'));            
         }
@@ -187,7 +193,7 @@ class pda_fragment_ranking extends AbstractForm
         }
         else 
         {
-            Element::setText($this->community, 'Danila Emoji');    
+            $this->community->text = $this->localization->get('DE_Community');
             $this->community->textColor = '#cc8033';          
             $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/danila_emoji_role.png'));            
         }
@@ -202,20 +208,22 @@ class pda_fragment_ranking extends AbstractForm
         }
         else     
         {
-            Element::setText($this->community, 'Пидорасы');
+            $this->community->text = $this->localization->get('Community_Pido');
             $this->community->textColor = '#16a4cd';
             $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/pidoras_role.png'));
         }
     }
     function SetUserInfo()
     {
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
         if ($this->user_goblindav->visible)
         {
             $this->ResetRole();
             $this->PidorasRole();
             $this->DeathFilter();
-            Element::setText($this->rank, 'ветеринар');
-            Element::setText($this->relationship, 'враг');  
+            
+            $this->rank->text = $this->localization->get('Rank_Veterinarian');
+            $this->relationship->text = $this->localization->get('Relationship_Enemy');
             $this->relationship->textColor = ('#cc3333');    
             
             if (SDK_Mode)
@@ -225,8 +233,8 @@ class pda_fragment_ranking extends AbstractForm
             } 
             else
             {
-                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/goblindav.png');    
-                Element::setText($this->bio, 'САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ');                              
+                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/goblindav.png');
+                $this->bio->text = $this->localization->get('GoblindaV_Bio');
             }       
         }
         if ($this->user_valerok->visible)
@@ -234,9 +242,10 @@ class pda_fragment_ranking extends AbstractForm
             $this->ResetRole();
             $this->LadcegaRole();
             $this->DeathFilter();
-            Element::setText($this->rank, 'мастер');
-            Element::setText($this->relationship, 'друг');  
-            $this->relationship->textColor = ('#669966');    
+            
+            $this->rank->text = $this->localization->get('Rank_Master');
+            $this->relationship->text = $this->localization->get('Relationship_Friend');
+            $this->relationship->textColor = ('#669966');
             
             if (SDK_Mode)
             {
@@ -245,8 +254,8 @@ class pda_fragment_ranking extends AbstractForm
             } 
             else
             {
-                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/valerok.png');    
-                Element::setText($this->bio, 'Хозяин LADCEGA, попускает тупых огсровцев, В его гараже всегда лежит нож, готовый помочь в любых делах.');                              
+                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/valerok.png');
+                $this->bio->text = $this->localization->get('Valerok_Bio');
             }                                   
         }       
         if ($this->user_actor->visible)
@@ -254,7 +263,7 @@ class pda_fragment_ranking extends AbstractForm
             $this->ResetRole();        
             $this->DanilaEmojiRole();          
             $this->DeathFilter();
-            Element::setText($this->rank, 'мастер');
+            $this->rank->text = $this->localization->get('Rank_Master');
             $this->attitude->hide();
             $this->relationship->hide();              
             
@@ -265,8 +274,8 @@ class pda_fragment_ranking extends AbstractForm
             }
             else 
             {
-                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/actor.png');                  
-                Element::setText($this->bio, 'Известен как самый бескомпромиссный в районе, этот человек дает пиздюлей каждому, без разницы - будь то админ или нет.');                            
+                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/actor.png');
+                $this->bio->text = $this->localization->get('Actor_Bio');
             }
         }       
     }

@@ -1,13 +1,24 @@
 <?php
 namespace app\forms;
 
+use Exception;
 use std, gui, framework, app;
 use php\gui\event\UXMouseEvent; 
 use php\gui\event\UXWindowEvent; 
-
+use php\gui\event\UXEvent;
+use app\forms\classes\Localization;
 
 class opt extends AbstractForm
 {
+    private $localization;
+
+    public function __construct() 
+    {
+        parent::__construct();
+
+        $this->localization = new Localization($language);
+    }
+    
     function InitOptions()
     {
         if (!$GLOBALS['AllSounds'])
@@ -27,6 +38,8 @@ class opt extends AbstractForm
             $this->FightSoundSwitcher_MouseDownLeft();
             $this->FightSoundSwitcher_MouseExit();
         }
+        
+        $this->Language_Switcher_Combobobx->value = ($this->localization->getCurrentLanguage() == 'rus') ? 'rus' : 'eng';
     }
     /**
      * @event Return_Btn.mouseExit 
@@ -64,23 +77,24 @@ class opt extends AbstractForm
      */
     function AllSoundSwitcher_MouseExit(UXMouseEvent $e = null)
     {
-        $this->AllSound_Switcher_Btn->textColor = ($this->AllSound_Switcher_Btn->text == 'Выкл') ? '#d60d1b' : '#0dd60d';
+        $this->AllSound_Switcher_Btn->textColor = ($this->AllSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label')) ? '#d60d1b' : '#0dd60d';
     }
     /**
      * @event AllSound_Switcher_Btn.mouseEnter 
      */
     function AllSoundSwitcher_MouseEnter(UXMouseEvent $e = null)
     {
-        $this->AllSound_Switcher_Btn->textColor = ($this->AllSound_Switcher_Btn->text == 'Выкл') ? '#b50b17' : '#0bb30b';
+        $this->AllSound_Switcher_Btn->textColor = ($this->AllSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label')) ? '#b50b17' : '#0bb30b';
+        
     }
     /**
      * @event AllSound_Switcher_Btn.mouseDown-Left 
      */
     function AllSoundSwitcher_MouseDownLeft(UXMouseEvent $e = null)
     {
-        if ($this->AllSound_Switcher_Btn->text == 'Вкл')
+        if ($this->AllSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
         {
-            $this->AllSound_Switcher_Btn->text = 'Выкл';
+            $this->AllSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             
             if (!$this->form('maingame')->Console->visible && $this->form('maingame')->Console->content->edit->focused == false) //костыль ебучий
             {            
@@ -93,12 +107,12 @@ class opt extends AbstractForm
             
             $GLOBALS['AllSounds'] = false;
         
-            if ($this->MenuSound_Switcher_Btn->text == 'Вкл') 
+            if ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
             {
                 $this->MenuSoundSwitcher_MouseDownLeft();
                 $this->MenuSoundSwitcher_MouseExit();
             }
-            if ($this->FightSound_Switcher_Btn->text == 'Вкл')
+            if ($this->FightSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
             {
                 $this->FightSoundSwitcher_MouseDownLeft();
                 $this->FightSoundSwitcher_MouseExit();
@@ -122,7 +136,7 @@ class opt extends AbstractForm
         }
         else 
         {
-            $this->AllSound_Switcher_Btn->text = 'Вкл';
+            $this->AllSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
             
             if (!$this->form('maingame')->Console->visible && $this->form('maingame')->Console->content->edit->focused == false) //костыль ебучий
             {                       
@@ -135,12 +149,12 @@ class opt extends AbstractForm
         
             $GLOBALS['AllSounds'] = true;
         
-            if ($this->MenuSound_Switcher_Btn->text == 'Выкл') 
+            if ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label')) 
             {
                 $this->MenuSoundSwitcher_MouseDownLeft();
                 $this->MenuSoundSwitcher_MouseExit();
             }
-            if ($this->FightSound_Switcher_Btn->text == 'Выкл') 
+            if ($this->FightSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label'))
             {
                 $this->FightSoundSwitcher_MouseDownLeft();
                 $this->FightSoundSwitcher_MouseExit();
@@ -173,23 +187,23 @@ class opt extends AbstractForm
      */
     function MenuSoundSwitcher_MouseExit(UXMouseEvent $e = null)
     {
-        $this->MenuSound_Switcher_Btn->textColor = ($this->MenuSound_Switcher_Btn->text == 'Выкл') ? '#d60d1b' : '#0dd60d';
+        $this->MenuSound_Switcher_Btn->textColor = ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label')) ? '#d60d1b' : '#0dd60d';
     }
     /**
      * @event MenuSound_Switcher_Btn.mouseEnter 
      */
     function MenuSoundSwitcher_MouseEnter(UXMouseEvent $e = null)
     {
-        $this->MenuSound_Switcher_Btn->textColor = ($this->MenuSound_Switcher_Btn->text == 'Выкл') ? '#b50b17' : '#0bb30b';
+        $this->MenuSound_Switcher_Btn->textColor = ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label')) ? '#b50b17' : '#0bb30b';
     }
     /**
      * @event MenuSound_Switcher_Btn.mouseDown-Left 
      */
     function MenuSoundSwitcher_MouseDownLeft(UXMouseEvent $e = null)
     {
-        if ($this->MenuSound_Switcher_Btn->text == 'Вкл')
+        if ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
         {
-            $this->MenuSound_Switcher_Btn->text = 'Выкл';
+            $this->MenuSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             
             $this->MenuSound_Switcher_Btn->textColor = '#880911';
             
@@ -200,7 +214,7 @@ class opt extends AbstractForm
         }
         else 
         {
-            $this->MenuSound_Switcher_Btn->text = 'Вкл';
+            $this->MenuSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
             
             $this->MenuSound_Switcher_Btn->textColor = '#099209';
             
@@ -224,7 +238,7 @@ class opt extends AbstractForm
      */
     function FightSoundSwitcher_MouseExit(UXMouseEvent $e = null)
     {
-        $this->FightSound_Switcher_Btn->textColor = ($this->FightSound_Switcher_Btn->text == 'Выкл') ? '#d60d1b' : '#0dd60d';
+        $this->FightSound_Switcher_Btn->textColor = ($this->FightSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label')) ? '#d60d1b' : '#0dd60d';
     }
 
     /**
@@ -232,7 +246,7 @@ class opt extends AbstractForm
      */
     function FightSoundSwitcher_MouseEnter(UXMouseEvent $e = null)
     {
-        $this->FightSound_Switcher_Btn->textColor = ($this->FightSound_Switcher_Btn->text == 'Выкл') ? '#b50b17' : '#0bb30b';
+        $this->FightSound_Switcher_Btn->textColor = ($this->FightSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label')) ? '#b50b17' : '#0bb30b';
     }
 
     /**
@@ -240,9 +254,9 @@ class opt extends AbstractForm
      */
     function FightSoundSwitcher_MouseDownLeft(UXMouseEvent $e = null)
     {
-        if ($this->FightSound_Switcher_Btn->text == 'Вкл')
+        if ($this->FightSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
         {
-            $this->FightSound_Switcher_Btn->text = 'Выкл';
+            $this->FightSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             
             $this->FightSound_Switcher_Btn->textColor = '#880911';
             
@@ -254,7 +268,7 @@ class opt extends AbstractForm
         }
         else 
         {
-            $this->FightSound_Switcher_Btn->text = 'Вкл';
+            $this->FightSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
             
             $this->FightSound_Switcher_Btn->textColor = '#099209';
             
@@ -278,23 +292,23 @@ class opt extends AbstractForm
      */
     function ShadowsSwitcher_MouseExit(UXMouseEvent $e = null)
     {
-        $this->Shadows_Switcher_Btn->textColor = ($this->Shadows_Switcher_Btn->text == 'Выкл') ? '#d60d1b' : '#0dd60d';
+        $this->Shadows_Switcher_Btn->textColor = ($this->Shadows_Switcher_Btn->text == $this->localization->get('TurnOff_Label')) ? '#d60d1b' : '#0dd60d';
     }
     /**
      * @event Shadows_Switcher_Btn.mouseEnter 
      */
     function ShadowsSwitcher_MouseEnter(UXMouseEvent $e = null)
     {
-        $this->Shadows_Switcher_Btn->textColor = ($this->Shadows_Switcher_Btn->text == 'Выкл') ? '#b50b17' : '#0bb30b';
+        $this->Shadows_Switcher_Btn->textColor = ($this->Shadows_Switcher_Btn->text == $this->localization->get('TurnOff_Label')) ? '#b50b17' : '#0bb30b';
     }
     /**
      * @event Shadows_Switcher_Btn.mouseDown-Left 
      */
     function ShadowsSwitcher_MouseDownLeft(UXMouseEvent $e = null)
     {
-        if ($this->Shadows_Switcher_Btn->text == 'Вкл')
+        if ($this->Shadows_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
         {
-            $this->Shadows_Switcher_Btn->text = 'Выкл';
+            $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             
             if (!$this->form('maingame')->Console->visible && $this->form('maingame')->Console->content->edit->focused == false) //костыль ебучий
             {            
@@ -370,7 +384,7 @@ class opt extends AbstractForm
         }
         else 
         {
-            $this->Shadows_Switcher_Btn->text = 'Вкл';
+            $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
                
             if (!$this->form('maingame')->Console->visible && $this->form('maingame')->Console->content->edit->focused == false) //костыль ебучий
             {                    
@@ -458,23 +472,23 @@ class opt extends AbstractForm
      */
     function VersionSwitcher_MouseExit(UXMouseEvent $e = null)
     {
-        $this->Version_Switcher_Btn->textColor = ($this->Version_Switcher_Btn->text == 'Выкл') ? '#d60d1b' : '#0dd60d';
+        $this->Version_Switcher_Btn->textColor = ($this->Version_Switcher_Btn->text == $this->localization->get('TurnOff_Label')) ? 'd60d1b' : '#0dd60d';
     }
     /**
      * @event Version_Switcher_Btn.mouseEnter 
      */
     function VersionSwitcher_MouseEnter(UXMouseEvent $e = null)
     {
-        $this->Version_Switcher_Btn->textColor = ($this->Version_Switcher_Btn->text == 'Выкл') ? '#b50b17' : '#0bb30b';
+        $this->Version_Switcher_Btn->textColor = ($this->Version_Switcher_Btn->text == $this->localization->get('TurnOff_Label')) ? '#b50b17' : '#0bb30b';
     }
     /**
      * @event Version_Switcher_Btn.mouseDown-Left 
      */
     function VersionSwitcher_MouseDownLeft(UXMouseEvent $e = null)
     {
-        if ($this->Version_Switcher_Btn->text == 'Вкл')
+        if ($this->Version_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
         {
-            $this->Version_Switcher_Btn->text = 'Выкл';
+            $this->Version_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             
             if (!$this->form('maingame')->Console->visible && $this->form('maingame')->Console->content->edit->focused == false) //костыль ебучий
             {
@@ -500,7 +514,7 @@ class opt extends AbstractForm
         }
         else 
         {
-            $this->Version_Switcher_Btn->text = 'Вкл';
+            $this->Version_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
             
             if (!$this->form('maingame')->Console->visible && $this->form('maingame')->Console->content->edit->focused == false) //костыль ебучий
             {
@@ -532,5 +546,142 @@ class opt extends AbstractForm
     {
         $this->VersionSwitcher_MouseExit();
         $this->VersionSwitcher_MouseEnter();
+    } 
+    /**
+     * @event Language_Switcher_Combobobx.action 
+     */
+    function LanguageSwitcherCombobobx(UXEvent $e = null)
+    {    
+        if ($this->Language_Switcher_Combobobx->value == 'rus')
+        {
+            $this->localization->setLanguage($this->Language_Switcher_Combobobx->value);
+            if (Debug_Build && $this->form('maingame')->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage());
+        }
+        if ($this->Language_Switcher_Combobobx->value == 'eng')
+        {
+            $this->localization->setLanguage($this->Language_Switcher_Combobobx->value);
+            if (Debug_Build && $this->form('maingame')->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage());
+        } 
+        $this->UpdateLocalization();
+    }
+    function UpdateLocalization()
+    {
+        $this->form('maingame')->LoadScreen();
+        
+        $this->Return_Btn->text = $this->localization->get('Return_Btn'); 
+      
+        $this->AllSound_Label->text = $this->localization->get('AllSound_Label');
+        $this->MenuSound_Label->text = $this->localization->get('MenuSound_Label');
+        $this->FightSound_Label->text = $this->localization->get('FightSound_Label');
+        $this->Shadows_Label->text = $this->localization->get('Shadows_Label');
+        $this->Version_Label->text = $this->localization->get('Version_Label');
+        $this->Language_Label->text = $this->localization->get('Language_Label');
+
+        foreach ([
+          'AllSound_Switcher_Btn', 
+          'MenuSound_Switcher_Btn', 
+          'FightSound_Switcher_Btn', 
+          'Shadows_Switcher_Btn', 
+          'Version_Switcher_Btn'
+        ] as $btn) {
+             $this->$btn->text = ($this->$btn->textColor == '#d60d1b')
+                   ? $this->localization->get('TurnOff_Label') 
+                   : $this->localization->get('TurnOn_Label');
+        }
+
+        $this->form('maingame')->MainMenu->content->Btn_Start_Game->text = $this->localization->get(($GLOBALS['NewGameState'] ? 'NewGame_Label' : 'ContinueGame_Label'));
+        $this->form('maingame')->MainMenu->content->Btn_End_Game->text = $this->localization->get('EndGame_Label');
+        $this->form('maingame')->MainMenu->content->Btn_Opt->text = $this->localization->get('Options_Label');
+        $this->form('maingame')->MainMenu->content->Btn_Exit_Windows->text = $this->localization->get('ExitToWindows_Label');
+
+        $this->form('maingame')->dlg_btn->text = $this->localization->get('StartDialog_Label');
+        $this->form('maingame')->leave_btn->text = $this->localization->get('Leave_Label');
+
+        $this->form('maingame')->ExitDialog->content->dialog_text->text = $this->localization->get('ExitDialog_Text');
+        $this->form('maingame')->ExitDialog->content->btn_yes->text = $this->localization->get('Yes_Label');
+        $this->form('maingame')->ExitDialog->content->btn_no->text = $this->localization->get('No_Label');
+
+        $this->form('maingame')->Inventory->content->button5->text = $this->localization->get('Inventory_Label');
+        $this->form('maingame')->Inventory->content->button6->text = $this->localization->get('Item_Label');
+        $this->form('maingame')->Inventory->content->button7->text = $this->localization->get('Equipment_Label');
+        $this->form('maingame')->Inventory->content->button_drop->text = $this->localization->get('Drop_Label');
+        $this->form('maingame')->Inventory->content->maket_cond_label->text = $this->localization->get('Condition_Label');
+
+        $this->form('maingame')->Pda->content->Pda_Background->text = $this->localization->get('ChooseOption_Label');
+        $this->form('maingame')->Pda->content->tasks_label->text = $this->localization->get('Tasks_Label');
+        $this->form('maingame')->Pda->content->contacts_label->text = $this->localization->get('Contacts_Label');
+        $this->form('maingame')->Pda->content->ranks_label->text = $this->localization->get('Ranks_Label');
+        $this->form('maingame')->Pda->content->stat_label->text = $this->localization->get('Data_Label');
+
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->task_label->text = $this->localization->get('DefeatEnemy_Task');
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->step1->text = $this->localization->get('TalkToGoblin_Task');
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->step2->text = $this->localization->get('DefeatGoblin_Task');
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->task_detail_text->text = $this->localization->get('TaskDetails');
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->active_task->text = $this->localization->get('ActiveTasks_Label');
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->passive_task->text = $this->localization->get('CompletedTasks_Label');
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->failed_task->text = $this->localization->get('FailedTasks_Label');
+
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->name->text = $this->localization->get('Contact_Goblin');
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->community_desc->text = $this->localization->get('Group_Label');
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->community->text = $this->localization->get('Community_Pido');
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->reputation_desc->text = $this->localization->get('Reputation_Desc');
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->reputation->text = $this->localization->get('Reputation_Bad');
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->relationship_desc->text = $this->localization->get('Attitude_Label');
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->relationship->text = $this->localization->get('Relationship_Enemy');
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->rank_desc->text = $this->localization->get('Rank_Desc');
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->rank->text = $this->localization->get('Rank_Veterinarian');
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->bio->text = $this->localization->get('GoblindaV_Bio');
+        
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->name_label->text = $this->localization->get('Name_Label');
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->rank_label->text = $this->localization->get('Rank_Bio_Label');
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->bio_new->text = $this->localization->get('Bio_Label');
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->rank_desc->text = $this->localization->get('Rank_Desc');
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->community_desc->text = $this->localization->get('Group_Label');
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->attitude->text = $this->localization->get('Attitude_Label');
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->actor_in_raiting_name->text = $this->localization->get('GG_Name');
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->valerok_in_raiting_name->text = $this->localization->get('Ranking_Valerok');
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_name->text = $this->localization->get('Enemy_Name');
+    
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->tab_button->text = $this->localization->get('GG_Name');
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->statistic_norm->text = $this->localization->get('Statistic_Label');
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->statistic->text = $this->localization->get('Statistic_Details');
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->rank_desc->text = $this->localization->get('Rank_Desc');
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->rank->text = $this->localization->get('Rank_Master');
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->community_desc->text = $this->localization->get('Group_Label');
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->reputation_desc->text = $this->localization->get('Reputation_Desc');
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->reputation->text = $this->localization->get('Statistic_Reputation_Excellent');
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->buttonAlt->text = $this->localization->get('Info_Button');
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->tab_final->text = $this->localization->get('Timeline_Tab');
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->target_label->text = $this->localization->get('Target_Label');
+
+        $this->form('maingame')->Dialog->content->alex_label_1->text = $this->localization->get('Enemy_Name');
+        $this->form('maingame')->Dialog->content->alex_desc_1->text = $this->localization->get('Dialog_Goblin_Desc1');
+        $this->form('maingame')->Dialog->content->alex_label_2->text = $this->localization->get('Enemy_Name');
+        $this->form('maingame')->Dialog->content->alex_desc_2->text = $this->localization->get('Dialog_Goblin_Desc2');
+        $this->form('maingame')->Dialog->content->alex_label_3->text = $this->localization->get('Enemy_Name');
+        $this->form('maingame')->Dialog->content->alex_desc_3->text = $this->localization->get('Dialog_Goblin_Desc3');
+        $this->form('maingame')->Dialog->content->actor_label_1->text = $this->localization->get('GG_Name');
+        $this->form('maingame')->Dialog->content->actor_desc_1->text = $this->localization->get('Dialog_Actor_Desc1');
+        $this->form('maingame')->Dialog->content->actor_label_3->text = $this->localization->get('GG_Name');
+        $this->form('maingame')->Dialog->content->actor_desc_3->text = $this->localization->get('Dialog_Actor_Desc3');
+        $this->form('maingame')->Dialog->content->answer_name->text = $this->localization->get('GG_Name');
+        $this->form('maingame')->Dialog->content->answer_desc->text = $this->localization->get('Dialog_Actor_Desc1');
+        $this->form('maingame')->Dialog->content->gg_name->text = $this->localization->get('GG_Name');
+        $this->form('maingame')->Dialog->content->enemy_name->text = $this->localization->get('Enemy_Name');
+        $this->form('maingame')->Dialog->content->rank_desc->text = $this->localization->get('Rank_Desc');
+        $this->form('maingame')->Dialog->content->rank->text = $this->localization->get('Rank_Master');
+        $this->form('maingame')->Dialog->content->labelAlt->text = $this->localization->get('Rank_Veterinarian');
+        $this->form('maingame')->Dialog->content->label->text = $this->localization->get('Rank_Desc');
+        $this->form('maingame')->Dialog->content->community_desc->text = $this->localization->get('Group_Label');
+        $this->form('maingame')->Dialog->content->label3->text = $this->localization->get('Group_Label');
+        $this->form('maingame')->Dialog->content->community_enemy->text = $this->localization->get('Community_Pido');
+    
+        $this->form('maingame')->Fail->content->returnbtn->text = $this->localization->get('Return_Button');
+        $this->form('maingame')->Fail->content->exitbtn->text = $this->localization->get('Exit_Button');        
+        
+        $this->form('maingame')->Inventory->content->InitInventoryWeight();
+        
+        if ($GLOBALS['EnemyFailed'] && $GLOBALS['QuestCompleted']) $this->form('maingame')->Pda->content->Pda_Statistic->content->EnemyFailText();
+        if ($GLOBALS['ActorFailed'] && $GLOBALS['QuestCompleted']) $this->form('maingame')->Pda->content->Pda_Statistic->content->ActorFailText();
     }
 }

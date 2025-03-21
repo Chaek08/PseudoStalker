@@ -15,13 +15,12 @@ class maingame extends AbstractForm
      */
     function InitClient(UXWindowEvent $e = null)
     {
-        define('BuildID', 'Build 811, Mar 14 2025'); //start date 24.12.2022
-        define('VersionID', 'v1.3');
+        define('BuildID', 'Build 819, Mar 22 2025'); //start date 24.12.2022
+        define('VersionID', 'v1.3 (rc1)');
         
         define('Debug_Build', true);
-        define('SDK_Mode', true);
+        define('SDK_Mode', false);
         
-        //define('LegacySoundTrigger', false);
         define('ToggleHudFeature', true);
         
         $GLOBALS['AllSounds'] = true;
@@ -163,7 +162,7 @@ class maingame extends AbstractForm
                   
         $this->dlg_btn->show();         
         $this->Dialog->content->StartDialog();
-        $this->MainMenu->content->NewGameMenu();
+        if ($GLOBALS['ContinueGameState']) $this->MainMenu->content->SwitchGameState();
         $this->Pda->content->Pda_Statistic->content->ResetFinalText();
     }
     function CheckVisibledFragments()
@@ -624,7 +623,7 @@ class maingame extends AbstractForm
     function EnemyFail()
     {
         $this->FailAction();
-        $GLOBALS['EnemyFailed'] = true;        
+        $GLOBALS['EnemyFailed'] = true;
     
         $this->enemy->hide();
                 

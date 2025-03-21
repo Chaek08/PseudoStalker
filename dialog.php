@@ -2,9 +2,19 @@
 namespace app\forms;
 
 use std, gui, framework, app;
+use app\forms\classes\Localization;
 
 class dialog extends AbstractForm
 {
+    private $localization;
+
+    public function __construct() 
+    {
+        parent::__construct();
+
+        $this->localization = new Localization($language);
+    }
+    
     function StopVoice()
     {
         Media::stop('voice_start');
@@ -22,7 +32,7 @@ class dialog extends AbstractForm
         {
             return;
         }
-        else
+        if ($GLOBALS['AllSounds'])//else
         {
             Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start");
         }
@@ -65,13 +75,14 @@ class dialog extends AbstractForm
      */
     function Talk_1(UXMouseEvent $e = null)
     {    
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
         if (SDK_Mode)
         {
             Element::setText($this->answer_desc, uiText($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_3));
         }
         else
-        {
-            Element::setText($this->answer_desc, "иди нахуй заднипривадный геюган");            
+        {          
+            $this->answer_desc->text = $this->localization->get('Dialog_Actor_Desc3');
         }
         
         if ($GLOBALS['AllSounds'])
@@ -93,13 +104,14 @@ class dialog extends AbstractForm
      */
     function Talk_2(UXMouseEvent $e = null)
     {
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
         if (SDK_Mode)
         {
             Element::setText($this->answer_desc, uiText($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Final_Phase));
         }
         else    
         {
-            Element::setText($this->answer_desc, "фу изврощенис.. пагнали дратся!!!");            
+            $this->answer_desc->text = $this->localization->get('Dialog_Final_Phase');
         }
         
         if ($GLOBALS['AllSounds'])
@@ -147,15 +159,15 @@ class dialog extends AbstractForm
     }
     function StartDialog()
     {
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
         $this->answer_1_new->show();
-        
         if (SDK_Mode)
         {
             $this->answer_desc->text = $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_1->text;
         }
         else 
         {
-            $this->answer_desc->text = "ахуел гей нефар";
+            $this->answer_desc->text = $this->localization->get('Dialog_Actor_Desc1');
         }
         
         $this->ClearDialog();        

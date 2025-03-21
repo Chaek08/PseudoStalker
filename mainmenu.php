@@ -5,11 +5,22 @@ use php\gui\UXImage;
 use std, gui, framework, app;
 use php\gui\text\UXFont;
 use php\gui\event\UXMouseEvent; 
+use app\forms\classes\Localization;
 
 class mainmenu extends AbstractForm
 {
+    private $localization;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->localization = new Localization($language);
+    }
+    
     function InitMainMenu()
     {
+        $GLOBALS['NewGameState'] = true;
         if ($GLOBALS['AllSounds'] || $GLOBALS['MenuSound'])
         {
             Media::open('res://.data/audio/menu/menu_sound.mp3', false, "menu_sound");
@@ -48,10 +59,9 @@ class mainmenu extends AbstractForm
     
         $this->form('maingame')->MainMenu->hide();
         
-        //if ($this->Btn_Start_Game->text == "Продолжить игру") $this->form('maingame')->ToggleHud(); //ты чё далбаеб чтоли
         if (ToggleHudFeature && !$GLOBALS['HudVisible']) $this->form('maingame')->ToggleHud(); //вот так нахуй надо
         
-        $this->ContinueGameMenu(); //Continue Game Status Activate
+        if ($GLOBALS['NewGameState']) $this->SwitchGameState();
         
         $this->form('maingame')->OpenMainAmbient();
         $this->form('maingame')->PlayMainAmbient();
@@ -66,22 +76,36 @@ class mainmenu extends AbstractForm
             }
         }            
     }
-    function ContinueGameMenu()
+    function SwitchGameState()
     {
-        $this->Btn_Start_Game->text = "Продолжить игру";
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        if ($GLOBALS['NewGameState'])
+        {
+            $GLOBALS['NewGameState'] = false;
+            
+            $this->Btn_Start_Game->text = $this->localization->get('ContinueGame_Label');
         
-        $this->Btn_Opt->y = 496;
-        $this->Btn_Exit_Windows->y = 568;
-        $this->Btn_End_Game->show();
+            $this->Btn_Opt->y = 496;
+            $this->Btn_Exit_Windows->y = 568;
+            $this->Btn_End_Game->show();
+            
+            $GLOBALS['ContinueGameState'] = true;
+            return;
+        }
+        if ($GLOBALS['ContinueGameState'])
+        {
+            $GLOBALS['ContinueGameState'] = false;
+            
+            $this->Btn_Start_Game->text = $this->localization->get('NewGame_Label');
+        
+            $this->Btn_Opt->y = 424;
+            $this->Btn_Exit_Windows->y = 496;
+            $this->Btn_End_Game->hide();
+            
+            $GLOBALS['NewGameState'] = true;
+            return;
+        }              
     }
-    function NewGameMenu()
-    {
-        $this->Btn_Start_Game->text = "Новая игра";
-        
-        $this->Btn_Opt->y = 424;
-        $this->Btn_Exit_Windows->y = 496;
-        $this->Btn_End_Game->hide();
-    }    
     /**
      * @event Btn_Start_Game.mouseUp-Left 
      */

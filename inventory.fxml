@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900" prefWidth="1600" styleClass="">
   <children>
-    <FlatButton alignment="CENTER" borderRadius="10" color="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="inv_back" layoutX="16" layoutY="16" prefHeight="864" prefWidth="1568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="10" color="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="inv_back" layoutX="16" layoutY="16" opacity="0.85" prefHeight="864" prefWidth="1568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="buttonAlt" layoutX="1128" layoutY="72" prefHeight="800" prefWidth="448" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="buttonAlt" layoutX="1128" layoutY="72" opacity="0.95" prefHeight="800" prefWidth="448" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button3" layoutX="600" layoutY="72" prefHeight="800" prefWidth="520" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button3" layoutX="600" layoutY="72" opacity="0.95121951219512" prefHeight="800" prefWidth="520" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button8" layoutX="608" layoutY="416" prefHeight="120" prefWidth="504" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button8" layoutX="608" layoutY="416" opacity="0.95121951219512" prefHeight="120" prefWidth="504" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="10" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button11" layoutX="888" layoutY="432" prefHeight="56" prefWidth="208" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="10" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button11" layoutX="888" layoutY="432" opacity="0.95121951219512" prefHeight="56" prefWidth="208" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="10" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button10" layoutX="624" layoutY="432" prefHeight="56" prefWidth="256" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="10" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button10" layoutX="624" layoutY="432" opacity="0.95121951219512" prefHeight="56" prefWidth="256" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="button4" layoutX="24" layoutY="72" prefHeight="800" prefWidth="568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="button4" layoutX="24" layoutY="72" opacity="0.95121951219512" prefHeight="800" prefWidth="568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -46,12 +46,12 @@
     <Data cursor="DEFAULT" enabled="1" id="data-maket_desc" visible=""/>
     <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="money" layoutX="1496" layoutY="88" prefHeight="24" prefWidth="64" styleClass="label " text="40 RU" textAlignment="CENTER" textFill="#ee991a" underline="false" wrapText="false">
       <font>
-        <Font name="System Bold" size="20"/>
+        <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-money" visible="1"/>
     <Data cursor="DEFAULT" enabled="" id="data-inv_item_vodka" image=".data/ui/inventory/item_vodka.png" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="weight_desc" layoutX="1144" layoutY="88" prefHeight="24" prefWidth="144" styleClass="label " text="Вес  4.3 / 50.0" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="weight_desc" layoutX="1144" layoutY="88" prefHeight="26.6015625" prefWidth="123.447265625" styleClass="label " text="Вес  4.3 / 50.0" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
@@ -69,19 +69,19 @@
     <Data cursor="DEFAULT" enabled="1" id="data-buttonAlt" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-button3" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-button4" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="2" id="button5" layoutX="24" layoutY="24" prefHeight="40" prefWidth="568" styleClass="x-flat-button " text="Инвентарь" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="2" id="button5" layoutX="24" layoutY="24" opacity="0.95" prefHeight="40" prefWidth="568" styleClass="x-flat-button " text="Инвентарь" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/inventory/inv_icon_alt.png" id="data-button5" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="0" id="button6" layoutX="600" layoutY="24" prefHeight="40" prefWidth="520" styleClass="x-flat-button " text="Предмет" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="0" id="button6" layoutX="600" layoutY="24" opacity="0.95" prefHeight="40" prefWidth="520" styleClass="x-flat-button " text="Предмет" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/inventory/item_icon.png" id="data-button6" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="0" id="button7" layoutX="1128" layoutY="24" prefHeight="40" prefWidth="448" styleClass="x-flat-button " text="Снаряжение" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="0" id="button7" layoutX="1128" layoutY="24" opacity="0.95" prefHeight="40" prefWidth="448" styleClass="x-flat-button " text="Снаряжение" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
@@ -117,7 +117,7 @@
         <Font name="System Regular" size="13"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button9" layoutX="608" layoutY="544" prefHeight="320" prefWidth="504" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button9" layoutX="608" layoutY="544" opacity="0.85" prefHeight="320" prefWidth="504" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="10"/>
       </font>
@@ -177,13 +177,13 @@
     <Data cursor="DEFAULT" enabled="1" id="data-maket_label" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-button10" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-button11" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="10" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="maket_cond_back" layoutX="888" layoutY="496" prefHeight="24" prefWidth="208" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="10" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="maket_cond_back" layoutX="888" layoutY="496" opacity="0.94936708860759" prefHeight="24" prefWidth="208" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_cond_back" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="10" color="#4d804d" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="maket_cond" layoutX="888" layoutY="496" prefHeight="24" prefWidth="208" styleClass="x-flat-button " text="100 %" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="10" color="#4d804d" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="maket_cond" layoutX="888" layoutY="496" opacity="0.94936708860759" prefHeight="24" prefWidth="208" styleClass="x-flat-button " text="100 %" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -193,7 +193,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <org.develnext.jphp.ext.javafx.support.control.MediaViewBox backgroundColor="#000000" borderColor="#c0c0c0" borderRadius="0" borderStyle="SOLID" borderWidth="0" focusTraversable="false" id="Video_EasterEgg" layoutX="352" layoutY="110" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="680" prefWidth="896" proportional="true" smooth="true" styleClass="" titleColor="#333333" titleOffset="15" titlePosition="TOP_LEFT">
+    <org.develnext.jphp.ext.javafx.support.control.MediaViewBox backgroundColor="#000000" borderColor="#c0c0c0" borderRadius="0" borderStyle="SOLID" borderWidth="0" focusTraversable="false" id="Video_EasterEgg" layoutX="1280" layoutY="144" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="680" prefWidth="896" proportional="true" smooth="true" styleClass="" titleColor="#333333" titleOffset="15" titlePosition="TOP_LEFT">
       <titleFont>
         <Font name="System Regular" size="12"/>
       </titleFont>

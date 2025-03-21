@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488" prefWidth="784" styleClass="">
   <children>
-    <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="frame_detail_02" layoutX="368" layoutY="8" prefHeight="472" prefWidth="408" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="frame_detail_02" layoutX="368" layoutY="8" opacity="0.95121951219512" prefHeight="472" prefWidth="408" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="frame_01" layoutX="8" layoutY="8" prefHeight="472" prefWidth="352" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="frame_01" layoutX="8" layoutY="8" opacity="0.95121951219512" prefHeight="472" prefWidth="352" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -66,19 +66,19 @@
         <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-active_task" tooltipText="Показать активные задания" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-active_task" tooltipText="" visible="1"/>
     <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="passive_task" layoutX="115" layoutY="424" prefHeight="56" prefWidth="104" styleClass="label " text="Выполненные" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-passive_task" tooltipText="Показать выполненные задания" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-passive_task" tooltipText="" visible="1"/>
     <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="failed_task" layoutX="228" layoutY="424" prefHeight="56" prefWidth="104" styleClass="label " text="Проваленные" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-failed_task" tooltipText="Показать проваленные задания" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-failed_task" tooltipText="" visible="1"/>
     <Separator focusTraversable="false" id="separator" layoutX="24" layoutY="416" opacity="0.23170731707317" orientation="HORIZONTAL" prefHeight="8" prefWidth="320" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="time_quest_hm" layoutX="200" layoutY="48" prefHeight="20" prefWidth="48" styleClass="label " text="00:16" textAlignment="LEFT" textFill="#8099ff" underline="false" wrapText="false">

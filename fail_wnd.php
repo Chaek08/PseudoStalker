@@ -6,10 +6,19 @@ use php\gui\UXImageView;
 use php\gui\UXImage;
 use std, gui, framework, app;
 use php\gui\event\UXWindowEvent; 
-
+use app\forms\classes\Localization;
 
 class fail_wnd extends AbstractForm
 {
+    private $localization;
+
+    public function __construct() 
+    {
+        parent::__construct();
+
+        $this->localization = new Localization($language);
+    }
+    
     /**
      * @event exitbtn.click-Left 
      */
@@ -41,6 +50,7 @@ class fail_wnd extends AbstractForm
     }
     function SetActorFail()
     {
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
         if (SDK_Mode)
         {
             $this->Win_object->image = new UXImage($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_EnemyModel->text);
@@ -52,12 +62,13 @@ class fail_wnd extends AbstractForm
         {
             $this->Win_object->image = new UXImage('res://.data/ui/fail_wnd/goblindav.png');
             $this->Win_fail_text->graphic = new UXImageView(new UXImage('res://.data/ui/fail_wnd/actor_fail.png'));
-            $this->Win_fail_text->text = "Ну ты лох блять...";
-            $this->Win_fail_desc->text = "Я пытался победить гоблиндава, но он оказался сильнее...\nЧто-ж, не получилось, не фортануло.";
+            $this->Win_fail_text->text = $this->localization->get('ActorFail_Label');
+            $this->Win_fail_desc->text = $this->localization->get('ActorFail_Desc');
         }
     }
     function SetEnemyFail()
     {        
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
         if (SDK_Mode)
         {
             $this->Win_object->image = new UXImage($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_ActorModel->text);
@@ -69,8 +80,8 @@ class fail_wnd extends AbstractForm
         {
             $this->Win_object->image = new UXImage('res://.data/ui/fail_wnd/actor.png');
             $this->Win_fail_text->graphic = new UXImageView(new UXImage('res://.data/ui/fail_wnd/enemy_fail.png'));
-            $this->Win_fail_text->text = "Харош!!!";
-            $this->Win_fail_desc->text = "ЕБУЧИЙ гоблиндав повержен.\nЭто был нелёгкий бой, но я проявил максимальный энтузиазм и уничтожил паразита!";
+            $this->Win_fail_text->text = $this->localization->get('EnemyFail_Label');
+            $this->Win_fail_desc->text = $this->localization->get('EnemyFail_Desc');
         }             
     }
 }

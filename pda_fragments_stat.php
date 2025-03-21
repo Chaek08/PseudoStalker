@@ -4,10 +4,19 @@ use action\Element;
 use php\time\Time;
 
 use std, gui, framework, app;
-
+use app\forms\classes\Localization;
 
 class pda_fragments_stat extends AbstractForm
 {
+    private $localization;
+
+    public function __construct() 
+    {
+        parent::__construct();
+
+        $this->localization = new Localization($language);
+    }
+    
     /**
      * @event show 
      */
@@ -44,15 +53,17 @@ class pda_fragments_stat extends AbstractForm
     }
     function ActorFailText()
     {
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
         $this->tab_final->show();
         $this->final_label->show();
-        $this->final_label->text = $this->a_fail->text;
+        $this->final_label->text = $this->localization->get('FinalLabel_ActorFail');
     }
     function EnemyFailText()
     {
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
         $this->tab_final->show();
         $this->final_label->show();
-        $this->final_label->text = $this->e_fail->text;     
+        $this->final_label->text = $this->localization->get('FinalLabel_EnemyFail');
     }
     function ResetFinalText()
     {
