@@ -57,6 +57,21 @@ class console extends AbstractForm
                         $this->form('maingame')->OpenConsole();
                         $this->form('exit_dlg')->AcceptButton();
                         break;
+                        
+                case "openform":
+                        if (isset($args[1])) {
+                                $formName = $args[1];
+                                $this->edit->text = "";
+                                if (app()->form($formName)) {
+                                        app()->showForm($formName);
+                                        Element::appendText($this->console_list, "> Form '$formName' opened successfully.\n");
+                                } else {
+                                        Element::appendText($this->console_list, "> Form '$formName' not found.\n");
+                                }
+                        } else {
+                                Element::appendText($this->console_list, "> Specify the form name: openform form_name\n");
+                        }
+                        break;
 
                 case "r_version":
                         if (isset($args[1])) {
