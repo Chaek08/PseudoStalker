@@ -42,20 +42,27 @@ class console extends AbstractForm
         {
                 case "clear":
                         $this->edit->text = "";
-                        $this->console_list->text = "";
+                        $this->Console_Log->text = "";
                         break;
 
                 case "help":
                         $this->edit->text = "";
-                        Element::appendText($this->console_list, "> exit, clear, help, version, r_version [off/on], reset_game_client, r_shadows [off/on], snd_all [off/on]\n\n");
-                        Element::appendText($this->console_list, "Если при открытой консоли вы не можете открывать пда, инвентарь и т.д, то нажмите клавишу TAB, чтобы переключить фокус!\n");
-                        break;
-
-                case "exit":
-                        $this->console_list->text = "> exit\n";
-                        $this->edit->text = "";
-                        $this->form('maingame')->OpenConsole();
-                        $this->form('exit_dlg')->AcceptButton();
+                        $commands = [
+                                "exit",
+                                "clear",
+                                "help",
+                                "version",
+                                "r_version [off/on]",
+                                "r_shadows [off/on]",
+                                "snd_all [off/on]",
+                                "reset_game_client",
+                                "openform [form_name]",
+                                "ToggleHud",
+                                "language [rus/eng]"
+                        ];
+                        $commandsList = implode("\n> ", $commands);
+                        Element::appendText($this->Console_Log, "> Available commands:\n> $commandsList\n\n");
+                        Element::appendText($this->Console_Log, "> If you cannot open the PDA, inventory, etc. with the console open, press the TAB key to switch focus!\n");
                         break;
                         
                 case "openform":
@@ -64,19 +71,19 @@ class console extends AbstractForm
                                 $this->edit->text = "";
                                 if (app()->form($formName)) {
                                         app()->showForm($formName);
-                                        Element::appendText($this->console_list, "> Form '$formName' opened successfully.\n");
+                                        Element::appendText($this->Console_Log, "> Form '$formName' opened successfully.\n");
                                 } else {
-                                        Element::appendText($this->console_list, "> Form '$formName' not found.\n");
+                                        Element::appendText($this->Console_Log, "> Form '$formName' not found.\n");
                                 }
                         } else {
-                                Element::appendText($this->console_list, "> Specify the form name: openform form_name\n");
+                                Element::appendText($this->Console_Log, "> Specify the form name: openform form_name\n");
                         }
                         break;
 
                 case "r_version":
                         if (isset($args[1])) {
                                 $this->edit->text = "";
-                                Element::appendText($this->console_list, "> r_version {$args[1]}\n");
+                                Element::appendText($this->Console_Log, "> r_version {$args[1]}\n");
 
                                 $btn = $this->form('maingame')->Options->content->Version_Switcher_Btn;
                                 if (($args[1] === "off" && $btn->text === 'Вкл') || ($args[1] === "on" && $btn->text === 'Выкл')) {
@@ -88,7 +95,7 @@ class console extends AbstractForm
                 case "r_shadows":
                         if (isset($args[1])) {
                                 $this->edit->text = "";
-                                Element::appendText($this->console_list, "> r_shadows {$args[1]}\n");
+                                Element::appendText($this->Console_Log, "> r_shadows {$args[1]}\n");
 
                                 $btn = $this->form('maingame')->Options->content->Shadows_Switcher_Btn;
                                 if (($args[1] === "on" && $btn->text === 'Выкл') || ($args[1] === "off" && $btn->text === 'Вкл')) {
@@ -100,7 +107,7 @@ class console extends AbstractForm
                 case "snd_all":
                         if (isset($args[1])) {
                                 $this->edit->text = "";
-                                Element::appendText($this->console_list, "> snd_all {$args[1]}\n");
+                                Element::appendText($this->Console_Log, "> snd_all {$args[1]}\n");
 
                                 $btn = $this->form('maingame')->Options->content->AllSound_Switcher_Btn;
                                 if (($args[1] === "off" && $btn->text === 'Вкл') || ($args[1] === "on" && $btn->text === 'Выкл')) {
@@ -111,19 +118,19 @@ class console extends AbstractForm
 
                 case "reset_game_client":
                         $this->edit->text = "";
-                        Element::appendText($this->console_list, "> function ResetGameClient() executed\n");
+                        Element::appendText($this->Console_Log, "> function ResetGameClient() executed\n");
                         $this->form('maingame')->ResetGameClient();
                         break;
 
                 case "version":
                         $this->edit->text = "";
-                        Element::appendText($this->console_list, "> PseudoStalker, " . VersionID . ", " . BuildID . "\n");
+                        Element::appendText($this->Console_Log, "> PseudoStalker, " . VersionID . ", " . BuildID . "\n");
                         break;
 
                 case "ToggleHud":
                         $this->edit->text = "";
                         if (ToggleHudFeature) {
-                                Element::appendText($this->console_list, "> function ToggleHud() executed\n");
+                                Element::appendText($this->Console_Log, "> function ToggleHud() executed\n");
                                 $this->form('maingame')->ToggleHud();
                         }
                         break;
@@ -136,19 +143,20 @@ class console extends AbstractForm
                                 $this->localization->setLanguage($args[1]);
                                 $this->form('maingame')->Options->content->Language_Switcher_Combobobx->value = $args[1];
                                 $this->form('maingame')->Options->content->LanguageSwitcherCombobobx();
-                                Element::appendText($this->console_list, "> Language changed to: {$args[1]}\n");
+                                Element::appendText($this->Console_Log, "> Language changed to: {$args[1]}\n");
                         } else {
-                                Element::appendText($this->console_list, "> Current language: " . $this->localization->getCurrentLanguage() . "\n");
+                                Element::appendText($this->Console_Log, "> Current language: " . $this->localization->getCurrentLanguage() . "\n");
                         }
                         break;
 
                 default:
                         if ($this->edit->text != "") {
                                 $this->edit->text = "";
-                                Element::appendText($this->console_list, "> Command '$command' does not exist.\n");
+                                Element::appendText($this->Console_Log, "> Command '$command' does not exist.\n");
                         }
                         break;
         }
+        $this->Console_Log->positionCaret(strlen($this->Console_Log->text));
     }
     /**
      * @event edit.keyDown-Up
