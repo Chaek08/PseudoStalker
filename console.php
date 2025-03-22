@@ -145,7 +145,7 @@ class console extends AbstractForm
                 default:
                         if ($this->edit->text != "") {
                                 $this->edit->text = "";
-                                Element::appendText($this->console_list, "> There is no such command\n");
+                                Element::appendText($this->console_list, "> Command '$command' does not exist.\n");
                         }
                         break;
         }
@@ -162,6 +162,9 @@ class console extends AbstractForm
             $this->historyIndex = count($this->commandHistory) - 1;
             $this->edit->text = $this->commandHistory[$this->historyIndex];
         }
+        uiLater(function() {
+           $this->edit->positionCaret(strlen($this->edit->text));
+        });
     }
     /**
      * @event edit.keyDown-Down
@@ -175,6 +178,9 @@ class console extends AbstractForm
             $this->historyIndex = count($this->commandHistory); 
             $this->edit->text = "";
         }
+        uiLater(function() {
+           $this->edit->positionCaret(strlen($this->edit->text));
+        });
     }
     /**
      * @event close_btn.click-Left 
