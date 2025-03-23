@@ -139,13 +139,20 @@ class console extends AbstractForm
                         $args = explode(" ", trim($this->edit->text));
                         $this->edit->text = "";
 
-                        if (isset($args[1]) && in_array($args[1], ['rus', 'eng'])) {
+                        $languageMap = [
+                            'rus' => 'Русский',
+                            'eng' => 'English'
+                        ];
+
+                        if (isset($args[1]) && in_array($args[1], array_keys($languageMap))) {
                                 $this->localization->setLanguage($args[1]);
-                                $this->form('maingame')->Options->content->Language_Switcher_Combobobx->value = $args[1];
+                                $this->form('maingame')->Options->content->Language_Switcher_Combobobx->value = $languageMap[$args[1]];
                                 $this->form('maingame')->Options->content->LanguageSwitcherCombobobx();
-                                Element::appendText($this->Console_Log, "> Language changed to: {$args[1]}\n");
+                                Element::appendText($this->Console_Log, "> Language changed to: {$args[1]} ({$languageMap[$args[1]]})\n");
                         } else {
-                                Element::appendText($this->Console_Log, "> Current language: " . $this->localization->getCurrentLanguage() . "\n");
+                                $currentLang = $this->localization->getCurrentLanguage();
+                                $displayLang = $languageMap[$currentLang] ?? $currentLang;
+                                Element::appendText($this->Console_Log, "> Current language: {$currentLang} ({$displayLang})\n");
                         }
                         break;
 

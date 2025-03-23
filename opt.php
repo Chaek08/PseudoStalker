@@ -39,7 +39,7 @@ class opt extends AbstractForm
             $this->FightSoundSwitcher_MouseExit();
         }
         
-        $this->Language_Switcher_Combobobx->value = ($this->localization->getCurrentLanguage() == 'rus') ? 'rus' : 'eng';
+        $this->Language_Switcher_Combobobx->value = ($this->localization->getCurrentLanguage() == 'rus') ? 'Русский' : 'English';
     }
     /**
      * @event Return_Btn.mouseExit 
@@ -551,16 +551,16 @@ class opt extends AbstractForm
      * @event Language_Switcher_Combobobx.action 
      */
     function LanguageSwitcherCombobobx(UXEvent $e = null)
-    {    
-        if ($this->Language_Switcher_Combobobx->value == 'rus')
+    {
+        if ($this->Language_Switcher_Combobobx->value == 'Русский')
         {
             $this->localization->setLanguage($this->Language_Switcher_Combobobx->value);
-            if (Debug_Build && $this->form('maingame')->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage());
+            if (Debug_Build && $this->form('maingame')->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage() . ' (' . $this->Language_Switcher_Combobobx->value . ')');
         }
-        if ($this->Language_Switcher_Combobobx->value == 'eng')
+        if ($this->Language_Switcher_Combobobx->value == 'English')
         {
             $this->localization->setLanguage($this->Language_Switcher_Combobobx->value);
-            if (Debug_Build && $this->form('maingame')->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage());
+            if (Debug_Build && $this->form('maingame')->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage() . ' (' . $this->Language_Switcher_Combobobx->value . ')');
         } 
         $this->UpdateLocalization();
     }
@@ -577,7 +577,8 @@ class opt extends AbstractForm
         $this->Version_Label->text = $this->localization->get('Version_Label');
         $this->Language_Label->text = $this->localization->get('Language_Label');
 
-        foreach ([
+        foreach ([ //не сильно критично, но лучше пофиксить
+        //переписать условие, ибо я хуй знает
           'AllSound_Switcher_Btn', 
           'MenuSound_Switcher_Btn', 
           'FightSound_Switcher_Btn', 
@@ -587,7 +588,7 @@ class opt extends AbstractForm
              $this->$btn->text = ($this->$btn->textColor == '#d60d1b')
                    ? $this->localization->get('TurnOff_Label') 
                    : $this->localization->get('TurnOn_Label');
-        }
+        } //не сильно критично, но лучше пофиксить
 
         $this->form('maingame')->MainMenu->content->Btn_Start_Game->text = $this->localization->get(($GLOBALS['NewGameState'] ? 'NewGame_Label' : 'ContinueGame_Label'));
         $this->form('maingame')->MainMenu->content->Btn_End_Game->text = $this->localization->get('EndGame_Label');

@@ -18,7 +18,7 @@ class maingame extends AbstractForm
         define('BuildID', 'Build 819, Mar 22 2025'); //start date 24.12.2022
         define('VersionID', 'v1.3 (rc1)');
         
-        define('Debug_Build', true);
+        define('Debug_Build', false);
         define('SDK_Mode', false);
         
         define('ToggleHudFeature', true);
