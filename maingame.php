@@ -427,7 +427,7 @@ class maingame extends AbstractForm
         $this->health_bar_enemy->width = 264;
         $this->health_bar_enemy->text = "100%";
         
-        if ($GLOBALS['HudVisible'])
+        if (!ToggleHudFeature || $GLOBALS['HudVisible'])
         {
             $this->health_bar_gg->show();
             $this->health_bar_gg_b->show();
