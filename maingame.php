@@ -418,21 +418,25 @@ class maingame extends AbstractForm
     {
         $this->health_bar_gg->width = 264;
         $this->health_bar_gg->text = "100%";
-        $this->health_bar_gg->show();
-        $this->health_bar_gg_b->show();
         
         $this->Inventory->content->health_bar_gg->show();
-        $this->Inventory->content->health_bar_gg_b->show();        
+        $this->Inventory->content->health_bar_gg_b->show();
         $this->Inventory->content->health_bar_gg->width = 416; //100%
         $this->Inventory->content->health_bar_gg->text = "100%";               
-                
-        $this->health_bar_enemy->show();     
-        $this->health_bar_enemy_b->show();           
-        $this->health_bar_enemy->width = 264;    
-        $this->health_bar_enemy->text = "100%"; 
+                         
+        $this->health_bar_enemy->width = 264;
+        $this->health_bar_enemy->text = "100%";
         
-        if ($this->Inventory->content->skull_actor->visible) $this->Inventory->content->skull_actor->hide();        
+        if ($GLOBALS['HudVisible'])
+        {
+            $this->health_bar_gg->show();
+            $this->health_bar_gg_b->show();
+            
+            $this->health_bar_enemy->show();  
+            $this->health_bar_enemy_b->show();        
+        }
         
+        if ($this->Inventory->content->skull_actor->visible) $this->Inventory->content->skull_actor->hide();
         if ($this->skull_actor->visible || $this->skull_enemy->visible)
         {
             $this->skull_actor->hide();
