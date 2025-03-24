@@ -7,12 +7,21 @@ class Localization {
     private $language;
     private $directory;
 
+    private $languageMap = [
+        'Русский' => 'rus',
+        'English' => 'eng'
+    ];
+
     public function __construct($language, $directory = './config/locales/') {
         $this->directory = $directory;
-        $this->setLanguage('rus');
+
+        $internalLanguage = $this->resolveInternalLanguage('rus');
+        $this->setLanguage($internalLanguage);
     }
 
     public function setLanguage($language) {
+        $language = $this->resolveInternalLanguage($language);
+
         $this->language = $language;
         $filename = $this->directory . $language . '.json';
 
@@ -29,6 +38,14 @@ class Localization {
 
     public function getCurrentLanguage() {
         return $this->language;
+    }
+
+    private function resolveInternalLanguage($language) {
+        return $this->languageMap[$language] ?? $language;
+    }
+
+    public function getDisplayLanguage() {
+        return array_search($this->language, $this->languageMap) ?: $this->language;
     }
 }
 
