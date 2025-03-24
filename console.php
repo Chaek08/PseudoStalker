@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use Exception;
 use action\Element;
 use php\gui\framework\AbstractForm;
 use php\gui\event\UXWindowEvent; 
@@ -83,7 +84,7 @@ class console extends AbstractForm
                 case "r_version":
                         if (isset($args[1])) {
                                 $this->edit->text = "";
-                                Element::appendText($this->Console_Log, "> r_version {$args[1]}\n");
+                                Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
                                 $btn = $this->form('maingame')->Options->content->Version_Switcher_Btn;
                                 if (($args[1] === "off" && $btn->text === 'Вкл') || ($args[1] === "on" && $btn->text === 'Выкл')) {
@@ -95,7 +96,7 @@ class console extends AbstractForm
                 case "r_shadows":
                         if (isset($args[1])) {
                                 $this->edit->text = "";
-                                Element::appendText($this->Console_Log, "> r_shadows {$args[1]}\n");
+                                Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
                                 $btn = $this->form('maingame')->Options->content->Shadows_Switcher_Btn;
                                 if (($args[1] === "on" && $btn->text === 'Выкл') || ($args[1] === "off" && $btn->text === 'Вкл')) {
@@ -107,7 +108,7 @@ class console extends AbstractForm
                 case "snd_all":
                         if (isset($args[1])) {
                                 $this->edit->text = "";
-                                Element::appendText($this->Console_Log, "> snd_all {$args[1]}\n");
+                                Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
                                 $btn = $this->form('maingame')->Options->content->AllSound_Switcher_Btn;
                                 if (($args[1] === "off" && $btn->text === 'Вкл') || ($args[1] === "on" && $btn->text === 'Выкл')) {
@@ -115,23 +116,77 @@ class console extends AbstractForm
                                 }
                         }
                         break;
-
+/*
                 case "reset_game_client":
                         $this->edit->text = "";
                         Element::appendText($this->Console_Log, "> function ResetGameClient() executed\n");
                         $this->form('maingame')->ResetGameClient();
                         break;
-
+*/
                 case "version":
                         $this->edit->text = "";
                         Element::appendText($this->Console_Log, "> PseudoStalker, " . VersionID . ", " . BuildID . "\n");
                         break;
-
+/*
                 case "ToggleHud":
                         $this->edit->text = "";
                         if (ToggleHudFeature) {
                                 Element::appendText($this->Console_Log, "> function ToggleHud() executed\n");
                                 $this->form('maingame')->ToggleHud();
+                        }
+                        break;
+*/                        
+                case "call":
+                        if (isset($args[1])) {
+                                $this->edit->text = "";
+
+                                $parts = explode(".", $args[1]);
+
+                                if (count($parts) >= 2) {
+                                        $formName = array_shift($parts); 
+                                        $methodName = array_pop($parts); 
+                                        $fragmentPath = $parts; 
+
+                                        $form = app()->form($formName);
+                                        if (!$form) {
+                                                Element::appendText($this->Console_Log, "> Form '{$formName}' not found.\n");
+                                                break;
+                                        }
+
+                                        $target = $form;
+                                        foreach ($fragmentPath as $fragment) {
+                                                if (isset($target->$fragment)) {
+                                                        $target = $target->$fragment;
+                                                } else {
+                                                        Element::appendText($this->Console_Log, "> Fragment '{$fragment}' not found in '{$formName}'.\n");
+                                                        break 2;
+                                                }
+                                        }
+
+                                        if (method_exists($target, $methodName)) {
+                                                $methodArgs = array_slice($args, 2); 
+
+                                                $argList = implode(", ", $methodArgs);
+                                                Element::appendText($this->Console_Log, "> Calling method: {$args[1]}({$argList})\n");
+
+                                                try {
+                                                        $result = call_user_func_array([$target, $methodName], $methodArgs);
+                                                        if ($result !== null) {
+                                                                Element::appendText($this->Console_Log, "> Result: " . print_r($result, true) . "\n");
+                                                        } else {
+                                                                Element::appendText($this->Console_Log, "> Method executed successfully.\n");
+                                                        }
+                                                } catch (Exception $e) {
+                                                        Element::appendText($this->Console_Log, "> Error: " . $e->getMessage() . "\n");
+                                                }
+                                        } else {
+                                                Element::appendText($this->Console_Log, "> Method '{$methodName}' not found in '{$args[1]}'.\n");
+                                        }
+                                } else {
+                                        Element::appendText($this->Console_Log, "> Usage: call formName[.fragment].methodName [arg1] [arg2] ...\n");
+                                }
+                        } else {
+                                Element::appendText($this->Console_Log, "> Usage: call formName[.fragment].methodName [arg1] [arg2] ...\n");
                         }
                         break;
 
@@ -140,8 +195,8 @@ class console extends AbstractForm
                         $this->edit->text = "";
 
                         $languageMap = [
-                            'rus' => 'Русский',
-                            'eng' => 'English'
+                                'rus' => 'Русский',
+                                'eng' => 'English'
                         ];
 
                         if (isset($args[1]) && in_array($args[1], array_keys($languageMap))) {
