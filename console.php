@@ -36,7 +36,7 @@ class console extends AbstractForm
             $this->historyIndex = count($this->commandHistory); // сбрасываем индекс
         }
         $args = explode(" ", $command);
-        $command = $args[0];
+        $command = strtolower($args[0]);
 
         switch ($command) 
         {
