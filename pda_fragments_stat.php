@@ -51,21 +51,23 @@ class pda_fragments_stat extends AbstractForm
             $this->form('maingame')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_rank->text = "228";           
         }
     }
-    function ActorFailText()
+    function UpdateFinalLabel()
     {
         $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
-        $this->tab_final->show();
-        $this->final_label->show();
-        $this->final_label->text = $this->localization->get('FinalLabel_ActorFail');
+        if ($GLOBALS['ActorFailed'])
+        {
+            $this->tab_final->show();
+            $this->final_label->show();
+            $this->final_label->text = $this->localization->get('FinalLabel_ActorFail');
+        }
+        if ($GLOBALS['EnemyFailed'])
+        {
+            $this->tab_final->show();
+            $this->final_label->show();
+            $this->final_label->text = $this->localization->get('FinalLabel_EnemyFail');
+        }
     }
-    function EnemyFailText()
-    {
-        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
-        $this->tab_final->show();
-        $this->final_label->show();
-        $this->final_label->text = $this->localization->get('FinalLabel_EnemyFail');
-    }
-    function ResetFinalText()
+    function ResetFinalText() //???
     {
         $this->tab_final->hide();
         $this->final_label->hide();

@@ -470,7 +470,8 @@ class maingame extends AbstractForm
             
             if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex');
              
-            $this->EnemyFail();
+            $GLOBALS['EnemyFailed'] = true;
+            $this->finalizeBattle();
             return;
         }   
         if ($this->health_bar_enemy->width == 214)
@@ -529,7 +530,8 @@ class maingame extends AbstractForm
             
             if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');
             
-            $this->ActorFail();
+            $GLOBALS['ActorFailed'] = true;
+            $this->finalizeBattle();
             return;
         }   
         if ($this->health_bar_gg->width == 214)
@@ -587,10 +589,13 @@ class maingame extends AbstractForm
             $this->blood_ui->image = new UXImage('res://.data/ui/maingame/blood_ultra.png');            
         }        
     }
-    function FailAction()
+    function finalizeBattle()
     {
         $GLOBALS['QuestCompleted'] = true;
         if (ToggleHudFeature) $GLOBALS['NeedToCheckPDA'] = true;
+        
+        $this->Fail->content->UpdateFailState();
+        $this->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
     
         $this->fight_image->hide();
         $this->Fail->show();
@@ -610,34 +615,24 @@ class maingame extends AbstractForm
             $this->ReplayBtn->hide();
             $this->StopAllSounds();
         }
-    }
-    function ActorFail()
-    { 
-        $this->FailAction();
-        $GLOBALS['ActorFailed'] = true;
-    
-        $this->actor->hide();      
-           
-        $this->Fail->content->SetActorFail();
-        $this->Pda->content->Pda_Statistic->content->ActorFailText();
-        $this->Pda->content->Pda_Tasks->content->Step2_Failed();         
         
-        if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');
-    }
-    function EnemyFail()
-    {
-        $this->FailAction();
-        $GLOBALS['EnemyFailed'] = true;
-    
-        $this->enemy->hide();
-                
-        $this->Fail->content->SetEnemyFail();
-        $this->Pda->content->Pda_Statistic->content->EnemyFailText();    
-        $this->Pda->content->Pda_Tasks->content->Step2_Complete();
-        
-        $this->Pda->content->Pda_Contacts->content->DeleteEnemyContacts();            
-        
-        if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor');
+        if ($GLOBALS['ActorFailed'])
+        {
+            $this->actor->hide();
+            
+            $this->Pda->content->Pda_Tasks->content->Step2_Failed();
+            
+            if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');
+        }
+        if ($GLOBALS['EnemyFailed'])
+        {
+            $this->enemy->hide();
+            
+            $this->Pda->content->Pda_Tasks->content->Step2_Complete();
+            $this->Pda->content->Pda_Contacts->content->DeleteEnemyContacts();
+            
+            if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor');
+        }
     }
     /**
      * @event keyDown-Q 
