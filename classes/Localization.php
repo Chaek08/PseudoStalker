@@ -12,7 +12,7 @@ class Localization {
         'English' => 'eng'
     ];
 
-    public function __construct($language, $directory = './config/locales/') {
+    public function __construct($language, $directory = './gamedata/config/locales/') {
         $this->directory = $directory;
 
         $internalLanguage = $this->resolveInternalLanguage('rus');

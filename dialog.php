@@ -15,6 +15,22 @@ class dialog extends AbstractForm
         $this->localization = new Localization($language);
     }
     
+    private function playVoice($fileName, $mediaId)
+    {
+        $languageCode = $this->localization->getCurrentLanguage();
+
+        $soundPath = "./gamedata/sounds/{$languageCode}/dialog/{$fileName}.mp3";
+
+        if (file_exists($soundPath))
+        {
+            Media::open($soundPath, true, $mediaId);
+        } 
+        else
+        {
+            throw new \Exception("Sound file not found: $soundPath");
+        }
+    }   
+    
     function StopVoice()
     {
         Media::stop('voice_start');
@@ -34,7 +50,7 @@ class dialog extends AbstractForm
         }
         if ($GLOBALS['AllSounds'])//else
         {
-            Media::open('res://.data/audio/voice/voice_start.mp3', true, "voice_start");
+            $this->playVoice("voice_start", "voice_start");
         }
     }
     function VoiceTalk_1()
@@ -45,7 +61,7 @@ class dialog extends AbstractForm
         }
         else
         {
-            Media::open('res://.data/audio/voice/voice_talk1.mp3', true, "voice_talk1");            
+            $this->playVoice("voice_talk1", "voice_talk1");
         }
     }
     function VoiceTalk_2()
@@ -56,7 +72,7 @@ class dialog extends AbstractForm
         }
         else
         {    
-            Media::open('res://.data/audio/voice/voice_talk2.mp3', true, "voice_talk2");   
+            $this->playVoice("voice_talk2", "voice_talk2");
         }   
     }    
     function VoiceTalk_3()
@@ -67,7 +83,7 @@ class dialog extends AbstractForm
         }
         else
         {    
-            Media::open('res://.data/audio/voice/voice_talk3.mp3', true, "voice_talk3");     
+            $this->playVoice("voice_talk3", "voice_talk3");
         }   
     }    
     /**
