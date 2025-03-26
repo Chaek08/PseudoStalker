@@ -102,16 +102,7 @@ class opt extends AbstractForm
         {
             $GLOBALS['AllSoundSwitcher_IsOn'] = false;
             $this->AllSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
-            
-            if (!$this->form('maingame')->Console->visible && $this->form('maingame')->Console->content->edit->focused == false) //костыль ебучий
-            {            
-                $this->AllSound_Switcher_Btn->textColor = '#880911';
-            }
-            else 
-            {
-                $this->AllSoundSwitcher_MouseEnter();
-            }
-            
+
             $GLOBALS['AllSounds'] = false;
         
             if ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
@@ -145,15 +136,6 @@ class opt extends AbstractForm
         {
             $this->AllSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
             $GLOBALS['AllSoundSwitcher_IsOn'] = true;
-            
-            if (!$this->form('maingame')->Console->visible && $this->form('maingame')->Console->content->edit->focused == false) //костыль ебучий
-            {                       
-                $this->AllSound_Switcher_Btn->textColor = '#099209';
-            }
-            else 
-            {
-                $this->AllSoundSwitcher_MouseEnter();
-            }
         
             $GLOBALS['AllSounds'] = true;
         
@@ -323,15 +305,6 @@ class opt extends AbstractForm
             $GLOBALS['ShadowsSwitcher_IsOn'] = false;
             $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             
-            if (!$this->form('maingame')->Console->visible && $this->form('maingame')->Console->content->edit->focused == false) //костыль ебучий
-            {            
-                $this->Shadows_Switcher_Btn->textColor = '#880911';
-            }
-            else 
-            {
-                $this->ShadowsSwitcher_MouseEnter();
-            }
-            
             //maingame
             $this->form('maingame')->item_vodka_0000->dropShadowEffect->disable();   
             $this->form('maingame')->actor->dropShadowEffect->disable();  
@@ -399,15 +372,6 @@ class opt extends AbstractForm
         {
             $GLOBALS['ShadowsSwitcher_IsOn'] = true;
             $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
-               
-            if (!$this->form('maingame')->Console->visible && $this->form('maingame')->Console->content->edit->focused == false) //костыль ебучий
-            {                    
-                $this->Shadows_Switcher_Btn->textColor = '#099209';
-            }
-            else 
-            {
-                $this->ShadowsSwitcher_MouseEnter();
-            }
             
             //maingame
             $this->form('maingame')->item_vodka_0000->dropShadowEffect->enable();
@@ -505,15 +469,6 @@ class opt extends AbstractForm
             $GLOBALS['VersionSwitcher_IsOn'] = false;
             $this->Version_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             
-            if (!$this->form('maingame')->Console->visible && $this->form('maingame')->Console->content->edit->focused == false) //костыль ебучий
-            {
-                $this->Version_Switcher_Btn->textColor = '#880911';
-            }
-            else 
-            {
-                $this->VersionSwitcher_MouseEnter();
-            }
-            
             if (Debug_Build)
             {
                 $this->form('maingame')->version->hide();
@@ -530,16 +485,7 @@ class opt extends AbstractForm
         else 
         {
             $GLOBALS['VersionSwitcher_IsOn'] = true;
-            $this->Version_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
-            
-            if (!$this->form('maingame')->Console->visible && $this->form('maingame')->Console->content->edit->focused == false) //костыль ебучий
-            {
-                $this->Version_Switcher_Btn->textColor = '#099209';
-            }
-            else 
-            {
-                $this->VersionSwitcher_MouseEnter();
-            }            
+            $this->Version_Switcher_Btn->text = $this->localization->get('TurnOn_Label');           
             
             if (Debug_Build)
             {

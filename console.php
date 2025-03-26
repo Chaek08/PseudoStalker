@@ -89,6 +89,7 @@ class console extends AbstractForm
                                 $btn = $this->form('maingame')->Options->content->Version_Switcher_Btn;
                                 if (($args[1] === "off" && $btn->text === 'Вкл') || ($args[1] === "on" && $btn->text === 'Выкл')) {
                                         $this->form('maingame')->Options->content->VersionSwitcher_MouseDownLeft();
+                                        $this->form('maingame')->Options->content->VersionSwitcher_MouseExit();
                                 }
                         }
                         break;
@@ -101,6 +102,7 @@ class console extends AbstractForm
                                 $btn = $this->form('maingame')->Options->content->Shadows_Switcher_Btn;
                                 if (($args[1] === "on" && $btn->text === 'Выкл') || ($args[1] === "off" && $btn->text === 'Вкл')) {
                                         $this->form('maingame')->Options->content->ShadowsSwitcher_MouseDownLeft();
+                                        $this->form('maingame')->Options->content->ShadowsSwitcher_MouseExit();
                                 }
                         }
                         break;
@@ -113,6 +115,7 @@ class console extends AbstractForm
                                 $btn = $this->form('maingame')->Options->content->AllSound_Switcher_Btn;
                                 if (($args[1] === "off" && $btn->text === 'Вкл') || ($args[1] === "on" && $btn->text === 'Выкл')) {
                                         $this->form('maingame')->Options->content->AllSoundSwitcher_MouseDownLeft();
+                                        $this->form('maingame')->Options->content->AllSoundSwitcher_MouseExit();
                                 }
                         }
                         break;
