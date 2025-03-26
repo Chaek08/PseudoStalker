@@ -57,8 +57,13 @@ class fail_wnd extends AbstractForm
             {
                 $this->Win_object->image = new UXImage($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_EnemyModel->text);
                 $this->Win_fail_text->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_FailEditor->content->EditActorFailIcon->text));
-                $this->Win_fail_text->text = uiText($this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Text_Actor_Edit);
-                $this->Win_fail_desc->text = uiText($this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Desc_Actor_Edit);                
+                $this->Win_fail_text->text =
+                   $this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Text_Actor_Edit->text ?:
+                   $this->localization->get('ActorFail_Label');
+
+                $this->Win_fail_desc->text =
+                   $this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Desc_Actor_Edit->text ?:
+                   $this->localization->get('ActorFail_Desc');
             }
             else 
             {
@@ -74,8 +79,13 @@ class fail_wnd extends AbstractForm
             {
                 $this->Win_object->image = new UXImage($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_ActorModel->text);
                 $this->Win_fail_text->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_FailEditor->content->EditEnemyFailIcon->text));
-                $this->Win_fail_text->text = uiText($this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Text_Enemy_Edit);
-                $this->Win_fail_desc->text = uiText($this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Desc_Enemy_Edit);            
+                $this->Win_fail_text->text =
+                   $this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Text_Enemy_Edit->text ?:
+                   $this->localization->get('EnemyFail_Label');
+
+                $this->Win_fail_desc->text =
+                   $this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Desc_Enemy_Edit->text ?:
+                   $this->localization->get('EnemyFail_Desc');
             }
             else 
             {

@@ -36,7 +36,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label5" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestName" layoutX="352" layoutY="120" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Поразить пiдораса" styleClass="text-input text-field " text="Поразить пiдораса">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestName" layoutX="352" layoutY="120" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Поразить пiдораса" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -48,19 +48,19 @@
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_QuestIcon" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestStep1" layoutX="352" layoutY="416" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Поговорить с гоблиндавом" styleClass="text-input text-field " text="Поговорить с гоблиндавом">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestStep1" layoutX="352" layoutY="416" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Поговорить с гоблиндавом" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_QuestStep1" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestStep2" layoutX="352" layoutY="464" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Дать жоск пиздюлей гоблиндаву" styleClass="text-input text-field " text="Дать жоск пиздюлей гоблиндаву">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_QuestStep2" layoutX="352" layoutY="464" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Дать жоск пиздюлей гоблиндаву" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_QuestStep2" visible="1"/>
-    <TextArea editable="true" focusTraversable="true" id="Edit_QuestDesc" layoutX="352" layoutY="216" prefColumnCount="40" prefHeight="152" prefWidth="408" promptText="Вчера поздно вечером соседи услышали гачи звуки из квартиры гоблиндава, они заподозрили что гоблиндав не натурал! Бабки - соседки начали стучаться ему в дверь, он открыл и сказал &quot;Welcome to the club, body&quot; Тогда всё сразу стало понятно!!! Так вот.. нам необходимо натурализовать ебаната!!" styleClass="text-input text-area " text="Вчера поздно вечером соседи услышали гачи звуки из квартиры гоблиндава, они заподозрили что гоблиндав не натурал! Бабки - соседки начали стучаться ему в дверь, он открыл и сказал &quot;Welcome to the club, body&quot; Тогда всё сразу стало понятно!!! Так вот.. нам необходимо натурализовать ебаната!!" wrapText="true">
+    <TextArea editable="true" focusTraversable="true" id="Edit_QuestDesc" layoutX="352" layoutY="216" prefColumnCount="40" prefHeight="152" prefWidth="408" promptText="Вчера поздно вечером соседи услышали гачи звуки из квартиры гоблиндава, они заподозрили что гоблиндав не натурал! Бабки - соседки начали стучаться ему в дверь, он открыл и сказал &quot;Welcome to the club, body&quot; Тогда всё сразу стало понятно!!! Так вот.. нам необходимо натурализовать ебаната!!" styleClass="text-input text-area " text="" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -180,7 +180,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearQuestTarget_Btn" visible="1"/>
-    <TextArea editable="true" focusTraversable="true" id="Edit_QuestTarget" layoutX="352" layoutY="560" prefColumnCount="40" prefHeight="152" prefWidth="408" promptText="События происходят в 2033 годуВ это болото меня сюда заслал данила!!! Он смог поразить гоблиндава, но оказалось что поразил он не гоблиндава, а его двойника!!!Теперь мне нужно устранить настоящего гоблиндава" styleClass="text-input text-area " text="События происходят в 2033 году&#10;В это болото меня сюда заслал данила!!! Он смог поразить гоблиндава, но оказалось что поразил он не гоблиндава, а его двойника!!!&#10;Теперь мне нужно устранить настоящего гоблиндава" wrapText="true">
+    <TextArea editable="true" focusTraversable="true" id="Edit_QuestTarget" layoutX="352" layoutY="560" prefColumnCount="40" prefHeight="152" prefWidth="408" promptText="События происходят в 2033 годуВ это болото меня сюда заслал данила!!! Он смог поразить гоблиндава, но оказалось что поразил он не гоблиндава, а его двойника!!!Теперь мне нужно устранить настоящего гоблиндава" styleClass="text-input text-area " text="" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

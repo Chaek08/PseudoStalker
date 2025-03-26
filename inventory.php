@@ -70,8 +70,14 @@ class inventory extends AbstractForm
         {
             if (SDK_Mode)
             {
-                Element::setText($this->maket_label, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Vodka));
-                Element::setText($this->maket_desc, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Vodka));
+                $this->maket_label->text =
+                    $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Vodka->text ?:
+                    $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Vodka->promptText;
+
+                $this->maket_desc->text = 
+                    $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Vodka->text ?:
+                    $this->localization->get('Vodka_Inv_Desc');
+                    
                 Element::setText($this->maket_count, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Count_Vodka));
                 Element::setText($this->maket_weight, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Vodka));
             }
@@ -87,8 +93,14 @@ class inventory extends AbstractForm
         {
             if (SDK_Mode)
             {
-                Element::setText($this->maket_label, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Outfit));
-                Element::setText($this->maket_desc, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Outfit));
+                $this->maket_label->text = 
+                    $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Outfit->text ?: 
+                    $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Outfit->promptText;
+
+                $this->maket_desc->text = 
+                    $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Outfit->text ?: 
+                    $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Outfit->promptText;
+                    
                 Element::setText($this->maket_count, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Count_Outfit));
                 Element::setText($this->maket_weight, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Outfit));
             }

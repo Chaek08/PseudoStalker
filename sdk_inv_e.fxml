@@ -6,25 +6,25 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemName_Outfit" layoutX="320" layoutY="56" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="Броня Сани Кабана" styleClass="text-input text-field " text="Броня Сани Кабана">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemName_Outfit" layoutX="320" layoutY="56" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="Броня Сани Кабана" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_ItemName_Outfit" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemName_Vodka" layoutX="320" layoutY="432" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="Водка Казаки" styleClass="text-input text-field " text="Водка Казаки">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_ItemName_Vodka" layoutX="320" layoutY="432" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="Водка Казаки" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_ItemName_Vodka" visible="1"/>
-    <TextArea editable="true" focusTraversable="false" id="Edit_ItemDesc_Vodka" layoutX="320" layoutY="624" prefColumnCount="40" prefHeight="128" prefWidth="376" promptText="С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.Управление бутылкой:ЛКМ - Метнуть бутылку во врагаПКМ - Метнуть бутылку к себе" styleClass="text-input text-area " text="С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.&#10;&#10;Управление бутылкой:&#10;ЛКМ - Метнуть бутылку во врага&#10;ПКМ - Метнуть бутылку к себе" wrapText="true">
+    <TextArea editable="true" focusTraversable="false" id="Edit_ItemDesc_Vodka" layoutX="320" layoutY="624" prefColumnCount="40" prefHeight="128" prefWidth="376" promptText="С этой водичкой я могу создать настоящий огонь в заднице гоблиндава, просто метнув в него бутылку! Это мощное средство, которое гарантирует мою безопасность и эффективность в борьбе с любыми угрозами.Управление бутылкой:ЛКМ - Метнуть бутылку во врагаПКМ - Метнуть бутылку к себе" styleClass="text-input text-area " text="" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextArea>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_ItemDesc_Vodka" visible="1"/>
-    <TextArea editable="true" focusTraversable="false" id="Edit_ItemDesc_Outfit" layoutX="320" layoutY="248" prefColumnCount="40" prefHeight="128" prefWidth="376" promptText="Этот продукт обеспечивает полную защиту от радиации и ужасного запаха гоблиндава! И что самое важное - он сделан из натуральной кабаньей плоти. Теперь я могу быть уверенным в своей безопасности и комфорте в любых условиях." styleClass="text-input text-area " text="Этот продукт обеспечивает полную защиту от радиации и ужасного запаха гоблиндава! И что самое важное - он сделан из натуральной кабаньей плоти. Теперь я могу быть уверенным в своей безопасности и комфорте в любых условиях." wrapText="true">
+    <TextArea editable="true" focusTraversable="false" id="Edit_ItemDesc_Outfit" layoutX="320" layoutY="248" prefColumnCount="40" prefHeight="128" prefWidth="376" promptText="Этот продукт обеспечивает полную защиту от радиации и ужасного запаха гоблиндава! И что самое важное - он сделан из натуральной кабаньей плоти. Теперь я могу быть уверенным в своей безопасности и комфорте в любых условиях." styleClass="text-input text-area " text="" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -198,7 +198,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="label11" layoutX="72" layoutY="768" prefHeight="40" prefWidth="784" styleClass="label " text="У некоторых элементов динамические значения, поэтому кнопка Apply отсутствует." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="label11" layoutX="72" layoutY="768" prefHeight="40" prefWidth="784" styleClass="label " text="Some elements have dynamic values, which is why the Apply button is missing." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>

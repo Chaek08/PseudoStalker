@@ -157,8 +157,6 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-version" visible=""/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="LoadScreen" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="Console" layoutX="944" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="456" prefWidth="568" spacing="0" styleClass="fragment-pane "/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="Editor" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <Data content="sdk_main" cursor="DEFAULT" enabled="1" id="data-Editor" visible=""/>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/maingame/replay_icon.png" id="data-ReplayBtn" tooltipText="Перезапустить музыку" visible=""/>
@@ -169,5 +167,7 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/mainmenu/sdk_btn.png" id="data-ForwardSDK_Btn" tooltipText="Forward SDK" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="LoadScreen" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Console" layoutX="944" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="456" prefWidth="568" spacing="0" styleClass="fragment-pane "/>
   </children>
 </AnchorPane>

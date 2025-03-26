@@ -12,7 +12,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-labelAlt" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="edit_actorname" layoutX="392" layoutY="72" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Саня Кабан" styleClass="text-input text-field " text="Саня Кабан">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="edit_actorname" layoutX="392" layoutY="72" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Саня Кабан" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -24,7 +24,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label3" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="edit_enemyname" layoutX="392" layoutY="192" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Гоблиндав" styleClass="text-input text-field " text="Гоблиндав">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="edit_enemyname" layoutX="392" layoutY="192" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Гоблиндав" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -42,13 +42,13 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label5" visible="1"/>
-    <TextArea editable="true" focusTraversable="false" id="textArea_ActorBio" layoutX="392" layoutY="432" prefColumnCount="40" prefHeight="96" prefWidth="384" promptText="Известен как самый бескомпромиссный в районе, этот человек дает пиздюлей каждому, без разницы - будь то админ или нет." styleClass="text-input text-area " text="Известен как самый бескомпромиссный в районе, этот человек дает пиздюлей каждому, без разницы - будь то админ или нет." wrapText="true">
+    <TextArea editable="true" focusTraversable="false" id="textArea_ActorBio" layoutX="392" layoutY="432" prefColumnCount="40" prefHeight="96" prefWidth="384" promptText="Известен как самый бескомпромиссный в районе, этот человек дает пиздюлей каждому, без разницы - будь то админ или нет." styleClass="text-input text-area " text="" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextArea>
     <Data cursor="DEFAULT" enabled="1" id="data-textArea_ActorBio" visible="1"/>
-    <TextArea editable="true" focusTraversable="false" id="textArea_EnemyBio" layoutX="392" layoutY="536" prefColumnCount="40" prefHeight="96" prefWidth="384" promptText="САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ" styleClass="text-input text-area " text="САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ" wrapText="true">
+    <TextArea editable="true" focusTraversable="false" id="textArea_EnemyBio" layoutX="392" layoutY="536" prefColumnCount="40" prefHeight="96" prefWidth="384" promptText="САМЫЙ ОТБИТЫЙ ПИДОРАС СЕРВЕРА DANILA EMOJI, ТЕРРОРИЗИРУЕТ УЧАСТНИКОВ, И ВООБЩЕ НАХУЙ, УРОД ЕБАНЫЙ" styleClass="text-input text-area " text="" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -144,13 +144,13 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetActorIcon_Btn" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="label11" layoutX="104" layoutY="760" prefHeight="40" prefWidth="880" styleClass="label " text="У некоторых элементов динамические значения, поэтому кнопка Apply отсутствует" textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="label11" layoutX="104" layoutY="760" prefHeight="40" prefWidth="880" styleClass="label " text="Some elements have dynamic values, so the Apply button is missing." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/warning_icon_24.png" id="data-label11" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_ValerokName" layoutX="392" layoutY="312" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Валерок" styleClass="text-input text-field " text="Валерок">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_ValerokName" layoutX="392" layoutY="312" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Валерок" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -186,7 +186,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetValerokName_Btn" visible="1"/>
-    <TextArea editable="true" focusTraversable="false" id="textArea_ValerokBio" layoutX="392" layoutY="640" prefColumnCount="40" prefHeight="96" prefWidth="384" promptText="Хозяин LADCEGA, попускает тупых огсровцев, В его гараже всегда лежит нож, готовый помочь в любых делах." styleClass="text-input text-area " text="Хозяин LADCEGA, попускает тупых огсровцев, В его гараже всегда лежит нож, готовый помочь в любых делах." wrapText="true">
+    <TextArea editable="true" focusTraversable="false" id="textArea_ValerokBio" layoutX="392" layoutY="640" prefColumnCount="40" prefHeight="96" prefWidth="384" promptText="Хозяин LADCEGA, попускает тупых огсровцев, В его гараже всегда лежит нож, готовый помочь в любых делах." styleClass="text-input text-area " text="" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

@@ -3,10 +3,19 @@ namespace app\forms;
 
 use php\gui\framework\AbstractForm;
 use php\gui\event\UXMouseEvent; 
-
+use app\forms\classes\Localization;
 
 class sdk_fail_e extends AbstractForm
 {
+    private $localization;
+
+    public function __construct() 
+    {
+        parent::__construct();
+
+        $this->localization = new Localization($language);
+    }
+    
     function ApplyAll()
     {    
         $this->ApplyActorFailDesc();
@@ -70,7 +79,8 @@ class sdk_fail_e extends AbstractForm
      */
     function ResetActorFailDesc(UXMouseEvent $e = null)
     {    
-        $this->Win_Fail_Desc_Actor_Edit->text = $this->Win_Fail_Desc_Actor_Default->text;
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->Win_Fail_Desc_Actor_Edit->text = $this->localization->get('ActorFail_Desc');//$this->Win_Fail_Desc_Actor_Default->text;
     }
     /**
      * @event ResetEnemyFailEdit_Btn.click-Left 
@@ -84,7 +94,8 @@ class sdk_fail_e extends AbstractForm
      */
     function ResetEnemyFailDesc(UXMouseEvent $e = null)
     {    
-        $this->Win_Fail_Desc_Enemy_Edit->text = $this->Win_Fail_Desc_Enemy_Default->text;
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->Win_Fail_Desc_Enemy_Edit->text = $this->localization->get('EnemyFail_Desc');//$this->Win_Fail_Desc_Enemy_Default->text;
     }
     /**
      * @event ResetActorFailIcon_Btn.click-Left 

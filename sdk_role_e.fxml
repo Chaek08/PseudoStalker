@@ -6,19 +6,19 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_RoleName_Danila" layoutX="320" layoutY="264" prefColumnCount="12" prefHeight="40" prefWidth="256" promptText="Danila Emoji" styleClass="text-input text-field " text="Danila Emoji">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_RoleName_Danila" layoutX="320" layoutY="264" prefColumnCount="12" prefHeight="40" prefWidth="256" promptText="Danila Emoji" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_RoleName_Danila" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_RoleName_Pido" layoutX="320" layoutY="312" prefColumnCount="12" prefHeight="40" prefWidth="256" promptText="Пидорасы" styleClass="text-input text-field " text="Пидорасы">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_RoleName_Pido" layoutX="320" layoutY="312" prefColumnCount="12" prefHeight="40" prefWidth="256" promptText="Пидорасы" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_RoleName_Pido" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_RoleName_Ladcega" layoutX="320" layoutY="360" prefColumnCount="12" prefHeight="40" prefWidth="256" promptText="LADCEGA" styleClass="text-input text-field " text="LADCEGA">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_RoleName_Ladcega" layoutX="320" layoutY="360" prefColumnCount="12" prefHeight="40" prefWidth="256" promptText="LADCEGA" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -186,7 +186,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetLaRoleIcon_Btn" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="label10" layoutX="72" layoutY="624" prefHeight="64" prefWidth="456" styleClass="label " text="Размеры для иконок: 24x24, 16x16&#10;Более большие размеры приведут к проблемам в UI&#10;" textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="true">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="label10" layoutX="72" layoutY="624" prefHeight="64" prefWidth="456" styleClass="label " text="Icon sizes: 24x24, 16x16.  &#10;Larger sizes may cause UI issues.&#10;" textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -261,13 +261,13 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearLaRoleIcon_Btn" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="14" id="label11" layoutX="72" layoutY="680" prefHeight="60" prefWidth="696" styleClass="label " text="Если вы хотите убрать иконку роли, пропишите специальный путь к иконке:&#10;res://.data/ui/dialog/no_role.png&#10;&#10;" textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="true">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="14" id="label11" layoutX="72" layoutY="680" prefHeight="60" prefWidth="696" styleClass="label " text="If you want to remove the role icon, set a specific path to the icon:  &#10;res://.data/ui/dialog/no_role.png&#10;&#10;" textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/no_role.png" id="data-label11" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="label12" layoutX="72" layoutY="736" prefHeight="40" prefWidth="1152" styleClass="label " text="У некоторых элементов динамические значения, поэтому кнопка Apply отсутствует." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="label12" layoutX="72" layoutY="736" prefHeight="40" prefWidth="1152" styleClass="label " text="Some elements have dynamic values, which is why the Apply button is missing." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>

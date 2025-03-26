@@ -6,37 +6,37 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Alex_Desc_1" layoutX="288" layoutY="120" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Как дела, мой сладкий?)" styleClass="text-input text-field " text="Как дела, мой сладкий?)">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Alex_Desc_1" layoutX="288" layoutY="120" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Как дела, мой сладкий?)" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_Alex_Desc_1" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Actor_Desc_1" layoutX="288" layoutY="168" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="ахуел гей нефар" styleClass="text-input text-field " text="ахуел гей нефар">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Actor_Desc_1" layoutX="288" layoutY="168" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="ахуел гей нефар" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_Actor_Desc_1" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Alex_Desc_2" layoutX="288" layoutY="216" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="В ебло щёлкну - улетишь" styleClass="text-input text-field " text="В ебло щёлкну - улетишь">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Alex_Desc_2" layoutX="288" layoutY="216" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="В ебло щёлкну - улетишь" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_Alex_Desc_2" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Actor_Desc_3" layoutX="288" layoutY="264" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="иди нахуй заднипривадный геюган" styleClass="text-input text-field " text="иди нахуй заднипривадный геюган">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Actor_Desc_3" layoutX="288" layoutY="264" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="иди нахуй заднипривадный геюган" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_Actor_Desc_3" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Alex_Desc_3" layoutX="288" layoutY="312" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Ах ах... ой отвлёкся!! Сейчас я покажу, кто здесь натурал, а кто муж" styleClass="text-input text-field " text="Ах ах... ой отвлёкся!! Сейчас я покажу, кто здесь натурал, а кто муж">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Alex_Desc_3" layoutX="288" layoutY="312" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="Ах ах... ой отвлёкся!! Сейчас я покажу, кто здесь натурал, а кто муж" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_Alex_Desc_3" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Final_Phase" layoutX="288" layoutY="360" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="фу изврощенис.. пагнали дратся!!!" styleClass="text-input text-field " text="фу изврощенис.. пагнали дратся!!!">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Final_Phase" layoutX="288" layoutY="360" prefColumnCount="12" prefHeight="40" prefWidth="384" promptText="фу изврощенис.. пагнали дратся!!!" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -138,25 +138,25 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetAlex_Desc_3_Btn" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceStart" layoutX="288" layoutY="440" prefColumnCount="12" prefHeight="41" prefWidth="344" promptText="res://.data/audio/voice/voice_start.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_start.mp3">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceStart" layoutX="288" layoutY="440" prefColumnCount="12" prefHeight="41" prefWidth="344" promptText="./gamedata/sounds/rus/dialog/voice_start.mp3" styleClass="text-input text-field " text="./gamedata/sounds/rus/dialog/voice_start.mp3">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_VoiceStart" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk1" layoutX="288" layoutY="488" prefColumnCount="12" prefHeight="41" prefWidth="304" promptText="res://.data/audio/voice/voice_talk1.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk1.mp3">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk1" layoutX="288" layoutY="488" prefColumnCount="12" prefHeight="41" prefWidth="304" promptText="./gamedata/sounds/rus/dialog/voice_talk1.mp3" styleClass="text-input text-field " text="./gamedata/sounds/rus/dialog/voice_talk1.mp3">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_VoiceTalk1" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk2" layoutX="288" layoutY="536" prefColumnCount="12" prefHeight="41" prefWidth="304" promptText="res://.data/audio/voice/voice_talk2.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk2.mp3">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk2" layoutX="288" layoutY="536" prefColumnCount="12" prefHeight="41" prefWidth="304" promptText="./gamedata/sounds/rus/dialog/voice_talk2.mp3" styleClass="text-input text-field " text="./gamedata/sounds/rus/dialog/voice_talk2.mp3">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_VoiceTalk2" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk3" layoutX="288" layoutY="584" prefColumnCount="12" prefHeight="41" prefWidth="304" promptText="res://.data/audio/voice/voice_talk3.mp3" styleClass="text-input text-field " text="res://.data/audio/voice/voice_talk3.mp3">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_VoiceTalk3" layoutX="288" layoutY="584" prefColumnCount="12" prefHeight="41" prefWidth="304" promptText="./gamedata/sounds/rus/dialog/voice_talk3.mp3" styleClass="text-input text-field " text="./gamedata/sounds/rus/dialog/voice_talk3.mp3">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -216,7 +216,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetFinalPhase_Btn" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="label11" layoutX="96" layoutY="688" prefHeight="40" prefWidth="1064" styleClass="label " text="У некоторых элементов динамические значения, поэтому кнопка Apply отсутствует" textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="label11" layoutX="96" layoutY="688" prefHeight="40" prefWidth="1064" styleClass="label " text="Some elements have dynamic values, so the Apply button is missing." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -311,7 +311,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/previewsongbtn.png" id="data-VoiceTalk3_PreviewBtn" tooltipText="Preview Song" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="label12" layoutX="96" layoutY="656" prefHeight="40" prefWidth="456" styleClass="label " text="Поддерживаемые аудиоформаты: MP3, MP4, WAV." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="true">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="label12" layoutX="96" layoutY="656" prefHeight="40" prefWidth="456" styleClass="label " text="Supported audio formats: MP3, MP4, WAV." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="15"/>
       </font>

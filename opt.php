@@ -633,11 +633,54 @@ class opt extends AbstractForm
         $this->form('maingame')->Dialog->content->community_enemy->text = $this->localization->get('Community_Pido');
     
         $this->form('maingame')->Fail->content->returnbtn->text = $this->localization->get('Return_Button');
-        $this->form('maingame')->Fail->content->exitbtn->text = $this->localization->get('Exit_Button');        
+        $this->form('maingame')->Fail->content->exitbtn->text = $this->localization->get('Exit_Button');
         
         $this->form('maingame')->Inventory->content->InitInventoryWeight();
         
-        if ($GLOBALS['EnemyFailed'] && $GLOBALS['QuestCompleted']) $this->form('maingame')->Pda->content->Pda_Statistic->content->EnemyFailText();
-        if ($GLOBALS['ActorFailed'] && $GLOBALS['QuestCompleted']) $this->form('maingame')->Pda->content->Pda_Statistic->content->ActorFailText();
+        if ($GLOBALS['QuestCompleted']) 
+        {
+            $this->form('maingame')->Fail->content->UpdateFailState();
+            $this->form('maingame')->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
+        }
+        
+        if (SDK_Mode)
+        {
+            $this->form('maingame')->Editor->content->f_UserDataEditor->content->edit_actorname->promptText = $this->localization->get('GG_Name');
+            $this->form('maingame')->Editor->content->f_UserDataEditor->content->edit_enemyname->promptText = $this->localization->get('Enemy_Name');
+            $this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_ValerokName->promptText = $this->localization->get('Ranking_Valerok');
+            $this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_ActorBio->promptText = $this->localization->get('Actor_Bio');
+            $this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_EnemyBio->promptText = $this->localization->get('GoblindaV_Bio');
+            $this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_ValerokBio->promptText = $this->localization->get('Valerok_Bio');
+            
+            $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Alex_Desc_1->promptText = $this->localization->get('Dialog_Goblin_Desc1');
+            $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Alex_Desc_2->promptText = $this->localization->get('Dialog_Goblin_Desc2');
+            $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Alex_Desc_3->promptText = $this->localization->get('Dialog_Goblin_Desc3');
+            $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_1->promptText = $this->localization->get('Dialog_Actor_Desc1');
+            $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_3->promptText = $this->localization->get('Dialog_Actor_Desc3');
+            $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Final_Phase->promptText = $this->localization->get('Dialog_Final_Phase');
+            
+            $this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Text_Actor_Edit->promptText = $this->localization->get('ActorFail_Label');
+            $this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Text_Enemy_Edit->promptText = $this->localization->get('EnemyFail_Label');
+            $this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Desc_Actor_Edit->promptText = $this->localization->get('ActorFail_Desc');
+            $this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Desc_Enemy_Edit->promptText = $this->localization->get('EnemyFail_Desc');
+            
+            $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Danila->promptText = $this->localization->get('DE_Community');
+            $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Ladcega->promptText = $this->localization->get('LA_Community');
+            $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Pido->promptText = $this->localization->get('Community_Pido');
+            $this->form('maingame')->Editor->content->f_RoleEditor->content->labelAlt->text = $this->localization->get('SDK_RoleColor_Faggots');
+            $this->form('maingame')->Editor->content->f_RoleEditor->content->label5->text = $this->localization->get('SDK_RoleName_Faggots');
+            $this->form('maingame')->Editor->content->f_RoleEditor->content->label8->text = $this->localization->get('SDK_RoleIcon_Faggots');
+            
+            $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Outfit->promptText = $this->localization->get('Outfit_Inv_Name');
+            $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Outfit->promptText = $this->localization->get('Outfit_Inv_Desc');
+            $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Vodka->promptText = $this->localization->get('Vodka_Inv_Name');
+            $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Vodka->promptText = $this->localization->get('Vodka_Inv_Desc');
+            
+            $this->form('maingame')->Editor->content->f_QuestEditor->content->Edit_QuestName->promptText = $this->localization->get('DefeatEnemy_Task');
+            $this->form('maingame')->Editor->content->f_QuestEditor->content->Edit_QuestDesc->promptText = $this->localization->get('TaskDetails');
+            $this->form('maingame')->Editor->content->f_QuestEditor->content->Edit_QuestStep1->promptText = $this->localization->get('TalkToGoblin_Task');
+            $this->form('maingame')->Editor->content->f_QuestEditor->content->Edit_QuestStep2->promptText = $this->localization->get('DefeatGoblin_Task');
+            $this->form('maingame')->Editor->content->f_QuestEditor->content->Edit_QuestTarget->promptText = $this->localization->get('Target_Label');
+        }
     }
 }

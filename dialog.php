@@ -48,7 +48,7 @@ class dialog extends AbstractForm
         {
             return;
         }
-        if ($GLOBALS['AllSounds'])//else
+        else
         {
             $this->playVoice("voice_start", "voice_start");
         }
@@ -94,7 +94,9 @@ class dialog extends AbstractForm
         $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
         if (SDK_Mode)
         {
-            Element::setText($this->answer_desc, uiText($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_3));
+            $this->answer_desc->text = $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_3->text ?:
+                                       $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_3->promptText;
+
         }
         else
         {          
@@ -123,7 +125,8 @@ class dialog extends AbstractForm
         $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
         if (SDK_Mode)
         {
-            Element::setText($this->answer_desc, uiText($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Final_Phase));
+            $this->answer_desc->text = $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Final_Phase->text ?:
+                                       $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Final_Phase->promptText;
         }
         else    
         {
@@ -179,7 +182,8 @@ class dialog extends AbstractForm
         $this->answer_1_new->show();
         if (SDK_Mode)
         {
-            $this->answer_desc->text = $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_1->text;
+            $this->answer_desc->text = $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_1->text ?:
+                                       $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_1->promptText;            
         }
         else 
         {

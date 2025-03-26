@@ -1,14 +1,23 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\Localization;
 use action\Element;
 use php\gui\UXImage;
 use php\gui\framework\AbstractForm;
 use php\gui\event\UXMouseEvent; 
 
-
 class sdk_inv_e extends AbstractForm
 {
+    private $localization;
+
+    public function __construct() 
+    {
+        parent::__construct();
+
+        $this->localization = new Localization($language);
+    }
+    
     function ApplyAll()
     {
         $this->ApplyOutfitIcon();
@@ -66,7 +75,8 @@ class sdk_inv_e extends AbstractForm
      */
     function ResetVodkaDesc(UXMouseEvent $e = null)
     {    
-        $this->Edit_ItemDesc_Vodka->text = $this->Default_ItemDesc_Vodka->text;
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->Edit_ItemDesc_Vodka->text = $this->localization->get('Vodka_Inv_Desc');//$this->Default_ItemDesc_Vodka->text;
     }
     /**
      * @event ResetOutfitCount_Btn.click-Left 

@@ -19,7 +19,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-version" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="version_detail" layoutX="140" layoutY="857" prefHeight="48" prefWidth="80" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="version_detail" layoutX="140" layoutY="857" prefHeight="48" prefWidth="1208" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="13"/>
       </font>

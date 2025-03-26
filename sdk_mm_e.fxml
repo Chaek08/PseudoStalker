@@ -132,7 +132,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetEnemyModel_Btn" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="label8" layoutX="72" layoutY="672" prefHeight="40" prefWidth="456" styleClass="label " text="Размеры для моделей строго 160x344.&#10;" textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="true">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="label8" layoutX="72" layoutY="672" prefHeight="40" prefWidth="456" styleClass="label " text="The model sizes are strictly 160x344." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -250,7 +250,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearMenuBackground_Btn" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="labelAlt" layoutX="72" layoutY="736" prefHeight="40" prefWidth="1152" styleClass="label " text="У некоторых элементов динамические значения, поэтому кнопка Apply отсутствует." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="labelAlt" layoutX="72" layoutY="736" prefHeight="40" prefWidth="1152" styleClass="label " text="Some elements have dynamic values, which is why the Apply button is missing." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -271,7 +271,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/previewsongbtn.png" id="data-FightSound_PreviewBtn" tooltipText="Preview Song" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="label3" layoutX="72" layoutY="704" prefHeight="40" prefWidth="456" styleClass="label " text="Поддерживаемые аудиоформаты: MP3, MP4, WAV." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="true">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="label3" layoutX="72" layoutY="704" prefHeight="40" prefWidth="456" styleClass="label " text="Supported audio formats: MP3, MP4, WAV." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="15"/>
       </font>

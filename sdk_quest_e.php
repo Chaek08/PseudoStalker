@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\Localization;
 use php\gui\UXImageView;
 use php\gui\UXImage;
 use php\util\LauncherClassLoader;
@@ -11,6 +12,15 @@ use php\gui\event\UXMouseEvent;
 
 class sdk_quest_e extends AbstractForm
 {
+    private $localization;
+
+    public function __construct() 
+    {
+        parent::__construct();
+
+        $this->localization = new Localization($language);
+    }
+    
     function ApplyAll()
     {    
         $this->ApplyQuestName();
@@ -162,7 +172,8 @@ class sdk_quest_e extends AbstractForm
      */
     function ResetQuestTarget(UXMouseEvent $e = null)
     {
-        $this->Edit_QuestTarget->text = $this->Prompt_QuestTarget->text;
+        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->Edit_QuestTarget->text = $this->localization->get('Target_Label');//$this->Prompt_QuestTarget->text;
     }    
     /**
      * @event ClearQuestName_Btn.click-Left 

@@ -24,13 +24,13 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label4" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Win_Fail_Text_Actor_Edit" layoutX="320" layoutY="72" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Ну ты лох блять..." styleClass="text-input text-field " text="Ну ты лох блять...">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Win_Fail_Text_Actor_Edit" layoutX="320" layoutY="72" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Ну ты лох блять..." styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Win_Fail_Text_Actor_Edit" visible="1"/>
-    <TextArea editable="true" focusTraversable="true" id="Win_Fail_Desc_Actor_Edit" layoutX="320" layoutY="168" prefColumnCount="40" prefHeight="184" prefWidth="408" promptText="Я пытался победить гоблиндава, но он оказался сильнее...Что-ж, не получилось, не фортануло." styleClass="text-input text-area " text="Я пытался победить гоблиндава, но он оказался сильнее...&#10;Что-ж, не получилось, не фортануло." wrapText="true">
+    <TextArea editable="true" focusTraversable="true" id="Win_Fail_Desc_Actor_Edit" layoutX="320" layoutY="168" prefColumnCount="40" prefHeight="184" prefWidth="408" promptText="Я пытался победить гоблиндава, но он оказался сильнее...Что-ж, не получилось, не фортануло." styleClass="text-input text-area " text="" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -72,13 +72,13 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label5" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Win_Fail_Text_Enemy_Edit" layoutX="320" layoutY="416" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Харош!!!" styleClass="text-input text-field " text="Харош!!!">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Win_Fail_Text_Enemy_Edit" layoutX="320" layoutY="416" prefColumnCount="12" prefHeight="40" prefWidth="408" promptText="Харош!!!" styleClass="text-input text-field " text="">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Win_Fail_Text_Enemy_Edit" visible="1"/>
-    <TextArea editable="true" focusTraversable="true" id="Win_Fail_Desc_Enemy_Edit" layoutX="320" layoutY="512" prefColumnCount="40" prefHeight="184" prefWidth="408" promptText="ЕБУЧИЙ гоблиндав повержен.Это был нелёгкий бой, но я проявил максимальный энтузиазм и уничтожил паразита!" styleClass="text-input text-area " text="ЕБУЧИЙ гоблиндав повержен.&#10;Это был нелёгкий бой, но я проявил максимальный энтузиазм и уничтожил паразита!" wrapText="true">
+    <TextArea editable="true" focusTraversable="true" id="Win_Fail_Desc_Enemy_Edit" layoutX="320" layoutY="512" prefColumnCount="40" prefHeight="184" prefWidth="408" promptText="ЕБУЧИЙ гоблиндав повержен.Это был нелёгкий бой, но я проявил максимальный энтузиазм и уничтожил паразита!" styleClass="text-input text-area " text="" wrapText="true">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -150,18 +150,6 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearEnemyFailIcon_Btn" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Win_Fail_Desc_Actor_Default" layoutX="8" layoutY="8" prefHeight="0" prefWidth="0" styleClass="label " text="Я пытался победить гоблиндава, но он оказался сильнее...&#10;Что-ж, не получилось, не фортануло." textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-Win_Fail_Desc_Actor_Default" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Win_Fail_Desc_Enemy_Default" layoutX="8" layoutY="8" prefHeight="0" prefWidth="0" styleClass="label " text="ЕБУЧИЙ гоблиндав повержен.&#10;Это был нелёгкий бой, но я проявил максимальный энтузиазм и уничтожил паразита!" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-Win_Fail_Desc_Enemy_Default" visible=""/>
     <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyActorFailDesc_Btn" layoutX="736" layoutY="168" prefHeight="40" prefWidth="80" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
@@ -174,7 +162,7 @@
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyEnemyFailDesc_Btn" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="label11" layoutX="72" layoutY="728" prefHeight="40" prefWidth="1152" styleClass="label " text="У некоторых элементов динамические значения, поэтому кнопка Apply отсутствует." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="label11" layoutX="72" layoutY="728" prefHeight="40" prefWidth="1152" styleClass="label " text="Some elements have dynamic values, so the Apply button is missing." textAlignment="LEFT" textFill="#b3b3b3" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
