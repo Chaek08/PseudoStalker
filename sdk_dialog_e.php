@@ -50,7 +50,7 @@ class sdk_dialog_e extends AbstractForm
     {    
         if ($this->Edit_Alex_Desc_1->text == '')
         {
-            $this->form('sdk_main')->toast("enter dialog text");
+            $this->form('maingame')->toast("enter dialog text");
         }
         else
         {
@@ -64,7 +64,7 @@ class sdk_dialog_e extends AbstractForm
     {    
         if ($this->Edit_Actor_Desc_1->text == '')
         {
-            $this->form('sdk_main')->toast("enter dialog text");
+            $this->form('maingame')->toast("enter dialog text");
         }
         else    
         {
@@ -78,7 +78,7 @@ class sdk_dialog_e extends AbstractForm
     {  
         if ($this->Edit_Alex_Desc_2->text == '')
         {
-            $this->form('sdk_main')->toast("enter dialog text");
+            $this->form('maingame')->toast("enter dialog text");
         }
         else  
         {
@@ -92,7 +92,7 @@ class sdk_dialog_e extends AbstractForm
     {    
         if ($this->Edit_Actor_Desc_3->text == '')
         {
-            $this->form('sdk_main')->toast("enter dialog text");
+            $this->form('maingame')->toast("enter dialog text");
         }
         else    
         {
@@ -106,7 +106,7 @@ class sdk_dialog_e extends AbstractForm
     {    
         if ($this->Edit_Alex_Desc_3->text == '')
         {
-            $this->form('sdk_main')->toast("enter dialog text");
+            $this->form('maingame')->toast("enter dialog text");
         }
         else  
         {
