@@ -152,13 +152,14 @@ class maingame extends AbstractForm
         
         if (ToggleHudFeature && $GLOBALS['NeedToCheckPDA']) $GLOBALS['NeedToCheckPDA'] = false;
                              
-        $this->Pda->content->DefaultState();        
-        $this->Pda->content->Pda_Contacts->content->AddEnemyContacts();   
-        $this->Pda->content->Pda_Tasks->content->DeleteTask();    
-        $this->Pda->content->Pda_Tasks->content->ShowActiveTasks();        
-        $this->Pda->content->Pda_Tasks->content->StepReset();       
-        $this->Pda->content->Pda_Tasks->content->Step_UpdatePda();             
-        $this->Pda->content->Pda_Statistic->content->UpdateRaiting();  
+        $this->Pda->content->DefaultState();
+        $this->Pda->content->Pda_Contacts->content->AddEnemyContacts();
+        $this->Pda->content->Pda_Tasks->content->UpdateQuestTime();
+        $this->Pda->content->Pda_Tasks->content->DeleteTask();
+        $this->Pda->content->Pda_Tasks->content->ShowActiveTasks();
+        $this->Pda->content->Pda_Tasks->content->StepReset();
+        $this->Pda->content->Pda_Tasks->content->Step_UpdatePda();
+        $this->Pda->content->Pda_Statistic->content->UpdateRaiting();
                   
         $this->dlg_btn->show();         
         $this->Dialog->content->StartDialog();

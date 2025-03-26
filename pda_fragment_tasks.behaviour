@@ -9,12 +9,6 @@
   <target id="time_quest_date">
     <behaviour enabled="" format="dd.MM.YYYY" type="behaviour\custom\WatchMakerBehaviour"/>
   </target>
-  <target id="temp_time_hm">
-    <behaviour format="dd.MM.YY" type="behaviour\custom\WatchMakerBehaviour"/>
-  </target>
-  <target id="temp_time_date">
-    <behaviour format="dd.MM.YYYY" type="behaviour\custom\WatchMakerBehaviour"/>
-  </target>
   <target id="time_quest_hm">
     <behaviour enabled="" format="HH:mm" type="behaviour\custom\WatchMakerBehaviour"/>
   </target>

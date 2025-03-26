@@ -2,7 +2,7 @@
 namespace app\forms;
 
 use std, gui, framework, app;
-
+use php\time\Time;
 
 class pda_fragment_tasks extends AbstractForm
 {
@@ -11,19 +11,7 @@ class pda_fragment_tasks extends AbstractForm
      */
     function InitTasks(UXWindowEvent $e = null)
     {
-        $this->GetQuestTime();
-    }
-    function GetQuestTime()
-    {
-        $this->time_quest_hm->watchMaker->enable();
-        $this->temp_time_hm->text = $this->time_quest_hm->text;
-        $this->time_quest_hm->watchMaker->disable();
-        $this->time_quest_hm->text = $this->temp_time_hm->text; 
-        
-        $this->time_quest_date->watchMaker->enable();
-        $this->temp_time_date->text = $this->time_quest_date->text;
-        $this->time_quest_date->watchMaker->disable();
-        $this->time_quest_date->text = $this->temp_time_date->text;
+        $this->UpdateQuestTime();
     }
     /**
     * @event quest_detail_btn.click-Left 
@@ -117,6 +105,11 @@ class pda_fragment_tasks extends AbstractForm
         $this->step1->show();
         $this->step2->show();
     }
+    function UpdateQuestTime()
+    {
+        $this->time_quest_hm->text = Time::now()->toString('HH:mm');
+        $this->time_quest_date->text = Time::now()->toString('dd/MM/YYYY');
+    }    
     function Step_UpdatePda()
     { 
         if ($GLOBALS['QuestCompleted'])
