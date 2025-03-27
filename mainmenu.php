@@ -81,7 +81,7 @@ class mainmenu extends AbstractForm
         
         if ($this->form('maingame')->fight_image->visible)
         {
-            if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
+            if ($GLOBALS['AllSounds'] && $GLOBALS['FightSound'])
             {
                  Media::play($this->form('maingame')->FightSound);
             }

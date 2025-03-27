@@ -117,17 +117,7 @@ class opt extends AbstractForm
                 $this->FightSoundSwitcher_MouseExit();
             }
             
-            if (Media::isStatus('PLAYING', $this->form('maingame')->FightSound)) Media::stop($this->form('maingame')->FightSound);
-            if (Media::isStatus('PLAYING', $this->form('maingame')->MainAmbient)) Media::stop($this->form('maingame')->MainAmbient);
-            if (Media::isStatus('PLAYING', $this->form('maingame')->MainMenu->content->MenuSound)) Media::stop($this->form('maingame')->MainMenu->content->MenuSound);
-            if (Media::isStatus('PLAYING', 'v_enemy')) Media::stop('v_enemy');
-            if (Media::isStatus('PLAYING', 'v_actor')) Media::stop('v_actor');
-            if (Media::isStatus('PLAYING', 'hit_alex')) Media::stop('hit_alex');
-            if (Media::isStatus('PLAYING', 'hit_alex_damage')) Media::stop('hit_alex_damage');     
-            if (Media::isStatus('PLAYING', 'hit_actor')) Media::stop('hit_actor');
-            if (Media::isStatus('PLAYING', 'hit_actor_damage')) Media::stop('hit_actor_damage'); 
-            if (Media::isStatus('PLAYING', 'die_alex')) Media::stop('die_alex');
-            if (Media::isStatus('PLAYING', 'die_actor')) Media::stop('die_actor');
+            $this->form('maingame')->StopAllSounds();
             
             return;
         }
@@ -148,15 +138,14 @@ class opt extends AbstractForm
             {
                 $this->FightSoundSwitcher_MouseDownLeft();
                 $this->FightSoundSwitcher_MouseExit();
-            }       
-        
+            }               
             if (SDK_Mode)
             {
                 Media::open($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_FightSound->text, false, $this->form('maingame')->FightSound);
             }
             else 
             {  
-                Media::open('res://.data/audio/fight/fight_baza.mp3', false, $this->form('maingame')->FightSound);
+                Media::open($fightsoundPath, $this->form('maingame')->FightSound);
             }
             
             return;

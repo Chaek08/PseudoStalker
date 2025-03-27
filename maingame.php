@@ -95,7 +95,7 @@ class maingame extends AbstractForm
             }
             else
             {   
-                Media::open('C:\Users\drogo.B760\Downloads\pizdec ka4aet.mp3', true, $this->FightSound);
+                Media::open($fightsoundPath = 'C:\Users\drogo.B760\Downloads\pizdec ka4aet.mp3', true, $this->FightSound);
             }
         }
     }    
@@ -103,6 +103,7 @@ class maingame extends AbstractForm
     {
         if (Media::isStatus('PLAYING', $this->FightSound)) Media::stop($this->FightSound);
         if (Media::isStatus('PLAYING', $this->MainAmbient)) Media::stop($this->MainAmbient);
+        if (Media::isStatus('PLAYING', $this->MainMenu->content->MenuSound)) Media::stop($this->MainMenu->content->MenuSound);
         if (Media::isStatus('PLAYING', 'v_enemy')) Media::stop('v_enemy');
         if (Media::isStatus('PLAYING', 'v_actor')) Media::stop('v_actor');
         if (Media::isStatus('PLAYING', 'hit_alex')) Media::stop('hit_alex');
