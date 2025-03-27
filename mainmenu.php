@@ -208,8 +208,8 @@ class mainmenu extends AbstractForm
         //$this->form('maingame')->MainMenu->hide();
         //$this->form('maingame')->Options->show();
         //рендерить два задника это дорого
-        $this->Options->show();
         $this->dynamic_background->toFront();
+        $this->Options->show();
         $this->Options->toFront();
     }
     /**

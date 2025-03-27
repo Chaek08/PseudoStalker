@@ -95,7 +95,7 @@ class maingame extends AbstractForm
             }
             else
             {   
-                Media::open($fightsoundPath = 'C:\Users\drogo.B760\Downloads\pizdec ka4aet.mp3', true, $this->FightSound);
+                Media::open($fightsoundPath = 'res://.data/audio/fight/fight_sound.mp3', true, $this->FightSound);
             }
         }
     }    

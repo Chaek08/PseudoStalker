@@ -196,7 +196,7 @@
       </styleClass>
     </com.jfoenix.controls.JFXColorPicker>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_HealthBarColor_Enemy" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_FightSound" layoutX="352" layoutY="600" prefColumnCount="12" prefHeight="41" prefWidth="280" promptText="res://.data/audio/fight/fight_baza.mp3" styleClass="text-input text-field " text="res://.data/audio/fight/fight_baza.mp3">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_FightSound" layoutX="352" layoutY="600" prefColumnCount="12" prefHeight="41" prefWidth="280" promptText="res://.data/audio/fight/fight_sound.mp3" styleClass="text-input text-field " text="res://.data/audio/fight/fight_sound.mp3">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
