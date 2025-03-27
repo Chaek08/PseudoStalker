@@ -18,8 +18,8 @@ class maingame extends AbstractForm
         define('BuildID', 'Build 819, Mar 22 2025'); //start date 24.12.2022
         define('VersionID', 'v1.3 (rc1)');
         
-        define('Debug_Build', false);
-        define('SDK_Mode', false);
+        define('Debug_Build', true);
+        define('SDK_Mode', true);
         
         define('ToggleHudFeature', true);
         
@@ -46,27 +46,19 @@ class maingame extends AbstractForm
     }
     function GetVersion()
     {
-        if (SDK_Mode)
-        {
-            Element::setText($this->version_detail, "Editor ");
-            Element::appendText($this->version_detail, BuildID);
-            Element::setText($this->MainMenu->content->version_detail, VersionID);
-            Element::appendText($this->MainMenu->content->version_detail, ' + SDK');
-        }
-        else
-        {
-            Element::setText($this->version_detail, VersionID); 
-            Element::setText($this->MainMenu->content->version_detail, VersionID);
-        }
         if (Debug_Build)
         {
             $this->version->show();
-            $this->version_detail->show();            
+            $this->version_detail->show();
+            
+            Element::setText($this->version_detail, SDK_Mode ? "Editor " . BuildID : BuildID);
         }
         else
         {
             $this->MainMenu->content->version->show();
-            $this->MainMenu->content->version_detail->show();            
+            $this->MainMenu->content->version_detail->show();
+            
+            Element::setText($this->MainMenu->content->version_detail, VersionID . (SDK_Mode ? ' + SDK' : ''));
         }        
     }     
     function LoadScreen()
