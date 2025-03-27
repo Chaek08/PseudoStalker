@@ -215,7 +215,7 @@ class pda_fragment_ranking extends AbstractForm
     }
     function SetUserInfo()
     {
-        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         if ($this->user_goblindav->visible)
         {
             $this->ResetRole();

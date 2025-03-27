@@ -16,10 +16,10 @@ class maingame extends AbstractForm
     function InitClient(UXWindowEvent $e = null)
     {
         define('BuildID', 'Build 819, Mar 22 2025'); //start date 24.12.2022
-        define('VersionID', 'v1.3 (rc1)');
+        define('VersionID', 'v1.3 (rc2)');
         
-        define('Debug_Build', true);
-        define('SDK_Mode', true);
+        define('Debug_Build', false);
+        define('SDK_Mode', false);
         
         define('ToggleHudFeature', true);
         
@@ -42,7 +42,7 @@ class maingame extends AbstractForm
             $this->MainMenu->content->opensdk_btn->free();
         }
         
-        $this->Options->content->InitOptions();
+        $this->MainMenu->content->Options->content->InitOptions();
     }
     function GetVersion()
     {
@@ -69,7 +69,7 @@ class maingame extends AbstractForm
         Animation::fadeTo($this->LoadScreen, 650, 1, function()
         {
            Animation::fadeIn($this->LoadScreen, 1);
-           $this->LoadScreen->hide(); 
+           $this->LoadScreen->hide();
            $this->CustomCursor->show();       
         });            
     }     
@@ -156,6 +156,7 @@ class maingame extends AbstractForm
         $this->dlg_btn->show();         
         $this->Dialog->content->StartDialog();
         if ($GLOBALS['ContinueGameState']) $this->MainMenu->content->SwitchGameState();
+        if ($this->MainMenu->visible) $this->MainMenu->content->InitMainMenu();
         $this->Pda->content->Pda_Statistic->content->ResetFinalText();
     }
     function CheckVisibledFragments()
@@ -243,12 +244,19 @@ class maingame extends AbstractForm
         } 
         if ($this->MainMenu->visible) 
         {
+            if ($this->MainMenu->content->Options->visible)
+            {
+                $this->MainMenu->content->Options->content->ReturnBtn_MouseDownLeft();
+                $this->MainMenu->content->Options->content->ReturnBtn_MouseExit();
+                return;
+            }
             $this->MainMenu->content->BtnStartGame_MouseDownLeft();
+            $this->MainMenu->content->BtnStartGame_MouseExit();
             return;
         }
         if ($this->Inventory->visible)
         {
-            $this->HideInventory(); 
+            $this->HideInventory();
             return;
         }
         if ($this->Dialog->visible) 
@@ -267,11 +275,6 @@ class maingame extends AbstractForm
             $this->ExitDialog->hide();
             return;
         }
-        if ($this->Options->visible)
-        {
-            $this->Options->content->ReturnBtn_MouseDownLeft();
-            return;
-        } 
         
         $this->ShowMenu();
         $this->PauseMainAmbient();
@@ -279,6 +282,7 @@ class maingame extends AbstractForm
     function ShowMenu()
     {
         $this->MainMenu->show();
+        Media::play($this->MainMenu->content->MainMenuBackground);
         
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
         {

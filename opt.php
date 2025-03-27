@@ -68,8 +68,8 @@ class opt extends AbstractForm
     {
         $this->Return_Btn->textColor = '#808080';
         
-        $this->form('maingame')->MainMenu->show();
-        $this->form('maingame')->Options->hide();
+        $this->form('maingame')->MainMenu->content->dynamic_background->toBack();
+        $this->form('maingame')->MainMenu->content->Options->hide();
     }
     /**
      * @event Return_Btn.mouseUp-Left 
@@ -102,7 +102,8 @@ class opt extends AbstractForm
         {
             $GLOBALS['AllSoundSwitcher_IsOn'] = false;
             $this->AllSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
-
+            $this->AllSound_Switcher_Btn->textColor = '#880911';
+            
             $GLOBALS['AllSounds'] = false;
         
             if ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
@@ -135,6 +136,7 @@ class opt extends AbstractForm
         else 
         {
             $this->AllSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
+            $this->AllSound_Switcher_Btn->textColor = '#099209';
             $GLOBALS['AllSoundSwitcher_IsOn'] = true;
         
             $GLOBALS['AllSounds'] = true;
@@ -304,6 +306,7 @@ class opt extends AbstractForm
         {
             $GLOBALS['ShadowsSwitcher_IsOn'] = false;
             $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
+            $this->Shadows_Switcher_Btn->textColor = '#880911';
             
             //maingame
             $this->form('maingame')->item_vodka_0000->dropShadowEffect->disable();   
@@ -352,17 +355,17 @@ class opt extends AbstractForm
             $this->form('maingame')->MainMenu->content->Btn_End_Game->dropShadowEffect->disable();          
             $this->form('maingame')->MainMenu->content->Btn_Opt->dropShadowEffect->disable();  
             $this->form('maingame')->MainMenu->content->logo->dropShadowEffect->disable();
-            $this->form('maingame')->Options->content->Return_Btn->dropShadowEffect->disable();
-            $this->form('maingame')->Options->content->AllSound_Label->dropShadowEffect->disable();
-            $this->form('maingame')->Options->content->AllSound_Switcher_Btn->dropShadowEffect->disable();              
-            $this->form('maingame')->Options->content->MenuSound_Label->dropShadowEffect->disable(); 
-            $this->form('maingame')->Options->content->MenuSound_Switcher_Btn->dropShadowEffect->disable();            
-            $this->form('maingame')->Options->content->Shadows_Label->dropShadowEffect->disable();
-            $this->form('maingame')->Options->content->Shadows_Switcher_Btn->dropShadowEffect->disable();                
-            $this->form('maingame')->Options->content->Version_Label->dropShadowEffect->disable();
-            $this->form('maingame')->Options->content->Version_Switcher_Btn->dropShadowEffect->disable();
-            $this->form('maingame')->Options->content->FightSound_Label->dropShadowEffect->disable();    
-            $this->form('maingame')->Options->content->FightSound_Switcher_Btn->dropShadowEffect->disable();
+            $this->form('maingame')->MainMenu->content->Options->content->Return_Btn->dropShadowEffect->disable();
+            $this->form('maingame')->MainMenu->content->Options->content->AllSound_Label->dropShadowEffect->disable();
+            $this->form('maingame')->MainMenu->content->Options->content->AllSound_Switcher_Btn->dropShadowEffect->disable();              
+            $this->form('maingame')->MainMenu->content->Options->content->MenuSound_Label->dropShadowEffect->disable(); 
+            $this->form('maingame')->MainMenu->content->Options->content->MenuSound_Switcher_Btn->dropShadowEffect->disable();            
+            $this->form('maingame')->MainMenu->content->Options->content->Shadows_Label->dropShadowEffect->disable();
+            $this->form('maingame')->MainMenu->content->Options->content->Shadows_Switcher_Btn->dropShadowEffect->disable();                
+            $this->form('maingame')->MainMenu->content->Options->content->Version_Label->dropShadowEffect->disable();
+            $this->form('maingame')->MainMenu->content->Options->content->Version_Switcher_Btn->dropShadowEffect->disable();
+            $this->form('maingame')->MainMenu->content->Options->content->FightSound_Label->dropShadowEffect->disable();    
+            $this->form('maingame')->MainMenu->content->Options->content->FightSound_Switcher_Btn->dropShadowEffect->disable();
             //exit_dlg
             $this->form('maingame')->ExitDialog->content->main_frame->dropShadowEffect->disable();
             
@@ -372,6 +375,7 @@ class opt extends AbstractForm
         {
             $GLOBALS['ShadowsSwitcher_IsOn'] = true;
             $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
+            $this->Shadows_Switcher_Btn->textColor = '#099209';
             
             //maingame
             $this->form('maingame')->item_vodka_0000->dropShadowEffect->enable();
@@ -420,17 +424,17 @@ class opt extends AbstractForm
             $this->form('maingame')->MainMenu->content->Btn_End_Game->dropShadowEffect->enable();          
             $this->form('maingame')->MainMenu->content->Btn_Opt->dropShadowEffect->enable();  
             $this->form('maingame')->MainMenu->content->logo->dropShadowEffect->enable();
-            $this->form('maingame')->Options->content->Return_Btn->dropShadowEffect->enable();
-            $this->form('maingame')->Options->content->AllSound_Label->dropShadowEffect->enable();
-            $this->form('maingame')->Options->content->AllSound_Switcher_Btn->dropShadowEffect->enable();              
-            $this->form('maingame')->Options->content->MenuSound_Label->dropShadowEffect->enable(); 
-            $this->form('maingame')->Options->content->MenuSound_Switcher_Btn->dropShadowEffect->enable();            
-            $this->form('maingame')->Options->content->Shadows_Label->dropShadowEffect->enable();
-            $this->form('maingame')->Options->content->Shadows_Switcher_Btn->dropShadowEffect->enable();                
-            $this->form('maingame')->Options->content->Version_Label->dropShadowEffect->enable();
-            $this->form('maingame')->Options->content->Version_Switcher_Btn->dropShadowEffect->enable();
-            $this->form('maingame')->Options->content->FightSound_Label->dropShadowEffect->enable();
-            $this->form('maingame')->Options->content->FightSound_Switcher_Btn->dropShadowEffect->enable();
+            $this->form('maingame')->MainMenu->content->Options->content->Return_Btn->dropShadowEffect->enable();
+            $this->form('maingame')->MainMenu->content->Options->content->AllSound_Label->dropShadowEffect->enable();
+            $this->form('maingame')->MainMenu->content->Options->content->AllSound_Switcher_Btn->dropShadowEffect->enable();              
+            $this->form('maingame')->MainMenu->content->Options->content->MenuSound_Label->dropShadowEffect->enable(); 
+            $this->form('maingame')->MainMenu->content->Options->content->MenuSound_Switcher_Btn->dropShadowEffect->enable();            
+            $this->form('maingame')->MainMenu->content->Options->content->Shadows_Label->dropShadowEffect->enable();
+            $this->form('maingame')->MainMenu->content->Options->content->Shadows_Switcher_Btn->dropShadowEffect->enable();                
+            $this->form('maingame')->MainMenu->content->Options->content->Version_Label->dropShadowEffect->enable();
+            $this->form('maingame')->MainMenu->content->Options->content->Version_Switcher_Btn->dropShadowEffect->enable();
+            $this->form('maingame')->MainMenu->content->Options->content->FightSound_Label->dropShadowEffect->enable();
+            $this->form('maingame')->MainMenu->content->Options->content->FightSound_Switcher_Btn->dropShadowEffect->enable();
             //exit_dlg
             $this->form('maingame')->ExitDialog->content->main_frame->dropShadowEffect->enable();
                        
@@ -468,6 +472,7 @@ class opt extends AbstractForm
         {
             $GLOBALS['VersionSwitcher_IsOn'] = false;
             $this->Version_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
+            $this->Version_Switcher_Btn->textColor = '#880911';
             
             if (Debug_Build)
             {
@@ -485,7 +490,8 @@ class opt extends AbstractForm
         else 
         {
             $GLOBALS['VersionSwitcher_IsOn'] = true;
-            $this->Version_Switcher_Btn->text = $this->localization->get('TurnOn_Label');           
+            $this->Version_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
+            $this->Version_Switcher_Btn->textColor = '#099209';         
             
             if (Debug_Build)
             {
@@ -517,12 +523,12 @@ class opt extends AbstractForm
         if ($this->Language_Switcher_Combobobx->value == 'Русский')
         {
             $this->localization->setLanguage($this->Language_Switcher_Combobobx->value);
-            if (Debug_Build && $this->form('maingame')->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage() . ' (' . $this->Language_Switcher_Combobobx->value . ')');
+            if (Debug_Build && $this->form('maingame')->MainMenu->content->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage() . ' (' . $this->Language_Switcher_Combobobx->value . ')');
         }
         if ($this->Language_Switcher_Combobobx->value == 'English')
         {
             $this->localization->setLanguage($this->Language_Switcher_Combobobx->value);
-            if (Debug_Build && $this->form('maingame')->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage() . ' (' . $this->Language_Switcher_Combobobx->value . ')');
+            if (Debug_Build && $this->form('maingame')->MainMenu->content->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage() . ' (' . $this->Language_Switcher_Combobobx->value . ')');
         } 
         $this->UpdateLocalization();
     }
@@ -530,7 +536,7 @@ class opt extends AbstractForm
     {
         $this->form('maingame')->LoadScreen();
         
-        $this->Return_Btn->text = $this->localization->get('Return_Btn'); 
+        $this->Return_Btn->text = $this->localization->get('Return_Btn');
       
         $this->AllSound_Label->text = $this->localization->get('AllSound_Label');
         $this->MenuSound_Label->text = $this->localization->get('MenuSound_Label');

@@ -161,7 +161,7 @@
     <Data content="sdk_main" cursor="DEFAULT" enabled="1" id="data-Editor" visible=""/>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/maingame/replay_icon.png" id="data-ReplayBtn" tooltipText="Перезапустить музыку" visible=""/>
     <SpriteView animationEnabled="false" focusTraversable="false" height="64" id="CustomCursor" layoutX="768" layoutY="418" styleClass="" width="64"/>
-    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#666666" color="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#808080" id="ForwardSDK_Btn" layoutX="1556" layoutY="240" prefHeight="40" prefWidth="40" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#333333" color="#666666" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d4d4d" id="ForwardSDK_Btn" layoutX="1556" layoutY="240" prefHeight="40" prefWidth="40" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

@@ -50,7 +50,7 @@ class fail_wnd extends AbstractForm
     }
     function UpdateFailState()
     {
-        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         if ($GLOBALS['ActorFailed'])
         {
             if (SDK_Mode)

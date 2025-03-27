@@ -45,7 +45,7 @@ class sdk_mm_e extends AbstractForm
     {    
         if ($this->Edit_Background->text == '')
         {
-            $this->form('sdk_main')->toast("enter background url");
+            $this->form('maingame')->toast("enter background url");
         }
         else 
         {
@@ -102,7 +102,7 @@ class sdk_mm_e extends AbstractForm
     {
         if ($this->Edit_ActorModel->text == '')
         {
-            $this->form('sdk_main')->toast("enter model url");
+            $this->form('maingame')->toast("enter model url");
         }
         else
         {
@@ -117,7 +117,7 @@ class sdk_mm_e extends AbstractForm
     {    
         if ($this->Edit_EnemyModel->text == '')
         {
-            $this->form('sdk_main')->toast("enter model url");
+            $this->form('maingame')->toast("enter model url");
         }
         else
         {
@@ -129,14 +129,13 @@ class sdk_mm_e extends AbstractForm
      */
     function ApplyMenuBackground(UXMouseEvent $e = null)
     {
-        if ($this->Edit_Background->text == '')
+        if ($this->Edit_MenuBackground->text == '')
         {
-            $this->form('sdk_main')->toast("enter background url");
+            $this->form('maingame')->toast("enter background url");
         }
         else 
         {
-            $this->form('maingame')->MainMenu->content->background->image = new UXImage($this->Edit_MenuBackground->text);
-            $this->form('maingame')->Options->content->background->image = new UXImage($this->Edit_MenuBackground->text);
+            Media::open($this->Edit_MenuBackground->text, false, $this->form('maingame')->MainMenu->content->MainMenuBackground);
         }
     }    
     /**
@@ -309,10 +308,10 @@ class sdk_mm_e extends AbstractForm
      */
     function ChooseBMainMenu(UXMouseEvent $e = null)
     {
-        $this->ImageFileChooser->inputNode = $this->Edit_MenuBackground;
-        if ($this->ImageFileChooser->execute())
+        $this->MediaFileChooser->inputNode = $this->Edit_MenuBackground;
+        if ($this->MediaFileChooser->execute())
         {
-            $this->Edit_MenuBackground->text = $this->ImageFileChooser->file;
+            $this->Edit_MenuBackground->text = $this->MediaFileChooser->file;
         }
     }
 }

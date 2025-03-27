@@ -172,7 +172,7 @@ class sdk_quest_e extends AbstractForm
      */
     function ResetQuestTarget(UXMouseEvent $e = null)
     {
-        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         $this->Edit_QuestTarget->text = $this->localization->get('Target_Label');//$this->Prompt_QuestTarget->text;
     }    
     /**

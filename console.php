@@ -27,7 +27,7 @@ class console extends AbstractForm
      */
     function EnterCommands(UXKeyEvent $e = null)
     {    
-        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         $this->requestFocus();
     
         $command = trim($this->edit->text);
@@ -86,10 +86,10 @@ class console extends AbstractForm
                                 $this->edit->text = "";
                                 Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
-                                $btn = $this->form('maingame')->Options->content->Version_Switcher_Btn;
+                                $btn = $this->form('maingame')->MainMenu->content->Options->content->Version_Switcher_Btn;
                                 if (($args[1] === "off" && $btn->text === 'Вкл') || ($args[1] === "on" && $btn->text === 'Выкл')) {
-                                        $this->form('maingame')->Options->content->VersionSwitcher_MouseDownLeft();
-                                        $this->form('maingame')->Options->content->VersionSwitcher_MouseExit();
+                                        $this->form('maingame')->MainMenu->content->Options->content->VersionSwitcher_MouseDownLeft();
+                                        $this->form('maingame')->MainMenu->content->Options->content->VersionSwitcher_MouseExit();
                                 }
                         }
                         break;
@@ -99,10 +99,10 @@ class console extends AbstractForm
                                 $this->edit->text = "";
                                 Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
-                                $btn = $this->form('maingame')->Options->content->Shadows_Switcher_Btn;
+                                $btn = $this->form('maingame')->MainMenu->content->Options->content->Shadows_Switcher_Btn;
                                 if (($args[1] === "on" && $btn->text === 'Выкл') || ($args[1] === "off" && $btn->text === 'Вкл')) {
-                                        $this->form('maingame')->Options->content->ShadowsSwitcher_MouseDownLeft();
-                                        $this->form('maingame')->Options->content->ShadowsSwitcher_MouseExit();
+                                        $this->form('maingame')->MainMenu->content->Options->content->ShadowsSwitcher_MouseDownLeft();
+                                        $this->form('maingame')->MainMenu->content->Options->content->ShadowsSwitcher_MouseExit();
                                 }
                         }
                         break;
@@ -112,10 +112,10 @@ class console extends AbstractForm
                                 $this->edit->text = "";
                                 Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
-                                $btn = $this->form('maingame')->Options->content->AllSound_Switcher_Btn;
+                                $btn = $this->form('maingame')->MainMenu->content->Options->content->AllSound_Switcher_Btn;
                                 if (($args[1] === "off" && $btn->text === 'Вкл') || ($args[1] === "on" && $btn->text === 'Выкл')) {
-                                        $this->form('maingame')->Options->content->AllSoundSwitcher_MouseDownLeft();
-                                        $this->form('maingame')->Options->content->AllSoundSwitcher_MouseExit();
+                                        $this->form('maingame')->MainMenu->content->Options->content->AllSoundSwitcher_MouseDownLeft();
+                                        $this->form('maingame')->MainMenu->content->Options->content->AllSoundSwitcher_MouseExit();
                                 }
                         }
                         break;
@@ -204,8 +204,8 @@ class console extends AbstractForm
 
                         if (isset($args[1]) && in_array($args[1], array_keys($languageMap))) {
                                 $this->localization->setLanguage($args[1]);
-                                $this->form('maingame')->Options->content->Language_Switcher_Combobobx->value = $languageMap[$args[1]];
-                                $this->form('maingame')->Options->content->LanguageSwitcherCombobobx();
+                                $this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value = $languageMap[$args[1]];
+                                $this->form('maingame')->MainMenu->content->Options->content->LanguageSwitcherCombobobx();
                                 Element::appendText($this->Console_Log, "> Language changed to: {$args[1]} ({$languageMap[$args[1]]})\n");
                         } else {
                                 $currentLang = $this->localization->getCurrentLanguage();

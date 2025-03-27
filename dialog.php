@@ -91,7 +91,7 @@ class dialog extends AbstractForm
      */
     function Talk_1(UXMouseEvent $e = null)
     {    
-        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         if (SDK_Mode)
         {
             $this->answer_desc->text = $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_3->text ?:
@@ -122,7 +122,7 @@ class dialog extends AbstractForm
      */
     function Talk_2(UXMouseEvent $e = null)
     {
-        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         if (SDK_Mode)
         {
             $this->answer_desc->text = $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Final_Phase->text ?:
@@ -178,7 +178,7 @@ class dialog extends AbstractForm
     }
     function StartDialog()
     {
-        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         $this->answer_1_new->show();
         if (SDK_Mode)
         {

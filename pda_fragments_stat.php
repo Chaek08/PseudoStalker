@@ -53,7 +53,7 @@ class pda_fragments_stat extends AbstractForm
     }
     function UpdateFinalLabel()
     {
-        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         if ($GLOBALS['ActorFailed'])
         {
             $this->tab_final->show();

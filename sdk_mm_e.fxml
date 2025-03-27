@@ -226,7 +226,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label14" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_MenuBackground" layoutX="352" layoutY="168" prefColumnCount="12" prefHeight="40" prefWidth="320" promptText="res://.data/ui/mainmenu/background_1_2.png" styleClass="text-input text-field " text="res://.data/ui/mainmenu/background_1_2.png">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_MenuBackground" layoutX="352" layoutY="168" prefColumnCount="12" prefHeight="40" prefWidth="320" promptText="res://.data/video/menu_background.mp4" styleClass="text-input text-field " text="res://.data/video/menu_background.mp4">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

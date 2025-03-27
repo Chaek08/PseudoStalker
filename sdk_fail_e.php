@@ -79,7 +79,7 @@ class sdk_fail_e extends AbstractForm
      */
     function ResetActorFailDesc(UXMouseEvent $e = null)
     {    
-        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         $this->Win_Fail_Desc_Actor_Edit->text = $this->localization->get('ActorFail_Desc');//$this->Win_Fail_Desc_Actor_Default->text;
     }
     /**
@@ -94,7 +94,7 @@ class sdk_fail_e extends AbstractForm
      */
     function ResetEnemyFailDesc(UXMouseEvent $e = null)
     {    
-        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         $this->Win_Fail_Desc_Enemy_Edit->text = $this->localization->get('EnemyFail_Desc');//$this->Win_Fail_Desc_Enemy_Default->text;
     }
     /**

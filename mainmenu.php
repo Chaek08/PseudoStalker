@@ -21,19 +21,29 @@ class mainmenu extends AbstractForm
     function InitMainMenu()
     {
         $GLOBALS['NewGameState'] = true;
-        if ($GLOBALS['AllSounds'] || $GLOBALS['MenuSound'])
+        if ($GLOBALS['AllSounds'] && $GLOBALS['MenuSound'])
         {
             Media::open('res://.data/audio/menu/menu_sound.mp3', false, "menu_sound");
             Media::play("menu_sound");
         }
+        
+        //отрендерим задник меню
+        $this->MainMenuBackground->view = $this->dynamic_background;
+        $backgroundPath = SDK_Mode
+            ? $this->form('maingame')->Editor->content->f_MgEditor->content->Edit_MenuBackground->text 
+            : 'res://.data/video/menu_background.mp4';
+        Media::open($backgroundPath, true, $this->MainMenuBackground);
     }
     /**
      * @event opensdk_btn.click-Left 
      */
     function OpenSdkBtn(UXMouseEvent $e = null)
     {    
-        if ($this->form('maingame')->MainMenu->visible) Media::pause("menu_sound");
-        
+        if ($this->form('maingame')->MainMenu->visible) 
+        {
+            Media::pause("menu_sound");
+            Media::pause($this->MainMenuBackground);
+        }
         $this->form('maingame')->Editor->show();
     }
     /**
@@ -67,6 +77,7 @@ class mainmenu extends AbstractForm
         $this->form('maingame')->PlayMainAmbient();
                 
         Media::pause("menu_sound");
+        Media::pause($this->MainMenuBackground);
         
         if ($this->form('maingame')->fight_image->visible)
         {
@@ -78,7 +89,7 @@ class mainmenu extends AbstractForm
     }
     function SwitchGameState()
     {
-        $this->localization->setLanguage($this->form('maingame')->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         if ($GLOBALS['NewGameState'])
         {
             $GLOBALS['NewGameState'] = false;
@@ -194,8 +205,12 @@ class mainmenu extends AbstractForm
     {
         $this->Btn_Opt->textColor = '#808080';
         
-        $this->form('maingame')->MainMenu->hide();
-        $this->form('maingame')->Options->show();
+        //$this->form('maingame')->MainMenu->hide();
+        //$this->form('maingame')->Options->show();
+        //рендерить два задника это дорого
+        $this->Options->show();
+        $this->dynamic_background->toFront();
+        $this->Options->toFront();
     }
     /**
      * @event Btn_Opt.mouseUp-Left 
