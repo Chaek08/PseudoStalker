@@ -36,7 +36,7 @@ class fail_wnd extends AbstractForm
         $this->form('maingame')->Fail->hide();
         if ($GLOBALS['AllSounds'])
         {        
-            Media::play('main_ambient'); 
+            Media::play($this->form('maingame')->MainAmbient);
             
             if ($GLOBALS['ActorFailed'])
             {

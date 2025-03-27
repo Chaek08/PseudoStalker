@@ -88,7 +88,7 @@ class sdk_main extends AbstractForm
         Media::play($this->form('maingame')->MainMenu->content->MainMenuBackground);
         if ($GLOBALS['MenuSound'])
         {        
-            if (Media::isStatus('PAUSED', 'menu_sound') && $this->form('maingame')->MainMenu->visible) Media::play("menu_sound");
+            if (Media::isStatus('PAUSED', $this->form('maingame')->MainMenu->content->MenuSound) && $this->form('maingame')->MainMenu->visible) Media::play($this->form('maingame')->MainMenu->content->MenuSound);
         }
     }      
     /**
@@ -250,7 +250,7 @@ class sdk_main extends AbstractForm
         Media::play($this->form('maingame')->MainMenu->content->MainMenuBackground);
         if ($GLOBALS['AllSounds'] && $GLOBALS['MenuSound'])
         {
-            if (Media::isStatus('PAUSED', 'menu_sound') && $this->form('maingame')->MainMenu->visible) Media::play("menu_sound");
+            if (Media::isStatus('PAUSED', $this->form('maingame')->MainMenu->content->MenuSound) && $this->form('maingame')->MainMenu->visible) Media::play($this->form('maingame')->MainMenu->content->MenuSound);
         }
     }
 }

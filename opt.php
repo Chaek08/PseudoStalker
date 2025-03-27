@@ -116,12 +116,10 @@ class opt extends AbstractForm
                 $this->FightSoundSwitcher_MouseDownLeft();
                 $this->FightSoundSwitcher_MouseExit();
             }
-        
-            if ($this->form('maingame')->fight_image->visible) $this->form('maingame')->ReplayBtn->hide();
             
-            if (Media::isStatus('PLAYING', 'fight_sound')) Media::stop('fight_sound');
-            if (Media::isStatus('PLAYING', 'main_ambient')) Media::stop('main_ambient');
-            if (Media::isStatus('PLAYING', 'menu_sound')) Media::stop('menu_sound');        
+            if (Media::isStatus('PLAYING', $this->form('maingame')->FightSound)) Media::stop($this->form('maingame')->FightSound);
+            if (Media::isStatus('PLAYING', $this->form('maingame')->MainAmbient)) Media::stop($this->form('maingame')->MainAmbient);
+            if (Media::isStatus('PLAYING', $this->form('maingame')->MainMenu->content->MenuSound)) Media::stop($this->form('maingame')->MainMenu->content->MenuSound);
             if (Media::isStatus('PLAYING', 'v_enemy')) Media::stop('v_enemy');
             if (Media::isStatus('PLAYING', 'v_actor')) Media::stop('v_actor');
             if (Media::isStatus('PLAYING', 'hit_alex')) Media::stop('hit_alex');
@@ -152,15 +150,13 @@ class opt extends AbstractForm
                 $this->FightSoundSwitcher_MouseExit();
             }       
         
-            if ($this->form('maingame')->fight_image->visible) $this->form('maingame')->ReplayBtn->show();
-        
             if (SDK_Mode)
             {
-                Media::open($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_FightSound->text, false, "fight_sound");
+                Media::open($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_FightSound->text, false, $this->form('maingame')->FightSound);
             }
             else 
             {  
-                Media::open('res://.data/audio/fight/fight_baza.mp3', false, "fight_sound");
+                Media::open('res://.data/audio/fight/fight_baza.mp3', false, $this->form('maingame')->FightSound);
             }
             
             return;
@@ -197,10 +193,9 @@ class opt extends AbstractForm
         {
             $GLOBALS['MenuSoundSwitcher_IsOn'] = false;
             $this->MenuSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
-            
             $this->MenuSound_Switcher_Btn->textColor = '#880911';
             
-            Media::stop('menu_sound');
+            Media::stop($this->form('maingame')->MainMenu->content->MenuSound);
             $GLOBALS['MenuSound'] = false;
             
             return;
@@ -209,10 +204,9 @@ class opt extends AbstractForm
         {
             $GLOBALS['MenuSoundSwitcher_IsOn'] = true;
             $this->MenuSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
-            
             $this->MenuSound_Switcher_Btn->textColor = '#099209';
             
-            Media::play('menu_sound');
+            Media::play($this->form('maingame')->MainMenu->content->MenuSound);
             $GLOBALS['MenuSound'] = true;
             
             return;
@@ -252,12 +246,9 @@ class opt extends AbstractForm
         {
             $GLOBALS['FightSoundSwitcher_IsOn'] = false;
             $this->FightSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
-            
             $this->FightSound_Switcher_Btn->textColor = '#880911';
             
             $GLOBALS['FightSound'] = false;
-        
-            if ($this->form('maingame')->fight_image->visible) $this->form('maingame')->ReplayBtn->hide();
             
             return;
         }
@@ -265,12 +256,9 @@ class opt extends AbstractForm
         {
             $GLOBALS['FightSoundSwitcher_IsOn'] = true;
             $this->FightSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
-            
             $this->FightSound_Switcher_Btn->textColor = '#099209';
             
             $GLOBALS['FightSound'] = true;
-        
-            if ($this->form('maingame')->fight_image->visible) $this->form('maingame')->ReplayBtn->show();
             
             return;
         }
@@ -318,8 +306,7 @@ class opt extends AbstractForm
             $this->form('maingame')->health_static_gg->dropShadowEffect->disable();     
             $this->form('maingame')->health_bar_enemy->dropShadowEffect->disable();     
             $this->form('maingame')->health_bar_gg->dropShadowEffect->disable();          
-            $this->form('maingame')->fight_image->dropShadowEffect->disable();
-            $this->form('maingame')->ReplayBtn->dropShadowEffect->disable();        
+            $this->form('maingame')->fight_image->dropShadowEffect->disable();       
             //dialog
             $this->form('maingame')->Dialog->content->actor_character->dropShadowEffect->disable();
             $this->form('maingame')->Dialog->content->alex_character->dropShadowEffect->disable();
@@ -387,8 +374,7 @@ class opt extends AbstractForm
             $this->form('maingame')->health_static_gg->dropShadowEffect->enable();
             $this->form('maingame')->health_bar_enemy->dropShadowEffect->enable();
             $this->form('maingame')->health_bar_gg->dropShadowEffect->enable();          
-            $this->form('maingame')->fight_image->dropShadowEffect->enable();
-            $this->form('maingame')->ReplayBtn->dropShadowEffect->enable();        
+            $this->form('maingame')->fight_image->dropShadowEffect->enable();       
             //dialog
             $this->form('maingame')->Dialog->content->actor_character->dropShadowEffect->enable();
             $this->form('maingame')->Dialog->content->alex_character->dropShadowEffect->enable();

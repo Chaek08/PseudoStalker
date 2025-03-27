@@ -36,7 +36,7 @@ class dialog extends AbstractForm
         Media::stop('voice_start');
         Media::stop('voice_talk1');
         Media::stop('voice_talk2');
-        Media::stop('voice_talk3');                   
+        Media::stop('voice_talk3');
     }
     function VoiceStart()
     {
@@ -135,7 +135,7 @@ class dialog extends AbstractForm
         
         if ($GLOBALS['AllSounds'])
         {        
-           $this->StopVoice();        
+           $this->StopVoice();
            $this->VoiceTalk_2();
         }
             
@@ -160,13 +160,11 @@ class dialog extends AbstractForm
         {
             $this->VoiceTalk_3();
             
-            Media::pause('main_ambient');
+            $this->form('maingame')->PauseMainAmbient();
         }
         if ($GLOBALS['FightSound'])
         {
-            $this->form('maingame')->ReplayFightSong();
-            
-            $this->form('maingame')->ReplayBtn->show();
+            $this->form('maingame')->PlayFightSong();
         }
         
         $this->form('maingame')->idle_static_actor->hide();

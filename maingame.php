@@ -19,7 +19,7 @@ class maingame extends AbstractForm
         define('VersionID', 'v1.3 (rc2)');
         
         define('Debug_Build', false);
-        define('SDK_Mode', false);
+        define('SDK_Mode', true);
         
         define('ToggleHudFeature', true);
         
@@ -75,20 +75,34 @@ class maingame extends AbstractForm
     }     
     function OpenMainAmbient()
     {
-        if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/game/krip1.mp3', false, 'main_ambient');       
+        if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/game/krip1.mp3', false, $this->MainAmbient);       
     }
     function PauseMainAmbient()
     {
-        if ($GLOBALS['AllSounds']) Media::pause('main_ambient');
+        if ($GLOBALS['AllSounds']) Media::pause($this->MainAmbient);
     }    
     function PlayMainAmbient()
     {
-        if ($GLOBALS['AllSounds'] && !$this->fight_image->visible) Media::play('main_ambient');
+        if ($GLOBALS['AllSounds'] && !$this->fight_image->visible) Media::play($this->MainAmbient);
     }
+    function PlayFightSong()
+    {    
+        if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
+        {
+            if (SDK_Mode)
+            {
+                Media::open($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_FightSound->text, true, $this->FightSound);
+            }
+            else
+            {   
+                Media::open('C:\Users\drogo.B760\Downloads\pizdec ka4aet.mp3', true, $this->FightSound);
+            }
+        }
+    }    
     function StopAllSounds()
     {
-        if (Media::isStatus('PLAYING', 'fight_sound')) Media::stop('fight_sound');
-        if (Media::isStatus('PLAYING', 'main_ambient')) Media::stop('main_ambient');
+        if (Media::isStatus('PLAYING', $this->FightSound)) Media::stop($this->FightSound);
+        if (Media::isStatus('PLAYING', $this->MainAmbient)) Media::stop($this->MainAmbient);
         if (Media::isStatus('PLAYING', 'v_enemy')) Media::stop('v_enemy');
         if (Media::isStatus('PLAYING', 'v_actor')) Media::stop('v_actor');
         if (Media::isStatus('PLAYING', 'hit_alex')) Media::stop('hit_alex');
@@ -96,25 +110,10 @@ class maingame extends AbstractForm
         if (Media::isStatus('PLAYING', 'hit_actor')) Media::stop('hit_actor');
         if (Media::isStatus('PLAYING', 'hit_actor_damage')) Media::stop('hit_actor_damage');
         if (Media::isStatus('PLAYING', 'die_alex')) Media::stop('die_alex');
-        if (Media::isStatus('PLAYING', 'die_actor')) Media::stop('die_actor');                                                                                                                                              
+        if (Media::isStatus('PLAYING', 'die_actor')) Media::stop('die_actor');
+        
+        $this->Dialog->content->StopVoice();
     }  
-    /**
-     * @event ReplayBtn.click-Left 
-     */
-    function ReplayFightSong(UXMouseEvent $e = null)
-    {    
-        if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
-        {
-            if (SDK_Mode)
-            {
-                Media::open($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_FightSound->text, true, "fight_sound");
-            }
-            else
-            {   
-                Media::open('res://.data/audio/fight/fight_baza.mp3', true, "fight_sound");
-            }
-        }
-    }      
     function ResetGameClient()
     {  
         $this->LoadScreen();
@@ -126,7 +125,6 @@ class maingame extends AbstractForm
         if ($this->leave_btn->visible) $this->leave_btn->hide();
         if ($this->Fail->visible) $this->Fail->hide();
         if ($this->blood_ui->visible) $this->blood_ui->hide();
-        if ($this->ReplayBtn->visible) $this->ReplayBtn->hide();
                               
         if ($this->item_vodka_0000->visible) $this->Inventory->content->DespawnVodka();
         $this->Inventory->content->SetItemCondition();     
@@ -188,13 +186,13 @@ class maingame extends AbstractForm
             $this->health_bar_enemy->hide();
             $this->health_bar_enemy_b->hide();
             
+            if ($this->blood_ui->visible) $this->blood_ui->hide();
             if ($this->pda_icon->visible) $this->pda_icon->hide();
             
             if ($this->fight_image->visible) $this->fight_image->hide();
         
             if ($this->dlg_btn->visible || $this->fight_image->visible) $this->dlg_btn->hide();
             if ($this->leave_btn->visible) $this->leave_btn->hide();
-            if ($this->ReplayBtn->visible) $this->ReplayBtn->hide();
             
             $GLOBALS['HudVisible'] = false;
             return;
@@ -217,13 +215,13 @@ class maingame extends AbstractForm
                 $this->health_bar_enemy_b->show();
             }
             
+            $this->Bleeding(); //блядинг
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
             
             if (!$this->idle_static_actor->visible) $this->fight_image->show();
             
             if ($this->skull_actor->visible || $this->skull_enemy->visible) $this->leave_btn->show();
-            if (!$this->leave_btn->visible && $this->idle_static_actor->visible) $this->dlg_btn->show();
-            if ($this->fight_image->visible && $GLOBALS['AllSounds'] || $GLOBALS['FightSound']) $this->ReplayBtn->show();        
+            if (!$this->leave_btn->visible && $this->idle_static_actor->visible) $this->dlg_btn->show();        
         
             $GLOBALS['HudVisible'] = true;
             return;            
@@ -259,11 +257,14 @@ class maingame extends AbstractForm
             $this->HideInventory();
             return;
         }
-        if ($this->Dialog->visible) 
+        if ($this->Dialog->visible)
         {
             $this->HideDialog();
-            Media::stop('voice_talk3');
             return;
+        }
+        if (Media::isStatus('PLAYING', 'voice_talk3'))
+        {
+            $this->HideDialog();
         }
         if ($this->Pda->visible)
         {
@@ -286,11 +287,11 @@ class maingame extends AbstractForm
         
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
         {
-            Media::pause("fight_sound");
+            Media::pause($this->FightSound);
             
             if ($GLOBALS['MenuSound'])
             {
-                Media::play("menu_sound");
+                Media::play($this->MainMenu->content->MenuSound);
             }
         }
     }
@@ -342,34 +343,25 @@ class maingame extends AbstractForm
     }
     function HideDialog()
     {
-        if ($this->Dialog->visible)
-        {  
-            $this->Dialog->content->ClearDialog();
-            $this->Dialog->content->ResetAnswerVisible();
-            $this->Dialog->content->StopVoice();
-            $this->Dialog->hide();                           
-        } 
+        $this->Dialog->content->ClearDialog();
+        $this->Dialog->content->ResetAnswerVisible();
+        $this->Dialog->content->StopVoice();
+        $this->Dialog->hide();
     }
     function HideInventory()
     {
-        if ($this->Inventory->visible)
-        {
-            $this->Inventory->content->HideOutfitMaket();
-            $this->Inventory->content->HideVodkaMaket(); 
-            $this->Inventory->content->HideUIText(); 
-            $this->Inventory->content->HideCombobox();                              
-            $this->Inventory->hide();
+        $this->Inventory->content->HideOutfitMaket();
+        $this->Inventory->content->HideVodkaMaket(); 
+        $this->Inventory->content->HideUIText(); 
+        $this->Inventory->content->HideCombobox();                              
+        $this->Inventory->hide();
                 
-            if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/inv_close.mp3', true);         
-        }
+        if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/inv_close.mp3', true);         
     }
     function HidePda()
     {
-        if ($this->Pda->visible)
-        {
-            $this->Pda->hide();
-            $this->Pda->content->DefaultState();             
-        }        
+        $this->Pda->hide();
+        $this->Pda->content->DefaultState();                    
     }
     /**
      * @event leave_btn.click-Left 
@@ -378,7 +370,7 @@ class maingame extends AbstractForm
     {    
         $this->Fail->show();
         
-        if ($GLOBALS['AllSounds']) Media::pause('main_ambient');
+        if ($GLOBALS['AllSounds']) Media::pause($this->MainAmbient);
     }
     /**
      * @event item_vodka_0000.click-2x
@@ -571,6 +563,8 @@ class maingame extends AbstractForm
     }    
     function Bleeding()
     {
+        if ($this->health_bar_gg->width == 264) return;
+        
         $this->skull_actor->visible ? $this->blood_ui->hide() : $this->blood_ui->show();
         
         if ($this->health_bar_gg->width == 214)
@@ -607,11 +601,7 @@ class maingame extends AbstractForm
         $this->Pda->content->Pda_Tasks->content->Step_UpdatePda();
         $this->Pda->content->Pda_Statistic->content->UpdateRaiting();
         
-        if ($GLOBALS['AllSounds']) 
-        {
-            $this->ReplayBtn->hide();
-            $this->StopAllSounds();
-        }
+        if ($GLOBALS['AllSounds']) $this->StopAllSounds();
         
         if ($GLOBALS['ActorFailed'])
         {

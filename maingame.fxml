@@ -6,11 +6,6 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#e6e6e6" color="#ffffff" contentDisplay="TOP" ellipsisString="" focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="ReplayBtn" layoutX="1224" layoutY="24" prefHeight="56" prefWidth="56" styleClass="x-flat-button " text="" textAlignment="CENTER" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="13"/>
-      </font>
-    </FlatButton>
     <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="70" id="blood_ui" layoutX="32" layoutY="96" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="53">
       <font>
         <Font name="System Regular" size="12"/>
@@ -159,7 +154,6 @@
     <Data cursor="DEFAULT" enabled="1" id="data-version" visible=""/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="Editor" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <Data content="sdk_main" cursor="DEFAULT" enabled="1" id="data-Editor" visible=""/>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/maingame/replay_icon.png" id="data-ReplayBtn" tooltipText="Перезапустить музыку" visible=""/>
     <SpriteView animationEnabled="false" focusTraversable="false" height="64" id="CustomCursor" layoutX="768" layoutY="418" styleClass="" width="64"/>
     <FlatButton alignment="CENTER" borderRadius="5" clickColor="#333333" color="#666666" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#4d4d4d" id="ForwardSDK_Btn" layoutX="1556" layoutY="240" prefHeight="40" prefWidth="40" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>

@@ -23,8 +23,8 @@ class mainmenu extends AbstractForm
         $GLOBALS['NewGameState'] = true;
         if ($GLOBALS['AllSounds'] && $GLOBALS['MenuSound'])
         {
-            Media::open('res://.data/audio/menu/menu_sound.mp3', false, "menu_sound");
-            Media::play("menu_sound");
+            Media::open('res://.data/audio/menu/menu_sound.mp3', false, $this->MenuSound);
+            Media::play($this->MenuSound);
         }
         
         //отрендерим задник меню
@@ -41,7 +41,7 @@ class mainmenu extends AbstractForm
     {    
         if ($this->form('maingame')->MainMenu->visible) 
         {
-            Media::pause("menu_sound");
+            Media::pause($this->MenuSound);
             Media::pause($this->MainMenuBackground);
         }
         $this->form('maingame')->Editor->show();
@@ -76,14 +76,14 @@ class mainmenu extends AbstractForm
         $this->form('maingame')->OpenMainAmbient();
         $this->form('maingame')->PlayMainAmbient();
                 
-        Media::pause("menu_sound");
+        Media::pause($this->MenuSound);
         Media::pause($this->MainMenuBackground);
         
         if ($this->form('maingame')->fight_image->visible)
         {
             if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
             {
-                 Media::play('fight_sound');
+                 Media::play($this->form('maingame')->FightSound);
             }
         }            
     }
