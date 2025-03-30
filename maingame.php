@@ -7,6 +7,7 @@ use action\Geometry;
 use script\MediaPlayerScript;
 use php\gui\event\UXKeyEvent; 
 use php\gui\event\UXMouseEvent; 
+use php\framework\Logger;
 
 class maingame extends AbstractForm
 {
@@ -18,8 +19,10 @@ class maingame extends AbstractForm
         define('BuildID', 'Build 819, Mar 22 2025'); //start date 24.12.2022
         define('VersionID', 'v1.3 (rc2)');
         
+        Logger::info(VersionID . ", " . BuildID);
+        
         define('Debug_Build', false);
-        define('SDK_Mode', true);
+        define('SDK_Mode', false);
         
         define('ToggleHudFeature', true);
         
