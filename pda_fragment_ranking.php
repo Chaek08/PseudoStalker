@@ -172,7 +172,7 @@ class pda_fragment_ranking extends AbstractForm
     {
         if (SDK_Mode)
         {
-            Element::setText($this->community, $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Ladcega->text);
+            $this->community->text = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Ladcega->promptText;
             $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Ladcega->value;
             $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleIcon_Ladcega->text));
         }
@@ -187,7 +187,7 @@ class pda_fragment_ranking extends AbstractForm
     {
         if (SDK_Mode)
         {
-            Element::setText($this->community, $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Danila->text);
+            $this->community->text = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Danila->promptText;
             $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Danila->value;
             $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleIcon_Danila->text));
         }
@@ -202,7 +202,7 @@ class pda_fragment_ranking extends AbstractForm
     {
         if (SDK_Mode)
         {
-            Element::setText($this->community, $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Pido->text);
+            $this->community->text = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Pido->promptText;
             $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Pido->value;
             $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleIcon_Pido->text));
         }
@@ -229,7 +229,7 @@ class pda_fragment_ranking extends AbstractForm
             if (SDK_Mode)
             {
                 $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_EnemyIcon->text);            
-                Element::setText($this->bio, uiText($this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_EnemyBio));                 
+                $this->bio->text = $this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_EnemyBio->promptText;
             } 
             else
             {
@@ -249,8 +249,8 @@ class pda_fragment_ranking extends AbstractForm
             
             if (SDK_Mode)
             {
-                $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_ValerokIcon->text);            
-                Element::setText($this->bio, uiText($this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_ValerokBio));                 
+                $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_ValerokIcon->text);
+                $this->bio->text = $this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_ValerokBio->promptText;
             } 
             else
             {
@@ -270,7 +270,7 @@ class pda_fragment_ranking extends AbstractForm
             if (SDK_Mode)
             {
                 $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_ActorIcon->text);  
-                Element::setText($this->bio, uiText($this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_ActorBio));                                        
+                $this->bio->text = $this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_ActorBio->promptText;
             }
             else 
             {
