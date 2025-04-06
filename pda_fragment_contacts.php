@@ -48,7 +48,7 @@ class pda_fragment_contacts extends AbstractForm
         $this->online_icon->show();
         $this->icon->show();
         
-        if($this->bio->visible) $this->bio->hide();
+        if ($this->bio->visible) $this->bio->hide();
     }
     function DeleteEnemyContacts()
     {
@@ -65,6 +65,6 @@ class pda_fragment_contacts extends AbstractForm
         $this->icon->hide();
         $this->selected_new->opacity = 0;
         
-        if($this->bio->visible) $this->bio->hide();
+        if ($this->bio->visible) $this->bio->hide();
     }    
 }

@@ -111,41 +111,34 @@ class pda_fragment_tasks extends AbstractForm
         $this->time_quest_date->text = Time::now()->toString('dd/MM/YYYY');
     }    
     function Step_UpdatePda()
-    { 
+    {
         if ($GLOBALS['QuestCompleted'])
         {
            if ($this->form('maingame')->Pda->content->Pda_Statistic->visible)
            {
-               if (ToggleHudFeature && $GLOBALS['HudVisible'] && NeedToCheckPDA) $this->form('maingame')->pda_icon->show();
+               if ($GLOBALS['NeedToCheckPDA'] && $GLOBALS['HudVisible']) $this->form('maingame')->pda_icon->show();
            }
            else
            {
-               if (ToggleHudFeature && $GLOBALS['HudVisible'] && NeedToCheckPDA) $this->form('maingame')->pda_icon->show();
-               $this->form('maingame')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_new_icon.png'));                
-           }            
+               if ($GLOBALS['NeedToCheckPDA'] && $GLOBALS['HudVisible']) $this->form('maingame')->pda_icon->show();
+               $this->form('maingame')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_new_icon.png')); 
+           }     
         }
         else 
         {
-           if ($this->form('maingame')->pda_icon->visible) $this->form('maingame')->pda_icon->hide();
+           if ($GLOBALS['NeedToCheckPDA'] && $GLOBALS['HudVisible']) $this->form('maingame')->pda_icon->hide();
            $this->form('maingame')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));              
         }
     }
     function Step_DeletePda()
     {
-        if (ToggleHudFeature || $GLOBALS['HudVisible'] && NeedToCheckPDA)
+        $GLOBALS['NeedToCheckPDA'] = false;
+        
+        $this->form('maingame')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));
+        
+        if ($GLOBALS['HudVisible'])
         {
            $this->form('maingame')->pda_icon->hide();
-           $this->form('maingame')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));
-           
-           $GLOBALS['NeedToCheckPDA'] = false;
-        }
-        else
-        {
-            if ($this->form('maingame')->pda_icon->visible)
-            {
-                $this->form('maingame')->pda_icon->hide();
-                $this->form('maingame')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));
-            }
         }
     }
     function Step1_Complete()
@@ -155,23 +148,24 @@ class pda_fragment_tasks extends AbstractForm
         if ($GLOBALS['AllSounds'])
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
-        }    
+        }
+        
+        $GLOBALS['QuestStep1'] = true;
     }
     function Step2_Complete()
     {
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));
-        $this->DeleteTask();   
+        $this->DeleteTask();
+        
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->DeleteEnemyContacts();
         
         if ($GLOBALS['AllSounds'])
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
-        }                
-    }  
-    function StepReset()
-    {
-        $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_process.png'));    
-        $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_process.png'));    
-    } 
+        }
+        
+        $GLOBALS['QuestCompleted'] = true;
+    }   
     function Step2_Failed()
     {
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png')); 
@@ -180,8 +174,15 @@ class pda_fragment_tasks extends AbstractForm
         if ($GLOBALS['AllSounds'])
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
-        }                           
+        }
+
+        $GLOBALS['QuestCompleted'] = true;    //технически выполнен пусть и завален нахуй    
     }
+    function StepReset()
+    {
+        $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_process.png'));    
+        $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_process.png'));    
+    }    
     function DeleteTask()
     {
         $this->task_label->hide();

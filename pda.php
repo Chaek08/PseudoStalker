@@ -63,6 +63,7 @@ class pda extends AbstractForm
                 
         $this->Pda_Background->hide();
         
-        $this->form('maingame')->Pda->content->Pda_Tasks->content->Step_DeletePda();                                                  
+        $this->Pda_Ranking->content->DeathFilter();
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->Step_DeletePda();
     }     
 }

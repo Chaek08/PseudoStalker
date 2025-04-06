@@ -198,7 +198,7 @@ class inventory extends AbstractForm
      */
     function DropVodka(UXMouseEvent $e = null)
     {       
-        $this->DropSound();  
+        if ($this->form('maingame')->Inventory->visible) $this->DropSound();
         $this->HideCombobox(); 
         $this->SpawnVodka();          
         if ($this->inv_maket_select_2->visible)

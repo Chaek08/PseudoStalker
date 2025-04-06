@@ -21,9 +21,10 @@ class mainmenu extends AbstractForm
     function InitMainMenu()
     {
         $GLOBALS['NewGameState'] = true;
+        
+        Media::open('res://.data/audio/menu/menu_sound.mp3', false, $this->MenuSound);
         if ($GLOBALS['AllSounds'] && $GLOBALS['MenuSound'])
         {
-            Media::open('res://.data/audio/menu/menu_sound.mp3', false, $this->MenuSound);
             Media::play($this->MenuSound);
         }
         
@@ -31,7 +32,7 @@ class mainmenu extends AbstractForm
         $this->MainMenuBackground->view = $this->dynamic_background;
         $backgroundPath = SDK_Mode
             ? $this->form('maingame')->Editor->content->f_MgEditor->content->Edit_MenuBackground->text 
-            : 'res://.data/video/menu_background.mp4';
+            : 'res://.data/video/menu_background.mp4'; //C:\Users\drogo.B760\Downloads\kunteynir_privet_pider.mp4
         Media::open($backgroundPath, true, $this->MainMenuBackground);
     }
     /**
@@ -73,11 +74,10 @@ class mainmenu extends AbstractForm
         
         if ($GLOBALS['NewGameState']) $this->SwitchGameState();
         
-        $this->form('maingame')->OpenMainAmbient();
-        $this->form('maingame')->PlayMainAmbient();
-                
         Media::pause($this->MenuSound);
         Media::pause($this->MainMenuBackground);
+        
+        if (!$GLOBALS['QuestStep1']) Media::play($this->form('maingame')->MainAmbient);
         
         if ($this->form('maingame')->fight_image->visible)
         {
@@ -95,10 +95,15 @@ class mainmenu extends AbstractForm
             $GLOBALS['NewGameState'] = false;
             
             $this->Btn_Start_Game->text = $this->localization->get('ContinueGame_Label');
-        
-            $this->Btn_Opt->y = 496;
-            $this->Btn_Exit_Windows->y = 568;
+            
+            $this->Btn_Save_Game->show();
             $this->Btn_End_Game->show();
+            
+            $this->Btn_Load_Game->y = 424;
+            $this->Btn_Save_Game->y = 496;
+            $this->Btn_Opt->y = 568;
+            $this->Btn_End_Game->y = 640;
+            $this->Btn_Exit_Windows->y = 712;
             
             $GLOBALS['ContinueGameState'] = true;
             return;
@@ -109,9 +114,12 @@ class mainmenu extends AbstractForm
             
             $this->Btn_Start_Game->text = $this->localization->get('NewGame_Label');
         
-            $this->Btn_Opt->y = 424;
-            $this->Btn_Exit_Windows->y = 496;
+            $this->Btn_Save_Game->hide();
             $this->Btn_End_Game->hide();
+            
+            $this->Btn_Load_Game->y = 424;
+            $this->Btn_Opt->y = 496;
+            $this->Btn_Exit_Windows->y = 568;
             
             $GLOBALS['NewGameState'] = true;
             return;
@@ -145,6 +153,7 @@ class mainmenu extends AbstractForm
     {
         $this->Btn_End_Game->textColor = '#808080';
         
+        $this->form('maingame')->ToggleHud();
         $this->form('maingame')->ResetGameClient();
     }
     /**
@@ -218,5 +227,69 @@ class mainmenu extends AbstractForm
     function BtnOpt_MouseUpLeft(UXMouseEvent $e = null)
     {
         $this->BtnOpt_MouseExit();
+    }
+    /**
+     * @event Btn_Save_Game.mouseExit 
+     */
+    function BtnSaveGame_MouseExit(UXMouseEvent $e = null)
+    {
+        $this->Btn_Save_Game->textColor = '#ffffff';
+    }
+    /**
+     * @event Btn_Save_Game.mouseEnter 
+     */
+    function BtnSaveGame_MouseEnter(UXMouseEvent $e = null)
+    {
+        $this->Btn_Save_Game->textColor = '#b3b3b3';
+    }
+    /**
+     * @event Btn_Save_Game.mouseDown-Left 
+     */
+    function BtnSaveGame_MouseDownLeft(UXMouseEvent $e = null)
+    {
+        $this->Btn_Save_Game->textColor = '#808080';
+        
+        $this->dynamic_background->toFront();
+        $this->UISaveWnd->show();
+        $this->UISaveWnd->toFront();
+    }
+    /**
+     * @event Btn_Save_Game.mouseUp-Left 
+     */
+    function BtnSaveGame_MouseUpLeft(UXMouseEvent $e = null)
+    {
+        $this->BtnSaveGame_MouseExit();
+    }
+    /**
+     * @event Btn_Load_Game.mouseExit 
+     */
+    function BtnLoadGame_MouseExit(UXMouseEvent $e = null)
+    {
+        $this->Btn_Load_Game->textColor = '#ffffff';
+    }
+    /**
+     * @event Btn_Load_Game.mouseEnter 
+     */
+    function BtnLoadGame_MouseEnter(UXMouseEvent $e = null)
+    {
+        $this->Btn_Load_Game->textColor = '#b3b3b3';
+    }
+    /**
+     * @event Btn_Load_Game.mouseDown-Left 
+     */
+    function BtnLoadGame_MouseDownLeft(UXMouseEvent $e = null)
+    {
+        $this->Btn_Load_Game->textColor = '#808080';
+        
+        $this->dynamic_background->toFront();
+        $this->UILoadWnd->show();
+        $this->UILoadWnd->toFront();
+    }
+    /**
+     * @event Btn_Load_Game.mouseUp-Left 
+     */
+    function BtnLoadGame_MouseUpLeft(UXMouseEvent $e = null)
+    {
+        $this->BtnLoadGame_MouseExit();
     }
 }

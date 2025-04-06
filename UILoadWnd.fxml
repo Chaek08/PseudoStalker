@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900" prefWidth="1600" styleClass="">
+  <children>
+    <FlatButton alignment="CENTER" borderRadius="10" color="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="main_frame" layoutX="512" layoutY="73" opacity="0.85365853658537" prefHeight="744" prefWidth="568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-saves_list" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="Wnd_Label" layoutX="528" layoutY="72" prefHeight="56" prefWidth="536" styleClass="label " text="Загрузить игру" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/save_and_load_wnd/file.png" id="data-Wnd_Label" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-main_frame" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Load_Btn" layoutX="528" layoutY="768" prefHeight="32" prefWidth="128" styleClass="x-flat-button " text="Загрузить" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-Load_Btn" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Remove_Save_Btn" layoutX="664" layoutY="768" prefHeight="32" prefWidth="128" styleClass="x-flat-button " text="Удалить" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-Remove_Save_Btn" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-save_image" image="" visible=""/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Return_Btn" layoutX="936" layoutY="768" prefHeight="32" prefWidth="128" styleClass="x-flat-button " text="Назад" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-Return_Btn" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="savedata_health" layoutX="728" layoutY="176" prefHeight="30" prefWidth="336" styleClass="label " text="savedata_health" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-savedata_health" visible=""/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="savedata_time" layoutX="728" layoutY="208" prefHeight="30" prefWidth="336" styleClass="label " text="savedata_time" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-savedata_time" visible=""/>
+    <FlatButton alignment="CENTER" borderRadius="7" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="save_image_background" layoutX="528" layoutY="128" prefHeight="120" prefWidth="184" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-save_image_background" visible="1"/>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="104" id="save_image" layoutX="536" layoutY="136" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="168">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="savedata_name" layoutX="728" layoutY="136" prefHeight="32" prefWidth="336" styleClass="label " text="savedata_name" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="21"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-savedata_name" visible=""/>
+    <SpriteView animationEnabled="false" focusTraversable="false" height="104" id="noise" layoutX="536" layoutY="136" styleClass="" width="168"/>
+    <Data animated="1" cursor="DEFAULT" enabled="1" id="data-noise" sprite="noise" visible="1"/>
+    <Panel backgroundColor="#ffffff" borderColor="#c0c0c0" borderRadius="10" borderStyle="NONE" borderWidth="1" focusTraversable="false" id="saves_panel" layoutX="528" layoutY="264" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="480" prefWidth="536" styleClass="" titleColor="#333333" titleOffset="0" titlePosition="TOP_LEFT">
+      <children/>
+      <titleFont>
+        <Font name="System Regular" size="12"/>
+      </titleFont>
+    </Panel>
+    <Data cursor="DEFAULT" enabled="1" id="data-saves_panel" visible="1"/>
+    <ListViewEx editable="false" fixedCellSize="35" focusTraversable="true" id="saves_list" layoutX="532" layoutY="268" prefHeight="472" prefWidth="527" styleClass="list-view ">
+      <items xmlns:fx="http://javafx.com/fxml">
+        <FXCollections fx:factory="observableArrayList"/>
+      </items>
+    </ListViewEx>
+  </children>
+</AnchorPane>

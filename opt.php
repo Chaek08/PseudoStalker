@@ -184,8 +184,8 @@ class opt extends AbstractForm
             $this->MenuSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             $this->MenuSound_Switcher_Btn->textColor = '#880911';
             
-            Media::stop($this->form('maingame')->MainMenu->content->MenuSound);
             $GLOBALS['MenuSound'] = false;
+            Media::stop($this->form('maingame')->MainMenu->content->MenuSound);
             
             return;
         }
@@ -195,8 +195,8 @@ class opt extends AbstractForm
             $this->MenuSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
             $this->MenuSound_Switcher_Btn->textColor = '#099209';
             
-            Media::play($this->form('maingame')->MainMenu->content->MenuSound);
             $GLOBALS['MenuSound'] = true;
+            Media::play($this->form('maingame')->MainMenu->content->MenuSound);
             
             return;
         }
@@ -342,6 +342,8 @@ class opt extends AbstractForm
             $this->form('maingame')->MainMenu->content->Options->content->Version_Switcher_Btn->dropShadowEffect->disable();
             $this->form('maingame')->MainMenu->content->Options->content->FightSound_Label->dropShadowEffect->disable();    
             $this->form('maingame')->MainMenu->content->Options->content->FightSound_Switcher_Btn->dropShadowEffect->disable();
+            $this->form('maingame')->MainMenu->content->Options->content->Language_Label->dropShadowEffect->disable();
+            $this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->disable();
             //exit_dlg
             $this->form('maingame')->ExitDialog->content->main_frame->dropShadowEffect->disable();
             
@@ -410,6 +412,8 @@ class opt extends AbstractForm
             $this->form('maingame')->MainMenu->content->Options->content->Version_Switcher_Btn->dropShadowEffect->enable();
             $this->form('maingame')->MainMenu->content->Options->content->FightSound_Label->dropShadowEffect->enable();
             $this->form('maingame')->MainMenu->content->Options->content->FightSound_Switcher_Btn->dropShadowEffect->enable();
+            $this->form('maingame')->MainMenu->content->Options->content->Language_Label->dropShadowEffect->enable();
+            $this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->enable();            
             //exit_dlg
             $this->form('maingame')->ExitDialog->content->main_frame->dropShadowEffect->enable();
                        
@@ -512,6 +516,8 @@ class opt extends AbstractForm
         $this->form('maingame')->LoadScreen();
         
         $this->Return_Btn->text = $this->localization->get('Return_Btn');
+        $this->form('maingame')->MainMenu->content->UILoadWnd->content->Return_Btn->text = $this->localization->get('Return_Btn');
+        $this->form('maingame')->MainMenu->content->UISaveWnd->content->Return_Btn->text = $this->localization->get('Return_Btn');
       
         $this->AllSound_Label->text = $this->localization->get('AllSound_Label');
         $this->MenuSound_Label->text = $this->localization->get('MenuSound_Label');
@@ -527,9 +533,18 @@ class opt extends AbstractForm
         $this->Version_Switcher_Btn->text = $this->localization->get($GLOBALS['VersionSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
 
         $this->form('maingame')->MainMenu->content->Btn_Start_Game->text = $this->localization->get(($GLOBALS['NewGameState'] ? 'NewGame_Label' : 'ContinueGame_Label'));
+        $this->form('maingame')->MainMenu->content->Btn_Save_Game->text = $this->localization->get('SaveGame_Label');
+        $this->form('maingame')->MainMenu->content->Btn_Load_Game->text = $this->localization->get('LoadGame_Label');
         $this->form('maingame')->MainMenu->content->Btn_End_Game->text = $this->localization->get('EndGame_Label');
         $this->form('maingame')->MainMenu->content->Btn_Opt->text = $this->localization->get('Options_Label');
         $this->form('maingame')->MainMenu->content->Btn_Exit_Windows->text = $this->localization->get('ExitToWindows_Label');
+        
+        $this->form('maingame')->MainMenu->content->UISaveWnd->content->Wnd_Label->text = $this->localization->get('SaveGame_Label');
+        $this->form('maingame')->MainMenu->content->UILoadWnd->content->Wnd_Label->text = $this->localization->get('LoadGame_Label');
+        $this->form('maingame')->MainMenu->content->UISaveWnd->content->Save_Btn->text = $this->localization->get('Save_Btn');
+        $this->form('maingame')->MainMenu->content->UILoadWnd->content->Load_Btn->text = $this->localization->get('Load_Btn');
+        $this->form('maingame')->MainMenu->content->UISaveWnd->content->Remove_Save_Btn->text = $this->localization->get('Remove_Btn');
+        $this->form('maingame')->MainMenu->content->UILoadWnd->content->Remove_Save_Btn->text = $this->localization->get('Remove_Btn');
 
         $this->form('maingame')->dlg_btn->text = $this->localization->get('StartDialog_Label');
         $this->form('maingame')->leave_btn->text = $this->localization->get('Leave_Label');
@@ -623,6 +638,8 @@ class opt extends AbstractForm
             $this->form('maingame')->Fail->content->UpdateFailState();
             $this->form('maingame')->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
         }
+        
+        $this->form('maingame')->MainMenu->content->UILoadWnd->content->ShowSavePreview();       
         
         if (SDK_Mode)
         {

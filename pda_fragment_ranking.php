@@ -72,19 +72,15 @@ class pda_fragment_ranking extends AbstractForm
         $this->goblindav_in_raiting_rank->textColor = '#999999';
     }
     function DeathFilter() // Cake-crypto
-    {
+    { 
+        if ($this->form('maingame')->Pda->content->Pda_Statistic->visible)
+        {
+            $GLOBALS['ActorFailed'] ? $this->form('maingame')->Pda->content->Pda_Statistic->content->death_filter->show() : $this->form('maingame')->Pda->content->Pda_Statistic->content->death_filter->hide();           
+        }
+        
         if ($this->user_actor->visible) //Проверяем, выбран ли сейчас нужный user
         {
-            if ($GLOBALS['ActorFailed']) //Проверяем, мёртв ли актёр, чтобы в дальнейшем прописать ему DeathFilter
-            {
-                $this->death_filter->show();
-                $this->form('maingame')->Pda->content->Pda_Statistic->content->death_filter->show();
-            }
-            else
-            {
-                $this->death_filter->hide();
-                $this->form('maingame')->Pda->content->Pda_Statistic->content->death_filter->hide();            
-            }
+            $GLOBALS['ActorFailed'] ? $this->death_filter->show() : $this->death_filter->hide();
         }
         if ($this->user_goblindav->visible) //Проверяем, выбран ли сейчас нужный user
         {

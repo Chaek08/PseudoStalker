@@ -31,32 +31,48 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/mainmenu/sdk_btn.png" id="data-opensdk_btn" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Btn_Start_Game" layoutX="144" layoutY="352" prefHeight="74" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Новая игра" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Start_Game" layoutX="144" layoutY="352" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Новая игра" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="35"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Btn_Start_Game" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Btn_End_Game" layoutX="144" layoutY="424" prefHeight="74" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Завершить игру" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_End_Game" layoutX="144" layoutY="640" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Завершить игру" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="35"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Btn_End_Game" visible=""/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Btn_Exit_Windows" layoutX="144" layoutY="496" prefHeight="74" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Выйти в Windows" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Exit_Windows" layoutX="144" layoutY="568" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Выйти в Windows" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="35"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Btn_Exit_Windows" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Btn_Opt" layoutX="144" layoutY="424" prefHeight="74" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Опции" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Opt" layoutX="144" layoutY="496" prefHeight="49" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Опции" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="35"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Btn_Opt" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-dynamic_background" visible="1"/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="Options" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <Data content="opt" cursor="DEFAULT" enabled="1" id="data-Options" visible=""/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Save_Game" layoutX="144" layoutY="496" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Сохранить игру" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="35"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Btn_Save_Game" visible=""/>
+    <Data content="UISaveWnd" cursor="DEFAULT" enabled="1" id="data-UISaveWnd" visible=""/>
+    <Data content="UILoadWnd" cursor="DEFAULT" enabled="1" id="data-UILoadWnd" visible=""/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Load_Game" layoutX="144" layoutY="424" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Загрузить игру" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="35"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Btn_Load_Game" visible="1"/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Options" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="UILoadWnd" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="UISaveWnd" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
   </children>
 </AnchorPane>

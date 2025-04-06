@@ -15,4 +15,10 @@
   <target id="Btn_End_Game">
     <behaviour color="#333333" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
+  <target id="Btn_Save_Game">
+    <behaviour color="#333333" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Btn_Load_Game">
+    <behaviour color="#333333" offsetX="0" offsetY="0" radius="20.24" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
 </behaviours>

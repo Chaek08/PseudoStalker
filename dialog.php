@@ -153,17 +153,15 @@ class dialog extends AbstractForm
     function Talk_3(UXMouseEvent $e = null)
     {       
         $this->form('maingame')->HideDialog();
-        
-        if (ToggleHudFeature) $this->form('maingame')->ToggleHud();
+        if (!$GLOBALS['HudVisible']) $this->form('maingame')->ToggleHud();
         
         if ($GLOBALS['AllSounds'])
         {
             $this->VoiceTalk_3();
-            
-            $this->form('maingame')->PauseMainAmbient();
         }
         if ($GLOBALS['FightSound'])
         {
+            Media::pause($this->form('maingame')->MainAmbient);
             $this->form('maingame')->PlayFightSong();
         }
         

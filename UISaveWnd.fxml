@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900" prefWidth="1600" styleClass="">
+  <children>
+    <FlatButton alignment="CENTER" borderRadius="10" color="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="main_frame" layoutX="511" layoutY="129" opacity="0.85365853658537" prefHeight="640" prefWidth="568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-saves_list" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-main_frame" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button" layoutX="528" layoutY="200" prefHeight="48" prefWidth="536" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-button" visible="1"/>
+    <com.jfoenix.controls.JFXTextField alignment="CENTER_LEFT" editable="true" focusColor="#4059a900" focusTraversable="true" id="Edit_SaveName" layoutX="536" layoutY="200" prefColumnCount="12" prefHeight="48" prefWidth="520" promptText="" text="" unFocusColor="#4d4d4d00">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+      <styleClass xmlns:fx="http://javafx.com/fxml">
+        <String fx:value="text-input"/>
+        <String fx:value="text-field"/>
+        <String fx:value="jfx-text-field"/>
+      </styleClass>
+    </com.jfoenix.controls.JFXTextField>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_SaveName" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="5" id="Wnd_Label" layoutX="528" layoutY="128" prefHeight="72" prefWidth="528" styleClass="label " text="Сохранить игру" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/save_and_load_wnd/file.png" id="data-Wnd_Label" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Save_Btn" layoutX="528" layoutY="720" prefHeight="32" prefWidth="128" styleClass="x-flat-button " text="Сохранить" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-Save_Btn" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Remove_Save_Btn" layoutX="664" layoutY="720" prefHeight="32" prefWidth="128" styleClass="x-flat-button " text="Удалить" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-Remove_Save_Btn" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Return_Btn" layoutX="936" layoutY="720" prefHeight="32" prefWidth="128" styleClass="x-flat-button " text="Назад" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-Return_Btn" visible="1"/>
+    <Panel backgroundColor="#ffffff" borderColor="#c0c0c0" borderRadius="10" borderStyle="NONE" borderWidth="1" focusTraversable="false" id="saves_panel" layoutX="528" layoutY="256" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="440" prefWidth="536" styleClass="" titleColor="#333333" titleOffset="0" titlePosition="TOP_LEFT">
+      <children/>
+      <titleFont>
+        <Font name="System Regular" size="12"/>
+      </titleFont>
+    </Panel>
+    <Data cursor="DEFAULT" enabled="1" id="data-saves_panel" visible="1"/>
+    <ListViewEx editable="false" fixedCellSize="35" focusTraversable="true" id="saves_list" layoutX="532" layoutY="260" prefHeight="432" prefWidth="528" styleClass="list-view ">
+      <items xmlns:fx="http://javafx.com/fxml">
+        <FXCollections fx:factory="observableArrayList"/>
+      </items>
+    </ListViewEx>
+  </children>
+</AnchorPane>
