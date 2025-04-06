@@ -16,7 +16,7 @@ class maingame extends AbstractForm
      */
     function InitClient(UXWindowEvent $e = null)
     {
-        define('BuildID', 'Build 819, Mar 22 2025'); //start date 24.12.2022
+        define('BuildID', 'Build 835, Apr 7 2025'); //start date 24.12.2022
         define('VersionID', 'v1.3 (rc2)');
         
         Logger::info(VersionID . ", " . BuildID);
