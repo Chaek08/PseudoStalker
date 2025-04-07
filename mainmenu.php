@@ -32,7 +32,7 @@ class mainmenu extends AbstractForm
         $this->MainMenuBackground->view = $this->dynamic_background;
         $backgroundPath = SDK_Mode
             ? $this->form('maingame')->Editor->content->f_MgEditor->content->Edit_MenuBackground->text 
-            : 'res://.data/video/menu_background.mp4'; //C:\Users\drogo.B760\Downloads\kunteynir_privet_pider.mp4
+            : '.\gamedata\textures\menu\background.mp4'; //C:\Users\drogo.B760\Downloads\kunteynir_privet_pider.mp4
         Media::open($backgroundPath, true, $this->MainMenuBackground);
     }
     /**
