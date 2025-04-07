@@ -264,12 +264,12 @@ class inventory extends AbstractForm
                 $this->maket_cond->text = "100 %";
                 $this->maket_cond->width = 208;
             }
-            if ($this->form('maingame')->health_bar_gg->width == 164)
+            if ($this->form('maingame')->health_bar_gg->width == 164 || $this->health_bar_gg->width == 214)
             {
                 $this->maket_cond->text = "75 %";
                 $this->maket_cond->width = 168;
             }
-            if ($this->form('maingame')->health_bar_gg->width == 114)
+            if ($this->form('maingame')->health_bar_gg->width == 114 || $this->health_bar_gg->width == 64)
             {
                 $this->maket_cond->text = "55 %";
                 $this->maket_cond->width = 138;
