@@ -155,13 +155,13 @@ class dialog extends AbstractForm
         $this->form('maingame')->HideDialog();
         if (!$GLOBALS['HudVisible']) $this->form('maingame')->ToggleHud();
         
+		Media::pause($this->form('maingame')->MainAmbient);
         if ($GLOBALS['AllSounds'])
         {
             $this->VoiceTalk_3();
         }
         if ($GLOBALS['FightSound'])
         {
-            Media::pause($this->form('maingame')->MainAmbient);
             $this->form('maingame')->PlayFightSong();
         }
         
