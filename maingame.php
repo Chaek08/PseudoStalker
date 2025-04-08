@@ -24,13 +24,11 @@ class maingame extends AbstractForm
         define('Debug_Build', true);
         define('SDK_Mode', false);
         
-        define('ToggleHudFeature', true);
-        
         $GLOBALS['AllSounds'] = true;
         $GLOBALS['MenuSound'] =  true;
         $GLOBALS['FightSound'] = true;
         
-        if (ToggleHudFeature) $GLOBALS['HudVisible'] = true;
+        $GLOBALS['HudVisible'] = true;
      
         $this->GetVersion();
         
@@ -236,7 +234,7 @@ class maingame extends AbstractForm
      */
     function EscBtn(UXKeyEvent $e = null)
     {    
-        if (ToggleHudFeature) $this->ToggleHud();
+        $this->ToggleHud();
             
         if ($this->LoadScreen->visible) return;
         if (SDK_Mode && $this->Editor->visible)
@@ -316,7 +314,7 @@ class maingame extends AbstractForm
     {
         if ($this->CheckVisibledFragments()) return;
         
-        if (ToggleHudFeature && !$this->ExitDialog->visible) $this->ToggleHud();
+        if (!$this->ExitDialog->visible) $this->ToggleHud();
         
         $this->Pda->show();
         if ($this->Pda->content->Pda_Statistic->visible && $this->pda_icon->visible) $this->pda_icon->hide();       
@@ -328,7 +326,7 @@ class maingame extends AbstractForm
     {       
         if ($this->CheckVisibledFragments()) return;
         
-        if (ToggleHudFeature && !$this->ExitDialog->visible) $this->ToggleHud();        
+        if (!$this->ExitDialog->visible) $this->ToggleHud();        
         
         $this->Inventory->show();
         if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/inv_open.mp3', true);
@@ -340,7 +338,7 @@ class maingame extends AbstractForm
     {          
         if ($this->CheckVisibledFragments()) return;
         
-        if (ToggleHudFeature && !$this->ExitDialog->visible) $this->ToggleHud();        
+        if (!$this->ExitDialog->visible) $this->ToggleHud();        
         
         $this->ExitDialog->show();
     }
@@ -349,7 +347,7 @@ class maingame extends AbstractForm
      */
     function ShowDialog(UXMouseEvent $e = null)
     {          
-        if (ToggleHudFeature) $this->ToggleHud();
+        $this->ToggleHud();
     
         $this->Dialog->show();
         $this->Dialog->content->StartDialog();          
