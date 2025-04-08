@@ -32,6 +32,10 @@ class UISaveWnd extends AbstractForm
 
         $this->localization = new Localization($language);
     }
+    
+    private $saveHistory = []; 
+    private $historyIndex = -1;
+        
     /**
      * @event show 
      */
@@ -140,6 +144,9 @@ class UISaveWnd extends AbstractForm
     function BtnSaveGame(UXMouseEvent $e = null)
     {
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+    
+        $this->saveHistory[] = trim($this->Edit_SaveName->text);
+        $this->historyIndex = count($this->saveHistory);
     
         $saveName = $this->Edit_SaveName->text;
         if ($saveName != '')
@@ -270,6 +277,44 @@ class UISaveWnd extends AbstractForm
             }
         }
     }
+    /**
+     * @event Edit_SaveName.keyDown-Up
+     */
+    function handleArrowUp(UXKeyEvent $e) 
+    {    
+        if (!empty($this->saveHistory) && $this->historyIndex > 0)
+        {
+            $this->historyIndex--;
+            $this->Edit_SaveName->text = $this->saveHistory[$this->historyIndex];
+        }
+        elseif ($this->historyIndex == -1 && !empty($this->saveHistory))
+        {
+            $this->historyIndex = count($this->saveHistory) - 1;
+            $this->Edit_SaveName->text = $this->saveHistory[$this->historyIndex];
+        }
+        uiLater(function() {
+           $this->Edit_SaveName->positionCaret(strlen($this->Edit_SaveName->text));
+        });
+    }
+    /**
+     * @event Edit_SaveName.keyDown-Down
+     */
+    function handleArrowDown(UXKeyEvent $e) 
+    {    
+        if ($this->historyIndex < count($this->saveHistory) - 1)
+        {
+            $this->historyIndex++;
+            $this->Edit_SaveName->text = $this->saveHistory[$this->historyIndex];
+        }
+        else
+        {
+            $this->historyIndex = count($this->saveHistory); 
+            $this->Edit_SaveName->text = "";
+        }
+        uiLater(function() {
+           $this->Edit_SaveName->positionCaret(strlen($this->Edit_SaveName->text));
+        });
+    }    
     /**
      * @event Edit_SaveName.keyDown-Enter 
      */
