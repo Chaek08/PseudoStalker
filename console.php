@@ -20,7 +20,7 @@ class console extends AbstractForm
     }
     
     private $commandHistory = []; 
-    private $historyIndex = -1; 
+    private $historyIndex = -1;
     
     /**
      * @event edit.keyDown-Enter 
@@ -53,12 +53,13 @@ class console extends AbstractForm
                                 "clear",
                                 "help",
                                 "version",
+                                "save",
+                                "load",                                                  
                                 "r_version [off/on]",
                                 "r_shadows [off/on]",
                                 "snd_all [off/on]",
-                                "reset_game_client",
                                 "openform [form_name]",
-                                "ToggleHud",
+                                "call [function_name]",                           
                                 "language [rus/eng]"
                         ];
                         $commandsList = implode("\n> ", $commands);
@@ -119,26 +120,58 @@ class console extends AbstractForm
                                 }
                         }
                         break;
-/*
-                case "reset_game_client":
-                        $this->edit->text = "";
-                        Element::appendText($this->Console_Log, "> function ResetGameClient() executed\n");
-                        $this->form('maingame')->ResetGameClient();
-                        break;
-*/
+                        
                 case "version":
                         $this->edit->text = "";
                         Element::appendText($this->Console_Log, "> PseudoStalker, " . VersionID . ", " . BuildID . "\n");
                         break;
-/*
-                case "ToggleHud":
-                        $this->edit->text = "";
-                        if (ToggleHudFeature) {
-                                Element::appendText($this->Console_Log, "> function ToggleHud() executed\n");
-                                $this->form('maingame')->ToggleHud();
+                        
+                case "save":
+                    $parts = explode(" ", trim($this->edit->text), 2); 
+                    if (count($parts) == 2)
+                    {
+                        $saveName = trim($parts[1]); 
+                        if ($saveName !== "")
+                        {
+                            $this->form('maingame')->MainMenu->content->UISaveWnd->content->Edit_SaveName->text = $saveName;
+                            $this->form('maingame')->MainMenu->content->UISaveWnd->content->BtnSaveGame();
+                            Element::appendText($this->Console_Log, "> Saved game: $saveName\n");
                         }
-                        break;
-*/                        
+                    }
+                    $this->edit->text = "";
+                    break;
+
+                        
+                case "load":
+                    $parts = explode(" ", trim($this->edit->text), 2);
+                    if (count($parts) == 2)
+                    {
+                        $saveName = trim($parts[1]);
+                        if ($saveName !== "")
+                        {
+                            $filePath = SAVE_DIRECTORY . $saveName . '.sav';
+                            if (file_exists($filePath))
+                            {
+                                $loadWnd = $this->form('maingame')->MainMenu->content->UILoadWnd->content;
+                                $savesList = $loadWnd->saves_list;
+                                foreach ($savesList->items->toArray() as $index => $item) {
+                                if ($item == $saveName)
+                                {
+                                    $savesList->selectedIndex = $index;
+                                    $this->form('maingame')->MainMenu->content->UILoadWnd->content->BtnLoadSave();
+                                    Element::appendText($this->Console_Log, "> Loaded save: $saveName\n");
+                                    break;
+                                }}
+                        }
+                        else
+                        {
+                            Element::appendText($this->Console_Log, "> Save '$saveName' not found.\n");
+                        }
+                    }
+                }
+                $this->edit->text = "";
+                break;
+                      
                 case "call":
                         if (isset($args[1])) {
                                 $this->edit->text = "";
@@ -228,10 +261,13 @@ class console extends AbstractForm
      */
     function handleArrowUp(UXKeyEvent $e) 
     {    
-        if (!empty($this->commandHistory) && $this->historyIndex > 0) {
+        if (!empty($this->commandHistory) && $this->historyIndex > 0)
+        {
             $this->historyIndex--;
             $this->edit->text = $this->commandHistory[$this->historyIndex];
-        } elseif ($this->historyIndex == -1 && !empty($this->commandHistory)) {
+        }
+        elseif ($this->historyIndex == -1 && !empty($this->commandHistory))
+        {
             $this->historyIndex = count($this->commandHistory) - 1;
             $this->edit->text = $this->commandHistory[$this->historyIndex];
         }
@@ -244,10 +280,13 @@ class console extends AbstractForm
      */
     function handleArrowDown(UXKeyEvent $e) 
     {    
-        if ($this->historyIndex < count($this->commandHistory) - 1) {
+        if ($this->historyIndex < count($this->commandHistory) - 1)
+        {
             $this->historyIndex++;
             $this->edit->text = $this->commandHistory[$this->historyIndex];
-        } else {
+        }
+        else
+        {
             $this->historyIndex = count($this->commandHistory); 
             $this->edit->text = "";
         }

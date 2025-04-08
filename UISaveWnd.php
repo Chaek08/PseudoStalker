@@ -22,8 +22,6 @@ use php\gui\event\UXKeyEvent;
 
 class UISaveWnd extends AbstractForm
 {
-    const SAVE_DIRECTORY = './userdata/savedgames/';
-    
     private $localization;
 
     public function __construct()
@@ -31,6 +29,8 @@ class UISaveWnd extends AbstractForm
         parent::__construct();
 
         $this->localization = new Localization($language);
+        
+        define("SAVE_DIRECTORY", "./userdata/savedgames/");
     }
     
     private $saveHistory = []; 
@@ -51,7 +51,7 @@ class UISaveWnd extends AbstractForm
     }
     function refreshSavesList()
     {
-        $directory = new File(self::SAVE_DIRECTORY);
+        $directory = new File(SAVE_DIRECTORY);
         $newItems = [];
 
         if ($directory->exists())
@@ -92,21 +92,17 @@ class UISaveWnd extends AbstractForm
     }
     function saveScreenshot()
     {
-        $this->form('maingame')->MainMenu->hide();
+        if ($this->form('maingame')->MainMenu->content->UISaveWnd->visible) $this->form('maingame')->MainMenu->hide();
         $this->form('maingame')->CustomCursor->hide();
-        if (!$GLOBALS['HudVisible'])
-        { 
-            $this->form('maingame')->ToggleHud();
-        }
+        if (!$GLOBALS['HudVisible'] && $this->form('maingame')->MainMenu->content->UISaveWnd->visible) $this->form('maingame')->ToggleHud();
+        if ($this->form('maingame')->Console->visible) $this->form('maingame')->Console->opacity = 0;
 
         $image = $this->form('maingame')->layout->snapshot();
 
+        if ($this->form('maingame')->MainMenu->content->UISaveWnd->visible) $this->form('maingame')->MainMenu->show();
         $this->form('maingame')->CustomCursor->show();
-        $this->form('maingame')->MainMenu->show();
-        if ($GLOBALS['HudVisible'])
-        { 
-            $this->form('maingame')->ToggleHud();
-        }
+        if ($GLOBALS['HudVisible'] && $this->form('maingame')->MainMenu->content->UISaveWnd->visible) $this->form('maingame')->ToggleHud();
+        if ($this->form('maingame')->Console->visible) $this->form('maingame')->Console->opacity = 100;
         
         $imageView = new UXImageView($image);
 
@@ -116,7 +112,7 @@ class UISaveWnd extends AbstractForm
         $scaledImage = $imageView->snapshot();
 
         $saveName = $this->Edit_SaveName->text;
-        $path = self::SAVE_DIRECTORY . $saveName . '.jpg';
+        $path = SAVE_DIRECTORY . $saveName . '.jpg';
         $scaledImage->save(new File($path));
     }
     /**
@@ -152,16 +148,16 @@ class UISaveWnd extends AbstractForm
         if ($saveName != '')
         {
             $fileName = $saveName . '.sav'; 
-            $filePath = self::SAVE_DIRECTORY . $fileName;
+            $filePath = SAVE_DIRECTORY . $fileName;
             
             if (file_exists($filePath))
             {
                 $this->form('maingame')->toast($this->localization->get('brainAFKToast'));
                 return; 
             }
-            if (!file_exists(self::SAVE_DIRECTORY))
+            if (!file_exists(SAVE_DIRECTORY))
             {
-                mkdir(self::SAVE_DIRECTORY, 0777, true);
+                mkdir(SAVE_DIRECTORY, 0777, true);
             }
             if (!file_exists($filePath))
             {
@@ -230,8 +226,8 @@ class UISaveWnd extends AbstractForm
 
         if ($selectedSave != '')
         {
-            $filePath = self::SAVE_DIRECTORY . $selectedSave . '.sav';
-            $imagePath = self::SAVE_DIRECTORY . $selectedSave . '.jpg';
+            $filePath = SAVE_DIRECTORY . $selectedSave . '.sav';
+            $imagePath = SAVE_DIRECTORY . $selectedSave . '.jpg';
 
             if (file_exists($filePath))
             {

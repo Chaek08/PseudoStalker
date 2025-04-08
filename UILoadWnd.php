@@ -20,8 +20,6 @@ use app\forms\classes\DimasCryptoZlodey;
 
 class UILoadWnd extends AbstractForm
 {
-    const SAVE_DIRECTORY = './userdata/savedgames/';
-
     private $localization;
 
     public function __construct() 
@@ -45,7 +43,7 @@ class UILoadWnd extends AbstractForm
     }
     function refreshSavesList()
     {
-        $directory = new File(self::SAVE_DIRECTORY);
+        $directory = new File(SAVE_DIRECTORY);
         $newItems = [];
 
         if ($directory->exists())
@@ -136,8 +134,8 @@ class UILoadWnd extends AbstractForm
             return;
         }
         
-        $imagePath = self::SAVE_DIRECTORY . $selectedSave . '.jpg';
-        $saveFile = self::SAVE_DIRECTORY . $selectedSave . '.sav';
+        $imagePath = SAVE_DIRECTORY . $selectedSave . '.jpg';
+        $saveFile = SAVE_DIRECTORY . $selectedSave . '.sav';
 
         if (file_exists($imagePath))
         {
@@ -180,7 +178,7 @@ class UILoadWnd extends AbstractForm
         
         $saveName = $this->saves_list->selectedItem;
         
-        $filePath = self::SAVE_DIRECTORY . $saveName . '.sav';
+        $filePath = SAVE_DIRECTORY . $saveName . '.sav';
         $encryptedData = Stream::getContents($filePath);
         $saveData = json_decode(DimasCryptoZlodey::decryptData($encryptedData), true);
                 
@@ -323,8 +321,8 @@ class UILoadWnd extends AbstractForm
 
         if ($selectedSave != '')
         {
-            $filePath = self::SAVE_DIRECTORY . $selectedSave . '.sav';
-            $imagePath = self::SAVE_DIRECTORY . $selectedSave . '.jpg';
+            $filePath = SAVE_DIRECTORY . $selectedSave . '.sav';
+            $imagePath = SAVE_DIRECTORY . $selectedSave . '.jpg';
 
             if (file_exists($filePath))
             {
