@@ -675,4 +675,46 @@ class maingame extends AbstractForm
         $this->form('maingame')->MainMenu->content->opensdk_btn->enabled = true;
         $this->form('maingame')->MainMenu->content->opensdk_btn->text = 'Open SDK';
     }
+    /**
+     * @event keyDown-F5 
+     */
+    function QuickSave(UXKeyEvent $e = null)
+    {    
+        if (!$GLOBALS['ContinueGameState']) return;
+        
+        $saveName = System::getProperty('user.name') . '_quicksave';
+        $this->form('maingame')->MainMenu->content->UISaveWnd->content->Edit_SaveName->text = $saveName;
+        $this->form('maingame')->MainMenu->content->UISaveWnd->content->BtnSaveGame();
+        
+        $this->toast('Saved game: ' . $saveName); //todo сделать потом в сталкер стайле
+    }
+    /**
+     * @event keyDown-F7 
+     */
+    function QuickLoad(UXKeyEvent $e = null)
+    {
+        if (!$GLOBALS['ContinueGameState']) return;
+
+        $savesList = $this->MainMenu->content->UILoadWnd->content->saves_list;
+        $items = $savesList->items->toArray();
+
+        $latestIndex = -1;
+        $latestTime = 0;
+
+        foreach ($items as $index => $saveName) {
+            $filePath = SAVE_DIRECTORY . $saveName . '.sav';
+            if (file_exists($filePath))
+            {
+                $fileTime = filemtime($filePath);
+                if ($fileTime > $latestTime)
+                {
+                    $latestTime = $fileTime;
+                    $latestIndex = $index;
+                }
+            }
+        }
+
+        $savesList->selectedIndex = $latestIndex;
+        $this->MainMenu->content->UILoadWnd->content->BtnLoadSave();
+    }
 }

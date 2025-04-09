@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use php\lang\System;
 use php\framework\Logger;
 use php\gui\UXImageView;
 use php\desktop\Robot;
@@ -144,72 +145,70 @@ class UISaveWnd extends AbstractForm
         $this->saveHistory[] = trim($this->Edit_SaveName->text);
         $this->historyIndex = count($this->saveHistory);
     
-        $saveName = $this->Edit_SaveName->text;
+        $saveName = trim($this->Edit_SaveName->text);
         if ($saveName != '')
         {
             $fileName = $saveName . '.sav'; 
             $filePath = SAVE_DIRECTORY . $fileName;
             
-            if (file_exists($filePath))
+            if (file_exists($filePath) && $saveName != System::getProperty('user.name') . '_quicksave')
             {
                 $this->form('maingame')->toast($this->localization->get('brainAFKToast'));
-                return; 
+                return;
             }
             if (!file_exists(SAVE_DIRECTORY))
             {
                 mkdir(SAVE_DIRECTORY, 0777, true);
             }
-            if (!file_exists($filePath))
-            {
-                $saveData = [
-                    'client_version' => client_version,
-                    'health_gg_inv' => [
-                            'value' => $this->form('maingame')->Inventory->content->health_bar_gg->text,
-                            'pb_width' => $this->form('maingame')->Inventory->content->health_bar_gg->width,
+            
+            $saveData = [
+                'client_version' => client_version,
+                'health_gg_inv' => [
+                        'value' => $this->form('maingame')->Inventory->content->health_bar_gg->text,
+                        'pb_width' => $this->form('maingame')->Inventory->content->health_bar_gg->width,
+                ],
+                'health' => [
+                    'gg' => [ 
+                        'value' => $this->form('maingame')->health_bar_gg->text,
+                        'pb_width' => $this->form('maingame')->health_bar_gg->width,
                     ],
-                    'health' => [
-                        'gg' => [ 
-                            'value' => $this->form('maingame')->health_bar_gg->text,
-                            'pb_width' => $this->form('maingame')->health_bar_gg->width,
-                        ],
-                        'enemy' => [
-                            'value' => $this->form('maingame')->health_bar_enemy->text,
-                            'pb_width' => $this->form('maingame')->health_bar_enemy->width,
-                        ]
+                    'enemy' => [
+                        'value' => $this->form('maingame')->health_bar_enemy->text,
+                        'pb_width' => $this->form('maingame')->health_bar_enemy->width,
+                    ]
+                ],
+                'objects_position' => [
+                    'actor' => [
+                        'x' => $this->form('maingame')->actor->position[0],
+                        'y' => $this->form('maingame')->actor->position[1],
                     ],
-                    'objects_position' => [
-                        'actor' => [
-                            'x' => $this->form('maingame')->actor->position[0],
-                            'y' => $this->form('maingame')->actor->position[1],
-                        ],
-                        'enemy' => [
-                            'x' => $this->form('maingame')->enemy->position[0],
-                            'y' => $this->form('maingame')->enemy->position[1],
-                        ],
-                        'item_vodka_0000' => [
-                            'x' => $this->form('maingame')->item_vodka_0000->position[0],
-                            'y' => $this->form('maingame')->item_vodka_0000->position[1],
-                        ],
+                    'enemy' => [
+                        'x' => $this->form('maingame')->enemy->position[0],
+                        'y' => $this->form('maingame')->enemy->position[1],
                     ],
-                    'quest_time' => [
-                        'date' => $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_date->text,
-                        'hm' => $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_hm->text,
+                    'item_vodka_0000' => [
+                        'x' => $this->form('maingame')->item_vodka_0000->position[0],
+                        'y' => $this->form('maingame')->item_vodka_0000->position[1],
                     ],
-                    'vodka_exist' => $this->form('maingame')->item_vodka_0000->visible,
-                    'quest_step1' => isset($GLOBALS['QuestStep1']) ? $GLOBALS['QuestStep1'] : false,
-                    'quest_completed' => isset($GLOBALS['QuestCompleted']) ? $GLOBALS['QuestCompleted'] : false,
-                    'actor_failed' => isset($GLOBALS['ActorFailed']) ? $GLOBALS['ActorFailed'] : false,
-                    'enemy_failed' => isset($GLOBALS['EnemyFailed']) ? $GLOBALS['EnemyFailed'] : false,
-                    'need_to_check_pda' => isset($GLOBALS['NeedToCheckPDA']) ? $GLOBALS['NeedToCheckPDA'] : false,
-                    'menubackground_playpos' => $this->form('maingame')->MainMenu->content->MainMenuBackground->positionMs,
-                    'menusound_playpos' => $this->form('maingame')->MainMenu->content->MenuSound->positionMs,
-                    'mainambientsound_playpos' => $this->form('maingame')->MainAmbient->positionMs,
-                    'fightsound_playpos' => $this->form('maingame')->FightSound->positionMs,
-                ];
-                $encryptedData = DimasCryptoZlodey::encryptData(json_encode($saveData, JSON_PRETTY_PRINT));
-                $this->saveScreenshot();
-                Stream::putContents($filePath, $encryptedData);
-            }
+                ],
+                'quest_time' => [
+                    'date' => $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_date->text,
+                    'hm' => $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_hm->text,
+                ],
+                'vodka_exist' => $this->form('maingame')->item_vodka_0000->visible,
+                'quest_step1' => isset($GLOBALS['QuestStep1']) ? $GLOBALS['QuestStep1'] : false,
+                'quest_completed' => isset($GLOBALS['QuestCompleted']) ? $GLOBALS['QuestCompleted'] : false,
+                'actor_failed' => isset($GLOBALS['ActorFailed']) ? $GLOBALS['ActorFailed'] : false,
+                'enemy_failed' => isset($GLOBALS['EnemyFailed']) ? $GLOBALS['EnemyFailed'] : false,
+                'need_to_check_pda' => isset($GLOBALS['NeedToCheckPDA']) ? $GLOBALS['NeedToCheckPDA'] : false,
+                'menubackground_playpos' => $this->form('maingame')->MainMenu->content->MainMenuBackground->positionMs,
+                'menusound_playpos' => $this->form('maingame')->MainMenu->content->MenuSound->positionMs,
+                'mainambientsound_playpos' => $this->form('maingame')->MainAmbient->positionMs,
+                'fightsound_playpos' => $this->form('maingame')->FightSound->positionMs,
+            ];
+            $encryptedData = DimasCryptoZlodey::encryptData(json_encode($saveData, JSON_PRETTY_PRINT));
+            $this->saveScreenshot();
+            Stream::putContents($filePath, $encryptedData);
             
             $this->saves_list->items->add($saveName);
             if (Debug_Build) Logger::info("Saved game: " . $saveName);

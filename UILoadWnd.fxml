@@ -64,7 +64,7 @@
     <Data cursor="DEFAULT" enabled="1" id="data-savedata_name" visible=""/>
     <SpriteView animationEnabled="false" focusTraversable="false" height="104" id="noise" layoutX="536" layoutY="136" styleClass="" width="168"/>
     <Data animated="1" cursor="DEFAULT" enabled="1" id="data-noise" sprite="noise" visible="1"/>
-    <Panel backgroundColor="#ffffff" borderColor="#c0c0c0" borderRadius="10" borderStyle="NONE" borderWidth="1" focusTraversable="false" id="saves_panel" layoutX="528" layoutY="264" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="480" prefWidth="536" styleClass="" titleColor="#333333" titleOffset="0" titlePosition="TOP_LEFT">
+    <Panel backgroundColor="#ffffff" borderColor="#c0c0c0" borderRadius="10" borderStyle="NONE" borderWidth="1" focusTraversable="false" id="saves_panel" layoutX="528" layoutY="264" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="480" prefWidth="536" styleClass="" titleColor="#000000" titleOffset="0" titlePosition="TOP_LEFT">
       <children/>
       <titleFont>
         <Font name="System Regular" size="12"/>

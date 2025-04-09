@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use php\lang\System;
 use Exception;
 use action\Element;
 use php\gui\framework\AbstractForm;
@@ -127,19 +128,26 @@ class console extends AbstractForm
                         break;
                         
                 case "save":
-                    $parts = explode(" ", trim($this->edit->text), 2); 
-                    if (count($parts) == 2)
-                    {
-                        $saveName = trim($parts[1]); 
-                        if ($saveName !== "")
+                        $parts = explode(" ", trim($this->edit->text), 2); 
+                        $saveName = "";
+
+                        if (count($parts) == 2 && trim($parts[1]) !== "")
                         {
-                            $this->form('maingame')->MainMenu->content->UISaveWnd->content->Edit_SaveName->text = $saveName;
-                            $this->form('maingame')->MainMenu->content->UISaveWnd->content->BtnSaveGame();
-                            Element::appendText($this->Console_Log, "> Saved game: $saveName\n");
+                            $saveName = trim($parts[1]);
                         }
-                    }
-                    $this->edit->text = "";
-                    break;
+                        else
+                        {
+                            $username = System::getProperty('user.name');
+                            $saveName = $username . '_quicksave';
+                        }
+
+                        $saveUI = $this->form('maingame')->MainMenu->content->UISaveWnd->content;
+                        $saveUI->Edit_SaveName->text = $saveName;
+                        $saveUI->BtnSaveGame();
+
+                        Element::appendText($this->Console_Log, "> Saved game: $saveName\n");
+                        $this->edit->text = "";
+                        break;
 
                         
                 case "load":
