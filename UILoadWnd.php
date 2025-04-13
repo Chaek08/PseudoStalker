@@ -100,7 +100,7 @@ class UILoadWnd extends AbstractForm
         Timer::after(100, function () use ($player, $positionMs, $retries){
             uiLater(function () use ($player, $positionMs, $retries) {
             //TODO: таки разобраться с проверкой на duration
-                if ($player->status === 'READY' || $player->status === 'PLAYING')
+                if ($player->status == 'READY' || $player->status == 'PLAYING')
                 {
                     $player->positionMs = $positionMs;
                 }
@@ -215,7 +215,7 @@ class UILoadWnd extends AbstractForm
             'need_to_check_pda',
             'menubackground_playpos',
             'menusound_playpos',
-            'mainambientsound_playpos',
+            'environment_playpos',
             'fightsound_playpos',
         ];
         foreach ($requiredKeys as $key)
@@ -295,6 +295,7 @@ class UILoadWnd extends AbstractForm
         }
         
         $this->form('maingame')->GetHealth();
+        $this->form('maingame')->UpdateEnvironment();
         $this->form('maingame')->health_bar_gg->text = $saveData['health']['gg']['value'];
         $this->form('maingame')->health_bar_gg->width = $saveData['health']['gg']['pb_width'];
         $this->form('maingame')->Inventory->content->health_bar_gg->width = $saveData['health_gg_inv']['pb_width'];
@@ -305,8 +306,10 @@ class UILoadWnd extends AbstractForm
         
         $this->waitAndSetPosition($this->form('maingame')->MainMenu->content->MainMenuBackground, $saveData['menubackground_playpos']);
         $this->waitAndSetPosition($this->form('maingame')->MainMenu->content->MenuSound, $saveData['menusound_playpos']);
-        $this->waitAndSetPosition($this->form('maingame')->MainAmbient, $saveData['mainambientsound_playpos']);
+        $this->waitAndSetPosition($this->form('maingame')->Environment, $saveData['environment_playpos']);
         $this->waitAndSetPosition($this->form('maingame')->FightSound, $saveData['fightsound_playpos']);
+        
+        $this->form('maingame')->PlayEnvironment();
         
         if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = true;
                 

@@ -11,6 +11,8 @@ use php\framework\Logger;
 
 class maingame extends AbstractForm
 {
+    private $currentCycle = '';
+    
     /**
      * @event show 
      */
@@ -18,6 +20,8 @@ class maingame extends AbstractForm
     {
         define('BuildID', 'Build 835, Apr 7 2025'); //start date 24.12.2022
         define('VersionID', 'v1.3 (rc2)');
+        
+        define('client_version', '3');
         
         Logger::info(VersionID . ", " . BuildID);
         
@@ -42,13 +46,73 @@ class maingame extends AbstractForm
             $this->Editor->free();
             $this->MainMenu->content->opensdk_btn->free();
         }
-        
         $this->MainMenu->content->Options->content->InitOptions();
         
-        $this->OpenMainAmbient();
-        
-        define('client_version', '3');
+        $this->currentCycle = ''; 
+        $this->UpdateEnvironment();
+    }     
+    function UpdateEnvironment()
+    {
+        $this->Environment->view = $this->Environment_Background;  
+
+        $timeFromTasks = $this->Pda->content->Pda_Tasks->content->time_quest_hm->text;
+        $newCycle = $this->getTimeCycleByString($timeFromTasks);
+
+        $backgroundPaths = [
+            'morning' => "./gamedata/textures/environment/morning.mp4",
+            'day' => "./gamedata/textures/environment/day.mp4",
+            'evening' => "./gamedata/textures/environment/evening.mp4",
+            'night' => "./gamedata/textures/environment/night.mp4"
+        ];
+
+        if ($newCycle != $this->currentCycle)
+        {
+            if ($this->currentCycle == '')
+            {
+                Logger::info("Set cycle: " . $newCycle);
+            }
+            else
+            {
+                Logger::info("Cycle changed: " . $this->currentCycle . " -> " . $newCycle);
+            }
+            $this->currentCycle = $newCycle;
+
+            $backgroundPath = $backgroundPaths[$newCycle];
+
+            Media::open($backgroundPath, false, $this->Environment);
+        }
     }
+    function PlayEnvironment()
+    {
+        Media::play($this->Environment);
+        
+        if ($GLOBALS['AllSounds'])
+        {
+            $this->Environment->volume = 100;
+        }
+    }
+    function getTimeCycleByString($timeStr)
+    {
+        $hourStr = substr($timeStr, 0, 2);
+        $hour = (int)$hourStr;
+
+        if ($hour >= 5 && $hour < 11)
+        {
+            return 'morning';
+        }
+        elseif ($hour >= 11 && $hour < 18)
+        {
+            return 'day';
+        }
+        elseif ($hour >= 18 && $hour < 21)
+        {
+            return 'evening';
+        }
+        else
+        {
+            return 'night';
+        }
+    }    
     function GetVersion()
     {
         if (Debug_Build)
@@ -77,14 +141,6 @@ class maingame extends AbstractForm
            $this->LoadScreen->hide();
            $this->CustomCursor->show();       
         });            
-    }     
-    function OpenMainAmbient()
-    {
-        Media::open('res://.data/audio/game/krip1.mp3', false, $this->MainAmbient);
-    }
-    function PauseMainAmbient() //deprecated
-    {
-        Media::pause($this->MainAmbient);
     }    
     function PlayFightSong()
     {    
@@ -103,7 +159,6 @@ class maingame extends AbstractForm
     function StopAllSounds()
     {
         if (Media::isStatus('PLAYING', $this->FightSound)) Media::stop($this->FightSound);
-        if (Media::isStatus('PLAYING', $this->MainAmbient)) Media::stop($this->MainAmbient);
         if (Media::isStatus('PLAYING', $this->MainMenu->content->MenuSound)) Media::stop($this->MainMenu->content->MenuSound);
         if (Media::isStatus('PLAYING', 'v_enemy')) Media::stop('v_enemy');
         if (Media::isStatus('PLAYING', 'v_actor')) Media::stop('v_actor');
@@ -113,6 +168,8 @@ class maingame extends AbstractForm
         if (Media::isStatus('PLAYING', 'hit_actor_damage')) Media::stop('hit_actor_damage');
         if (Media::isStatus('PLAYING', 'die_alex')) Media::stop('die_alex');
         if (Media::isStatus('PLAYING', 'die_actor')) Media::stop('die_actor');
+        
+        if (!$GLOBALS['AllSounds']) $this->Environment->volume = 0;
         
         $this->Dialog->content->StopVoice();
     }  
@@ -126,6 +183,7 @@ class maingame extends AbstractForm
         if ($GLOBALS['EnemyFailed']) $GLOBALS['EnemyFailed'] = false;
         
         if ($GLOBALS['AllSounds']) $this->StopAllSounds();
+        Media::stop($this->Environment);
          
         if ($this->fight_image->visible) $this->fight_image->hide();
         if ($this->leave_btn->visible || !$GLOBALS['QuestCompleted']) $this->leave_btn->hide();
@@ -153,11 +211,18 @@ class maingame extends AbstractForm
         $this->Pda->content->Pda_Statistic->content->UpdateRaiting();
         
         $this->GetHealth();
-        $this->OpenMainAmbient();
-        $this->dlg_btn->show();
-        $this->Dialog->content->StartDialog();
+        $this->UpdateEnvironment();
         if ($GLOBALS['ContinueGameState']) $this->MainMenu->content->SwitchGameState();
-        if ($this->MainMenu->visible) $this->MainMenu->content->InitMainMenu();
+        if ($this->MainMenu->visible)
+        {
+            $this->MainMenu->content->InitMainMenu();
+        }
+        else 
+        {
+            $this->PlayEnvironment();
+        }
+        $this->dlg_btn->show();
+        $this->Dialog->content->StartDialog();        
         $this->Pda->content->Pda_Statistic->content->ResetFinalText();
     }
     function CheckVisibledFragments()
@@ -290,12 +355,12 @@ class maingame extends AbstractForm
         }
         
         $this->ShowMenu();
-        $this->PauseMainAmbient();
     }
     function ShowMenu()
     {
         $this->MainMenu->show();
         Media::play($this->MainMenu->content->MainMenuBackground);
+        Media::pause($this->Environment);
         
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
         {
@@ -381,9 +446,11 @@ class maingame extends AbstractForm
     function LeaveBtn(UXMouseEvent $e = null)
     {    
         $this->ToggleHud();
-        $this->Fail->show();
         
-        Media::pause($this->MainAmbient);
+        $this->Fail->show();
+        Media::pause($this->Environment);
+        if ($GLOBALS['ActorFailed']) $this->form('maingame')->enemy->hide();
+        if ($GLOBALS['EnemyFailed']) $this->form('maingame')->actor->hide();
     }
     /**
      * @event item_vodka_0000.click-2x
@@ -622,7 +689,12 @@ class maingame extends AbstractForm
     
         $this->fight_image->hide();
         $this->ToggleHud();
+        
         $this->Fail->show();
+        Media::pause($this->Environment);
+        if ($GLOBALS['ActorFailed']) $this->form('maingame')->enemy->hide();
+        if ($GLOBALS['EnemyFailed']) $this->form('maingame')->actor->hide();
+        
         $this->item_vodka_0000->enabled = false;
         
         $this->idle_static_actor->show();

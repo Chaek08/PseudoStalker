@@ -35,12 +35,15 @@ class fail_wnd extends AbstractForm
      */
     function ReturnBtn(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->Fail->hide();
         $this->form('maingame')->ToggleHud();
+        
+        $this->form('maingame')->Fail->hide();
+        Media::play($this->form('maingame')->Environment);
+        if ($GLOBALS['ActorFailed']) $this->form('maingame')->enemy->show();
+        if ($GLOBALS['EnemyFailed']) $this->form('maingame')->actor->show();
+                   
         if ($GLOBALS['AllSounds'])
-        {        
-            Media::play($this->form('maingame')->MainAmbient);
-            
+        {
             if ($GLOBALS['ActorFailed'])
             {
                 if (Media::isStatus('PLAYING','v_enemy')) Media::stop('v_enemy');

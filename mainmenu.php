@@ -77,7 +77,7 @@ class mainmenu extends AbstractForm
         Media::pause($this->MenuSound);
         Media::pause($this->MainMenuBackground);
         
-        if (!$GLOBALS['QuestStep1']) Media::play($this->form('maingame')->MainAmbient);
+        $this->form('maingame')->PlayEnvironment();
         
         if ($this->form('maingame')->fight_image->visible)
         {

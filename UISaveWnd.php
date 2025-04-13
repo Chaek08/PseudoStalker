@@ -203,7 +203,7 @@ class UISaveWnd extends AbstractForm
                 'need_to_check_pda' => isset($GLOBALS['NeedToCheckPDA']) ? $GLOBALS['NeedToCheckPDA'] : false,
                 'menubackground_playpos' => $this->form('maingame')->MainMenu->content->MainMenuBackground->positionMs,
                 'menusound_playpos' => $this->form('maingame')->MainMenu->content->MenuSound->positionMs,
-                'mainambientsound_playpos' => $this->form('maingame')->MainAmbient->positionMs,
+                'environment_playpos' => $this->form('maingame')->Environment->positionMs,
                 'fightsound_playpos' => $this->form('maingame')->FightSound->positionMs,
             ];
             $encryptedData = DimasCryptoZlodey::encryptData(json_encode($saveData, JSON_PRETTY_PRINT));
