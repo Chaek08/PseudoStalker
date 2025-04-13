@@ -40,17 +40,16 @@ class dialog extends AbstractForm
     }
     function VoiceStart()
     {
-        if (SDK_Mode && $GLOBALS['AllSounds'])
+        if ($GLOBALS['AllSounds'])
         {   
-            Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
-        }
-        else if (SDK_Mode)
-        {
-            return;
-        }
-        else
-        {
-            $this->playVoice("voice_start", "voice_start");
+            if (SDK_Mode)
+            {
+                Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
+            }
+            else 
+            {
+                $this->playVoice("voice_start", "voice_start");
+            }
         }
     }
     function VoiceTalk_1()
