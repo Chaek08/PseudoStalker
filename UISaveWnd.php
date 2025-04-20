@@ -24,6 +24,9 @@ use php\gui\event\UXKeyEvent;
 class UISaveWnd extends AbstractForm
 {
     private $localization;
+    
+    private $saveHistory = []; 
+    private $historyIndex = -1;    
 
     public function __construct()
     {
@@ -33,9 +36,6 @@ class UISaveWnd extends AbstractForm
         
         define("SAVE_DIRECTORY", "./userdata/savedgames/");
     }
-    
-    private $saveHistory = []; 
-    private $historyIndex = -1;
         
     /**
      * @event show 
@@ -49,7 +49,7 @@ class UISaveWnd extends AbstractForm
                 $this->refreshSavesList();
             });
         });
-    }
+    }  
     function refreshSavesList()
     {
         $directory = new File(SAVE_DIRECTORY);

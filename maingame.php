@@ -141,7 +141,7 @@ class maingame extends AbstractForm
            $this->LoadScreen->hide();
            $this->CustomCursor->show();       
         });            
-    }    
+    }     
     function PlayFightSong()
     {    
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
@@ -241,10 +241,7 @@ class maingame extends AbstractForm
     function ToggleHud()
     {
         if ($GLOBALS['HudVisible'])
-        {
-            if ($this->skull_actor->visible) $this->skull_actor->hide(); //deprecated in future
-            if ($this->skull_enemy->visible) $this->skull_enemy->hide(); //deprecated in future        
-        
+        {       
             $this->health_static_gg->hide();
             $this->health_bar_gg->hide();
             $this->health_bar_gg_b->hide();
@@ -265,18 +262,15 @@ class maingame extends AbstractForm
             return;
         }
         else 
-        {
-            if (!$this->actor->visible) $this->skull_actor->show(); //deprecated in future
-            if (!$this->enemy->visible) $this->skull_enemy->show(); //deprecated in Future
-                    
+        {    
             $this->health_static_gg->show();
-            if (!$this->skull_actor->visible) 
+            if (!$GLOBALS['ActorFailed']) 
             {
                 $this->health_bar_gg->show();
                 $this->health_bar_gg_b->show();
             }
             $this->health_static_enemy->show();
-            if (!$this->skull_enemy->visible) 
+            if (!$GLOBALS['EnemyFailed']) 
             {
                 $this->health_bar_enemy->show();
                 $this->health_bar_enemy_b->show();
@@ -482,6 +476,44 @@ class maingame extends AbstractForm
         {
             Animation::displace($this->item_vodka_0000, 500, -1030, $y); 
         }
+    }
+    private $isAnimating = false;    
+    
+    function animateResizeWidth($node, $delta, $speed = 3, $callback = null)
+    {
+        if ($this->isAnimating)
+        {
+            return;
+        }
+
+        $this->isAnimating = true;
+    
+        $targetWidth = $node->width + $delta;
+
+        $timer = new UXAnimationTimer(function () use ($node, $targetWidth, $speed, &$timer, $callback) {
+            if ($node->width < $targetWidth) 
+            {
+                $node->width += $speed;
+            }
+            elseif ($node->width > $targetWidth)
+            {
+                $node->width -= $speed;
+            }
+
+            if ($node->width <= $targetWidth && $node->width >= $targetWidth)
+            {
+                $node->width = $targetWidth;
+                $timer->stop();
+                $this->isAnimating = false;
+                
+                if ($callback)
+                {
+                    $callback();
+                }
+            }
+        });
+
+        $timer->start();
     }    
     function GetHealth() 
     {
@@ -500,38 +532,36 @@ class maingame extends AbstractForm
             $this->health_bar_gg->show();
             $this->health_bar_gg_b->show();
             
-            if ($this->form('maingame')->Inventory->content->skull_actor->visible) {
-            $this->form('maingame')->Inventory->content->skull_actor->hide();}
+            $this->Inventory->content->health_static_gg->graphic = null;
             $this->Inventory->content->health_bar_gg->show();
             $this->Inventory->content->health_bar_gg_b->show();
             
-            if ($this->skull_actor->visible || $GLOBALS['HudVisible']) $this->skull_actor->hide();
+            $this->health_static_gg->graphic = null;
         }
         else 
         {
             $this->health_bar_gg->hide();
             $this->health_bar_gg_b->hide();
             
-            if (!$this->form('maingame')->Inventory->content->skull_actor->visible) {
-            $this->form('maingame')->Inventory->content->skull_actor->show();}            
+            $this->Inventory->content->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
             $this->Inventory->content->health_bar_gg->hide();
             $this->Inventory->content->health_bar_gg_b->hide();            
             
-            $this->skull_actor->show();
+             $this->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
         }
         if (!$GLOBALS['EnemyFailed'] && $GLOBALS['HudVisible'])
         {
             $this->health_bar_enemy->show();
             $this->health_bar_enemy_b->show();
             
-            if ($this->skull_actor->visible || $GLOBALS['HudVisible']) $this->skull_enemy->hide();
+            $this->health_static_enemy->graphic = null;
         }
         else 
         {
             $this->health_bar_enemy->hide();
             $this->health_bar_enemy_b->hide();
             
-            $this->skull_enemy->show();
+            $this->health_static_enemy->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
         }
     }
     /**
@@ -541,8 +571,30 @@ class maingame extends AbstractForm
     { 
         if ($this->health_bar_enemy->width != 34)
         {
-            $this->health_bar_enemy->width -= 50;
-             
+            $this->animateResizeWidth($this->health_bar_enemy, -50, 2, function() {
+                if ($this->health_bar_enemy->width == 214)
+                {
+                    $this->health_bar_enemy->text = "75%";
+                }
+                if ($this->health_bar_enemy->width == 164)
+                {
+                    $this->health_bar_enemy->text = "55%";
+                }      
+                if ($this->health_bar_enemy->width == 114)
+                {
+                    $this->health_bar_enemy->text = "50%";
+                }  
+                if ($this->health_bar_enemy->width == 64)
+                {
+                    $this->health_bar_enemy->text = "33%";
+                }    
+                if ($this->health_bar_enemy->width == 14)
+                {
+                    $this->health_bar_enemy->text = "1%";
+                    $this->health_bar_enemy->width += 20;
+                }
+            });
+
             if ($GLOBALS['AllSounds'])
             {
                 Media::open('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex');
@@ -551,38 +603,17 @@ class maingame extends AbstractForm
         }
         else     
         {
-            $this->skull_enemy->show();
+            $this->health_static_enemy->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
             $this->health_bar_enemy->hide();
             $this->health_bar_enemy_b->hide();
             $this->leave_btn->show();
             $this->dlg_btn->hide();
-            
+        
             if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex');
-             
+        
             $GLOBALS['EnemyFailed'] = true;
             $this->finalizeBattle();
             return;
-        }   
-        if ($this->health_bar_enemy->width == 214)
-        {
-            $this->health_bar_enemy->text = "75%";
-        }
-        if ($this->health_bar_enemy->width == 164)
-        {
-            $this->health_bar_enemy->text = "55%";
-        }      
-        if ($this->health_bar_enemy->width == 114)
-        {
-            $this->health_bar_enemy->text = "50%";
-        }  
-        if ($this->health_bar_enemy->width == 64)
-        {
-            $this->health_bar_enemy->text = "33%";
-        }    
-        if ($this->health_bar_enemy->width == 14)
-        {
-            $this->health_bar_enemy->text = "1%";
-            $this->health_bar_enemy->width += 20;
         }                    
     }
     /**
@@ -592,11 +623,50 @@ class maingame extends AbstractForm
     { 
         if ($this->health_bar_gg->width != 34)
         {
-            $this->health_bar_gg->width -= 50;  
+            $this->animateResizeWidth($this->health_bar_gg, -50, 2, function() {
+                if ($this->health_bar_gg->width == 214)
+                {
+                    $this->health_bar_gg->text = "75%";
+                    $this->Inventory->content->health_bar_gg->width -= 100;           
+                    $this->Inventory->content->health_bar_gg->text = "75%";
+                    $this->Bleeding(); 
+                }
+                if ($this->health_bar_gg->width == 164)
+                {
+                    $this->health_bar_gg->text = "55%";
+                    $this->Inventory->content->health_bar_gg->width -= 50;            
+                    $this->Inventory->content->health_bar_gg->text = "55%";   
+                    $this->Inventory->content->SetItemCondition();
+                }      
+                if ($this->health_bar_gg->width == 114)
+                {
+                    $this->health_bar_gg->text = "50%";
+                    $this->Inventory->content->health_bar_gg->width -= 40;     
+                    $this->Inventory->content->health_bar_gg->text = "50%";         
+                    $this->Inventory->content->SetItemCondition();
+                    $this->Bleeding();  
+                }  
+                if ($this->health_bar_gg->width == 64)
+                {
+                    $this->health_bar_gg->text = "33%";
+                    $this->Inventory->content->health_bar_gg->width -= 150;            
+                    $this->Inventory->content->health_bar_gg->text = "33%";                          
+                }    
+                if ($this->health_bar_gg->width == 14)
+                {
+                    $this->health_bar_gg->text = "1%";
+                    $this->Inventory->content->health_bar_gg->width -= 40;            
+                    $this->Inventory->content->health_bar_gg->text = "1%"; 
+                    $this->health_bar_gg->width += 20;
+                    $this->Bleeding();
+                    $this->Inventory->content->SetItemCondition();    
+                }
+            });
+
             Animation::fadeIn($this->hitmark_static, 250);  
             $this->hitmark_static->show();
             Animation::fadeOut($this->hitmark_static, 500);
-            
+        
             if ($GLOBALS['AllSounds'])
             {
                 Media::open('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor'); 
@@ -605,61 +675,24 @@ class maingame extends AbstractForm
         }
         else     
         {
-            $this->skull_actor->show();
+            $this->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
             $this->health_bar_gg->hide();
             $this->health_bar_gg_b->hide();
             $this->Bleeding();
             $this->Inventory->content->health_bar_gg->hide();
-            $this->Inventory->content->health_bar_gg_b->hide();            
-            $this->Inventory->content->skull_actor->show();
+            $this->Inventory->content->health_bar_gg_b->hide();
+            $this->Inventory->content->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
             $this->leave_btn->show();
             $this->dlg_btn->hide();
-                       
+                   
             if ($this->hitmark_static->visible) $this->hitmark_static->hide();
-            
+        
             if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');
-            
+        
             $GLOBALS['ActorFailed'] = true;
             $this->finalizeBattle();
             return;
-        }   
-        if ($this->health_bar_gg->width == 214)
-        {
-            $this->health_bar_gg->text = "75%";
-            $this->Inventory->content->health_bar_gg->width -= 100;           
-            $this->Inventory->content->health_bar_gg->text = "75%";
-            $this->Bleeding(); 
-        }
-        if ($this->health_bar_gg->width == 164)
-        {
-            $this->health_bar_gg->text = "55%";
-            $this->Inventory->content->health_bar_gg->width -= 50;            
-            $this->Inventory->content->health_bar_gg->text = "55%";   
-            $this->Inventory->content->SetItemCondition();
-        }      
-        if ($this->health_bar_gg->width == 114)
-        {
-            $this->health_bar_gg->text = "50%";
-            $this->Inventory->content->health_bar_gg->width -= 40;     
-            $this->Inventory->content->health_bar_gg->text = "50%";         
-            $this->Inventory->content->SetItemCondition();
-            $this->Bleeding();  
-        }  
-        if ($this->health_bar_gg->width == 64)
-        {
-            $this->health_bar_gg->text = "33%";
-            $this->Inventory->content->health_bar_gg->width -= 150;            
-            $this->Inventory->content->health_bar_gg->text = "33%";                          
-        }    
-        if ($this->health_bar_gg->width == 14)
-        {
-            $this->health_bar_gg->text = "1%";
-            $this->Inventory->content->health_bar_gg->width -= 40;            
-            $this->Inventory->content->health_bar_gg->text = "1%"; 
-            $this->health_bar_gg->width += 20;
-            $this->Bleeding();   
-            $this->Inventory->content->SetItemCondition();                           
-        }                     
+        }            
     }    
     function Bleeding()
     {
@@ -752,7 +785,7 @@ class maingame extends AbstractForm
      */
     function QuickSave(UXKeyEvent $e = null)
     {    
-        if (!$GLOBALS['ContinueGameState']) return;
+        if (!$GLOBALS['ContinueGameState'] && $this->MainMenu->visible) return;
         
         $saveName = System::getProperty('user.name') . '_quicksave';
         $this->form('maingame')->MainMenu->content->UISaveWnd->content->Edit_SaveName->text = $saveName;
@@ -765,7 +798,7 @@ class maingame extends AbstractForm
      */
     function QuickLoad(UXKeyEvent $e = null)
     {
-        if (!$GLOBALS['ContinueGameState']) return;
+        if (!$GLOBALS['ContinueGameState'] && $this->MainMenu->visible) return;
 
         $savesList = $this->MainMenu->content->UILoadWnd->content->saves_list;
         $items = $savesList->items->toArray();
