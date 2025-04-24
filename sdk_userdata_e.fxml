@@ -158,7 +158,7 @@
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_ValerokName" visible="1"/>
     <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="true" id="Edit_ValerokIcon" layoutX="392" layoutY="360" prefColumnCount="12" prefHeight="40" prefWidth="344" promptText="res://.data/ui/icon_npc/valerok.png" styleClass="text-input text-field " text="res://.data/ui/icon_npc/valerok.png">
       <font>
-        <Font name="System Regular" size="15"/>
+        <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_ValerokIcon" visible="1"/>

@@ -88,27 +88,53 @@ class sdk_role_e extends AbstractForm
      * @event ApplyDeRoleIcon_Btn.click-Left 
      */
     function ApplyDeRoleIcon(UXMouseEvent $e = null)
-    {    
-        $this->form('maingame')->Dialog->content->community_actor->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
+    {
+        if ($this->Edit_RoleIcon_Danila->text != '')
+        {
+            $this->form('maingame')->Dialog->content->community_actor->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
         
-        $this->form('maingame')->Dialog->content->actor_label_1->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
-        $this->form('maingame')->Dialog->content->actor_label_3->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
-        $this->form('maingame')->Dialog->content->answer_name->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
+            $this->form('maingame')->Dialog->content->actor_label_1->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
+            $this->form('maingame')->Dialog->content->actor_label_3->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
+            $this->form('maingame')->Dialog->content->answer_name->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
         
-        $this->form('maingame')->Pda->content->Pda_Statistic->content->community->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));
+            $this->form('maingame')->Pda->content->Pda_Statistic->content->community->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Danila->text));       
+        }
+        else 
+        {
+            $this->form('maingame')->Dialog->content->community_actor->graphic = null;
+        
+            $this->form('maingame')->Dialog->content->actor_label_1->graphic = null;
+            $this->form('maingame')->Dialog->content->actor_label_3->graphic = null;
+            $this->form('maingame')->Dialog->content->answer_name->graphic = null;
+        
+            $this->form('maingame')->Pda->content->Pda_Statistic->content->community->graphic = null;
+        }
     }
     /**
      * @event ApplyPidoRoleIcon_Btn.click-Left 
      */
     function ApplyPidorasRoleIcon(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->Dialog->content->community_enemy->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
+        if ($this->Edit_RoleIcon_Pido->text != '')
+        {    
+            $this->form('maingame')->Dialog->content->community_enemy->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
         
-        $this->form('maingame')->Dialog->content->alex_label_1->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
-        $this->form('maingame')->Dialog->content->alex_label_2->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
-        $this->form('maingame')->Dialog->content->alex_label_3->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
+            $this->form('maingame')->Dialog->content->alex_label_1->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
+            $this->form('maingame')->Dialog->content->alex_label_2->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
+            $this->form('maingame')->Dialog->content->alex_label_3->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
         
-        $this->form('maingame')->Pda->content->Pda_Contacts->content->community->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
+            $this->form('maingame')->Pda->content->Pda_Contacts->content->community->graphic = new UXImageView(new UXImage($this->Edit_RoleIcon_Pido->text));
+        }
+        else 
+        {
+            $this->form('maingame')->Dialog->content->community_enemy->graphic = null;
+        
+            $this->form('maingame')->Dialog->content->alex_label_1->graphic = null;
+            $this->form('maingame')->Dialog->content->alex_label_2->graphic = null;
+            $this->form('maingame')->Dialog->content->alex_label_3->graphic = null;
+        
+            $this->form('maingame')->Pda->content->Pda_Contacts->content->community->graphic = null;
+        }        
     }
     /**
      * @event ResetDeRoleColor_Btn.click-Left 

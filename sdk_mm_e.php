@@ -13,7 +13,6 @@ class sdk_mm_e extends AbstractForm
 {
     function ApplyAll()
     {    
-        $this->ApplyBackground();
         $this->ApplyMenuBackground();
         $this->ApplyActorModel();
         $this->ApplyEnemyModel();
@@ -22,7 +21,6 @@ class sdk_mm_e extends AbstractForm
     }
     function ResetAll()
     {    
-        $this->ResetBackground();
         $this->ResetMenuBackground();
         $this->ResetActorModel();
         $this->ResetEnemyModel();
@@ -32,39 +30,10 @@ class sdk_mm_e extends AbstractForm
     }
     function ClearAll()
     {    
-        $this->ClearEdit();
         $this->ClearMenuBackground();
         $this->ClearEditActorModel();
         $this->ClearEditEnemyModel();
         $this->ClearFightSound();   
-    }    
-    /**
-     * @event ApplyBackground_Btn.click-Left 
-     */
-    function ApplyBackground(UXMouseEvent $e = null)
-    {    
-        if ($this->Edit_Background->text == '')
-        {
-            $this->form('maingame')->toast("enter background url");
-        }
-        else 
-        {
-            $this->form('maingame')->platform->image = new UXImage($this->Edit_Background->text);            
-        }
-    }
-    /**
-     * @event ResetBackground_Btn.click-Left 
-     */
-    function ResetBackground(UXMouseEvent $e = null)
-    {    
-        $this->Edit_Background->text = $this->Edit_Background->promptText;
-    }
-    /**
-     * @event ClearEdit_Btn.click-Left 
-     */
-    function ClearEdit(UXMouseEvent $e = null)
-    {    
-        $this->Edit_Background->text = '';
     }    
     /**
      * @event ApplyHBarColorActor_Btn.click-Left 
@@ -290,17 +259,6 @@ class sdk_mm_e extends AbstractForm
         if ($this->ImageFileChooser->execute())
         {
             $this->Edit_EnemyModel->text = $this->ImageFileChooser->file;
-        }
-    }
-    /**
-     * @event ChooseBMaingame_Btn.click-Left 
-     */
-    function ChooseBMaingame(UXMouseEvent $e = null)
-    {
-        $this->ImageFileChooser->inputNode = $this->Edit_Background;
-        if ($this->ImageFileChooser->execute())
-        {
-            $this->Edit_Background->text = $this->ImageFileChooser->file;
         }
     }
     /**

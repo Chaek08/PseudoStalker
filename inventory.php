@@ -262,27 +262,38 @@ class inventory extends AbstractForm
             if ($this->form('maingame')->health_bar_gg->width == 264) // Дефолтный размер health bar, без наподобности в функции ResetOutfitCondition
             {
                 $this->maket_cond->text = "100 %";
+                $this->maket_cond->color = '#4d804d';
                 $this->maket_cond->width = 208;
             }
-            if ($this->form('maingame')->health_bar_gg->width == 164 || $this->health_bar_gg->width == 214)
+            if ($this->form('maingame')->health_bar_gg->width == 204 || $this->health_bar_gg->width == 234)
             {
                 $this->maket_cond->text = "75 %";
+                $this->maket_cond->color = '#b3801a';//'#4d804d';
                 $this->maket_cond->width = 168;
             }
-            if ($this->form('maingame')->health_bar_gg->width == 114 || $this->health_bar_gg->width == 64)
+            if ($this->form('maingame')->health_bar_gg->width == 174 || $this->health_bar_gg->width == 144)
             {
                 $this->maket_cond->text = "55 %";
+                $this->maket_cond->color = '#b3801a';
                 $this->maket_cond->width = 138;
             }
-            if ($this->form('maingame')->health_bar_gg->width == 34)
+            if ($this->form('maingame')->health_bar_gg->width == 84)
             {
                 $this->maket_cond->text = "45 %";
+                $this->maket_cond->color = '#b3801a';
                 $this->maket_cond->width = 118;      
             }
+            if ($this->form('maingame')->health_bar_gg->width == 54)
+            {
+                $this->maket_cond->text = "13 %";
+                $this->maket_cond->color = '#990000';
+                $this->maket_cond->width = 74;
+            }            
         }
         if ($this->inv_maket_select_2->visible)
         {
             $this->maket_cond->text = "100 %";
+            $this->maket_cond->color = '#4d804d';
             $this->maket_cond->width = 208;
         }
     }

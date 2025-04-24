@@ -344,8 +344,6 @@ class opt extends AbstractForm
             $this->form('maingame')->MainMenu->content->Options->content->FightSound_Switcher_Btn->dropShadowEffect->disable();
             $this->form('maingame')->MainMenu->content->Options->content->Language_Label->dropShadowEffect->disable();
             $this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->disable();
-            //exit_dlg
-            $this->form('maingame')->ExitDialog->content->main_frame->dropShadowEffect->disable();
             
             return;
         }
@@ -414,8 +412,6 @@ class opt extends AbstractForm
             $this->form('maingame')->MainMenu->content->Options->content->FightSound_Switcher_Btn->dropShadowEffect->enable();
             $this->form('maingame')->MainMenu->content->Options->content->Language_Label->dropShadowEffect->enable();
             $this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->enable();            
-            //exit_dlg
-            $this->form('maingame')->ExitDialog->content->main_frame->dropShadowEffect->enable();
                        
             return;
         }
