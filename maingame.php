@@ -733,6 +733,7 @@ class maingame extends AbstractForm
         if ($GLOBALS['EnemyFailed']) $this->form('maingame')->actor->hide();
         
         $this->item_vodka_0000->enabled = false;
+        $this->item_vodka_0000->opacity = 0;
         
         $this->idle_static_actor->show();
         $this->idle_static_enemy->show();
