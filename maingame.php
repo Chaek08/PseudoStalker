@@ -26,7 +26,7 @@ class maingame extends AbstractForm
         Logger::info(VersionID . ", " . BuildID);
         
         define('Debug_Build', true);
-        define('SDK_Mode', true);
+        define('SDK_Mode', false);
         
         $GLOBALS['AllSounds'] = true;
         $GLOBALS['MenuSound'] =  true;
@@ -479,36 +479,51 @@ class maingame extends AbstractForm
     }
     private $isAnimating = false;    
     
-    function animateResizeWidth($node, $delta, $speed = 3, $callback = null)
+    function animateResizeWidth($node, $targetWidth, $speed = 1, $callback = null)
     {
         if ($this->isAnimating)
         {
-            return;
+           return; 
         }
-
+            
         $this->isAnimating = true;
-    
-        $targetWidth = $node->width + $delta;
 
         $timer = new UXAnimationTimer(function () use ($node, $targetWidth, $speed, &$timer, $callback) {
-            if ($node->width < $targetWidth) 
+            if ($node->width < $targetWidth)
             {
                 $node->width += $speed;
+                if ($node->width >= $targetWidth)
+                {
+                    $node->width = $targetWidth;
+                    $timer->stop();
+                    $this->isAnimating = false;
+                    if ($callback)
+                    {
+                        $callback();  
+                    }      
+                }
             }
             elseif ($node->width > $targetWidth)
             {
                 $node->width -= $speed;
+                if ($node->width <= $targetWidth)
+                {
+                    $node->width = $targetWidth;
+                    $timer->stop();
+                    $this->isAnimating = false;
+                    if ($callback)
+                    {
+                        $callback();
+                    }
+                }
             }
-
-            if ($node->width <= $targetWidth && $node->width >= $targetWidth)
+            else
             {
-                $node->width = $targetWidth;
                 $timer->stop();
                 $this->isAnimating = false;
-                
                 if ($callback)
                 {
-                    $callback();
+                    $callback(); 
                 }
             }
         });
@@ -571,7 +586,8 @@ class maingame extends AbstractForm
     { 
         if ($this->health_bar_enemy->width != 54)
         {
-            $this->animateResizeWidth($this->health_bar_enemy, -30, 2, function() {
+            $target = $this->health_bar_enemy->width - 30;
+            $this->animateResizeWidth($this->health_bar_enemy, $target, 3, function() {
                 if ($this->health_bar_enemy->width == 234)
                 {
                     $this->health_bar_enemy->text = "75%";
@@ -626,7 +642,8 @@ class maingame extends AbstractForm
     { 
         if ($this->health_bar_gg->width != 54)
         {
-            $this->animateResizeWidth($this->health_bar_gg, -30, 2, function() {
+            $target = $this->health_bar_gg->width - 30;
+            $this->animateResizeWidth($this->health_bar_gg, $target, 3, function() {
                 if ($this->health_bar_gg->width == 234)
                 {
                     $this->health_bar_gg->text = "75%";

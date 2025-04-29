@@ -164,6 +164,8 @@ class inventory extends AbstractForm
      */
     function OutfitMaketFunc(UXMouseEvent $e = null)
     {
+        $this->HideCombobox();
+    
         if ($this->inv_maket_select->visible) return;
 
         $this->UseSlotSound();
@@ -176,12 +178,14 @@ class inventory extends AbstractForm
      */
     function VodkaMaketFunc(UXMouseEvent $e = null)
     {    
+        $this->HideCombobox();
+        
         if ($this->inv_maket_select_2->visible) return;
   
         $this->UseSlotSound();
         $this->ShowVodkaMaket();
         $this->ShowUIText();
-        $this->SetUIText();                
+        $this->SetUIText();
     }
     /**
      * @event button4.click-Left 
@@ -216,7 +220,8 @@ class inventory extends AbstractForm
         
         $this->inv_item_vodka->hide();
         $this->vodka_selected->hide();
-        $this->form('maingame')->item_vodka_0000->show();                
+        $this->form('maingame')->item_vodka_0000->show();
+        $this->form('maingame')->item_vodka_0000->opacity = 100;
     }
     function DespawnVodka()
     {
@@ -236,66 +241,49 @@ class inventory extends AbstractForm
     function VodkaActions(UXMouseEvent $e = null)
     {    
         $this->ShowCombobox();
-    }  
-    /**
-     * @event inv_maket_select_2.click-2x 
-     */
-    function VodkaMaketClickLeft(UXMouseEvent $e = null)
-    {    
-        $this->VideoPlayerEasterEgg->view = $this->Video_EasterEgg;
-        Media::open('res://.data/video/easteregg.mp4', true, $this->VideoPlayerEasterEgg);
-                        
-        $this->Video_EasterEgg->show();
-    }
-    /**
-     * @event Video_EasterEgg.click-Left 
-     */
-    function VideoEasterEggClickLeft(UXMouseEvent $e = null)
-    {    
-        $this->Video_EasterEgg->stop();
-        
-        $this->Video_EasterEgg->hide();
     }
     function SetItemCondition()
     {
+        $this->maket_cond->width = 0;
+        
         if ($this->inv_maket_select->visible)
         {
             if ($this->form('maingame')->health_bar_gg->width == 264) // Дефолтный размер health bar, без наподобности в функции ResetOutfitCondition
             {
                 $this->maket_cond->text = "100 %";
                 $this->maket_cond->color = '#4d804d';
-                $this->maket_cond->width = 208;
+                $this->form('maingame')->animateResizeWidth($this->maket_cond, 208, 8);
             }
-            if ($this->form('maingame')->health_bar_gg->width == 204 || $this->health_bar_gg->width == 234)
+            if ($this->form('maingame')->health_bar_gg->width == 204 || $this->form('maingame')->health_bar_gg->width == 234)
             {
-                $this->maket_cond->text = "75 %";
-                $this->maket_cond->color = '#b3801a';//'#4d804d';
-                $this->maket_cond->width = 168;
-            }
-            if ($this->form('maingame')->health_bar_gg->width == 174 || $this->health_bar_gg->width == 144)
-            {
-                $this->maket_cond->text = "55 %";
+                $this->maket_cond->text = "82 %";
                 $this->maket_cond->color = '#b3801a';
-                $this->maket_cond->width = 138;
+                $this->form('maingame')->animateResizeWidth($this->maket_cond, 168, 8);
             }
-            if ($this->form('maingame')->health_bar_gg->width == 84)
+            if ($this->form('maingame')->health_bar_gg->width == 174 || $this->form('maingame')->health_bar_gg->width == 144)
+            {
+                $this->maket_cond->text = "67 %";
+                $this->maket_cond->color = '#b3801a';
+                $this->form('maingame')->animateResizeWidth($this->maket_cond, 138, 8);
+            }
+            if ($this->form('maingame')->health_bar_gg->width == 114)
             {
                 $this->maket_cond->text = "45 %";
                 $this->maket_cond->color = '#b3801a';
-                $this->maket_cond->width = 118;      
+                $this->form('maingame')->animateResizeWidth($this->maket_cond, 118, 8);
             }
-            if ($this->form('maingame')->health_bar_gg->width == 54)
+            if ($this->form('maingame')->health_bar_gg->width == 84 || $this->form('maingame')->health_bar_gg->width == 54)
             {
                 $this->maket_cond->text = "13 %";
                 $this->maket_cond->color = '#990000';
-                $this->maket_cond->width = 74;
-            }            
+                $this->form('maingame')->animateResizeWidth($this->maket_cond, 74, 8);
+            }     
         }
         if ($this->inv_maket_select_2->visible)
         {
             $this->maket_cond->text = "100 %";
             $this->maket_cond->color = '#4d804d';
-            $this->maket_cond->width = 208;
+            $this->form('maingame')->animateResizeWidth($this->maket_cond, 208, 8);
         }
-    }
+    }  
 }
