@@ -844,4 +844,29 @@ class maingame extends AbstractForm
         $savesList->selectedIndex = $latestIndex;
         $this->MainMenu->content->UILoadWnd->content->BtnLoadSave();
     }
+    /**
+     * @event keyDown-F12 
+     */
+    function MakeScreenshot(UXKeyEvent $e = null)
+    {    
+        define("SCREENSHOT_DIRECTORY", "./userdata/screenshots/");
+        
+        if (!file_exists(SCREENSHOT_DIRECTORY))
+        {
+            mkdir(SCREENSHOT_DIRECTORY, 0777, true);
+        }
+
+        $image = $this->form('maingame')->layout->snapshot();
+
+        $username = System::getProperty('user.name');
+        $formName = 'maingame';
+
+        $time = Time::now()->toString('HH-mm-ss');
+        $date = Time::now()->toString('dd-MM-yy');
+        
+        $filename = "ss_{$username}_{$date}_{$time}_({$formName}).jpg";
+        $path = SCREENSHOT_DIRECTORY . $filename;
+
+        $image->save(new File($path));        
+    }
 }
