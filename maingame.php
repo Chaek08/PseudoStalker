@@ -820,7 +820,9 @@ class maingame extends AbstractForm
      * @event keyDown-F5 
      */
     function QuickSave(UXKeyEvent $e = null)
-    {
+    {  
+        static $lastToastId = 0;
+    
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
             
         if (!$GLOBALS['ContinueGameState'] && $this->MainMenu->visible || $this->Fail->visible) return;
@@ -835,9 +837,17 @@ class maingame extends AbstractForm
 
         Animation::fadeIn($this->SavedGame_Toast, 300);
 
-        Timer::after(2300, function () {
-            Animation::fadeOut($this->SavedGame_Toast, 300);
+        $lastToastId++;
+        $currentId = $lastToastId;
+
+        Timer::after(2300, function () use ($currentId) {
+            if ($currentId === $GLOBALS['lastToastId'])
+            {
+                Animation::fadeOut($this->SavedGame_Toast, 300);
+            }
         });
+        
+        $GLOBALS['lastToastId'] = $lastToastId;
     }
     /**
      * @event keyDown-F7 
