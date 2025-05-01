@@ -8,9 +8,19 @@ use script\MediaPlayerScript;
 use php\gui\event\UXKeyEvent; 
 use php\gui\event\UXMouseEvent; 
 use php\framework\Logger;
+use app\forms\classes\Localization;
 
 class maingame extends AbstractForm
 {
+    private $localization;
+
+    public function __construct() 
+    {
+        parent::__construct();
+
+        $this->localization = new Localization($language);
+    }
+    
     private $currentCycle = '';
     
     /**
@@ -222,6 +232,7 @@ class maingame extends AbstractForm
             $this->PlayEnvironment();
         }
         $this->dlg_btn->show();
+        $this->form('maingame')->SavedGame_Toast->y = 728;
         $this->Dialog->content->StartDialog();        
         $this->Pda->content->Pda_Statistic->content->ResetFinalText();
     }
@@ -256,6 +267,7 @@ class maingame extends AbstractForm
             if ($this->fight_image->visible) $this->fight_image->hide();
         
             if ($this->dlg_btn->visible || $this->fight_image->visible) $this->dlg_btn->hide();
+            if ($this->SavedGame_Toast->visible) $this->SavedGame_Toast->hide();
             if ($this->leave_btn->visible) $this->leave_btn->hide();
             
             $GLOBALS['HudVisible'] = false;
@@ -627,6 +639,7 @@ class maingame extends AbstractForm
             $this->health_bar_enemy_b->hide();
             $this->leave_btn->show();
             $this->dlg_btn->hide();
+            $this->form('maingame')->SavedGame_Toast->y = 816;
         
             if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex');
         
@@ -705,6 +718,7 @@ class maingame extends AbstractForm
             $this->Inventory->content->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
             $this->leave_btn->show();
             $this->dlg_btn->hide();
+            $this->form('maingame')->SavedGame_Toast->y = 816;
                    
             if ($this->hitmark_static->visible) $this->hitmark_static->hide();
         
@@ -806,14 +820,24 @@ class maingame extends AbstractForm
      * @event keyDown-F5 
      */
     function QuickSave(UXKeyEvent $e = null)
-    {    
+    {
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+            
         if (!$GLOBALS['ContinueGameState'] && $this->MainMenu->visible || $this->Fail->visible) return;
         
         $saveName = System::getProperty('user.name') . '_quicksave';
         $this->form('maingame')->MainMenu->content->UISaveWnd->content->Edit_SaveName->text = $saveName;
         $this->form('maingame')->MainMenu->content->UISaveWnd->content->BtnSaveGame();
         
-        $this->toast('Saved game: ' . $saveName); //todo сделать потом в сталкер стайле
+        $this->SavedGame_Toast->opacity = 0;
+        $this->SavedGame_Toast->visible = true;
+        $this->SavedGame_Toast->text = $this->localization->get('SavedGameToast') . ' ' . $saveName;
+
+        Animation::fadeIn($this->SavedGame_Toast, 300);
+
+        Timer::after(2300, function () {
+            Animation::fadeOut($this->SavedGame_Toast, 300);
+        });
     }
     /**
      * @event keyDown-F7 
