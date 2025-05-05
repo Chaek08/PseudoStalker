@@ -293,6 +293,7 @@ class UILoadWnd extends AbstractForm
         {
             $this->form('maingame')->Dialog->content->Talk_3();
         }
+        if (!$this->form('maingame')->dlg_btn->visible) $this->form('maingame')->SavedGame_Toast->y = 816;
         
         $this->form('maingame')->GetHealth();
         $this->form('maingame')->UpdateEnvironment();
