@@ -32,7 +32,7 @@ class mainmenu extends AbstractForm
         $this->MainMenuBackground->view = $this->dynamic_background;
         $backgroundPath = SDK_Mode
             ? $this->form('maingame')->Editor->content->f_MgEditor->content->Edit_MenuBackground->text 
-            : 'C:\Users\drogo.B760\Downloads\6afd9986-2421-44b2-8cd5-1bb791cb62b3720.mp4';//'.\gamedata\textures\menu\background.mp4'; //C:\Users\drogo.B760\Downloads\kunteynir_privet_pider.mp4
+            : '.\gamedata\textures\menu\background.mp4';//'.\gamedata\textures\menu\background.mp4'; //C:\Users\drogo.B760\Downloads\kunteynir_privet_pider.mp4
         Media::open($backgroundPath, true, $this->MainMenuBackground);
     }
     /**
@@ -184,6 +184,9 @@ class mainmenu extends AbstractForm
     {
         $this->Btn_Exit_Windows->textColor = '#808080';
         
+        $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+        $GLOBALS['ExitWndType'] = true;
+        $this->form('maingame')->ExitDialog->content->SetDialogWndType();
         $this->form('maingame')->ExitDialog->show();
     }
     /**

@@ -290,7 +290,7 @@ class opt extends AbstractForm
             $this->form('maingame')->actor->dropShadowEffect->disable();  
             $this->form('maingame')->enemy->dropShadowEffect->disable();   
             $this->form('maingame')->dlg_btn->dropShadowEffect->disable();   
-			$this->form('maingame')->SavedGame_Toast->dropShadowEffect->disable();
+            $this->form('maingame')->SavedGame_Toast->dropShadowEffect->disable();
             $this->form('maingame')->leave_btn->dropShadowEffect->disable();  
             $this->form('maingame')->health_static_enemy->dropShadowEffect->disable();     
             $this->form('maingame')->health_static_gg->dropShadowEffect->disable();     
@@ -359,7 +359,7 @@ class opt extends AbstractForm
             $this->form('maingame')->actor->dropShadowEffect->enable();
             $this->form('maingame')->enemy->dropShadowEffect->enable();
             $this->form('maingame')->dlg_btn->dropShadowEffect->enable();
-			$this->form('maingame')->SavedGame_Toast->dropShadowEffect->enable();
+            $this->form('maingame')->SavedGame_Toast->dropShadowEffect->enable();
             $this->form('maingame')->leave_btn->dropShadowEffect->enable();
             $this->form('maingame')->health_static_enemy->dropShadowEffect->enable();     
             $this->form('maingame')->health_static_gg->dropShadowEffect->enable();
@@ -546,10 +546,6 @@ class opt extends AbstractForm
 
         $this->form('maingame')->dlg_btn->text = $this->localization->get('StartDialog_Label');
         $this->form('maingame')->leave_btn->text = $this->localization->get('Leave_Label');
-
-        $this->form('maingame')->ExitDialog->content->dialog_text->text = $this->localization->get('ExitDialog_Text');
-        $this->form('maingame')->ExitDialog->content->btn_yes->text = $this->localization->get('Yes_Label');
-        $this->form('maingame')->ExitDialog->content->btn_no->text = $this->localization->get('No_Label');
 
         $this->form('maingame')->Inventory->content->button5->text = $this->localization->get('Inventory_Label');
         $this->form('maingame')->Inventory->content->button6->text = $this->localization->get('Item_Label');

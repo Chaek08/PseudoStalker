@@ -94,6 +94,7 @@ class UISaveWnd extends AbstractForm
     function saveScreenshot()
     {
         if ($this->form('maingame')->MainMenu->content->UISaveWnd->visible) $this->form('maingame')->MainMenu->hide();
+        if ($this->form('maingame')->ExitDialog->visible) $this->form('maingame')->ExitDialog->hide();
         $this->form('maingame')->CustomCursor->hide();
         if (!$GLOBALS['HudVisible'] && $this->form('maingame')->MainMenu->content->UISaveWnd->visible) $this->form('maingame')->ToggleHud();
         if ($this->form('maingame')->Console->visible) $this->form('maingame')->Console->opacity = 0;
@@ -153,8 +154,15 @@ class UISaveWnd extends AbstractForm
             
             if (file_exists($filePath) && $saveName != System::getProperty('user.name') . '_quicksave')
             {
-                $this->form('maingame')->toast($this->localization->get('brainAFKToast'));
-                return;
+                if (!$this->form('maingame')->ExitDialog->visible)
+                {
+                    $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+                    $GLOBALS['RewriteSaveType'] = true;
+                    $this->form('maingame')->ExitDialog->content->SetDialogWndType();
+                    $this->form('maingame')->ExitDialog->show();
+                    
+                    return;
+                }
             }
             if (!file_exists(SAVE_DIRECTORY))
             {

@@ -222,24 +222,44 @@ class UILoadWnd extends AbstractForm
         {
             if (!$this->keyExists($saveData, explode('.', $key)))
             {
-                $this->form('maingame')->toast($this->localization->get('SaveCorruptToast'));
-                return;
+                if (!$this->form('maingame')->ExitDialog->visible)
+                {
+                    $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+                    $GLOBALS['CorruptSaveType'] = true;
+                    $this->form('maingame')->ExitDialog->content->SetDialogWndType();
+                    $this->form('maingame')->ExitDialog->show();
+                
+                    return;
+                }                
             }
         }
         foreach ($saveData as $key => $value)
         {
             if (!in_array($key, $requiredKeys))
             {
-                $this->form('maingame')->toast($this->localization->get('SaveCorruptToast'));
-                return;
+                if (!$this->form('maingame')->ExitDialog->visible)
+                {
+                    $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+                    $GLOBALS['CorruptSaveType'] = true;
+                    $this->form('maingame')->ExitDialog->content->SetDialogWndType();
+                    $this->form('maingame')->ExitDialog->show();
+                
+                    return;
+                }                
             }
         }
         
         if ($saveData['client_version'] !== client_version)
         {
-            $this->form('maingame')->toast($this->localization->get('InvalidGameClientToast')); 
-            if (Debug_Build) Logger::error("Invalid client version!");
-            return;
+            if (!$this->form('maingame')->ExitDialog->visible)
+            {
+                $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+                $GLOBALS['ClientVersionErrorType'] = true;
+                $this->form('maingame')->ExitDialog->content->SetDialogWndType();
+                $this->form('maingame')->ExitDialog->show();
+                
+                return;
+            }
         }
         
         $this->form('maingame')->ResetGameClient();

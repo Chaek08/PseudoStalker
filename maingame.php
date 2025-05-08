@@ -13,14 +13,6 @@ use app\forms\classes\Localization;
 class maingame extends AbstractForm
 {
     private $localization;
-
-    public function __construct() 
-    {
-        parent::__construct();
-
-        $this->localization = new Localization($language);
-    }
-    
     private $currentCycle = '';
     
     /**
@@ -31,12 +23,14 @@ class maingame extends AbstractForm
         define('BuildID', 'Build 852, Apr 24 2025'); //start date 24.12.2022
         define('VersionID', 'v1.3 (rc2)');
         
-        define('client_version', '3');
+        define('client_version', '4');
         
         Logger::info(VersionID . ", " . BuildID);
         
+        $this->localization = new Localization($language);
+        
         define('Debug_Build', true);
-        define('SDK_Mode', false);
+        define('SDK_Mode', true);
         
         $GLOBALS['AllSounds'] = true;
         $GLOBALS['MenuSound'] =  true;
@@ -323,11 +317,21 @@ class maingame extends AbstractForm
             }
             if ($this->MainMenu->content->UISaveWnd->visible)
             {
+                if ($this->ExitDialog->visible)
+                {
+                    $this->ExitDialog->content->DisagreeButton();
+                    return;
+                }
                 $this->MainMenu->content->UISaveWnd->content->ReturnBtn();
                 return;
             }
             if ($this->MainMenu->content->UILoadWnd->visible)
             {
+                if ($this->ExitDialog->visible)
+                {
+                    $this->ExitDialog->content->DisagreeButton();
+                    return;
+                }
                 $this->MainMenu->content->UILoadWnd->content->ReturnBtn();
                 return;
             }
@@ -409,9 +413,12 @@ class maingame extends AbstractForm
     {          
         if ($this->CheckVisibledFragments()) return;
         
-        if (!$this->ExitDialog->visible) $this->ToggleHud();        
+        if (!$this->ExitDialog->visible) $this->ToggleHud();
         
-        $this->ExitDialog->show();
+        $this->ExitDialog->content->UpdateDialogWnd();
+        $GLOBALS['ExitWndType'] = true;
+        $this->ExitDialog->content->SetDialogWndType();
+        $this->ExitDialog->show();        
     }
     /**
      * @event dlg_btn.click-Left 
@@ -821,11 +828,11 @@ class maingame extends AbstractForm
      */
     function QuickSave(UXKeyEvent $e = null)
     {  
+        if (!$GLOBALS['ContinueGameState'] && $this->MainMenu->visible || $this->Fail->visible) return;
+    
         static $lastToastId = 0;
     
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-            
-        if (!$GLOBALS['ContinueGameState'] && $this->MainMenu->visible || $this->Fail->visible) return;
         
         $saveName = System::getProperty('user.name') . '_quicksave';
         $this->form('maingame')->MainMenu->content->UISaveWnd->content->Edit_SaveName->text = $saveName;

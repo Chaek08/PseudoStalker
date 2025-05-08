@@ -14,20 +14,20 @@
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/save_and_load_wnd/file.png" id="data-Wnd_Label" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-main_frame" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Load_Btn" layoutX="528" layoutY="768" prefHeight="32" prefWidth="128" styleClass="x-flat-button " text="Загрузить" textAlignment="CENTER" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Load_Btn" layoutX="528" layoutY="760" prefHeight="40" prefWidth="128" styleClass="x-flat-button " text="Загрузить" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-Load_Btn" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Remove_Save_Btn" layoutX="664" layoutY="768" prefHeight="32" prefWidth="128" styleClass="x-flat-button " text="Удалить" textAlignment="CENTER" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Remove_Save_Btn" layoutX="664" layoutY="760" prefHeight="40" prefWidth="128" styleClass="x-flat-button " text="Удалить" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-Remove_Save_Btn" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-save_image" image="" visible=""/>
-    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Return_Btn" layoutX="936" layoutY="768" prefHeight="32" prefWidth="128" styleClass="x-flat-button " text="Назад" textAlignment="CENTER" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" hoverColor="#f2f2f2" id="Return_Btn" layoutX="936" layoutY="760" prefHeight="40" prefWidth="128" styleClass="x-flat-button " text="Назад" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
