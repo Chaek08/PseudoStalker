@@ -828,7 +828,7 @@ class maingame extends AbstractForm
      */
     function QuickSave(UXKeyEvent $e = null)
     {  
-        if (!$GLOBALS['ContinueGameState'] && $this->MainMenu->visible || $this->Fail->visible) return;
+        if (!$GLOBALS['ContinueGameState'] || $this->MainMenu->visible || $this->Fail->visible) return;
     
         static $lastToastId = 0;
     
@@ -861,7 +861,7 @@ class maingame extends AbstractForm
      */
     function QuickLoad(UXKeyEvent $e = null)
     {
-        if (!$GLOBALS['ContinueGameState'] && $this->MainMenu->visible || $this->Fail->visible) return;
+        if (!$GLOBALS['ContinueGameState'] || $this->MainMenu->visible || $this->Fail->visible) return;
 
         $savesList = $this->MainMenu->content->UILoadWnd->content->saves_list;
         $items = $savesList->items->toArray();
