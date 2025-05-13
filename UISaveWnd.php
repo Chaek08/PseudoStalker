@@ -233,6 +233,16 @@ class UISaveWnd extends AbstractForm
 
         if ($selectedSave != '')
         {
+            if (!$this->form('maingame')->ExitDialog->visible)
+            {
+                $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+                $GLOBALS['RemoveSaveType'] = true;
+                $this->form('maingame')->ExitDialog->content->SetDialogWndType();
+                $this->form('maingame')->ExitDialog->show();
+                
+                return;
+            }
+                    
             $filePath = SAVE_DIRECTORY . $selectedSave . '.sav';
             $imagePath = SAVE_DIRECTORY . $selectedSave . '.jpg';
 

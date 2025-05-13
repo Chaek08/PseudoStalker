@@ -25,6 +25,7 @@ class exit_dlg extends AbstractForm
         $GLOBALS['ClientVersionErrorType'] = false;
         $GLOBALS['CorruptSaveType'] = false;
         $GLOBALS['EndGameWndType'] = false;
+        $GLOBALS['RemoveSaveType'] = false;
     }
     function SetDialogWndType()
     {
@@ -49,8 +50,12 @@ class exit_dlg extends AbstractForm
         {  
             $this->dialog_warning->image = new UXImage('res://.data/ui/exit_dialog/dialog_error.png');
             $this->dialog_text->text = $this->localization->get('brainAFKToast');
-                      
         }
+        if ($GLOBALS['RemoveSaveType'])
+        {  
+            $this->dialog_warning->image = new UXImage('res://.data/ui/exit_dialog/dialog_error.png');
+            $this->dialog_text->text = $this->localization->get('RemoveSaveWnd_Text');
+        }        
         if ($GLOBALS['CorruptSaveType'])
         {
             $this->dialog_warning->image = new UXImage('res://.data/ui/exit_dialog/dialog_error.png');
@@ -90,6 +95,19 @@ class exit_dlg extends AbstractForm
         {
             $this->form('maingame')->MainMenu->content->UISaveWnd->content->BtnSaveGame();
             
+            $this->form('maingame')->ExitDialog->hide();
+        }
+        if ($GLOBALS['RemoveSaveType'])
+        {
+            if ($this->form('maingame')->MainMenu->content->UILoadWnd->visible)
+            {
+                $this->form('maingame')->MainMenu->content->UILoadWnd->content->RemoveSaveBtn();
+            }
+            if ($this->form('maingame')->MainMenu->content->UISaveWnd->visible)
+            {
+                $this->form('maingame')->MainMenu->content->UISaveWnd->content->RemoveSaveBtn();
+            }
+                        
             $this->form('maingame')->ExitDialog->hide();
         }
         if ($GLOBALS['ClientVersionErrorType'] || $GLOBALS['CorruptSaveType'])
