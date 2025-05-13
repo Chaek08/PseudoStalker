@@ -30,7 +30,7 @@ class maingame extends AbstractForm
         $this->localization = new Localization($language);
         
         define('Debug_Build', true);
-        define('SDK_Mode', false);
+        define('SDK_Mode', 1);
         
         $GLOBALS['AllSounds'] = true;
         $GLOBALS['MenuSound'] =  true;
@@ -461,7 +461,7 @@ class maingame extends AbstractForm
         $this->ToggleHud();
         
         $this->Fail->show();
-        Media::pause($this->Environment);
+        //Media::pause($this->Environment);
         if ($GLOBALS['ActorFailed']) $this->form('maingame')->enemy->hide();
         if ($GLOBALS['EnemyFailed']) $this->form('maingame')->actor->hide();
     }
@@ -766,7 +766,7 @@ class maingame extends AbstractForm
         $this->ToggleHud();
         
         $this->Fail->show();
-        Media::pause($this->Environment);
+        //Media::pause($this->Environment);
         if ($GLOBALS['ActorFailed']) $this->form('maingame')->enemy->hide();
         if ($GLOBALS['EnemyFailed']) $this->form('maingame')->actor->hide();
         

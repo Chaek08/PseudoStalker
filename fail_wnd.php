@@ -36,7 +36,7 @@ class fail_wnd extends AbstractForm
         $this->form('maingame')->ToggleHud();
         
         $this->form('maingame')->Fail->hide();
-        Media::play($this->form('maingame')->Environment);
+        //Media::play($this->form('maingame')->Environment);
         if ($GLOBALS['ActorFailed']) $this->form('maingame')->enemy->show();
         if ($GLOBALS['EnemyFailed']) $this->form('maingame')->actor->show();
                    
