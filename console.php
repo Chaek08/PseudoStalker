@@ -89,7 +89,7 @@ class console extends AbstractForm
                                 Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
                                 $btn = $this->form('maingame')->MainMenu->content->Options->content->Version_Switcher_Btn;
-                                if (($args[1] === "off" && $btn->text === 'Вкл') || ($args[1] === "on" && $btn->text === 'Выкл')) {
+                                if (($args[1] == "off" && $btn->text == $this->localization->get('TurnOn_Label')) || ($args[1] == "on" && $btn->text == $this->localization->get('TurnOff_Label'))) {
                                         $this->form('maingame')->MainMenu->content->Options->content->VersionSwitcher_MouseDownLeft();
                                         $this->form('maingame')->MainMenu->content->Options->content->VersionSwitcher_MouseExit();
                                 }
@@ -102,7 +102,7 @@ class console extends AbstractForm
                                 Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
                                 $btn = $this->form('maingame')->MainMenu->content->Options->content->Shadows_Switcher_Btn;
-                                if (($args[1] === "on" && $btn->text === 'Выкл') || ($args[1] === "off" && $btn->text === 'Вкл')) {
+                                if (($args[1] === "on" && $btn->text == $this->localization->get('TurnOff_Label')) || ($args[1] == "off" && $btn->text == $this->localization->get('TurnOn_Label'))) {
                                         $this->form('maingame')->MainMenu->content->Options->content->ShadowsSwitcher_MouseDownLeft();
                                         $this->form('maingame')->MainMenu->content->Options->content->ShadowsSwitcher_MouseExit();
                                 }
@@ -115,7 +115,7 @@ class console extends AbstractForm
                                 Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
                                 $btn = $this->form('maingame')->MainMenu->content->Options->content->AllSound_Switcher_Btn;
-                                if (($args[1] === "off" && $btn->text === 'Вкл') || ($args[1] === "on" && $btn->text === 'Выкл')) {
+                                if (($args[1] === "off" && $btn->text == $this->localization->get('TurnOn_Label')) || ($args[1] === "on" && $btn->text == $this->localization->get('TurnOff_Label'))) {
                                         $this->form('maingame')->MainMenu->content->Options->content->AllSoundSwitcher_MouseDownLeft();
                                         $this->form('maingame')->MainMenu->content->Options->content->AllSoundSwitcher_MouseExit();
                                 }

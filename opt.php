@@ -500,12 +500,12 @@ class opt extends AbstractForm
         if ($this->Language_Switcher_Combobobx->value == 'Русский')
         {
             $this->localization->setLanguage($this->Language_Switcher_Combobobx->value);
-            if (Debug_Build && $this->form('maingame')->MainMenu->content->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage() . ' (' . $this->Language_Switcher_Combobobx->value . ')');
+            //if (Debug_Build && $this->form('maingame')->MainMenu->content->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage() . ' (' . $this->Language_Switcher_Combobobx->value . ')');
         }
         if ($this->Language_Switcher_Combobobx->value == 'English')
         {
             $this->localization->setLanguage($this->Language_Switcher_Combobobx->value);
-            if (Debug_Build && $this->form('maingame')->MainMenu->content->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage() . ' (' . $this->Language_Switcher_Combobobx->value . ')');
+            //if (Debug_Build && $this->form('maingame')->MainMenu->content->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage() . ' (' . $this->Language_Switcher_Combobobx->value . ')');
         } 
         $this->UpdateLocalization();
     }
