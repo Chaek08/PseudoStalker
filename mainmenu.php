@@ -153,8 +153,10 @@ class mainmenu extends AbstractForm
     {
         $this->Btn_End_Game->textColor = '#808080';
         
-        $this->form('maingame')->ToggleHud();
-        $this->form('maingame')->ResetGameClient();
+        $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+        $GLOBALS['EndGameWndType'] = true;
+        $this->form('maingame')->ExitDialog->content->SetDialogWndType();
+        $this->form('maingame')->ExitDialog->show();
     }
     /**
      * @event Btn_End_Game.mouseUp-Left 

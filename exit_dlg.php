@@ -24,6 +24,7 @@ class exit_dlg extends AbstractForm
         $GLOBALS['RewriteSaveType'] = false;
         $GLOBALS['ClientVersionErrorType'] = false;
         $GLOBALS['CorruptSaveType'] = false;
+        $GLOBALS['EndGameWndType'] = false;
     }
     function SetDialogWndType()
     {
@@ -38,6 +39,11 @@ class exit_dlg extends AbstractForm
         {
             $this->dialog_warning->image = new UXImage('res://.data/ui/exit_dialog/dialog_warning.png');
             $this->dialog_text->text = $this->localization->get('ExitDialog_Text');
+        }
+        if ($GLOBALS['EndGameWndType'])
+        {
+            $this->dialog_warning->image = new UXImage('res://.data/ui/exit_dialog/dialog_warning.png');
+            $this->dialog_text->text = $this->localization->get('EndGameDialog_Text');
         }
         if ($GLOBALS['RewriteSaveType'])
         {  
@@ -73,9 +79,17 @@ class exit_dlg extends AbstractForm
         
             app()->shutdown();
         }
+        if ($GLOBALS['EndGameWndType'])
+        {
+            $this->form('maingame')->ToggleHud();
+            $this->form('maingame')->ResetGameClient();
+            
+            $this->form('maingame')->ExitDialog->hide();
+        }        
         if ($GLOBALS['RewriteSaveType'])
         {
             $this->form('maingame')->MainMenu->content->UISaveWnd->content->BtnSaveGame();
+            
             $this->form('maingame')->ExitDialog->hide();
         }
         if ($GLOBALS['ClientVersionErrorType'] || $GLOBALS['CorruptSaveType'])
