@@ -14,6 +14,8 @@ class maingame extends AbstractForm
 {
     private $localization;
     private $currentCycle = '';
+    public $ltx = [];
+    public $ltxInitialized = false;
     
     /**
      * @event show 
@@ -30,7 +32,7 @@ class maingame extends AbstractForm
         $this->localization = new Localization($language);
         
         define('Debug_Build', true);
-        define('SDK_Mode', 1);
+        define('SDK_Mode', false);
         
         $GLOBALS['AllSounds'] = true;
         $GLOBALS['MenuSound'] =  true;
@@ -51,10 +53,106 @@ class maingame extends AbstractForm
             $this->MainMenu->content->opensdk_btn->free();
         }
         $this->MainMenu->content->Options->content->InitOptions();
+        $this->InitUserLTX();
         
         $this->currentCycle = ''; 
         $this->UpdateEnvironment();
-    }     
+    }
+    function InitUserLTX()
+    {
+        $path = 'user.ltx';
+
+        $default = [
+            'language' => 'rus',
+            'r_shadows' => 'on',
+            'r_version' => 'on'
+        ];
+
+        if (!file_exists($path))
+        {
+            $this->SaveUserLTX($path, $default);
+            $this->ltx = $default;
+        }
+        else
+        {
+            $config = [];
+
+            $lines = file($path);
+            foreach ($lines as $line)
+            {
+                $parts = explode(' ', trim($line));
+                if (count($parts) >= 2)
+                {
+                    $key = $parts[0];
+                    $value = $parts[1];
+                    $config[$key] = $value;
+                }
+            }
+
+            $allKeysExist = true;
+            foreach (array_keys($default) as $key)
+            {
+                if (!isset($config[$key]) || $config[$key] === '')
+                {
+                    $allKeysExist = false;
+                    break;
+                }
+            }
+
+            if (!$allKeysExist)
+            {
+                foreach ($default as $key => $value)
+                {
+                    if (!isset($config[$key]) || $config[$key] === '')
+                    {
+                    $config[$key] = $value;
+                    }
+                }
+                $this->SaveUserLTX($path, $config);
+            }
+
+            $this->ltx = $config;
+        }
+
+        $this->ltxInitialized = true;
+    
+        $this->MainMenu->content->Options->content->InitOptions();
+    }
+    function LoadUserLTX($path, $default)
+    {
+        $config = [];
+
+        $lines = file($path);
+        foreach ($lines as $line)
+        {
+            $parts = explode(' ', trim($line));
+            if (count($parts) >= 2)
+            {
+                $key = $parts[0];
+                $value = $parts[1];
+                $config[$key] = $value;
+            }
+        }
+
+        foreach ($default as $key => $value)
+        {
+            if (!isset($config[$key]))
+            {
+                $config[$key] = $value;
+            }
+        }
+
+        return $config;
+    }
+    function SaveUserLTX($path, $config)
+    {
+        $content = '';
+        foreach ($config as $key => $value)
+        {
+            $content .= $key . ' ' . $value . "\n";
+        }
+        file_put_contents($path, $content);
+    }    
     function UpdateEnvironment()
     {
         $this->Environment->view = $this->Environment_Background;  

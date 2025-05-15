@@ -20,13 +20,19 @@ class opt extends AbstractForm
     }
     
     function InitOptions()
-    {
+    {   
+        $GLOBALS['ShadowsSwitcher_IsOn'] = ($this->form('maingame')->ltx['r_shadows'] ?? 'off') !== 'on';
+        $this->ShadowsSwitcher_MouseDownLeft();
+        $this->ShadowsSwitcher_MouseExit();
+
+        $GLOBALS['VersionSwitcher_IsOn'] = ($this->form('maingame')->ltx['r_version'] ?? 'off') !== 'on';
+        $this->VersionSwitcher_MouseDownLeft();
+        $this->VersionSwitcher_MouseExit();
+        
         $GLOBALS['AllSoundSwitcher_IsOn'] = true;
         $GLOBALS['MenuSoundSwitcher_IsOn'] = true;
-        $GLOBALS['FightSoundSwitcher_IsOn'] = true;
-        $GLOBALS['ShadowsSwitcher_IsOn'] = true;
-        $GLOBALS['VersionSwitcher_IsOn'] = true;
-                                            
+        $GLOBALS['FightSoundSwitcher_IsOn'] = true;        
+                          
         if (!$GLOBALS['AllSounds'])
         {
             $this->AllSoundSwitcher_MouseDownLeft();
@@ -44,8 +50,9 @@ class opt extends AbstractForm
             $this->FightSoundSwitcher_MouseDownLeft();
             $this->FightSoundSwitcher_MouseExit();
         }
-        
-        $this->Language_Switcher_Combobobx->value = ($this->localization->getCurrentLanguage() == 'rus') ? 'Русский' : 'English';
+               
+        $this->Language_Switcher_Combobobx->value =
+            ($this->form('maingame')->ltx['language'] == 'rus') ? 'Русский' : 'English';           
     }
     /**
      * @event Return_Btn.mouseExit 
@@ -100,7 +107,7 @@ class opt extends AbstractForm
     {
         if ($GLOBALS['AllSoundSwitcher_IsOn'])
         {
-            $GLOBALS['AllSoundSwitcher_IsOn'] = false;
+            $GLOBALS['AllSoundSwitcher_IsOn'] = false;       
             $this->AllSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             $this->AllSound_Switcher_Btn->textColor = '#880911';
             
@@ -282,6 +289,11 @@ class opt extends AbstractForm
         if ($GLOBALS['ShadowsSwitcher_IsOn'])
         {
             $GLOBALS['ShadowsSwitcher_IsOn'] = false;
+            if ($this->form('maingame')->ltxInitialized)
+            {            
+                $this->form('maingame')->ltx['r_shadows'] = 'off';
+                $this->form('maingame')->SaveUserLTX('user.ltx', $this->form('maingame')->ltx);
+            }
             $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             $this->Shadows_Switcher_Btn->textColor = '#880911';
             
@@ -351,6 +363,11 @@ class opt extends AbstractForm
         else 
         {
             $GLOBALS['ShadowsSwitcher_IsOn'] = true;
+            if ($this->form('maingame')->ltxInitialized)
+            {            
+                $this->form('maingame')->ltx['r_shadows'] = 'on';
+                $this->form('maingame')->SaveUserLTX('user.ltx', $this->form('maingame')->ltx);
+            }
             $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
             $this->Shadows_Switcher_Btn->textColor = '#099209';
             
@@ -416,7 +433,7 @@ class opt extends AbstractForm
             $this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->enable();            
                        
             return;
-        }
+        }      
     }
     /**
      * @event Shadows_Switcher_Btn.mouseUp-Left 
@@ -448,6 +465,11 @@ class opt extends AbstractForm
         if ($GLOBALS['VersionSwitcher_IsOn'])
         {
             $GLOBALS['VersionSwitcher_IsOn'] = false;
+            if ($this->form('maingame')->ltxInitialized)
+            {            
+                $this->form('maingame')->ltx['r_version'] = 'off';
+                $this->form('maingame')->SaveUserLTX('user.ltx', $this->form('maingame')->ltx);
+            }
             $this->Version_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             $this->Version_Switcher_Btn->textColor = '#880911';
             
@@ -467,6 +489,11 @@ class opt extends AbstractForm
         else 
         {
             $GLOBALS['VersionSwitcher_IsOn'] = true;
+            if ($this->form('maingame')->ltxInitialized)
+            {            
+                $this->form('maingame')->ltx['r_version'] = 'on';
+                $this->form('maingame')->SaveUserLTX('user.ltx', $this->form('maingame')->ltx);
+            }         
             $this->Version_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
             $this->Version_Switcher_Btn->textColor = '#099209';         
             
@@ -497,16 +524,18 @@ class opt extends AbstractForm
      */
     function LanguageSwitcherCombobobx(UXEvent $e = null)
     {
-        if ($this->Language_Switcher_Combobobx->value == 'Русский')
+        $language_box = $this->Language_Switcher_Combobobx->value;
+        if ($language_box == 'Русский' || $language_box == 'English')
         {
-            $this->localization->setLanguage($this->Language_Switcher_Combobobx->value);
-            //if (Debug_Build && $this->form('maingame')->MainMenu->content->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage() . ' (' . $this->Language_Switcher_Combobobx->value . ')');
+            $this->localization->setLanguage($language_box);
         }
-        if ($this->Language_Switcher_Combobobx->value == 'English')
+        
+        if ($this->form('maingame')->ltxInitialized)
         {
-            $this->localization->setLanguage($this->Language_Switcher_Combobobx->value);
-            //if (Debug_Build && $this->form('maingame')->MainMenu->content->Options->visible) $this->form('maingame')->toast('Current language: ' . $this->localization->getCurrentLanguage() . ' (' . $this->Language_Switcher_Combobobx->value . ')');
-        } 
+            $this->form('maingame')->ltx['language'] = $this->localization->getCurrentLanguage();
+            $this->form('maingame')->SaveUserLTX('user.ltx', $this->form('maingame')->ltx);
+        }
+        
         $this->UpdateLocalization();
     }
     function UpdateLocalization()
