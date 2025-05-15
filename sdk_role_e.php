@@ -73,6 +73,8 @@ class sdk_role_e extends AbstractForm
      */
     function ApplyDeRoleName(UXMouseEvent $e = null)
     {    
+        if ($this->Edit_RoleName_Danila->text == '') return;
+        
         $this->form('maingame')->Dialog->content->community_actor->text = $this->Edit_RoleName_Danila->text;
         $this->form('maingame')->Pda->content->Pda_Statistic->content->community->text = $this->Edit_RoleName_Danila->text;
     }
@@ -81,6 +83,8 @@ class sdk_role_e extends AbstractForm
      */
     function ApplyPidorasRoleName(UXMouseEvent $e = null)
     {    
+        if ($this->Edit_RoleName_Pido->text == '') return;
+    
         $this->form('maingame')->Dialog->content->community_enemy->text = $this->Edit_RoleName_Pido->text;
         $this->form('maingame')->Pda->content->Pda_Contacts->content->community->text = $this->Edit_RoleName_Pido->text;
     }

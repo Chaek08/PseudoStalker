@@ -66,43 +66,43 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label4" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyDeRoleColor_Btn" layoutX="584" layoutY="64" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyDeRoleColor_Btn" layoutX="584" layoutY="64" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyDeRoleColor_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyPidoRoleColor_Btn" layoutX="584" layoutY="112" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyPidoRoleColor_Btn" layoutX="584" layoutY="112" prefHeight="40" prefWidth="96" styleClass="button " text="Apply" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyPidoRoleColor_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetDeRoleColor_Btn" layoutX="680" layoutY="64" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetDeRoleColor_Btn" layoutX="680" layoutY="64" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetDeRoleColor_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetPidoRoleColor_Btn" layoutX="680" layoutY="112" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetPidoRoleColor_Btn" layoutX="680" layoutY="112" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetPidoRoleColor_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetLaRoleColor_Btn" layoutX="584" layoutY="160" prefHeight="40" prefWidth="192" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetLaRoleColor_Btn" layoutX="584" layoutY="160" prefHeight="40" prefWidth="192" styleClass="button " text="Reset" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetLaRoleColor_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyDeRoleName_Btn" layoutX="584" layoutY="264" prefHeight="40" prefWidth="64" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyDeRoleName_Btn" layoutX="584" layoutY="264" prefHeight="40" prefWidth="64" styleClass="button " text="Apply" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyDeRoleName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetDeRoleName_Btn" layoutX="648" layoutY="264" prefHeight="40" prefWidth="64" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetDeRoleName_Btn" layoutX="648" layoutY="264" prefHeight="40" prefWidth="64" styleClass="button " text="Reset" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -114,19 +114,19 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label5" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyPidoRoleName_Btn" layoutX="584" layoutY="312" prefHeight="40" prefWidth="64" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyPidoRoleName_Btn" layoutX="584" layoutY="312" prefHeight="40" prefWidth="64" styleClass="button " text="Apply" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyPidoRoleName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetPidoRoleName_Btn" layoutX="648" layoutY="312" prefHeight="40" prefWidth="64" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetPidoRoleName_Btn" layoutX="648" layoutY="312" prefHeight="40" prefWidth="64" styleClass="button " text="Reset" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetPidoRoleName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetLaRoleName_Btn" layoutX="584" layoutY="360" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetLaRoleName_Btn" layoutX="584" layoutY="360" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -156,31 +156,31 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label9" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyDeRoleIcon_Btn" layoutX="584" layoutY="464" prefHeight="40" prefWidth="64" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyDeRoleIcon_Btn" layoutX="584" layoutY="464" prefHeight="40" prefWidth="64" styleClass="button " text="Apply" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyDeRoleIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetDeRoleIcon_Btn" layoutX="648" layoutY="464" prefHeight="40" prefWidth="64" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetDeRoleIcon_Btn" layoutX="648" layoutY="464" prefHeight="40" prefWidth="64" styleClass="button " text="Reset" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetDeRoleIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyPidoRoleIcon_Btn" layoutX="584" layoutY="512" prefHeight="40" prefWidth="64" styleClass="button " text="Apply" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ApplyPidoRoleIcon_Btn" layoutX="584" layoutY="512" prefHeight="40" prefWidth="64" styleClass="button " text="Apply" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ApplyPidoRoleIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetPidoRoleIcon_Btn" layoutX="648" layoutY="512" prefHeight="40" prefWidth="64" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetPidoRoleIcon_Btn" layoutX="648" layoutY="512" prefHeight="40" prefWidth="64" styleClass="button " text="Reset" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ResetPidoRoleIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetLaRoleIcon_Btn" layoutX="584" layoutY="560" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ResetLaRoleIcon_Btn" layoutX="584" layoutY="560" prefHeight="40" prefWidth="96" styleClass="button " text="Reset" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -225,37 +225,37 @@
       </styleClass>
     </com.jfoenix.controls.JFXColorPicker>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_RoleColor_Ladcega" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearDeRoleName_Btn" layoutX="712" layoutY="264" prefHeight="40" prefWidth="64" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearDeRoleName_Btn" layoutX="712" layoutY="264" prefHeight="40" prefWidth="64" styleClass="button " text="Clear" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearDeRoleName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearPidoRoleName_Btn" layoutX="712" layoutY="312" prefHeight="40" prefWidth="64" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearPidoRoleName_Btn" layoutX="712" layoutY="312" prefHeight="40" prefWidth="64" styleClass="button " text="Clear" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearPidoRoleName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearLaRoleName_Btn" layoutX="680" layoutY="360" prefHeight="40" prefWidth="96" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearLaRoleName_Btn" layoutX="680" layoutY="360" prefHeight="40" prefWidth="96" styleClass="button " text="Clear" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearLaRoleName_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearDeRoleIcon_Btn" layoutX="712" layoutY="464" prefHeight="40" prefWidth="64" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearDeRoleIcon_Btn" layoutX="712" layoutY="464" prefHeight="40" prefWidth="64" styleClass="button " text="Clear" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-ClearDeRoleIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="CleaarPidoRoleIcon_Btn" layoutX="712" layoutY="512" prefHeight="40" prefWidth="64" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="CleaarPidoRoleIcon_Btn" layoutX="712" layoutY="512" prefHeight="40" prefWidth="64" styleClass="button " text="Clear" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" id="data-CleaarPidoRoleIcon_Btn" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearLaRoleIcon_Btn" layoutX="680" layoutY="560" prefHeight="40" prefWidth="96" styleClass="button " text="Clear" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="ClearLaRoleIcon_Btn" layoutX="680" layoutY="560" prefHeight="40" prefWidth="96" styleClass="button " text="Clear" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -280,19 +280,19 @@
     <Separator focusTraversable="false" id="separator3" layoutX="72" layoutY="232" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="704" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator3" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-f_Background" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseDERoleIcon_Btn" layoutX="536" layoutY="464" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseDERoleIcon_Btn" layoutX="536" layoutY="464" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChooseDERoleIcon_Btn" tooltipText="Choose sound" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChoosePidoRoleIcon_Btn" layoutX="536" layoutY="512" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChoosePidoRoleIcon_Btn" layoutX="536" layoutY="512" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </Button>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/sdk/btn/filechooser.png" id="data-ChoosePidoRoleIcon_Btn" tooltipText="Choose sound" visible="1"/>
-    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseLARoleIcon_Btn" layoutX="536" layoutY="560" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" underline="false" wrapText="false">
+    <Button alignment="CENTER" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="ChooseLARoleIcon_Btn" layoutX="536" layoutY="560" prefHeight="40" prefWidth="40" styleClass="button " text="" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
