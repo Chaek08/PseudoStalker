@@ -124,7 +124,8 @@ class console extends AbstractForm
                         
                 case "version":
                         $this->edit->text = "";
-                        Element::appendText($this->Console_Log, "> PseudoStalker, " . VersionID . ", " . BuildID . "\n");
+                        global $BuildID;
+                        Element::appendText($this->Console_Log, "> PseudoStalker, " . VersionID . ", " . $BuildID . "\n");
                         break;
                         
                 case "save":

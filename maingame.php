@@ -14,25 +14,19 @@ class maingame extends AbstractForm
 {
     private $localization;
     private $currentCycle = '';
-    public $ltx = [];
-    public $ltxInitialized = false;
     
     /**
      * @event show 
      */
     function InitClient(UXWindowEvent $e = null)
     {
-        define('BuildID', 'Build 872, May 14 2025'); //start date 24.12.2022
         define('VersionID', 'v1.3 (rc2)');
-        
         define('client_version', '3');
-        
-        Logger::info(VersionID . ", " . BuildID);
         
         $this->localization = new Localization($language);
         
         define('Debug_Build', true);
-        define('SDK_Mode', false);
+        define('SDK_Mode', true);
         
         $GLOBALS['AllSounds'] = true;
         $GLOBALS['MenuSound'] =  true;
@@ -58,6 +52,9 @@ class maingame extends AbstractForm
         $this->currentCycle = ''; 
         $this->UpdateEnvironment();
     }
+    
+    public $ltx = [];
+    public $ltxInitialized = false;
     function InitUserLTX()
     {
         $path = 'user.ltx';
@@ -92,7 +89,7 @@ class maingame extends AbstractForm
             $allKeysExist = true;
             foreach (array_keys($default) as $key)
             {
-                if (!isset($config[$key]) || $config[$key] === '')
+                if (!isset($config[$key]) || $config[$key] == '')
                 {
                     $allKeysExist = false;
                     break;
@@ -103,9 +100,9 @@ class maingame extends AbstractForm
             {
                 foreach ($default as $key => $value)
                 {
-                    if (!isset($config[$key]) || $config[$key] === '')
+                    if (!isset($config[$key]) || $config[$key] == '')
                     {
-                    $config[$key] = $value;
+                        $config[$key] = $value;
                     }
                 }
                 $this->SaveUserLTX($path, $config);
@@ -215,14 +212,43 @@ class maingame extends AbstractForm
             return 'night';
         }
     }    
+    
+    $BuildID = null;
     function GetVersion()
     {
+        global $BuildID;
+        
+        $filePath = "PseudoCore.dll";
+
+        if (!file_exists($filePath))
+        {
+            app()->shutdown();
+            return;
+        }
+
+        $encrypted = file_get_contents($filePath);
+        $BuildID = null;
+
+        if ($encrypted != false)
+        {
+            $decrypted = DimasCryptoZlodey::decryptData($encrypted);
+            if ($decrypted != false && trim($decrypted) != '')
+            {
+                $BuildID = trim($decrypted);
+            }
+        }
+
+        if ($BuildID == null)
+        {
+            $BuildID = '(null)';
+        }
+        
         if (Debug_Build)
         {
             $this->version->show();
             $this->version_detail->show();
             
-            Element::setText($this->version_detail, SDK_Mode ? "Editor " . BuildID : BuildID);
+            Element::setText($this->version_detail, SDK_Mode ? "Editor " . $BuildID : $BuildID);
         }
         else
         {
