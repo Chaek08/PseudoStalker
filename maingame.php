@@ -350,8 +350,7 @@ class maingame extends AbstractForm
         {
             $this->PlayEnvironment();
         }
-        $this->dlg_btn->show();
-        $this->form('maingame')->SavedGame_Toast->y = 728;
+        $this->Talk_Label->show();
         $this->Dialog->content->StartDialog();        
         $this->Pda->content->Pda_Statistic->content->ResetFinalText();
     }
@@ -385,7 +384,7 @@ class maingame extends AbstractForm
             
             if ($this->fight_image->visible) $this->fight_image->hide();
         
-            if ($this->dlg_btn->visible || $this->fight_image->visible) $this->dlg_btn->hide();
+            if ($this->Talk_Label->visible || $this->fight_image->visible) $this->Talk_Label->hide();
             if ($this->SavedGame_Toast->visible) $this->SavedGame_Toast->hide();
             if ($this->leave_btn->visible) $this->leave_btn->hide();
             
@@ -413,7 +412,7 @@ class maingame extends AbstractForm
             if (!$this->idle_static_actor->visible) $this->fight_image->show();
             
             if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed']) $this->leave_btn->show();
-            if (!$this->leave_btn->visible && $this->idle_static_actor->visible || $this->idle_static_enemy->visible) $this->dlg_btn->show();        
+            if (!$this->leave_btn->visible && $this->idle_static_actor->visible || $this->idle_static_enemy->visible) $this->Talk_Label->show();        
         
             $GLOBALS['HudVisible'] = true;
             return;            
@@ -547,11 +546,14 @@ class maingame extends AbstractForm
         $this->ExitDialog->show();        
     }
     /**
-     * @event dlg_btn.click-Left 
+     * @event keyDown-F
      */
-    function ShowDialog(UXMouseEvent $e = null)
+    function ShowDialog(UXKeyEvent $e = null)
     {          
-        $this->ToggleHud();
+        if ($this->CheckVisibledFragments()) return;
+        if ($GLOBALS['QuestStep1']) return;
+        
+        if (!$this->Dialog->visible) $this->ToggleHud(); 
     
         $this->Dialog->show();
         $this->Dialog->content->StartDialog();          
@@ -771,8 +773,7 @@ class maingame extends AbstractForm
             $this->health_bar_enemy->hide();
             $this->health_bar_enemy_b->hide();
             $this->leave_btn->show();
-            $this->dlg_btn->hide();
-            $this->form('maingame')->SavedGame_Toast->y = 816;
+            $this->Talk_Label->hide();
         
             if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex');
         
@@ -850,8 +851,7 @@ class maingame extends AbstractForm
             $this->Inventory->content->health_bar_gg_b->hide();
             $this->Inventory->content->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
             $this->leave_btn->show();
-            $this->dlg_btn->hide();
-            $this->form('maingame')->SavedGame_Toast->y = 816;
+            $this->Talk_Label->hide();
                    
             if ($this->hitmark_static->visible) $this->hitmark_static->hide();
         
