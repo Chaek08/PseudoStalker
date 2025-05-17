@@ -22,21 +22,20 @@ class maingame extends AbstractForm
     {
         define('VersionID', 'v1.3 (rc2)');
         define('client_version', '3');
-        
-        $this->localization = new Localization($language);
-        
         define('Debug_Build', true);
-        define('SDK_Mode', true);
-        
-        $GLOBALS['AllSounds'] = true;
-        $GLOBALS['MenuSound'] =  true;
+        define('SDK_Mode', false);
+
+        $GLOBALS['AllSounds']  = true;
+        $GLOBALS['MenuSound']  = true;
         $GLOBALS['FightSound'] = true;
-        
         $GLOBALS['HudVisible'] = true;
-     
-        $this->GetVersion();
         
+        $this->localization = new Localization($language);        
+
+        $this->GetVersion();
+
         $this->MainMenu->content->InitMainMenu();
+
         if (SDK_Mode)
         {
             $this->MainMenu->content->opensdk_btn->show();
@@ -46,11 +45,13 @@ class maingame extends AbstractForm
             $this->Editor->free();
             $this->MainMenu->content->opensdk_btn->free();
         }
+
         $this->MainMenu->content->Options->content->InitOptions();
-        $this->InitUserLTX();
-        
-        $this->currentCycle = ''; 
+
+        $this->currentCycle = '';
         $this->UpdateEnvironment();
+        
+        $this->InitUserLTX();
     }
     
     public $ltx = [];
