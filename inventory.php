@@ -17,10 +17,31 @@ class inventory extends AbstractForm
         $this->localization = new Localization($language);
     }
     
-    function InitInventoryWeight()
-    {    
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        $this->weight_desc->text = $this->localization->get('Weight_Label') . (($this->inv_item_vodka->visible ? " 4.3" : " 3.8") . " / 50.0");
+    function UpdateInvenotryWeight()
+    {
+        $maxWeight = 50.0;
+        $baseWeight = 3.8;
+        $totalWeight = $baseWeight;
+
+        $items = [
+            ['item' => $this->inv_item_vodka,  'weight' => 0.5]
+        ];
+
+        foreach ($items as $entry)
+        {
+            $item = $entry['item'];
+            $weight = $entry['weight'];
+
+            if ($item != null && $item->visible)
+            {
+                $totalWeight += $weight;
+            }
+        }
+        
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);        
+        $WeightLabel = $this->localization->get('Weight_Label');
+        $text = $WeightLabel . "  " . round($totalWeight, 1) . " / " . round($maxWeight, 1);
+        $this->weight_desc->text = $text;
     }
     function HideVodkaMaket()
     {
@@ -203,8 +224,9 @@ class inventory extends AbstractForm
     function DropVodka(UXMouseEvent $e = null)
     {       
         if ($this->form('maingame')->Inventory->visible) $this->DropSound();
-        $this->HideCombobox(); 
-        $this->SpawnVodka();          
+        $this->HideCombobox();
+        $this->SpawnVodka();
+        $this->UpdateInvenotryWeight();
         if ($this->inv_maket_select_2->visible)
         {
             $this->HideVodkaMaket();
@@ -215,9 +237,6 @@ class inventory extends AbstractForm
     }
     function SpawnVodka()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        $this->weight_desc->text = ($this->localization->get('Weight_Label')) . " 3.8 / 50.0";
-        
         $this->inv_item_vodka->hide();
         $this->vodka_selected->hide();
         $this->form('maingame')->item_vodka_0000->show();
@@ -225,9 +244,6 @@ class inventory extends AbstractForm
     }
     function DespawnVodka()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        $this->weight_desc->text = ($this->localization->get('Weight_Label')) . " 4.3 / 50.0";
-
         $this->inv_item_vodka->show();
         $this->vodka_selected->show();
         $this->form('maingame')->item_vodka_0000->hide();    

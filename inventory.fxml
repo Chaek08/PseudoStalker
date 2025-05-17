@@ -51,7 +51,7 @@
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-money" visible="1"/>
     <Data cursor="DEFAULT" enabled="" id="data-inv_item_vodka" image=".data/ui/inventory/item_vodka.png" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="weight_desc" layoutX="1144" layoutY="88" prefHeight="26.6015625" prefWidth="123.447265625" styleClass="label " text="Вес  4.3 / 50.0" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="weight_desc" layoutX="1144" layoutY="88" prefHeight="26.6015625" prefWidth="114.658203125" styleClass="label " text="Вес  ??? / ???" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>

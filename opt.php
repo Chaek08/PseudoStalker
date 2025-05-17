@@ -654,8 +654,6 @@ class opt extends AbstractForm
         $this->form('maingame')->Fail->content->returnbtn->text = $this->localization->get('Return_Button');
         $this->form('maingame')->Fail->content->exitbtn->text = $this->localization->get('Exit_Button');
         
-        $this->form('maingame')->Inventory->content->InitInventoryWeight();
-        
         if ($GLOBALS['QuestCompleted']) 
         {
             $this->form('maingame')->Fail->content->UpdateFailState();

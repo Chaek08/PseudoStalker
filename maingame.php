@@ -525,9 +525,10 @@ class maingame extends AbstractForm
     {       
         if ($this->CheckVisibledFragments()) return;
         
-        if (!$this->ExitDialog->visible) $this->ToggleHud();        
+        if (!$this->ExitDialog->visible) $this->ToggleHud();
         
         $this->Inventory->show();
+        $this->Inventory->content->UpdateInvenotryWeight();
         if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/inv_open.mp3', true);
     }    
     /**
