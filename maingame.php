@@ -164,6 +164,13 @@ class maingame extends AbstractForm
             'evening' => "./gamedata/textures/environment/evening.mp4",
             'night' => "./gamedata/textures/environment/night.mp4"
         ];
+        
+        $brightnessByCycle = [
+            'morning' => -0.1,
+            'day' => 1.0,
+            'evening' => -0.2,
+            'night' => -0.4
+        ];
 
         if ($newCycle != $this->currentCycle)
         {
@@ -178,8 +185,11 @@ class maingame extends AbstractForm
             $this->currentCycle = $newCycle;
 
             $backgroundPath = $backgroundPaths[$newCycle];
-
             Media::open($backgroundPath, false, $this->Environment);
+            
+            $brightness = $brightnessByCycle[$newCycle];
+            $this->actor->colorAdjustEffect->brightness = $brightness;
+            $this->enemy->colorAdjustEffect->brightness = $brightness;
         }
     }
     function PlayEnvironment()
@@ -350,7 +360,6 @@ class maingame extends AbstractForm
         {
             $this->PlayEnvironment();
         }
-        $this->Talk_Label->show();
         $this->Dialog->content->StartDialog();        
         $this->Pda->content->Pda_Statistic->content->ResetFinalText();
     }
@@ -384,7 +393,6 @@ class maingame extends AbstractForm
             
             if ($this->fight_image->visible) $this->fight_image->hide();
         
-            if ($this->Talk_Label->visible || $this->fight_image->visible) $this->Talk_Label->hide();
             if ($this->SavedGame_Toast->visible) $this->SavedGame_Toast->hide();
             if ($this->leave_btn->visible) $this->leave_btn->hide();
             
@@ -412,7 +420,6 @@ class maingame extends AbstractForm
             if (!$this->idle_static_actor->visible) $this->fight_image->show();
             
             if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed']) $this->leave_btn->show();
-            if (!$this->leave_btn->visible && $this->idle_static_actor->visible || $this->idle_static_enemy->visible) $this->Talk_Label->show();        
         
             $GLOBALS['HudVisible'] = true;
             return;            
@@ -1035,5 +1042,42 @@ class maingame extends AbstractForm
         $path = SCREENSHOT_DIRECTORY . $filename;
 
         $image->save(new File($path));        
+    }
+    
+    protected $isHovered = false;
+    protected $isLabelVisible = false;
+    /**
+     * @event idle_static_enemy.mouseEnter
+     */
+    function EnemyHoverEnter(UXMouseEvent $e = null)
+    {
+        if ($GLOBALS['QuestStep1']) return;
+        
+        $this->isHovered = true;
+
+        Timer::after(300, function () {
+            if ($this->isHovered && !$this->isLabelVisible)
+            {
+                $this->Talk_Label->opacity = 0;
+                $this->Talk_Label->visible = true;
+                Animation::fadeIn($this->Talk_Label, 300);
+                $this->isLabelVisible = true;
+            }
+        });
+    }
+    /**
+     * @event idle_static_enemy.mouseExit
+     */
+    function EnemyHoverExit(UXMouseEvent $e = null)
+    {
+        $this->isHovered = false;
+
+        if ($this->isLabelVisible)
+        {
+            Animation::fadeOut($this->Talk_Label, 300, function () {
+                $this->Talk_Label->visible = false;
+                $this->isLabelVisible = false;
+            });
+        }
     }
 }

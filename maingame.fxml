@@ -179,6 +179,6 @@
     <FragmentPane alignment="CENTER" focusTraversable="false" id="Console" layoutX="944" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="456" prefWidth="568" spacing="0" styleClass="fragment-pane "/>
     <Data cursor="DEFAULT" enabled="1" id="data-Environment_Background" visible="1"/>
     <Data cursor="DEFAULT" enabled="" id="data-SavedGame_Toast" visible=""/>
-    <Data cursor="DEFAULT" enabled="" graphic="" id="data-Talk_Label" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" graphic="" id="data-Talk_Label" visible=""/>
   </children>
 </AnchorPane>

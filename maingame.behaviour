@@ -5,12 +5,14 @@
     <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
   <target id="actor">
-    <behaviour color="#000000" offsetX="4.88" offsetY="4.88" radius="24.63" spread="0.048780487804878" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
     <behaviour animated="1" direction="LEFT_RIGHT" gridX="1" gridY="1" limitedByParent="" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
+    <behaviour brightness="-0.5" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
+    <behaviour color="#000000" offsetX="2" offsetY="1.5" radius="27.5" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
   <target id="enemy">
-    <behaviour color="#000000" offsetX="4.88" offsetY="4.88" radius="24.63" spread="0.05" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
     <behaviour animated="1" direction="LEFT_RIGHT" gridX="1" gridY="1" limitedByParent="" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
+    <behaviour brightness="-0.5" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
+    <behaviour color="#000000" offsetX="2" offsetY="1.5" radius="27.560975609756" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
   <target id="dlg_btn">
     <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
