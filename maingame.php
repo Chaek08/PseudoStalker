@@ -167,7 +167,7 @@ class maingame extends AbstractForm
         
         $brightnessByCycle = [
             'morning' => -0.1,
-            'day' => 1.0,
+            'day' => 0.0,
             'evening' => -0.2,
             'night' => -0.4
         ];
