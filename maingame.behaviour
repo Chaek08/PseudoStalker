@@ -14,9 +14,6 @@
     <behaviour brightness="-0.5" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
     <behaviour color="#000000" offsetX="2" offsetY="1.5" radius="27.560975609756" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="dlg_btn">
-    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
-  </target>
   <target id="health_static_enemy">
     <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>

@@ -14,7 +14,6 @@ class maingame extends AbstractForm
 {
     private $localization;
     private $currentCycle = '';
-    
     /**
      * @event show 
      */
@@ -23,7 +22,7 @@ class maingame extends AbstractForm
         define('VersionID', 'v1.3 (rc2)');
         define('client_version', '3');
         define('Debug_Build', true);
-        define('SDK_Mode', false);
+        define('SDK_Mode', true);
 
         $GLOBALS['AllSounds']  = true;
         $GLOBALS['MenuSound']  = true;
@@ -348,6 +347,7 @@ class maingame extends AbstractForm
         $this->Pda->content->Pda_Tasks->content->Step_DeletePda();
         $this->Pda->content->Pda_Ranking->content->DeathFilter();
         $this->Pda->content->Pda_Statistic->content->UpdateRaiting();
+        $this->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
         
         $this->GetHealth();
         $this->UpdateEnvironment();
@@ -360,8 +360,7 @@ class maingame extends AbstractForm
         {
             $this->PlayEnvironment();
         }
-        $this->Dialog->content->StartDialog();        
-        $this->Pda->content->Pda_Statistic->content->ResetFinalText();
+        $this->Dialog->content->StartDialog();
     }
     function CheckVisibledFragments()
     {

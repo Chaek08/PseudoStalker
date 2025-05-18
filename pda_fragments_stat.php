@@ -54,6 +54,11 @@ class pda_fragments_stat extends AbstractForm
     function UpdateFinalLabel()
     {
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        
+        $this->tab_final->hide();
+        $this->final_label->hide();
+        $this->final_label->text = null;
+        
         if ($GLOBALS['ActorFailed'])
         {
             $this->tab_final->show();
@@ -66,11 +71,5 @@ class pda_fragments_stat extends AbstractForm
             $this->final_label->show();
             $this->final_label->text = $this->localization->get('FinalLabel_EnemyFail');
         }
-    }
-    function ResetFinalText() //???
-    {
-        $this->tab_final->hide();
-        $this->final_label->hide();
-        $this->final_label->text = "";
     }
 }
