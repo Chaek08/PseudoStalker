@@ -189,6 +189,7 @@ class maingame extends AbstractForm
             $brightness = $brightnessByCycle[$newCycle];
             $this->actor->colorAdjustEffect->brightness = $brightness;
             $this->enemy->colorAdjustEffect->brightness = $brightness;
+            $this->item_vodka_0000->colorAdjustEffect->brightness = $brightness;
         }
     }
     function PlayEnvironment()
