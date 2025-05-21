@@ -1,6 +1,8 @@
 <?php
 namespace app\forms;
 
+use app\forms\InventoryGrid;
+use php\gui\UXImage;
 use std, gui, framework, app;
 use php\gui\event\UXMouseEvent; 
 use php\gui\event\UXWindowEvent; 
@@ -9,71 +11,62 @@ use app\forms\classes\Localization;
 class inventory extends AbstractForm
 {
     private $localization;
-
+    
+    private $vodkaWeight = 0.5;
+    private $medkitWeight = 0.1;
+    private $outfitWeight = 2.0;
+    
+    private $playerMonero = 40;
+    private $moneyCurrency = 'RU';
+       
     public function __construct() 
     {
         parent::__construct();
 
         $this->localization = new Localization($language);
     }
-    
-    function UpdateInvenotryWeight()
+    function UpdateSelectedItems()
     {
-        $maxWeight = 50.0;
-        $baseWeight = 3.8;
+        $GLOBALS['item_outfit_selected'] = false;    
+        $GLOBALS['item_vodka_selected'] = false;
+        $GLOBALS['item_medkit_selected'] = false;
+    }
+    function UpdateInventoryStatus()
+    {
+        $maxWeight = 90.0;
+        $baseWeight = 50.0;
         $totalWeight = $baseWeight;
 
-        $items = [
-            ['item' => $this->inv_item_vodka,  'weight' => 0.5]
-        ];
-
-        foreach ($items as $entry)
+        if ($this->InventoryGrid->content->Inv_Vodka->visible)
         {
-            $item = $entry['item'];
-            $weight = $entry['weight'];
-
-            if ($item != null && $item->visible)
-            {
-                $totalWeight += $weight;
-            }
+           $totalWeight += $this->vodkaWeight; 
         }
-        
+        if ($this->InventoryGrid->content->Inv_Medkit->visible)
+        {
+            $totalWeight += $this->medkitWeight;
+        }
+        if ($this->inv_maket_visual->visible)
+        {
+            $totalWeight += $this->outfitWeight;
+        }
+            
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);        
         $WeightLabel = $this->localization->get('Weight_Label');
+        
         $text = $WeightLabel . "  " . round($totalWeight, 1) . " / " . round($maxWeight, 1);
         $this->weight_desc->text = $text;
-    }
-    function HideVodkaMaket()
-    {
-        $this->inv_maket_select_2->hide();
-        $this->maket_cond->hide(); 
-    }
-    function HideOutfitMaket() 
-    {
-        $this->inv_maket_select->hide();
-        $this->maket_cond->hide();
-    }
-    function ShowVodkaMaket()
-    {
-        $this->HideOutfitMaket();    
-        $this->inv_maket_select_2->show();
-        $this->SetItemCondition();        
-        $this->maket_cond->show(); 
-    }
-    function ShowOutfitMaket() 
-    {
-        $this->HideVodkaMaket();    
-        $this->inv_maket_select->show();
-        $this->SetItemCondition();        
-        $this->maket_cond->show();
-    }    
+        
+        $this->money->text = $this->playerMonero . ' ' . $this->moneyCurrency;
+    }   
     function ShowUIText()
     {
         $this->maket_label->show();
         $this->maket_count->show();
         $this->maket_desc->show();
-        $this->maket_cond_label->show();   
-        $this->maket_weight->show();        
+        $this->maket_cond->show();
+        $this->maket_cond_label->show();
+        $this->maket_weight->show();
+        $this->inv_maket->show();
     }
     function HideUIText()
     {
@@ -82,15 +75,24 @@ class inventory extends AbstractForm
         $this->maket_desc->hide();               
         $this->maket_cond->hide();
         $this->maket_cond_label->hide();
-        $this->maket_weight->hide();         
+        $this->maket_weight->hide();
+        $this->inv_maket->hide();  
     }
-    function SetUIText()
+    function SetItemInfo()
     {
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        if ($this->inv_maket_select_2->visible)
+        
+        $this->inv_maket->image = null;
+        $this->maket_count->text = null;
+        $this->maket_weight->text = null;
+        $this->maket_label->text = null;
+        $this->maket_desc->text = null;        
+        
+        if ($GLOBALS['item_vodka_selected'])
         {
             if (SDK_Mode)
             {
+                $this->inv_maket->image = new UXImage($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemIcon_Vodka->text);
                 $this->maket_label->text =
                     $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Vodka->text ?:
                     $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Vodka->promptText;
@@ -99,21 +101,27 @@ class inventory extends AbstractForm
                     $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Vodka->text ?:
                     $this->localization->get('Vodka_Inv_Desc');
                     
-                Element::setText($this->maket_count, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Count_Vodka));
+                Element::setText($this->maket_count, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Count_Vodka) . ' ' . $this->moneyCurrency);
+                
+                $this->vodkaWeight = (float) uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Vodka);                
                 Element::setText($this->maket_weight, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Vodka));
             }
             else 
             {
-                Element::setText($this->maket_count, "250 RU");
-                Element::setText($this->maket_weight, "0.50kg");
+                $this->inv_maket->image = new UXImage('res://.data/ui/inventory/item_vodka.png');
                 $this->maket_label->text = $this->localization->get('Vodka_Inv_Name');
                 $this->maket_desc->text = $this->localization->get('Vodka_Inv_Desc');
+                
+                Element::setText($this->maket_count, "250" .  ' ' . $this->moneyCurrency);
+                Element::setText($this->maket_weight, sprintf('%.1fkg', $this->vodkaWeight));
             }
         }
-        if ($this->inv_maket_select->visible)
+        if ($GLOBALS['item_outfit_selected'])
         {
             if (SDK_Mode)
             {
+                $this->inv_maket->image = new UXImage($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemIcon_Outfit->text);
+                
                 $this->maket_label->text = 
                     $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Outfit->text ?: 
                     $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Outfit->promptText;
@@ -122,147 +130,89 @@ class inventory extends AbstractForm
                     $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Outfit->text ?: 
                     $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Outfit->promptText;
                     
-                Element::setText($this->maket_count, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Count_Outfit));
+                Element::setText($this->maket_count, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Count_Outfit) . ' ' . $this->moneyCurrency);                
+                    
+                $this->outfitWeight = (float) uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Outfit);
                 Element::setText($this->maket_weight, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Outfit));
             }
             else 
             {
-                Element::setText($this->maket_count, "2599 RU");
-                Element::setText($this->maket_weight, "1.00kg");
+                $this->inv_maket->image = new UXImage('res://.data/ui/inventory/bandit_outfit.png');
+                
                 $this->maket_label->text = $this->localization->get('Outfit_Inv_Name');
                 $this->maket_desc->text = $this->localization->get('Outfit_Inv_Desc');
+                
+                Element::setText($this->maket_count, "2599" . ' ' . $this->moneyCurrency);
+                Element::setText($this->maket_weight, sprintf('%.1fkg', $this->outfitWeight));
             }
+        }
+        if ($GLOBALS['item_medkit_selected'])
+        {
+            $this->inv_maket->image = new UXImage('res://.data/ui/inventory/item_medkit.png');
+            
+            $this->maket_label->text = $this->localization->get('Medkit_Inv_Name');
+            $this->maket_desc->text = $this->localization->get('Medkit_Inv_Desc');
+            
+            Element::setText($this->maket_count, "100" . ' ' . $this->moneyCurrency);
+            Element::setText($this->maket_weight, sprintf('%.1fkg', $this->medkitWeight));
         }
     }
     function UseSlotSound()
     {
-        if ($GLOBALS['AllSounds'])
+        if ($GLOBALS['AllSounds'] && $this->form('maingame')->Inventory->visible)
         {
             Media::open('res://.data/audio/inv_slot.mp3', true, 'inv_use_slot'); 
         }     
     }
     function PropertiesSound()
     {
-        if ($GLOBALS['AllSounds'])
+        if ($GLOBALS['AllSounds'] && $this->form('maingame')->Inventory->visible)
         {
             Media::open('res://.data/audio/inv_properties.mp3', true, 'inv_properties'); 
         }          
     }
     function DropSound()
     {
-        if ($GLOBALS['AllSounds'])
+        if ($GLOBALS['AllSounds'] && $this->form('maingame')->Inventory->visible)
         {
             Media::open('res://.data/audio/inv_drop.mp3', true, 'inv_drop'); 
         }               
-    }
-    function ShowCombobox()
-    {     
-        $this->PropertiesSound();
-        
-        $this->main->position = $this->form('maingame')->CustomCursor->position;
-        $this->button_drop->x = $this->main->x + 8;
-        $this->button_drop->y = $this->main->y + 8;
-        
-        if (Geometry::intersect($this->main, $this->vodka_selected))  
-        {
-            $this->main->x = 104;
-            $this->button_drop->x = 112;
-        }      
-             
-        if ($this->main->toggle() || $this->button_drop->toggle())
-        {
-            $this->main->show();
-            $this->button_drop->show();
-        }          
-    }
-    function HideCombobox()
-    {  
-        $this->main->hide();
-        $this->button_drop->hide();
     }    
     /**
      * @event inv_maket_visual.click-Left 
      */
-    function OutfitMaketFunc(UXMouseEvent $e = null)
+    function SelectOutfit(UXMouseEvent $e = null)
     {
-        $this->HideCombobox();
-    
-        if ($this->inv_maket_select->visible) return;
-
-        $this->UseSlotSound();
-        $this->ShowOutfitMaket();
-        $this->ShowUIText();
-        $this->SetUIText();       
-    }
-    /**
-     * @event vodka_selected.click-Left 
-     */
-    function VodkaMaketFunc(UXMouseEvent $e = null)
-    {    
-        $this->HideCombobox();
+        $this->InventoryGrid->content->HideCombobox();
         
-        if ($this->inv_maket_select_2->visible) return;
-  
-        $this->UseSlotSound();
-        $this->ShowVodkaMaket();
+        if ($GLOBALS['item_outfit_selected']) return;
+        
+        $this->UpdateSelectedItems();
+        $GLOBALS['item_outfit_selected'] = true;
+        
         $this->ShowUIText();
-        $this->SetUIText();
+        $this->SetItemInfo();
+        $this->SetItemCondition();
+        
+        $this->UseSlotSound();       
     }
-    /**
-     * @event button4.click-Left 
-     */
-    function InvFrameFunc(UXMouseEvent $e = null)
-    {  
-        $this->HideOutfitMaket();
-        $this->HideVodkaMaket();
-        $this->HideUIText();   
-        $this->HideCombobox();          
-    }
-    /**
-     * @event button_drop.click-Left 
-     */
-    function DropVodka(UXMouseEvent $e = null)
-    {       
-        if ($this->form('maingame')->Inventory->visible) $this->DropSound();
-        $this->HideCombobox();
-        $this->SpawnVodka();
-        $this->UpdateInvenotryWeight();
-        if ($this->inv_maket_select_2->visible)
-        {
-            $this->HideVodkaMaket();
-            $this->HideUIText();
-            
-            if ($this->inv_maket_select->visible) $this->inv_maket_select->hide();
-        }  
-    }
-    function SpawnVodka()
+    function DespawnItems()
     {
-        $this->inv_item_vodka->hide();
-        $this->vodka_selected->hide();
-        $this->form('maingame')->item_vodka_0000->show();
-        $this->form('maingame')->item_vodka_0000->opacity = 100;
-    }
-    function DespawnVodka()
-    {
-        $this->inv_item_vodka->show();
-        $this->vodka_selected->show();
-        $this->form('maingame')->item_vodka_0000->hide();    
+        $this->InventoryGrid->content->medkitCount = 0;
+        
+        $this->InventoryGrid->content->addVodkaToInventory();
+        $this->InventoryGrid->content->addMedkitToInventory();
+        
+        $this->form('maingame')->item_vodka_0000->hide();
         $this->form('maingame')->item_vodka_0000->enabled = true;
         $this->form('maingame')->item_vodka_0000->opacity = 100;
         $this->form('maingame')->item_vodka_0000->position = [256,696];
-    }    
-    /**
-     * @event vodka_selected.click-Right 
-     */
-    function VodkaActions(UXMouseEvent $e = null)
-    {    
-        $this->ShowCombobox();
     }
     function SetItemCondition()
     {
         $this->maket_cond->width = 0;
         
-        if ($this->inv_maket_select->visible)
+        if ($GLOBALS['item_outfit_selected'])
         {
             if ($this->form('maingame')->health_bar_gg->width == 264) // Дефолтный размер health bar, без наподобности в функции ResetOutfitCondition
             {
@@ -295,11 +245,17 @@ class inventory extends AbstractForm
                 $this->form('maingame')->animateResizeWidth($this->maket_cond, 74, 8);
             }     
         }
-        if ($this->inv_maket_select_2->visible)
+        if ($GLOBALS['item_vodka_selected'])
         {
             $this->maket_cond->text = "100 %";
             $this->maket_cond->color = '#4d804d';
             $this->form('maingame')->animateResizeWidth($this->maket_cond, 208, 8);
         }
+        if ($GLOBALS['item_medkit_selected'])
+        {
+            $this->maket_cond->text = "100 %";
+            $this->maket_cond->color = '#4d804d';
+            $this->form('maingame')->animateResizeWidth($this->maket_cond, 208, 8);
+        }        
     }  
 }

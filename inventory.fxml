@@ -6,6 +6,11 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="button4" layoutX="24" layoutY="72" opacity="0.95121951219512" prefHeight="800" prefWidth="568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
     <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="buttonAlt" layoutX="1128" layoutY="72" opacity="0.95" prefHeight="800" prefWidth="448" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
@@ -31,57 +36,37 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="button4" layoutX="24" layoutY="72" opacity="0.95121951219512" prefHeight="800" prefWidth="568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-inv_maket_visual" image=".data/ui/maingame/sprite/actor.png" visible="1"/>
-    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="328" id="inv_maket_select" layoutX="608" layoutY="80" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="504">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-inv_maket_select" image=".data/ui/inventory/bandit_outfit.png" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_desc" visible=""/>
-    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="money" layoutX="1496" layoutY="88" prefHeight="24" prefWidth="64" styleClass="label " text="40 RU" textAlignment="CENTER" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="money" layoutX="1280" layoutY="88" prefHeight="30" prefWidth="280" styleClass="label " text="money" textAlignment="CENTER" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-money" visible="1"/>
-    <Data cursor="DEFAULT" enabled="" id="data-inv_item_vodka" image=".data/ui/inventory/item_vodka.png" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="weight_desc" layoutX="1144" layoutY="88" prefHeight="26.6015625" prefWidth="114.658203125" styleClass="label " text="Вес  ??? / ???" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="weight_desc" layoutX="1144" layoutY="88" prefHeight="26.6015625" prefWidth="107.890625" styleClass="label " text="weight_desc" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-weight_desc" visible="1"/>
-    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="328" id="inv_maket_select_2" layoutX="608" layoutY="80" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="504">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-inv_maket_select_2" image=".data/ui/inventory/item_vodka.png" visible=""/>
-    <Data cursor="DEFAULT" enabled="1" id="data-main" visible=""/>
-    <Data cursor="DEFAULT" enabled="1" id="data-button_drop" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-inv_back" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-buttonAlt" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-button3" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-button4" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="2" id="button5" layoutX="24" layoutY="24" opacity="0.95" prefHeight="40" prefWidth="568" styleClass="x-flat-button " text="Инвентарь" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="2" id="button5" layoutX="24" layoutY="24" opacity="0.95" prefHeight="40" prefWidth="568" styleClass="x-flat-button " text="button5" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/inventory/inv_icon_alt.png" id="data-button5" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="0" id="button6" layoutX="600" layoutY="24" opacity="0.95" prefHeight="40" prefWidth="520" styleClass="x-flat-button " text="Предмет" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="0" id="button6" layoutX="600" layoutY="24" opacity="0.95" prefHeight="40" prefWidth="520" styleClass="x-flat-button " text="button6" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/inventory/item_icon.png" id="data-button6" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="0" id="button7" layoutX="1128" layoutY="24" opacity="0.95" prefHeight="40" prefWidth="448" styleClass="x-flat-button " text="Снаряжение" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="0" id="button7" layoutX="1128" layoutY="24" opacity="0.95" prefHeight="40" prefWidth="448" styleClass="x-flat-button " text="button7" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
@@ -96,27 +81,12 @@
     <Data cursor="DEFAULT" enabled="1" id="data-health_static_gg" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-health_bar_gg" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-skull_actor" image=".data/ui/maingame/skull_new.png" visible=""/>
-    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="vodka_selected" layoutX="32" layoutY="80" opacity="0.29036739734486" prefHeight="120" prefWidth="64" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="vodka_selected" layoutX="1608" layoutY="-8" opacity="0.29036739734486" prefHeight="120" prefWidth="64" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-vodka_selected" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="93" id="inv_item_vodka" layoutX="48" layoutY="96" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="30">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
-    <FlatButton alignment="CENTER" borderRadius="5" color="#ff7d00" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="main" layoutX="104" layoutY="80" opacity="0.75609756097561" prefHeight="40" prefWidth="168" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#cc8033" color="#cc8033" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#e6994d" id="button_drop" layoutX="112" layoutY="88" prefHeight="24" prefWidth="152" styleClass="x-flat-button " text="выбросить" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="13"/>
-      </font>
-    </FlatButton>
     <FlatButton alignment="CENTER" borderRadius="15" color="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button9" layoutX="608" layoutY="544" opacity="0.85" prefHeight="320" prefWidth="504" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="10"/>
@@ -156,7 +126,7 @@
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_count" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-maket_cond" visible=""/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="maket_cond_label" layoutX="792" layoutY="488" prefHeight="40" prefWidth="81" styleClass="label " text="состояние" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="maket_cond_label" layoutX="704" layoutY="488" prefHeight="40" prefWidth="168" styleClass="label " text="maket_cond_label" textAlignment="CENTER" textFill="#e6e6e6" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="17"/>
       </font>
@@ -199,5 +169,19 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-label" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="Medkit_Selected" layoutX="1608" layoutY="-8" opacity="0.29036739734486" prefHeight="64" prefWidth="112" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-Medkit_Selected" visible="1"/>
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="328" id="inv_maket" layoutX="608" layoutY="80" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="504">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-inv_maket" image="" visible="1"/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="InventoryGrid" layoutX="32" layoutY="80" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="784" prefWidth="552" spacing="0" styleClass="fragment-pane "/>
+    <Data content="InventoryGrid" cursor="DEFAULT" enabled="1" id="data-InventoryGrid" visible="1"/>
   </children>
 </AnchorPane>

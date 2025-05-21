@@ -22,7 +22,7 @@ class maingame extends AbstractForm
         define('VersionID', 'v1.3 (rc2)');
         define('client_version', '3');
         define('Debug_Build', true);
-        define('SDK_Mode', true);
+        define('SDK_Mode', false);
 
         $GLOBALS['AllSounds']  = true;
         $GLOBALS['MenuSound']  = true;
@@ -291,7 +291,7 @@ class maingame extends AbstractForm
             }
             else
             {   
-                Media::open($fightsoundPath = 'res://.data/audio/fight/fight_sound.mp3', true, $this->FightSound);
+                Media::open($fightsoundPath = 'res://.data/audio/fight/fight_sound_20_05_2025.mp3', true, $this->FightSound);
             }
         }
     }    
@@ -329,7 +329,7 @@ class maingame extends AbstractForm
         if ($this->Fail->visible) $this->Fail->hide();
         if ($this->blood_ui->visible) $this->blood_ui->hide();
                               
-        if ($this->item_vodka_0000->visible) $this->Inventory->content->DespawnVodka();
+        $this->Inventory->content->DespawnItems();
         $this->Inventory->content->SetItemCondition();     
         
         $this->idle_static_actor->show();
@@ -535,7 +535,7 @@ class maingame extends AbstractForm
         if (!$this->ExitDialog->visible) $this->ToggleHud();
         
         $this->Inventory->show();
-        $this->Inventory->content->UpdateInvenotryWeight();
+        $this->Inventory->content->UpdateInventoryStatus();
         if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/inv_open.mp3', true);
     }    
     /**
@@ -575,10 +575,10 @@ class maingame extends AbstractForm
     }
     function HideInventory()
     {
-        $this->Inventory->content->HideOutfitMaket();
-        $this->Inventory->content->HideVodkaMaket(); 
+        $this->Inventory->content->UpdateSelectedItems();
+        $this->Inventory->content->SetItemInfo();
         $this->Inventory->content->HideUIText(); 
-        $this->Inventory->content->HideCombobox();                              
+        $this->Inventory->content->InventoryGrid->content->HideCombobox();                              
         $this->Inventory->hide();
                 
         if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/inv_close.mp3', true);         
@@ -599,6 +599,11 @@ class maingame extends AbstractForm
         //Media::pause($this->Environment);
         if ($GLOBALS['ActorFailed']) $this->form('maingame')->enemy->hide();
         if ($GLOBALS['EnemyFailed']) $this->form('maingame')->actor->hide();
+    }
+    function SpawnItem()
+    {
+        $this->form('maingame')->item_vodka_0000->show();
+        $this->form('maingame')->item_vodka_0000->opacity = 100;
     }
     /**
      * @event item_vodka_0000.click-2x
@@ -631,18 +636,20 @@ class maingame extends AbstractForm
             Animation::displace($this->item_vodka_0000, 500, -1030, $y); 
         }
     }
-    private $isAnimating = false;    
-    
+    public $isAnimating = false;
+    private $isAnimatingBars = [];
     function animateResizeWidth($node, $targetWidth, $speed = 1, $callback = null)
     {
-        if ($this->isAnimating)
-        {
-           return; 
-        }
-            
-        $this->isAnimating = true;
+        $id = spl_object_hash($node);
 
-        $timer = new UXAnimationTimer(function () use ($node, $targetWidth, $speed, &$timer, $callback) {
+        if (isset($this->isAnimatingBars[$id]) && $this->isAnimatingBars[$id])
+        {
+            return;
+        }
+
+        $this->isAnimatingBars[$id] = true;
+
+        $timer = new UXAnimationTimer(function () use ($node, $targetWidth, $speed, &$timer, $callback, $id) {
             if ($node->width < $targetWidth)
             {
                 $node->width += $speed;
@@ -650,11 +657,8 @@ class maingame extends AbstractForm
                 {
                     $node->width = $targetWidth;
                     $timer->stop();
-                    $this->isAnimating = false;
-                    if ($callback)
-                    {
-                        $callback();  
-                    }      
+                    $this->isAnimatingBars[$id] = false;
+                    if ($callback) $callback();
                 }
             }
             elseif ($node->width > $targetWidth)
@@ -664,21 +668,15 @@ class maingame extends AbstractForm
                 {
                     $node->width = $targetWidth;
                     $timer->stop();
-                    $this->isAnimating = false;
-                    if ($callback)
-                    {
-                        $callback();
-                    }
+                    $this->isAnimatingBars[$id] = false;
+                    if ($callback) $callback();
                 }
             }
             else
             {
                 $timer->stop();
-                $this->isAnimating = false;
-                if ($callback)
-                {
-                    $callback(); 
-                }
+                $this->isAnimatingBars[$id] = false;
+                if ($callback) $callback();
             }
         });
 
@@ -835,7 +833,7 @@ class maingame extends AbstractForm
                     $this->Inventory->content->health_bar_gg->text = "1%";
                 }    
                 $this->Bleeding();
-                $this->Inventory->content->SetItemCondition();         
+                //$this->Inventory->content->SetItemCondition();         
             });
 
             Animation::fadeIn($this->hitmark_static, 250);  
