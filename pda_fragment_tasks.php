@@ -157,7 +157,7 @@ class pda_fragment_tasks extends AbstractForm
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));
         $this->DeleteTask();
         
-        $this->form('maingame')->Pda->content->Pda_Contacts->content->DeleteEnemyContacts();
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->UpdateContacts();
         
         if ($GLOBALS['AllSounds'])
         {

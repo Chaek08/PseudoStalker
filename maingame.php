@@ -340,7 +340,7 @@ class maingame extends AbstractForm
         $this->enemy->x = 1312;    
                      
         $this->Pda->content->DefaultState();
-        $this->Pda->content->Pda_Contacts->content->AddEnemyContacts();
+        $this->Pda->content->Pda_Contacts->content->UpdateContacts();
         $this->Pda->content->Pda_Tasks->content->UpdateQuestTime();
         $this->Pda->content->Pda_Tasks->content->DeleteTask();
         $this->Pda->content->Pda_Tasks->content->ShowActiveTasks();
