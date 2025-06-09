@@ -292,7 +292,7 @@ class opt extends AbstractForm
             if ($this->form('maingame')->ltxInitialized)
             {            
                 $this->form('maingame')->ltx['r_shadows'] = 'off';
-                $this->form('maingame')->SaveUserLTX('user.ltx', $this->form('maingame')->ltx);
+                $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
             }
             $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             $this->Shadows_Switcher_Btn->textColor = '#880911';
@@ -366,7 +366,7 @@ class opt extends AbstractForm
             if ($this->form('maingame')->ltxInitialized)
             {            
                 $this->form('maingame')->ltx['r_shadows'] = 'on';
-                $this->form('maingame')->SaveUserLTX('user.ltx', $this->form('maingame')->ltx);
+                $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
             }
             $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
             $this->Shadows_Switcher_Btn->textColor = '#099209';
@@ -468,7 +468,7 @@ class opt extends AbstractForm
             if ($this->form('maingame')->ltxInitialized)
             {            
                 $this->form('maingame')->ltx['r_version'] = 'off';
-                $this->form('maingame')->SaveUserLTX('user.ltx', $this->form('maingame')->ltx);
+                $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
             }
             $this->Version_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             $this->Version_Switcher_Btn->textColor = '#880911';
@@ -492,7 +492,7 @@ class opt extends AbstractForm
             if ($this->form('maingame')->ltxInitialized)
             {            
                 $this->form('maingame')->ltx['r_version'] = 'on';
-                $this->form('maingame')->SaveUserLTX('user.ltx', $this->form('maingame')->ltx);
+                $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
             }         
             $this->Version_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
             $this->Version_Switcher_Btn->textColor = '#099209';         
@@ -533,7 +533,7 @@ class opt extends AbstractForm
         if ($this->form('maingame')->ltxInitialized)
         {
             $this->form('maingame')->ltx['language'] = $this->localization->getCurrentLanguage();
-            $this->form('maingame')->SaveUserLTX('user.ltx', $this->form('maingame')->ltx);
+            $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
         }
         
         $this->UpdateLocalization();

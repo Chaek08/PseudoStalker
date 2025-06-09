@@ -22,7 +22,7 @@ class maingame extends AbstractForm
         define('VersionID', 'v1.3 (rc2)');
         define('client_version', '3');
         define('Debug_Build', true);
-        define('SDK_Mode', false);
+        define('SDK_Mode', true);
 
         $GLOBALS['AllSounds']  = true;
         $GLOBALS['MenuSound']  = true;
@@ -57,7 +57,7 @@ class maingame extends AbstractForm
     public $ltxInitialized = false;
     function InitUserLTX()
     {
-        $path = 'user.ltx';
+        define('LTX_DIR', './userdata/user.ltx');
 
         $default = [
             'language' => 'rus',
@@ -65,16 +65,16 @@ class maingame extends AbstractForm
             'r_version' => 'on'
         ];
 
-        if (!file_exists($path))
+        if (!file_exists(LTX_DIR))
         {
-            $this->SaveUserLTX($path, $default);
+            $this->SaveUserLTX($default);
             $this->ltx = $default;
         }
         else
         {
             $config = [];
 
-            $lines = file($path);
+            $lines = file(LTX_DIR);
             foreach ($lines as $line)
             {
                 $parts = explode(' ', trim($line));
@@ -105,7 +105,7 @@ class maingame extends AbstractForm
                         $config[$key] = $value;
                     }
                 }
-                $this->SaveUserLTX($path, $config);
+                $this->SaveUserLTX($config);
             }
 
             $this->ltx = $config;
@@ -115,16 +115,16 @@ class maingame extends AbstractForm
     
         $this->MainMenu->content->Options->content->InitOptions();
     }
-    function LoadUserLTX($path, $default)
+    function LoadUserLTX($default)
     {
         $config = [];
 
-        $lines = file($path);
+        $lines = file(LTX_DIR);
         foreach ($lines as $line)
         {
             $parts = explode(' ', trim($line));
             if (count($parts) >= 2)
-            {
+            {;
                 $key = $parts[0];
                 $value = $parts[1];
                 $config[$key] = $value;
@@ -141,14 +141,14 @@ class maingame extends AbstractForm
 
         return $config;
     }
-    function SaveUserLTX($path, $config)
+    function SaveUserLTX($config)
     {
         $content = '';
         foreach ($config as $key => $value)
         {
             $content .= $key . ' ' . $value . "\n";
         }
-        file_put_contents($path, $content);
+        file_put_contents(LTX_DIR, $content);
     }    
     function UpdateEnvironment()
     {
@@ -431,7 +431,6 @@ class maingame extends AbstractForm
     function EscBtn(UXKeyEvent $e = null)
     {    
         $this->ToggleHud();
-            
         if ($this->LoadScreen->visible) return;
         if (SDK_Mode && $this->Editor->visible)
         {
@@ -468,6 +467,11 @@ class maingame extends AbstractForm
             }
             $this->MainMenu->content->BtnStartGame_MouseDownLeft();
             $this->MainMenu->content->BtnStartGame_MouseExit();
+            return;
+        }
+        if ($this->Fail->visible)
+        {
+            $this->ToggleHud();
             return;
         }
         if ($this->Inventory->visible)
@@ -520,7 +524,7 @@ class maingame extends AbstractForm
     {
         if ($this->CheckVisibledFragments()) return;
         
-        if (!$this->ExitDialog->visible) $this->ToggleHud();
+        if (!$this->Pda->visible) $this->ToggleHud();
         
         $this->Pda->show();
         if ($this->Pda->content->Pda_Statistic->visible && $this->pda_icon->visible) $this->pda_icon->hide();       
@@ -532,7 +536,7 @@ class maingame extends AbstractForm
     {       
         if ($this->CheckVisibledFragments()) return;
         
-        if (!$this->ExitDialog->visible) $this->ToggleHud();
+        if (!$this->Inventory->visible) $this->ToggleHud();
         
         $this->Inventory->show();
         $this->Inventory->content->UpdateInventoryStatus();

@@ -129,6 +129,8 @@ class console extends AbstractForm
                         break;
                         
                 case "save":
+                        if (!$GLOBALS['ContinueGameState'] || $this->form('maingame')->MainMenu->visible || $this->form('maingame')->Fail->visible) return;
+                        if ($this->form('maingame')->MainMenu->visible) return;
                         $parts = explode(" ", trim($this->edit->text), 2); 
                         $saveName = "";
 
@@ -152,6 +154,7 @@ class console extends AbstractForm
 
                         
                 case "load":
+                    if (!$GLOBALS['ContinueGameState'] || $this->form('maingame')->MainMenu->visible || $this->form('maingame')->Fail->visible) return;
                     $parts = explode(" ", trim($this->edit->text), 2);
                     if (count($parts) == 2)
                     {

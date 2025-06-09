@@ -30,25 +30,25 @@
       </font>
     </TextArea>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_ItemDesc_Outfit" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Count_Outfit" layoutX="320" layoutY="152" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="2599 RU" styleClass="text-input text-field " text="2599 RU">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Count_Outfit" layoutX="320" layoutY="152" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="2599" styleClass="text-input text-field " text="2599">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_Count_Outfit" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Count_Vodka" layoutX="320" layoutY="528" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="250 RU" styleClass="text-input text-field " text="250 RU">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Count_Vodka" layoutX="320" layoutY="528" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="250" styleClass="text-input text-field " text="250">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_Count_Vodka" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Weight_Outfit" layoutX="320" layoutY="200" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="1.00kg" styleClass="text-input text-field " text="1.00kg">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Weight_Outfit" layoutX="320" layoutY="200" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="1.0" styleClass="text-input text-field " text="1.0">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </TextField>
     <Data cursor="DEFAULT" enabled="1" id="data-Edit_Weight_Outfit" visible="1"/>
-    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Weight_Vodka" layoutX="320" layoutY="576" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="0.50kg" styleClass="text-input text-field " text="0.50kg">
+    <TextField alignment="CENTER_LEFT" editable="true" focusTraversable="false" id="Edit_Weight_Vodka" layoutX="320" layoutY="576" prefColumnCount="12" prefHeight="40" prefWidth="376" promptText="0.5" styleClass="text-input text-field " text="0.5">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

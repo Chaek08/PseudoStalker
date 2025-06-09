@@ -47,6 +47,7 @@ class pda_fragment_contacts extends AbstractForm
         $this->reputation_desc->show();
         $this->online_icon->show();
         $this->icon->show();
+        $this->selected_new->show();
         
         if ($this->bio->visible) $this->bio->hide();
     }
@@ -63,6 +64,7 @@ class pda_fragment_contacts extends AbstractForm
         $this->reputation_desc->hide();
         $this->online_icon->hide();
         $this->icon->hide();
+        $this->selected_new->hide();
         $this->selected_new->opacity = 0;
         
         if ($this->bio->visible) $this->bio->hide();

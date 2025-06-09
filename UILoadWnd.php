@@ -271,7 +271,11 @@ class UILoadWnd extends AbstractForm
         $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_date->text = $saveData['quest_time']['date'];
         $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_hm->text = $saveData['quest_time']['hm'];
         $this->form('maingame')->item_vodka_0000->visible = $saveData['vodka_exist'];
-        if ($this->form('maingame')->item_vodka_0000->visible) $this->form('maingame')->Inventory->content->DropVodka();
+        if ($this->form('maingame')->item_vodka_0000->visible) 
+        {
+            if ($this->form('maingame')->Inventory->content->InventoryGrid->content->selectedItem = $this->form('maingame')->Inventory->content->InventoryGrid->content->Inv_Vodka)
+            $this->form('maingame')->Inventory->content->InventoryGrid->content->DropItem();
+        }
         
         $GLOBALS['QuestStep1'] = $saveData['quest_step1'];
         $GLOBALS['QuestCompleted'] = $saveData['quest_completed'];
