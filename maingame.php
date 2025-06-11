@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use php\gui\UXApplication;
 use php\concurrent\Future;
 use std, gui, framework, app;
 use action\Geometry;
@@ -606,40 +607,84 @@ class maingame extends AbstractForm
     }
     function SpawnItem()
     {
-        $this->form('maingame')->item_vodka_0000->show();
-        $this->form('maingame')->item_vodka_0000->opacity = 100;
-    }
+        $actor = $this->actor;
+        $vodka = $this->form('maingame')->item_vodka_0000;
+
+        $floorY = 696;
+
+        $spawnX = $actor->x + ($actor->width * 1.2);
+        $spawnY = $floorY;
+
+        $vodka->x = $spawnX;
+        $vodka->y = $spawnY;
+        $vodka->opacity = 100;
+        $vodka->show();
+    }  
     /**
      * @event item_vodka_0000.click-2x
      */
     function VodkaAttack(UXMouseEvent $e = null)
-    {    
-        if ($this->item_vodka_0000->x != 1312)
-        {
-             Animation::moveTo($this->item_vodka_0000, 2000, 1270, 640); 
-             $this->item_vodka_0000->dragging->disable();
-        }
-        if ($this->item_vodka_0000->x == 1270)
-        {
-            $this->item_vodka_0000->x += 42; 
-            if (Geometry::intersect($this->item_vodka_0000, $this->enemy))
+    {
+        $vodka = $this->item_vodka_0000;
+        $enemy = $this->enemy;
+
+        $targetX = $enemy->x + ($enemy->width / 2) - ($vodka->width / 2);
+        $targetY_Head = $enemy->y;
+
+        $floorY = 696;
+
+        $startX = $vodka->x;
+        $startY = $vodka->y;
+
+        $dx = $targetX - $startX;
+        $dy = $targetY_Head - $startY;
+
+        $distance = sqrt($dx * $dx + $dy * $dy);
+
+        $speed = 0.9;
+        $duration = (int)($distance / $speed);
+
+        $initialEnemyX = $enemy->x;
+        $initialEnemyY = $enemy->y;
+
+        Animation::moveTo($vodka, $duration, $targetX, $targetY_Head, function () use ($vodka, $enemy, $floorY, $initialEnemyX, $initialEnemyY) {
+            $enemyStillHere = $enemy->x === $initialEnemyX && $enemy->y === $initialEnemyY;
+
+            if ($enemyStillHere && Geometry::intersect($vodka, $enemy))
             {
                 $this->DamageEnemy();
-                Animation::displace($this->item_vodka_0000, 500, -42, $y); 
+
+                Animation::displace($vodka, 300, -150, -10, function () use ($vodka, $floorY) {
+                    Animation::moveTo($vodka, 300, $vodka->x, $floorY);
+                });
             }
-        }
+            else
+            {
+                Animation::moveTo($vodka, 400, $vodka->x, $floorY);
+            }
+        });
     }
     /**
      * @event item_vodka_0000.click-Right 
      */
     function VodkaDraggingEnable(UXMouseEvent $e = null)
     {    
-        $this->item_vodka_0000->dragging->enable();
-        if ($this->item_vodka_0000->x == 1270 || $this->item_vodka_0000->x == 1312)
-        {
-            Animation::displace($this->item_vodka_0000, 500, -1030, $y); 
-        }
+        $vodka = $this->item_vodka_0000;
+        $actor = $this->actor;
+
+        $targetX = $actor->x + ($actor->width * 1.2) - ($vodka->width / 2);
+        $targetY = $vodka->y;
+
+        $dx = $targetX - $vodka->x;
+        $dy = 0;
+        $distance = sqrt($dx * $dx + $dy * $dy);
+
+        $speed = 1.3;
+        $duration = (int)($distance / $speed);
+
+        Animation::moveTo($vodka, $duration, $targetX, $targetY);
     }
+    
     public $isAnimating = false;
     private $isAnimatingBars = [];
     function animateResizeWidth($node, $targetWidth, $speed = 1, $callback = null)

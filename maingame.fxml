@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900" prefWidth="1600" styleClass="">
   <children>
-    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="900" id="platform" layoutX="0" layoutY="0" mosaic="false" mosaicGap="0" opacity="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="1600">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
     <org.develnext.jphp.ext.javafx.support.control.MediaViewBox backgroundColor="#000000" borderColor="#c0c0c0" borderRadius="0" borderStyle="SOLID" borderWidth="0" focusTraversable="false" id="Environment_Background" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" proportional="true" smooth="true" styleClass="" titleColor="#333333" titleOffset="15" titlePosition="TOP_LEFT">
       <titleFont>
         <Font name="System Regular" size="12"/>
       </titleFont>
       <children/>
     </org.develnext.jphp.ext.javafx.support.control.MediaViewBox>
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="true" height="344" id="enemy" layoutX="1312" layoutY="448" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="160">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="900" id="platform" layoutX="0" layoutY="0" mosaic="false" mosaicGap="0" opacity="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="1600">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
     <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="Talk_Label" layoutX="0" layoutY="792" prefHeight="56" prefWidth="1600" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-opacity: 1;&#10;-fx-font-size: 25&#10;" styleClass="label " text="Talk_Label" textAlignment="CENTER" textFill="#dbdbf4" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
@@ -29,25 +34,20 @@
     </ImageViewEx>
     <Data content="mainmenu" cursor="DEFAULT" enabled="1" id="data-MainMenu" visible="1"/>
     <Data content="inventory" cursor="DEFAULT" enabled="1" id="data-Inventory" visible=""/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="93" id="item_vodka_0000" layoutX="256" layoutY="696" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="30">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="93" id="item_vodka_0000" layoutX="256" layoutY="688" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="30">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-item_vodka_0000" image=".data/ui/inventory/item_vodka.png" visible=""/>
     <Data content="pda" cursor="DEFAULT" enabled="1" id="data-Pda" visible=""/>
-    <Data cursor="DEFAULT" enabled="1" id="data-platform" image=".data/ui/maingame/background.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" id="data-platform" image=".data/ui/maingame/background.png" visible="1"/>
     <ImageViewEx autoSize="false" centered="true" focusTraversable="true" height="344" id="actor" layoutX="80" layoutY="448" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="160">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor" image=".data/ui/maingame/sprite/actor.png" visible="1"/>
-    <ImageViewEx autoSize="false" centered="true" focusTraversable="true" height="344" id="enemy" layoutX="1312" layoutY="448" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="160">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-enemy" image=".data/ui/maingame/sprite/goblindav.png" visible="1"/>
     <Data content="dialog" cursor="DEFAULT" enabled="1" id="data-Dialog" visible=""/>
     <Data content="exit_dlg" cursor="DEFAULT" enabled="1" id="data-ExitDialog" visible=""/>
