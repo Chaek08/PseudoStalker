@@ -652,6 +652,30 @@ class maingame extends AbstractForm
 
             if ($enemyStillHere && Geometry::intersect($vodka, $enemy))
             {
+                for ($i = 0; $i < 3; $i++) 
+                {
+                    $scatterX = rand(-25, 25);
+                    $scatterY = rand(-25, 25);
+
+                    $particle = new UXImageView();
+                    $particle->image = new UXImage("res://.data/ui/particles/blood.png");
+                    $particle->width = 86;
+                    $particle->height = 86;
+
+                    $hitX = $enemy->x + ($enemy->width / 2) - ($particle->width / 2);
+                    $hitY = $enemy->y - 10;
+
+                    $particle->x = $hitX + $scatterX;
+                    $particle->y = $hitY + $scatterY;
+                    $particle->opacity = 1.0;
+
+                    $this->add($particle);
+
+                    Animation::fadeOut($particle, 300, function () use ($particle) {
+                        $particle->free();
+                    });
+                } 
+            
                 $this->DamageEnemy();
 
                 Animation::displace($vodka, 300, -150, -10, function () use ($vodka, $floorY) {
