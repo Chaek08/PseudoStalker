@@ -103,8 +103,8 @@ class inventory extends AbstractForm
                     
                 Element::setText($this->maket_count, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Count_Vodka) . ' ' . $this->moneyCurrency);
                 
-                $this->vodkaWeight = (float) uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Vodka);                
-                Element::setText($this->maket_weight, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Vodka));
+                $this->vodkaWeight = (float) uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Vodka);
+                Element::setText($this->maket_weight, sprintf('%.1fkg', $this->vodkaWeight));
             }
             else 
             {
@@ -133,7 +133,7 @@ class inventory extends AbstractForm
                 Element::setText($this->maket_count, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Count_Outfit) . ' ' . $this->moneyCurrency);                
                     
                 $this->outfitWeight = (float) uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Outfit);
-                Element::setText($this->maket_weight, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Outfit));
+                Element::setText($this->maket_weight, sprintf('%.1fkg', $this->outfitWeight));
             }
             else 
             {
