@@ -52,6 +52,11 @@ class maingame extends AbstractForm
         $this->UpdateEnvironment();
         
         $this->InitUserLTX();
+        if ($this->ltx['g_god'] == 'on')
+        {
+            $GLOBALS['GodMode'] = true;
+            $this->GodMode();
+        }        
     }
     
     public $ltx = [];
@@ -63,7 +68,8 @@ class maingame extends AbstractForm
         $default = [
             'language' => 'rus',
             'r_shadows' => 'on',
-            'r_version' => 'on'
+            'r_version' => 'on',
+            'g_god' => 'off'
         ];
 
         if (!file_exists(LTX_DIR))
@@ -390,6 +396,7 @@ class maingame extends AbstractForm
             $this->health_bar_enemy_b->hide();
             
             if ($this->blood_ui->visible) $this->blood_ui->hide();
+            if ($this->GodMode_Icon->visible) $this->GodMode_Icon->hide();
             if ($this->pda_icon->visible) $this->pda_icon->hide();
             
             if ($this->fight_image->visible) $this->fight_image->hide();
@@ -417,6 +424,8 @@ class maingame extends AbstractForm
             
             $this->Bleeding();
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
+            
+            if ($GLOBALS['GodMode']) $this->GodMode_Icon->show();
             
             if (!$this->idle_static_actor->visible) $this->fight_image->show();
             
@@ -804,6 +813,25 @@ class maingame extends AbstractForm
             $this->health_static_enemy->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
         }
     }
+    function GodMode()
+    {
+        if ($GLOBALS['GodMode'])
+        {
+            $this->GodMode_Icon->show();
+            if ($this->blood_ui->visible)
+            {
+                $this->blood_ui->y += 60;
+            }
+        }
+        else
+        {
+            $this->GodMode_Icon->hide();
+            if ($this->blood_ui->visible && $this->blood_ui->y != 96)
+            {
+                $this->blood_ui->y -= 60;
+            }            
+        }
+    }
     /**
      * @event actor.click-2x
      */       
@@ -860,6 +888,9 @@ class maingame extends AbstractForm
             return;
         }                    
     }
+    public $lastHitTime = 0;
+    public $hitmarkLevel = 1;
+    public $hitmarkVisibleUntil = 0;
     /**
      * @event enemy.click-2x
      */    
@@ -867,51 +898,105 @@ class maingame extends AbstractForm
     { 
         if ($this->health_bar_gg->width != 54)
         {
-            $target = $this->health_bar_gg->width - 30;
-            $this->animateResizeWidth($this->health_bar_gg, $target, 3, function() {
-                if ($this->health_bar_gg->width == 234)
+            if (!$GLOBALS['GodMode'])
+            {
+                $target = $this->health_bar_gg->width - 30;
+                $this->animateResizeWidth($this->health_bar_gg, $target, 3, function() {
+                    if ($this->health_bar_gg->width == 234)
+                    {
+                        $this->health_bar_gg->text = "75%";
+                        $this->Inventory->content->health_bar_gg->width -= 100;           
+                        $this->Inventory->content->health_bar_gg->text = "75%"; 
+                    }
+                    if ($this->health_bar_gg->width == 204)
+                    {
+                        $this->health_bar_gg->text = "55%";
+                        $this->Inventory->content->health_bar_gg->width -= 50;            
+                        $this->Inventory->content->health_bar_gg->text = "55%";
+                    }      
+                    if ($this->health_bar_gg->width == 174)
+                    {
+                        $this->health_bar_gg->text = "50%";
+                        $this->Inventory->content->health_bar_gg->width -= 40;     
+                        $this->Inventory->content->health_bar_gg->text = "50%";         
+                    }  
+                    if ($this->health_bar_gg->width == 144)
+                    {
+                        $this->health_bar_gg->text = "33%";
+                        $this->Inventory->content->health_bar_gg->width -= 100;            
+                        $this->Inventory->content->health_bar_gg->text = "33%";
+                    }                
+                    if ($this->health_bar_gg->width == 84)
+                    {
+                        $this->health_bar_gg->text = "15%";
+                        $this->Inventory->content->health_bar_gg->width -= 40;
+                        $this->Inventory->content->health_bar_gg->text = "15%";   
+                    }
+                    if ($this->health_bar_gg->width == 54)
+                    {
+                        $this->health_bar_gg->text = "1%";
+                        $this->Inventory->content->health_bar_gg->width -= 50;
+                        $this->Inventory->content->health_bar_gg->text = "1%";
+                    }    
+                    $this->Bleeding();
+                });                
+            }
+
+            $now = Time::millis();
+            $timeDiff = $now - $this->lastHitTime;
+            $this->lastHitTime = $now;
+
+            if ($timeDiff < 500)
+            {
+                if ($this->hitmarkLevel < 5)
                 {
-                    $this->health_bar_gg->text = "75%";
-                    $this->Inventory->content->health_bar_gg->width -= 100;           
-                    $this->Inventory->content->health_bar_gg->text = "75%"; 
+                    $this->hitmarkLevel++;
                 }
-                if ($this->health_bar_gg->width == 204)
+            }
+            else
+            {
+                $this->hitmarkLevel = 1;
+            }
+
+            switch ($this->hitmarkLevel)
+            {
+                case 1:
+                    $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_1.png");
+                    break;
+                case 2:
+                    $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_2.png");
+                    break;
+                case 3:
+                    $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_3.png");
+                    break;
+                case 4:
+                    $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_4.png");
+                    break;
+                case 5:
+                    $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_5.png");
+                    break;                    
+            }
+
+            $this->HitMark->opacity = 0;
+            $this->HitMark->visible = true;
+
+            Animation::fadeIn($this->HitMark, 100);
+
+            $this->hitmarkVisibleUntil = Time::millis() + 500;
+
+            Timer::after(500, function () {
+                if (Time::millis() >= $this->hitmarkVisibleUntil)
                 {
-                    $this->health_bar_gg->text = "55%";
-                    $this->Inventory->content->health_bar_gg->width -= 50;            
-                    $this->Inventory->content->health_bar_gg->text = "55%";
-                }      
-                if ($this->health_bar_gg->width == 174)
-                {
-                    $this->health_bar_gg->text = "50%";
-                    $this->Inventory->content->health_bar_gg->width -= 40;     
-                    $this->Inventory->content->health_bar_gg->text = "50%";         
-                }  
-                if ($this->health_bar_gg->width == 144)
-                {
-                    $this->health_bar_gg->text = "33%";
-                    $this->Inventory->content->health_bar_gg->width -= 100;            
-                    $this->Inventory->content->health_bar_gg->text = "33%";
-                }                
-                if ($this->health_bar_gg->width == 84)
-                {
-                    $this->health_bar_gg->text = "15%";
-                    $this->Inventory->content->health_bar_gg->width -= 40;
-                    $this->Inventory->content->health_bar_gg->text = "15%";   
+                    Animation::fadeOut($this->HitMark, 300);
                 }
-                if ($this->health_bar_gg->width == 54)
-                {
-                    $this->health_bar_gg->text = "1%";
-                    $this->Inventory->content->health_bar_gg->width -= 50;
-                    $this->Inventory->content->health_bar_gg->text = "1%";
-                }    
-                $this->Bleeding();
-                //$this->Inventory->content->SetItemCondition();         
             });
 
-            Animation::fadeIn($this->hitmark_static, 250);  
-            $this->hitmark_static->show();
-            Animation::fadeOut($this->hitmark_static, 500);
+            if ($this->hitmarkLevel > 1)
+            {
+                Timer::after(1500, function () {
+                    $this->hitmarkLevel = 1;
+                });
+            }
         
             if ($GLOBALS['AllSounds'])
             {
@@ -931,7 +1016,7 @@ class maingame extends AbstractForm
             $this->leave_btn->show();
             $this->Talk_Label->hide();
                    
-            if ($this->hitmark_static->visible) $this->hitmark_static->hide();
+            if ($this->HitMark->visible) $this->HitMark->hide();
         
             if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');
         

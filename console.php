@@ -55,7 +55,8 @@ class console extends AbstractForm
                                 "help",
                                 "version",
                                 "save",
-                                "load",                                                  
+                                "load",
+                                "g_god [off/on]",                                  
                                 "r_version [off/on]",
                                 "r_shadows [off/on]",
                                 "snd_all [off/on]",
@@ -95,6 +96,36 @@ class console extends AbstractForm
                                 }
                         }
                         break;
+                        
+                case "g_god":
+                        if (isset($args[1])) {
+                            $this->edit->text = "";
+                            Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
+
+                            if ($args[1] == "on")
+                            {
+                                $GLOBALS['GodMode'] = true;
+                                $this->form('maingame')->GodMode();
+
+                                if ($this->form('maingame')->ltxInitialized)
+                                {
+                                    $this->form('maingame')->ltx['g_god'] = 'on';
+                                    $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
+                                }
+                            }
+                            elseif ($args[1] == "off")
+                            {
+                                $GLOBALS['GodMode'] = false;
+                                $this->form('maingame')->GodMode();
+
+                                if ($this->form('maingame')->ltxInitialized)
+                                {
+                                    $this->form('maingame')->ltx['g_god'] = 'off';
+                                    $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
+                                }
+                            }
+                }
+                break;                        
 
                 case "r_shadows":
                         if (isset($args[1])) {

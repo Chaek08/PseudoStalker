@@ -24,10 +24,6 @@
   <target id="hitmark">
     <behaviour bodyType="DYNAMIC" fixtureType="INHERITED" solid="" solidType="NONE" startVelocity="[0,0]" type="behaviour\custom\GameEntityBehaviour"/>
   </target>
-  <target id="hitmark_static">
-    <behaviour delay="0" duration="1000" initialOpacity="1" opacity="1" repeatCount="-1" type="behaviour\custom\FadeAnimationBehaviour" when="ALWAYS"/>
-    <behaviour color="#b31a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
-  </target>
   <target id="leave_btn">
     <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
@@ -65,5 +61,9 @@
   </target>
   <target id="Talk_Label">
     <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="HitMark">
+    <behaviour delay="0" duration="1000" initialOpacity="1" opacity="1" repeatCount="-1" type="behaviour\custom\FadeAnimationBehaviour" when="ALWAYS"/>
+    <behaviour color="#b31a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
 </behaviours>
