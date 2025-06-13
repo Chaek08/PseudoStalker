@@ -953,10 +953,14 @@ class maingame extends AbstractForm
                     $this->hitmarkLevel++;
                 }
             }
-            else
-            {
-                $this->hitmarkLevel = 1;
-            }
+
+            Timer::after(1500, function () {
+                $sinceLastHit = Time::millis() - $this->lastHitTime;
+                    if ($sinceLastHit >= 1500 && $this->hitmarkLevel > 1)
+                    {
+                        $this->hitmarkLevel--;
+                    }
+            });
 
             switch ($this->hitmarkLevel)
             {
@@ -991,15 +995,12 @@ class maingame extends AbstractForm
                 if (Time::millis() >= $this->hitmarkVisibleUntil)
                 {
                     Animation::fadeOut($this->HitMark, 300);
+        
+                    Timer::after(300, function () {
+                        $this->hitmarkLevel = 1;
+                    });
                 }
             });
-
-            if ($this->hitmarkLevel > 1)
-            {
-                Timer::after(1500, function () {
-                    $this->hitmarkLevel = 1;
-                });
-            }
         
             if ($GLOBALS['AllSounds'])
             {
