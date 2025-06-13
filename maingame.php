@@ -155,6 +155,11 @@ class maingame extends AbstractForm
         {
             $content .= $key . ' ' . $value . "\n";
         }
+        $dir = dirname(LTX_DIR);
+        if (!is_dir($dir))
+        {
+            mkdir($dir, 0777, true);
+        }        
         file_put_contents(LTX_DIR, $content);
     }    
     function UpdateEnvironment()
