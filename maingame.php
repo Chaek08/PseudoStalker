@@ -1180,24 +1180,53 @@ class maingame extends AbstractForm
     function MakeScreenshot(UXKeyEvent $e = null)
     {    
         define("SCREENSHOT_DIRECTORY", "./userdata/screenshots/");
-        
+    
         if (!file_exists(SCREENSHOT_DIRECTORY))
         {
             mkdir(SCREENSHOT_DIRECTORY, 0777, true);
         }
 
-        $image = $this->form('maingame')->layout->snapshot();
+        $console = $this->form('maingame')->Console;
 
-        $username = System::getProperty('user.name');
-        $formName = 'maingame';
+        $formWidth = 1600;
+        $formHeight = 900;
 
-        $time = Time::now()->toString('HH-mm-ss');
-        $date = Time::now()->toString('dd-MM-yy');
-        
-        $filename = "ss_{$username}_{$date}_{$time}_({$formName}).jpg";
-        $path = SCREENSHOT_DIRECTORY . $filename;
+        $originalX = $console->x;
+        $originalY = $console->y;
 
-        $image->save(new File($path));        
+        if ($console->x < 0)
+        {
+            $console->x = 0;
+        }
+        elseif ($console->x + $console->width > $formWidth)
+        {
+            $console->x = $formWidth - $console->width;
+        }
+        if ($console->y < 0)
+        {
+            $console->y = 0;
+        }
+        elseif ($console->y + $console->height > $formHeight)
+        {
+            $console->y = $formHeight - $console->height;
+        }
+
+        UXApplication::runLater(function () use ($console, $originalX, $originalY) {
+
+            $image = $this->form('maingame')->layout->snapshot();
+
+            $username = System::getProperty('user.name');
+            $formName = 'maingame';
+            $time = Time::now()->toString('HH-mm-ss');
+            $date = Time::now()->toString('dd-MM-yy');
+            $filename = "ss_{$username}_{$date}_{$time}_({$formName}).jpg";
+            $path = SCREENSHOT_DIRECTORY . $filename;
+
+            $image->save(new File($path));
+
+            $console->x = $originalX;
+            $console->y = $originalY;
+        });
     }
     
     protected $isHovered = false;

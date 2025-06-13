@@ -93,24 +93,56 @@ class UISaveWnd extends AbstractForm
     }
     function saveScreenshot()
     {
-        if ($this->form('maingame')->MainMenu->content->UISaveWnd->visible) $this->form('maingame')->MainMenu->hide();
-        if ($this->form('maingame')->ExitDialog->visible) $this->form('maingame')->ExitDialog->hide();
-        $this->form('maingame')->CustomCursor->hide();
-        if (!$GLOBALS['HudVisible'] && $this->form('maingame')->MainMenu->content->UISaveWnd->visible) $this->form('maingame')->ToggleHud();
-        if ($this->form('maingame')->Console->visible) $this->form('maingame')->Console->opacity = 0;
+        $maingame = $this->form('maingame');
+        $mainMenu = $maingame->MainMenu;
+        $exitDialog = $maingame->ExitDialog;
+        $console = $maingame->Console;
+        $layout = $maingame->layout;
 
-        $image = $this->form('maingame')->layout->snapshot();
+        if ($mainMenu->content->UISaveWnd->visible) $mainMenu->hide();
+        if ($exitDialog->visible) $exitDialog->hide();
+        $maingame->CustomCursor->hide();
+        if (!$GLOBALS['HudVisible'] && $mainMenu->content->UISaveWnd->visible) $maingame->ToggleHud();
+        if ($console->visible) $console->opacity = 0;
 
-        if ($this->form('maingame')->MainMenu->content->UISaveWnd->visible) $this->form('maingame')->MainMenu->show();
-        $this->form('maingame')->CustomCursor->show();
-        if ($GLOBALS['HudVisible'] && $this->form('maingame')->MainMenu->content->UISaveWnd->visible) $this->form('maingame')->ToggleHud();
-        if ($this->form('maingame')->Console->visible) $this->form('maingame')->Console->opacity = 100;
-        
+        $formWidth = 1600;
+        $formHeight = 900;
+
+        $originalX = $console->x;
+        $originalY = $console->y;
+
+        if ($console->x < 0)
+        {
+            $console->x = 0;
+        }
+        elseif ($console->x + $console->width > $formWidth)
+        {
+            $console->x = $formWidth - $console->width;
+        }
+
+        if ($console->y < 0)
+        {
+            $console->y = 0;
+        }
+        elseif ($console->y + $console->height > $formHeight)
+        {
+            $console->y = $formHeight - $console->height;
+        }
+
+        $image = $layout->snapshot();
+
+        $console->x = $originalX;
+        $console->y = $originalY;
+
+        if ($mainMenu->content->UISaveWnd->visible) $mainMenu->show();
+        $maingame->CustomCursor->show();
+        if ($GLOBALS['HudVisible'] && $mainMenu->content->UISaveWnd->visible) $maingame->ToggleHud();
+        if ($console->visible) $console->opacity = 100;
+
         $imageView = new UXImageView($image);
-
         $imageView->scaleX = 168 / 1600;
         $imageView->scaleY = 104 / 900;
-        
+
         $scaledImage = $imageView->snapshot();
 
         $saveName = $this->Edit_SaveName->text;
