@@ -1,6 +1,8 @@
 <?php
 namespace app\forms;
 
+use php\time\Timer;
+use action\Animation;
 use php\lang\System;
 use Exception;
 use action\Element;
@@ -161,7 +163,11 @@ class console extends AbstractForm
                         
                 case "save":
                         if (!$GLOBALS['ContinueGameState'] || $this->form('maingame')->MainMenu->visible || $this->form('maingame')->Fail->visible) return;
-                        if ($this->form('maingame')->MainMenu->visible) return;
+
+                        static $lastToastId = 0;
+
+                        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+
                         $parts = explode(" ", trim($this->edit->text), 2); 
                         $saveName = "";
 
@@ -177,15 +183,34 @@ class console extends AbstractForm
 
                         $saveUI = $this->form('maingame')->MainMenu->content->UISaveWnd->content;
                         $saveUI->Edit_SaveName->text = $saveName;
+                        $GLOBALS['AutoRewriteSave'] = true;
                         $saveUI->BtnSaveGame();
 
                         Element::appendText($this->Console_Log, "> Saved game: $saveName\n");
                         $this->edit->text = "";
-                        break;
 
+                        $this->form('maingame')->SavedGame_Toast->opacity = 0;
+                        $this->form('maingame')->SavedGame_Toast->visible = true;
+                        $this->form('maingame')->SavedGame_Toast->text = $this->localization->get('SavedGameToast') . ' ' . $saveName;
+
+                        Animation::fadeIn($this->form('maingame')->SavedGame_Toast, 300);
+
+                        $lastToastId++;
+                        $currentId = $lastToastId;
+
+                        Timer::after(2300, function () use ($currentId) {
+                            if ($currentId == $GLOBALS['lastToastId'])
+                            {
+                                Animation::fadeOut($this->form('maingame')->SavedGame_Toast, 300);
+                            }
+                        });
+
+                        $GLOBALS['AutoRewriteSave'] = false;
+
+                        $GLOBALS['lastToastId'] = $lastToastId;
+                        break;
                         
                 case "load":
-                    //if (!$GLOBALS['ContinueGameState'] || $this->form('maingame')->MainMenu->visible || $this->form('maingame')->Fail->visible) return;
                     $parts = explode(" ", trim($this->edit->text), 2);
                     if (count($parts) == 2)
                     {

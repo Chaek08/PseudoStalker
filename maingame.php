@@ -1137,7 +1137,7 @@ class maingame extends AbstractForm
         $currentId = $lastToastId;
 
         Timer::after(2300, function () use ($currentId) {
-            if ($currentId === $GLOBALS['lastToastId'])
+            if ($currentId == $GLOBALS['lastToastId'])
             {
                 Animation::fadeOut($this->SavedGame_Toast, 300);
             }

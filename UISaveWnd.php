@@ -152,7 +152,7 @@ class UISaveWnd extends AbstractForm
             $fileName = $saveName . '.sav'; 
             $filePath = SAVE_DIRECTORY . $fileName;
             
-            if (file_exists($filePath) && $saveName != System::getProperty('user.name') . '_quicksave')
+            if (file_exists($filePath) && $saveName != System::getProperty('user.name') . '_quicksave' && !$GLOBALS['AutoRewriteSave'])
             {
                 if (!$this->form('maingame')->ExitDialog->visible)
                 {

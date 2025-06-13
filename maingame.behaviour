@@ -21,9 +21,6 @@
   <target id="health_static_gg">
     <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="hitmark">
-    <behaviour bodyType="DYNAMIC" fixtureType="INHERITED" solid="" solidType="NONE" startVelocity="[0,0]" type="behaviour\custom\GameEntityBehaviour"/>
-  </target>
   <target id="leave_btn">
     <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
@@ -65,5 +62,9 @@
   <target id="HitMark">
     <behaviour delay="0" duration="1000" initialOpacity="1" opacity="1" repeatCount="-1" type="behaviour\custom\FadeAnimationBehaviour" when="ALWAYS"/>
     <behaviour color="#b31a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Fight_Label">
+    <behaviour color="#cc3333" offsetX="0" offsetY="0" radius="37.3" spread="0.21" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+    <behaviour animated="1" delay="0" duration="1000" maxOpacity="1" minOpacity="0.3" repeatCount="-1" type="behaviour\custom\BlinkAnimationBehaviour" when="ALWAYS"/>
   </target>
 </behaviours>
