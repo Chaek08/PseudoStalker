@@ -948,7 +948,7 @@ class maingame extends AbstractForm
 
             if ($timeDiff < 500)
             {
-                if ($this->hitmarkLevel < 5)
+                if ($this->hitmarkLevel < 6)
                 {
                     $this->hitmarkLevel++;
                 }
@@ -974,7 +974,10 @@ class maingame extends AbstractForm
                     break;
                 case 5:
                     $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_5.png");
-                    break;                    
+                    break;      
+                case 6:
+                    $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_6.png");
+                    break;                                                       
             }
 
             $this->HitMark->opacity = 0;
