@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use php\gui\UXImage;
 use php\gui\UXApplication;
 use php\concurrent\Future;
 use std, gui, framework, app;
@@ -23,7 +24,7 @@ class maingame extends AbstractForm
         define('VersionID', 'v1.3 (rc2)');
         define('client_version', '3');
         define('Debug_Build', true);
-        define('SDK_Mode', true);
+        define('SDK_Mode', false);
 
         $GLOBALS['AllSounds']  = true;
         $GLOBALS['MenuSound']  = true;
@@ -57,6 +58,8 @@ class maingame extends AbstractForm
             $GLOBALS['GodMode'] = true;
             $this->GodMode();
         }        
+        
+        $this->syncWithSDKLTX();
     }
     
     public $ltx = [];
@@ -161,6 +164,131 @@ class maingame extends AbstractForm
             mkdir($dir, 0777, true);
         }        
         file_put_contents(LTX_DIR, $content);
+    }    
+    public $SDK_FightSound = '';
+    public $SDK_ActorModel = '';
+    public $SDK_EnemyModel = '';
+    function syncWithSDKLTX()
+    {
+        define('DATA_FILE', 'sdk_data.ltx');
+    
+        if (!file_exists(DATA_FILE))
+        {
+            return;
+        }
+
+        $lines = explode("\n", file_get_contents(DATA_FILE));
+
+        foreach ($lines as $line)
+        {
+            $line = trim($line);
+
+            if ($line == '' || strpos($line, '=') == false) continue;
+
+            [$key, $value] = explode('=', $line, 2);
+
+            switch ($key)
+            {
+                // InvEditor
+                case 'outfit_name': $this->Inventory->content->SDK_OutfitName = $value; break;
+                case 'outfit_icon': $this->Inventory->content->SDK_OutfitIcon = $value; break;
+                case 'outfit_price': $this->Inventory->content->SDK_OutfitPrice = $value; break;
+                case 'outfit_weight': $this->Inventory->content->SDK_OutfitWeight = $value; break;
+                case 'outfit_desc': $this->Inventory->content->SDK_OutfitDesc = $value; break;
+                case 'vodka_name': $this->Inventory->content->SDK_VodkaName = $value; break;
+                case 'vodka_icon': $this->Inventory->content->SDK_VodkaIcon = $value; break;
+                case 'vodka_price': $this->Inventory->content->SDK_VodkaPrice = $value; break;
+                case 'vodka_weight': $this->Inventory->content->SDK_VodkaWeight = $value; break;
+                case 'vodka_desc': $this->Inventory->content->SDK_VodkaDesc = $value; break;
+                            
+                // FailEditor
+                case 'win_fail_text_actor': $this->Fail->content->SDK_FailTextActor = $value; break;
+                case 'win_fail_text_icon_actor': $this->Fail->content->SDK_FailTextIconActor = $value; break;
+                case 'win_fail_desc_actor': $this->Fail->content->SDK_FailDescActor = $value; break;
+                case 'win_fail_text_enemy': $this->Fail->content->SDK_FailTextEnemy = $value; break;
+                case 'win_fail_text_icon_enemy': $this->Fail->content->SDK_FailTextIconEnemy = $value; break;
+                case 'win_fail_desc_enemy': $this->Fail->content->SDK_FailDescEnemy = $value; break;
+            
+                // RoleEditor
+                case 'role_color_de': $this->Pda->content->SDK_DeRoleColor = $value; break;
+                case 'role_color_pido': $this->Pda->content->SDK_PidoRoleColor = $value; break;
+                case 'role_color_la': $this->Pda->content->SDK_LaRoleColor = $value; break;
+                case 'role_name_de': $this->Pda->content->SDK_DeRoleName = $value; break;
+                case 'role_name_pido': $this->Pda->content->SDK_PidoRoleName = $value; break;
+                case 'role_name_la': $this->Pda->content->SDK_LaRoleName = $value; break;
+                case 'role_icon_de': $this->Pda->content->SDK_DeRoleIcon = $value; break;
+                case 'role_icon_pido': $this->Pda->content->SDK_PidoRoleIcon = $value; break;
+                case 'role_icon_la': $this->Pda->content->SDK_LaRoleIcon = $value; break;
+            
+                // UserDataEditor
+                case 'actor_name': $this->Pda->content->SDK_ActorName = $value; break;
+                case 'actor_bio': $this->Pda->content->SDK_ActorBio = $value; break;
+                case 'actor_icon': $this->Pda->content->SDK_ActorIcon = $value; break;
+                case 'enemy_name': $this->Pda->content->SDK_EnemyName = $value; break;
+                case 'enemy_bio': $this->Pda->content->SDK_EnemyBio = $value; break;
+                case 'enemy_icon': $this->Pda->content->SDK_EnemyIcon = $value; break;
+                case 'valerok_name': $this->Pda->content->SDK_ValerokName = $value; break;
+                case 'valerok_bio':  $this->Pda->content->SDK_ValerokBio = $value; break;
+                case 'valerok_icon': $this->Pda->content->SDK_ValerokIcon = $value; break;           
+            
+                // DialogEditor
+                case 'alex_desc_1': $this->Dialog->content->SDK_AlexDesc1 = $value; break;
+                case 'actor_desc_1': $this->Dialog->content->SDK_ActorDesc1 = $value; break;
+                case 'alex_desc_2': $this->Dialog->content->SDK_AlexDesc2 = $value; break;
+                case 'alex_desc_3': $this->Dialog->content->SDK_AlexDesc3 = $value; break;
+                case 'actor_desc_3': $this->Dialog->content->SDK_ActorDesc3 = $value; break;
+                case 'final_phase': $this->Dialog->content->SDK_FinalPhase = $value; break;                 
+                case 'voice_start': $this->Dialog->content->SDK_VoiceStart = $value; break;
+                case 'voice_talk1': $this->Dialog->content->SDK_VoiceTalk1 = $value; break;
+                case 'voice_talk2': $this->Dialog->content->SDK_VoiceTalk2 = $value; break;
+                case 'voice_talk3': $this->Dialog->content->SDK_VoiceTalk3 = $value; break;            
+            
+                // MgEditor
+                case 'mm_background': 
+                    Media::open($value, true, $this->MainMenu->content->MainMenuBackground);
+                    break;
+                case 'health_bar_actor_c': $this->health_bar_gg->color = UXColor::of($value); break;
+                case 'health_bar_enemy_c': $this->health_bar_enemy->color = UXColor::of($value); break;
+                case 'actor_model': 
+                    $this->actor->image = new UXImage($value);
+                    $this->Inventory->content->inv_maket_visual->image = new UXImage($value);
+                    $this->SDK_ActorModel = $value;
+                    break;
+                case 'actor_model_opt_stretch':
+                    if ($value == 'on')
+                    {
+                        $this->actor->stretch = true;
+                    }
+                    elseif ($value == 'off')
+                    {
+                        $this->actor->stretch = false;
+                    }
+                    break;
+                case 'enemy_model':
+                    $this->enemy->image = new UXImage($value);
+                    $this->SDK_EnemyModel = $value;
+                    break;
+                case 'enemy_model_opt_stretch':
+                    if ($value == 'on')
+                    {
+                        $this->enemy->stretch = true;
+                    }
+                    elseif ($value == 'off')
+                    {
+                        $this->enemy->stretch = false;
+                    }
+                    break;
+                case 'fight_sound': $this->SDK_FightSound = $value; break;
+
+                // QuestEditor
+                case 'quest_name': $this->Pda->content->Pda_Tasks->content->SDK_QuestName = $value; break;
+                case 'quest_icon': $this->Pda->content->Pda_Tasks->content->SDK_QuestIcon = $value; break;
+                case 'quest_desc': $this->Pda->content->Pda_Tasks->content->SDK_QuestDesc = $value; break;
+                case 'quest_step1': $this->Pda->content->Pda_Tasks->content->SDK_QuestStep1 = $value; break;
+                case 'quest_step2': $this->Pda->content->Pda_Tasks->content->SDK_QuestStep2 = $value; break;
+                case 'quest_target': $this->Pda->content->Pda_Tasks->content->SDK_QuestTarget = $value; break;
+            }
+        }     
     }    
     function UpdateEnvironment()
     {
@@ -297,13 +425,15 @@ class maingame extends AbstractForm
     {    
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
         {
-            if (SDK_Mode)
+            $path = trim($this->SDK_FightSound);
+
+            if ($path != '')
             {
-                Media::open($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_FightSound->text, true, $this->FightSound);
-            }
+                Media::open($path, true, $this->FightSound);
+            } 
             else
-            {   
-                Media::open($fightsoundPath = 'res://.data/audio/fight/fight_sound_20_05_2025.mp3', true, $this->FightSound);
+            {
+                Media::open('res://.data/audio/fight/fight_sound_20_05_2025.mp3', true, $this->FightSound);
             }
         }
     }    
@@ -581,9 +711,9 @@ class maingame extends AbstractForm
         
         if (!$this->Dialog->visible) $this->ToggleHud(); 
     
+        $this->Dialog->content->StartDialog();
+        $this->Dialog->content->VoiceStart();
         $this->Dialog->show();
-        $this->Dialog->content->StartDialog();          
-        $this->Dialog->content->VoiceStart();    
     }
     function HideDialog()
     {

@@ -56,6 +56,7 @@ class console extends AbstractForm
                                 "clear",
                                 "help",
                                 "version",
+                                "sync_sdk_ltx",
                                 "save",
                                 "load",
                                 "g_god [off/on]",                                  
@@ -159,7 +160,7 @@ class console extends AbstractForm
                         $this->edit->text = "";
                         global $BuildID;
                         Element::appendText($this->Console_Log, "> PseudoStalker, " . VersionID . ", " . $BuildID . "\n");
-                        break;
+                        break;                       
                         
                 case "save":
                         if (!$GLOBALS['ContinueGameState'] || $this->form('maingame')->MainMenu->visible || $this->form('maingame')->Fail->visible) return;
@@ -314,6 +315,11 @@ class console extends AbstractForm
                                 Element::appendText($this->Console_Log, "> Current language: {$currentLang} ({$displayLang})\n");
                         }
                         break;
+                        
+                case "sync_sdk_ltx":
+                        $this->form('maingame')->syncWithSDKLTX();
+                        Element::appendText($this->Console_Log, "> {$command}\n");
+                        break;                         
 
                 default:
                         if ($this->edit->text != "") {

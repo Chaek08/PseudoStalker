@@ -85,7 +85,9 @@ class mainmenu extends AbstractForm
             {
                  Media::play($this->form('maingame')->FightSound);
             }
-        }            
+        }   
+        
+        $this->form('maingame')->Dialog->content->UpdateData();         
     }
     function SwitchGameState()
     {

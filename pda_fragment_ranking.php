@@ -18,6 +18,19 @@ class pda_fragment_ranking extends AbstractForm
         $this->localization = new Localization($language);
     }
     
+    function UpdateData()
+    {
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
+    
+        $actor_in_raiting = trim($this->form('maingame')->Pda->content->SDK_ActorName);
+        $enemy_in_raiting = trim($this->form('maingame')->Pda->content->SDK_EnemyName);
+        $valerok_in_raiting = trim($this->form('maingame')->Pda->content->SDK_ValerokName);
+        
+        $this->actor_in_raiting_name->text = $actor_in_raiting != '' ? $actor_in_raiting : $this->localization->get('GG_Name');
+        $this->goblindav_in_raiting_name->text = $enemy_in_raiting != '' ? $enemy_in_raiting : $this->localization->get('Enemy_Name');
+        $this->valerok_in_raiting_name->text = $valerok_in_raiting != '' ? $valerok_in_raiting : $this->localization->get('Ranking_Valerok');
+    }
+    
     function ResetUserInfo()
     {
         $this->user_actor->hide();
@@ -166,52 +179,44 @@ class pda_fragment_ranking extends AbstractForm
     }
     function LadcegaRole()
     {
-        if (SDK_Mode)
-        {
-            $this->community->text = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Ladcega->promptText;
-            $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Ladcega->value;
-            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleIcon_Ladcega->text));
-        }
-        else 
-        {
-            $this->community->text = $this->localization->get('LA_Community');
-            $this->community->textColor = '#e64d4d';
-            $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/ladcega_role.png'));            
-        }
+        $name = trim($this->form('maingame')->Pda->content->SDK_LaRoleName);
+        $icon = trim($this->form('maingame')->Pda->content->SDK_LaRoleIcon);
+        $color = trim($this->form('maingame')->Pda->content->SDK_LaRoleColor);
+        
+        $this->community->text = $name !== '' ? $name : $this->localization->get('LA_Community');
+        $this->community->graphic = $icon !== ''
+            ? new UXImageView(new UXImage($icon))
+            : new UXImageView(new UXImage('res://.data/ui/dialog/ladcega_role.png'));
+        $this->community->textColor = $color !== '' ? $color : '#e64d4d';
     }    
     function DanilaEmojiRole()
     {
-        if (SDK_Mode)
-        {
-            $this->community->text = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Danila->promptText;
-            $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Danila->value;
-            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleIcon_Danila->text));
-        }
-        else 
-        {
-            $this->community->text = $this->localization->get('DE_Community');
-            $this->community->textColor = '#cc8033';          
-            $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/danila_emoji_role.png'));            
-        }
+        $name = trim($this->form('maingame')->Pda->content->SDK_DeRoleName);
+        $icon = trim($this->form('maingame')->Pda->content->SDK_DeRoleIcon);
+        $color = trim($this->form('maingame')->Pda->content->SDK_DeRoleColor);
+        
+        $this->community->text = $name !== '' ? $name : $this->localization->get('DE_Community');
+        $this->community->graphic = $icon !== ''
+            ? new UXImageView(new UXImage($icon))
+            : new UXImageView(new UXImage('res://.data/ui/dialog/danila_emoji_role.png'));
+        $this->community->textColor = $color !== '' ? $color : '#cc8033';
     }
     function PidorasRole()
     {
-        if (SDK_Mode)
-        {
-            $this->community->text = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleName_Pido->promptText;
-            $this->community->textColor = $this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleColor_Pido->value;
-            $this->community->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_RoleEditor->content->Edit_RoleIcon_Pido->text));
-        }
-        else     
-        {
-            $this->community->text = $this->localization->get('Community_Pido');
-            $this->community->textColor = '#16a4cd';
-            $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/pidoras_role.png'));
-        }
+        $name = trim($this->form('maingame')->Pda->content->SDK_PidoRoleName);
+        $icon = trim($this->form('maingame')->Pda->content->SDK_PidoRoleIcon);
+        $color = trim($this->form('maingame')->Pda->content->SDK_PidoRoleColor);
+        
+        $this->community->text = $name !== '' ? $name : $this->localization->get('Community_Pido');
+        $this->community->graphic = $icon !== ''
+            ? new UXImageView(new UXImage($icon))
+            : new UXImageView(new UXImage('res://.data/ui/dialog/pidoras_role.png'));
+        $this->community->textColor = $color !== '' ? $color : '#16a4cd';    
     }
     function SetUserInfo()
     {
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        
         if ($this->user_goblindav->visible)
         {
             $this->ResetRole();
@@ -220,18 +225,13 @@ class pda_fragment_ranking extends AbstractForm
             
             $this->rank->text = $this->localization->get('Rank_Veterinarian');
             $this->relationship->text = $this->localization->get('Relationship_Enemy');
-            $this->relationship->textColor = ('#cc3333');    
+            $this->relationship->textColor = ('#cc3333');
             
-            if (SDK_Mode)
-            {
-                $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_EnemyIcon->text);            
-                $this->bio->text = $this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_EnemyBio->promptText;
-            } 
-            else
-            {
-                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/goblindav.png');
-                $this->bio->text = $this->localization->get('GoblindaV_Bio');
-            }       
+            $icon_path = trim($this->form('maingame')->Pda->content->SDK_EnemyIcon);
+            $bio_path = trim($this->form('maingame')->Pda->content->SDK_EnemyBio);
+            
+            $this->user_icon->image = new UXImage($icon_path != '' ? $icon_path : 'res://.data/ui/icon_npc/goblindav.png');
+            $this->bio->text = $bio_path != '' ? $bio_path : $this->localization->get('GoblindaV_Bio');
         }
         if ($this->user_valerok->visible)
         {
@@ -243,16 +243,11 @@ class pda_fragment_ranking extends AbstractForm
             $this->relationship->text = $this->localization->get('Relationship_Friend');
             $this->relationship->textColor = ('#669966');
             
-            if (SDK_Mode)
-            {
-                $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_ValerokIcon->text);
-                $this->bio->text = $this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_ValerokBio->promptText;
-            } 
-            else
-            {
-                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/valerok.png');
-                $this->bio->text = $this->localization->get('Valerok_Bio');
-            }                                   
+            $icon_path = trim($this->form('maingame')->Pda->content->SDK_ValerokIcon);
+            $bio_path = trim($this->form('maingame')->Pda->content->SDK_ValerokBio);
+            
+            $this->user_icon->image = new UXImage($icon_path != '' ? $icon_path : 'res://.data/ui/icon_npc/valerok.png');
+            $this->bio->text = $bio_path != '' ? $bio_path : $this->localization->get('Valerok_Bio');
         }       
         if ($this->user_actor->visible)
         {
@@ -261,18 +256,13 @@ class pda_fragment_ranking extends AbstractForm
             $this->DeathFilter();
             $this->rank->text = $this->localization->get('Rank_Master');
             $this->attitude->hide();
-            $this->relationship->hide();              
+            $this->relationship->hide();
             
-            if (SDK_Mode)
-            {
-                $this->user_icon->image = new UXImage($this->form('maingame')->Editor->content->f_UserDataEditor->content->Edit_ActorIcon->text);  
-                $this->bio->text = $this->form('maingame')->Editor->content->f_UserDataEditor->content->textArea_ActorBio->promptText;
-            }
-            else 
-            {
-                $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/actor.png');
-                $this->bio->text = $this->localization->get('Actor_Bio');
-            }
+            $icon_path = trim($this->form('maingame')->Pda->content->SDK_ActorIcon);
+            $bio_path = trim($this->form('maingame')->Pda->content->SDK_ActorBio);
+            
+            $this->user_icon->image = new UXImage($icon_path != '' ? $icon_path : 'res://.data/ui/icon_npc/actor.png');
+            $this->bio->text = $bio_path != '' ? $bio_path : $this->localization->get('Actor_Bio');
         }       
     }
 }

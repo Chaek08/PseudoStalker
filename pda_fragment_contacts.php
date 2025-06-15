@@ -1,12 +1,42 @@
 <?php
 namespace app\forms;
 
+use php\gui\UXImage;
 use std, gui, framework, app;
 use php\gui\event\UXWindowEvent; 
 
 
 class pda_fragment_contacts extends AbstractForm
 {
+    private $localization;
+
+    public function __construct() 
+    {
+        parent::__construct();
+
+        $this->localization = new Localization($language);
+    }
+    
+    function UpdateData()
+    {
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
+    
+        $name = trim($this->form('maingame')->Pda->content->SDK_EnemyName);
+        $icon = trim($this->form('maingame')->Pda->content->SDK_EnemyIcon);
+        $bio = trim($this->form('maingame')->Pda->content->SDK_EnemyBio);
+        
+        $role_name = trim($this->form('maingame')->Pda->content->SDK_PidoRoleName);
+        $role_icon = trim($this->form('maingame')->Pda->content->SDK_PidoRoleIcon);
+        $role_color = trim($this->form('maingame')->Pda->content->SDK_PidoRoleColor);        
+        
+        $this->name->text = $name !== '' ? $name : $this->localization->get('Enemy_Name');
+        $this->icon->image = new UXImage($icon !== '' ? $icon : 'res://.data/ui/icon_npc/goblindav.png');
+        $this->bio->text = $bio !== '' ? $bio : $this->localization->get('GoblindaV_Bio');
+        
+        $this->community->text = $role_name != '' ? $role_name : $this->localization->get('Community_Pido');
+        $this->community->graphic = new UXImageView(new UXImage($role_icon != '' ? $role_icon : 'res://.data/ui/dialog/dialog_wnd/pidoras_roleicon.png'));
+        $this->community->textColor = $role_color != '' ? $role_color : '#16a4cd';        
+    }
     /**
      * @event selected_new.click-Left 
      */

@@ -110,12 +110,12 @@
     <Data animated="1" cursor="DEFAULT" enabled="1" id="data-CustomCursor" sprite="game_cursor" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-blood_ui" image=".data/ui/maingame/blood_mini.png" visible=""/>
     <Data content="fail_wnd" cursor="DEFAULT" enabled="1" id="data-Fail" visible=""/>
-    <ImageViewEx autoSize="true" centered="true" focusTraversable="false" height="185" id="fight_image" layoutX="548" layoutY="168" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="486">
+    <ImageViewEx autoSize="true" centered="true" focusTraversable="false" height="185" id="fight_image" layoutX="548" layoutY="168" mosaic="false" mosaicGap="0" proportional="false" stretch="false" style="-fx-opacity: 1;" styleClass="" textFill="#000000" width="486">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-fight_image" image=".data/ui/maingame/fight_image.png" visible=""/>
+    <Data cursor="DEFAULT" enabled="" id="data-fight_image" image=".data/ui/maingame/fight_image.png" visible=""/>
     <FlatButton alignment="CENTER" borderRadius="10" color="#e6e6e6" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="health_bar_gg_b" layoutX="40" layoutY="32" prefHeight="40" prefWidth="264" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>

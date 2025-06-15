@@ -1,20 +1,123 @@
 <?php
 namespace app\forms;
 
+use php\gui\UXImageView;
+use php\gui\UXImage;
 use std, gui, framework, app;
 use app\forms\classes\Localization;
 
 class dialog extends AbstractForm
 {
     private $localization;
-
+    
+    public $SDK_VoiceStart = '';
+    public $SDK_VoiceTalk1 = '';
+    public $SDK_VoiceTalk2 = '';
+    public $SDK_VoiceTalk3 = '';
+    
+    public $SDK_AlexDesc1 = '';
+    public $SDK_AlexDesc2 = '';
+    public $SDK_AlexDesc3 = '';    
+    public $SDK_ActorDesc1 = '';
+    public $SDK_ActorDesc3 = '';
+    public $SDK_FinalPhase = '';
+    
     public function __construct() 
     {
         parent::__construct();
 
         $this->localization = new Localization($language);
     }
+    function UpdateData()
+    {
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
     
+        $actor_icon = trim($this->form('maingame')->Pda->content->SDK_ActorIcon);
+        $actor_name = trim($this->form('maingame')->Pda->content->SDK_ActorName);
+        $enemy_icon = trim($this->form('maingame')->Pda->content->SDK_EnemyIcon);
+        $enemy_name = trim($this->form('maingame')->Pda->content->SDK_EnemyName);
+        
+        $pido_role_name = trim($this->form('maingame')->Pda->content->SDK_PidoRoleName);
+        $pido_role_color = trim($this->form('maingame')->Pda->content->SDK_PidoRoleColor);
+        $pido_role_icon = trim($this->form('maingame')->Pda->content->SDK_PidoRoleIcon);
+        $de_role_name = trim($this->form('maingame')->Pda->content->SDK_DeRoleName);
+        $de_role_color = trim($this->form('maingame')->Pda->content->SDK_DeRoleColor);
+        $de_role_icon = trim($this->form('maingame')->Pda->content->SDK_DeRoleIcon);
+        
+        $this->community_enemy->text = $pido_role_name != '' ? $pido_role_name : $this->localization->get('Community_Pido');
+
+        $pidoIcon = $pido_role_icon != '' ? $pido_role_icon : 'res://.data/ui/dialog/dialog_wnd/pidoras_roleicon.png';
+        $this->community_enemy->graphic = new UXImageView(new UXImage($pidoIcon));
+        $this->alex_label_1->graphic = new UXImageView(new UXImage($pidoIcon));
+        $this->alex_label_2->graphic = new UXImageView(new UXImage($pidoIcon));
+        $this->alex_label_3->graphic = new UXImageView(new UXImage($pidoIcon));
+
+        $pidoColor = $pido_role_color != '' ? $pido_role_color : '#16a4cd';
+        $this->enemy_name->textColor = $pidoColor;
+        $this->community_enemy->textColor = $pidoColor;
+        $this->alex_label_1->textColor = $pidoColor;
+        $this->alex_label_2->textColor = $pidoColor;
+        $this->alex_label_3->textColor = $pidoColor;
+
+        $this->community_actor->text = $de_role_name != '' ? $de_role_name : $this->localization->get('DE_Community');
+
+        $deIcon = $de_role_icon != '' ? $de_role_icon : 'res://.data/ui/dialog/dialog_wnd/danila_emoji_roleicon.png';
+        $this->community_actor->graphic = new UXImageView(new UXImage($deIcon));
+        $this->actor_label_1->graphic = new UXImageView(new UXImage($deIcon));
+        $this->actor_label_3->graphic = new UXImageView(new UXImage($deIcon));
+        $this->answer_name->graphic = new UXImageView(new UXImage($deIcon));
+
+        $deColor = $de_role_color != '' ? $de_role_color : '#16a4cd';
+        $this->gg_name->textColor = $deColor;
+        $this->community_actor->textColor = $deColor;
+        $this->actor_label_1->textColor = $deColor;
+        $this->actor_label_3->textColor = $deColor;
+        $this->answer_name->textColor = $deColor;
+        
+        $this->icon_gg->image = new UXImage($actor_icon !== '' ? $actor_icon : 'res://.data/ui/icon_npc/actor.png');
+        $this->icon_enemy->image = new UXImage($enemy_icon !== '' ? $enemy_icon : 'res://.data/ui/icon_npc/goblindav.png');
+        
+        if ($actor_name != '')
+        {
+            $this->gg_name->text = $actor_name;
+            $this->actor_label_1->text = $actor_name;
+            $this->actor_label_3->text = $actor_name;
+            $this->answer_name->text = $actor_name;
+        }
+        else
+        {
+            $this->gg_name->text = $this->localization->get('GG_Name');
+            $this->actor_label_1->text = $this->localization->get('GG_Name');
+            $this->actor_label_3->text = $this->localization->get('GG_Name');
+            $this->answer_name->text = $this->localization->get('GG_Name');
+        }
+        if ($enemy_name != '')
+        {
+            $this->enemy_name->text = $enemy_name;
+            $this->alex_label_1->text = $enemy_name;
+            $this->alex_label_2->text = $enemy_name;
+            $this->alex_label_3->text = $enemy_name;
+        }
+        else
+        {
+            $this->gg_name->text = $this->localization->get('Enemy_Name');
+            $this->actor_label_1->text = $this->localization->get('Enemy_Name');
+            $this->actor_label_3->text = $this->localization->get('Enemy_Name');
+            $this->answer_name->text = $this->localization->get('Enemy_Name');
+        }      
+        
+        $alex_desc_1 = trim($this->SDK_AlexDesc1);
+        $actor_desc_1 = trim($this->SDK_ActorDesc1);
+        $alex_desc_2 = trim($this->SDK_AlexDesc2);
+        $actor_desc_3 = trim($this->SDK_ActorDesc3);
+        $alex_desc_3 = trim($this->SDK_AlexDesc3);
+        
+        $this->alex_desc_1->text = $alex_desc_1 != '' ? $alex_desc_1 : $this->localization->get('Dialog_Goblin_Desc1');
+        $this->actor_desc_1->text = $actor_desc_1 != '' ? $actor_desc_1 : $this->localization->get('Dialog_Actor_Desc1');
+        $this->alex_desc_2->text = $alex_desc_2 != '' ? $alex_desc_2 : $this->localization->get('Dialog_Goblin_Desc2');
+        $this->actor_desc_3->text = $actor_desc_3 != '' ? $actor_desc_3 : $this->localization->get('Dialog_Actor_Desc3');
+        $this->alex_desc_3->text = $alex_desc_3 != '' ? $alex_desc_3 : $this->localization->get('Dialog_Goblin_Desc3');    
+    }
     private function playVoice($fileName, $mediaId)
     {
         $languageCode = $this->localization->getCurrentLanguage();
@@ -41,10 +144,12 @@ class dialog extends AbstractForm
     function VoiceStart()
     {
         if ($GLOBALS['AllSounds'])
-        {   
-            if (SDK_Mode)
+        {
+            $path = trim($this->SDK_VoiceStart);
+        
+            if ($path != '')
             {
-                Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceStart->text, true, "voice_start");
+                Media::open($this->SDK_VoiceStart, true, "voice_start");
             }
             else 
             {
@@ -54,9 +159,11 @@ class dialog extends AbstractForm
     }
     function VoiceTalk_1()
     {
-        if (SDK_Mode)
+        $path = trim($this->SDK_VoiceTalk1);
+        
+        if ($path != '')
         {
-            Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceTalk1->text, true, "voice_talk1");
+            Media::open($this->SDK_VoiceTalk1, true, "voice_talk1");
         }
         else
         {
@@ -65,9 +172,11 @@ class dialog extends AbstractForm
     }
     function VoiceTalk_2()
     {
-        if (SDK_Mode)
+        $path = trim($this->SDK_VoiceTalk2);
+        
+        if ($path != '')
         {
-            Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceTalk2->text, true, "voice_talk2");
+            Media::open($this->SDK_VoiceTalk2, true, "voice_talk2");
         }
         else
         {    
@@ -76,9 +185,11 @@ class dialog extends AbstractForm
     }    
     function VoiceTalk_3()
     {
-        if (SDK_Mode)
+        $path = trim($this->SDK_VoiceTalk3);
+        
+        if ($path != '')
         {
-            Media::open($this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_VoiceTalk3->text, true, "voice_talk3");
+            Media::open($this->SDK_VoiceTalk3, true, "voice_talk3");
         }
         else
         {    
@@ -91,10 +202,12 @@ class dialog extends AbstractForm
     function Talk_1(UXMouseEvent $e = null)
     {    
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        if (SDK_Mode)
+        
+        $path = trim($this->SDK_ActorDesc3);
+        
+        if ($path != '')
         {
-            $this->answer_desc->text = $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_3->text ?:
-                                       $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_3->promptText;
+            $this->answer_desc->text = $this->SDK_ActorDesc3;
 
         }
         else
@@ -122,10 +235,12 @@ class dialog extends AbstractForm
     function Talk_2(UXMouseEvent $e = null)
     {
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        if (SDK_Mode)
+        
+        $path = trim($this->SDK_FinalPhase);
+        
+        if ($path != '')
         {
-            $this->answer_desc->text = $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Final_Phase->text ?:
-                                       $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Final_Phase->promptText;
+            $this->answer_desc->text = $this->SDK_FinalPhase;
         }
         else    
         {
@@ -173,10 +288,12 @@ class dialog extends AbstractForm
     {
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         $this->answer_1_new->show();
-        if (SDK_Mode)
+        
+        $path = trim($this->SDK_ActorDesc1);
+        
+        if ($path != '')
         {
-            $this->answer_desc->text = $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_1->text ?:
-                                       $this->form('maingame')->Editor->content->f_DialogEditor->content->Edit_Actor_Desc_1->promptText;            
+            $this->answer_desc->text = $this->SDK_ActorDesc1;
         }
         else 
         {

@@ -1,17 +1,52 @@
 <?php
 namespace app\forms;
 
+use php\gui\UXImage;
 use std, gui, framework, app;
 use php\time\Time;
 
 class pda_fragment_tasks extends AbstractForm
 {
+    private $localization;
+
+    public function __construct() 
+    {
+        parent::__construct();
+
+        $this->localization = new Localization($language);
+    }
+    
+    public $SDK_QuestName = '';
+    public $SDK_QuestIcon = '';
+    public $SDK_QuestDesc = '';
+    public $SDK_QuestStep1 = '';
+    public $SDK_QuestStep2 = '';
+    public $SDK_QuestTarget = '';
+    
     /**
      * @event show 
      */
     function InitTasks(UXWindowEvent $e = null)
     {
         $this->UpdateQuestTime();
+    }
+    function UpdateData()
+    {
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+    
+        $quest_name = trim($this->SDK_QuestName);
+        $quest_icon = trim($this->SDK_QuestIcon);
+        $quest_desc = trim($this->SDK_QuestDesc);
+        $quest_step1 = trim($this->SDK_QuestStep1);
+        $quest_step2 = trim($this->SDK_QuestStep2);
+        $quest_target = trim($this->SDK_QuestTarget);
+        
+        $this->task_label->text = $quest_name != '' ? $quest_name : $this->localization->get('DefeatEnemy_Task');
+        $this->icon_task->image = new UXImage($quest_icon != '' ? $quest_icon : 'res://.data/ui/pda/icon_Task.png');
+        $this->task_detail_text->text = $quest_desc != '' ? $quest_desc : $this->localization->get('TaskDetails');
+        $this->step1->text = $quest_step1 != '' ? $quest_step1 : $this->localization->get('TalkToGoblin_Task');
+        $this->step2->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatGoblin_Task');
+        $this->form('maingame')->Pda->content->Pda_Statistic->content->target_label->text = $quest_target != '' ? $quest_target : $this->localization->get('Target_Label');
     }
     /**
     * @event quest_detail_btn.click-Left 

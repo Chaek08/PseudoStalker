@@ -11,6 +11,13 @@ use app\forms\classes\Localization;
 class fail_wnd extends AbstractForm
 {
     private $localization;
+    
+    public $SDK_FailTextActor = '';
+    public $SDK_FailTextIconActor = '';
+    public $SDK_FailDescActor = '';
+    public $SDK_FailTextEnemy = '';
+    public $SDK_FailTextIconEnemy = '';
+    public $SDK_FailDescEnemy = '';
 
     public function __construct() 
     {
@@ -36,7 +43,6 @@ class fail_wnd extends AbstractForm
         $this->form('maingame')->ToggleHud();
         
         $this->form('maingame')->Fail->hide();
-        //Media::play($this->form('maingame')->Environment);
         if ($GLOBALS['ActorFailed']) $this->form('maingame')->enemy->show();
         if ($GLOBALS['EnemyFailed']) $this->form('maingame')->actor->show();
                    
@@ -57,47 +63,27 @@ class fail_wnd extends AbstractForm
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         if ($GLOBALS['ActorFailed'])
         {
-            if (SDK_Mode)
-            {
-                $this->Win_object->image = new UXImage($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_EnemyModel->text);
-                $this->Win_fail_text->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_FailEditor->content->EditActorFailIcon->text));
-                $this->Win_fail_text->text =
-                   $this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Text_Actor_Edit->text ?:
-                   $this->localization->get('ActorFail_Label');
-
-                $this->Win_fail_desc->text =
-                   $this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Desc_Actor_Edit->text ?:
-                   $this->localization->get('ActorFail_Desc');
-            }
-            else 
-            {
-                $this->Win_object->image = new UXImage('res://.data/ui/fail_wnd/goblindav.png');
-                $this->Win_fail_text->graphic = new UXImageView(new UXImage('res://.data/ui/fail_wnd/actor_fail.png'));
-                $this->Win_fail_text->text = $this->localization->get('ActorFail_Label');
-                $this->Win_fail_desc->text = $this->localization->get('ActorFail_Desc');     
-            }
+            $enemy_model = trim($this->form('maingame')->SDK_EnemyModel);
+            $actor_failtext = trim($this->SDK_FailTextActor);
+            $actor_failtexticon = trim($this->SDK_FailTextIconActor);
+            $actor_faildesc = trim($this->SDK_FailDescActor);
+                
+            $this->Win_object->image = new UXImage($enemy_model != '' ? $enemy_model : 'res://.data/ui/fail_wnd/goblindav.png');
+            $this->Win_fail_text->text = $actor_failtext != '' ? $actor_failtext : $this->localization->get('ActorFail_Label');
+            $this->Win_fail_text->graphic = new UXImageView(new UXImage($actor_failtexticon != '' ? $actor_failtexticon : 'res://.data/ui/fail_wnd/actor_fail.png'));
+            $this->Win_fail_desc->text = $actor_faildesc != '' ? $actor_faildesc : $this->localization->get('ActorFail_Desc');
         }
         if ($GLOBALS['EnemyFailed'])
         {
-            if (SDK_Mode)
-            {
-                $this->Win_object->image = new UXImage($this->form('maingame')->Editor->content->f_MgEditor->content->Edit_ActorModel->text);
-                $this->Win_fail_text->graphic = new UXImageView(new UXImage($this->form('maingame')->Editor->content->f_FailEditor->content->EditEnemyFailIcon->text));
-                $this->Win_fail_text->text =
-                   $this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Text_Enemy_Edit->text ?:
-                   $this->localization->get('EnemyFail_Label');
-
-                $this->Win_fail_desc->text =
-                   $this->form('maingame')->Editor->content->f_FailEditor->content->Win_Fail_Desc_Enemy_Edit->text ?:
-                   $this->localization->get('EnemyFail_Desc');
-            }
-            else 
-            {
-                $this->Win_object->image = new UXImage('res://.data/ui/fail_wnd/actor.png');
-                $this->Win_fail_text->graphic = new UXImageView(new UXImage('res://.data/ui/fail_wnd/enemy_fail.png'));
-                $this->Win_fail_text->text = $this->localization->get('EnemyFail_Label');
-                $this->Win_fail_desc->text = $this->localization->get('EnemyFail_Desc');
-            }            
+            $actor_model = trim($this->form('maingame')->SDK_ActorModel);
+            $enemy_failtext = trim($this->SDK_FailTextEnemy);
+            $enemy_failtexticon = trim($this->SDK_FailTextIconEnemy);
+            $enemy_faildesc = trim($this->SDK_FailDescEnemy);    
+            
+            $this->Win_object->image = new UXImage($actor_model != '' ? $actor_model : 'res://.data/ui/fail_wnd/actor.png');
+            $this->Win_fail_text->text = $enemy_failtext != '' ? $enemy_failtext : $this->localization->get('EnemyFail_Label');
+            $this->Win_fail_text->graphic = new UXImageView(new UXImage($enemy_failtexticon != '' ? $enemy_failtexticon : 'res://.data/ui/fail_wnd/enemy_fail.png'));
+            $this->Win_fail_desc->text = $enemy_faildesc != '' ? $enemy_faildesc : $this->localization->get('EnemyFail_Desc');                       
         }        
     }
 }

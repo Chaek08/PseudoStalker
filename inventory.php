@@ -18,6 +18,17 @@ class inventory extends AbstractForm
     
     private $playerMonero = 40;
     private $moneyCurrency = 'RU';
+    
+    public $SDK_OutfitName = '';
+    public $SDK_OutfitIcon = '';
+    public $SDK_OutfitPrice = '';
+    public $SDK_OutfitWeight = '';
+    public $SDK_OutfitDesc = '';
+    public $SDK_VodkaName = '';
+    public $SDK_VodkaIcon = '';
+    public $SDK_VodkaPrice = '';
+    public $SDK_VodkaWeight = '';
+    public $SDK_VodkaDesc = '';    
        
     public function __construct() 
     {
@@ -90,61 +101,31 @@ class inventory extends AbstractForm
         
         if ($GLOBALS['item_vodka_selected'])
         {
-            if (SDK_Mode)
-            {
-                $this->inv_maket->image = new UXImage($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemIcon_Vodka->text);
-                $this->maket_label->text =
-                    $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Vodka->text ?:
-                    $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Vodka->promptText;
-
-                $this->maket_desc->text = 
-                    $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Vodka->text ?:
-                    $this->localization->get('Vodka_Inv_Desc');
-                    
-                Element::setText($this->maket_count, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Count_Vodka) . ' ' . $this->moneyCurrency);
-                
-                $this->vodkaWeight = (float) uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Vodka);
-                Element::setText($this->maket_weight, sprintf('%.1fkg', $this->vodkaWeight));
-            }
-            else 
-            {
-                $this->inv_maket->image = new UXImage('res://.data/ui/inventory/item_vodka.png');
-                $this->maket_label->text = $this->localization->get('Vodka_Inv_Name');
-                $this->maket_desc->text = $this->localization->get('Vodka_Inv_Desc');
-                
-                Element::setText($this->maket_count, "250" .  ' ' . $this->moneyCurrency);
-                Element::setText($this->maket_weight, sprintf('%.1fkg', $this->vodkaWeight));
-            }
+            $vodka_name = trim($this->SDK_VodkaName);
+            $vodka_icon = trim($this->SDK_VodkaIcon);
+            $vodka_weight = trim($this->SDK_VodkaWeight);
+            $vodka_desc = trim($this->SDK_VodkaDesc);
+            $vodka_price = trim($this->SDK_VodkaPrice);
+            
+            $this->maket_label->text = $vodka_name != '' ? $vodka_name : $this->localization->get('Vodka_Inv_Name');
+            $this->inv_maket->image = new UXImage($vodka_icon != '' ? $vodka_icon : 'res://.data/ui/inventory/item_vodka.png');
+            $this->maket_weight->text = $vodka_weight != '' ? $vodka_weight . 'kg' : sprintf('%.1fkg', $this->vodkaWeight);
+            $this->maket_desc->text = $vodka_desc != '' ? $vodka_desc : $this->localization->get('Vodka_Inv_Desc');
+            $this->maket_count->text = ($vodka_price != '' ? $vodka_price : '250') . ' ' . $this->moneyCurrency;
         }
         if ($GLOBALS['item_outfit_selected'])
         {
-            if (SDK_Mode)
-            {
-                $this->inv_maket->image = new UXImage($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemIcon_Outfit->text);
-                
-                $this->maket_label->text = 
-                    $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Outfit->text ?: 
-                    $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemName_Outfit->promptText;
-
-                $this->maket_desc->text = 
-                    $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Outfit->text ?: 
-                    $this->form('maingame')->Editor->content->f_InvEditor->content->Edit_ItemDesc_Outfit->promptText;
-                    
-                Element::setText($this->maket_count, uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Count_Outfit) . ' ' . $this->moneyCurrency);                
-                    
-                $this->outfitWeight = (float) uiText($this->form('maingame')->Editor->content->f_InvEditor->content->Edit_Weight_Outfit);
-                Element::setText($this->maket_weight, sprintf('%.1fkg', $this->outfitWeight));
-            }
-            else 
-            {
-                $this->inv_maket->image = new UXImage('res://.data/ui/inventory/bandit_outfit.png');
-                
-                $this->maket_label->text = $this->localization->get('Outfit_Inv_Name');
-                $this->maket_desc->text = $this->localization->get('Outfit_Inv_Desc');
-                
-                Element::setText($this->maket_count, "2599" . ' ' . $this->moneyCurrency);
-                Element::setText($this->maket_weight, sprintf('%.1fkg', $this->outfitWeight));
-            }
+            $outfit_name = trim($this->SDK_OutfitName);
+            $outfit_icon = trim($this->SDK_OutfitIcon);
+            $outfit_weight = trim($this->SDK_OutfitWeight);
+            $outfit_desc = trim($this->SDK_OutfitDesc);
+            $outfit_price = trim($this->SDK_OutfitPrice);
+            
+            $this->maket_label->text = $outfit_name != '' ? $outfit_name : $this->localization->get('Outfit_Inv_Name');
+            $this->inv_maket->image = new UXImage($outfit_icon != '' ? $outfit_icon : 'res://.data/ui/inventory/bandit_outfit.png');
+            $this->maket_weight->text = $outfit_weight != '' ? $outfit_weight . 'kg' : sprintf('%.1fkg', $this->outfitWeight);
+            $this->maket_desc->text = $outfit_desc != '' ? $outfit_desc : $this->localization->get('Outfit_Inv_Desc');
+            $this->maket_count->text = ($outfit_price != '' ? $outfit_price : '2599') . ' ' . $this->moneyCurrency;
         }
         if ($GLOBALS['item_medkit_selected'])
         {

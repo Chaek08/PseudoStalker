@@ -1,5 +1,7 @@
 <?php
 namespace app\forms;
+use php\gui\UXImage;
+use php\gui\UXImageView;
 use action\Element; 
 use php\time\Time;
 
@@ -17,6 +19,24 @@ class pda_fragments_stat extends AbstractForm
         $this->localization = new Localization($language);
     }
     
+    function UpdateData()
+    {
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
+    
+        $actor_name = trim($this->form('maingame')->Pda->content->SDK_ActorName);
+        $actor_icon = trim($this->form('maingame')->Pda->content->SDK_ActorIcon);
+        
+        $role_name = trim($this->form('maingame')->Pda->content->SDK_DeRoleName);
+        $role_icon = trim($this->form('maingame')->Pda->content->SDK_DeRoleIcon);
+        $role_color = trim($this->form('maingame')->Pda->content->SDK_DeRoleColor);
+
+        $this->tab_button->text = $actor_name !== '' ? $actor_name : $this->localization->get('GG_Name');
+        $this->icon->image = new UXImage($actor_icon !== '' ? $actor_icon : 'res://.data/ui/icon_npc/actor.png');
+         
+        $this->community->text = $role_name != '' ? $role_name : $this->localization->get('DE_Community');
+        $this->community->graphic = new UXImageView(new UXImage($role_icon != '' ? $role_icon : 'res://.data/ui/dialog/danila_emoji_role.png'));
+        $this->community->textColor = $role_color != '' ? $role_color : '#cc8033';
+    }
     /**
      * @event show 
      */
