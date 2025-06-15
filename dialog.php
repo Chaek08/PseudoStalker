@@ -100,10 +100,10 @@ class dialog extends AbstractForm
         }
         else
         {
-            $this->gg_name->text = $this->localization->get('Enemy_Name');
-            $this->actor_label_1->text = $this->localization->get('Enemy_Name');
-            $this->actor_label_3->text = $this->localization->get('Enemy_Name');
-            $this->answer_name->text = $this->localization->get('Enemy_Name');
+            $this->enemy_name->text = $this->localization->get('Enemy_Name');
+            $this->alex_label_1->text = $this->localization->get('Enemy_Name');
+            $this->alex_label_2->text = $this->localization->get('Enemy_Name');
+            $this->alex_label_3->text = $this->localization->get('Enemy_Name');
         }      
         
         $alex_desc_1 = trim($this->SDK_AlexDesc1);
