@@ -1192,8 +1192,6 @@ class maingame extends AbstractForm
         $this->idle_static_enemy->show();
         $this->actor->x = 112;
         $this->enemy->x = 1312;
-              
-        $this->Pda->content->Pda_Statistic->content->UpdateRaiting();
         
         if ($GLOBALS['AllSounds']) $this->StopAllSounds();
         
@@ -1213,8 +1211,9 @@ class maingame extends AbstractForm
             
             if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor');
         }
-        
         $this->Pda->content->Pda_Tasks->content->Step_UpdatePda();
+        
+        $this->Pda->content->Pda_Statistic->content->UpdateRaiting();
     }
     /**
      * @event keyDown-Q 
