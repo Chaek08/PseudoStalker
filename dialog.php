@@ -67,7 +67,7 @@ class dialog extends AbstractForm
         $this->actor_label_3->graphic = new UXImageView(new UXImage($deIcon));
         $this->answer_name->graphic = new UXImageView(new UXImage($deIcon));
 
-        $deColor = $de_role_color != '' ? $de_role_color : '#16a4cd';
+        $deColor = $de_role_color != '' ? $de_role_color : '#ee991a';
         $this->gg_name->textColor = $deColor;
         $this->community_actor->textColor = $deColor;
         $this->actor_label_1->textColor = $deColor;
