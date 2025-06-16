@@ -24,7 +24,6 @@ class maingame extends AbstractForm
         define('VersionID', 'v1.3 (rc2)');
         define('client_version', '3');
         define('Debug_Build', true);
-        define('SDK_Mode', false);
 
         $GLOBALS['AllSounds']  = true;
         $GLOBALS['MenuSound']  = true;
@@ -33,20 +32,11 @@ class maingame extends AbstractForm
         
         $this->localization = new Localization($language);        
 
+        $this->syncWithSDKLTX();
+
         $this->GetVersion();
 
         $this->MainMenu->content->InitMainMenu();
-
-        if (SDK_Mode)
-        {
-            $this->MainMenu->content->opensdk_btn->show();
-        }
-        else
-        {
-            $this->Editor->free();
-            $this->MainMenu->content->opensdk_btn->free();
-        }
-
         $this->MainMenu->content->Options->content->InitOptions();
 
         $this->currentCycle = '';
@@ -58,8 +48,6 @@ class maingame extends AbstractForm
             $GLOBALS['GodMode'] = true;
             $this->GodMode();
         }        
-        
-        $this->syncWithSDKLTX();
     }
     
     public $ltx = [];
@@ -244,9 +232,7 @@ class maingame extends AbstractForm
                 case 'voice_talk3': $this->Dialog->content->SDK_VoiceTalk3 = $value; break;            
             
                 // MgEditor
-                case 'mm_background': 
-                    Media::open($value, true, $this->MainMenu->content->MainMenuBackground);
-                    break;
+                case 'mm_background': $this->MainMenu->content->SDK_MMBackground = $value; break;
                 case 'health_bar_actor_c': 
                     $this->health_bar_gg->color = UXColor::of($value);
                     $this->Inventory->content->health_bar_gg->color = UXColor::of($value);
@@ -401,16 +387,16 @@ class maingame extends AbstractForm
         {
             $this->version->show();
             $this->version_detail->show();
-            
-            Element::setText($this->version_detail, SDK_Mode ? "Editor " . $BuildID : $BuildID);
+
+            Element::setText($this->version_detail, $BuildID);
         }
         else
         {
             $this->MainMenu->content->version->show();
             $this->MainMenu->content->version_detail->show();
-            
-            Element::setText($this->MainMenu->content->version_detail, VersionID . (SDK_Mode ? ' + SDK' : ''));
-        }        
+
+            Element::setText($this->MainMenu->content->version_detail, VersionID);
+        }
     }     
     function LoadScreen()
     {
@@ -517,8 +503,6 @@ class maingame extends AbstractForm
         if ($this->Dialog->visible) return true;
         if ($this->Fail->visible) return true;
         
-        if (SDK_Mode && $this->Editor->visible) return true;
-        
         return false;
     }     
     function ToggleHud()
@@ -580,11 +564,6 @@ class maingame extends AbstractForm
     {    
         $this->ToggleHud();
         if ($this->LoadScreen->visible) return;
-        if (SDK_Mode && $this->Editor->visible)
-        {
-            $this->Editor->content->StartMainGame();
-            return;
-        } 
         if ($this->MainMenu->visible) 
         {
             if ($this->MainMenu->content->Options->visible)
@@ -1241,18 +1220,6 @@ class maingame extends AbstractForm
         {
             $this->Console->visible;
         }
-    }
-    /**
-     * @event ForwardSDK_Btn.click-2x
-     */
-    function ForwardSDK(UXMouseEvent $e = null)
-    {    
-        $this->MainMenu->content->OpenSdkBtn();
-        
-        $this->ForwardSDK_Btn->hide();
-        
-        $this->form('maingame')->MainMenu->content->opensdk_btn->enabled = true;
-        $this->form('maingame')->MainMenu->content->opensdk_btn->text = 'Open SDK';
     }
     /**
      * @event keyDown-F5 

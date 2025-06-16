@@ -11,6 +11,8 @@ class mainmenu extends AbstractForm
 {
     private $localization;
 
+    public $SDK_MMBackground = '';
+
     public function __construct()
     {
         parent::__construct();
@@ -30,22 +32,9 @@ class mainmenu extends AbstractForm
         
         //отрендерим задник меню
         $this->MainMenuBackground->view = $this->dynamic_background;
-        $backgroundPath = SDK_Mode
-            ? $this->form('maingame')->Editor->content->f_MgEditor->content->Edit_MenuBackground->text 
-            : '.\gamedata\textures\menu\background.mp4';//'.\gamedata\textures\menu\background.mp4'; //C:\Users\drogo.B760\Downloads\kunteynir_privet_pider.mp4
+        $sdk_background = trim($this->SDK_MMBackground);
+        $backgroundPath = ($sdk_background != '') ? $sdk_background : '.\gamedata\textures\menu\background.mp4';
         Media::open($backgroundPath, true, $this->MainMenuBackground);
-    }
-    /**
-     * @event opensdk_btn.click-Left 
-     */
-    function OpenSdkBtn(UXMouseEvent $e = null)
-    {    
-        if ($this->form('maingame')->MainMenu->visible) 
-        {
-            Media::pause($this->MenuSound);
-            Media::pause($this->MainMenuBackground);
-        }
-        $this->form('maingame')->Editor->show();
     }
     /**
      * @event Btn_Start_Game.mouseExit 
