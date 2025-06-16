@@ -592,6 +592,11 @@ class maingame extends AbstractForm
                 $this->MainMenu->content->UILoadWnd->content->ReturnBtn();
                 return;
             }
+            if ($this->ExitDialog->visible) 
+            {
+                $this->ExitDialog->hide();
+                return;
+            }            
             $this->MainMenu->content->BtnStartGame_MouseDownLeft();
             $this->MainMenu->content->BtnStartGame_MouseExit();
             return;
