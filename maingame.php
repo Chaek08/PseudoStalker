@@ -247,7 +247,10 @@ class maingame extends AbstractForm
                 case 'mm_background': 
                     Media::open($value, true, $this->MainMenu->content->MainMenuBackground);
                     break;
-                case 'health_bar_actor_c': $this->health_bar_gg->color = UXColor::of($value); break;
+                case 'health_bar_actor_c': 
+                    $this->health_bar_gg->color = UXColor::of($value);
+                    $this->Inventory->content->health_bar_gg->color = UXColor::of($value);
+                    break;
                 case 'health_bar_enemy_c': $this->health_bar_enemy->color = UXColor::of($value); break;
                 case 'actor_model': 
                     $this->actor->image = new UXImage($value);
