@@ -280,7 +280,6 @@ class dialog extends AbstractForm
         
         $this->form('maingame')->idle_static_actor->hide();
         $this->form('maingame')->idle_static_enemy->hide(); 
-        $this->form('maingame')->fight_image->show();
             
         $this->form('maingame')->Pda->content->Pda_Tasks->content->Step1_Complete();                       
     }

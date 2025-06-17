@@ -12,6 +12,12 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="Task_Step_Label" layoutX="0" layoutY="136" prefHeight="56" prefWidth="1600" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-opacity: 1;&#10;-fx-font-size: 35&#10;" styleClass="label " text="Task_Step" textAlignment="CENTER" textFill="#e8d2b0" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="35"/>
+      </font>
+    </LabelEx>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="MessageBox" layoutX="32" layoutY="236" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="64" prefWidth="400" spacing="0" styleClass="fragment-pane "/>
     <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Fight_Label" layoutX="548" layoutY="168" opacity="0" prefHeight="185" prefWidth="486" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 75" styleClass="label " text="Fight!!! [門季]" textAlignment="LEFT" textFill="#cc3333" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="75"/>
@@ -176,5 +182,7 @@
     <Data cursor="DEFAULT" enabled="" graphic="" id="data-Talk_Label" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-GodMode_Icon" image=".data/ui/maingame/GodMode.png" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-Fight_Label" visible=""/>
+    <Data content="MessageBox" cursor="DEFAULT" enabled="1" id="data-MessageBox" visible=""/>
+    <Data cursor="DEFAULT" enabled="" id="data-Task_Step_Label" visible=""/>
   </children>
 </AnchorPane>

@@ -31,7 +31,7 @@ class maingame extends AbstractForm
         $GLOBALS['HudVisible'] = true;
         
         $this->localization = new Localization($language);        
-
+        
         $this->syncWithSDKLTX();
 
         $this->GetVersion();
@@ -47,7 +47,7 @@ class maingame extends AbstractForm
         {
             $GLOBALS['GodMode'] = true;
             $this->GodMode();
-        }        
+        }                
     }
     
     public $ltx = [];
@@ -943,15 +943,12 @@ class maingame extends AbstractForm
         if ($GLOBALS['GodMode'])
         {
             $this->GodMode_Icon->show();
-            if ($this->blood_ui->visible)
-            {
-                $this->blood_ui->y += 60;
-            }
+            $this->blood_ui->y += 60;
         }
         else
         {
             $this->GodMode_Icon->hide();
-            if ($this->blood_ui->visible && $this->blood_ui->y != 96)
+            if ($this->blood_ui->y != 96)
             {
                 $this->blood_ui->y -= 60;
             }            
@@ -1003,7 +1000,6 @@ class maingame extends AbstractForm
             $this->health_static_enemy->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
             $this->health_bar_enemy->hide();
             $this->health_bar_enemy_b->hide();
-            $this->leave_btn->show();
             $this->Talk_Label->hide();
         
             if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex');
@@ -1142,9 +1138,9 @@ class maingame extends AbstractForm
             $this->Inventory->content->health_bar_gg->hide();
             $this->Inventory->content->health_bar_gg_b->hide();
             $this->Inventory->content->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
-            $this->leave_btn->show();
             $this->Talk_Label->hide();
                    
+            if ($this->blood_ui->visible) $this->blood_ui->hide();       
             if ($this->HitMark->visible) $this->HitMark->hide();
         
             if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');
@@ -1181,16 +1177,14 @@ class maingame extends AbstractForm
         $this->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
     
         $this->fight_image->hide();
-        $this->ToggleHud();
+        $this->fight_image->blinkAnim->disable();
+        $this->leave_btn->show();
         
-        $this->Fail->show();
-        //Media::pause($this->Environment);
-        if ($GLOBALS['ActorFailed']) $this->form('maingame')->enemy->hide();
-        if ($GLOBALS['EnemyFailed']) $this->form('maingame')->actor->hide();
+        if ($GLOBALS['ActorFailed']) $this->form('maingame')->actor->hide();
+        if ($GLOBALS['EnemyFailed']) $this->form('maingame')->enemy->hide();
         
         $this->item_vodka_0000->enabled = false;
         $this->item_vodka_0000->opacity = 0;
-        
         $this->idle_static_actor->show();
         $this->idle_static_enemy->show();
         $this->actor->x = 112;
@@ -1380,5 +1374,54 @@ class maingame extends AbstractForm
                 $this->isLabelVisible = false;
             });
         }
+    }
+    /**
+     * @event keyDown-Tab 
+     */
+    function CheckTaskStep(UXKeyEvent $e = null)
+    {
+        $this->Task_Step_Label->visible = true;
+    }
+    /**
+     * @event keyUp-Tab 
+     */
+    function HideCheckTaskStep(UXKeyEvent $e = null)
+    {
+        $this->Task_Step_Label->visible = false;
+    }
+    function ShowTaskStep()
+    {
+        $this->Task_Step_Label->visible = true;
+        
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);        
+        
+        Timer::after(4000, function () {
+            UXApplication::runLater(function () {
+                $this->Task_Step_Label->visible = false;
+
+                if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted'])
+                {
+                    $this->fight_image->opacity = 0;
+                    $this->fight_image->visible = true;
+                    Animation::fadeIn($this->fight_image, 300);
+                    $this->fight_image->blinkAnim->enable();
+                }
+
+                if ($GLOBALS['QuestCompleted'])
+                {
+                    $this->Task_Step_Label->text = $this->localization->get('No_Active_Task');
+                }
+            });
+        });        
+    }
+    function ShowMessageBox()
+    {
+        $this->MessageBox->opacity = 1;
+        $this->MessageBox->visible = true;
+        $this->MessageBox->content->UpdateMessageBox();
+
+        Timer::after(3000, function () {
+            Animation::fadeOut($this->MessageBox, 500);
+        });
     }
 }

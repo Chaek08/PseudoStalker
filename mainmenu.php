@@ -61,7 +61,13 @@ class mainmenu extends AbstractForm
         
         if (!$GLOBALS['HudVisible']) $this->form('maingame')->ToggleHud();
         
-        if ($GLOBALS['NewGameState']) $this->SwitchGameState();
+        if ($GLOBALS['NewGameState']) 
+        {
+            $this->SwitchGameState();
+            
+            $this->form('maingame')->Pda->content->Pda_Tasks->content->UpdateData();
+            $this->form('maingame')->Dialog->content->UpdateData();
+        }
         
         Media::pause($this->MenuSound);
         Media::pause($this->MainMenuBackground);
@@ -74,9 +80,7 @@ class mainmenu extends AbstractForm
             {
                  Media::play($this->form('maingame')->FightSound);
             }
-        }   
-        
-        $this->form('maingame')->Dialog->content->UpdateData();         
+        }       
     }
     function SwitchGameState()
     {

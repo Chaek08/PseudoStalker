@@ -268,6 +268,7 @@ class UILoadWnd extends AbstractForm
         $this->form('maingame')->MainMenu->content->BtnStartGame_MouseExit();
         if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = false;
         
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->UpdateData();    
         $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_date->text = $saveData['quest_time']['date'];
         $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_hm->text = $saveData['quest_time']['hm'];
         $this->form('maingame')->item_vodka_0000->visible = $saveData['vodka_exist'];

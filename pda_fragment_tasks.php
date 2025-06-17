@@ -47,6 +47,11 @@ class pda_fragment_tasks extends AbstractForm
         $this->step1->text = $quest_step1 != '' ? $quest_step1 : $this->localization->get('TalkToGoblin_Task');
         $this->step2->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatGoblin_Task');
         $this->form('maingame')->Pda->content->Pda_Statistic->content->target_label->text = $quest_target != '' ? $quest_target : $this->localization->get('Target_Label');
+        
+        if (!$GLOBALS['QuestStep1']) $this->form('maingame')->Task_Step_Label->text = $quest_step1 != '' ? $quest_step1 : $this->localization->get('TalkToGoblin_Task');
+        
+        $this->form('maingame')->MessageBox->content->Task_Name->text = $quest_name != '' ? $quest_name : $this->localization->get('DefeatEnemy_Task');
+        $this->form('maingame')->MessageBox->content->Icon->image = new UXImage($quest_icon != '' ? $quest_icon : 'res://.data/ui/pda/icon_Task.png');
     }
     /**
     * @event quest_detail_btn.click-Left 
@@ -178,12 +183,18 @@ class pda_fragment_tasks extends AbstractForm
     }
     function Step1_Complete()
     {
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        
         $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));        
         
         if ($GLOBALS['AllSounds'])
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
         }
+        $GLOBALS['Task_Status_Update'] = true;
+        $this->form('maingame')->ShowMessageBox();
+        $this->form('maingame')->Task_Step_Label->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatGoblin_Task');
+        $this->form('maingame')->ShowTaskStep();
         
         $GLOBALS['QuestStep1'] = true;
     }
@@ -198,8 +209,13 @@ class pda_fragment_tasks extends AbstractForm
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
         }
+        $GLOBALS['Task_Status_Update'] = true;
+        $this->form('maingame')->ShowMessageBox();
+        $this->form('maingame')->Task_Step_Label->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatEnemy_Task');        
         
         $GLOBALS['QuestCompleted'] = true;
+        
+        $this->form('maingame')->ShowTaskStep();
     }   
     function Step2_Failed()
     {
@@ -210,8 +226,13 @@ class pda_fragment_tasks extends AbstractForm
         {
             Media::open('res://.data/audio/pda.mp3', 'pda_task');
         }
+        $GLOBALS['Task_Status_Failed'] = true;
+        $this->form('maingame')->ShowMessageBox();
+        $this->form('maingame')->Task_Step_Label->text = $quest_name != '' ? $quest_name : $this->localization->get('DefeatEnemy_Task');        
 
-        $GLOBALS['QuestCompleted'] = true;    //технически выполнен пусть и завален нахуй    
+        $GLOBALS['QuestCompleted'] = true;    //технически выполнен пусть и завален нахуй
+        
+        $this->form('maingame')->ShowTaskStep();
     }
     function StepReset()
     {

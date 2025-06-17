@@ -654,5 +654,7 @@ class opt extends AbstractForm
         }
         
         $this->form('maingame')->MainMenu->content->UILoadWnd->content->ShowSavePreview();
+        
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->UpdateData();
     }
 }

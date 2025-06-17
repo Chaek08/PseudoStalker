@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<behaviours>
+  <target id="Time">
+    <behaviour format="HH:mm" type="behaviour\custom\WatchMakerBehaviour"/>
+    <behaviour color="#1a1a1acc" offsetX="0" offsetY="0" radius="12.51" spread="0.81" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Task_Name">
+    <behaviour color="#1a1a1ab2" offsetX="0" offsetY="0" radius="12.5" spread="0.81" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Task_Status">
+    <behaviour color="#1a1a1ab2" offsetX="0" offsetY="0" radius="12.5" spread="0.81" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Icon">
+    <behaviour color="#1a1a1ab2" offsetX="0" offsetY="0" radius="10.5" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+</behaviours>
