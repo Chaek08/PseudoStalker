@@ -403,15 +403,12 @@ class maingame extends AbstractForm
         $this->LoadScreen->show();
         $this->CustomCursor->hide();
         
-        if (System::getProperty('user.name') != 'ok1') {
         Animation::fadeTo($this->LoadScreen, 650, 1, function()
         {
            Animation::fadeIn($this->LoadScreen, 1);
            $this->LoadScreen->hide();
-           $this->CustomCursor->show();       
-        });}
-        
-        $this->form('ui_test')->BlockSanyaKabanAccess();
+           $this->CustomCursor->show();
+        });
     }     
     function PlayFightSong()
     {    

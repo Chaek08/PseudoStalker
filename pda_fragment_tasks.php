@@ -49,6 +49,7 @@ class pda_fragment_tasks extends AbstractForm
         $this->form('maingame')->Pda->content->Pda_Statistic->content->target_label->text = $quest_target != '' ? $quest_target : $this->localization->get('Target_Label');
         
         if (!$GLOBALS['QuestStep1']) $this->form('maingame')->Task_Step_Label->text = $quest_step1 != '' ? $quest_step1 : $this->localization->get('TalkToGoblin_Task');
+        if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted']) $this->form('maingame')->Task_Step_Label->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatGoblin_Task');
         
         $this->form('maingame')->MessageBox->content->Task_Name->text = $quest_name != '' ? $quest_name : $this->localization->get('DefeatEnemy_Task');
         $this->form('maingame')->MessageBox->content->Icon->image = new UXImage($quest_icon != '' ? $quest_icon : 'res://.data/ui/pda/icon_Task.png');

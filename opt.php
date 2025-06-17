@@ -646,11 +646,13 @@ class opt extends AbstractForm
     
         $this->form('maingame')->Fail->content->returnbtn->text = $this->localization->get('Return_Button');
         $this->form('maingame')->Fail->content->exitbtn->text = $this->localization->get('Exit_Button');
-        
+            
         if ($GLOBALS['QuestCompleted']) 
         {
             $this->form('maingame')->Fail->content->UpdateFailState();
             $this->form('maingame')->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
+            
+            $this->form('maingame')->Task_Step_Label->text = $this->localization->get('No_Active_Task');
         }
         
         $this->form('maingame')->MainMenu->content->UILoadWnd->content->ShowSavePreview();
