@@ -317,7 +317,12 @@ class UILoadWnd extends AbstractForm
         if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted']) 
         {
             $this->form('maingame')->Dialog->content->Talk_3();
+            
+            $this->form('maingame')->fight_image->show();
         }
+        
+        if ($this->form('maingame')->MessageBox->visible) $this->form('maingame')->MessageBox->hide();
+        if ($this->form('maingame')->Task_Step_Label->visible) $this->form('maingame')->Task_Step_Label->hide();
         
         $this->form('maingame')->GetHealth();
         $this->form('maingame')->UpdateEnvironment();
