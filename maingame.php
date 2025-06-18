@@ -463,12 +463,15 @@ class maingame extends AbstractForm
         $this->Inventory->content->DespawnItems();
         $this->Inventory->content->SetItemCondition();     
         
-        $this->idle_static_actor->show();
-        $this->idle_static_enemy->show();    
         $this->actor->show();  
-        $this->enemy->show();  
+        $this->enemy->show();
         $this->actor->x = 112;
-        $this->enemy->x = 1312;    
+        $this->enemy->x = 1312;
+                
+        $this->idle_static_actor->show();
+        $this->idle_static_enemy->show();
+        $this->idle_static_actor->x = $this->actor->x;
+        $this->idle_static_enemy->x = $this->enemy->x;
                      
         $this->Pda->content->DefaultState();
         $this->Pda->content->Pda_Contacts->content->UpdateContacts();
@@ -732,7 +735,6 @@ class maingame extends AbstractForm
         $this->ToggleHud();
         
         $this->Fail->show();
-        //Media::pause($this->Environment);
         if ($GLOBALS['ActorFailed']) $this->form('maingame')->enemy->hide();
         if ($GLOBALS['EnemyFailed']) $this->form('maingame')->actor->hide();
     }
@@ -1182,10 +1184,11 @@ class maingame extends AbstractForm
         
         $this->item_vodka_0000->enabled = false;
         $this->item_vodka_0000->opacity = 0;
+        
         $this->idle_static_actor->show();
         $this->idle_static_enemy->show();
-        $this->actor->x = 112;
-        $this->enemy->x = 1312;
+        $this->idle_static_actor->x = $this->actor->x;
+        $this->idle_static_enemy->x = $this->enemy->x;
         
         if ($GLOBALS['AllSounds']) $this->StopAllSounds();
         
@@ -1400,7 +1403,7 @@ class maingame extends AbstractForm
                 {
                     $this->fight_image->opacity = 0;
                     $this->fight_image->visible = true;
-                    Animation::fadeIn($this->fight_image, 300);
+                    Animation::fadeIn($this->fight_image, 400);
                     $this->fight_image->blinkAnim->enable();
                 }
 

@@ -15,14 +15,14 @@
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/fail_wnd/alt/back_icon.png" id="data-returnbtn" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/fail_wnd/alt/exit_btn.png" id="data-exitbtn" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-background" image=".data/ui/maingame/background.png" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="returnbtn" layoutX="1048" layoutY="816" prefHeight="64" prefWidth="248" styleClass="x-flat-button " text="Вернуться в игру" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="returnbtn" layoutX="1048" layoutY="824" prefHeight="56" prefWidth="248" styleClass="x-flat-button " text="Вернуться в игру" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="20"/>
+        <Font name="System Regular" size="18"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="exitbtn" layoutX="1304" layoutY="816" prefHeight="64" prefWidth="272" styleClass="x-flat-button " text="Выйти в главное меню" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="exitbtn" layoutX="1304" layoutY="824" prefHeight="56" prefWidth="272" styleClass="x-flat-button " text="Выйти в главное меню" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
       <font>
-        <Font name="System Regular" size="20"/>
+        <Font name="System Regular" size="18"/>
       </font>
     </FlatButton>
     <LabelEx alignment="TOP_CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Win_fail_desc" layoutX="112" layoutY="448" prefHeight="184" prefWidth="984" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 30" styleClass="label " text="Win_fail_desc" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="true">
