@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900" prefWidth="1600" styleClass="">
   <children>
-    <org.develnext.jphp.ext.javafx.support.control.MediaViewBox backgroundColor="#000000" borderColor="#c0c0c0" borderRadius="0" borderStyle="SOLID" borderWidth="0" focusTraversable="false" id="Environment_Background" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" proportional="true" smooth="true" styleClass="" titleColor="#333333" titleOffset="15" titlePosition="TOP_LEFT">
+    <org.develnext.jphp.ext.javafx.support.control.MediaViewBox AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" backgroundColor="#000000" borderColor="#c0c0c0" borderRadius="0" borderStyle="SOLID" borderWidth="0" focusTraversable="false" id="Environment_Background" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" proportional="false" smooth="false" styleClass="" titleColor="#333333" titleOffset="15" titlePosition="TOP_LEFT">
       <titleFont>
         <Font name="System Regular" size="12"/>
       </titleFont>
@@ -12,7 +12,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="Task_Step_Label" layoutX="0" layoutY="136" prefHeight="56" prefWidth="1600" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-opacity: 1;&#10;-fx-font-size: 35&#10;" styleClass="label " text="Task_Step" textAlignment="CENTER" textFill="#e8d2b0" underline="false" wrapText="false">
+    <LabelEx AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="Task_Step_Label" layoutX="0" layoutY="136" prefHeight="56" prefWidth="1600" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-opacity: 1;&#10;-fx-font-size: 35&#10;" styleClass="label " text="Task_Step" textAlignment="CENTER" textFill="#e8d2b0" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="35"/>
       </font>
@@ -23,7 +23,7 @@
         <Font name="System Regular" size="75"/>
       </font>
     </LabelEx>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="176" id="HitMark" layoutX="535" layoutY="40" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="512">
+    <ImageViewEx AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" autoSize="false" centered="true" focusTraversable="false" height="176" id="HitMark" layoutX="0" layoutY="40" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="1600">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -38,7 +38,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="Talk_Label" layoutX="0" layoutY="792" prefHeight="56" prefWidth="1600" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-opacity: 1;&#10;-fx-font-size: 25&#10;" styleClass="label " text="Talk_Label" textAlignment="CENTER" textFill="#dbdbf4" underline="false" wrapText="false">
+    <LabelEx AnchorPane.bottomAnchor="52" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="Talk_Label" layoutX="0" layoutY="792" prefHeight="56" prefWidth="1600" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-opacity: 1;&#10;-fx-font-size: 25&#10;" styleClass="label " text="Talk_Label" textAlignment="CENTER" textFill="#dbdbf4" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
@@ -88,7 +88,7 @@
     <Data cursor="DEFAULT" enabled="1" id="data-health_static_enemy" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-skull_enemy" image=".data/ui/maingame/skull_new.png" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-skull_actor" image=".data/ui/maingame/skull_new.png" visible=""/>
-    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="5" hoverColor="#f2f2f2" id="leave_btn" layoutX="1368" layoutY="816" prefHeight="56" prefWidth="200" styleClass="x-flat-button " text="Выйти" textAlignment="CENTER" underline="false" wrapText="false">
+    <FlatButton AnchorPane.bottomAnchor="28" AnchorPane.rightAnchor="32" alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="5" hoverColor="#f2f2f2" id="leave_btn" layoutX="1368" layoutY="816" prefHeight="56" prefWidth="200" styleClass="x-flat-button " text="Выйти" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="18"/>
       </font>
@@ -116,7 +116,7 @@
     <Data animated="1" cursor="DEFAULT" enabled="1" id="data-CustomCursor" sprite="game_cursor" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-blood_ui" image=".data/ui/maingame/blood_mini.png" visible=""/>
     <Data content="fail_wnd" cursor="DEFAULT" enabled="1" id="data-Fail" visible=""/>
-    <ImageViewEx autoSize="true" centered="true" focusTraversable="false" height="185" id="fight_image" layoutX="548" layoutY="168" mosaic="false" mosaicGap="0" proportional="false" stretch="false" style="-fx-opacity: 1;" styleClass="" textFill="#000000" width="486">
+    <ImageViewEx AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" autoSize="false" centered="true" focusTraversable="false" height="185" id="fight_image" layoutX="0" layoutY="168" mosaic="false" mosaicGap="0" proportional="false" stretch="false" style="-fx-opacity: 1;" styleClass="" textFill="#000000" width="1600">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -162,27 +162,33 @@
     <FragmentPane alignment="CENTER" focusTraversable="false" id="ExitDialog" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane fragment_form "/>
     <Data content="load_screen" cursor="DEFAULT" enabled="1" id="data-LoadScreen" visible=""/>
     <Data content="console" cursor="DEFAULT" enabled="1" id="data-Console" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="version_detail" layoutX="138" layoutY="857" prefHeight="48" prefWidth="328" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx AnchorPane.bottomAnchor="-5" alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="version_detail" layoutX="138" layoutY="857" prefHeight="48" prefWidth="328" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="13"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-version_detail" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="version" layoutX="8" layoutY="856" prefHeight="48" prefWidth="128" styleClass="label " text="PseudoStalker" textAlignment="LEFT" textFill="#e6e6e6" underline="false" wrapText="false">
+    <LabelEx AnchorPane.bottomAnchor="-4" alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="version" layoutX="8" layoutY="856" prefHeight="48" prefWidth="128" styleClass="label " text="PseudoStalker" textAlignment="LEFT" textFill="#e6e6e6" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-version" visible=""/>
     <SpriteView animationEnabled="false" focusTraversable="false" height="64" id="CustomCursor" layoutX="768" layoutY="418" styleClass="" width="64"/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="LoadScreen" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" alignment="CENTER" focusTraversable="false" id="LoadScreen" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="Console" layoutX="944" layoutY="64" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="456" prefWidth="568" spacing="0" styleClass="fragment-pane "/>
-    <Data cursor="DEFAULT" enabled="1" id="data-Environment_Background" visible="1"/>
     <Data cursor="DEFAULT" enabled="" id="data-SavedGame_Toast" visible=""/>
     <Data cursor="DEFAULT" enabled="" graphic="" id="data-Talk_Label" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-GodMode_Icon" image=".data/ui/maingame/GodMode.png" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-Fight_Label" visible=""/>
     <Data content="MessageBox" cursor="DEFAULT" enabled="1" id="data-MessageBox" visible=""/>
     <Data cursor="DEFAULT" enabled="" id="data-Task_Step_Label" visible=""/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="track_res" layoutX="0" layoutY="192" prefHeight="47" prefWidth="240" style="-fx-opacity: 1;" styleClass="label " text="" textAlignment="LEFT" textFill="#ff0000" underline="false" wrapText="false">
+      <font>
+        <Font name="Arial Narrow" size="40"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="" id="data-track_res" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-Environment_Background" visible="1"/>
   </children>
 </AnchorPane>

@@ -326,6 +326,7 @@ class UILoadWnd extends AbstractForm
         
         $this->form('maingame')->GetHealth();
         $this->form('maingame')->UpdateEnvironment();
+        $this->form('maingame')->UpdateEnvironmentUI();
         $this->form('maingame')->health_bar_gg->text = $saveData['health']['gg']['value'];
         $this->form('maingame')->health_bar_gg->width = $saveData['health']['gg']['pb_width'];
         $this->form('maingame')->Inventory->content->health_bar_gg->width = $saveData['health_gg_inv']['pb_width'];

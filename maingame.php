@@ -11,6 +11,7 @@ use php\gui\event\UXKeyEvent;
 use php\gui\event\UXMouseEvent; 
 use php\framework\Logger;
 use app\forms\classes\Localization;
+use php\gui\event\UXEvent; 
 
 class maingame extends AbstractForm
 {
@@ -43,12 +44,108 @@ class maingame extends AbstractForm
         $this->UpdateEnvironment();
         
         $this->InitUserLTX();
+        Timer::after(100, function() {
+            $this->applyResolutionFromLTX();
+        });
         if ($this->ltx['g_god'] == 'on')
         {
             $GLOBALS['GodMode'] = true;
             $this->GodMode();
-        }                
+        }
     }
+    function applyResolutionFromLTX()
+    {
+        $parts = explode('x', $this->ltx['vid_mode']);
+
+        if (count($parts) !== 2) return;
+
+        $targetW = (int)$parts[0];
+        $targetH = (int)$parts[1];
+
+        $this->width = $targetW;
+        $this->height = $targetH;
+
+        Timer::after(150, function () use ($targetW, $targetH)
+        {
+            $clientW = $this->Environment_Background->width;
+            $clientH = $this->Environment_Background->height;
+
+            $diffW = $this->width - $clientW;
+            $diffH = $this->height - $clientH;
+
+            $this->width = $targetW + $diffW;
+            $this->height = $targetH + $diffH;
+
+            $this->trackResolution();
+
+            Logger::info("window {$this->width}x{$this->height}, client via BG: {$clientW}x{$clientH}");
+        });
+    }       
+    
+    private $prevRes = null;
+    private $prevClientW = null;
+    private $prevClientH = null;    
+    function trackResolution()
+    {
+        $w = $this->Environment_Background->width;
+        $h = $this->Environment_Background->height;
+
+        if ($this->prevClientW == $w && $this->prevClientH == $h)
+        {
+            Timer::after(700, [$this, 'trackResolution']);
+            return;
+        }
+
+        $this->prevClientW = $w;
+        $this->prevClientH = $h;
+
+        UXApplication::runLater(function() use ($w, $h) {
+            if (Debug_Build)
+            {
+                $res = "$w x $h";
+                static $prevRes = '';
+
+                if ($res != $prevRes)
+                {
+                    $prevRes = $res;
+                    $this->track_res->text = $res;
+                }
+            }
+
+            $this->UpdateEnvironmentUI();
+            $this->fitToScene($this->MainMenu);
+            $this->fitToScene($this->Pda);
+            $this->fitToScene($this->Dialog);
+            $this->fitToScene($this->ExitDialog);
+            $this->fitToScene($this->Inventory);
+            $this->fitToScene($this->Fail);
+        });
+
+        Timer::after(700, [$this, 'trackResolution']);
+    }   
+    function centerObject($obj)
+    {
+        $sceneWidth = $this->Environment_Background->width;
+        $sceneHeight = $this->Environment_Background->height;
+
+        $obj->x = ($sceneWidth - $obj->width) / 2;
+        $obj->y = ($sceneHeight - $obj->height) / 2;
+    }    
+    function fitToScene($obj)
+    {
+        $sceneW = $this->Environment_Background->width;
+        $sceneH = $this->Environment_Background->height;
+
+        $scale = min(
+            $sceneW / $obj->width,
+            $sceneH / $obj->height
+        );
+
+        $obj->scaleX = $scale;
+        $obj->scaleY = $scale;    
+
+        $this->centerObject($obj);
+    } 
     
     public $ltx = [];
     public $ltxInitialized = false;
@@ -60,7 +157,8 @@ class maingame extends AbstractForm
             'language' => 'rus',
             'r_shadows' => 'on',
             'r_version' => 'on',
-            'g_god' => 'off'
+            'g_god' => 'off',
+            'vid_mode' => '1600x900'
         ];
 
         if (!file_exists(LTX_DIR))
@@ -278,6 +376,27 @@ class maingame extends AbstractForm
                 case 'quest_target': $this->Pda->content->Pda_Tasks->content->SDK_QuestTarget = $value; break;
             }
         }     
+    }
+    function UpdateEnvironmentUI()
+    {
+        $w = $this->Environment_Background->width;
+        $h = $this->Environment_Background->height;
+
+        $this->health_static_enemy->x = $w - $this->health_static_enemy->width - 32;
+        $this->health_static_enemy->y = 24;
+
+        $this->health_bar_enemy->x = $w - $this->health_bar_enemy->width - 40;
+        $this->health_bar_enemy->y = 32;
+        $this->health_bar_enemy_b->x = $w - $this->health_bar_enemy_b->width - 40;
+        $this->health_bar_enemy_b->y = 32;
+    
+        $this->enemy->x = $w - $this->enemy->width - 120;
+        $this->enemy->y = $h - $this->enemy->height - 96;
+        $this->idle_static_enemy->x = $w - $this->idle_static_enemy->width - 120;
+        $this->idle_static_enemy->y = $h - $this->idle_static_enemy->height - 96;    
+    
+        $this->actor->y = $h - $this->actor->height - 96;
+        $this->idle_static_actor->y = $h - $this->idle_static_actor->height - 96;
     }    
     function UpdateEnvironment()
     {
@@ -486,6 +605,7 @@ class maingame extends AbstractForm
         
         $this->GetHealth();
         $this->UpdateEnvironment();
+        $this->UpdateEnvironmentUI();
         if ($GLOBALS['ContinueGameState']) $this->MainMenu->content->SwitchGameState();
         if ($this->MainMenu->visible)
         {
@@ -743,10 +863,9 @@ class maingame extends AbstractForm
         $actor = $this->actor;
         $vodka = $this->form('maingame')->item_vodka_0000;
 
-        $floorY = 696;
-
         $spawnX = $actor->x + ($actor->width * 1.2);
-        $spawnY = $floorY;
+        $floorOffset = -10;
+        $spawnY = $actor->y + $actor->height - $vodka->height + $floorOffset;
 
         $vodka->x = $spawnX;
         $vodka->y = $spawnY;
@@ -764,7 +883,8 @@ class maingame extends AbstractForm
         $targetX = $enemy->x + ($enemy->width / 2) - ($vodka->width / 2);
         $targetY_Head = $enemy->y;
 
-        $floorY = 696;
+        $floorOffset = -10;
+        $floorY = $enemy->y + $enemy->height - $vodka->height + $floorOffset;
 
         $startX = $vodka->x;
         $startY = $vodka->y;
@@ -1288,18 +1408,19 @@ class maingame extends AbstractForm
      * @event keyDown-F12 
      */
     function MakeScreenshot(UXKeyEvent $e = null)
-    {    
+    {
         define("SCREENSHOT_DIRECTORY", "./userdata/screenshots/");
-    
+
         if (!file_exists(SCREENSHOT_DIRECTORY))
         {
             mkdir(SCREENSHOT_DIRECTORY, 0777, true);
         }
 
-        $console = $this->form('maingame')->Console;
+        $form = $this->form('maingame');
+        $console = $form->Console;
 
-        $formWidth = 1600;
-        $formHeight = 900;
+        $formWidth = $form->Environment_Background->width;
+        $formHeight = $form->Environment_Background->height;
 
         $originalX = $console->x;
         $originalY = $console->y;
@@ -1312,6 +1433,7 @@ class maingame extends AbstractForm
         {
             $console->x = $formWidth - $console->width;
         }
+
         if ($console->y < 0)
         {
             $console->y = 0;
@@ -1321,9 +1443,9 @@ class maingame extends AbstractForm
             $console->y = $formHeight - $console->height;
         }
 
-        UXApplication::runLater(function () use ($console, $originalX, $originalY) {
-
-            $image = $this->form('maingame')->layout->snapshot();
+        UXApplication::runLater(function () use ($form, $console, $originalX, $originalY)
+        {
+            $image = $this->layout->snapshot();
 
             $username = System::getProperty('user.name');
             $formName = 'maingame';
@@ -1424,4 +1546,18 @@ class maingame extends AbstractForm
             Animation::fadeOut($this->MessageBox, 500);
         });
     }
+    /**
+     * @event keyDown-F11 
+     */
+    function FullscreenMode(UXKeyEvent $e = null)
+    {    
+        if ($this->fullScreen == false)
+        {
+            $this->fullScreen = true;
+        }
+        else 
+        {
+            $this->fullScreen = false;
+        }
+    }    
 }

@@ -127,8 +127,57 @@ class console extends AbstractForm
                                     $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
                                 }
                             }
-                }
-                break;                        
+                        }
+                        break;    
+                
+                case "vid_mode":
+                    if (isset($args[1])) {
+                        $resolution = $args[1];
+                        $parts = explode('x', $resolution);
+                        if (count($parts) == 2) {
+                            $width = (int)$parts[0];
+                            $height = (int)$parts[1];
+
+                            if ($width > 0 && $height > 0) {
+                                $form = $this->form('maingame');
+
+                                $form->width = $width;
+                                $form->height = $height;
+
+                                Timer::after(300, function () use ($form, $width, $height, $resolution) {
+                                    if ($form->Environment_Background) {
+                                        $clientW = $form->Environment_Background->width;
+                                        $clientH = $form->Environment_Background->height;
+                                    } else if ($form->scene && $form->scene->window) {
+                                        $clientW = $form->scene->window->width;
+                                        $clientH = $form->scene->window->height;
+                                    } else {
+                                        $clientW = $form->width;
+                                        $clientH = $form->height;
+                                    }
+
+                                    $diffW = $form->width - $clientW;
+                                    $diffH = $form->height - $clientH;
+
+                                    $form->width = $width + $diffW;
+                                    $form->height = $height + $diffH;
+
+                                    if ($form->ltxInitialized) {
+                                        $form->ltx['vid_mode'] = $resolution;
+                                        $form->SaveUserLTX($form->ltx);
+                                    }
+                                });
+                            }
+                        }
+                    } else {
+                        $this->edit->text = "";
+                        $form = $this->form('maingame');
+                        $currentWidth = $form->Environment_Background->width;
+                        $currentHeight = $form->Environment_Background->height;
+                        Element::appendText($this->Console_Log, "> Current resolution: {$currentWidth}x{$currentHeight}\n");
+                    }
+                    break;
+                             
 
                 case "r_shadows":
                         if (isset($args[1])) {

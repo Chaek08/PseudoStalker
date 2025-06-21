@@ -105,8 +105,8 @@ class UISaveWnd extends AbstractForm
         if (!$GLOBALS['HudVisible'] && $mainMenu->content->UISaveWnd->visible) $maingame->ToggleHud();
         if ($console->visible) $console->opacity = 0;
 
-        $formWidth = 1600;
-        $formHeight = 900;
+        $formWidth = $form->Environment_Background->width;
+        $formHeight = $form->Environment_Background->height;
 
         $originalX = $console->x;
         $originalY = $console->y;

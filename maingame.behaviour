@@ -67,4 +67,7 @@
   <target id="MessageBox">
     <behaviour animated="1" direction="UP_DOWN" gridX="1" gridY="1" limitedByParent="" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
   </target>
+  <target id="track_res">
+    <behaviour animated="" delay="0" duration="500" maxOpacity="1" minOpacity="0" repeatCount="-1" type="behaviour\custom\BlinkAnimationBehaviour" when="ALWAYS"/>
+  </target>
 </behaviours>
