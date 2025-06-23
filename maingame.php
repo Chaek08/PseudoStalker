@@ -1108,30 +1108,38 @@ class maingame extends AbstractForm
                 }
             });
             
-            for ($i = 0; $i < 2; $i++) 
+            $cursorX = $this->CustomCursor->x;
+            $cursorY = $this->CustomCursor->y;
+
+            $enemyX = $this->enemy->x;
+            $enemyY = $this->enemy->y;
+            $enemyW = $this->enemy->width;
+            $enemyH = $this->enemy->height;
+
+            if ($cursorX >= $enemyX && $cursorX <= $enemyX + $enemyW &&
+                $cursorY >= $enemyY && $cursorY <= $enemyY + $enemyH)
             {
-                $scatterX = rand(-25, 25);
-                $scatterY = rand(-25, 25);
+                for ($i = 0; $i < 2; $i++)
+                {
+                    $scatterX = rand(-25, 25);
+                    $scatterY = rand(-25, 25);
 
-                $particle = new UXImageView();
-                $particle->enabled = false;
-                $particle->opacity = 1;
-                $particle->image = new UXImage("res://.data/ui/particles/blood.png");
-                $particle->width = 86;
-                $particle->height = 86;
+                    $particle = new UXImageView();
+                    $particle->enabled = false;
+                    $particle->opacity = 1;
+                    $particle->image = new UXImage("res://.data/ui/particles/blood.png");
+                    $particle->width = 86;
+                    $particle->height = 86;
 
-                $cursorX = $this->CustomCursor->x;
-                $cursorY = $this->CustomCursor->y;
+                    $particle->x = $cursorX - ($particle->width / 2) + $scatterX;
+                    $particle->y = $cursorY - ($particle->height / 2) + $scatterY;
 
-                $particle->x = $cursorX - ($particle->width / 2) + $scatterX;
-                $particle->y = $cursorY - ($particle->height / 2) + $scatterY;
-                $particle->opacity = 1.0;
+                    $this->add($particle);
 
-                $this->add($particle);
-
-                Animation::fadeOut($particle, 300, function () use ($particle) {
-                    $particle->free();
-                });
+                    Animation::fadeOut($particle, 300, function () use ($particle) {
+                        $particle->free();
+                    });
+                }
             }            
 
             if ($GLOBALS['AllSounds'])
