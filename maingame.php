@@ -905,7 +905,7 @@ class maingame extends AbstractForm
 
             if ($enemyStillHere && Geometry::intersect($vodka, $enemy))
             {
-                for ($i = 0; $i < 3; $i++) 
+                for ($i = 0; $i < rand(2, 4); $i++)
                 {
                     $scatterX = rand(-25, 25);
                     $scatterY = rand(-25, 25);
