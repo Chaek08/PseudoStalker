@@ -6,4 +6,8 @@
   <target id="health_bar_gg">
     <behaviour color="#999999" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
+  <target id="time_desc">
+    <behaviour format="HH:mm" type="behaviour\custom\WatchMakerBehaviour"/>
+  </target>
+  <target id="time_label"/>
 </behaviours>

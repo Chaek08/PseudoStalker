@@ -568,6 +568,7 @@ class opt extends AbstractForm
         $this->form('maingame')->Talk_Label->text = $this->localization->get('Talk_Label');
         $this->form('maingame')->leave_btn->text = $this->localization->get('Leave_Label');
 
+        $this->form('maingame')->Inventory->content->time_label->text = $this->localization->get('Time_Label');
         $this->form('maingame')->Inventory->content->button5->text = $this->localization->get('Inventory_Label');
         $this->form('maingame')->Inventory->content->button6->text = $this->localization->get('Item_Label');
         $this->form('maingame')->Inventory->content->button7->text = $this->localization->get('Equipment_Label');
