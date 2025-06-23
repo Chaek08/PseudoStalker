@@ -1074,7 +1074,7 @@ class maingame extends AbstractForm
         }
     }
     /**
-     * @event actor.click-2x
+     * @event enemy.click-2x
      */       
     function DamageEnemy(UXMouseEvent $e = null)
     { 
@@ -1107,6 +1107,32 @@ class maingame extends AbstractForm
                     $this->health_bar_enemy->text = "1%";
                 }
             });
+            
+            for ($i = 0; $i < 2; $i++) 
+            {
+                $scatterX = rand(-25, 25);
+                $scatterY = rand(-25, 25);
+
+                $particle = new UXImageView();
+                $particle->enabled = false;
+                $particle->opacity = 1;
+                $particle->image = new UXImage("res://.data/ui/particles/blood.png");
+                $particle->width = 86;
+                $particle->height = 86;
+
+                $cursorX = $this->CustomCursor->x;
+                $cursorY = $this->CustomCursor->y;
+
+                $particle->x = $cursorX - ($particle->width / 2) + $scatterX;
+                $particle->y = $cursorY - ($particle->height / 2) + $scatterY;
+                $particle->opacity = 1.0;
+
+                $this->add($particle);
+
+                Animation::fadeOut($particle, 300, function () use ($particle) {
+                    $particle->free();
+                });
+            }            
 
             if ($GLOBALS['AllSounds'])
             {
@@ -1132,7 +1158,7 @@ class maingame extends AbstractForm
     public $hitmarkLevel = 1;
     public $hitmarkVisibleUntil = 0;
     /**
-     * @event enemy.click-2x
+     * @event actor.click-2x
      */    
     function DamageActor(UXMouseEvent $e = null)
     { 
@@ -1241,6 +1267,32 @@ class maingame extends AbstractForm
                     });
                 }
             });
+            
+            for ($i = 0; $i < 2; $i++) 
+            {
+                $scatterX = rand(-25, 25);
+                $scatterY = rand(-25, 25);
+
+                $particle = new UXImageView();
+                $particle->enabled = false;
+                $particle->opacity = 1;
+                $particle->image = new UXImage("res://.data/ui/particles/blood.png");
+                $particle->width = 86;
+                $particle->height = 86;
+
+                $cursorX = $this->CustomCursor->x;
+                $cursorY = $this->CustomCursor->y;
+
+                $particle->x = $cursorX - ($particle->width / 2) + $scatterX;
+                $particle->y = $cursorY - ($particle->height / 2) + $scatterY;
+                $particle->opacity = 1.0;
+
+                $this->add($particle);
+
+                Animation::fadeOut($particle, 300, function () use ($particle) {
+                    $particle->free();
+                });
+            }            
         
             if ($GLOBALS['AllSounds'])
             {
