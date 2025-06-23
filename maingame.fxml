@@ -86,8 +86,6 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-health_static_enemy" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" id="data-skull_enemy" image=".data/ui/maingame/skull_new.png" visible=""/>
-    <Data cursor="DEFAULT" enabled="1" id="data-skull_actor" image=".data/ui/maingame/skull_new.png" visible=""/>
     <FlatButton AnchorPane.bottomAnchor="28" AnchorPane.rightAnchor="32" alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="5" hoverColor="#f2f2f2" id="leave_btn" layoutX="1368" layoutY="816" prefHeight="56" prefWidth="200" styleClass="x-flat-button " text="Выйти" textAlignment="CENTER" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="18"/>
@@ -133,11 +131,6 @@
         <Font name="System Regular" size="20"/>
       </font>
     </FlatButton>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="40" id="skull_actor" layoutX="152" layoutY="32" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="40">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
     <FlatButton alignment="CENTER" borderRadius="10" color="#e6e6e6" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="health_bar_enemy_b" layoutX="1296" layoutY="32" prefHeight="40" prefWidth="264" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
@@ -149,11 +142,6 @@
         <Font name="System Regular" size="20"/>
       </font>
     </FlatButton>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="40" id="skull_enemy" layoutX="1408" layoutY="32" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="40">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </ImageViewEx>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="Inventory" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="Dialog" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="MainMenu" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
