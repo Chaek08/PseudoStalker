@@ -250,7 +250,8 @@ class maingame extends AbstractForm
             mkdir($dir, 0777, true);
         }        
         file_put_contents(LTX_DIR, $content);
-    }    
+    }
+    
     public $SDK_FightSound = '';
     public $SDK_ActorModel = '';
     public $SDK_EnemyModel = '';
@@ -516,19 +517,28 @@ class maingame extends AbstractForm
 
             Element::setText($this->MainMenu->content->version_detail, VersionID);
         }
-    }     
-    function LoadScreen()
+    }
+    function ShowLoadScreen(callable $task)
     {
+        $this->LoadScreen->opacity = 1;
         $this->LoadScreen->show();
+        $this->LoadScreen->toFront();
         $this->CustomCursor->hide();
-        
-        Animation::fadeTo($this->LoadScreen, 650, 1, function()
-        {
-           Animation::fadeIn($this->LoadScreen, 1);
-           $this->LoadScreen->hide();
-           $this->CustomCursor->show();
+
+        UXApplication::runLater(function() use ($task) {
+            $task();
+            Timer::after(500, function() {
+                $this->HideLoadScreen();
+            });
         });
-    }     
+    }
+    function HideLoadScreen()
+    {
+        $this->LoadScreen->opacity = 0;
+        $this->LoadScreen->hide();
+        $this->CustomCursor->show();
+    }    
+
     function PlayFightSong()
     {    
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
@@ -564,58 +574,65 @@ class maingame extends AbstractForm
     }  
     function ResetGameClient()
     {
-        $this->LoadScreen();
-        
-        if ($GLOBALS['QuestStep1']) $GLOBALS['QuestStep1'] = false;
-        if ($GLOBALS['QuestCompleted']) $GLOBALS['QuestCompleted'] = false;
-        if ($GLOBALS['ActorFailed']) $GLOBALS['ActorFailed'] = false;
-        if ($GLOBALS['EnemyFailed']) $GLOBALS['EnemyFailed'] = false;
-        
-        if ($GLOBALS['AllSounds']) $this->StopAllSounds();
-        Media::stop($this->Environment);
-         
-        if ($this->fight_image->visible) $this->fight_image->hide();
-        if ($this->leave_btn->visible || !$GLOBALS['QuestCompleted']) $this->leave_btn->hide();
-        if ($this->Fail->visible) $this->Fail->hide();
-        if ($this->blood_ui->visible) $this->blood_ui->hide();
-                              
-        $this->Inventory->content->DespawnItems();
-        $this->Inventory->content->SetItemCondition();     
-        
-        $this->actor->show();  
-        $this->enemy->show();
-        $this->actor->x = 112;
-        $this->enemy->x = 1312;
-                
-        $this->idle_static_actor->show();
-        $this->idle_static_enemy->show();
-        $this->idle_static_actor->x = $this->actor->x;
-        $this->idle_static_enemy->x = $this->enemy->x;
-                     
-        $this->Pda->content->DefaultState();
-        $this->Pda->content->Pda_Contacts->content->UpdateContacts();
-        $this->Pda->content->Pda_Tasks->content->UpdateQuestTime();
-        $this->Pda->content->Pda_Tasks->content->DeleteTask();
-        $this->Pda->content->Pda_Tasks->content->ShowActiveTasks();
-        $this->Pda->content->Pda_Tasks->content->StepReset();
-        $this->Pda->content->Pda_Tasks->content->Step_DeletePda();
-        $this->Pda->content->Pda_Ranking->content->DeathFilter();
-        $this->Pda->content->Pda_Statistic->content->UpdateRaiting();
-        $this->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
-        
-        $this->GetHealth();
-        $this->UpdateEnvironment();
-        $this->UpdateEnvironmentUI();
-        if ($GLOBALS['ContinueGameState']) $this->MainMenu->content->SwitchGameState();
-        if ($this->MainMenu->visible)
+        $this->ShowLoadScreen(function ()
         {
-            $this->MainMenu->content->InitMainMenu();
-        }
-        else 
-        {
-            $this->PlayEnvironment();
-        }
-        $this->Dialog->content->StartDialog();
+            if ($GLOBALS['QuestStep1']) $GLOBALS['QuestStep1'] = false;
+            if ($GLOBALS['QuestCompleted']) $GLOBALS['QuestCompleted'] = false;
+            if ($GLOBALS['ActorFailed']) $GLOBALS['ActorFailed'] = false;
+            if ($GLOBALS['EnemyFailed']) $GLOBALS['EnemyFailed'] = false;
+
+            if ($GLOBALS['AllSounds']) $this->StopAllSounds();
+            Media::stop($this->Environment);
+
+            if ($this->fight_image->visible) $this->fight_image->hide();
+            if ($this->leave_btn->visible || !$GLOBALS['QuestCompleted']) $this->leave_btn->hide();
+            if ($this->Fail->visible) $this->Fail->hide();
+            if ($this->blood_ui->visible) $this->blood_ui->hide();
+
+            $this->Inventory->content->DespawnItems();
+            $this->Inventory->content->SetItemCondition();
+
+            $this->actor->show();
+            $this->enemy->show();
+            $this->actor->x = 112;
+            $this->enemy->x = 1312;
+
+            $this->idle_static_actor->show();
+            $this->idle_static_enemy->show();
+            $this->idle_static_actor->x = $this->actor->x;
+            $this->idle_static_enemy->x = $this->enemy->x;
+
+            $this->Pda->content->DefaultState();
+            $this->Pda->content->Pda_Contacts->content->UpdateContacts();
+            $this->Pda->content->Pda_Tasks->content->UpdateQuestTime();
+            $this->Pda->content->Pda_Tasks->content->DeleteTask();
+            $this->Pda->content->Pda_Tasks->content->ShowActiveTasks();
+            $this->Pda->content->Pda_Tasks->content->StepReset();
+            $this->Pda->content->Pda_Tasks->content->Step_DeletePda();
+            $this->Pda->content->Pda_Ranking->content->DeathFilter();
+            $this->Pda->content->Pda_Statistic->content->UpdateRaiting();
+            $this->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
+
+            $this->GetHealth();
+            $this->UpdateEnvironment();
+            $this->UpdateEnvironmentUI();
+
+            if ($GLOBALS['ContinueGameState'])
+            {
+                $this->MainMenu->content->SwitchGameState();
+            }
+
+            if ($this->MainMenu->visible)
+            {
+                $this->MainMenu->content->InitMainMenu();
+            }
+            else
+            {
+                $this->PlayEnvironment();
+            }
+
+            $this->Dialog->content->StartDialog();
+        });
     }
     function CheckVisibledFragments()
     {
@@ -863,8 +880,9 @@ class maingame extends AbstractForm
         $actor = $this->actor;
         $vodka = $this->form('maingame')->item_vodka_0000;
 
-        $spawnX = $actor->x + ($actor->width * 1.2);
         $floorOffset = -10;
+
+        $spawnX = $actor->x + ($actor->width * 1.2);
         $spawnY = $actor->y + $actor->height - $vodka->height + $floorOffset;
 
         $vodka->x = $spawnX;

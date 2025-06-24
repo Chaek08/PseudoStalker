@@ -528,12 +528,13 @@ class opt extends AbstractForm
             $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
         }
         
-        $this->UpdateLocalization();
+        $this->form('maingame')->ShowLoadScreen(function()
+        {
+            $this->UpdateLocalization();
+        });
     }
     function UpdateLocalization()
     {
-        $this->form('maingame')->LoadScreen();
-        
         $this->Return_Btn->text = $this->localization->get('Return_Btn');
         $this->form('maingame')->MainMenu->content->UILoadWnd->content->Return_Btn->text = $this->localization->get('Return_Btn');
         $this->form('maingame')->MainMenu->content->UISaveWnd->content->Return_Btn->text = $this->localization->get('Return_Btn');

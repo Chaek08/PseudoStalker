@@ -80,9 +80,11 @@ class exit_dlg extends AbstractForm
     { 
         if ($GLOBALS['ExitWndType'])
         {
-            $this->form('maingame')->LoadScreen();
-        
-            app()->shutdown();
+            $this->form('maingame')->ShowLoadScreen(function() {
+                UXApplication::runLater(function() {
+                    app()->shutdown();
+                });
+            });
         }
         if ($GLOBALS['EndGameWndType'])
         {

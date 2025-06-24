@@ -43,7 +43,7 @@
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="SavedGame_Toast" layoutX="0" layoutY="832" prefHeight="56" prefWidth="1600" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-opacity: 1;&#10;-fx-font-size: 25&#10;" styleClass="label " text="SavedGame_Toast" textAlignment="CENTER" textFill="#e8d2b0" underline="false" wrapText="false">
+    <LabelEx AnchorPane.bottomAnchor="12" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="SavedGame_Toast" layoutX="0" layoutY="832" prefHeight="56" prefWidth="1600" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-opacity: 1;&#10;-fx-font-size: 25&#10;" styleClass="label " text="SavedGame_Toast" textAlignment="CENTER" textFill="#e8d2b0" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
