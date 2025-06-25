@@ -236,6 +236,7 @@ class UISaveWnd extends AbstractForm
                     'hm' => $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_hm->text,
                 ],
                 'vodka_exist' => $this->form('maingame')->item_vodka_0000->visible,
+                'medkit_count' => $this->form('maingame')->Inventory->content->InventoryGrid->content->medkitCount,
                 'quest_step1' => isset($GLOBALS['QuestStep1']) ? $GLOBALS['QuestStep1'] : false,
                 'quest_completed' => isset($GLOBALS['QuestCompleted']) ? $GLOBALS['QuestCompleted'] : false,
                 'actor_failed' => isset($GLOBALS['ActorFailed']) ? $GLOBALS['ActorFailed'] : false,

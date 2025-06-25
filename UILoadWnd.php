@@ -208,6 +208,7 @@ class UILoadWnd extends AbstractForm
             'quest_time.date',
             'quest_time.hm',
             'vodka_exist',
+            'medkit_count',
             'quest_step1',
             'quest_completed',
             'actor_failed',
@@ -335,6 +336,9 @@ class UILoadWnd extends AbstractForm
             $this->form('maingame')->health_bar_enemy->text = $saveData['health']['enemy']['value'];
             $this->form('maingame')->health_bar_enemy->width = $saveData['health']['enemy']['pb_width'];
             $this->form('maingame')->Bleeding();
+            
+            $this->form('maingame')->Inventory->content->InventoryGrid->content->medkitCount = $saveData['medkit_count'];
+            $this->form('maingame')->Inventory->content->InventoryGrid->content->updateMedkitCount();
         
             $this->waitAndSetPosition($this->form('maingame')->MainMenu->content->MainMenuBackground, $saveData['menubackground_playpos']);
             $this->waitAndSetPosition($this->form('maingame')->MainMenu->content->MenuSound, $saveData['menusound_playpos']);

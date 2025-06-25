@@ -15,7 +15,7 @@ class InventoryGrid extends AbstractForm
     
     public $selectedItem = null;
     
-    public $medkitCount = 0;    
+    public $medkitCount = 0;
     
     public function __construct()
     {
@@ -168,7 +168,13 @@ class InventoryGrid extends AbstractForm
         else
         {
             $this->Inv_Medkit_Count->visible = false;
-        }         
+        }
+        
+        if ($this->medkitCount < 1)
+        {
+            $this->removeItemFromGrid($this->Inv_Medkit);
+            $this->Inv_Medkit->visible = false;
+        }        
     }    
     function canPlace($cellX, $cellY, $w, $h): bool
     {
