@@ -1159,8 +1159,12 @@ class maingame extends AbstractForm
 
                     $this->add($particle);
 
-                    Animation::fadeOut($particle, 300, function () use ($particle) {
-                        $particle->free();
+                    $delay = ($this->health_bar_enemy->width - 30 <= 54) ? 600 : 300;
+
+                    Timer::after($delay, function () use ($particle) {
+                        Animation::fadeOut($particle, 300, function () use ($particle) {
+                            $particle->free();
+                        });
                     });
                 }
             }            
@@ -1320,8 +1324,12 @@ class maingame extends AbstractForm
 
                 $this->add($particle);
 
-                Animation::fadeOut($particle, 300, function () use ($particle) {
-                    $particle->free();
+                $delay = ($this->health_bar_gg->width - 30 <= 54) ? 600 : 300;
+
+                Timer::after($delay, function () use ($particle) {
+                    Animation::fadeOut($particle, 300, function () use ($particle) {
+                        $particle->free();
+                    });
                 });
             }            
         
