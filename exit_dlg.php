@@ -124,6 +124,6 @@ class exit_dlg extends AbstractForm
     {
         $this->form('maingame')->ExitDialog->hide();
         
-        $this->form('maingame')->ToggleHud();
+        if (!$this->form('maingame')->MainMenu->visible) $this->form('maingame')->ToggleHud();
     }
 }

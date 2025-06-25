@@ -113,6 +113,7 @@ class maingame extends AbstractForm
             }
 
             $this->UpdateEnvironmentUI();
+            
             $this->fitToScene($this->MainMenu);
             $this->fitToScene($this->Pda);
             $this->fitToScene($this->Dialog);
@@ -538,7 +539,6 @@ class maingame extends AbstractForm
         $this->LoadScreen->hide();
         $this->CustomCursor->show();
     }    
-
     function PlayFightSong()
     {    
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
@@ -572,9 +572,9 @@ class maingame extends AbstractForm
         
         $this->Dialog->content->StopVoice();
     }  
-    function ResetGameClient()
+    function ResetGameClient(callable $afterReset = null)
     {
-        $this->ShowLoadScreen(function ()
+        $this->ShowLoadScreen(function () use ($afterReset)
         {
             if ($GLOBALS['QuestStep1']) $GLOBALS['QuestStep1'] = false;
             if ($GLOBALS['QuestCompleted']) $GLOBALS['QuestCompleted'] = false;
@@ -632,6 +632,11 @@ class maingame extends AbstractForm
             }
 
             $this->Dialog->content->StartDialog();
+            
+            if ($afterReset)
+            {
+                $afterReset();
+            }
         });
     }
     function CheckVisibledFragments()

@@ -262,89 +262,91 @@ class UILoadWnd extends AbstractForm
             }
         }
         
-        $this->form('maingame')->ResetGameClient();
-        $this->form('maingame')->MainMenu->content->UILoadWnd->content->ReturnBtn();
-        $this->form('maingame')->MainMenu->content->BtnStartGame_MouseDownLeft();
-        $this->form('maingame')->MainMenu->content->BtnStartGame_MouseExit();
-        if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = false;
+        $this->form('maingame')->ResetGameClient(function () use ($saveData, $saveName)
+        {        
+            $this->form('maingame')->MainMenu->content->UILoadWnd->content->ReturnBtn();
+            $this->form('maingame')->MainMenu->content->BtnStartGame_MouseDownLeft();
+            $this->form('maingame')->MainMenu->content->BtnStartGame_MouseExit();
+            if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = false;
         
-        $this->form('maingame')->Pda->content->Pda_Tasks->content->UpdateData();    
-        $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_date->text = $saveData['quest_time']['date'];
-        $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_hm->text = $saveData['quest_time']['hm'];
-        $this->form('maingame')->item_vodka_0000->visible = $saveData['vodka_exist'];
-        if ($this->form('maingame')->item_vodka_0000->visible) 
-        {
-            if ($this->form('maingame')->Inventory->content->InventoryGrid->content->selectedItem = $this->form('maingame')->Inventory->content->InventoryGrid->content->Inv_Vodka)
-            $this->form('maingame')->Inventory->content->InventoryGrid->content->DropItem();
-        }
+            $this->form('maingame')->Pda->content->Pda_Tasks->content->UpdateData();    
+            $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_date->text = $saveData['quest_time']['date'];
+            $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_hm->text = $saveData['quest_time']['hm'];
+            $this->form('maingame')->item_vodka_0000->visible = $saveData['vodka_exist'];
+            if ($this->form('maingame')->item_vodka_0000->visible) 
+            {
+                if ($this->form('maingame')->Inventory->content->InventoryGrid->content->selectedItem = $this->form('maingame')->Inventory->content->InventoryGrid->content->Inv_Vodka)
+                $this->form('maingame')->Inventory->content->InventoryGrid->content->DropItem();
+            }
         
-        $GLOBALS['QuestStep1'] = $saveData['quest_step1'];
-        $GLOBALS['QuestCompleted'] = $saveData['quest_completed'];
-        $GLOBALS['ActorFailed'] = $saveData['actor_failed'];
-        $GLOBALS['EnemyFailed'] = $saveData['enemy_failed'];
-        $GLOBALS['NeedToCheckPDA'] = $saveData['need_to_check_pda'];
+            $GLOBALS['QuestStep1'] = $saveData['quest_step1'];
+            $GLOBALS['QuestCompleted'] = $saveData['quest_completed'];
+            $GLOBALS['ActorFailed'] = $saveData['actor_failed'];
+            $GLOBALS['EnemyFailed'] = $saveData['enemy_failed'];
+            $GLOBALS['NeedToCheckPDA'] = $saveData['need_to_check_pda'];
         
-        if (isset($saveData['objects_position']['actor']))
-        {
-            $this->form('maingame')->actor->position = [
-            $saveData['objects_position']['actor']['x'],
-            $saveData['objects_position']['actor']['y']
-            ];
-        }
-        if (isset($saveData['objects_position']['enemy']))
-        {
-            $this->form('maingame')->enemy->position = [
-            $saveData['objects_position']['enemy']['x'],
-            $saveData['objects_position']['enemy']['y']
-            ];
-        }
-        if (isset($saveData['objects_position']['item_vodka_0000']))
-        {
-            $this->form('maingame')->item_vodka_0000->position = [
-            $saveData['objects_position']['item_vodka_0000']['x'],
-            $saveData['objects_position']['item_vodka_0000']['y']
-            ];
-        }
-        if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed'])
-        {
-            if ($saveData['quest_step1'] == true) $this->form('maingame')->Pda->content->Pda_Tasks->content->Step1_Complete();
-            $this->form('maingame')->finalizeBattle();
+            if (isset($saveData['objects_position']['actor']))
+            {
+                $this->form('maingame')->actor->position = [
+                $saveData['objects_position']['actor']['x'],
+                $saveData['objects_position']['actor']['y']
+                ];
+            }
+            if (isset($saveData['objects_position']['enemy']))
+            {
+                $this->form('maingame')->enemy->position = [
+                $saveData['objects_position']['enemy']['x'],
+                $saveData['objects_position']['enemy']['y']
+                ];
+            }
+            if (isset($saveData['objects_position']['item_vodka_0000']))
+            {
+                $this->form('maingame')->item_vodka_0000->position = [
+                $saveData['objects_position']['item_vodka_0000']['x'],
+                $saveData['objects_position']['item_vodka_0000']['y']
+                ];
+            }
+            if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed'])
+            {
+                if ($saveData['quest_step1'] == true) $this->form('maingame')->Pda->content->Pda_Tasks->content->Step1_Complete();
+                $this->form('maingame')->finalizeBattle();
             
-            $this->form('maingame')->Pda->content->Pda_Ranking->content->DeathFilter();
-            if ($this->form('maingame')->Fail->visible) $this->form('maingame')->Fail->content->ReturnBtn();
-            if ($saveData['need_to_check_pda'] == false) $this->form('maingame')->Pda->content->Pda_Tasks->content->Step_DeletePda();
-        }
-        if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted']) 
-        {
-            $this->form('maingame')->Dialog->content->Talk_3();
+                $this->form('maingame')->Pda->content->Pda_Ranking->content->DeathFilter();
+                if ($this->form('maingame')->Fail->visible) $this->form('maingame')->Fail->content->ReturnBtn();
+                if ($saveData['need_to_check_pda'] == false) $this->form('maingame')->Pda->content->Pda_Tasks->content->Step_DeletePda();
+            }
+            if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted']) 
+            {
+                $this->form('maingame')->Dialog->content->Talk_3();
             
-            $this->form('maingame')->fight_image->show();
-        }
+                $this->form('maingame')->fight_image->show();
+            }
         
-        if ($this->form('maingame')->MessageBox->visible) $this->form('maingame')->MessageBox->hide();
-        if ($this->form('maingame')->Task_Step_Label->visible) $this->form('maingame')->Task_Step_Label->hide();
+            if ($this->form('maingame')->MessageBox->visible) $this->form('maingame')->MessageBox->hide();
+            if ($this->form('maingame')->Task_Step_Label->visible) $this->form('maingame')->Task_Step_Label->hide();
         
-        $this->form('maingame')->GetHealth();
-        $this->form('maingame')->UpdateEnvironment();
-        $this->form('maingame')->UpdateEnvironmentUI();
-        $this->form('maingame')->health_bar_gg->text = $saveData['health']['gg']['value'];
-        $this->form('maingame')->health_bar_gg->width = $saveData['health']['gg']['pb_width'];
-        $this->form('maingame')->Inventory->content->health_bar_gg->width = $saveData['health_gg_inv']['pb_width'];
-        $this->form('maingame')->Inventory->content->health_bar_gg->text = $saveData['health_gg_inv']['value'];
-        $this->form('maingame')->health_bar_enemy->text = $saveData['health']['enemy']['value'];
-        $this->form('maingame')->health_bar_enemy->width = $saveData['health']['enemy']['pb_width'];
-        $this->form('maingame')->Bleeding();
+            $this->form('maingame')->GetHealth();
+            $this->form('maingame')->UpdateEnvironment();
+            $this->form('maingame')->UpdateEnvironmentUI();
+            $this->form('maingame')->health_bar_gg->text = $saveData['health']['gg']['value'];
+            $this->form('maingame')->health_bar_gg->width = $saveData['health']['gg']['pb_width'];
+            $this->form('maingame')->Inventory->content->health_bar_gg->width = $saveData['health_gg_inv']['pb_width'];
+            $this->form('maingame')->Inventory->content->health_bar_gg->text = $saveData['health_gg_inv']['value'];
+            $this->form('maingame')->health_bar_enemy->text = $saveData['health']['enemy']['value'];
+            $this->form('maingame')->health_bar_enemy->width = $saveData['health']['enemy']['pb_width'];
+            $this->form('maingame')->Bleeding();
         
-        $this->waitAndSetPosition($this->form('maingame')->MainMenu->content->MainMenuBackground, $saveData['menubackground_playpos']);
-        $this->waitAndSetPosition($this->form('maingame')->MainMenu->content->MenuSound, $saveData['menusound_playpos']);
-        $this->waitAndSetPosition($this->form('maingame')->Environment, $saveData['environment_playpos']);
-        $this->waitAndSetPosition($this->form('maingame')->FightSound, $saveData['fightsound_playpos']);
+            $this->waitAndSetPosition($this->form('maingame')->MainMenu->content->MainMenuBackground, $saveData['menubackground_playpos']);
+            $this->waitAndSetPosition($this->form('maingame')->MainMenu->content->MenuSound, $saveData['menusound_playpos']);
+            $this->waitAndSetPosition($this->form('maingame')->Environment, $saveData['environment_playpos']);
+            $this->waitAndSetPosition($this->form('maingame')->FightSound, $saveData['fightsound_playpos']);
         
-        $this->form('maingame')->PlayEnvironment();
+            $this->form('maingame')->PlayEnvironment();
         
-        if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = true;
+            if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = true;
                 
-        if (Debug_Build) Logger::info("Loaded save: " . $saveName);
+            if (Debug_Build) Logger::info("Loaded save: " . $saveName);
+        });
     }
     /**
      * @event Remove_Save_Btn.click-Left 

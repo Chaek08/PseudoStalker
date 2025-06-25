@@ -199,44 +199,44 @@ class inventory extends AbstractForm
             {
                 $this->maket_cond->text = "100 %";
                 $this->maket_cond->color = '#4d804d';
-                $this->form('maingame')->animateResizeWidth($this->maket_cond, 208, 8);
+                $this->form('maingame')->animateResizeWidth($this->maket_cond, 208, 10);
             }
             if ($this->form('maingame')->health_bar_gg->width == 204 || $this->form('maingame')->health_bar_gg->width == 234)
             {
                 $this->maket_cond->text = "82 %";
                 $this->maket_cond->color = '#b3801a';
-                $this->form('maingame')->animateResizeWidth($this->maket_cond, 168, 8);
+                $this->form('maingame')->animateResizeWidth($this->maket_cond, 168, 10);
             }
             if ($this->form('maingame')->health_bar_gg->width == 174 || $this->form('maingame')->health_bar_gg->width == 144)
             {
                 $this->maket_cond->text = "67 %";
                 $this->maket_cond->color = '#b3801a';
-                $this->form('maingame')->animateResizeWidth($this->maket_cond, 138, 8);
+                $this->form('maingame')->animateResizeWidth($this->maket_cond, 138, 10);
             }
             if ($this->form('maingame')->health_bar_gg->width == 114)
             {
                 $this->maket_cond->text = "45 %";
                 $this->maket_cond->color = '#b3801a';
-                $this->form('maingame')->animateResizeWidth($this->maket_cond, 118, 8);
+                $this->form('maingame')->animateResizeWidth($this->maket_cond, 118, 10);
             }
             if ($this->form('maingame')->health_bar_gg->width == 84 || $this->form('maingame')->health_bar_gg->width == 54)
             {
                 $this->maket_cond->text = "13 %";
                 $this->maket_cond->color = '#990000';
-                $this->form('maingame')->animateResizeWidth($this->maket_cond, 74, 8);
+                $this->form('maingame')->animateResizeWidth($this->maket_cond, 74, 10);
             }     
         }
         if ($GLOBALS['item_vodka_selected'])
         {
             $this->maket_cond->text = "100 %";
             $this->maket_cond->color = '#4d804d';
-            $this->form('maingame')->animateResizeWidth($this->maket_cond, 208, 8);
+            $this->form('maingame')->animateResizeWidth($this->maket_cond, 208, 10);
         }
         if ($GLOBALS['item_medkit_selected'])
         {
             $this->maket_cond->text = "100 %";
             $this->maket_cond->color = '#4d804d';
-            $this->form('maingame')->animateResizeWidth($this->maket_cond, 208, 8);
+            $this->form('maingame')->animateResizeWidth($this->maket_cond, 208, 10);
         }        
     }  
 }
