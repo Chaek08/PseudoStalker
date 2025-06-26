@@ -9,4 +9,6 @@
   <target id="time_desc">
     <behaviour format="HH:mm" type="behaviour\custom\WatchMakerBehaviour"/>
   </target>
+  <target id="inv_maket"/>
+  <target id="inv_maket_visual"/>
 </behaviours>

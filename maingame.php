@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use discord\rpc\DiscordRPC;
 use php\gui\UXMediaView;
 use php\gui\UXImage;
 use php\gui\UXApplication;
@@ -18,6 +19,8 @@ class maingame extends AbstractForm
 {
     private $localization;
     private $currentCycle = '';
+    
+    private $BuildID = '';
     /**
      * @event show 
      */
@@ -26,13 +29,18 @@ class maingame extends AbstractForm
         define('VersionID', 'v1.3 (rc2)');
         define('client_version', '3');
         define('Debug_Build', true);
+        
+        $appId = "1387765734704418846";
+        $discord = new DiscordRPC($appId);
+        
+        $GLOBALS['discord'] = $discord;
 
         $GLOBALS['AllSounds']  = true;
         $GLOBALS['MenuSound']  = true;
         $GLOBALS['FightSound'] = true;
         $GLOBALS['HudVisible'] = true;
         
-        $this->localization = new Localization($language);        
+        $this->localization = new Localization($language);     
         
         $this->syncWithSDKLTX();
 
@@ -53,6 +61,15 @@ class maingame extends AbstractForm
             $GLOBALS['GodMode'] = true;
             $this->GodMode();
         }
+        
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        
+        $discord->setDetails($this->localization->get('RPC_MainMenu'));
+
+        $discord->setBigImage("icon", $this->BuildID);
+
+        $discord->setStartTimestamp(Time::now()->getTime());
+        $discord->updateState();        
     }
     function applyResolutionFromLTX()
     {
@@ -474,12 +491,8 @@ class maingame extends AbstractForm
             return 'night';
         }
     }    
-    
-    $BuildID = null;
     function GetVersion()
     {
-        global $BuildID;
-        
         $filePath = "PseudoCore.dll";
 
         if (!file_exists($filePath))
@@ -489,34 +502,27 @@ class maingame extends AbstractForm
         }
 
         $encrypted = file_get_contents($filePath);
-        $BuildID = null;
+        $this->BuildID = '(null)';
 
         if ($encrypted != false)
         {
             $decrypted = DimasCryptoZlodey::decryptData($encrypted);
             if ($decrypted != false && trim($decrypted) != '')
             {
-                $BuildID = trim($decrypted);
+                $this->BuildID = trim($decrypted);
             }
         }
 
-        if ($BuildID == null)
-        {
-            $BuildID = '(null)';
-        }
-        
         if (Debug_Build)
         {
             $this->version->show();
             $this->version_detail->show();
-
-            Element::setText($this->version_detail, $BuildID);
+            Element::setText($this->version_detail, $this->BuildID);
         }
         else
         {
             $this->MainMenu->content->version->show();
             $this->MainMenu->content->version_detail->show();
-
             Element::setText($this->MainMenu->content->version_detail, VersionID);
         }
     }
@@ -633,6 +639,9 @@ class maingame extends AbstractForm
             }
 
             $this->Dialog->content->StartDialog();
+            
+            $GLOBALS['discord']->setState(null);
+            $GLOBALS['discord']->updateState();             
             
             if ($afterReset)
             {
@@ -781,6 +790,8 @@ class maingame extends AbstractForm
     }
     function ShowMenu()
     {
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
+    
         $this->MainMenu->show();
         Media::play($this->MainMenu->content->MainMenuBackground);
         Media::pause($this->Environment);
@@ -794,6 +805,9 @@ class maingame extends AbstractForm
                 Media::play($this->MainMenu->content->MenuSound);
             }
         }
+        
+        $GLOBALS['discord']->setDetails($this->localization->get('RPC_MainMenu'));
+        $GLOBALS['discord']->updateState();        
     }
     /**
      * @event keyDown-P 
@@ -1426,6 +1440,9 @@ class maingame extends AbstractForm
         $this->Pda->content->Pda_Tasks->content->Step_UpdatePda();
         
         $this->Pda->content->Pda_Statistic->content->UpdateRaiting();
+        
+        $GLOBALS['discord']->setState(null);
+        $GLOBALS['discord']->updateState();        
     }
     /**
      * @event keyDown-Q 

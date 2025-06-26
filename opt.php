@@ -660,5 +660,23 @@ class opt extends AbstractForm
         $this->form('maingame')->MainMenu->content->UILoadWnd->content->ShowSavePreview();
         
         $this->form('maingame')->Pda->content->Pda_Tasks->content->UpdateData();
+        
+        if ($this->form('maingame')->MainMenu->visible)
+        {
+            $GLOBALS['discord']->setDetails($this->localization->get('RPC_MainMenu'));
+        }
+        else 
+        {
+            $GLOBALS['discord']->setDetails($this->localization->get('RPC_Ingame'));
+        }
+        if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted'])
+        {
+            $GLOBALS['discord']->setState($this->localization->get('RPC_Fight'));
+        }
+        else 
+        {
+            $GLOBALS['discord']->setState(null);
+        }
+        $GLOBALS['discord']->updateState();
     }
 }

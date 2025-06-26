@@ -266,6 +266,8 @@ class dialog extends AbstractForm
      */
     function Talk_3(UXMouseEvent $e = null)
     {       
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        
         $this->form('maingame')->HideDialog();
         if (!$GLOBALS['HudVisible']) $this->form('maingame')->ToggleHud();
         
@@ -281,7 +283,10 @@ class dialog extends AbstractForm
         $this->form('maingame')->idle_static_actor->hide();
         $this->form('maingame')->idle_static_enemy->hide(); 
             
-        $this->form('maingame')->Pda->content->Pda_Tasks->content->Step1_Complete();                       
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->Step1_Complete();
+        
+        $GLOBALS['discord']->setState($this->localization->get('RPC_Fight'));
+        $GLOBALS['discord']->updateState();      
     }
     function StartDialog()
     {

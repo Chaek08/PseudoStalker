@@ -55,6 +55,8 @@ class mainmenu extends AbstractForm
      */
     function BtnStartGame_MouseDownLeft(UXMouseEvent $e = null)
     {
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
+    
         $this->Btn_Start_Game->textColor = '#808080';
     
         $this->form('maingame')->MainMenu->hide();
@@ -81,6 +83,9 @@ class mainmenu extends AbstractForm
                  Media::play($this->form('maingame')->FightSound);
             }
         }       
+        
+        $GLOBALS['discord']->setDetails($this->localization->get('RPC_Ingame'));
+        $GLOBALS['discord']->updateState();
     }
     function SwitchGameState()
     {
