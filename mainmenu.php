@@ -214,9 +214,6 @@ class mainmenu extends AbstractForm
     {
         $this->Btn_Opt->textColor = '#808080';
         
-        //$this->form('maingame')->MainMenu->hide();
-        //$this->form('maingame')->Options->show();
-        //рендерить два задника это дорого
         $this->dynamic_background->toFront();
         $this->Options->show();
         $this->Options->toFront();

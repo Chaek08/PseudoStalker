@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use php\gui\UXMediaView;
 use php\gui\UXImage;
 use php\gui\UXApplication;
 use php\concurrent\Future;
@@ -538,7 +539,7 @@ class maingame extends AbstractForm
         $this->LoadScreen->opacity = 0;
         $this->LoadScreen->hide();
         $this->CustomCursor->show();
-    }    
+    }
     function PlayFightSong()
     {    
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
@@ -1249,7 +1250,7 @@ class maingame extends AbstractForm
 
             if ($timeDiff < 500)
             {
-                if ($this->hitmarkLevel < 6)
+                if ($this->hitmarkLevel < 4) //6
                 {
                     $this->hitmarkLevel++;
                 }
@@ -1277,12 +1278,15 @@ class maingame extends AbstractForm
                 case 4:
                     $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_4.png");
                     break;
+                /*     
                 case 5:
                     $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_5.png");
-                    break;      
+                    break; 
+                        
                 case 6:
                     $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_6.png");
-                    break;                                                       
+                    break;   
+                */                                                    
             }
 
             $this->HitMark->opacity = 0;

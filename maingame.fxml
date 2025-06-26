@@ -23,7 +23,7 @@
         <Font name="System Regular" size="75"/>
       </font>
     </LabelEx>
-    <ImageViewEx AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" autoSize="false" centered="true" focusTraversable="false" height="176" id="HitMark" layoutX="0" layoutY="40" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="1600">
+    <ImageViewEx AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" autoSize="false" centered="true" focusTraversable="false" height="176" id="HitMark" layoutX="0" layoutY="32" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="1600">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
