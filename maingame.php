@@ -53,18 +53,6 @@ class maingame extends AbstractForm
         $this->UpdateEnvironment();
         
         $this->InitUserLTX();
-        Timer::after(100, function() {
-            $this->applyResolutionFromLTX();
-        });
-        if ($this->ltx['g_god'] == 'on')
-        {
-            $GLOBALS['GodMode'] = true;
-            $this->GodMode();
-        }
-        if ($this->ltx['vid_fullscreen'] == 'on')
-        {
-            $this->FullscreenMode();
-        }        
         
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
@@ -197,47 +185,27 @@ class maingame extends AbstractForm
         }
         else
         {
-            $config = [];
-
-            $lines = file(LTX_DIR);
-            foreach ($lines as $line)
-            {
-                $parts = explode(' ', trim($line));
-                if (count($parts) >= 2)
-                {
-                    $key = $parts[0];
-                    $value = $parts[1];
-                    $config[$key] = $value;
-                }
-            }
-
-            $allKeysExist = true;
-            foreach (array_keys($default) as $key)
-            {
-                if (!isset($config[$key]) || $config[$key] == '')
-                {
-                    $allKeysExist = false;
-                    break;
-                }
-            }
-
-            if (!$allKeysExist)
-            {
-                foreach ($default as $key => $value)
-                {
-                    if (!isset($config[$key]) || $config[$key] == '')
-                    {
-                        $config[$key] = $value;
-                    }
-                }
-                $this->SaveUserLTX($config);
-            }
-
-            $this->ltx = $config;
+            $this->ltx = $this->LoadUserLTX($default);
+            $this->SaveUserLTX($this->ltx);
         }
+        
+        if ($this->ltx['g_god'] == 'on')
+        {
+            $GLOBALS['GodMode'] = true;
+            $this->GodMode();
+        }
+        
+        Timer::after(100, function() {
+            $this->applyResolutionFromLTX();
+        });
+              
+        if ($this->ltx['vid_fullscreen'] == 'on')
+        {
+            $this->FullscreenMode();
+        }        
 
         $this->ltxInitialized = true;
-    
+
         $this->MainMenu->content->Options->content->InitOptions();
     }
     function LoadUserLTX($default)
