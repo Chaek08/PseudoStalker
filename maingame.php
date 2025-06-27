@@ -61,6 +61,10 @@ class maingame extends AbstractForm
             $GLOBALS['GodMode'] = true;
             $this->GodMode();
         }
+        if ($this->ltx['vid_fullscreen'] == 'on')
+        {
+            $this->FullscreenMode();
+        }        
         
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
@@ -116,13 +120,18 @@ class maingame extends AbstractForm
 
         $this->prevClientW = $w;
         $this->prevClientH = $h;
+        
+        $res = "{$w}x{$h}";
+        
+    $this->ltx['vid_mode'] = $res;
+    $this->SaveUserLTX($this->ltx);
 
         UXApplication::runLater(function() use ($w, $h) {
             if (Debug_Build)
             {
-                $res = "$w x $h";
                 static $prevRes = '';
 
+                $res = "$w x $h";
                 if ($res != $prevRes)
                 {
                     $prevRes = $res;
@@ -177,7 +186,8 @@ class maingame extends AbstractForm
             'r_shadows' => 'on',
             'r_version' => 'on',
             'g_god' => 'off',
-            'vid_mode' => '1600x900'
+            'vid_mode' => '1600x900',
+            'vid_fullscreen' => 'off'
         ];
 
         if (!file_exists(LTX_DIR))
@@ -1663,13 +1673,9 @@ class maingame extends AbstractForm
      */
     function FullscreenMode(UXKeyEvent $e = null)
     {    
-        if ($this->fullScreen == false)
-        {
-            $this->fullScreen = true;
-        }
-        else 
-        {
-            $this->fullScreen = false;
-        }
+        $this->fullScreen = !$this->fullScreen;
+
+        $this->ltx['vid_fullscreen'] = $this->fullScreen ? 'on' : 'off';
+        $this->SaveUserLTX($this->ltx);
     }    
 }
