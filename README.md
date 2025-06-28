@@ -1,27 +1,29 @@
-<p align="center">
-  <img width="250" height="250" src="https://github.com/Chaek08/PseudoStalker/blob/kunteynirengine/Resources/icon_vovchik.png">
+<p align="left">
+  <img width="250" height="250" src="https://github.com/Chaek08/PseudoStalker/blob/kunteynirengine/Resources/icon_vovchik.png" alt="PseudoStalker Logo">
 </p>
 
-# ![Emoji](https://github.com/Chaek08/PseudoStalker/blob/kunteynirengine/Resources/1.png) PseudoStalker 
-- The project is developed using the JPHP programming language in the DevelNext development environment.
-- It also comes with an SDK that allows you to change aspects of the game.
+<h1 align="left">
+  <img src="https://github.com/Chaek08/PseudoStalker/blob/kunteynirengine/Resources/1.png" width="24" height="24">
+  PseudoStalker
+</h1>
+
+<p align="left">
+  <em>A parody-style experimental game made in <strong>JPHP</strong> using the <strong>DevelNext</strong> environment.</em>
+</p>
+
+## Features
+
+- Developed with **JPHP** in the **DevelNext** visual environment.
+- Stylized gameplay with custom models, UI, and humor.
+
+## Downloads
+
+### Dev Build (Editor + SDK) and Game-Only Versions
+
+| Version | Description | Link |
+|--------|-------------|------|
+| 1.2     | Latest editor version with SDK tools | [Download](https://github.com/Chaek08/PseudoStalker/releases/tag/build-593) |
+| 1.1     | Stable game build | [Download](https://github.com/Chaek08/PseudoStalker/releases/tag/build-508) |
+| 1.0     | Initial public release | [Download](https://github.com/Chaek08/PseudoStalker/releases/tag/build-494) |
 
 
-# ![Emoji](https://github.com/Chaek08/PseudoStalker/blob/kunteynirengine/Resources/1.png) PseudoSDK
-### The new SDK offers extensive game editing capabilities and includes more than 7 types of editors:
-
-- **User Data Editor** - edit character information including name, biography and icon.
-- **Dialog Editor** - edit existing dialogs and replace voiceover sound files (creating new dialogs is not supported).
-- **Role Editor** - manage character groups: edit name, icon and color.
-- **Inventory Editor** - customize items in inventory: change weight, name, description, icon and cost.
-- **Main Game Editor** - modify characters, change the color of progress bars and backgrounds in the game.
-- **Fail Wnd Editor** - edit final scene including title and description.
-- **Quest Editor** - edit quests: change title, icon and stages (creating new quests is not supported).
-
-# ![Emoji](https://github.com/Chaek08/PseudoStalker/blob/kunteynirengine/Resources/1.png) Links
-Editorial Versions:
-- [Version 1.2 + SDK](https://github.com/Chaek08/PseudoStalker/releases/tag/build-593)
-
-Only Game Versions:
-- [Version 1.1](https://github.com/Chaek08/PseudoStalker/releases/tag/build-508)
-- [Version 1.0](https://github.com/Chaek08/PseudoStalker/releases/tag/build-494)
