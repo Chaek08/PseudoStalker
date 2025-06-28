@@ -9,4 +9,7 @@
   <target id="icon">
     <behaviour color="#333333" offsetX="0" offsetY="0" radius="5.609756097561" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
+  <target id="pda_anims">
+    <behaviour bodyType="DYNAMIC" fixtureType="INHERITED" solid="" solidType="NONE" startVelocity="[0]" type="behaviour\custom\GameEntityBehaviour"/>
+  </target>
 </behaviours>

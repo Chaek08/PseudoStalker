@@ -37,61 +37,69 @@
     <Data cursor="DEFAULT" enabled="" id="data-relationship_desc" visible="1"/>
     <Data cursor="DEFAULT" enabled="" id="data-rank_desc" visible="1"/>
     <Data cursor="DEFAULT" enabled="" id="data-online_icon" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="13" color="#666666" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="selected_new" layoutX="16" layoutY="16" opacity="0" prefHeight="112" prefWidth="400" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="13" color="#666666" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="selected_new" layoutX="16" layoutY="64" opacity="0" prefHeight="112" prefWidth="400" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="relationship_desc" layoutX="24" layoutY="80" prefHeight="16" prefWidth="96" style="-fx-opacity: 1;" styleClass="label " text="отношение" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="relationship_desc" layoutX="24" layoutY="128" prefHeight="16" prefWidth="96" style="-fx-opacity: 1;" styleClass="label " text="отношение" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_desc" layoutX="24" layoutY="96" prefHeight="16" prefWidth="96" style="-fx-opacity: 1;" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_desc" layoutX="24" layoutY="144" prefHeight="16" prefWidth="96" style="-fx-opacity: 1;" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_desc" layoutX="24" layoutY="48" prefHeight="16" prefWidth="96" style="-fx-opacity: 1;" styleClass="label " text="группа" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_desc" layoutX="24" layoutY="96" prefHeight="16" prefWidth="96" style="-fx-opacity: 1;" styleClass="label " text="группа" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="reputation_desc" layoutX="24" layoutY="64" prefHeight="16" prefWidth="96" style="-fx-opacity: 1;" styleClass="label " text="репутация" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="reputation_desc" layoutX="24" layoutY="112" prefHeight="16" prefWidth="96" style="-fx-opacity: 1;" styleClass="label " text="репутация" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="community" layoutX="136" layoutY="40" prefHeight="32" prefWidth="168" style="-fx-opacity: 1;" styleClass="label " text="Пидорасы" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="community" layoutX="136" layoutY="88" prefHeight="32" prefWidth="168" style="-fx-opacity: 1;" styleClass="label " text="Пидорасы" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="12"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="reputation" layoutX="136" layoutY="64" prefHeight="16" prefWidth="96" style="-fx-opacity: 1;" styleClass="label " text="ужасно" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="reputation" layoutX="136" layoutY="112" prefHeight="16" prefWidth="96" style="-fx-opacity: 1;" styleClass="label " text="ужасно" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="12"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="relationship" layoutX="136" layoutY="80" prefHeight="16" prefWidth="96" style="-fx-opacity: 1;" styleClass="label " text="враг" textAlignment="LEFT" textFill="#cc3333" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="relationship" layoutX="136" layoutY="128" prefHeight="16" prefWidth="96" style="-fx-opacity: 1;" styleClass="label " text="враг" textAlignment="LEFT" textFill="#cc3333" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="12"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="136" layoutY="96" prefHeight="16" prefWidth="96" style="-fx-opacity: 1;" styleClass="label " text="новичок" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="136" layoutY="144" prefHeight="16" prefWidth="96" style="-fx-opacity: 1;" styleClass="label " text="новичок" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="12"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="name" layoutX="46" layoutY="24" prefHeight="21" prefWidth="256" style="-fx-opacity: 1;" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="name" layoutX="48" layoutY="72" prefHeight="21" prefWidth="256" style="-fx-opacity: 1;" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
-    <Circle fill="#54bc54" focusTraversable="false" id="online_icon" layoutX="33" layoutY="34" radius="8" strokeType="INSIDE" strokeWidth="2" styleClass=""/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="96" id="icon" layoutX="312" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#ffffff" width="96">
+    <Circle fill="#54bc54" focusTraversable="false" id="online_icon" layoutX="32" layoutY="82" radius="8" strokeType="INSIDE" strokeWidth="2" styleClass=""/>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="96" id="icon" layoutX="312" layoutY="72" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#ffffff" width="96">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
+    <FlatButton alignment="CENTER_LEFT" borderRadius="10" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" id="tab_button" layoutX="16" layoutY="16" prefHeight="40" prefWidth="400" styleClass="x-flat-button " text="tab_button" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="16"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/no_role.png" id="data-tab_button" visible="1"/>
+    <SpriteView animationEnabled="false" focusTraversable="false" height="40" id="pda_anims" layoutX="376" layoutY="16" styleClass="" width="32"/>
+    <Data animated="1" cursor="DEFAULT" enabled="1" id="data-pda_anims" sprite="ui_pda_anims_2" visible="1"/>
   </children>
 </AnchorPane>

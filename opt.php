@@ -582,7 +582,7 @@ class opt extends AbstractForm
         $this->form('maingame')->Pda->content->contacts_label->text = $this->localization->get('Contacts_Label');
         $this->form('maingame')->Pda->content->ranks_label->text = $this->localization->get('Ranks_Label');
         $this->form('maingame')->Pda->content->stat_label->text = $this->localization->get('Data_Label');
-
+        
         $this->form('maingame')->Pda->content->Pda_Tasks->content->task_label->text = $this->localization->get('DefeatEnemy_Task');
         $this->form('maingame')->Pda->content->Pda_Tasks->content->step1->text = $this->localization->get('TalkToGoblin_Task');
         $this->form('maingame')->Pda->content->Pda_Tasks->content->step2->text = $this->localization->get('DefeatGoblin_Task');
@@ -590,6 +590,7 @@ class opt extends AbstractForm
         $this->form('maingame')->Pda->content->Pda_Tasks->content->active_task->text = $this->localization->get('ActiveTasks_Label');
         $this->form('maingame')->Pda->content->Pda_Tasks->content->passive_task->text = $this->localization->get('CompletedTasks_Label');
         $this->form('maingame')->Pda->content->Pda_Tasks->content->failed_task->text = $this->localization->get('FailedTasks_Label');
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->tab_button->text = $this->localization->get('Tasks_Label');
 
         $this->form('maingame')->Pda->content->Pda_Contacts->content->name->text = $this->localization->get('Contact_Goblin');
         $this->form('maingame')->Pda->content->Pda_Contacts->content->community_desc->text = $this->localization->get('Group_Label');
@@ -601,6 +602,7 @@ class opt extends AbstractForm
         $this->form('maingame')->Pda->content->Pda_Contacts->content->rank_desc->text = $this->localization->get('Rank_Desc');
         $this->form('maingame')->Pda->content->Pda_Contacts->content->rank->text = $this->localization->get('Rank_Veterinarian');
         $this->form('maingame')->Pda->content->Pda_Contacts->content->bio->text = $this->localization->get('GoblindaV_Bio');
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->tab_button->text = $this->localization->get('Contacts_Label');
         
         $this->form('maingame')->Pda->content->Pda_Ranking->content->name_label->text = $this->localization->get('Name_Label');
         $this->form('maingame')->Pda->content->Pda_Ranking->content->rank_label->text = $this->localization->get('Rank_Bio_Label');

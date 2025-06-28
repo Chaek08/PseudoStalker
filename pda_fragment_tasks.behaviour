@@ -12,4 +12,7 @@
   <target id="time_quest_hm">
     <behaviour enabled="" format="HH:mm" type="behaviour\custom\WatchMakerBehaviour"/>
   </target>
+  <target id="pda_anims">
+    <behaviour bodyType="DYNAMIC" fixtureType="INHERITED" solid="" solidType="NONE" startVelocity="[0,0]" type="behaviour\custom\GameEntityBehaviour"/>
+  </target>
 </behaviours>

@@ -111,8 +111,8 @@ class maingame extends AbstractForm
         
         $res = "{$w}x{$h}";
         
-    $this->ltx['vid_mode'] = $res;
-    $this->SaveUserLTX($this->ltx);
+        //$this->ltx['vid_mode'] = $res;
+        //$this->SaveUserLTX($this->ltx);
 
         UXApplication::runLater(function() use ($w, $h) {
             if (Debug_Build)
