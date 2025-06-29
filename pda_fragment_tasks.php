@@ -58,25 +58,26 @@ class pda_fragment_tasks extends AbstractForm
     * @event quest_detail_btn.click-Left 
      */
     function DetailTask(UXMouseEvent $e = null)
-    {     
-        if ($this->task_detail_text->toggle())
-        {
-            $this->quest_detail_btn->image = new UXImage('res://.data/ui/pda/task_detail_off.png');
-            $this->quest_detail_btn->hoverImage = new UXImage('res://.data/ui/pda/task_detail_on.png'); 
-            $this->quest_detail_btn->clickImage = new UXImage('res://.data/ui/pda/task_detail_on.png');             
-                       
-        }   
+    {
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
+    
         if ($this->task_detail_text->visible)
         {
-            $this->quest_detail_btn->image = new UXImage('res://.data/ui/pda/task_detail_opened.png');  
-            $this->quest_detail_btn->hoverImage = new UXImage('res://.data/ui/pda/task_detail_opened.png');
-            $this->quest_detail_btn->clickImage = new UXImage('res://.data/ui/pda/task_detail_opened.png');                                 
+            $this->task_detail_text->hide();
+            $this->tab_detail->text = null;
+            
+            $this->quest_detail_btn->image = new UXImage('res://.data/ui/pda/task_detail_off.png');
+            $this->quest_detail_btn->hoverImage = new UXImage('res://.data/ui/pda/task_detail_on.png');
+            $this->quest_detail_btn->clickImage = new UXImage('res://.data/ui/pda/task_detail_on.png');
         }
         else
         {
-            $this->quest_detail_btn->image = new UXImage('res://.data/ui/pda/task_detail_off.png');
-            $this->quest_detail_btn->hoverImage = new UXImage('res://.data/ui/pda/task_detail_on.png'); 
-            $this->quest_detail_btn->clickImage = new UXImage('res://.data/ui/pda/task_detail_on.png');               
+            $this->task_detail_text->show();
+            $this->tab_detail->text = $this->localization->get('TabTaskDetail');
+
+            $this->quest_detail_btn->image = new UXImage('res://.data/ui/pda/task_detail_opened.png');
+            $this->quest_detail_btn->hoverImage = new UXImage('res://.data/ui/pda/task_detail_opened.png');
+            $this->quest_detail_btn->clickImage = new UXImage('res://.data/ui/pda/task_detail_opened.png');
         }
     }
     /**
@@ -84,13 +85,14 @@ class pda_fragment_tasks extends AbstractForm
      */
     function ClearDetailTask(UXMouseEvent $e = null) //заебись, сделал один фрейм на весь экран и тем самым сократил количество функций :like
     {               
-        if ($this->task_detail_text->visible) 
-        {
-            $this->task_detail_text->hide();   
-            $this->quest_detail_btn->image = new UXImage('res://.data/ui/pda/task_detail_off.png');
-            $this->quest_detail_btn->hoverImage = new UXImage('res://.data/ui/pda/task_detail_on.png'); 
-            $this->quest_detail_btn->clickImage = new UXImage('res://.data/ui/pda/task_detail_on.png');                      
-        }               
+        if (!$this->task_detail_text->visible) return;
+
+        $this->task_detail_text->hide();
+        $this->tab_detail->text = null;
+        
+        $this->quest_detail_btn->image = new UXImage('res://.data/ui/pda/task_detail_off.png');
+        $this->quest_detail_btn->hoverImage = new UXImage('res://.data/ui/pda/task_detail_on.png'); 
+        $this->quest_detail_btn->clickImage = new UXImage('res://.data/ui/pda/task_detail_on.png');
     }
     /**
      * @event active_task.click-Left 
@@ -246,12 +248,15 @@ class pda_fragment_tasks extends AbstractForm
         $this->icon_task->hide();
         $this->quest_detail_btn->hide(); 
         $this->task_detail_text->hide();  
+        $this->time_quest_hm->hide();
+        $this->time_quest_date->hide();
+        $this->step1->hide();
+        $this->step2->hide();
+        $this->tab_detail->text = null;
+        
         $this->quest_detail_btn->image = new UXImage('res://.data/ui/pda/task_detail_off.png');
         $this->quest_detail_btn->hoverImage = new UXImage('res://.data/ui/pda/task_detail_on.png'); 
         $this->quest_detail_btn->clickImage = new UXImage('res://.data/ui/pda/task_detail_on.png');        
-        $this->time_quest_hm->hide();
-        $this->time_quest_date->hide(); 
-        $this->step1->hide();
-        $this->step2->hide();                     
+                     
     }
 }

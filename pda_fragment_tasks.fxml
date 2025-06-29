@@ -44,7 +44,7 @@
     <Data cursor="DEFAULT" enabled="1" id="data-frame_01" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-frame_detail_02" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-frame_hide" visible="1"/>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="task_detail_text" layoutX="384" layoutY="24" prefHeight="448" prefWidth="376" styleClass="label " text="Вчера поздно вечером соседи услышали гачи звуки из квартиры гоблиндава, они заподозрили что гоблиндав не натурал! Бабки - соседки начали стучаться ему в дверь, он открыл и сказал &quot;Welcome to the club, body&quot; Тогда всё сразу стало понятно!!! Так вот.. нам необходимо натурализовать ебаната!!" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="task_detail_text" layoutX="384" layoutY="64" prefHeight="400" prefWidth="376" styleClass="label " text="Вчера поздно вечером соседи услышали гачи звуки из квартиры гоблиндава, они заподозрили что гоблиндав не натурал! Бабки - соседки начали стучаться ему в дверь, он открыл и сказал &quot;Welcome to the club, body&quot; Тогда всё сразу стало понятно!!! Так вот.. нам необходимо натурализовать ебаната!!" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -79,7 +79,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-failed_task" tooltipText="" visible="1"/>
-    <Separator focusTraversable="false" id="separator" layoutX="24" layoutY="416" opacity="0.23170731707317" orientation="HORIZONTAL" prefHeight="8" prefWidth="320" styleClass="separator "/>
+    <Separator focusTraversable="false" id="separator" layoutX="24" layoutY="416" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="320" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="time_quest_hm" layoutX="200" layoutY="88" prefHeight="20" prefWidth="48" styleClass="label " text="00:16" textAlignment="LEFT" textFill="#8099ff" underline="false" wrapText="false">
       <font>
@@ -95,5 +95,11 @@
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/no_role.png" id="data-tab_button" visible="1"/>
     <SpriteView animationEnabled="false" focusTraversable="false" height="40" id="pda_anims" layoutX="312" layoutY="16" styleClass="" width="32"/>
+    <FlatButton alignment="CENTER_LEFT" borderRadius="10" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" id="tab_detail" layoutX="376" layoutY="16" prefHeight="40" prefWidth="392" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="16"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/no_role.png" id="data-tab_detail" visible="1"/>
   </children>
 </AnchorPane>

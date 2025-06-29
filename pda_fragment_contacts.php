@@ -36,15 +36,7 @@ class pda_fragment_contacts extends AbstractForm
         $this->community->text = $role_name != '' ? $role_name : $this->localization->get('Community_Pido');
         $this->community->graphic = new UXImageView(new UXImage($role_icon != '' ? $role_icon : 'res://.data/ui/dialog/dialog_wnd/pidoras_roleicon.png'));
         $this->community->textColor = $role_color != '' ? $role_color : '#16a4cd';        
-    }
-    /**
-     * @event selected_new.click-Left 
-     */
-    function CharacterClick(UXMouseEvent $e = null)
-    {    
-        $this->selected_new->opacity = 0.35;
-        $this->bio->show();                     
-    }
+    }    
     /**
      * @event selected_new.click-2x 
      */
@@ -53,51 +45,74 @@ class pda_fragment_contacts extends AbstractForm
         $this->form('maingame')->Pda->content->RankingBtn();
         $this->form('maingame')->Pda->content->Pda_Ranking->content->EnemyInListBtn();        
     }    
+
+    
+    function setCharacterSelected($selected)
+    {
+        $this->selected_new->opacity = $selected ? 0.35 : 0;
+
+        if ($selected)
+        {
+            $this->bio->show();
+            $this->tab_detail->text = $this->localization->get('TabBio');
+        }
+        else
+        {
+            $this->bio->hide();
+            $this->tab_detail->text = null;
+        }
+    }
+    /**
+     * @event selected_new.click-Left 
+     */
+    function CharacterClick(UXMouseEvent $e = null)
+    {    
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
+    
+        $this->setCharacterSelected(true);
+    }
     /**
      * @event frame.click-Left 
      */
     function HideCharacter(UXMouseEvent $e = null)
     {    
-        if ($this->selected_new->opacity == 0.35)
-        {
-            $this->selected_new->opacity = 0;
-            $this->bio->hide();            
-        }          
-    }
+        $this->setCharacterSelected(false);         
+    }      
     function UpdateContacts()
     {
-        if ($GLOBALS['EnemyFailed'])
+        $elements = [
+            $this->name,
+            $this->community,
+            $this->community_desc,
+            $this->rank,
+            $this->rank_desc,
+            $this->relationship,
+            $this->relationship_desc,
+            $this->reputation,
+            $this->reputation_desc,
+            $this->online_icon,
+            $this->icon,
+            $this->selected_new
+        ];
+
+        foreach ($elements as $el)
         {
-            $this->name->hide();
-            $this->community->hide();
-            $this->community_desc->hide();
-            $this->rank->hide();
-            $this->rank_desc->hide();
-            $this->relationship->hide();
-            $this->relationship_desc->hide();
-            $this->reputation->hide();
-            $this->reputation_desc->hide();
-            $this->online_icon->hide();
-            $this->icon->hide();
-            $this->selected_new->hide();
-            $this->selected_new->opacity = 0;         
+            if ($GLOBALS['EnemyFailed'])
+            {
+                $el->hide();
+            }
+            else
+            {
+                $el->show();
+            }
         }
-        else
+
+        $this->selected_new->opacity = 0;
+
+        if ($this->bio->visible) 
         {
-            $this->name->show();
-            $this->community->show();
-            $this->community_desc->show();
-            $this->rank->show();
-            $this->rank_desc->show();
-            $this->relationship->show();
-            $this->relationship_desc->show();
-            $this->reputation->show();
-            $this->reputation_desc->show();
-            $this->online_icon->show();
-            $this->icon->show();
-            $this->selected_new->show();
-        }
-        
-        if ($this->bio->visible) $this->bio->hide(); 
+            $this->bio->hide();
+            $this->tab_detail->text = null;
+        } 
     }   
 }

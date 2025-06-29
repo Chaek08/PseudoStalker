@@ -16,11 +16,15 @@ class pda_fragment_ranking extends AbstractForm
         parent::__construct();
 
         $this->localization = new Localization($language);
+        
+        $GLOBALS['SelectedActor'] = false;
+        $GLOBALS['SelectedEnemy'] = false;
+        $GLOBALS['SelectedValera'] = false;
     }
     
     function UpdateData()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
     
         $actor_in_raiting = trim($this->form('maingame')->Pda->content->SDK_ActorName);
         $enemy_in_raiting = trim($this->form('maingame')->Pda->content->SDK_EnemyName);
@@ -33,10 +37,11 @@ class pda_fragment_ranking extends AbstractForm
     
     function ResetUserInfo()
     {
-        $this->user_actor->hide();
-        $this->user_valerok->hide();
-        $this->user_goblindav->hide();
+        $GLOBALS['SelectedActor'] = false;
+        $GLOBALS['SelectedEnemy'] = false;
+        $GLOBALS['SelectedValera'] = false;
             
+        $this->tab_detail->text = null;
         $this->community_desc->hide();
         $this->community->hide(); 
         $this->rank_desc->hide();        
@@ -44,7 +49,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->relationship->hide(); 
         $this->attitude->hide(); 
         $this->bio->hide();         
-        $this->bio_new->hide(); 
+        $this->separator->hide(); 
         $this->user_icon->hide();       
         $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/no_icon.png');     
         
@@ -52,6 +57,9 @@ class pda_fragment_ranking extends AbstractForm
     }
     function ShowUserInfo()
     {
+        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        
+        $this->tab_detail->text = $this->localization->get('TabDetail');
         $this->community_desc->show();
         $this->community->show(); 
         $this->rank_desc->show();        
@@ -59,7 +67,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->relationship->show(); 
         $this->attitude->show(); 
         $this->bio->show();         
-        $this->bio_new->show(); 
+        $this->separator->show(); 
         $this->user_icon->show();          
     }
     /**
@@ -91,15 +99,15 @@ class pda_fragment_ranking extends AbstractForm
             $GLOBALS['ActorFailed'] ? $this->form('maingame')->Pda->content->Pda_Statistic->content->death_filter->show() : $this->form('maingame')->Pda->content->Pda_Statistic->content->death_filter->hide();           
         }
         
-        if ($this->user_actor->visible) //Проверяем, выбран ли сейчас нужный user
+        if ($GLOBALS['SelectedActor']) //Проверяем, выбран ли сейчас нужный user
         {
             $GLOBALS['ActorFailed'] ? $this->death_filter->show() : $this->death_filter->hide();
         }
-        if ($this->user_goblindav->visible) //Проверяем, выбран ли сейчас нужный user
+        if ($GLOBALS['SelectedEnemy']) //Проверяем, выбран ли сейчас нужный user
         {
             $GLOBALS['EnemyFailed'] ? $this->death_filter->show() : $this->death_filter->hide(); //Проверяем, мёртв ли противник, чтобы в дальнейшем прописать ему DeathFilter
         }
-        if ($this->user_valerok->visible) //Проверяем, выбран ли сейчас нужный user
+        if ($GLOBALS['SelectedValera']) //Проверяем, выбран ли сейчас нужный user
         {
             $this->death_filter->hide();
         }
@@ -113,7 +121,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->ResetUserInfo();
         $this->ShowUserInfo();
         
-        $this->user_actor->show();
+        $GLOBALS['SelectedActor'] = true;
         $this->SetUserInfo();
         
         $this->actor_in_raiting_pos->textColor = 'white';
@@ -129,7 +137,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->ResetUserInfo();
         $this->ShowUserInfo();
         
-        $this->user_valerok->show();
+        $GLOBALS['SelectedValera'] = true;
         $this->SetUserInfo();
         
         $this->valerok_in_raiting_pos->textColor = 'white';
@@ -145,7 +153,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->ResetUserInfo();
         $this->ShowUserInfo();
         
-        $this->user_goblindav->show();
+        $GLOBALS['SelectedEnemy'] = true;
         $this->SetUserInfo();
         
         $this->goblindav_in_raiting_pos->textColor = 'white';
@@ -157,14 +165,14 @@ class pda_fragment_ranking extends AbstractForm
      */
     function Redirect(UXMouseEvent $e = null)
     {    
-        if ($this->user_actor->visible) $this->form('maingame')->Pda->content->StatisticBtn();
+        if ($GLOBALS['SelectedActor']) $this->form('maingame')->Pda->content->StatisticBtn();
         if ($this->form('maingame')->Pda->content->Pda_Contacts->content->icon->visible)
         {
             if ($GLOBALS['EnemyFailed'])
             {
                 return;
             }
-            if ($this->user_goblindav->visible)
+            if ($GLOBALS['SelectedEnemy'])
             {
                 $this->form('maingame')->Pda->content->ContactsBtn();
                 $this->form('maingame')->Pda->content->Pda_Contacts->content->CharacterClick(); 
@@ -217,7 +225,7 @@ class pda_fragment_ranking extends AbstractForm
     {
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
-        if ($this->user_goblindav->visible)
+        if ($GLOBALS['SelectedEnemy'])
         {
             $this->ResetRole();
             $this->PidorasRole();
@@ -233,7 +241,7 @@ class pda_fragment_ranking extends AbstractForm
             $this->user_icon->image = new UXImage($icon_path != '' ? $icon_path : 'res://.data/ui/icon_npc/goblindav.png');
             $this->bio->text = $bio_path != '' ? $bio_path : $this->localization->get('GoblindaV_Bio');
         }
-        if ($this->user_valerok->visible)
+        if ($GLOBALS['SelectedValera'])
         {
             $this->ResetRole();
             $this->LadcegaRole();
@@ -249,7 +257,7 @@ class pda_fragment_ranking extends AbstractForm
             $this->user_icon->image = new UXImage($icon_path != '' ? $icon_path : 'res://.data/ui/icon_npc/valerok.png');
             $this->bio->text = $bio_path != '' ? $bio_path : $this->localization->get('Valerok_Bio');
         }       
-        if ($this->user_actor->visible)
+        if ($GLOBALS['SelectedActor'])
         {
             $this->ResetRole();        
             $this->DanilaEmojiRole();          

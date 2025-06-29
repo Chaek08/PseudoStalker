@@ -16,43 +16,43 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_desc" layoutX="624" layoutY="24" prefHeight="15.9609375" prefWidth="24.6796875" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_desc" layoutX="624" layoutY="64" prefHeight="15.9609375" prefWidth="24.6796875" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-rank_desc" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_desc" layoutX="624" layoutY="64" prefHeight="15.9609375" prefWidth="37.412109375" styleClass="label " text="группа" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_desc" layoutX="624" layoutY="104" prefHeight="15.9609375" prefWidth="37.412109375" styleClass="label " text="группа" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-community_desc" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="attitude" layoutX="624" layoutY="104" prefHeight="15.9609375" prefWidth="61.95703125" styleClass="label " text="отношение" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="attitude" layoutX="624" layoutY="144" prefHeight="15.9609375" prefWidth="61.95703125" styleClass="label " text="отношение" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-attitude" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="624" layoutY="40" prefHeight="21" prefWidth="144" styleClass="label " text="-" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="624" layoutY="80" prefHeight="21" prefWidth="144" styleClass="label " text="-" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-rank" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community" layoutX="624" layoutY="80" prefHeight="21" prefWidth="144" styleClass="label " text="-" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community" layoutX="624" layoutY="120" prefHeight="21" prefWidth="144" styleClass="label " text="-" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-community" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="relationship" layoutX="624" layoutY="120" prefHeight="21" prefWidth="152" styleClass="label " text="-" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="relationship" layoutX="624" layoutY="160" prefHeight="21" prefWidth="152" styleClass="label " text="-" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-relationship" visible=""/>
-    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="bio" layoutX="488" layoutY="208" prefHeight="256" prefWidth="272" styleClass="label " text="" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="bio" layoutX="488" layoutY="216" prefHeight="248" prefWidth="272" styleClass="label " text="" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
@@ -60,136 +60,126 @@
     <Data cursor="DEFAULT" enabled="1" id="data-bio" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-frame_01" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-button" visible="1"/>
-    <Separator focusTraversable="false" id="separator" layoutX="488" layoutY="160" orientation="HORIZONTAL" prefHeight="8" prefWidth="272" styleClass="separator "/>
+    <Separator focusTraversable="false" id="separator" layoutX="488" layoutY="200" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="272" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-frame_hide" visible="1"/>
-    <FlatButton alignment="CENTER_LEFT" borderRadius="6" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="bio_new" layoutX="480" layoutY="160" prefHeight="40" prefWidth="288" styleClass="x-flat-button " text="Биография" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="17"/>
-      </font>
-    </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/info1.png" id="data-bio_new" visible=""/>
-    <Separator focusTraversable="false" id="separatorAlt" layoutX="32" layoutY="48" opacity="0.25609756097561" orientation="HORIZONTAL" prefHeight="8" prefWidth="408" styleClass="separator "/>
+    <Separator focusTraversable="false" id="separatorAlt" layoutX="32" layoutY="88" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="408" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separatorAlt" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="user_actor" layoutX="800" layoutY="0" prefHeight="16" prefWidth="96" styleClass="label " text="user_actor" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
-      <font>
-        <Font name="Yu Gothic Regular" size="12"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-user_actor" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="user_valerok" layoutX="800" layoutY="24" prefHeight="16" prefWidth="96" styleClass="label " text="user_valerok" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
-      <font>
-        <Font name="Yu Gothic Regular" size="12"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-user_valerok" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="user_goblindav" layoutX="800" layoutY="48" prefHeight="16" prefWidth="96" styleClass="label " text="user_goblindav" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
-      <font>
-        <Font name="Yu Gothic Regular" size="12"/>
-      </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-user_goblindav" visible=""/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="user_icon" layoutX="488" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="128">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="128" id="user_icon" layoutX="488" layoutY="64" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="128">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-user_icon" image=".data/ui/icon_npc/no_icon.png" visible=""/>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="128" id="death_filter" layoutX="488" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="128">
+    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="128" id="death_filter" layoutX="488" layoutY="64" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="128">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="" id="data-death_filter" image=".data/ui/icon_npc/death_filter.png" visible=""/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_in_raiting_pos" layoutX="32" layoutY="64" prefHeight="21" prefWidth="32" styleClass="label " text="1." textAlignment="CENTER" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_in_raiting_pos" layoutX="32" layoutY="104" prefHeight="21" prefWidth="32" styleClass="label " text="1." textAlignment="CENTER" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_in_raiting_pos" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_in_raiting_rank" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="actor_in_raiting_name" layoutX="72" layoutY="64" prefHeight="21" prefWidth="312" styleClass="label " text="Саня Кабан" textAlignment="CENTER" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="actor_in_raiting_name" layoutX="72" layoutY="104" prefHeight="21" prefWidth="312" styleClass="label " text="Саня Кабан" textAlignment="CENTER" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_in_raiting_name" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="valerok_in_raiting_pos" layoutX="32" layoutY="88" prefHeight="21" prefWidth="32" styleClass="label " text="2." textAlignment="CENTER" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="valerok_in_raiting_pos" layoutX="32" layoutY="128" prefHeight="21" prefWidth="32" styleClass="label " text="2." textAlignment="CENTER" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-valerok_in_raiting_pos" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="goblindav_in_raiting_pos" layoutX="32" layoutY="112" prefHeight="21" prefWidth="32" styleClass="label " text="3." textAlignment="CENTER" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="goblindav_in_raiting_pos" layoutX="32" layoutY="152" prefHeight="21" prefWidth="32" styleClass="label " text="3." textAlignment="CENTER" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-goblindav_in_raiting_pos" visible="1"/>
-    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_in_raiting_rank" layoutX="392" layoutY="64" prefHeight="21" prefWidth="48" styleClass="label " text="10699" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_in_raiting_rank" layoutX="392" layoutY="104" prefHeight="21" prefWidth="48" styleClass="label " text="10699" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="valerok_in_raiting_name" layoutX="72" layoutY="88" prefHeight="21" prefWidth="312" styleClass="label " text="Валерок" textAlignment="CENTER" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="valerok_in_raiting_name" layoutX="72" layoutY="128" prefHeight="21" prefWidth="312" styleClass="label " text="Валерок" textAlignment="CENTER" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-valerok_in_raiting_name" visible="1"/>
-    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="valerok_in_raiting_rank" layoutX="392" layoutY="88" prefHeight="21" prefWidth="48" styleClass="label " text="1337" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="valerok_in_raiting_rank" layoutX="392" layoutY="128" prefHeight="21" prefWidth="48" styleClass="label " text="1337" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-valerok_in_raiting_rank" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="goblindav_in_raiting_name" layoutX="72" layoutY="112" prefHeight="21" prefWidth="312" styleClass="label " text="Гоблиндав" textAlignment="CENTER" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="goblindav_in_raiting_name" layoutX="72" layoutY="152" prefHeight="21" prefWidth="312" styleClass="label " text="Гоблиндав" textAlignment="CENTER" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-goblindav_in_raiting_name" visible="1"/>
-    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="goblindav_in_raiting_rank" layoutX="392" layoutY="112" prefHeight="21" prefWidth="48" styleClass="label " text="228" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="goblindav_in_raiting_rank" layoutX="392" layoutY="152" prefHeight="21" prefWidth="48" styleClass="label " text="228" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-goblindav_in_raiting_rank" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="24" id="actor_in_raiting" layoutX="24" layoutY="64" mosaic="false" mosaicGap="0" opacity="0.48780487804878" proportional="false" stretch="false" styleClass="" textFill="#000000" width="424">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="24" id="actor_in_raiting" layoutX="24" layoutY="104" mosaic="false" mosaicGap="0" opacity="0.48780487804878" proportional="false" stretch="false" styleClass="" textFill="#000000" width="424">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-actor_in_raiting" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="24" id="valerok_in_raiting" layoutX="24" layoutY="88" mosaic="false" mosaicGap="0" opacity="0.48780487804878" proportional="false" stretch="false" styleClass="" textFill="#000000" width="424">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="24" id="valerok_in_raiting" layoutX="24" layoutY="128" mosaic="false" mosaicGap="0" opacity="0.48780487804878" proportional="false" stretch="false" styleClass="" textFill="#000000" width="424">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-valerok_in_raiting" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="24" id="goblindav_in_raiting" layoutX="24" layoutY="112" mosaic="false" mosaicGap="0" opacity="0.48780487804878" proportional="false" stretch="false" styleClass="" textFill="#000000" width="424">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="24" id="goblindav_in_raiting" layoutX="24" layoutY="152" mosaic="false" mosaicGap="0" opacity="0.48780487804878" proportional="false" stretch="false" styleClass="" textFill="#000000" width="424">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-goblindav_in_raiting" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="name_label" layoutX="72" layoutY="24" prefHeight="21" prefWidth="312" styleClass="label " text="Имя" textAlignment="CENTER" textFill="#808080" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="name_label" layoutX="72" layoutY="64" prefHeight="21" prefWidth="312" styleClass="label " text="Имя" textAlignment="CENTER" textFill="#808080" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-name_label" visible="1"/>
-    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_label" layoutX="392" layoutY="24" prefHeight="21" prefWidth="48" styleClass="label " text="Ранг" textAlignment="LEFT" textFill="#808080" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_label" layoutX="392" layoutY="64" prefHeight="21" prefWidth="48" styleClass="label " text="Ранг" textAlignment="LEFT" textFill="#808080" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-rank_label" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="pos_label" layoutX="32" layoutY="24" prefHeight="21" prefWidth="32" styleClass="label " text="##" textAlignment="CENTER" textFill="#808080" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="pos_label" layoutX="32" layoutY="64" prefHeight="21" prefWidth="32" styleClass="label " text="##" textAlignment="CENTER" textFill="#808080" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-pos_label" visible="1"/>
+    <FlatButton alignment="CENTER_LEFT" borderRadius="10" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" id="tab_button" layoutX="16" layoutY="16" prefHeight="40" prefWidth="440" styleClass="x-flat-button " text="tab_button" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="16"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/no_role.png" id="data-tab_button" visible="1"/>
+    <SpriteView animationEnabled="false" focusTraversable="false" height="40" id="pda_anims" layoutX="416" layoutY="16" styleClass="" width="32"/>
+    <Data animated="1" cursor="DEFAULT" enabled="1" id="data-pda_anims" sprite="ui_pda_anims_3" visible="1"/>
+    <FlatButton alignment="CENTER_LEFT" borderRadius="10" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="0" id="tab_detail" layoutX="480" layoutY="16" prefHeight="40" prefWidth="288" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="16"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/no_role.png" id="data-tab_detail" visible="1"/>
   </children>
 </AnchorPane>

@@ -35,9 +35,9 @@ class pda extends AbstractForm
         
         $this->Pda_Background->show();
             
-        $this->form('maingame')->Pda->content->Pda_Ranking->content->HideUserInfo();    
-        $this->form('maingame')->Pda->content->Pda_Tasks->content->ClearDetailTask();  
-        $this->form('maingame')->Pda->content->Pda_Contacts->content->HideCharacter();                 
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->HideUserInfo();
+        $this->form('maingame')->Pda->content->Pda_Tasks->content->ClearDetailTask();
+        $this->form('maingame')->Pda->content->Pda_Contacts->content->HideCharacter();
     } 
     /**
      * @event ranking_btn.click-Left 
