@@ -635,6 +635,7 @@ class maingame extends AbstractForm
         if ($this->Inventory->visible) return true;
         if ($this->Dialog->visible) return true;
         if ($this->Fail->visible) return true;
+        if ($this->ExitDialog->visible) return true;
         
         return false;
     }     
