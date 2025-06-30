@@ -20,8 +20,90 @@ class pda_fragment_ranking extends AbstractForm
         $GLOBALS['SelectedActor'] = false;
         $GLOBALS['SelectedEnemy'] = false;
         $GLOBALS['SelectedValera'] = false;
+        
+        $groups = [
+            'actor_in_raiting' => [
+                'actor_in_raiting_pos',
+                'actor_in_raiting_name',
+                'actor_in_raiting_rank'
+            ],
+            'valerok_in_raiting' => [
+                'valerok_in_raiting_pos',
+                'valerok_in_raiting_name',
+                'valerok_in_raiting_rank'
+            ],
+            'goblindav_in_raiting' => [
+                'goblindav_in_raiting_pos',
+                'goblindav_in_raiting_name',
+                'goblindav_in_raiting_rank'
+            ]
+        ];
+
+        $this->activeRatingGroup = null;
+
+        foreach ($groups as $groupName => $labels)
+        {
+            $group = $this->{$groupName};
+
+            $group->on("mouseEnter", function($e) use ($labels) {
+                foreach ($labels as $labelName)
+                {
+                    $label = $this->{$labelName};
+                    if ($label->textColor != "#cccccc")
+                    {
+                        $label->textColor = "#ffffff";
+                    }
+                }
+            });
+
+            $group->on("mouseExit", function($e) use ($labels) {
+                foreach ($labels as $labelName) {
+                    $label = $this->{$labelName};
+                    if ($label->textColor != "#cccccc")
+                    {    
+                        $label->textColor = "#999999";
+                    }
+                }
+            });
+
+            $group->on("mouseDown", function($e) use ($groupName) {
+                $this->activeRatingGroup = $groupName;
+            });
+        }
+
+        $this->on("mouseUp", function($e) use ($groups) {
+            if ($this->activeRatingGroup != null)
+            {
+                $groupName = $this->activeRatingGroup;
+                $group = $this->{$groupName};
+
+                if ($group->hover)
+                {
+                    $this->ResetBtnColor(); // вот здесь вызываем
+
+                    foreach ($groups[$groupName] as $labelName)
+                    {
+                        $this->{$labelName}->textColor = "#cccccc";
+                    }
+
+                    switch ($groupName)
+                    {
+                        case 'actor_in_raiting':
+                            $this->ActorInListBtn();
+                            break;
+                        case 'valerok_in_raiting':
+                            $this->ValerokInListBtn();
+                            break;
+                        case 'goblindav_in_raiting':
+                            $this->EnemyInListBtn();
+                            break;
+                    }
+                }
+
+                $this->activeRatingGroup = null;
+            }
+        });
     }
-    
     function UpdateData()
     {
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
@@ -117,48 +199,33 @@ class pda_fragment_ranking extends AbstractForm
      */
     function ActorInListBtn(UXMouseEvent $e = null)
     {    
-        $this->ResetBtnColor();
         $this->ResetUserInfo();
         $this->ShowUserInfo();
         
         $GLOBALS['SelectedActor'] = true;
         $this->SetUserInfo();
-        
-        $this->actor_in_raiting_pos->textColor = 'white';
-        $this->actor_in_raiting_name->textColor = 'white';
-        $this->actor_in_raiting_rank->textColor = 'white';
     }
     /**
      * @event valerok_in_raiting.click-Left 
      */
     function ValerokInListBtn(UXMouseEvent $e = null)
     {    
-        $this->ResetBtnColor();
         $this->ResetUserInfo();
         $this->ShowUserInfo();
         
         $GLOBALS['SelectedValera'] = true;
         $this->SetUserInfo();
-        
-        $this->valerok_in_raiting_pos->textColor = 'white';
-        $this->valerok_in_raiting_name->textColor = 'white';
-        $this->valerok_in_raiting_rank->textColor = 'white';
     }
     /**
      * @event goblindav_in_raiting.click-Left 
      */
     function EnemyInListBtn(UXMouseEvent $e = null)
     {    
-        $this->ResetBtnColor();
         $this->ResetUserInfo();
         $this->ShowUserInfo();
         
         $GLOBALS['SelectedEnemy'] = true;
         $this->SetUserInfo();
-        
-        $this->goblindav_in_raiting_pos->textColor = 'white';
-        $this->goblindav_in_raiting_name->textColor = 'white';
-        $this->goblindav_in_raiting_rank->textColor = 'white';
     }
     /**
      * @event user_icon.click-2x 

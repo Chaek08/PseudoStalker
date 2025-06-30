@@ -51,50 +51,26 @@
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-pda_label" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/pda_background_image.png" id="data-Pda_Background" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" id="data-tasks_btn" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" id="data-contacts_btn" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" id="data-ranking_btn" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" id="data-stat_btn" visible="1"/>
-    <Data cursor="DEFAULT" enabled="" graphic=".data/ui/pda/mainbtn_icon.png" id="data-tasks_label" visible="1"/>
-    <Data cursor="DEFAULT" enabled="" graphic=".data/ui/pda/mainbtn_icon.png" id="data-contacts_label" visible="1"/>
-    <Data cursor="DEFAULT" enabled="" graphic=".data/ui/pda/mainbtn_icon.png" id="data-ranks_label" visible="1"/>
-    <Data cursor="DEFAULT" enabled="" graphic=".data/ui/pda/mainbtn_icon.png" id="data-stat_label" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="tasks_btn" layoutX="416" layoutY="640" opacity="0.35365853658537" prefHeight="40" prefWidth="88" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="contacts_btn" layoutX="504" layoutY="640" opacity="0.35365853658537" prefHeight="40" prefWidth="96" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="ranking_btn" layoutX="600" layoutY="640" opacity="0.35365853658537" prefHeight="40" prefWidth="72" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#999999" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#666666" id="stat_btn" layoutX="672" layoutY="640" opacity="0.35365853658537" prefHeight="40" prefWidth="88" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </FlatButton>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="tasks_label" layoutX="432" layoutY="640" prefHeight="40" prefWidth="75" style="-fx-opacity: 1;;" styleClass="label " text="Задачи" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/mainbtn_icon.png" id="data-tasks_label" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/mainbtn_icon.png" id="data-contacts_label" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/mainbtn_icon.png" id="data-ranks_label" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/mainbtn_icon.png" id="data-stat_label" visible="1"/>
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="tasks_label" layoutX="432" layoutY="640" prefHeight="40" prefWidth="75" styleClass="label " text="Задачи" textAlignment="LEFT" textFill="#777778" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="stat_label" layoutX="680" layoutY="640" prefHeight="40" prefWidth="82" style="-fx-opacity: 1;" styleClass="label " text="Данные" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="stat_label" layoutX="680" layoutY="640" prefHeight="40" prefWidth="82" styleClass="label " text="Данные" textAlignment="LEFT" textFill="#777778" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="ranks_label" layoutX="608" layoutY="640" prefHeight="40" prefWidth="63" style="-fx-opacity: 1;" styleClass="label " text="Ранги" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="ranks_label" layoutX="608" layoutY="640" prefHeight="40" prefWidth="63" styleClass="label " text="Ранги" textAlignment="LEFT" textFill="#777778" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="contacts_label" layoutX="512" layoutY="640" prefHeight="40" prefWidth="88" style="-fx-opacity: 1;" styleClass="label " text="Контакты" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="contacts_label" layoutX="512" layoutY="640" prefHeight="40" prefWidth="88" styleClass="label " text="Контакты" textAlignment="LEFT" textFill="#777778" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>

@@ -75,7 +75,7 @@ class maingame extends AbstractForm
         $this->width = $targetW;
         $this->height = $targetH;
 
-        Timer::after(150, function () use ($targetW, $targetH)
+        Timer::after(300, function () use ($targetW, $targetH)
         {
             $clientW = $this->Environment_Background->width;
             $clientH = $this->Environment_Background->height;
@@ -797,6 +797,7 @@ class maingame extends AbstractForm
         
         if (!$this->Pda->visible) $this->ToggleHud();
         
+        $this->Pda->content->InitPDA();
         $this->Pda->show();
         if ($this->Pda->content->Pda_Statistic->visible && $this->pda_icon->visible) $this->pda_icon->hide();       
     }

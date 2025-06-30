@@ -29,7 +29,75 @@ class pda_fragment_tasks extends AbstractForm
     function InitTasks(UXWindowEvent $e = null)
     {
         $this->UpdateQuestTime();
+        
+        $buttons = [
+            'active_task',
+            'passive_task',
+            'failed_task'
+        ];
+
+        $this->activePressedTaskLabel = null;
+
+        foreach ($buttons as $btnName)
+        {
+            $label = $this->{$btnName};
+
+            $label->on("mouseEnter", function($e) use ($label) {
+                if ($label->textColor != "#d59b30")
+                {
+                    $label->textColor = "white";
+                }
+            });
+
+            $label->on("mouseExit", function($e) use ($label) {
+                if ($label->textColor != "#d59b30")
+                {
+                    $label->textColor = "#777778";
+                }
+            });
+
+            $label->on("mouseDown", function($e) use ($btnName) {
+                $this->activePressedTaskLabel = $btnName;
+            });
+        }
+
+        $this->on("mouseUp", function($e) use ($buttons) {
+            if ($this->activePressedTaskLabel != null)
+            {
+                $btnName = $this->activePressedTaskLabel;
+                $label = $this->{$btnName};
+
+                if ($label->hover)
+                {
+                    $this->ResetBtnColor();
+                    $label->textColor = "#d59b30";
+    
+                    switch ($btnName)
+                    {
+                        case 'active_task':
+                            $this->ShowActiveTasks();
+                            break;
+                        case 'passive_task':
+                            $this->ShowPassiveTasks();
+                            break;
+                        case 'failed_task':
+                            $this->ShowFailedTasks();
+                            break;
+                    }
+                }
+                else
+                {
+                    if ($label->textColor != "#d59b30")
+                    {
+                        $label->textColor = "#777778";
+                    }
+                }
+
+                $this->activePressedTaskLabel = null;
+            }
+        });        
     }
+      
     function UpdateData()
     {
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
@@ -99,9 +167,6 @@ class pda_fragment_tasks extends AbstractForm
      */
     function ShowActiveTasks(UXMouseEvent $e = null)
     {    
-        $this->ResetBtnColor();    
-        $this->active_task->textColor = "#b3b31a";
-        
         $GLOBALS['QuestCompleted'] ? $this->DeleteTask() : $this->AddTask();
     }
     /**
@@ -109,8 +174,6 @@ class pda_fragment_tasks extends AbstractForm
      */
     function ShowPassiveTasks(UXMouseEvent $e = null)
     {    
-        $this->ResetBtnColor();    
-        $this->passive_task->textColor = "#b3b31a";
         
         $GLOBALS['EnemyFailed'] ? $this->AddTask() : $this->DeleteTask();
     }
@@ -119,8 +182,6 @@ class pda_fragment_tasks extends AbstractForm
      */
     function ShowFailedTasks(UXMouseEvent $e = null)
     {    
-        $this->ResetBtnColor();
-        $this->failed_task->textColor = "#b3b31a";
         
         if ($GLOBALS['ActorFailed']) //актор проиграл
         {
@@ -134,9 +195,10 @@ class pda_fragment_tasks extends AbstractForm
     }
     function ResetBtnColor()
     {
-        $this->active_task->textColor = "white";
-        $this->passive_task->textColor = "white";   
-        $this->failed_task->textColor = "white";          
+        foreach (['active_task', 'passive_task', 'failed_task'] as $btn)
+        {
+            $this->{$btn}->textColor = "#777778";
+        }      
     }
     function AddTask()
     {
