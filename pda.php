@@ -147,20 +147,26 @@ class pda extends AbstractForm
         if (!$this->Pda_Tasks->visible) $this->DefaultState();
               
         $this->Pda_Tasks->content->UpdateData();
-        
-        $this->Pda_Tasks->content->ResetBtnColor();
-        $this->Pda_Tasks->content->active_task->textColor = '#d59b30';        
-        
+                
         if (!$GLOBALS['QuestCompleted']) 
         {
+            $this->Pda_Tasks->content->ResetBtnColor();
+            $this->Pda_Tasks->content->active_task->textColor = '#d59b30';
+            
             $this->Pda_Tasks->content->ShowActiveTasks();
         }
         if ($GLOBALS['QuestCompleted'] && $GLOBALS['ActorFailed'])
         {
+            $this->Pda_Tasks->content->ResetBtnColor();
+            $this->Pda_Tasks->content->failed_task->textColor = '#d59b30';
+        
             $this->Pda_Tasks->content->ShowFailedTasks();
         }
         if ($GLOBALS['QuestCompleted'] && $GLOBALS['EnemyFailed'])
         {
+            $this->Pda_Tasks->content->ResetBtnColor();
+            $this->Pda_Tasks->content->passive_task->textColor = '#d59b30';
+        
             $this->Pda_Tasks->content->ShowPassiveTasks();
         }        
         
