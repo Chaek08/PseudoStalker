@@ -66,19 +66,19 @@
         <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-active_task" tooltipText="" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-active_task" visible="1"/>
     <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="passive_task" layoutX="115" layoutY="424" prefHeight="56" prefWidth="104" styleClass="label " text="Выполненные" textAlignment="CENTER" textFill="#777778" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-passive_task" tooltipText="" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-passive_task" visible="1"/>
     <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="failed_task" layoutX="228" layoutY="424" prefHeight="56" prefWidth="104" styleClass="label " text="Проваленные" textAlignment="LEFT" textFill="#777778" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-failed_task" tooltipText="" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-failed_task" visible="1"/>
     <Separator focusTraversable="false" id="separator" layoutX="24" layoutY="416" opacity="0.15" orientation="HORIZONTAL" prefHeight="8" prefWidth="320" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="time_quest_hm" layoutX="200" layoutY="88" prefHeight="20" prefWidth="48" styleClass="label " text="00:16" textAlignment="LEFT" textFill="#8099ff" underline="false" wrapText="false">

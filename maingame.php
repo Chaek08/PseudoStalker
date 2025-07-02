@@ -20,7 +20,7 @@ class maingame extends AbstractForm
     private $localization;
     private $currentCycle = '';
     
-    private $BuildID = '';
+    public $BuildID = '';
     /**
      * @event show 
      */

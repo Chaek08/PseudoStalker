@@ -209,7 +209,7 @@ class console extends AbstractForm
                 case "version":
                         $this->edit->text = "";
                         global $BuildID;
-                        Element::appendText($this->Console_Log, "> PseudoStalker, " . VersionID . ", " . $BuildID . "\n");
+                        Element::appendText($this->Console_Log, "> PseudoStalker, " . VersionID . ", " . $this->form('maingame')->BuildID . "\n");
                         break;                       
                         
                 case "save":
