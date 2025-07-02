@@ -28,6 +28,8 @@ class pda extends AbstractForm
     
     function InitPDA()
     {
+        $this->time_year->watchMaker->format = 'dd/MM/yyyy';
+    
         $buttons = [
             'tasks_label',
             'contacts_label',
