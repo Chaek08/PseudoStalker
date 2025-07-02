@@ -790,9 +790,6 @@ class maingame extends AbstractForm
         $GLOBALS['discord']->setDetails($this->localization->get('RPC_MainMenu'));
         $GLOBALS['discord']->updateState();        
     }
-    /**
-     * @event keyDown-P 
-     */    
     function ShowPda()
     {
         if ($this->CheckVisibledFragments()) return;
@@ -801,8 +798,29 @@ class maingame extends AbstractForm
         
         $this->Pda->content->InitPDA();
         $this->Pda->show();
-        if ($this->Pda->content->Pda_Statistic->visible && $this->pda_icon->visible) $this->pda_icon->hide();       
+        
+        if ($this->Pda->content->Pda_Statistic->visible && $this->pda_icon->visible) $this->pda_icon->hide();          
     }
+    /**
+     * @event keyDown-P 
+     */    
+    function ShowPdaTasks()
+    {
+        $this->ShowPda();
+        $this->Pda->content->TasksBtn();
+        $this->Pda->content->UpdateBtnColor();
+        $this->Pda->content->tasks_label->textColor = '#d59b30';
+    }
+    /**
+     * @event keyDown-C 
+     */
+    function ShowPdaContacts(UXKeyEvent $e = null)
+    {    
+        $this->ShowPda();
+        $this->Pda->content->ContactsBtn();
+        $this->Pda->content->UpdateBtnColor();
+        $this->Pda->content->contacts_label->textColor = '#d59b30';
+    }    
     /**
      * @event keyDown-I 
      */
