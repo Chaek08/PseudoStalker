@@ -1429,16 +1429,6 @@ class maingame extends AbstractForm
         $GLOBALS['discord']->updateState();        
     }
     /**
-     * @event keyDown-Q 
-     */
-    function OpenConsole(UXKeyEvent $e = null)
-    {    
-        if ($this->Console->toggle()) 
-        {
-            $this->Console->visible;
-        }
-    }
-    /**
      * @event keyDown-F5 
      */
     function QuickSave(UXKeyEvent $e = null)
@@ -1651,5 +1641,12 @@ class maingame extends AbstractForm
 
         $this->ltx['vid_fullscreen'] = $this->fullScreen ? 'on' : 'off';
         $this->SaveUserLTX($this->ltx);
+    }
+    /**
+     * @event keyDown-Q 
+     */
+    function OpenConsole(UXKeyEvent $e = null)
+    {    
+        $this->Console->visible = !$this->Console->visible;
     }    
 }
