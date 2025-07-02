@@ -26,10 +26,14 @@ class pda extends AbstractForm
     public $SDK_PidoRoleColor = '';
     public $SDK_PidoRoleIcon = '';    
     
+    public function __construct() 
+    {
+        parent::__construct();
+    
+        $this->time_year->watchMaker->format = 'dd/MM/yyyy';
+    }
     function InitPDA()
     {
-        $this->time_year->watchMaker->format = 'dd/MM/yyyy';
-    
         $buttons = [
             'tasks_label',
             'contacts_label',
