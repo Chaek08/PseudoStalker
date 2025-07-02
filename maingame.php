@@ -395,6 +395,8 @@ class maingame extends AbstractForm
     
         $this->actor->y = $h - $this->actor->height - 96;
         $this->idle_static_actor->y = $h - $this->idle_static_actor->height - 96;
+        
+        $this->item_vodka_0000->y = $h - $this->item_vodka_0000->height - 106;
     }    
     function UpdateEnvironment()
     {
@@ -872,6 +874,8 @@ class maingame extends AbstractForm
         $this->ToggleHud();
         
         $this->Fail->show();
+        
+        if ($this->item_vodka_0000->visible) $this->item_vodka_0000->hide();
         if ($GLOBALS['ActorFailed']) $this->form('maingame')->enemy->hide();
         if ($GLOBALS['EnemyFailed']) $this->form('maingame')->actor->hide();
     }

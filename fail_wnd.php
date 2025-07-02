@@ -43,6 +43,7 @@ class fail_wnd extends AbstractForm
         $this->form('maingame')->ToggleHud();
         
         $this->form('maingame')->Fail->hide();
+        if (!$this->form('maingame')->Inventory->content->InventoryGrid->content->Inv_Vodka->visible || $this->form('maingame')->item_vodka_0000->opacity != 0) $this->form('maingame')->item_vodka_0000->show();
         if ($GLOBALS['ActorFailed']) $this->form('maingame')->enemy->show();
         if ($GLOBALS['EnemyFailed']) $this->form('maingame')->actor->show();
                    
