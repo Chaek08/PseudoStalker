@@ -6,7 +6,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="TOP" ellipsisString="..." focusTraversable="true" graphicTextGap="0" id="Pda_Background" layoutX="416" layoutY="160" opacity="0.95121951219512" prefHeight="472" prefWidth="768" styleClass="x-flat-button " text="Выберите пункт" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="13" color="#333333" contentDisplay="TOP" ellipsisString="..." focusTraversable="true" graphicTextGap="0" id="Pda_Background" layoutX="416" layoutY="160" opacity="0.95121951219512" prefHeight="472" prefWidth="768" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="35"/>
       </font>
@@ -26,7 +26,7 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-toolbar_frame_time" visible="1"/>
-    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="time_year" layoutX="1080" layoutY="640" prefHeight="40" prefWidth="88" styleClass="label " text="01.02.2023" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="time_year" layoutX="1080" layoutY="640" prefHeight="40" prefWidth="88" styleClass="label " text="01/02/2023" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>
@@ -50,7 +50,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-pda_label" visible="1"/>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/pda_background_image.png" id="data-Pda_Background" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-Pda_Background" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/mainbtn_icon.png" id="data-tasks_label" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/mainbtn_icon.png" id="data-contacts_label" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/mainbtn_icon.png" id="data-ranks_label" visible="1"/>

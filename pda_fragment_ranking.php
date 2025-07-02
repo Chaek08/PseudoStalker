@@ -232,7 +232,13 @@ class pda_fragment_ranking extends AbstractForm
      */
     function Redirect(UXMouseEvent $e = null)
     {    
-        if ($GLOBALS['SelectedActor']) $this->form('maingame')->Pda->content->StatisticBtn();
+        if ($GLOBALS['SelectedActor']) 
+        {
+            $this->form('maingame')->Pda->content->UpdateBtnColor();
+            $this->form('maingame')->Pda->content->stat_label->textColor = '#d59b30';
+            
+            $this->form('maingame')->Pda->content->StatisticBtn(); 
+        }
         if ($this->form('maingame')->Pda->content->Pda_Contacts->content->icon->visible)
         {
             if ($GLOBALS['EnemyFailed'])
@@ -241,6 +247,9 @@ class pda_fragment_ranking extends AbstractForm
             }
             if ($GLOBALS['SelectedEnemy'])
             {
+                $this->form('maingame')->Pda->content->UpdateBtnColor();
+                $this->form('maingame')->Pda->content->contacts_label->textColor = '#d59b30';
+            
                 $this->form('maingame')->Pda->content->ContactsBtn();
                 $this->form('maingame')->Pda->content->Pda_Contacts->content->CharacterClick(); 
             }                     

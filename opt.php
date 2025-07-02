@@ -577,7 +577,7 @@ class opt extends AbstractForm
         $this->form('maingame')->Inventory->content->InventoryGrid->content->Combobox_Use->text = $this->localization->get('Use_Label');
         $this->form('maingame')->Inventory->content->maket_cond_label->text = $this->localization->get('Condition_Label');
 
-        $this->form('maingame')->Pda->content->Pda_Background->text = $this->localization->get('ChooseOption_Label');
+        //$this->form('maingame')->Pda->content->Pda_Background->text = $this->localization->get('ChooseOption_Label');
         $this->form('maingame')->Pda->content->tasks_label->text = $this->localization->get('Tasks_Label');
         $this->form('maingame')->Pda->content->contacts_label->text = $this->localization->get('Contacts_Label');
         $this->form('maingame')->Pda->content->ranks_label->text = $this->localization->get('Ranks_Label');

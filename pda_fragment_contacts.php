@@ -42,11 +42,12 @@ class pda_fragment_contacts extends AbstractForm
      */
     function RedirectRaiting(UXMouseEvent $e = null)
     {    
+        $this->form('maingame')->Pda->content->UpdateBtnColor();
+        $this->form('maingame')->Pda->content->ranks_label->textColor = '#d59b30';    
+    
         $this->form('maingame')->Pda->content->RankingBtn();
         $this->form('maingame')->Pda->content->Pda_Ranking->content->EnemyInListBtn();        
-    }    
-
-    
+    }
     function setCharacterSelected($selected)
     {
         $this->selected_new->opacity = $selected ? 0.35 : 0;
