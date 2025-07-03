@@ -704,8 +704,7 @@ class maingame extends AbstractForm
         {
             if ($this->MainMenu->content->Options->visible)
             {
-                $this->MainMenu->content->Options->content->ReturnBtn_MouseDownLeft();
-                $this->MainMenu->content->Options->content->ReturnBtn_MouseExit();
+                $this->MainMenu->content->Options->content->ReturnBtn();
                 return;
             }
             if ($this->MainMenu->content->UISaveWnd->visible)
@@ -733,8 +732,7 @@ class maingame extends AbstractForm
                 $this->ExitDialog->hide();
                 return;
             }            
-            $this->MainMenu->content->BtnStartGame_MouseDownLeft();
-            $this->MainMenu->content->BtnStartGame_MouseExit();
+            $this->MainMenu->content->BtnStartGame();
             return;
         }
         if ($this->Fail->visible)
@@ -1529,23 +1527,8 @@ class maingame extends AbstractForm
         $originalX = $console->x;
         $originalY = $console->y;
 
-        if ($console->x < 0)
-        {
-            $console->x = 0;
-        }
-        elseif ($console->x + $console->width > $formWidth)
-        {
-            $console->x = $formWidth - $console->width;
-        }
-
-        if ($console->y < 0)
-        {
-            $console->y = 0;
-        }
-        elseif ($console->y + $console->height > $formHeight)
-        {
-            $console->y = $formHeight - $console->height;
-        }
+        $console->x = max(0, min($console->x, $formWidth - $console->width));
+        $console->y = max(0, min($console->y, $formHeight - $console->height));
 
         UXApplication::runLater(function () use ($form, $console, $originalX, $originalY)
         {

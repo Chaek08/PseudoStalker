@@ -22,12 +22,10 @@ class opt extends AbstractForm
     function InitOptions()
     {   
         $GLOBALS['ShadowsSwitcher_IsOn'] = ($this->form('maingame')->ltx['r_shadows'] ?? 'off') !== 'on';
-        $this->ShadowsSwitcher_MouseDownLeft();
-        $this->ShadowsSwitcher_MouseExit();
+        $this->ShadowsSwitcher();
 
         $GLOBALS['VersionSwitcher_IsOn'] = ($this->form('maingame')->ltx['r_version'] ?? 'off') !== 'on';
-        $this->VersionSwitcher_MouseDownLeft();
-        $this->VersionSwitcher_MouseExit();
+        $this->VersionSwitcher();
         
         $GLOBALS['AllSoundSwitcher_IsOn'] = true;
         $GLOBALS['MenuSoundSwitcher_IsOn'] = true;
@@ -35,93 +33,50 @@ class opt extends AbstractForm
                           
         if (!$GLOBALS['AllSounds'])
         {
-            $this->AllSoundSwitcher_MouseDownLeft();
-            $this->AllSoundSwitcher_MouseExit();
+            $this->AllSoundSwitcher();
             
             return;
         }
         if (!$GLOBALS['MenuSound'])
         {
-            $this->MenuSoundSwitcher_MouseDownLeft();
-            $this->MenuSoundSwitcher_MouseExit();
+            $this->MenuSoundSwitcher();
         }
         if (!$GLOBALS['FightSound'])
         {
-            $this->FightSoundSwitcher_MouseDownLeft();
-            $this->FightSoundSwitcher_MouseExit();
+            $this->FightSoundSwitcher();
         }
                
         $this->Language_Switcher_Combobobx->value =
             ($this->form('maingame')->ltx['language'] == 'rus') ? 'Русский' : 'English';           
     }
     /**
-     * @event Return_Btn.mouseExit 
-     */
-    function ReturnBtn_MouseExit(UXMouseEvent $e = null)
-    {
-        $this->Return_Btn->textColor = '#ffffff';
-    }
-    /**
-     * @event Return_Btn.mouseEnter 
-     */
-    function ReturnBtn_MouseEnter(UXMouseEvent $e = null)
-    {
-        $this->Return_Btn->textColor = '#b3b3b3';
-    }
-    /**
      * @event Return_Btn.mouseDown-Left 
      */
-    function ReturnBtn_MouseDownLeft(UXMouseEvent $e = null)
+    function ReturnBtn(UXMouseEvent $e = null)
     {
-        $this->Return_Btn->textColor = '#808080';
-        
         $this->form('maingame')->MainMenu->content->dynamic_background->toBack();
         $this->form('maingame')->MainMenu->content->Options->hide();
     }
     /**
-     * @event Return_Btn.mouseUp-Left 
-     */
-    function ReturnBtn_MouseUpLeft(UXMouseEvent $e = null)
-    {
-        $this->ReturnBtn_MouseExit();
-    }
-    /**
-     * @event AllSound_Switcher_Btn.mouseExit 
-     */
-    function AllSoundSwitcher_MouseExit(UXMouseEvent $e = null)
-    {
-        $this->AllSound_Switcher_Btn->textColor = ($GLOBALS['AllSoundSwitcher_IsOn'] == false) ? '#d60d1b' : '#0dd60d';
-    }
-    /**
-     * @event AllSound_Switcher_Btn.mouseEnter 
-     */
-    function AllSoundSwitcher_MouseEnter(UXMouseEvent $e = null)
-    {
-        $this->AllSound_Switcher_Btn->textColor = ($GLOBALS['AllSoundSwitcher_IsOn'] == false) ? '#b50b17' : '#0bb30b';
-        
-    }
-    /**
      * @event AllSound_Switcher_Btn.mouseDown-Left 
      */
-    function AllSoundSwitcher_MouseDownLeft(UXMouseEvent $e = null)
+    function AllSoundSwitcher(UXMouseEvent $e = null)
     {
         if ($GLOBALS['AllSoundSwitcher_IsOn'])
         {
             $GLOBALS['AllSoundSwitcher_IsOn'] = false;       
             $this->AllSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
-            $this->AllSound_Switcher_Btn->textColor = '#880911';
+            $this->AllSound_Switcher_Btn->classesString = 'switch-off';
             
             $GLOBALS['AllSounds'] = false;
         
             if ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
             {
-                $this->MenuSoundSwitcher_MouseDownLeft();
-                $this->MenuSoundSwitcher_MouseExit();
+                $this->MenuSoundSwitcher();
             }
             if ($this->FightSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
             {
-                $this->FightSoundSwitcher_MouseDownLeft();
-                $this->FightSoundSwitcher_MouseExit();
+                $this->FightSoundSwitcher();
             }
             
             $this->form('maingame')->StopAllSounds();
@@ -131,57 +86,33 @@ class opt extends AbstractForm
         else 
         {
             $this->AllSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
-            $this->AllSound_Switcher_Btn->textColor = '#099209';
+            $this->AllSound_Switcher_Btn->classesString = 'switch-on';
             $GLOBALS['AllSoundSwitcher_IsOn'] = true;
         
             $GLOBALS['AllSounds'] = true;
         
             if ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label')) 
             {
-                $this->MenuSoundSwitcher_MouseDownLeft();
-                $this->MenuSoundSwitcher_MouseExit();
+                $this->MenuSoundSwitcher();
             }
             if ($this->FightSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label'))
             {
-                $this->FightSoundSwitcher_MouseDownLeft();
-                $this->FightSoundSwitcher_MouseExit();
+                $this->FightSoundSwitcher();
             } 
             
             return;
         }
     }
     /**
-     * @event AllSound_Switcher_Btn.mouseUp-Left 
-     */
-    function AllSoundSwitcher_MouseUpLeft(UXMouseEvent $e = null)
-    {
-        $this->AllSoundSwitcher_MouseExit();
-        $this->AllSoundSwitcher_MouseEnter();
-    }
-    /**
-     * @event MenuSound_Switcher_Btn.mouseExit 
-     */
-    function MenuSoundSwitcher_MouseExit(UXMouseEvent $e = null)
-    {
-        $this->MenuSound_Switcher_Btn->textColor = ($GLOBALS['MenuSoundSwitcher_IsOn'] == false) ? '#d60d1b' : '#0dd60d';
-    }
-    /**
-     * @event MenuSound_Switcher_Btn.mouseEnter 
-     */
-    function MenuSoundSwitcher_MouseEnter(UXMouseEvent $e = null)
-    {
-        $this->MenuSound_Switcher_Btn->textColor = ($GLOBALS['MenuSoundSwitcher_IsOn'] == false) ? '#b50b17' : '#0bb30b';
-    }
-    /**
      * @event MenuSound_Switcher_Btn.mouseDown-Left 
      */
-    function MenuSoundSwitcher_MouseDownLeft(UXMouseEvent $e = null)
+    function MenuSoundSwitcher(UXMouseEvent $e = null)
     {
         if ($GLOBALS['MenuSoundSwitcher_IsOn'])
         {
             $GLOBALS['MenuSoundSwitcher_IsOn'] = false;
             $this->MenuSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
-            $this->MenuSound_Switcher_Btn->textColor = '#880911';
+            $this->MenuSound_Switcher_Btn->classesString = 'switch-off';
             
             $GLOBALS['MenuSound'] = false;
             Media::stop($this->form('maingame')->MainMenu->content->MenuSound);
@@ -192,7 +123,7 @@ class opt extends AbstractForm
         {
             $GLOBALS['MenuSoundSwitcher_IsOn'] = true;
             $this->MenuSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
-            $this->MenuSound_Switcher_Btn->textColor = '#099209';
+            $this->MenuSound_Switcher_Btn->classesString = 'switch-on';
             
             $GLOBALS['MenuSound'] = true;
             Media::play($this->form('maingame')->MainMenu->content->MenuSound);
@@ -201,40 +132,15 @@ class opt extends AbstractForm
         }
     }
     /**
-     * @event MenuSound_Switcher_Btn.mouseUp-Left 
-     */
-    function MenuSoundSwitcher_MouseUpLeft(UXMouseEvent $e = null)
-    {
-        $this->MenuSoundSwitcher_MouseExit();
-        $this->MenuSoundSwitcher_MouseEnter();
-    }
-
-    /**
-     * @event FightSound_Switcher_Btn.mouseExit 
-     */
-    function FightSoundSwitcher_MouseExit(UXMouseEvent $e = null)
-    {
-        $this->FightSound_Switcher_Btn->textColor = ($GLOBALS['FightSoundSwitcher_IsOn'] == false) ? '#d60d1b' : '#0dd60d';
-    }
-
-    /**
-     * @event FightSound_Switcher_Btn.mouseEnter 
-     */
-    function FightSoundSwitcher_MouseEnter(UXMouseEvent $e = null)
-    {
-        $this->FightSound_Switcher_Btn->textColor = ($GLOBALS['FightSoundSwitcher_IsOn'] == false) ? '#b50b17' : '#0bb30b';
-    }
-
-    /**
      * @event FightSound_Switcher_Btn.mouseDown-Left 
      */
-    function FightSoundSwitcher_MouseDownLeft(UXMouseEvent $e = null)
+    function FightSoundSwitcher(UXMouseEvent $e = null)
     {
         if ($GLOBALS['FightSoundSwitcher_IsOn'])
         {
             $GLOBALS['FightSoundSwitcher_IsOn'] = false;
             $this->FightSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
-            $this->FightSound_Switcher_Btn->textColor = '#880911';
+            $this->FightSound_Switcher_Btn->classesString = 'switch-off';
             
             $GLOBALS['FightSound'] = false;
             
@@ -244,7 +150,7 @@ class opt extends AbstractForm
         {
             $GLOBALS['FightSoundSwitcher_IsOn'] = true;
             $this->FightSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
-            $this->FightSound_Switcher_Btn->textColor = '#099209';
+            $this->FightSound_Switcher_Btn->classesString = 'switch-on';
             
             $GLOBALS['FightSound'] = true;
             
@@ -252,31 +158,9 @@ class opt extends AbstractForm
         }
     }
     /**
-     * @event FightSound_Switcher_Btn.mouseUp-Left 
-     */
-    function FightSoundSwitcher_MouseUpLeft(UXMouseEvent $e = null)
-    {
-        $this->FightSoundSwitcher_MouseExit();
-        $this->FightSoundSwitcher_MouseEnter();
-    }
-    /**
-     * @event Shadows_Switcher_Btn.mouseExit 
-     */
-    function ShadowsSwitcher_MouseExit(UXMouseEvent $e = null)
-    {
-        $this->Shadows_Switcher_Btn->textColor = ($GLOBALS['ShadowsSwitcher_IsOn'] == false) ? '#d60d1b' : '#0dd60d';
-    }
-    /**
-     * @event Shadows_Switcher_Btn.mouseEnter 
-     */
-    function ShadowsSwitcher_MouseEnter(UXMouseEvent $e = null)
-    {
-        $this->Shadows_Switcher_Btn->textColor = ($GLOBALS['ShadowsSwitcher_IsOn'] == false) ? '#b50b17' : '#0bb30b';
-    }
-    /**
      * @event Shadows_Switcher_Btn.mouseDown-Left 
      */
-    function ShadowsSwitcher_MouseDownLeft(UXMouseEvent $e = null)
+    function ShadowsSwitcher(UXMouseEvent $e = null)
     {
         if ($GLOBALS['ShadowsSwitcher_IsOn'])
         {
@@ -287,7 +171,7 @@ class opt extends AbstractForm
                 $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
             }
             $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
-            $this->Shadows_Switcher_Btn->textColor = '#880911';
+            $this->Shadows_Switcher_Btn->classesString = 'switch-off';
             
             //maingame
             $this->form('maingame')->item_vodka_0000->dropShadowEffect->disable();   
@@ -361,7 +245,7 @@ class opt extends AbstractForm
                 $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
             }
             $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
-            $this->Shadows_Switcher_Btn->textColor = '#099209';
+            $this->Shadows_Switcher_Btn->classesString = 'switch-on';
             
             //maingame
             $this->form('maingame')->item_vodka_0000->dropShadowEffect->enable();
@@ -428,31 +312,9 @@ class opt extends AbstractForm
         }      
     }
     /**
-     * @event Shadows_Switcher_Btn.mouseUp-Left 
-     */
-    function ShadowsSwitcher_MouseUpLeft(UXMouseEvent $e = null)
-    {
-        $this->ShadowsSwitcher_MouseExit();
-        $this->ShadowsSwitcher_MouseEnter();
-    }
-    /**
-     * @event Version_Switcher_Btn.mouseExit 
-     */
-    function VersionSwitcher_MouseExit(UXMouseEvent $e = null)
-    {
-        $this->Version_Switcher_Btn->textColor = ($GLOBALS['VersionSwitcher_IsOn'] == false) ? 'd60d1b' : '#0dd60d';
-    }
-    /**
-     * @event Version_Switcher_Btn.mouseEnter 
-     */
-    function VersionSwitcher_MouseEnter(UXMouseEvent $e = null)
-    {
-        $this->Version_Switcher_Btn->textColor = ($GLOBALS['VersionSwitcher_IsOn'] == false) ? '#b50b17' : '#0bb30b';
-    }
-    /**
      * @event Version_Switcher_Btn.mouseDown-Left 
      */
-    function VersionSwitcher_MouseDownLeft(UXMouseEvent $e = null)
+    function VersionSwitcher(UXMouseEvent $e = null)
     {
         if ($GLOBALS['VersionSwitcher_IsOn'])
         {
@@ -463,7 +325,7 @@ class opt extends AbstractForm
                 $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
             }
             $this->Version_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
-            $this->Version_Switcher_Btn->textColor = '#880911';
+            $this->Version_Switcher_Btn->classesString = 'switch-off';
             
             if (Debug_Build)
             {
@@ -487,7 +349,7 @@ class opt extends AbstractForm
                 $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
             }         
             $this->Version_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
-            $this->Version_Switcher_Btn->textColor = '#099209';         
+            $this->Version_Switcher_Btn->classesString = 'switch-on';         
             
             if (Debug_Build)
             {
@@ -502,14 +364,6 @@ class opt extends AbstractForm
            
             return;
         }
-    }
-    /**
-     * @event Version_Switcher_Btn.mouseUp-Left 
-     */
-    function VersionSwitcher_MouseUpLeft(UXMouseEvent $e = null)
-    {
-        $this->VersionSwitcher_MouseExit();
-        $this->VersionSwitcher_MouseEnter();
     } 
     /**
      * @event Language_Switcher_Combobobx.action 
@@ -533,6 +387,7 @@ class opt extends AbstractForm
             $this->UpdateLocalization();
         });
     }
+
     function UpdateLocalization()
     {
         $this->Return_Btn->text = $this->localization->get('Return_Btn');

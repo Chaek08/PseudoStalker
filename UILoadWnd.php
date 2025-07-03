@@ -266,8 +266,7 @@ class UILoadWnd extends AbstractForm
         $this->form('maingame')->ResetGameClient(function () use ($saveData, $saveName)
         {        
             $this->form('maingame')->MainMenu->content->UILoadWnd->content->ReturnBtn();
-            $this->form('maingame')->MainMenu->content->BtnStartGame_MouseDownLeft();
-            $this->form('maingame')->MainMenu->content->BtnStartGame_MouseExit();
+            $this->form('maingame')->MainMenu->content->BtnStartGame();
             if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = false;
         
             $this->form('maingame')->Pda->content->Pda_Tasks->content->UpdateData();    

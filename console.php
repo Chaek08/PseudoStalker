@@ -95,8 +95,7 @@ class console extends AbstractForm
 
                                 $btn = $this->form('maingame')->MainMenu->content->Options->content->Version_Switcher_Btn;
                                 if (($args[1] == "off" && $btn->text == $this->localization->get('TurnOn_Label')) || ($args[1] == "on" && $btn->text == $this->localization->get('TurnOff_Label'))) {
-                                        $this->form('maingame')->MainMenu->content->Options->content->VersionSwitcher_MouseDownLeft();
-                                        $this->form('maingame')->MainMenu->content->Options->content->VersionSwitcher_MouseExit();
+                                        $this->form('maingame')->MainMenu->content->Options->content->VersionSwitcher();
                                 }
                         }
                         break;
@@ -187,8 +186,7 @@ class console extends AbstractForm
 
                                 $btn = $this->form('maingame')->MainMenu->content->Options->content->Shadows_Switcher_Btn;
                                 if (($args[1] === "on" && $btn->text == $this->localization->get('TurnOff_Label')) || ($args[1] == "off" && $btn->text == $this->localization->get('TurnOn_Label'))) {
-                                        $this->form('maingame')->MainMenu->content->Options->content->ShadowsSwitcher_MouseDownLeft();
-                                        $this->form('maingame')->MainMenu->content->Options->content->ShadowsSwitcher_MouseExit();
+                                        $this->form('maingame')->MainMenu->content->Options->content->ShadowsSwitcher();
                                 }
                         }
                         break;
@@ -200,8 +198,7 @@ class console extends AbstractForm
 
                                 $btn = $this->form('maingame')->MainMenu->content->Options->content->AllSound_Switcher_Btn;
                                 if (($args[1] === "off" && $btn->text == $this->localization->get('TurnOn_Label')) || ($args[1] === "on" && $btn->text == $this->localization->get('TurnOff_Label'))) {
-                                        $this->form('maingame')->MainMenu->content->Options->content->AllSoundSwitcher_MouseDownLeft();
-                                        $this->form('maingame')->MainMenu->content->Options->content->AllSoundSwitcher_MouseExit();
+                                        $this->form('maingame')->MainMenu->content->Options->content->AllSoundSwitcher();
                                 }
                         }
                         break;

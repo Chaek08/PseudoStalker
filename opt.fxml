@@ -31,37 +31,37 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Version_Label" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Return_Btn" layoutX="80" layoutY="48" prefHeight="73" prefWidth="480" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Return_Btn" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Return_Btn" layoutX="80" layoutY="48" prefHeight="73" prefWidth="480" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label, mainmenu-btn " text="Return_Btn" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="50"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Return_Btn" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="AllSound_Switcher_Btn" layoutX="408" layoutY="216" prefHeight="74" prefWidth="184" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="AllSound_Switcher_Btn" layoutX="408" layoutY="216" prefHeight="74" prefWidth="184" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label, switch-on " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="50"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-AllSound_Switcher_Btn" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="MenuSound_Switcher_Btn" layoutX="408" layoutY="296" prefHeight="74" prefWidth="184" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="MenuSound_Switcher_Btn" layoutX="408" layoutY="296" prefHeight="74" prefWidth="184" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label, switch-on " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="50"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-MenuSound_Switcher_Btn" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="FightSound_Switcher_Btn" layoutX="408" layoutY="376" prefHeight="74" prefWidth="184" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="FightSound_Switcher_Btn" layoutX="408" layoutY="376" prefHeight="74" prefWidth="184" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label, switch-on " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="50"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-FightSound_Switcher_Btn" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Shadows_Switcher_Btn" layoutX="408" layoutY="456" prefHeight="74" prefWidth="184" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Shadows_Switcher_Btn" layoutX="408" layoutY="456" prefHeight="74" prefWidth="184" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label, switch-on " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="50"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Shadows_Switcher_Btn" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Version_Switcher_Btn" layoutX="408" layoutY="544" prefHeight="56" prefWidth="184" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Version_Switcher_Btn" layoutX="408" layoutY="544" prefHeight="56" prefWidth="184" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label, switch-on " text="Вкл" textAlignment="CENTER" textFill="#0dd60d" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="50"/>
       </font>

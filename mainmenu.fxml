@@ -25,25 +25,25 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-version_detail" visible=""/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Start_Game" layoutX="144" layoutY="352" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Новая игра" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Start_Game" layoutX="144" layoutY="352" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label, mainmenu-btn " text="Новая игра" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="35"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Btn_Start_Game" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_End_Game" layoutX="144" layoutY="640" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Завершить игру" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_End_Game" layoutX="144" layoutY="640" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label, mainmenu-btn " text="Завершить игру" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="35"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Btn_End_Game" visible=""/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Exit_Windows" layoutX="144" layoutY="568" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Выйти в Windows" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Exit_Windows" layoutX="144" layoutY="568" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label, mainmenu-btn " text="Выйти в Windows" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="35"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Btn_Exit_Windows" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Opt" layoutX="144" layoutY="496" prefHeight="49" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Опции" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Opt" layoutX="144" layoutY="496" prefHeight="49" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label, mainmenu-btn " text="Опции" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="35"/>
       </font>
@@ -51,7 +51,7 @@
     <Data cursor="DEFAULT" enabled="1" id="data-Btn_Opt" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-dynamic_background" visible="1"/>
     <Data content="opt" cursor="DEFAULT" enabled="1" id="data-Options" visible=""/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Save_Game" layoutX="144" layoutY="496" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Сохранить игру" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Save_Game" layoutX="144" layoutY="496" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label, mainmenu-btn " text="Сохранить игру" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="35"/>
       </font>
@@ -59,7 +59,7 @@
     <Data cursor="DEFAULT" enabled="1" id="data-Btn_Save_Game" visible=""/>
     <Data content="UISaveWnd" cursor="DEFAULT" enabled="1" id="data-UISaveWnd" visible=""/>
     <Data content="UILoadWnd" cursor="DEFAULT" enabled="1" id="data-UILoadWnd" visible=""/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Load_Game" layoutX="144" layoutY="424" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label " text="Загрузить игру" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="Btn_Load_Game" layoutX="144" layoutY="424" prefHeight="48" prefWidth="257" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 35" styleClass="label, mainmenu-btn " text="Загрузить игру" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="35"/>
       </font>
