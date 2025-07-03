@@ -44,9 +44,10 @@ class dialog extends AbstractForm
         $de_role_color = trim($this->form('maingame')->Pda->content->SDK_DeRoleColor);
         $de_role_icon = trim($this->form('maingame')->Pda->content->SDK_DeRoleIcon);
         
+        
         $this->community_enemy->text = $pido_role_name != '' ? $pido_role_name : $this->localization->get('Community_Pido');
 
-        $pidoIcon = $pido_role_icon != '' ? $pido_role_icon : 'res://.data/ui/dialog/dialog_wnd/pidoras_roleicon.png';
+        $pidoIcon = $pido_role_icon != '' ? $pido_role_icon : 'res://.data/ui/dialog/pidoras_role.png';
         $this->community_enemy->graphic = new UXImageView(new UXImage($pidoIcon));
         $this->alex_label_1->graphic = new UXImageView(new UXImage($pidoIcon));
         $this->alex_label_2->graphic = new UXImageView(new UXImage($pidoIcon));
@@ -61,7 +62,7 @@ class dialog extends AbstractForm
 
         $this->community_actor->text = $de_role_name != '' ? $de_role_name : $this->localization->get('DE_Community');
 
-        $deIcon = $de_role_icon != '' ? $de_role_icon : 'res://.data/ui/dialog/dialog_wnd/danila_emoji_roleicon.png';
+        $deIcon = $de_role_icon != '' ? $de_role_icon : 'res://.data/ui/dialog/danila_emoji_role.png';
         $this->community_actor->graphic = new UXImageView(new UXImage($deIcon));
         $this->actor_label_1->graphic = new UXImageView(new UXImage($deIcon));
         $this->actor_label_3->graphic = new UXImageView(new UXImage($deIcon));
@@ -116,7 +117,24 @@ class dialog extends AbstractForm
         $this->actor_desc_1->text = $actor_desc_1 != '' ? $actor_desc_1 : $this->localization->get('Dialog_Actor_Desc1');
         $this->alex_desc_2->text = $alex_desc_2 != '' ? $alex_desc_2 : $this->localization->get('Dialog_Goblin_Desc2');
         $this->actor_desc_3->text = $actor_desc_3 != '' ? $actor_desc_3 : $this->localization->get('Dialog_Actor_Desc3');
-        $this->alex_desc_3->text = $alex_desc_3 != '' ? $alex_desc_3 : $this->localization->get('Dialog_Goblin_Desc3');    
+        $this->alex_desc_3->text = $alex_desc_3 != '' ? $alex_desc_3 : $this->localization->get('Dialog_Goblin_Desc3');
+        
+        $scale_map = [
+            16 => [$this->community_actor, $this->community_enemy],
+            24 => [
+                $this->alex_label_1, $this->alex_label_2, $this->alex_label_3,
+                $this->actor_label_1, $this->actor_label_3, $this->answer_name
+            ]
+        ];
+
+        foreach ($scale_map as $size => $elements)
+        {
+            foreach ($elements as $el)
+            {
+                $g = $el->graphic;
+                $g->width = $g->height = $size;
+            }
+        }       
     }
     private function playVoice($fileName, $mediaId)
     {

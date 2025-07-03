@@ -35,7 +35,9 @@ class pda_fragment_contacts extends AbstractForm
         
         $this->community->text = $role_name != '' ? $role_name : $this->localization->get('Community_Pido');
         $this->community->graphic = new UXImageView(new UXImage($role_icon != '' ? $role_icon : 'res://.data/ui/dialog/dialog_wnd/pidoras_roleicon.png'));
-        $this->community->textColor = $role_color != '' ? $role_color : '#16a4cd';        
+        $this->community->textColor = $role_color != '' ? $role_color : '#16a4cd';
+        
+        ($g = $this->community->graphic)->width = ($g->height = 16);
     }    
     /**
      * @event selected_new.click-2x 

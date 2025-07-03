@@ -45,7 +45,7 @@
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-community" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/no_role.png" id="data-community" visible=""/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="relationship" layoutX="624" layoutY="160" prefHeight="21" prefWidth="152" styleClass="label " text="-" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>

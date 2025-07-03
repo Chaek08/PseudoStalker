@@ -115,6 +115,8 @@ class pda_fragment_ranking extends AbstractForm
         $this->actor_in_raiting_name->text = $actor_in_raiting != '' ? $actor_in_raiting : $this->localization->get('GG_Name');
         $this->goblindav_in_raiting_name->text = $enemy_in_raiting != '' ? $enemy_in_raiting : $this->localization->get('Enemy_Name');
         $this->valerok_in_raiting_name->text = $valerok_in_raiting != '' ? $valerok_in_raiting : $this->localization->get('Ranking_Valerok');
+        
+        ($g = $this->community->graphic)->width = ($g->height = 16);
     }
     
     function ResetUserInfo()
@@ -272,6 +274,8 @@ class pda_fragment_ranking extends AbstractForm
             ? new UXImageView(new UXImage($icon))
             : new UXImageView(new UXImage('res://.data/ui/dialog/ladcega_role.png'));
         $this->community->textColor = $color !== '' ? $color : '#e64d4d';
+        
+        ($g = $this->community->graphic)->width = ($g->height = 16);
     }    
     function DanilaEmojiRole()
     {
@@ -284,6 +288,8 @@ class pda_fragment_ranking extends AbstractForm
             ? new UXImageView(new UXImage($icon))
             : new UXImageView(new UXImage('res://.data/ui/dialog/danila_emoji_role.png'));
         $this->community->textColor = $color !== '' ? $color : '#cc8033';
+        
+        ($g = $this->community->graphic)->width = ($g->height = 16);
     }
     function PidorasRole()
     {
@@ -295,7 +301,9 @@ class pda_fragment_ranking extends AbstractForm
         $this->community->graphic = $icon !== ''
             ? new UXImageView(new UXImage($icon))
             : new UXImageView(new UXImage('res://.data/ui/dialog/pidoras_role.png'));
-        $this->community->textColor = $color !== '' ? $color : '#16a4cd';    
+        $this->community->textColor = $color !== '' ? $color : '#16a4cd';
+        
+        ($g = $this->community->graphic)->width = ($g->height = 16);
     }
     function SetUserInfo()
     {

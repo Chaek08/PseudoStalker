@@ -36,6 +36,8 @@ class pda_fragments_stat extends AbstractForm
         $this->community->text = $role_name != '' ? $role_name : $this->localization->get('DE_Community');
         $this->community->graphic = new UXImageView(new UXImage($role_icon != '' ? $role_icon : 'res://.data/ui/dialog/danila_emoji_role.png'));
         $this->community->textColor = $role_color != '' ? $role_color : '#cc8033';
+        
+        ($g = $this->community->graphic)->width = ($g->height = 16);
     }
     /**
      * @event show 
