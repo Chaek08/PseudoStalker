@@ -5,10 +5,13 @@ use php\gui\UXImageView;
 use php\gui\UXImage;
 use std, gui, framework, app;
 use app\forms\classes\Localization;
+use php\gui\event\UXMouseEvent; 
 
 class dialog extends AbstractForm
 {
     private $localization;
+    
+    public $answerStep = 0;    
     
     public $SDK_VoiceStart = '';
     public $SDK_VoiceTalk1 = '';
@@ -214,10 +217,31 @@ class dialog extends AbstractForm
             $this->playVoice("voice_talk3", "voice_talk3");
         }   
     }    
+    
     /**
-     * @event answer_1_new.click-Left 
+     * @event answer_desc.click-Left 
      */
-    function Talk_1(UXMouseEvent $e = null)
+    function EnterAnswer(UXMouseEvent $e = null)
+    {    
+        $this->answerStep++;
+
+        if ($this->answerStep == 1)
+        {
+            $this->Talk_1($e);
+        }
+        elseif ($this->answerStep == 2)
+        {
+            $this->Talk_2($e);
+        }
+        elseif ($this->answerStep == 3)
+        {
+            $this->Talk_3($e);
+            
+            $this->answerStep = 0;
+        }        
+    }    
+
+    function Talk_1()
     {    
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
@@ -242,15 +266,10 @@ class dialog extends AbstractForm
         $this->actor_desc_1->show();
         $this->actor_label_1->show();
         $this->alex_desc_2->show();
-        $this->alex_label_2->show();
-        
-        $this->ResetAnswerVisible();          
-        $this->answer_2_new->show();     
+        $this->alex_label_2->show();    
     }
-    /**
-     * @event answer_2_new.click-Left 
-     */
-    function Talk_2(UXMouseEvent $e = null)
+
+    function Talk_2()
     {
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
@@ -274,15 +293,10 @@ class dialog extends AbstractForm
         $this->actor_desc_3->show();
         $this->actor_label_3->show();
         $this->alex_desc_3->show();
-        $this->alex_label_3->show();
-        
-        $this->ResetAnswerVisible();       
-        $this->answer_3_new->show();              
+        $this->alex_label_3->show();             
     }
-    /**
-     * @event answer_3_new.click-Left 
-     */
-    function Talk_3(UXMouseEvent $e = null)
+
+    function Talk_3()
     {       
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
@@ -306,10 +320,10 @@ class dialog extends AbstractForm
         $GLOBALS['discord']->setState($this->localization->get('RPC_Fight'));
         $GLOBALS['discord']->updateState();      
     }
+
     function StartDialog()
     {
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        $this->answer_1_new->show();
         
         $path = trim($this->SDK_ActorDesc1);
         
@@ -334,11 +348,5 @@ class dialog extends AbstractForm
         $this->actor_label_3->hide();
         $this->alex_desc_3->hide();
         $this->alex_label_3->hide();        
-    }
-    function ResetAnswerVisible()
-    {
-        $this->answer_1_new->hide();
-        $this->answer_2_new->hide();
-        $this->answer_3_new->hide();
     }
 }

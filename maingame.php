@@ -863,8 +863,10 @@ class maingame extends AbstractForm
     function HideDialog()
     {
         $this->Dialog->content->ClearDialog();
-        $this->Dialog->content->ResetAnswerVisible();
         $this->Dialog->content->StopVoice();
+        
+        $this->Dialog->content->answerStep = 0;
+        
         $this->Dialog->hide();
     }
     function HideInventory()
