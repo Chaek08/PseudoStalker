@@ -227,15 +227,15 @@ class dialog extends AbstractForm
 
         if ($this->answerStep == 1)
         {
-            $this->Talk_1($e);
+            $this->Talk_1();
         }
         elseif ($this->answerStep == 2)
         {
-            $this->Talk_2($e);
+            $this->Talk_2();
         }
         elseif ($this->answerStep == 3)
         {
-            $this->Talk_3($e);
+            $this->Talk_3();
             
             $this->answerStep = 0;
         }        
