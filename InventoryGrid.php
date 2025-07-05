@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use php\gui\animation\UXAnimationTimer;
 use php\gui\framework\AbstractForm;
 use php\gui\event\UXMouseEvent; 
 
@@ -472,19 +473,70 @@ class InventoryGrid extends AbstractForm
         $this->selectedItem = null;
     */
     }
+    public $isAnimatingBars = [];
+    private $isAnimatingBarsTimers = [];
+
+    function animateResizeWidth($node, $targetWidth, $speed = 1, $callback = null)
+    {
+        $id = spl_object_hash($node);
+    
+        if (isset($this->isAnimatingBarsTimers[$id]))
+        {
+            $this->isAnimatingBarsTimers[$id]->stop();
+        }
+
+        $this->isAnimatingBars[$id] = true;
+
+        $timer = new UXAnimationTimer(function () use ($node, $targetWidth, $speed, &$timer, $callback, $id) {
+            if ($node->width < $targetWidth)
+            {
+                $node->width += $speed;
+                if ($node->width >= $targetWidth)
+                {
+                    $node->width = $targetWidth;
+                    $timer->stop();
+                    $this->isAnimatingBars[$id] = false;
+                    if ($callback) $callback();
+                }
+            }
+            elseif ($node->width > $targetWidth)
+            {
+                $node->width -= $speed;
+                if ($node->width <= $targetWidth) 
+                {
+                    $node->width = $targetWidth;
+                    $timer->stop();
+                    $this->isAnimatingBars[$id] = false;
+                    if ($callback) $callback();
+                }
+            }
+            else
+            {
+                $timer->stop();
+                $this->isAnimatingBars[$id] = false;
+                if ($callback) $callback();
+            }
+        });
+
+        $this->isAnimatingBarsTimers[$id] = $timer;
+
+        $timer->start();
+    }
     function ApplyMedkitEffect()
     {
         $bar = $this->form('maingame')->health_bar_gg;
         $inv_bar = $this->form('maingame')->Inventory->content->health_bar_gg;
 
-        switch ($bar->width)
+        $width = $bar->width;
+
+        switch ($width)
         {
             case 54:
                 $bar->width += 30;
                 $bar->text = "15%";
 
                 $target = $inv_bar->width + 50;
-                $this->form('maingame')->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
+                $this->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
                     $inv_bar->text = "15%";
                 });
                 break;
@@ -494,17 +546,18 @@ class InventoryGrid extends AbstractForm
                 $bar->text = "33%";
 
                 $target = $inv_bar->width + 100;
-                $this->form('maingame')->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
+                $this->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
                     $inv_bar->text = "33%";
                 });
                 break;
+
             case 114:
             case 144:
                 $bar->width += 30;
                 $bar->text = "50%";
 
                 $target = $inv_bar->width + 40;
-                $this->form('maingame')->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
+                $this->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
                     $inv_bar->text = "50%";
                 });
                 break;
@@ -514,7 +567,7 @@ class InventoryGrid extends AbstractForm
                 $bar->text = "55%";
 
                 $target = $inv_bar->width + 40;
-                $this->form('maingame')->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
+                $this->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
                     $inv_bar->text = "55%";
                 });
                 break;
@@ -524,20 +577,21 @@ class InventoryGrid extends AbstractForm
                 $bar->text = "75%";
 
                 $target = $inv_bar->width + 100;
-                $this->form('maingame')->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
+                $this->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
                     $inv_bar->text = "75%";
                 });
                 break;
 
             case 234:
                 $bar->width += 30;
+                if ($bar->width > 264) $bar->width = 264;
                 $bar->text = "100%";
 
-                $this->form('maingame')->animateResizeWidth($inv_bar, 416, 5, function() use ($inv_bar) {
+                $this->animateResizeWidth($inv_bar, 416, 5, function() use ($inv_bar) {
                     $inv_bar->text = "100%";
                 });
                 break;
-        }      
+        }
     }
     function ApplyVodkaEffect()
     {
