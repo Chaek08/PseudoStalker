@@ -381,12 +381,8 @@ class maingame extends AbstractForm
         $h = $this->Environment_Background->height;
 
         $this->health_static_enemy->x = $w - $this->health_static_enemy->width - 32;
-        $this->health_static_enemy->y = 24;
-
-        $this->health_bar_enemy->x = $w - $this->health_bar_enemy->width - 40;
-        $this->health_bar_enemy->y = 32;
         $this->health_bar_enemy_b->x = $w - $this->health_bar_enemy_b->width - 40;
-        $this->health_bar_enemy_b->y = 32;
+        $this->health_bar_enemy->x = $this->health_bar_enemy_b->x;       
     
         $this->enemy->x = $w - $this->enemy->width - 120;
         $this->enemy->y = $h - $this->enemy->height - 96;
