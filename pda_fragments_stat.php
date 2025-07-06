@@ -55,7 +55,13 @@ class pda_fragments_stat extends AbstractForm
         $this->form('maingame')->Pda->content->ranks_label->textColor = '#d59b30';
     
         $this->form('maingame')->Pda->content->RankingBtn();
-        $this->form('maingame')->Pda->content->Pda_Ranking->content->ActorInListBtn();        
+        
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->ResetBtnColor();
+        foreach (['actor_in_raiting_pos', 'actor_in_raiting_name', 'actor_in_raiting_rank'] as $labelName)
+        {
+            $this->form('maingame')->Pda->content->Pda_Ranking->content->{$labelName}->textColor = '#cccccc';
+        }
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->ActorInListBtn();
     }
     function UpdateRaiting()
     {
