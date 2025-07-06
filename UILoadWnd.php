@@ -324,10 +324,12 @@ class UILoadWnd extends AbstractForm
         
             if ($this->form('maingame')->MessageBox->visible) $this->form('maingame')->MessageBox->hide();
             if ($this->form('maingame')->Task_Step_Label->visible) $this->form('maingame')->Task_Step_Label->hide();
-        
-            $this->form('maingame')->GetHealth();
-            $this->form('maingame')->UpdateEnvironment();
+                
+            $this->form('maingame')->InitEnvironmentTimer($saveData['quest_time']['hm']);     
+            $this->form('maingame')->UpdateEnvironment($saveData['quest_time']['hm']);
             $this->form('maingame')->UpdateEnvironmentUI();
+            
+            $this->form('maingame')->GetHealth();
             $this->form('maingame')->health_bar_gg->text = $saveData['health']['gg']['value'];
             $this->form('maingame')->health_bar_gg->width = $saveData['health']['gg']['pb_width'];
             $this->form('maingame')->Inventory->content->health_bar_gg->width = $saveData['health_gg_inv']['pb_width'];

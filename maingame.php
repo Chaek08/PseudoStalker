@@ -49,7 +49,7 @@ class maingame extends AbstractForm
         $this->MainMenu->content->InitMainMenu();
         $this->MainMenu->content->Options->content->InitOptions();
 
-        $this->currentCycle = '';
+        $this->InitEnvironmentTimer();
         $this->UpdateEnvironment();
         
         $this->InitUserLTX();
@@ -61,7 +61,7 @@ class maingame extends AbstractForm
         $discord->setBigImage("icon", $this->BuildID);
 
         $discord->setStartTimestamp(Time::now()->getTime());
-        $discord->updateState();        
+        $discord->updateState();
     }
     function applyResolutionFromLTX()
     {
@@ -387,19 +387,39 @@ class maingame extends AbstractForm
         $this->enemy->x = $w - $this->enemy->width - 120;
         $this->enemy->y = $h - $this->enemy->height - 96;
         $this->idle_static_enemy->x = $w - $this->idle_static_enemy->width - 120;
-        $this->idle_static_enemy->y = $h - $this->idle_static_enemy->height - 96;    
+        $this->idle_static_enemy->y = $h - $this->idle_static_enemy->height - 96;
     
         $this->actor->y = $h - $this->actor->height - 96;
         $this->idle_static_actor->y = $h - $this->idle_static_actor->height - 96;
         
         $this->item_vodka_0000->y = $h - $this->item_vodka_0000->height - 106;
+    }
+    function InitEnvironmentTimer($timeFromTasks = null)
+    {    
+        $this->EnvironmentTimer->stop();    
+    
+        if ($timeFromTasks != null)
+        {
+            //Logger::info("Timer not started (custom time used: $timeFromTasks)");
+            $this->UpdateEnvironment($timeFromTasks);
+            return;
+        }
+        
+        $this->EnvironmentTimer->on("action", function()
+        {
+            $this->UpdateEnvironment();
+            //Logger::info("Timer updated: " . Time::now()->toString('HH:mm:ss'));
+        });
+        
+        $this->EnvironmentTimer->start();
+        
     }    
-    function UpdateEnvironment()
-    {
-        $this->Environment->view = $this->Environment_Background;  
+    function UpdateEnvironment($timeFromTasks = null)
+    {        
+        $this->Environment->view = $this->Environment_Background;
 
-        $timeFromTasks = $this->Pda->content->Pda_Tasks->content->time_quest_hm->text;
-        $newCycle = $this->getTimeCycleByString($timeFromTasks);
+        $timeStr = $timeFromTasks ?? Time::now()->toString('HH:mm');
+        $newCycle = $this->getTimeCycleByString($timeStr);
 
         $backgroundPaths = [
             'morning' => "./gamedata/textures/environment/morning.mp4",
@@ -407,7 +427,7 @@ class maingame extends AbstractForm
             'evening' => "./gamedata/textures/environment/evening.mp4",
             'night' => "./gamedata/textures/environment/night.mp4"
         ];
-        
+
         $brightnessByCycle = [
             'morning' => -0.1,
             'day' => 0.0,
@@ -425,15 +445,22 @@ class maingame extends AbstractForm
             {
                 Logger::info("Cycle changed: " . $this->currentCycle . " -> " . $newCycle);
             }
+
             $this->currentCycle = $newCycle;
+
+            Media::stop($this->Environment);
 
             $backgroundPath = $backgroundPaths[$newCycle];
             Media::open($backgroundPath, false, $this->Environment);
-            
+
             $brightness = $brightnessByCycle[$newCycle];
             $this->actor->colorAdjustEffect->brightness = $brightness;
             $this->enemy->colorAdjustEffect->brightness = $brightness;
-            $this->item_vodka_0000->colorAdjustEffect->brightness = $brightness;
+            $this->item_vodka_0000->colorAdjustEffect->brightness = $brightness;       
+        }
+        if (!$this->MainMenu->visible)
+        {
+            $this->PlayEnvironment();
         }
     }
     function PlayEnvironment()
@@ -597,8 +624,6 @@ class maingame extends AbstractForm
             $this->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
 
             $this->GetHealth();
-            $this->UpdateEnvironment();
-            $this->UpdateEnvironmentUI();
 
             if ($GLOBALS['ContinueGameState'])
             {
@@ -613,6 +638,10 @@ class maingame extends AbstractForm
             {
                 $this->PlayEnvironment();
             }
+            
+            $this->InitEnvironmentTimer();
+            $this->UpdateEnvironment();
+            $this->UpdateEnvironmentUI();            
 
             $this->Dialog->content->StartDialog();
             
@@ -760,7 +789,7 @@ class maingame extends AbstractForm
             $this->ExitDialog->hide();
             return;
         }
-        
+
         $this->ShowMenu();
     }
     function ShowMenu()
