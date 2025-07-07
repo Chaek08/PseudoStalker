@@ -48,6 +48,12 @@ class pda_fragment_contacts extends AbstractForm
         $this->form('maingame')->Pda->content->ranks_label->textColor = '#d59b30';    
     
         $this->form('maingame')->Pda->content->RankingBtn();
+        
+        $this->form('maingame')->Pda->content->Pda_Ranking->content->ResetBtnColor();
+        foreach (['goblindav_in_raiting_pos', 'goblindav_in_raiting_name', 'goblindav_in_raiting_rank'] as $labelName)
+        {
+            $this->form('maingame')->Pda->content->Pda_Ranking->content->{$labelName}->textColor = '#cccccc';
+        }        
         $this->form('maingame')->Pda->content->Pda_Ranking->content->EnemyInListBtn();        
     }
     function setCharacterSelected($selected)
