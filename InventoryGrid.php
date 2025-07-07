@@ -76,8 +76,6 @@ class InventoryGrid extends AbstractForm
     {
         if ($this->draggedItem == null) return;
 
-        $this->grid;
-
         $cellSize = 49;
         $gridLeft = 0;
         $gridTop = 0;
@@ -118,8 +116,6 @@ class InventoryGrid extends AbstractForm
     }
     function addVodkaToInventory()
     {
-        $this->grid;
-
         $item = $this->Inv_Vodka;
         $itemWidthCells = 1;
         $itemHeightCells = 2;
@@ -135,8 +131,6 @@ class InventoryGrid extends AbstractForm
     }    
     function addMedkitToInventory()
     {
-        $this->grid;
-
         $item = $this->Inv_Medkit;
         $itemWidthCells = 2;
         $itemHeightCells = 1;
@@ -179,8 +173,6 @@ class InventoryGrid extends AbstractForm
     }    
     function canPlace($cellX, $cellY, $w, $h): bool
     {
-        $this->grid;
-
         if ($cellX + $w > 11 || $cellY + $h > 16) return false;
 
         for ($x = 0; $x < $w; $x++)
@@ -195,8 +187,6 @@ class InventoryGrid extends AbstractForm
     }
     function placeItem($item, $cellX, $cellY, $w, $h)
     {
-        $this->grid;
-
         for ($x = 0; $x < $w; $x++)
         {
             for ($y = 0; $y < $h; $y++)
@@ -222,8 +212,6 @@ class InventoryGrid extends AbstractForm
     }
     function removeItemFromGrid($item)
     {
-        $this->grid;
-
         for ($x = 0; $x < 11; $x++)
         {
             for ($y = 0; $y < 16; $y++)
