@@ -601,6 +601,8 @@ class maingame extends AbstractForm
 
             $this->Inventory->content->DespawnItems();
             $this->Inventory->content->SetItemCondition();
+            
+            $this->Inventory->content->InventoryGrid->content->lockInventory(false);
 
             $this->actor->show();
             $this->enemy->show();
@@ -1437,6 +1439,8 @@ class maingame extends AbstractForm
         
         if ($GLOBALS['ActorFailed']) $this->form('maingame')->actor->hide();
         if ($GLOBALS['EnemyFailed']) $this->form('maingame')->enemy->hide();
+        
+        $this->Inventory->content->InventoryGrid->content->lockInventory(true);
         
         $this->item_vodka_0000->enabled = false;
         $this->item_vodka_0000->opacity = 0;

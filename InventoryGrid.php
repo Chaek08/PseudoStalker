@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use behaviour\custom\LightingEffectBehaviour;
 use php\gui\animation\UXAnimationTimer;
 use php\gui\framework\AbstractForm;
 use php\gui\event\UXMouseEvent; 
@@ -45,7 +46,7 @@ class InventoryGrid extends AbstractForm
      */
     function GridMouseMove(UXMouseEvent $e = null)
     {
-        if ($this->draggedItem == null) return;
+        if ($this->draggedItem == null || $this->inventoryLocked) return;
 
         $offsetX = $this->draggedItem->width / 2;
         $offsetY = $this->draggedItem->height / 2;
@@ -73,8 +74,8 @@ class InventoryGrid extends AbstractForm
      * @event mouseUp-Left
      */
     function GridMouseUp(UXMouseEvent $e = null)
-    {
-        if ($this->draggedItem == null) return;
+    {  
+        if ($this->draggedItem == null || $this->inventoryLocked) return;
 
         $cellSize = 49;
         $gridLeft = 0;
@@ -266,12 +267,43 @@ class InventoryGrid extends AbstractForm
                 $item->visible = false;
             }
         }
-    }    
+    }
+    private $inventoryLocked = false;
+
+    function lockInventory(bool $locked)
+    {
+        $this->inventoryLocked = $locked;
+
+        $item = [
+            'medkit' => $this->Inv_Medkit,
+            'medkitCount' => $this->Inv_Medkit_Count,
+            'vodka' => $this->Inv_Vodka
+        ];
+
+        foreach ($item as $key => $obj)
+        {
+            if ($obj && $obj->visible)
+            {
+                $obj->enabled = !$locked;
+
+                if ($locked)
+                {
+                    $obj->colorAdjustEffect->brightness = -0.4;
+                }
+                else
+                {
+                    $obj->colorAdjustEffect->brightness = 0.0;
+                }
+            }
+        }
+    }     
     /**
      * @event Inv_Vodka.mouseDown-Left 
      */
     function VodkaMouseDown(UXMouseEvent $e = null)
     {
+        if ($this->inventoryLocked) return;    
+    
         $this->draggedItem = $e->sender;
         $this->draggedItemOriginalPos = $this->draggedItem->position;
         
@@ -282,6 +314,8 @@ class InventoryGrid extends AbstractForm
      */
     function MedkitMouseDown(UXMouseEvent $e = null)
     {
+        if ($this->inventoryLocked) return;    
+    
         $this->draggedItem = $e->sender;
         $this->draggedItemOriginalPos = $this->draggedItem->position;
         
@@ -461,6 +495,7 @@ class InventoryGrid extends AbstractForm
         $this->selectedItem = null;
     */
     }
+
     public $isAnimatingBars = [];
     private $isAnimatingBarsTimers = [];
 
