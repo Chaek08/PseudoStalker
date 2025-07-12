@@ -174,6 +174,9 @@ class maingame extends AbstractForm
         $default = [
             'language' => 'rus',
             'r_shadows' => 'on',
+            'all_sounds' => 'on',
+            'mm_sound' => 'on',
+            'fight_sound' => 'on',
             'r_version' => 'on',
             'g_god' => 'off',
             'vid_mode' => '1600x900',

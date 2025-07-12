@@ -45,9 +45,21 @@ class opt extends AbstractForm
         {
             $this->FightSoundSwitcher();
         }
-               
-        $this->Language_Switcher_Combobobx->value =
-            ($this->form('maingame')->ltx['language'] == 'rus') ? 'Русский' : 'English';           
+        
+        if ($this->form('maingame')->ltx['all_sounds'] == 'off')
+        {
+            $this->AllSoundSwitcher();
+        }        
+        if ($this->form('maingame')->ltx['mm_sound'] == 'off')
+        {
+            $this->MenuSoundSwitcher();
+        }        
+        if ($this->form('maingame')->ltx['fight_sound'] == 'off')
+        {
+            $this->FightSoundSwitcher();
+        }
+        
+        $this->Language_Switcher_Combobobx->value = ($this->form('maingame')->ltx['language'] == 'rus') ? 'Русский' : 'English';           
     }
     /**
      * @event Return_Btn.mouseDown-Left 
@@ -81,6 +93,9 @@ class opt extends AbstractForm
             
             $this->form('maingame')->StopAllSounds();
             
+            $this->form('maingame')->ltx['all_sounds'] = 'off';
+            $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);            
+            
             return;
         }
         else 
@@ -100,6 +115,9 @@ class opt extends AbstractForm
                 $this->FightSoundSwitcher();
             } 
             
+            $this->form('maingame')->ltx['all_sounds'] = 'on';
+            $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);            
+            
             return;
         }
     }
@@ -117,6 +135,9 @@ class opt extends AbstractForm
             $GLOBALS['MenuSound'] = false;
             Media::stop($this->form('maingame')->MainMenu->content->MenuSound);
             
+            $this->form('maingame')->ltx['mm_sound'] = 'off';
+            $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);            
+            
             return;
         }
         else 
@@ -127,6 +148,9 @@ class opt extends AbstractForm
             
             $GLOBALS['MenuSound'] = true;
             Media::play($this->form('maingame')->MainMenu->content->MenuSound);
+            
+            $this->form('maingame')->ltx['mm_sound'] = 'on';
+            $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);            
             
             return;
         }
@@ -140,9 +164,12 @@ class opt extends AbstractForm
         {
             $GLOBALS['FightSoundSwitcher_IsOn'] = false;
             $this->FightSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
-            $this->FightSound_Switcher_Btn->classesString = 'switch-off';
+            $this->FightSound_Switcher_Btn->classesString = 'switch-off';           
             
             $GLOBALS['FightSound'] = false;
+            
+            $this->form('maingame')->ltx['fight_sound'] = 'off';
+            $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);             
             
             return;
         }
@@ -150,9 +177,12 @@ class opt extends AbstractForm
         {
             $GLOBALS['FightSoundSwitcher_IsOn'] = true;
             $this->FightSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
-            $this->FightSound_Switcher_Btn->classesString = 'switch-on';
+            $this->FightSound_Switcher_Btn->classesString = 'switch-on';            
             
             $GLOBALS['FightSound'] = true;
+            
+            $this->form('maingame')->ltx['fight_sound'] = 'on';
+            $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);            
             
             return;
         }
@@ -164,12 +194,7 @@ class opt extends AbstractForm
     {
         if ($GLOBALS['ShadowsSwitcher_IsOn'])
         {
-            $GLOBALS['ShadowsSwitcher_IsOn'] = false;
-            if ($this->form('maingame')->ltxInitialized)
-            {            
-                $this->form('maingame')->ltx['r_shadows'] = 'off';
-                $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
-            }
+            $GLOBALS['ShadowsSwitcher_IsOn'] = false;        
             $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             $this->Shadows_Switcher_Btn->classesString = 'switch-off';
             
@@ -234,16 +259,15 @@ class opt extends AbstractForm
             $this->form('maingame')->MainMenu->content->Options->content->Language_Label->dropShadowEffect->disable();
             $this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->disable();
             
+            $this->form('maingame')->ltx['r_shadows'] = 'off';
+            $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);            
+            
             return;
         }
         else 
         {
             $GLOBALS['ShadowsSwitcher_IsOn'] = true;
-            if ($this->form('maingame')->ltxInitialized)
-            {            
-                $this->form('maingame')->ltx['r_shadows'] = 'on';
-                $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
-            }
+            
             $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
             $this->Shadows_Switcher_Btn->classesString = 'switch-on';
             
@@ -306,7 +330,10 @@ class opt extends AbstractForm
             $this->form('maingame')->MainMenu->content->Options->content->FightSound_Label->dropShadowEffect->enable();
             $this->form('maingame')->MainMenu->content->Options->content->FightSound_Switcher_Btn->dropShadowEffect->enable();
             $this->form('maingame')->MainMenu->content->Options->content->Language_Label->dropShadowEffect->enable();
-            $this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->enable();            
+            $this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->enable();  
+            
+            $this->form('maingame')->ltx['r_shadows'] = 'on';
+            $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);                      
                        
             return;
         }      
@@ -319,11 +346,7 @@ class opt extends AbstractForm
         if ($GLOBALS['VersionSwitcher_IsOn'])
         {
             $GLOBALS['VersionSwitcher_IsOn'] = false;
-            if ($this->form('maingame')->ltxInitialized)
-            {            
-                $this->form('maingame')->ltx['r_version'] = 'off';
-                $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
-            }
+         
             $this->Version_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
             $this->Version_Switcher_Btn->classesString = 'switch-off';
             
@@ -338,16 +361,15 @@ class opt extends AbstractForm
                 $this->form('maingame')->MainMenu->content->version_detail->hide();
             }
             
+            $this->form('maingame')->ltx['r_version'] = 'off';
+            $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);            
+            
             return;
         }
         else 
         {
             $GLOBALS['VersionSwitcher_IsOn'] = true;
-            if ($this->form('maingame')->ltxInitialized)
-            {            
-                $this->form('maingame')->ltx['r_version'] = 'on';
-                $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
-            }         
+                     
             $this->Version_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
             $this->Version_Switcher_Btn->classesString = 'switch-on';         
             
@@ -361,6 +383,9 @@ class opt extends AbstractForm
                 $this->form('maingame')->MainMenu->content->version->show();
                 $this->form('maingame')->MainMenu->content->version_detail->show();
             }
+            
+            $this->form('maingame')->ltx['r_version'] = 'on';
+            $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);            
            
             return;
         }
@@ -376,11 +401,8 @@ class opt extends AbstractForm
             $this->localization->setLanguage($language_box);
         }
         
-        if ($this->form('maingame')->ltxInitialized)
-        {
-            $this->form('maingame')->ltx['language'] = $this->localization->getCurrentLanguage();
-            $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
-        }
+        $this->form('maingame')->ltx['language'] = $this->localization->getCurrentLanguage();
+        $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
         
         $this->form('maingame')->ShowLoadScreen(function()
         {

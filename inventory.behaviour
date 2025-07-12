@@ -9,6 +9,8 @@
   <target id="time_desc">
     <behaviour format="HH:mm" type="behaviour\custom\WatchMakerBehaviour"/>
   </target>
-  <target id="inv_maket_visual"/>
+  <target id="inv_maket_visual">
+    <behaviour brightness="0" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
+  </target>
   <target id="InventoryGrid"/>
 </behaviours>
