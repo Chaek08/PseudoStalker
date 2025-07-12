@@ -45,7 +45,7 @@ class mainmenu extends AbstractForm
     
         $this->form('maingame')->MainMenu->hide();
         
-        if (!$GLOBALS['HudVisible']) $this->form('maingame')->ToggleHud();
+        $this->form('maingame')->RenderHud(true);
         
         if ($GLOBALS['NewGameState']) 
         {

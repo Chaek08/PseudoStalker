@@ -31,7 +31,7 @@ class fail_wnd extends AbstractForm
      */
     function ExitGameBtn(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->ToggleHud();
+        $this->form('maingame')->RenderHud(false);
         $this->form('maingame')->ShowMenu();
         $this->form('maingame')->ResetGameClient();
     }
@@ -40,7 +40,7 @@ class fail_wnd extends AbstractForm
      */
     function ReturnBtn(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->ToggleHud();
+        $this->form('maingame')->RenderHud(true);
         
         $this->form('maingame')->Fail->hide();
         if (!$this->form('maingame')->Inventory->content->InventoryGrid->content->Inv_Vodka->visible || $this->form('maingame')->item_vodka_0000->opacity != 0) $this->form('maingame')->item_vodka_0000->show();

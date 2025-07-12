@@ -301,7 +301,7 @@ class dialog extends AbstractForm
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
         $this->form('maingame')->HideDialog();
-        if (!$GLOBALS['HudVisible']) $this->form('maingame')->ToggleHud();
+        $this->form('maingame')->RenderHud(true);
         
         if ($GLOBALS['AllSounds'])
         {

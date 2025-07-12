@@ -54,6 +54,8 @@ class maingame extends AbstractForm
         
         $this->InitUserLTX();
         
+        $this->RenderHud(false);
+        
         $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
         $discord->setDetails($this->localization->get('RPC_MainMenu'));
@@ -667,33 +669,11 @@ class maingame extends AbstractForm
         if ($this->ExitDialog->visible) return true;
         
         return false;
-    }     
-    function ToggleHud()
+    }
+    function RenderHud($enable)
     {
-        if ($GLOBALS['HudVisible'])
-        {       
-            $this->health_static_gg->hide();
-            $this->health_bar_gg->hide();
-            $this->health_bar_gg_b->hide();
-        
-            $this->health_static_enemy->hide();
-            $this->health_bar_enemy->hide();
-            $this->health_bar_enemy_b->hide();
-            
-            if ($this->blood_ui->visible) $this->blood_ui->hide();
-            if ($this->GodMode_Icon->visible) $this->GodMode_Icon->hide();
-            if ($this->pda_icon->visible) $this->pda_icon->hide();
-            
-            if ($this->fight_image->visible) $this->fight_image->hide();
-        
-            if ($this->SavedGame_Toast->visible) $this->SavedGame_Toast->hide();
-            if ($this->leave_btn->visible) $this->leave_btn->hide();
-            
-            $GLOBALS['HudVisible'] = false;
-            return;
-        }
-        else 
-        {    
+        if ($enable) 
+        {
             $this->health_static_gg->show();
             if (!$GLOBALS['ActorFailed']) 
             {
@@ -706,18 +686,33 @@ class maingame extends AbstractForm
                 $this->health_bar_enemy->show();
                 $this->health_bar_enemy_b->show();
             }
-            
+
             $this->Bleeding();
+            
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
-            
             if ($GLOBALS['GodMode']) $this->GodMode_Icon->show();
-            
             if (!$this->idle_static_actor->visible) $this->fight_image->show();
-            
             if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed']) $this->leave_btn->show();
         
             $GLOBALS['HudVisible'] = true;
-            return;            
+        } 
+        else 
+        {
+            $this->health_static_gg->hide();
+            $this->health_bar_gg->hide();
+            $this->health_bar_gg_b->hide();
+            $this->health_static_enemy->hide();
+            $this->health_bar_enemy->hide();
+            $this->health_bar_enemy_b->hide();
+
+            if ($this->blood_ui->visible) $this->blood_ui->hide();
+            if ($this->GodMode_Icon->visible) $this->GodMode_Icon->hide();
+            if ($this->pda_icon->visible) $this->pda_icon->hide();
+            if ($this->fight_image->visible) $this->fight_image->hide();
+            if ($this->SavedGame_Toast->visible) $this->SavedGame_Toast->hide();
+            if ($this->leave_btn->visible) $this->leave_btn->hide();
+        
+            $GLOBALS['HudVisible'] = false;
         }
     }
     /**
@@ -725,7 +720,7 @@ class maingame extends AbstractForm
      */
     function EscBtn(UXKeyEvent $e = null)
     {    
-        $this->ToggleHud();
+        $this->RenderHud(false);
         if ($this->LoadScreen->visible) return;
         if ($this->MainMenu->visible) 
         {
@@ -764,17 +759,18 @@ class maingame extends AbstractForm
         }
         if ($this->Fail->visible)
         {
-            $this->ToggleHud();
             return;
         }
         if ($this->Inventory->visible)
         {
             $this->HideInventory();
+            $this->RenderHud(true);
             return;
         }
         if ($this->Dialog->visible)
         {
             $this->HideDialog();
+            $this->RenderHud(true);
             return;
         }
         if (Media::isStatus('PLAYING', 'voice_talk3'))
@@ -784,11 +780,13 @@ class maingame extends AbstractForm
         if ($this->Pda->visible)
         {
             $this->HidePda();
+            $this->RenderHud(true);
             return;
         }
         if ($this->ExitDialog->visible) 
         {
             $this->ExitDialog->hide();
+            $this->RenderHud(true);
             return;
         }
 
@@ -819,7 +817,7 @@ class maingame extends AbstractForm
     {
         if ($this->CheckVisibledFragments()) return;
         
-        if (!$this->Pda->visible) $this->ToggleHud();
+        $this->RenderHud(false);
         
         $this->Pda->content->InitPDA();
         $this->Pda->show();
@@ -853,7 +851,7 @@ class maingame extends AbstractForm
     {       
         if ($this->CheckVisibledFragments()) return;
         
-        if (!$this->Inventory->visible) $this->ToggleHud();
+        $this->RenderHud(false);
         
         $this->Inventory->show();
         $this->Inventory->content->UpdateInventoryStatus();
@@ -866,7 +864,7 @@ class maingame extends AbstractForm
     {          
         if ($this->CheckVisibledFragments()) return;
         
-        if (!$this->ExitDialog->visible) $this->ToggleHud();
+        $this->RenderHud(false);
         
         $this->ExitDialog->content->UpdateDialogWnd();
         $GLOBALS['ExitWndType'] = true;
@@ -881,7 +879,7 @@ class maingame extends AbstractForm
         if ($this->CheckVisibledFragments()) return;
         if ($GLOBALS['QuestStep1']) return;
         
-        if (!$this->Dialog->visible) $this->ToggleHud(); 
+        $this->RenderHud(false);
     
         $this->Dialog->content->StartDialog();
         $this->Dialog->content->VoiceStart();
@@ -916,7 +914,7 @@ class maingame extends AbstractForm
      */
     function LeaveBtn(UXMouseEvent $e = null)
     {    
-        $this->ToggleHud();
+        $this->RenderHud(false);
         
         $this->Fail->show();
         
@@ -1087,7 +1085,7 @@ class maingame extends AbstractForm
             $this->Inventory->content->health_bar_gg->text = "100%";
             $this->health_bar_enemy->text = "100%";
         }
-        if (!$GLOBALS['ActorFailed'])
+        if (!$GLOBALS['ActorFailed'] && $GLOBALS['HudVisible'])
         {
             $this->health_bar_gg->show();
             $this->health_bar_gg_b->show();

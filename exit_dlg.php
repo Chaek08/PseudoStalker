@@ -88,7 +88,6 @@ class exit_dlg extends AbstractForm
         }
         if ($GLOBALS['EndGameWndType'])
         {
-            $this->form('maingame')->ToggleHud();
             $this->form('maingame')->ResetGameClient();
             
             $this->form('maingame')->ExitDialog->hide();
@@ -124,6 +123,6 @@ class exit_dlg extends AbstractForm
     {
         $this->form('maingame')->ExitDialog->hide();
         
-        if (!$this->form('maingame')->MainMenu->visible) $this->form('maingame')->ToggleHud();
+        if (!$this->form('maingame')->MainMenu->visible) $this->form('maingame')->RenderHud(true);
     }
 }
