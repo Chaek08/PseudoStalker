@@ -711,6 +711,8 @@ class maingame extends AbstractForm
             if ($this->fight_image->visible) $this->fight_image->hide();
             if ($this->SavedGame_Toast->visible) $this->SavedGame_Toast->hide();
             if ($this->leave_btn->visible) $this->leave_btn->hide();
+            if ($this->MessageBox->visible) $this->form('maingame')->MessageBox->hide();
+            if ($this->Task_Step_Label->visible) $this->form('maingame')->Task_Step_Label->hide();
         
             $GLOBALS['HudVisible'] = false;
         }
