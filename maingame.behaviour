@@ -40,13 +40,6 @@
     <behaviour color="#b31a1a" offsetX="0" offsetY="0" radius="37.317073170732" spread="0.20731707317073" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
     <behaviour animated="1" delay="0" duration="1000" enabled="" maxOpacity="1" minOpacity="0.3" repeatCount="-1" type="behaviour\custom\BlinkAnimationBehaviour" when="ALWAYS"/>
   </target>
-  <target id="CustomCursor">
-    <behaviour bodyType="DYNAMIC" fixtureType="INHERITED" solid="" solidType="NONE" startVelocity="[0,0]" type="behaviour\custom\GameEntityBehaviour"/>
-    <behaviour centered="" hideOrigin="1" offsetX="0" offsetY="0" type="behaviour\custom\CursorBindBehaviour"/>
-  </target>
-  <target id="Console">
-    <behaviour animated="1" direction="ALL" gridX="1" gridY="1" limitedByParent="" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
-  </target>
   <target id="SavedGame_Toast">
     <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
@@ -66,8 +59,5 @@
   </target>
   <target id="MessageBox">
     <behaviour animated="1" direction="UP_DOWN" gridX="1" gridY="1" limitedByParent="" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
-  </target>
-  <target id="track_res">
-    <behaviour animated="" delay="0" duration="500" maxOpacity="1" minOpacity="0" repeatCount="-1" type="behaviour\custom\BlinkAnimationBehaviour" when="ALWAYS"/>
   </target>
 </behaviours>

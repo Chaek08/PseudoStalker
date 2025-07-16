@@ -33,19 +33,19 @@ class dialog extends AbstractForm
     }
     function UpdateData()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
     
-        $actor_icon = trim($this->form('maingame')->Pda->content->SDK_ActorIcon);
-        $actor_name = trim($this->form('maingame')->Pda->content->SDK_ActorName);
-        $enemy_icon = trim($this->form('maingame')->Pda->content->SDK_EnemyIcon);
-        $enemy_name = trim($this->form('maingame')->Pda->content->SDK_EnemyName);
+        $actor_icon = trim($this->form('Client')->Pda->content->SDK_ActorIcon);
+        $actor_name = trim($this->form('Client')->Pda->content->SDK_ActorName);
+        $enemy_icon = trim($this->form('Client')->Pda->content->SDK_EnemyIcon);
+        $enemy_name = trim($this->form('Client')->Pda->content->SDK_EnemyName);
         
-        $pido_role_name = trim($this->form('maingame')->Pda->content->SDK_PidoRoleName);
-        $pido_role_color = trim($this->form('maingame')->Pda->content->SDK_PidoRoleColor);
-        $pido_role_icon = trim($this->form('maingame')->Pda->content->SDK_PidoRoleIcon);
-        $de_role_name = trim($this->form('maingame')->Pda->content->SDK_DeRoleName);
-        $de_role_color = trim($this->form('maingame')->Pda->content->SDK_DeRoleColor);
-        $de_role_icon = trim($this->form('maingame')->Pda->content->SDK_DeRoleIcon);
+        $pido_role_name = trim($this->form('Client')->Pda->content->SDK_PidoRoleName);
+        $pido_role_color = trim($this->form('Client')->Pda->content->SDK_PidoRoleColor);
+        $pido_role_icon = trim($this->form('Client')->Pda->content->SDK_PidoRoleIcon);
+        $de_role_name = trim($this->form('Client')->Pda->content->SDK_DeRoleName);
+        $de_role_color = trim($this->form('Client')->Pda->content->SDK_DeRoleColor);
+        $de_role_icon = trim($this->form('Client')->Pda->content->SDK_DeRoleIcon);
         
         
         $this->community_enemy->text = $pido_role_name != '' ? $pido_role_name : $this->localization->get('Community_Pido');
@@ -243,7 +243,7 @@ class dialog extends AbstractForm
 
     function Talk_1()
     {    
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
         $path = trim($this->SDK_ActorDesc3);
         
@@ -271,7 +271,7 @@ class dialog extends AbstractForm
 
     function Talk_2()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
         $path = trim($this->SDK_FinalPhase);
         
@@ -298,10 +298,10 @@ class dialog extends AbstractForm
 
     function Talk_3()
     {       
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
-        $this->form('maingame')->HideDialog();
-        $this->form('maingame')->RenderHud(true);
+        $this->form('Client')->HideDialog();
+        $this->form('Client')->MainGame->content->RenderHud(true);
         
         if ($GLOBALS['AllSounds'])
         {
@@ -309,13 +309,13 @@ class dialog extends AbstractForm
         }
         if ($GLOBALS['FightSound'])
         {
-            $this->form('maingame')->PlayFightSong();
+            $this->form('Client')->MainGame->content->PlayFightSong();
         }
         
-        $this->form('maingame')->idle_static_actor->hide();
-        $this->form('maingame')->idle_static_enemy->hide(); 
+        $this->form('Client')->MainGame->content->idle_static_actor->hide();
+        $this->form('Client')->MainGame->content->idle_static_enemy->hide(); 
             
-        $this->form('maingame')->Pda->content->Pda_Tasks->content->Step1_Complete();
+        $this->form('Client')->Pda->content->Pda_Tasks->content->Step1_Complete();
         
         $GLOBALS['discord']->setState($this->localization->get('RPC_Fight'));
         $GLOBALS['discord']->updateState();      
@@ -323,7 +323,7 @@ class dialog extends AbstractForm
 
     function StartDialog()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
         $path = trim($this->SDK_ActorDesc1);
         

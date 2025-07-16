@@ -61,7 +61,7 @@ class inventory extends AbstractForm
             $totalWeight += $this->outfitWeight;
         }
             
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);        
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);        
         $WeightLabel = $this->localization->get('Weight_Label');
         
         $text = $WeightLabel . "  " . round($totalWeight, 1) . " / " . round($maxWeight, 1);
@@ -91,7 +91,7 @@ class inventory extends AbstractForm
     }
     function SetItemInfo()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
         $this->inv_maket->image = null;
         $this->maket_count->text = null;
@@ -140,21 +140,21 @@ class inventory extends AbstractForm
     }
     function UseSlotSound()
     {
-        if ($GLOBALS['AllSounds'] && $this->form('maingame')->Inventory->visible)
+        if ($GLOBALS['AllSounds'] && $this->form('Client')->Inventory->visible)
         {
             Media::open('res://.data/audio/inv_slot.mp3', true, 'inv_use_slot'); 
         }     
     }
     function PropertiesSound()
     {
-        if ($GLOBALS['AllSounds'] && $this->form('maingame')->Inventory->visible)
+        if ($GLOBALS['AllSounds'] && $this->form('Client')->Inventory->visible)
         {
             Media::open('res://.data/audio/inv_properties.mp3', true, 'inv_properties'); 
         }          
     }
     function DropSound()
     {
-        if ($GLOBALS['AllSounds'] && $this->form('maingame')->Inventory->visible)
+        if ($GLOBALS['AllSounds'] && $this->form('Client')->Inventory->visible)
         {
             Media::open('res://.data/audio/inv_drop.mp3', true, 'inv_drop'); 
         }               
@@ -184,10 +184,10 @@ class inventory extends AbstractForm
         $this->InventoryGrid->content->addVodkaToInventory();
         $this->InventoryGrid->content->addMedkitToInventory();
         
-        $this->form('maingame')->item_vodka_0000->hide();
-        $this->form('maingame')->item_vodka_0000->enabled = true;
-        $this->form('maingame')->item_vodka_0000->opacity = 100;
-        $this->form('maingame')->item_vodka_0000->position = [256,696];
+        $this->form('Client')->MainGame->content->item_vodka_0000->hide();
+        $this->form('Client')->MainGame->content->item_vodka_0000->enabled = true;
+        $this->form('Client')->MainGame->content->item_vodka_0000->opacity = 100;
+        $this->form('Client')->MainGame->content->item_vodka_0000->position = [256,696];
     }
     function SetItemCondition()
     {
@@ -195,48 +195,48 @@ class inventory extends AbstractForm
         
         if ($GLOBALS['item_outfit_selected'])
         {
-            if ($this->form('maingame')->health_bar_gg->width == 264) // Дефолтный размер health bar, без наподобности в функции ResetOutfitCondition
+            if ($this->form('Client')->MainGame->content->health_bar_gg->width == 264) // Дефолтный размер health bar, без наподобности в функции ResetOutfitCondition
             {
                 $this->maket_cond->text = "100 %";
                 $this->maket_cond->color = '#4d804d';
-                $this->form('maingame')->animateResizeWidth($this->maket_cond, 208, 10);
+                $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
             }
-            if ($this->form('maingame')->health_bar_gg->width == 204 || $this->form('maingame')->health_bar_gg->width == 234)
+            if ($this->form('Client')->MainGame->content->health_bar_gg->width == 204 || $this->form('Client')->MainGame->content->health_bar_gg->width == 234)
             {
                 $this->maket_cond->text = "82 %";
                 $this->maket_cond->color = '#b3801a';
-                $this->form('maingame')->animateResizeWidth($this->maket_cond, 168, 10);
+                $this->form('Client')->animateResizeWidth($this->maket_cond, 168, 10);
             }
-            if ($this->form('maingame')->health_bar_gg->width == 174 || $this->form('maingame')->health_bar_gg->width == 144)
+            if ($this->form('Client')->MainGame->content->health_bar_gg->width == 174 || $this->form('Client')->MainGame->content->health_bar_gg->width == 144)
             {
                 $this->maket_cond->text = "67 %";
                 $this->maket_cond->color = '#b3801a';
-                $this->form('maingame')->animateResizeWidth($this->maket_cond, 138, 10);
+                $this->form('Client')->animateResizeWidth($this->maket_cond, 138, 10);
             }
-            if ($this->form('maingame')->health_bar_gg->width == 114)
+            if ($this->form('Client')->MainGame->content->health_bar_gg->width == 114)
             {
                 $this->maket_cond->text = "45 %";
                 $this->maket_cond->color = '#b3801a';
-                $this->form('maingame')->animateResizeWidth($this->maket_cond, 118, 10);
+                $this->form('Client')->animateResizeWidth($this->maket_cond, 118, 10);
             }
-            if ($this->form('maingame')->health_bar_gg->width == 84 || $this->form('maingame')->health_bar_gg->width == 54)
+            if ($this->form('Client')->MainGame->content->health_bar_gg->width == 84 || $this->form('Client')->MainGame->content->health_bar_gg->width == 54)
             {
                 $this->maket_cond->text = "13 %";
                 $this->maket_cond->color = '#990000';
-                $this->form('maingame')->animateResizeWidth($this->maket_cond, 74, 10);
+                $this->form('Client')->animateResizeWidth($this->maket_cond, 74, 10);
             }     
         }
         if ($GLOBALS['item_vodka_selected'])
         {
             $this->maket_cond->text = "100 %";
             $this->maket_cond->color = '#4d804d';
-            $this->form('maingame')->animateResizeWidth($this->maket_cond, 208, 10);
+            $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
         }
         if ($GLOBALS['item_medkit_selected'])
         {
             $this->maket_cond->text = "100 %";
             $this->maket_cond->color = '#4d804d';
-            $this->form('maingame')->animateResizeWidth($this->maket_cond, 208, 10);
+            $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
         }        
     }  
 }

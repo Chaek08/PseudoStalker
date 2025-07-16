@@ -29,7 +29,7 @@ class exit_dlg extends AbstractForm
     }
     function SetDialogWndType()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
         $this->dialog_warning->image = null;
         $this->btn_yes->show();
@@ -80,7 +80,7 @@ class exit_dlg extends AbstractForm
     { 
         if ($GLOBALS['ExitWndType'])
         {
-            $this->form('maingame')->ShowLoadScreen(function() {
+            $this->form('Client')->ShowLoadScreen(function() {
                 UXApplication::runLater(function() {
                     app()->shutdown();
                 });
@@ -88,28 +88,28 @@ class exit_dlg extends AbstractForm
         }
         if ($GLOBALS['EndGameWndType'])
         {
-            $this->form('maingame')->ResetGameClient();
+            $this->form('Client')->MainGame->content->ResetGameClient();
             
-            $this->form('maingame')->ExitDialog->hide();
+            $this->form('Client')->ExitDialog->hide();
         }        
         if ($GLOBALS['RewriteSaveType'])
         {
-            $this->form('maingame')->MainMenu->content->UISaveWnd->content->BtnSaveGame();
+            $this->form('Client')->MainMenu->content->UISaveWnd->content->BtnSaveGame();
             
-            $this->form('maingame')->ExitDialog->hide();
+            $this->form('Client')->ExitDialog->hide();
         }
         if ($GLOBALS['RemoveSaveType'])
         {
-            if ($this->form('maingame')->MainMenu->content->UILoadWnd->visible)
+            if ($this->form('Client')->MainMenu->content->UILoadWnd->visible)
             {
-                $this->form('maingame')->MainMenu->content->UILoadWnd->content->RemoveSaveBtn();
+                $this->form('Client')->MainMenu->content->UILoadWnd->content->RemoveSaveBtn();
             }
-            if ($this->form('maingame')->MainMenu->content->UISaveWnd->visible)
+            if ($this->form('Client')->MainMenu->content->UISaveWnd->visible)
             {
-                $this->form('maingame')->MainMenu->content->UISaveWnd->content->RemoveSaveBtn();
+                $this->form('Client')->MainMenu->content->UISaveWnd->content->RemoveSaveBtn();
             }
                         
-            $this->form('maingame')->ExitDialog->hide();
+            $this->form('Client')->ExitDialog->hide();
         }
         if ($GLOBALS['ClientVersionErrorType'] || $GLOBALS['CorruptSaveType'])
         {
@@ -121,8 +121,8 @@ class exit_dlg extends AbstractForm
      */
     function DisagreeButton(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->ExitDialog->hide();
+        $this->form('Client')->ExitDialog->hide();
         
-        if (!$this->form('maingame')->MainMenu->visible) $this->form('maingame')->RenderHud(true);
+        if (!$this->form('Client')->MainMenu->visible) $this->form('Client')->MainGame->content->RenderHud(true);
     }
 }

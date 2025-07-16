@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900" prefWidth="1600" styleClass="">
+  <children>
+    <ImageViewEx AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" autoSize="false" centered="false" focusTraversable="false" height="900" id="Client" layoutX="0" layoutY="0" mosaic="false" mosaicGap="0" opacity="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="1600">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="MainGame" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Inventory" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <Data content="inventory" cursor="DEFAULT" enabled="1" id="data-Inventory" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Fail" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <Data content="fail_wnd" cursor="DEFAULT" enabled="1" id="data-Fail" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Pda" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <Data content="pda" cursor="DEFAULT" enabled="1" id="data-Pda" visible=""/>
+    <Data content="exit_dlg" cursor="DEFAULT" enabled="1" id="data-ExitDialog" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Console" layoutX="952" layoutY="72" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="456" prefWidth="568" spacing="0" styleClass="fragment-pane "/>
+    <Data content="console" cursor="DEFAULT" enabled="1" id="data-Console" visible=""/>
+    <FragmentPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" alignment="CENTER" focusTraversable="false" id="LoadScreen" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <Data content="load_screen" cursor="DEFAULT" enabled="1" id="data-LoadScreen" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="MainMenu" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <Data content="mainmenu" cursor="DEFAULT" enabled="1" id="data-MainMenu" visible="1"/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="Dialog" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <Data content="dialog" cursor="DEFAULT" enabled="1" id="data-Dialog" visible=""/>
+    <Data animated="1" cursor="DEFAULT" enabled="1" id="data-CustomCursor" sprite="game_cursor" visible="1"/>
+    <SpriteView animationEnabled="false" focusTraversable="false" height="64" id="CustomCursor" layoutX="1632" layoutY="168" styleClass="" width="64"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-version_detail" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" id="data-version" visible=""/>
+    <Data content="maingame" cursor="DEFAULT" enabled="1" id="data-MainGame" visible=""/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="ExitDialog" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane fragment_form "/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="track_res" layoutX="8" layoutY="200" prefHeight="47" prefWidth="240" style="-fx-opacity: 1;" styleClass="label " text="" textAlignment="LEFT" textFill="#ff0000" underline="false" wrapText="false">
+      <font>
+        <Font name="Arial Narrow" size="40"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="" id="data-track_res" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" id="data-Client" visible=""/>
+    <LabelEx AnchorPane.bottomAnchor="-4" alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="version" layoutX="8" layoutY="856" prefHeight="48" prefWidth="128" styleClass="label " text="PseudoStalker" textAlignment="LEFT" textFill="#e6e6e6" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="20"/>
+      </font>
+    </LabelEx>
+    <LabelEx AnchorPane.bottomAnchor="-5" AnchorPane.leftAnchor="138" alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="version_detail" layoutX="138" layoutY="857" prefHeight="48" prefWidth="328" styleClass="label " text="(null)" textAlignment="LEFT" textFill="#999999" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="13"/>
+      </font>
+    </LabelEx>
+  </children>
+</AnchorPane>

@@ -21,14 +21,14 @@ class pda_fragments_stat extends AbstractForm
     
     function UpdateData()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
     
-        $actor_name = trim($this->form('maingame')->Pda->content->SDK_ActorName);
-        $actor_icon = trim($this->form('maingame')->Pda->content->SDK_ActorIcon);
+        $actor_name = trim($this->form('Client')->Pda->content->SDK_ActorName);
+        $actor_icon = trim($this->form('Client')->Pda->content->SDK_ActorIcon);
         
-        $role_name = trim($this->form('maingame')->Pda->content->SDK_DeRoleName);
-        $role_icon = trim($this->form('maingame')->Pda->content->SDK_DeRoleIcon);
-        $role_color = trim($this->form('maingame')->Pda->content->SDK_DeRoleColor);
+        $role_name = trim($this->form('Client')->Pda->content->SDK_DeRoleName);
+        $role_icon = trim($this->form('Client')->Pda->content->SDK_DeRoleIcon);
+        $role_color = trim($this->form('Client')->Pda->content->SDK_DeRoleColor);
 
         $this->tab_button->text = $actor_name !== '' ? $actor_name : $this->localization->get('GG_Name');
         $this->icon->image = new UXImage($actor_icon !== '' ? $actor_icon : 'res://.data/ui/icon_npc/actor.png');
@@ -51,40 +51,40 @@ class pda_fragments_stat extends AbstractForm
      */
     function RedirectRaiting(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->Pda->content->UpdateBtnColor();
-        $this->form('maingame')->Pda->content->ranks_label->textColor = '#d59b30';
+        $this->form('Client')->Pda->content->UpdateBtnColor();
+        $this->form('Client')->Pda->content->ranks_label->textColor = '#d59b30';
     
-        $this->form('maingame')->Pda->content->RankingBtn();
+        $this->form('Client')->Pda->content->RankingBtn();
         
-        $this->form('maingame')->Pda->content->Pda_Ranking->content->ResetBtnColor();
+        $this->form('Client')->Pda->content->Pda_Ranking->content->ResetBtnColor();
         foreach (['actor_in_raiting_pos', 'actor_in_raiting_name', 'actor_in_raiting_rank'] as $labelName)
         {
-            $this->form('maingame')->Pda->content->Pda_Ranking->content->{$labelName}->textColor = '#cccccc';
+            $this->form('Client')->Pda->content->Pda_Ranking->content->{$labelName}->textColor = '#cccccc';
         }
-        $this->form('maingame')->Pda->content->Pda_Ranking->content->ActorInListBtn();
+        $this->form('Client')->Pda->content->Pda_Ranking->content->ActorInListBtn();
     }
     function UpdateRaiting()
     {
         if ($GLOBALS['EnemyFailed'])
         {
             $this->statistic_num->text = "10021\n1000\n1\n\n11022";  
-            $this->form('maingame')->Pda->content->Pda_Ranking->content->actor_in_raiting_rank->text = "11022";                           
+            $this->form('Client')->Pda->content->Pda_Ranking->content->actor_in_raiting_rank->text = "11022";                           
         }
         if ($GLOBALS['ActorFailed'])
         {
-            $this->form('maingame')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_rank->text = "301";
+            $this->form('Client')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_rank->text = "301";
         }
         if (!$GLOBALS['QuestCompleted'])
         {
             $this->InitRaiting();
             
-            $this->form('maingame')->Pda->content->Pda_Ranking->content->actor_in_raiting_rank->text = "10699";
-            $this->form('maingame')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_rank->text = "228";           
+            $this->form('Client')->Pda->content->Pda_Ranking->content->actor_in_raiting_rank->text = "10699";
+            $this->form('Client')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_rank->text = "228";           
         }
     }
     function UpdateFinalLabel()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
         $this->tab_final->hide();
         $this->final_label->hide();

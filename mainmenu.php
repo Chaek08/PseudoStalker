@@ -41,30 +41,31 @@ class mainmenu extends AbstractForm
      */
     function BtnStartGame(UXMouseEvent $e = null)
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
     
-        $this->form('maingame')->MainMenu->hide();
+        $this->form('Client')->MainMenu->hide();
+        $this->form('Client')->MainGame->show();
         
-        $this->form('maingame')->RenderHud(true);
+        $this->form('Client')->MainGame->content->RenderHud(true);
         
         if ($GLOBALS['NewGameState']) 
         {
             $this->SwitchGameState();
             
-            $this->form('maingame')->Pda->content->Pda_Tasks->content->UpdateData();
-            $this->form('maingame')->Dialog->content->UpdateData();
+            $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();
+            $this->form('Client')->Dialog->content->UpdateData();
         }
         
         Media::pause($this->MenuSound);
         Media::pause($this->MainMenuBackground);
         
-        $this->form('maingame')->PlayEnvironment();
+        $this->form('Client')->MainGame->content->PlayEnvironment();
         
-        if ($this->form('maingame')->fight_image->visible)
+        if ($this->form('Client')->MainGame->content->fight_image->visible)
         {
             if ($GLOBALS['AllSounds'] && $GLOBALS['FightSound'])
             {
-                 Media::play($this->form('maingame')->FightSound);
+                 Media::play($this->form('Client')->MainGame->content->FightSound);
             }
         }       
         
@@ -73,7 +74,7 @@ class mainmenu extends AbstractForm
     }
     function SwitchGameState()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         if ($GLOBALS['NewGameState'])
         {
             $GLOBALS['NewGameState'] = false;
@@ -114,20 +115,20 @@ class mainmenu extends AbstractForm
      */
     function BtnEndGame(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+        $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
         $GLOBALS['EndGameWndType'] = true;
-        $this->form('maingame')->ExitDialog->content->SetDialogWndType();
-        $this->form('maingame')->ExitDialog->show();
+        $this->form('Client')->ExitDialog->content->SetDialogWndType();
+        $this->form('Client')->ExitDialog->show();
     }
     /**
      * @event Btn_Exit_Windows.mouseDown-Left 
      */
     function BtnExitWindows(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+        $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
         $GLOBALS['ExitWndType'] = true;
-        $this->form('maingame')->ExitDialog->content->SetDialogWndType();
-        $this->form('maingame')->ExitDialog->show();
+        $this->form('Client')->ExitDialog->content->SetDialogWndType();
+        $this->form('Client')->ExitDialog->show();
     }
     /**
      * @event Btn_Opt.mouseDown-Left 

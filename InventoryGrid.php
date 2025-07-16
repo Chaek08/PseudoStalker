@@ -331,14 +331,14 @@ class InventoryGrid extends AbstractForm
         
         if ($GLOBALS['item_vodka_selected']) return;
         
-        $this->form('maingame')->Inventory->content->UpdateSelectedItems();
+        $this->form('Client')->Inventory->content->UpdateSelectedItems();
         $GLOBALS['item_vodka_selected'] = true;
         
-        $this->form('maingame')->Inventory->content->ShowUIText();
-        $this->form('maingame')->Inventory->content->SetItemInfo();
-        $this->form('maingame')->Inventory->content->SetItemCondition();
+        $this->form('Client')->Inventory->content->ShowUIText();
+        $this->form('Client')->Inventory->content->SetItemInfo();
+        $this->form('Client')->Inventory->content->SetItemCondition();
         
-        $this->form('maingame')->Inventory->content->UseSlotSound();
+        $this->form('Client')->Inventory->content->UseSlotSound();
     }
     /**
      * @event Inv_Medkit.click-Left 
@@ -349,14 +349,14 @@ class InventoryGrid extends AbstractForm
         
         if ($GLOBALS['item_medkit_selected']) return;
         
-        $this->form('maingame')->Inventory->content->UpdateSelectedItems();
+        $this->form('Client')->Inventory->content->UpdateSelectedItems();
         $GLOBALS['item_medkit_selected'] = true;
         
-        $this->form('maingame')->Inventory->content->ShowUIText();
-        $this->form('maingame')->Inventory->content->SetItemInfo();
-        $this->form('maingame')->Inventory->content->SetItemCondition();
+        $this->form('Client')->Inventory->content->ShowUIText();
+        $this->form('Client')->Inventory->content->SetItemInfo();
+        $this->form('Client')->Inventory->content->SetItemCondition();
         
-        if ($e->clickCount <= 2) $this->form('maingame')->Inventory->content->UseSlotSound();
+        if ($e->clickCount <= 2) $this->form('Client')->Inventory->content->UseSlotSound();
     }
     /**
      * @event Inv_Vodka.click-Right 
@@ -385,8 +385,8 @@ class InventoryGrid extends AbstractForm
      */
     function UpdateInventoryGrid(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->Inventory->content->UpdateSelectedItems();
-        $this->form('maingame')->Inventory->content->HideUIText();   
+        $this->form('Client')->Inventory->content->UpdateSelectedItems();
+        $this->form('Client')->Inventory->content->HideUIText();   
         $this->HideCombobox();
     }
     /**
@@ -396,17 +396,17 @@ class InventoryGrid extends AbstractForm
     {
         if (!$this->selectedItem) return;
         
-        $this->form('maingame')->Inventory->content->DropSound();
+        $this->form('Client')->Inventory->content->DropSound();
         $this->HideCombobox();
         
         $this->removeItemFromGrid($this->selectedItem);
         $this->selectedItem->visible = false;
         $this->repackInventory();
         
-        $this->form('maingame')->Inventory->content->UpdateInventoryStatus();
-        $this->form('maingame')->Inventory->content->HideUIText();
+        $this->form('Client')->Inventory->content->UpdateInventoryStatus();
+        $this->form('Client')->Inventory->content->HideUIText();
         
-        $this->form('maingame')->SpawnItem(); //в нашем случае водка
+        $this->form('Client')->MainGame->content->SpawnItem(); //в нашем случае водка
         
         $this->selectedItem = null; 
     }
@@ -417,12 +417,12 @@ class InventoryGrid extends AbstractForm
     {
         if (!$this->selectedItem) return;
         
-        $this->form('maingame')->Inventory->content->UseSlotSound();
+        $this->form('Client')->Inventory->content->UseSlotSound();
         $this->HideCombobox();
         
         if ($this->selectedItem == $this->Inv_Vodka)
         {
-            //$this->form('maingame')->Inventory->content->ApplyVodkaEffect();
+            //$this->form('Client')->Inventory->content->ApplyVodkaEffect();
             //задел на будущее
         }
         elseif ($this->selectedItem == $this->Inv_Medkit)
@@ -445,8 +445,8 @@ class InventoryGrid extends AbstractForm
         $this->repackInventory();
         $this->updateMedkitCount();
         
-        $this->form('maingame')->Inventory->content->UpdateInventoryStatus();
-        $this->form('maingame')->Inventory->content->HideUIText();
+        $this->form('Client')->Inventory->content->UpdateInventoryStatus();
+        $this->form('Client')->Inventory->content->HideUIText();
         
         $this->selectedItem = null;
     }
@@ -458,7 +458,7 @@ class InventoryGrid extends AbstractForm
         $this->selectedItem = $e->sender;
 
         $this->ApplyMedkitEffect();
-        $this->form('maingame')->Inventory->content->UseSlotSound();
+        $this->form('Client')->Inventory->content->UseSlotSound();
 
         $this->medkitCount--;
                 
@@ -466,8 +466,8 @@ class InventoryGrid extends AbstractForm
         {
             $this->removeItemFromGrid($this->selectedItem);
             $this->selectedItem->visible = false;
-            $this->form('maingame')->Inventory->content->UpdateInventoryStatus();
-            $this->form('maingame')->Inventory->content->HideUIText();
+            $this->form('Client')->Inventory->content->UpdateInventoryStatus();
+            $this->form('Client')->Inventory->content->HideUIText();
             $this->HideCombobox();
         }
         $this->repackInventory();
@@ -489,8 +489,8 @@ class InventoryGrid extends AbstractForm
         $this->removeItemFromGrid($this->selectedItem);
         $this->selectedItem->visible = false;
 
-        $this->form('maingame')->Inventory->content->UpdateInventoryStatus();
-        $this->form('maingame')->Inventory->content->HideUIText();
+        $this->form('Client')->Inventory->content->UpdateInventoryStatus();
+        $this->form('Client')->Inventory->content->HideUIText();
 
         $this->selectedItem = null;
     */
@@ -547,8 +547,8 @@ class InventoryGrid extends AbstractForm
     }
     function ApplyMedkitEffect()
     {
-        $bar = $this->form('maingame')->health_bar_gg;
-        $inv_bar = $this->form('maingame')->Inventory->content->health_bar_gg;
+        $bar = $this->form('Client')->MainGame->content->health_bar_gg;
+        $inv_bar = $this->form('Client')->Inventory->content->health_bar_gg;
 
         $width = $bar->width;
 
@@ -624,7 +624,7 @@ class InventoryGrid extends AbstractForm
     {     
         if (!$this->selectedItem) return;
 
-        $this->form('maingame')->Inventory->content->PropertiesSound();
+        $this->form('Client')->Inventory->content->PropertiesSound();
 
         list($itemX, $itemY) = $this->selectedItem->position;
 

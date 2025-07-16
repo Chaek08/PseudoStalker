@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<behaviours>
+  <target id="Console">
+    <behaviour animated="1" direction="ALL" gridX="1" gridY="1" limitedByParent="" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
+  </target>
+  <target id="CustomCursor">
+    <behaviour bodyType="DYNAMIC" fixtureType="INHERITED" solid="" solidType="NONE" startVelocity="[0]" type="behaviour\custom\GameEntityBehaviour"/>
+    <behaviour centered="" hideOrigin="1" offsetX="0" offsetY="0" type="behaviour\custom\CursorBindBehaviour"/>
+  </target>
+  <target id="track_res">
+    <behaviour animated="" delay="0" duration="500" maxOpacity="1" minOpacity="0" repeatCount="-1" type="behaviour\custom\BlinkAnimationBehaviour" when="ALWAYS"/>
+  </target>
+</behaviours>

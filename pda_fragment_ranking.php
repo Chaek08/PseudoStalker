@@ -106,11 +106,11 @@ class pda_fragment_ranking extends AbstractForm
     }
     function UpdateData()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
     
-        $actor_in_raiting = trim($this->form('maingame')->Pda->content->SDK_ActorName);
-        $enemy_in_raiting = trim($this->form('maingame')->Pda->content->SDK_EnemyName);
-        $valerok_in_raiting = trim($this->form('maingame')->Pda->content->SDK_ValerokName);
+        $actor_in_raiting = trim($this->form('Client')->Pda->content->SDK_ActorName);
+        $enemy_in_raiting = trim($this->form('Client')->Pda->content->SDK_EnemyName);
+        $valerok_in_raiting = trim($this->form('Client')->Pda->content->SDK_ValerokName);
         
         $this->actor_in_raiting_name->text = $actor_in_raiting != '' ? $actor_in_raiting : $this->localization->get('GG_Name');
         $this->goblindav_in_raiting_name->text = $enemy_in_raiting != '' ? $enemy_in_raiting : $this->localization->get('Enemy_Name');
@@ -141,7 +141,7 @@ class pda_fragment_ranking extends AbstractForm
     }
     function ShowUserInfo()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
         $this->tab_detail->text = $this->localization->get('TabDetail');
         $this->community_desc->show();
@@ -178,9 +178,9 @@ class pda_fragment_ranking extends AbstractForm
     }
     function DeathFilter() // Cake-crypto
     { 
-        if ($this->form('maingame')->Pda->content->Pda_Statistic->visible)
+        if ($this->form('Client')->Pda->content->Pda_Statistic->visible)
         {
-            $GLOBALS['ActorFailed'] ? $this->form('maingame')->Pda->content->Pda_Statistic->content->death_filter->show() : $this->form('maingame')->Pda->content->Pda_Statistic->content->death_filter->hide();           
+            $GLOBALS['ActorFailed'] ? $this->form('Client')->Pda->content->Pda_Statistic->content->death_filter->show() : $this->form('Client')->Pda->content->Pda_Statistic->content->death_filter->hide();           
         }
         
         if ($GLOBALS['SelectedActor']) //Проверяем, выбран ли сейчас нужный user
@@ -236,12 +236,12 @@ class pda_fragment_ranking extends AbstractForm
     {    
         if ($GLOBALS['SelectedActor']) 
         {
-            $this->form('maingame')->Pda->content->UpdateBtnColor();
-            $this->form('maingame')->Pda->content->stat_label->textColor = '#d59b30';
+            $this->form('Client')->Pda->content->UpdateBtnColor();
+            $this->form('Client')->Pda->content->stat_label->textColor = '#d59b30';
             
-            $this->form('maingame')->Pda->content->StatisticBtn(); 
+            $this->form('Client')->Pda->content->StatisticBtn(); 
         }
-        if ($this->form('maingame')->Pda->content->Pda_Contacts->content->icon->visible)
+        if ($this->form('Client')->Pda->content->Pda_Contacts->content->icon->visible)
         {
             if ($GLOBALS['EnemyFailed'])
             {
@@ -249,11 +249,11 @@ class pda_fragment_ranking extends AbstractForm
             }
             if ($GLOBALS['SelectedEnemy'])
             {
-                $this->form('maingame')->Pda->content->UpdateBtnColor();
-                $this->form('maingame')->Pda->content->contacts_label->textColor = '#d59b30';
+                $this->form('Client')->Pda->content->UpdateBtnColor();
+                $this->form('Client')->Pda->content->contacts_label->textColor = '#d59b30';
             
-                $this->form('maingame')->Pda->content->ContactsBtn();
-                $this->form('maingame')->Pda->content->Pda_Contacts->content->CharacterClick(); 
+                $this->form('Client')->Pda->content->ContactsBtn();
+                $this->form('Client')->Pda->content->Pda_Contacts->content->CharacterClick(); 
             }                     
         } 
     }
@@ -265,9 +265,9 @@ class pda_fragment_ranking extends AbstractForm
     }
     function LadcegaRole()
     {
-        $name = trim($this->form('maingame')->Pda->content->SDK_LaRoleName);
-        $icon = trim($this->form('maingame')->Pda->content->SDK_LaRoleIcon);
-        $color = trim($this->form('maingame')->Pda->content->SDK_LaRoleColor);
+        $name = trim($this->form('Client')->Pda->content->SDK_LaRoleName);
+        $icon = trim($this->form('Client')->Pda->content->SDK_LaRoleIcon);
+        $color = trim($this->form('Client')->Pda->content->SDK_LaRoleColor);
         
         $this->community->text = $name !== '' ? $name : $this->localization->get('LA_Community');
         $this->community->graphic = $icon !== ''
@@ -279,9 +279,9 @@ class pda_fragment_ranking extends AbstractForm
     }    
     function DanilaEmojiRole()
     {
-        $name = trim($this->form('maingame')->Pda->content->SDK_DeRoleName);
-        $icon = trim($this->form('maingame')->Pda->content->SDK_DeRoleIcon);
-        $color = trim($this->form('maingame')->Pda->content->SDK_DeRoleColor);
+        $name = trim($this->form('Client')->Pda->content->SDK_DeRoleName);
+        $icon = trim($this->form('Client')->Pda->content->SDK_DeRoleIcon);
+        $color = trim($this->form('Client')->Pda->content->SDK_DeRoleColor);
         
         $this->community->text = $name !== '' ? $name : $this->localization->get('DE_Community');
         $this->community->graphic = $icon !== ''
@@ -293,9 +293,9 @@ class pda_fragment_ranking extends AbstractForm
     }
     function PidorasRole()
     {
-        $name = trim($this->form('maingame')->Pda->content->SDK_PidoRoleName);
-        $icon = trim($this->form('maingame')->Pda->content->SDK_PidoRoleIcon);
-        $color = trim($this->form('maingame')->Pda->content->SDK_PidoRoleColor);
+        $name = trim($this->form('Client')->Pda->content->SDK_PidoRoleName);
+        $icon = trim($this->form('Client')->Pda->content->SDK_PidoRoleIcon);
+        $color = trim($this->form('Client')->Pda->content->SDK_PidoRoleColor);
         
         $this->community->text = $name !== '' ? $name : $this->localization->get('Community_Pido');
         $this->community->graphic = $icon !== ''
@@ -307,7 +307,7 @@ class pda_fragment_ranking extends AbstractForm
     }
     function SetUserInfo()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
         if ($GLOBALS['SelectedEnemy'])
         {
@@ -319,8 +319,8 @@ class pda_fragment_ranking extends AbstractForm
             $this->relationship->text = $this->localization->get('Relationship_Enemy');
             $this->relationship->textColor = ('#cc3333');
             
-            $icon_path = trim($this->form('maingame')->Pda->content->SDK_EnemyIcon);
-            $bio_path = trim($this->form('maingame')->Pda->content->SDK_EnemyBio);
+            $icon_path = trim($this->form('Client')->Pda->content->SDK_EnemyIcon);
+            $bio_path = trim($this->form('Client')->Pda->content->SDK_EnemyBio);
             
             $this->user_icon->image = new UXImage($icon_path != '' ? $icon_path : 'res://.data/ui/icon_npc/goblindav.png');
             $this->bio->text = $bio_path != '' ? $bio_path : $this->localization->get('GoblindaV_Bio');
@@ -335,8 +335,8 @@ class pda_fragment_ranking extends AbstractForm
             $this->relationship->text = $this->localization->get('Relationship_Friend');
             $this->relationship->textColor = ('#669966');
             
-            $icon_path = trim($this->form('maingame')->Pda->content->SDK_ValerokIcon);
-            $bio_path = trim($this->form('maingame')->Pda->content->SDK_ValerokBio);
+            $icon_path = trim($this->form('Client')->Pda->content->SDK_ValerokIcon);
+            $bio_path = trim($this->form('Client')->Pda->content->SDK_ValerokBio);
             
             $this->user_icon->image = new UXImage($icon_path != '' ? $icon_path : 'res://.data/ui/icon_npc/valerok.png');
             $this->bio->text = $bio_path != '' ? $bio_path : $this->localization->get('Valerok_Bio');
@@ -350,8 +350,8 @@ class pda_fragment_ranking extends AbstractForm
             $this->attitude->hide();
             $this->relationship->hide();
             
-            $icon_path = trim($this->form('maingame')->Pda->content->SDK_ActorIcon);
-            $bio_path = trim($this->form('maingame')->Pda->content->SDK_ActorBio);
+            $icon_path = trim($this->form('Client')->Pda->content->SDK_ActorIcon);
+            $bio_path = trim($this->form('Client')->Pda->content->SDK_ActorBio);
             
             $this->user_icon->image = new UXImage($icon_path != '' ? $icon_path : 'res://.data/ui/icon_npc/actor.png');
             $this->bio->text = $bio_path != '' ? $bio_path : $this->localization->get('Actor_Bio');

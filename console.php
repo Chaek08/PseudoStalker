@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use php\framework\Logger;
 use php\time\Timer;
 use action\Animation;
 use php\lang\System;
@@ -16,7 +17,8 @@ class console extends AbstractForm
 {
     private $localization;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->localization = new Localization($language);
@@ -30,7 +32,7 @@ class console extends AbstractForm
      */
     function EnterCommands(UXKeyEvent $e = null)
     {    
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         $this->requestFocus();
     
         $command = trim($this->edit->text);
@@ -93,9 +95,9 @@ class console extends AbstractForm
                                 $this->edit->text = "";
                                 Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
-                                $btn = $this->form('maingame')->MainMenu->content->Options->content->Version_Switcher_Btn;
+                                $btn = $this->form('Client')->MainMenu->content->Options->content->Version_Switcher_Btn;
                                 if (($args[1] == "off" && $btn->text == $this->localization->get('TurnOn_Label')) || ($args[1] == "on" && $btn->text == $this->localization->get('TurnOff_Label'))) {
-                                        $this->form('maingame')->MainMenu->content->Options->content->VersionSwitcher();
+                                        $this->form('Client')->MainMenu->content->Options->content->VersionSwitcher();
                                 }
                         }
                         break;
@@ -108,75 +110,80 @@ class console extends AbstractForm
                             if ($args[1] == "on")
                             {
                                 $GLOBALS['GodMode'] = true;
-                                $this->form('maingame')->GodMode();
+                                $this->form('Client')->MainGame->content->GodMode();
 
-                                if ($this->form('maingame')->ltxInitialized)
+                                if ($this->form('Client')->ltxInitialized)
                                 {
-                                    $this->form('maingame')->ltx['g_god'] = 'on';
-                                    $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
+                                    $this->form('Client')->ltx['g_god'] = 'on';
+                                    $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);
                                 }
                             }
                             elseif ($args[1] == "off")
                             {
                                 $GLOBALS['GodMode'] = false;
-                                $this->form('maingame')->GodMode();
+                                $this->form('Client')->MainGame->content->GodMode();
 
-                                if ($this->form('maingame')->ltxInitialized)
+                                if ($this->form('Client')->ltxInitialized)
                                 {
-                                    $this->form('maingame')->ltx['g_god'] = 'off';
-                                    $this->form('maingame')->SaveUserLTX($this->form('maingame')->ltx);
+                                    $this->form('Client')->ltx['g_god'] = 'off';
+                                    $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);
                                 }
                             }
                         }
                         break;    
                 
                 case "vid_mode":
-                    if (isset($args[1])) {
-                        $resolution = $args[1];
-                        $parts = explode('x', $resolution);
-                        if (count($parts) == 2) {
-                            $width = (int)$parts[0];
-                            $height = (int)$parts[1];
+                        $form = $this->form('Client');
 
-                            if ($width > 0 && $height > 0) {
-                                $form = $this->form('maingame');
+                        if (isset($args[1])) {
+                                $resolution = $args[1];
+                                $parts = explode('x', $resolution);
 
-                                $form->width = $width;
-                                $form->height = $height;
+                                if (count($parts) === 2) {
+                                        $targetW = (int)$parts[0];
+                                        $targetH = (int)$parts[1];
 
-                                Timer::after(300, function () use ($form, $width, $height, $resolution) {
-                                    if ($form->Environment_Background) {
-                                        $clientW = $form->Environment_Background->width;
-                                        $clientH = $form->Environment_Background->height;
-                                    } else if ($form->scene && $form->scene->window) {
-                                        $clientW = $form->scene->window->width;
-                                        $clientH = $form->scene->window->height;
-                                    } else {
-                                        $clientW = $form->width;
-                                        $clientH = $form->height;
-                                    }
+                                        if ($targetW > 0 && $targetH > 0) {
+                                                $form->width = $targetW;
+                                                $form->height = $targetH;
 
-                                    $diffW = $form->width - $clientW;
-                                    $diffH = $form->height - $clientH;
+                                                Timer::after(500, function () use ($form, $targetW, $targetH, $resolution) {
+                                                        if ($form->Client) {
+                                                                $clientW = $form->Client->width;
+                                                                $clientH = $form->Client->height;
+                                                        } elseif ($form->scene && $form->scene->window) {
+                                                                $clientW = $form->scene->window->width;
+                                                                $clientH = $form->scene->window->height;
+                                                        } else {
+                                                                $clientW = $form->width;
+                                                                $clientH = $form->height;
+                                                        }
 
-                                    $form->width = $width + $diffW;
-                                    $form->height = $height + $diffH;
+                                                        $diffW = $form->width - $clientW;
+                                                        $diffH = $form->height - $clientH;
 
-                                    if ($form->ltxInitialized) {
-                                        $form->ltx['vid_mode'] = $resolution;
-                                        $form->SaveUserLTX($form->ltx);
-                                    }
-                                });
-                            }
+                                                        $form->width = $targetW + $diffW;
+                                                        $form->height = $targetH + $diffH;
+
+                                                        if ($form->ltxInitialized) {
+                                                                $form->ltx['vid_mode'] = $resolution;
+                                                                $form->SaveUserLTX($form->ltx);
+                                                        }
+
+                                                        if (method_exists($form, 'trackResolution')) {
+                                                                $form->trackResolution();
+                                                        }
+                                                });
+                                        }
+                                }
+                        } else {
+                                $this->edit->text = "";
+                                $currentW = $form->Client->width;
+                                $currentH = $form->Client->height;
+                                Element::appendText($this->Console_Log, "> Current resolution: {$currentW}x{$currentH}\n");
                         }
-                    } else {
-                        $this->edit->text = "";
-                        $form = $this->form('maingame');
-                        $currentWidth = $form->Environment_Background->width;
-                        $currentHeight = $form->Environment_Background->height;
-                        Element::appendText($this->Console_Log, "> Current resolution: {$currentWidth}x{$currentHeight}\n");
-                    }
-                    break;
+                        break;
+
                              
 
                 case "r_shadows":
@@ -184,9 +191,9 @@ class console extends AbstractForm
                                 $this->edit->text = "";
                                 Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
-                                $btn = $this->form('maingame')->MainMenu->content->Options->content->Shadows_Switcher_Btn;
+                                $btn = $this->form('Client')->MainMenu->content->Options->content->Shadows_Switcher_Btn;
                                 if (($args[1] === "on" && $btn->text == $this->localization->get('TurnOff_Label')) || ($args[1] == "off" && $btn->text == $this->localization->get('TurnOn_Label'))) {
-                                        $this->form('maingame')->MainMenu->content->Options->content->ShadowsSwitcher();
+                                        $this->form('Client')->MainMenu->content->Options->content->ShadowsSwitcher();
                                 }
                         }
                         break;
@@ -196,9 +203,9 @@ class console extends AbstractForm
                                 $this->edit->text = "";
                                 Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
-                                $btn = $this->form('maingame')->MainMenu->content->Options->content->AllSound_Switcher_Btn;
+                                $btn = $this->form('Client')->MainMenu->content->Options->content->AllSound_Switcher_Btn;
                                 if (($args[1] === "off" && $btn->text == $this->localization->get('TurnOn_Label')) || ($args[1] === "on" && $btn->text == $this->localization->get('TurnOff_Label'))) {
-                                        $this->form('maingame')->MainMenu->content->Options->content->AllSoundSwitcher();
+                                        $this->form('Client')->MainMenu->content->Options->content->AllSoundSwitcher();
                                 }
                         }
                         break;
@@ -206,15 +213,15 @@ class console extends AbstractForm
                 case "version":
                         $this->edit->text = "";
                         global $BuildID;
-                        Element::appendText($this->Console_Log, "> PseudoStalker, " . VersionID . ", " . $this->form('maingame')->BuildID . "\n");
+                        Element::appendText($this->Console_Log, "> PseudoStalker, " . VersionID . ", " . $this->form('Client')->BuildID . "\n");
                         break;                       
                         
                 case "save":
-                        if (!$GLOBALS['ContinueGameState'] || $this->form('maingame')->MainMenu->visible || $this->form('maingame')->Fail->visible) return;
+                        if (!$GLOBALS['ContinueGameState'] || $this->form('Client')->MainMenu->visible || $this->form('Client')->Fail->visible) return;
 
                         static $lastToastId = 0;
 
-                        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+                        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
 
                         $parts = explode(" ", trim($this->edit->text), 2); 
                         $saveName = "";
@@ -229,7 +236,7 @@ class console extends AbstractForm
                             $saveName = $username . '_quicksave';
                         }
 
-                        $saveUI = $this->form('maingame')->MainMenu->content->UISaveWnd->content;
+                        $saveUI = $this->form('Client')->MainMenu->content->UISaveWnd->content;
                         $saveUI->Edit_SaveName->text = $saveName;
                         $GLOBALS['AutoRewriteSave'] = true;
                         $saveUI->BtnSaveGame();
@@ -237,11 +244,11 @@ class console extends AbstractForm
                         Element::appendText($this->Console_Log, "> Saved game: $saveName\n");
                         $this->edit->text = "";
 
-                        $this->form('maingame')->SavedGame_Toast->opacity = 0;
-                        $this->form('maingame')->SavedGame_Toast->visible = true;
-                        $this->form('maingame')->SavedGame_Toast->text = $this->localization->get('SavedGameToast') . ' ' . $saveName;
+                        $this->form('Client')->MainGame->content->SavedGame_Toast->opacity = 0;
+                        $this->form('Client')->MainGame->content->SavedGame_Toast->visible = true;
+                        $this->form('Client')->MainGame->content->SavedGame_Toast->text = $this->localization->get('SavedGameToast') . ' ' . $saveName;
 
-                        Animation::fadeIn($this->form('maingame')->SavedGame_Toast, 300);
+                        Animation::fadeIn($this->form('Client')->MainGame->content->SavedGame_Toast, 300);
 
                         $lastToastId++;
                         $currentId = $lastToastId;
@@ -249,7 +256,7 @@ class console extends AbstractForm
                         Timer::after(2300, function () use ($currentId) {
                             if ($currentId == $GLOBALS['lastToastId'])
                             {
-                                Animation::fadeOut($this->form('maingame')->SavedGame_Toast, 300);
+                                Animation::fadeOut($this->form('Client')->MainGame->content->SavedGame_Toast, 300);
                             }
                         });
 
@@ -268,13 +275,13 @@ class console extends AbstractForm
                             $filePath = SAVE_DIRECTORY . $saveName . '.sav';
                             if (file_exists($filePath))
                             {
-                                $loadWnd = $this->form('maingame')->MainMenu->content->UILoadWnd->content;
+                                $loadWnd = $this->form('Client')->MainMenu->content->UILoadWnd->content;
                                 $savesList = $loadWnd->saves_list;
                                 foreach ($savesList->items->toArray() as $index => $item) {
                                 if ($item == $saveName)
                                 {
                                     $savesList->selectedIndex = $index;
-                                    $this->form('maingame')->MainMenu->content->UILoadWnd->content->BtnLoadSave();
+                                    $this->form('Client')->MainMenu->content->UILoadWnd->content->BtnLoadSave();
                                     Element::appendText($this->Console_Log, "> Loaded save: $saveName\n");
                                     break;
                                 }}
@@ -307,6 +314,10 @@ class console extends AbstractForm
 
                                         $target = $form;
                                         foreach ($fragmentPath as $fragment) {
+                                                if (isset($target->content)) {
+                                                        $target = $target->content;
+                                                }                                        
+                                        
                                                 if (isset($target->$fragment)) {
                                                         $target = $target->$fragment;
                                                 } else {
@@ -314,6 +325,10 @@ class console extends AbstractForm
                                                         break 2;
                                                 }
                                         }
+                                        
+                                        if (isset($target->content)) {
+                                                $target = $target->content;
+                                        }                                        
 
                                         if (method_exists($target, $methodName)) {
                                                 $methodArgs = array_slice($args, 2); 
@@ -353,8 +368,8 @@ class console extends AbstractForm
 
                         if (isset($args[1]) && in_array($args[1], array_keys($languageMap))) {
                                 $this->localization->setLanguage($args[1]);
-                                $this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value = $languageMap[$args[1]];
-                                $this->form('maingame')->MainMenu->content->Options->content->LanguageSwitcherCombobobx();
+                                $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value = $languageMap[$args[1]];
+                                $this->form('Client')->MainMenu->content->Options->content->LanguageSwitcherCombobobx();
                                 Element::appendText($this->Console_Log, "> Language changed to: {$args[1]} ({$languageMap[$args[1]]})\n");
                         } else {
                                 $currentLang = $this->localization->getCurrentLanguage();
@@ -364,7 +379,7 @@ class console extends AbstractForm
                         break;
                         
                 case "sync_sdk_ltx":
-                        $this->form('maingame')->syncWithSDKLTX();
+                        $this->form('Client')->syncWithSDKLTX();
                         Element::appendText($this->Console_Log, "> {$command}\n");
                         break;                         
 
@@ -420,6 +435,6 @@ class console extends AbstractForm
      */
     function CloseConsole(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->Console->hide();
+        $this->form('Client')->Console->hide();
     }
 }

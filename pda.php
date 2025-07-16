@@ -112,13 +112,13 @@ class pda extends AbstractForm
         $this->Pda_Tasks->hide();
         $this->Pda_Statistic->hide();
         
-        if (!$this->form('maingame')->Pda->visible) $this->UpdateBtnColor();
+        if (!$this->form('Client')->Pda->visible) $this->UpdateBtnColor();
         
         $this->Pda_Background->show();
             
-        $this->form('maingame')->Pda->content->Pda_Ranking->content->HideUserInfo();
-        $this->form('maingame')->Pda->content->Pda_Tasks->content->ClearDetailTask();
-        $this->form('maingame')->Pda->content->Pda_Contacts->content->HideCharacter();
+        $this->form('Client')->Pda->content->Pda_Ranking->content->HideUserInfo();
+        $this->form('Client')->Pda->content->Pda_Tasks->content->ClearDetailTask();
+        $this->form('Client')->Pda->content->Pda_Contacts->content->HideCharacter();
     }
     function UpdateBtnColor()
     {
@@ -199,6 +199,6 @@ class pda extends AbstractForm
         $this->Pda_Background->hide();
         
         $this->Pda_Ranking->content->DeathFilter();
-        $this->form('maingame')->Pda->content->Pda_Tasks->content->Step_DeletePda();
+        $this->form('Client')->Pda->content->Pda_Tasks->content->Step_DeletePda();
     }  
 }

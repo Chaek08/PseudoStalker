@@ -93,20 +93,20 @@ class UISaveWnd extends AbstractForm
     }
     function saveScreenshot()
     {
-        $maingame = $this->form('maingame');
-        $mainMenu = $maingame->MainMenu;
-        $exitDialog = $maingame->ExitDialog;
-        $console = $maingame->Console;
-        $layout = $maingame->layout;
+        $client = $this->form('Client');
+        $mainMenu = $client->MainMenu;
+        $exitDialog = $client->ExitDialog;
+        $console = $client->Console;
+        $layout = $client->layout;
 
         if ($mainMenu->content->UISaveWnd->visible) $mainMenu->hide();
         if ($exitDialog->visible) $exitDialog->hide();
-        $maingame->CustomCursor->hide();
+        $client->CustomCursor->hide();
         if (!$GLOBALS['HudVisible'] && $mainMenu->content->UISaveWnd->visible) $maingame->RenderHud(true);
         if ($console->visible) $console->opacity = 0;
 
-        $formWidth = $maingame->Environment_Background->width;
-        $formHeight = $maingame->Environment_Background->height;
+        $formWidth = $client->Client->width;
+        $formHeight = $client->Client->height;
 
         $originalX = $console->x;
         $originalY = $console->y;
@@ -135,8 +135,8 @@ class UISaveWnd extends AbstractForm
         $console->y = $originalY;
 
         if ($mainMenu->content->UISaveWnd->visible) $mainMenu->show();
-        $maingame->CustomCursor->show();
-        if ($GLOBALS['HudVisible'] && $mainMenu->content->UISaveWnd->visible) $maingame->RenderHud(false);
+        $client->CustomCursor->show();
+        if ($GLOBALS['HudVisible'] && $mainMenu->content->UISaveWnd->visible) $client->MainGame->content->RenderHud(false);
         if ($console->visible) $console->opacity = 100;
 
         $imageView = new UXImageView($image);
@@ -154,8 +154,8 @@ class UISaveWnd extends AbstractForm
      */
     function ReturnBtn(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->MainMenu->content->dynamic_background->toBack();
-        $this->form('maingame')->MainMenu->content->UISaveWnd->hide();
+        $this->form('Client')->MainMenu->content->dynamic_background->toBack();
+        $this->form('Client')->MainMenu->content->UISaveWnd->hide();
     }    
     /**
      * @event saves_list.action 
@@ -173,7 +173,7 @@ class UISaveWnd extends AbstractForm
      */
     function BtnSaveGame(UXMouseEvent $e = null)
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
     
         $this->saveHistory[] = trim($this->Edit_SaveName->text);
         $this->historyIndex = count($this->saveHistory);
@@ -186,12 +186,12 @@ class UISaveWnd extends AbstractForm
             
             if (file_exists($filePath) && $saveName != System::getProperty('user.name') . '_quicksave' && !$GLOBALS['AutoRewriteSave'])
             {
-                if (!$this->form('maingame')->ExitDialog->visible)
+                if (!$this->form('Client')->ExitDialog->visible)
                 {
-                    $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+                    $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
                     $GLOBALS['RewriteSaveType'] = true;
-                    $this->form('maingame')->ExitDialog->content->SetDialogWndType();
-                    $this->form('maingame')->ExitDialog->show();
+                    $this->form('Client')->ExitDialog->content->SetDialogWndType();
+                    $this->form('Client')->ExitDialog->show();
                     
                     return;
                 }
@@ -204,48 +204,48 @@ class UISaveWnd extends AbstractForm
             $saveData = [
                 'client_version' => client_version,
                 'health_gg_inv' => [
-                        'value' => $this->form('maingame')->Inventory->content->health_bar_gg->text,
-                        'pb_width' => $this->form('maingame')->Inventory->content->health_bar_gg->width,
+                        'value' => $this->form('Client')->Inventory->content->health_bar_gg->text,
+                        'pb_width' => $this->form('Client')->Inventory->content->health_bar_gg->width,
                 ],
                 'health' => [
                     'gg' => [ 
-                        'value' => $this->form('maingame')->health_bar_gg->text,
-                        'pb_width' => $this->form('maingame')->health_bar_gg->width,
+                        'value' => $this->form('Client')->MainGame->content->health_bar_gg->text,
+                        'pb_width' => $this->form('Client')->MainGame->content->health_bar_gg->width,
                     ],
                     'enemy' => [
-                        'value' => $this->form('maingame')->health_bar_enemy->text,
-                        'pb_width' => $this->form('maingame')->health_bar_enemy->width,
+                        'value' => $this->form('Client')->MainGame->content->health_bar_enemy->text,
+                        'pb_width' => $this->form('Client')->MainGame->content->health_bar_enemy->width,
                     ]
                 ],
                 'objects_position' => [
                     'actor' => [
-                        'x' => $this->form('maingame')->actor->position[0],
-                        'y' => $this->form('maingame')->actor->position[1],
+                        'x' => $this->form('Client')->MainGame->content->actor->position[0],
+                        'y' => $this->form('Client')->MainGame->content->actor->position[1],
                     ],
                     'enemy' => [
-                        'x' => $this->form('maingame')->enemy->position[0],
-                        'y' => $this->form('maingame')->enemy->position[1],
+                        'x' => $this->form('Client')->MainGame->content->enemy->position[0],
+                        'y' => $this->form('Client')->MainGame->content->enemy->position[1],
                     ],
                     'item_vodka_0000' => [
-                        'x' => $this->form('maingame')->item_vodka_0000->position[0],
-                        'y' => $this->form('maingame')->item_vodka_0000->position[1],
+                        'x' => $this->form('Client')->MainGame->content->item_vodka_0000->position[0],
+                        'y' => $this->form('Client')->MainGame->content->item_vodka_0000->position[1],
                     ],
                 ],
                 'quest_time' => [
-                    'date' => $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_date->text,
-                    'hm' => $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_hm->text,
+                    'date' => $this->form('Client')->Pda->content->Pda_Tasks->content->time_quest_date->text,
+                    'hm' => $this->form('Client')->Pda->content->Pda_Tasks->content->time_quest_hm->text,
                 ],
-                'vodka_exist' => $this->form('maingame')->item_vodka_0000->visible,
-                'medkit_count' => $this->form('maingame')->Inventory->content->InventoryGrid->content->medkitCount,
+                'vodka_exist' => $this->form('Client')->MainGame->content->item_vodka_0000->visible,
+                'medkit_count' => $this->form('Client')->Inventory->content->InventoryGrid->content->medkitCount,
                 'quest_step1' => isset($GLOBALS['QuestStep1']) ? $GLOBALS['QuestStep1'] : false,
                 'quest_completed' => isset($GLOBALS['QuestCompleted']) ? $GLOBALS['QuestCompleted'] : false,
                 'actor_failed' => isset($GLOBALS['ActorFailed']) ? $GLOBALS['ActorFailed'] : false,
                 'enemy_failed' => isset($GLOBALS['EnemyFailed']) ? $GLOBALS['EnemyFailed'] : false,
                 'need_to_check_pda' => isset($GLOBALS['NeedToCheckPDA']) ? $GLOBALS['NeedToCheckPDA'] : false,
-                'menubackground_playpos' => $this->form('maingame')->MainMenu->content->MainMenuBackground->positionMs,
-                'menusound_playpos' => $this->form('maingame')->MainMenu->content->MenuSound->positionMs,
-                'environment_playpos' => $this->form('maingame')->Environment->positionMs,
-                'fightsound_playpos' => $this->form('maingame')->FightSound->positionMs,
+                'menubackground_playpos' => $this->form('Client')->MainMenu->content->MainMenuBackground->positionMs,
+                'menusound_playpos' => $this->form('Client')->MainMenu->content->MenuSound->positionMs,
+                'environment_playpos' => $this->form('Client')->MainGame->content->Environment->positionMs,
+                'fightsound_playpos' => $this->form('Client')->MainGame->content->FightSound->positionMs,
             ];
             $encryptedData = DimasCryptoZlodey::encryptData(json_encode($saveData, JSON_PRETTY_PRINT));
             $this->saveScreenshot();
@@ -266,12 +266,12 @@ class UISaveWnd extends AbstractForm
 
         if ($selectedSave != '')
         {
-            if (!$this->form('maingame')->ExitDialog->visible)
+            if (!$this->form('Client')->ExitDialog->visible)
             {
-                $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+                $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
                 $GLOBALS['RemoveSaveType'] = true;
-                $this->form('maingame')->ExitDialog->content->SetDialogWndType();
-                $this->form('maingame')->ExitDialog->show();
+                $this->form('Client')->ExitDialog->content->SetDialogWndType();
+                $this->form('Client')->ExitDialog->show();
                 
                 return;
             }

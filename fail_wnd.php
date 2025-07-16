@@ -31,21 +31,21 @@ class fail_wnd extends AbstractForm
      */
     function ExitGameBtn(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->RenderHud(false);
-        $this->form('maingame')->ShowMenu();
-        $this->form('maingame')->ResetGameClient();
+        $this->form('Client')->MainGame->content->RenderHud(false);
+        $this->form('Client')->ShowMenu();
+        $this->form('Client')->MainGame->content->ResetGameClient();
     }
     /**
      * @event returnbtn.click-Left 
      */
     function ReturnBtn(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->RenderHud(true);
+        $this->form('Client')->MainGame->content->RenderHud(true);
         
-        $this->form('maingame')->Fail->hide();
-        if (!$this->form('maingame')->Inventory->content->InventoryGrid->content->Inv_Vodka->visible || $this->form('maingame')->item_vodka_0000->opacity != 0) $this->form('maingame')->item_vodka_0000->show();
-        if ($GLOBALS['ActorFailed']) $this->form('maingame')->enemy->show();
-        if ($GLOBALS['EnemyFailed']) $this->form('maingame')->actor->show();
+        $this->form('Client')->Fail->hide();
+        if (!$this->form('Client')->Inventory->content->InventoryGrid->content->Inv_Vodka->visible || $this->form('Client')->MainGame->content->item_vodka_0000->opacity != 0) $this->form('Client')->MainGame->content->item_vodka_0000->show();
+        if ($GLOBALS['ActorFailed']) $this->form('Client')->MainGame->content->enemy->show();
+        if ($GLOBALS['EnemyFailed']) $this->form('Client')->MainGame->content->actor->show();
                    
         if ($GLOBALS['AllSounds'])
         {
@@ -61,10 +61,10 @@ class fail_wnd extends AbstractForm
     }
     function UpdateFailState()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         if ($GLOBALS['ActorFailed'])
         {
-            $enemy_model = trim($this->form('maingame')->SDK_EnemyModel);
+            $enemy_model = trim($this->form('Client')->SDK_EnemyModel);
             $actor_failtext = trim($this->SDK_FailTextActor);
             $actor_failtexticon = trim($this->SDK_FailTextIconActor);
             $actor_faildesc = trim($this->SDK_FailDescActor);
@@ -76,7 +76,7 @@ class fail_wnd extends AbstractForm
         }
         if ($GLOBALS['EnemyFailed'])
         {
-            $actor_model = trim($this->form('maingame')->SDK_ActorModel);
+            $actor_model = trim($this->form('Client')->SDK_ActorModel);
             $enemy_failtext = trim($this->SDK_FailTextEnemy);
             $enemy_failtexticon = trim($this->SDK_FailTextIconEnemy);
             $enemy_faildesc = trim($this->SDK_FailDescEnemy);    

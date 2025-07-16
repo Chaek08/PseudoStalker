@@ -19,15 +19,15 @@ class pda_fragment_contacts extends AbstractForm
     
     function UpdateData()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
     
-        $name = trim($this->form('maingame')->Pda->content->SDK_EnemyName);
-        $icon = trim($this->form('maingame')->Pda->content->SDK_EnemyIcon);
-        $bio = trim($this->form('maingame')->Pda->content->SDK_EnemyBio);
+        $name = trim($this->form('Client')->Pda->content->SDK_EnemyName);
+        $icon = trim($this->form('Client')->Pda->content->SDK_EnemyIcon);
+        $bio = trim($this->form('Client')->Pda->content->SDK_EnemyBio);
         
-        $role_name = trim($this->form('maingame')->Pda->content->SDK_PidoRoleName);
-        $role_icon = trim($this->form('maingame')->Pda->content->SDK_PidoRoleIcon);
-        $role_color = trim($this->form('maingame')->Pda->content->SDK_PidoRoleColor);        
+        $role_name = trim($this->form('Client')->Pda->content->SDK_PidoRoleName);
+        $role_icon = trim($this->form('Client')->Pda->content->SDK_PidoRoleIcon);
+        $role_color = trim($this->form('Client')->Pda->content->SDK_PidoRoleColor);        
         
         $this->name->text = $name !== '' ? $name : $this->localization->get('Enemy_Name');
         $this->icon->image = new UXImage($icon !== '' ? $icon : 'res://.data/ui/icon_npc/goblindav.png');
@@ -44,17 +44,17 @@ class pda_fragment_contacts extends AbstractForm
      */
     function RedirectRaiting(UXMouseEvent $e = null)
     {    
-        $this->form('maingame')->Pda->content->UpdateBtnColor();
-        $this->form('maingame')->Pda->content->ranks_label->textColor = '#d59b30';    
+        $this->form('Client')->Pda->content->UpdateBtnColor();
+        $this->form('Client')->Pda->content->ranks_label->textColor = '#d59b30';    
     
-        $this->form('maingame')->Pda->content->RankingBtn();
+        $this->form('Client')->Pda->content->RankingBtn();
         
-        $this->form('maingame')->Pda->content->Pda_Ranking->content->ResetBtnColor();
+        $this->form('Client')->Pda->content->Pda_Ranking->content->ResetBtnColor();
         foreach (['goblindav_in_raiting_pos', 'goblindav_in_raiting_name', 'goblindav_in_raiting_rank'] as $labelName)
         {
-            $this->form('maingame')->Pda->content->Pda_Ranking->content->{$labelName}->textColor = '#cccccc';
+            $this->form('Client')->Pda->content->Pda_Ranking->content->{$labelName}->textColor = '#cccccc';
         }        
-        $this->form('maingame')->Pda->content->Pda_Ranking->content->EnemyInListBtn();        
+        $this->form('Client')->Pda->content->Pda_Ranking->content->EnemyInListBtn();        
     }
     function setCharacterSelected($selected)
     {
@@ -76,7 +76,7 @@ class pda_fragment_contacts extends AbstractForm
      */
     function CharacterClick(UXMouseEvent $e = null)
     {    
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
     
         $this->setCharacterSelected(true);
     }

@@ -25,9 +25,9 @@ class MessageBox extends AbstractForm
     
     function UpdateMessageBox()
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value); 
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value); 
         
-        $this->form('maingame')->Pda->content->Pda_Tasks->content->UpdateData();   
+        $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();   
     
         if ($GLOBALS['Task_Status_Update'])
         {

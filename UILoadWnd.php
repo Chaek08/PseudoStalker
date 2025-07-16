@@ -116,15 +116,15 @@ class UILoadWnd extends AbstractForm
      */
     function ReturnBtn(UXMouseEvent $e = null)
     {
-        $this->form('maingame')->MainMenu->content->dynamic_background->toBack();
-        $this->form('maingame')->MainMenu->content->UILoadWnd->hide();
+        $this->form('Client')->MainMenu->content->dynamic_background->toBack();
+        $this->form('Client')->MainMenu->content->UILoadWnd->hide();
     }    
     /**
      * @event saves_list.action 
      */
     function ShowSavePreview(UXEvent $e = null)
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
     
         $selectedSave = $this->saves_list->selectedItem;
         
@@ -174,7 +174,7 @@ class UILoadWnd extends AbstractForm
      */
     function BtnLoadSave(UXMouseEvent $e = null)
     {
-        $this->localization->setLanguage($this->form('maingame')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         
         $saveName = $this->saves_list->selectedItem;
         
@@ -223,12 +223,12 @@ class UILoadWnd extends AbstractForm
         {
             if (!$this->keyExists($saveData, explode('.', $key)))
             {
-                if (!$this->form('maingame')->ExitDialog->visible)
+                if (!$this->form('Client')->ExitDialog->visible)
                 {
-                    $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+                    $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
                     $GLOBALS['CorruptSaveType'] = true;
-                    $this->form('maingame')->ExitDialog->content->SetDialogWndType();
-                    $this->form('maingame')->ExitDialog->show();
+                    $this->form('Client')->ExitDialog->content->SetDialogWndType();
+                    $this->form('Client')->ExitDialog->show();
                 
                     return;
                 }                
@@ -238,45 +238,45 @@ class UILoadWnd extends AbstractForm
         {
             if (!in_array($key, $requiredKeys))
             {
-                if (!$this->form('maingame')->ExitDialog->visible)
+                if (!$this->form('Client')->ExitDialog->visible)
                 {
-                    $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+                    $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
                     $GLOBALS['CorruptSaveType'] = true;
-                    $this->form('maingame')->ExitDialog->content->SetDialogWndType();
-                    $this->form('maingame')->ExitDialog->show();
+                    $this->form('Client')->ExitDialog->content->SetDialogWndType();
+                    $this->form('Client')->ExitDialog->show();
                 
                     return;
                 }                
             }
         }
         
-        if ($saveData['client_version'] !== client_version)
+        if ($saveData['client_version'] != client_version)
         {
-            if (!$this->form('maingame')->ExitDialog->visible)
+            if (!$this->form('Client')->ExitDialog->visible)
             {
-                $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+                $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
                 $GLOBALS['ClientVersionErrorType'] = true;
-                $this->form('maingame')->ExitDialog->content->SetDialogWndType();
-                $this->form('maingame')->ExitDialog->show();
+                $this->form('Client')->ExitDialog->content->SetDialogWndType();
+                $this->form('Client')->ExitDialog->show();
                 
                 return;
             }
         }
         
-        $this->form('maingame')->ResetGameClient(function () use ($saveData, $saveName)
+        $this->form('Client')->MainGame->content->ResetGameClient(function () use ($saveData, $saveName)
         {        
-            $this->form('maingame')->MainMenu->content->UILoadWnd->content->ReturnBtn();
-            $this->form('maingame')->MainMenu->content->BtnStartGame();
+            $this->form('Client')->MainMenu->content->UILoadWnd->content->ReturnBtn();
+            $this->form('Client')->MainMenu->content->BtnStartGame();
             if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = false;
         
-            $this->form('maingame')->Pda->content->Pda_Tasks->content->UpdateData();    
-            $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_date->text = $saveData['quest_time']['date'];
-            $this->form('maingame')->Pda->content->Pda_Tasks->content->time_quest_hm->text = $saveData['quest_time']['hm'];
-            $this->form('maingame')->item_vodka_0000->visible = $saveData['vodka_exist'];
-            if ($this->form('maingame')->item_vodka_0000->visible) 
+            $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();    
+            $this->form('Client')->Pda->content->Pda_Tasks->content->time_quest_date->text = $saveData['quest_time']['date'];
+            $this->form('Client')->Pda->content->Pda_Tasks->content->time_quest_hm->text = $saveData['quest_time']['hm'];
+            $this->form('Client')->MainGame->content->item_vodka_0000->visible = $saveData['vodka_exist'];
+            if ($this->form('Client')->MainGame->content->item_vodka_0000->visible) 
             {
-                if ($this->form('maingame')->Inventory->content->InventoryGrid->content->selectedItem = $this->form('maingame')->Inventory->content->InventoryGrid->content->Inv_Vodka)
-                $this->form('maingame')->Inventory->content->InventoryGrid->content->DropItem();
+                if ($this->form('Client')->Inventory->content->InventoryGrid->content->selectedItem = $this->form('Client')->Inventory->content->InventoryGrid->content->Inv_Vodka)
+                $this->form('Client')->Inventory->content->InventoryGrid->content->DropItem();
             }
         
             $GLOBALS['QuestStep1'] = $saveData['quest_step1'];
@@ -287,66 +287,65 @@ class UILoadWnd extends AbstractForm
         
             if (isset($saveData['objects_position']['actor']))
             {
-                $this->form('maingame')->actor->position = [
+                $this->form('Client')->MainGame->content->actor->position = [
                 $saveData['objects_position']['actor']['x'],
                 $saveData['objects_position']['actor']['y']
                 ];
             }
             if (isset($saveData['objects_position']['enemy']))
             {
-                $this->form('maingame')->enemy->position = [
+                $this->form('Client')->MainGame->content->enemy->position = [
                 $saveData['objects_position']['enemy']['x'],
                 $saveData['objects_position']['enemy']['y']
                 ];
             }
             if (isset($saveData['objects_position']['item_vodka_0000']))
             {
-                $this->form('maingame')->item_vodka_0000->position = [
+                $this->form('Client')->MainGame->content->item_vodka_0000->position = [
                 $saveData['objects_position']['item_vodka_0000']['x'],
                 $saveData['objects_position']['item_vodka_0000']['y']
                 ];
             }
             if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed'])
             {
-                if ($saveData['quest_step1'] == true) $this->form('maingame')->Pda->content->Pda_Tasks->content->Step1_Complete();
-                $this->form('maingame')->finalizeBattle();
+                if ($saveData['quest_step1'] == true) $this->form('Client')->Pda->content->Pda_Tasks->content->Step1_Complete();
+                $this->form('Client')->MainGame->content->finalizeBattle();
             
-                $this->form('maingame')->Pda->content->Pda_Ranking->content->DeathFilter();
-                if ($this->form('maingame')->Fail->visible) $this->form('maingame')->Fail->content->ReturnBtn();
-                if ($saveData['need_to_check_pda'] == false) $this->form('maingame')->Pda->content->Pda_Tasks->content->Step_DeletePda();
+                $this->form('Client')->Pda->content->Pda_Ranking->content->DeathFilter();
+                if ($this->form('Client')->Fail->visible) $this->form('Client')->Fail->content->ReturnBtn();
+                if ($saveData['need_to_check_pda'] == false) $this->form('Client')->Pda->content->Pda_Tasks->content->Step_DeletePda();
             }
             if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted']) 
             {
-                $this->form('maingame')->Dialog->content->Talk_3();
+                $this->form('Client')->Dialog->content->Talk_3();
             
-                $this->form('maingame')->fight_image->show();
+                $this->form('Client')->MainGame->content->fight_image->show();
             }
         
-            if ($this->form('maingame')->MessageBox->visible) $this->form('maingame')->MessageBox->hide();
-            if ($this->form('maingame')->Task_Step_Label->visible) $this->form('maingame')->Task_Step_Label->hide();
+            if ($this->form('Client')->MainGame->content->MessageBox->visible) $this->form('Client')->MainGame->content->MessageBox->hide();
+            if ($this->form('Client')->MainGame->content->Task_Step_Label->visible) $this->form('Client')->MainGame->content->Task_Step_Label->hide();
                 
-            $this->form('maingame')->InitEnvironmentTimer($saveData['quest_time']['hm']);     
-            $this->form('maingame')->UpdateEnvironment($saveData['quest_time']['hm']);
-            $this->form('maingame')->UpdateEnvironmentUI();
+            $this->form('Client')->MainGame->content->InitEnvironmentTimer($saveData['quest_time']['hm']);     
+            $this->form('Client')->MainGame->content->UpdateEnvironment($saveData['quest_time']['hm']);
             
-            $this->form('maingame')->GetHealth();
-            $this->form('maingame')->health_bar_gg->text = $saveData['health']['gg']['value'];
-            $this->form('maingame')->health_bar_gg->width = $saveData['health']['gg']['pb_width'];
-            $this->form('maingame')->Inventory->content->health_bar_gg->width = $saveData['health_gg_inv']['pb_width'];
-            $this->form('maingame')->Inventory->content->health_bar_gg->text = $saveData['health_gg_inv']['value'];
-            $this->form('maingame')->health_bar_enemy->text = $saveData['health']['enemy']['value'];
-            $this->form('maingame')->health_bar_enemy->width = $saveData['health']['enemy']['pb_width'];
-            $this->form('maingame')->Bleeding();
+            $this->form('Client')->MainGame->content->GetHealth();
+            $this->form('Client')->MainGame->content->health_bar_gg->text = $saveData['health']['gg']['value'];
+            $this->form('Client')->MainGame->content->health_bar_gg->width = $saveData['health']['gg']['pb_width'];
+            $this->form('Client')->Inventory->content->health_bar_gg->width = $saveData['health_gg_inv']['pb_width'];
+            $this->form('Client')->Inventory->content->health_bar_gg->text = $saveData['health_gg_inv']['value'];
+            $this->form('Client')->MainGame->content->health_bar_enemy->text = $saveData['health']['enemy']['value'];
+            $this->form('Client')->MainGame->content->health_bar_enemy->width = $saveData['health']['enemy']['pb_width'];
+            $this->form('Client')->MainGame->content->Bleeding();
             
-            $this->form('maingame')->Inventory->content->InventoryGrid->content->medkitCount = $saveData['medkit_count'];
-            $this->form('maingame')->Inventory->content->InventoryGrid->content->updateMedkitCount();
+            $this->form('Client')->Inventory->content->InventoryGrid->content->medkitCount = $saveData['medkit_count'];
+            $this->form('Client')->Inventory->content->InventoryGrid->content->updateMedkitCount();
         
-            $this->waitAndSetPosition($this->form('maingame')->MainMenu->content->MainMenuBackground, $saveData['menubackground_playpos']);
-            $this->waitAndSetPosition($this->form('maingame')->MainMenu->content->MenuSound, $saveData['menusound_playpos']);
-            $this->waitAndSetPosition($this->form('maingame')->Environment, $saveData['environment_playpos']);
-            $this->waitAndSetPosition($this->form('maingame')->FightSound, $saveData['fightsound_playpos']);
+            $this->waitAndSetPosition($this->form('Client')->MainMenu->content->MainMenuBackground, $saveData['menubackground_playpos']);
+            $this->waitAndSetPosition($this->form('Client')->MainMenu->content->MenuSound, $saveData['menusound_playpos']);
+            $this->waitAndSetPosition($this->form('Client')->MainGame->content->Environment, $saveData['environment_playpos']);
+            $this->waitAndSetPosition($this->form('Client')->MainGame->content->FightSound, $saveData['fightsound_playpos']);
         
-            $this->form('maingame')->PlayEnvironment();
+            $this->form('Client')->MainGame->content->PlayEnvironment();
         
             if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = true;
                 
@@ -362,12 +361,12 @@ class UILoadWnd extends AbstractForm
 
         if ($selectedSave != '')
         {       
-            if (!$this->form('maingame')->ExitDialog->visible)
+            if (!$this->form('Client')->ExitDialog->visible)
             {
-                $this->form('maingame')->ExitDialog->content->UpdateDialogWnd();
+                $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
                 $GLOBALS['RemoveSaveType'] = true;
-                $this->form('maingame')->ExitDialog->content->SetDialogWndType();
-                $this->form('maingame')->ExitDialog->show();
+                $this->form('Client')->ExitDialog->content->SetDialogWndType();
+                $this->form('Client')->ExitDialog->show();
                 
                 return;
             } 
