@@ -350,7 +350,7 @@ class maingame extends AbstractForm
                     });
                 } 
             
-                $this->DamageEnemy();
+                $this->DamageEnemy(null, false);
 
                 Animation::displace($vodka, 300, -150, -10, function () use ($vodka, $floorY) {
                     Animation::moveTo($vodka, 300, $vodka->x, $floorY);
@@ -438,7 +438,7 @@ class maingame extends AbstractForm
     /**
      * @event enemy.click-2x
      */       
-    function DamageEnemy(UXMouseEvent $e = null)
+    function DamageEnemy(UXMouseEvent $e = null, bool $spawnParticles = true)
     { 
         if ($this->health_bar_enemy->width != 54)
         {
@@ -470,33 +470,36 @@ class maingame extends AbstractForm
                 }
             });
             
-            for ($i = 0; $i < 2; $i++)
+            if ($spawnParticles)
             {
-                $scatterX = rand(-25, 25);
-                $scatterY = rand(-25, 25);
+                for ($i = 0; $i < 2; $i++)
+                {
+                    $scatterX = rand(-25, 25);
+                    $scatterY = rand(-25, 25);
 
-                $particle = new UXImageView();
-                $particle->enabled = false;
-                $particle->opacity = 1;
-                $particle->image = new UXImage("res://.data/ui/particles/blood.png");
-                $particle->width = 86;
-                $particle->height = 86;
+                    $particle = new UXImageView();
+                    $particle->enabled = false;
+                    $particle->opacity = 1;
+                    $particle->image = new UXImage("res://.data/ui/particles/blood.png");
+                    $particle->width = 86;
+                    $particle->height = 86;
                 
-                $cursorX = $this->form('Client')->CustomCursor->x;
-                $cursorY = $this->form('Client')->CustomCursor->y;                
+                    $cursorX = $this->form('Client')->CustomCursor->x;
+                    $cursorY = $this->form('Client')->CustomCursor->y;                
 
-                $particle->x = $cursorX - ($particle->width / 2) + $scatterX;
-                $particle->y = $cursorY - ($particle->height / 2) + $scatterY;
+                    $particle->x = $cursorX - ($particle->width / 2) + $scatterX;
+                    $particle->y = $cursorY - ($particle->height / 2) + $scatterY;
 
-                $this->form('Client')->add($particle);
+                    $this->form('Client')->add($particle);
 
-                $delay = ($this->health_bar_enemy->width - 30 <= 54) ? 600 : 300;
+                    $delay = ($this->health_bar_enemy->width - 30 <= 54) ? 600 : 300;
 
-                Timer::after($delay, function () use ($particle) {
-                    Animation::fadeOut($particle, 300, function () use ($particle) {
-                        $particle->free();
+                    Timer::after($delay, function () use ($particle) {
+                        Animation::fadeOut($particle, 300, function () use ($particle) {
+                            $particle->free();
+                        });
                     });
-                });
+                }                
             }            
 
             if ($GLOBALS['AllSounds'])
