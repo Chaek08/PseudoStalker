@@ -47,6 +47,7 @@ class Client extends AbstractForm
         $this->localization = new Localization($language);     
         
         $this->syncWithSDKLTX();
+        $this->InitUserLTX();        
 
         $this->GetVersion();
 
@@ -55,8 +56,7 @@ class Client extends AbstractForm
 
         $this->MainGame->content->InitEnvironmentTimer();
         $this->MainGame->content->UpdateEnvironment();
-        
-        $this->InitUserLTX();
+                
         
         $this->MainGame->content->RenderHud(false);
         
@@ -224,10 +224,9 @@ class Client extends AbstractForm
     }    
     public $ltx = [];
     public $ltxInitialized = false;
+    private $ltxPath = './userdata/user.ltx';    
     function InitUserLTX()
     {
-        define('LTX_DIR', './userdata/user.ltx');
-
         $default = [
             'language' => 'rus',
             'r_shadows' => 'on',
@@ -240,7 +239,7 @@ class Client extends AbstractForm
             'vid_fullscreen' => 'off'
         ];
 
-        if (!file_exists(LTX_DIR))
+        if (!file_exists($this->ltxPath))
         {
             $this->SaveUserLTX($default);
             $this->ltx = $default;
@@ -267,14 +266,12 @@ class Client extends AbstractForm
         }
 
         $this->ltxInitialized = true;
-
-        $this->MainMenu->content->Options->content->InitOptions();
     }
     function LoadUserLTX($default)
     {
         $config = [];
 
-        $lines = file(LTX_DIR);
+        $lines = file($this->ltxPath);
         foreach ($lines as $line)
         {
             $parts = explode(' ', trim($line));
@@ -303,12 +300,12 @@ class Client extends AbstractForm
         {
             $content .= $key . ' ' . $value . "\n";
         }
-        $dir = dirname(LTX_DIR);
+        $dir = dirname($this->ltxPath);
         if (!is_dir($dir))
         {
             mkdir($dir, 0777, true);
         }        
-        file_put_contents(LTX_DIR, $content);
+        file_put_contents($this->ltxPath, $content);
     }
     
     public $SDK_FightSound = '';
