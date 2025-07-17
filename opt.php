@@ -59,6 +59,8 @@ class opt extends AbstractForm
             $this->FightSoundSwitcher();
         }
         
+        //TODO: придумать наёб свичеров
+        
         $this->Language_Switcher_Combobobx->value = ($this->form('Client')->ltx['language'] == 'rus') ? 'Русский' : 'English';           
     }
     /**
