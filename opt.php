@@ -29,7 +29,7 @@ class opt extends AbstractForm
         
         $GLOBALS['AllSoundSwitcher_IsOn'] = true;
         $GLOBALS['MenuSoundSwitcher_IsOn'] = true;
-        $GLOBALS['FightSoundSwitcher_IsOn'] = true;        
+        $GLOBALS['FightSoundSwitcher_IsOn'] = true;
                           
         if (!$GLOBALS['AllSounds'])
         {
@@ -45,21 +45,19 @@ class opt extends AbstractForm
         {
             $this->FightSoundSwitcher();
         }
-        
+           
         if ($this->form('Client')->ltx['all_sounds'] == 'off')
         {
             $this->AllSoundSwitcher();
-        }        
-        if ($this->form('Client')->ltx['mm_sound'] == 'off')
+        }  
+        if ($this->form('Client')->ltx['mm_sound'] == 'off' && $this->form('Client')->ltx['all_sounds'] == 'on')
         {
             $this->MenuSoundSwitcher();
         }        
-        if ($this->form('Client')->ltx['fight_sound'] == 'off')
+        if ($this->form('Client')->ltx['fight_sound'] == 'off' && $this->form('Client')->ltx['all_sounds'] == 'on')
         {
             $this->FightSoundSwitcher();
         }
-        
-        //TODO: придумать наёб свичеров
         
         $this->Language_Switcher_Combobobx->value = ($this->form('Client')->ltx['language'] == 'rus') ? 'Русский' : 'English';           
     }
@@ -84,13 +82,40 @@ class opt extends AbstractForm
             
             $GLOBALS['AllSounds'] = false;
         
-            if ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
+            if ($this->form('Client')->ltx['mm_sound'] != 'on')
             {
-                $this->MenuSoundSwitcher();
+                if ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
+                {
+                    if ($this->form('Client')->ltxInitialized == false)
+                    {
+                        if ($this->form('Client')->ltx['mm_sound'] == 'off')
+                        {
+                            $this->MenuSoundSwitcher();
+                        }
+                    }
+                    else
+                    {
+                        $this->MenuSoundSwitcher();
+                    }
+                }    
             }
-            if ($this->FightSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
+
+            if ($this->form('Client')->ltx['fight_sound'] != 'on')
             {
-                $this->FightSoundSwitcher();
+                if ($this->FightSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
+                {
+                    if ($this->form('Client')->ltxInitialized == false)
+                    {
+                        if ($this->form('Client')->ltx['fight_sound'] == 'off')
+                        {
+                            $this->FightSoundSwitcher();
+                        }
+                    }
+                    else
+                    {
+                        $this->FightSoundSwitcher();
+                    }
+                }
             }
             
             $this->form('Client')->StopAllSounds();
@@ -108,13 +133,20 @@ class opt extends AbstractForm
         
             $GLOBALS['AllSounds'] = true;
         
-            if ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label')) 
+            if ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label'))
             {
-                $this->MenuSoundSwitcher();
+                if ($this->form('Client')->ltx['mm_sound'] != 'on')
+                {
+                    $this->MenuSoundSwitcher();
+                }
             }
+
             if ($this->FightSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label'))
             {
-                $this->FightSoundSwitcher();
+                if ($this->form('Client')->ltx['fight_sound'] != 'on')
+                {
+                    $this->FightSoundSwitcher();
+                }
             } 
             
             $this->form('Client')->ltx['all_sounds'] = 'on';
