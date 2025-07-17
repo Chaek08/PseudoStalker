@@ -102,7 +102,7 @@ class UISaveWnd extends AbstractForm
         if ($mainMenu->content->UISaveWnd->visible) $mainMenu->hide();
         if ($exitDialog->visible) $exitDialog->hide();
         $client->CustomCursor->hide();
-        if (!$GLOBALS['HudVisible'] && $mainMenu->content->UISaveWnd->visible) $maingame->RenderHud(true);
+        if (!$GLOBALS['HudVisible'] && $mainMenu->content->UISaveWnd->visible) $client->MainGame->content->RenderHud(true);
         if ($console->visible) $console->opacity = 0;
 
         $formWidth = $client->Client->width;

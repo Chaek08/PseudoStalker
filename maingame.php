@@ -406,8 +406,10 @@ class maingame extends AbstractForm
         {
             $this->form('Client')->Inventory->content->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
             $this->form('Client')->Inventory->content->health_bar_gg->hide();
-            $this->form('Client')->Inventory->content->health_bar_gg_b->hide();            
+            $this->form('Client')->Inventory->content->health_bar_gg_b->hide();
             
+            $this->health_bar_gg->hide();
+            $this->health_bar_gg_b->hide();
             $this->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
         }
         if (!$GLOBALS['EnemyFailed'])
@@ -416,6 +418,8 @@ class maingame extends AbstractForm
         }
         else 
         {
+            $this->health_bar_enemy->hide();
+            $this->health_bar_enemy_b->hide();
             $this->health_static_enemy->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
         }
     }
