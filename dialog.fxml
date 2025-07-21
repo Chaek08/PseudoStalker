@@ -28,13 +28,13 @@
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/dialog_wnd/pidoras_roleicon.png" id="data-alex_label_1" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-alex_label_1" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_label_1" layoutX="448" layoutY="368" prefHeight="36" prefWidth="728" styleClass="label " text="Саня Кабан" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/dialog_wnd/danila_emoji_roleicon.png" id="data-actor_label_1" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-actor_label_1" visible=""/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_desc_1" layoutX="448" layoutY="408" prefHeight="21" prefWidth="680" styleClass="label " text="ахуел гей нефар" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="19"/>
@@ -47,13 +47,13 @@
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/dialog_wnd/danila_emoji_roleicon.png" id="data-answer_name" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-answer_name" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_label_2" layoutX="448" layoutY="456" prefHeight="36" prefWidth="728" styleClass="label " text="Гоблиндав" textAlignment="LEFT" textFill="#16a4cd" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/dialog_wnd/pidoras_roleicon.png" id="data-alex_label_2" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-alex_label_2" visible=""/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_2" layoutX="448" layoutY="496" prefHeight="21" prefWidth="680" styleClass="label " text="В ебло щёлкну - улетишь" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="19"/>
@@ -65,7 +65,7 @@
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/dialog_wnd/danila_emoji_roleicon.png" id="data-actor_label_3" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-actor_label_3" visible=""/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="actor_desc_3" layoutX="448" layoutY="584" prefHeight="21" prefWidth="680" styleClass="label " text="иди нахуй заднипривадный геюган" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="19"/>
@@ -77,7 +77,7 @@
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/dialog_wnd/pidoras_roleicon.png" id="data-alex_label_3" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/pidoras_role.png" id="data-alex_label_3" visible=""/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="alex_desc_3" layoutX="448" layoutY="672" prefHeight="21" prefWidth="680" styleClass="label " text="Ах ах... ой отвлёкся!! Сейчас я покажу, кто здесь натурал, а кто муж" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="19"/>

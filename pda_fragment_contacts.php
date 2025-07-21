@@ -39,7 +39,7 @@ class pda_fragment_contacts extends AbstractForm
         $this->bio->text = $bio !== '' ? $bio : $this->localization->get('GoblindaV_Bio');
         
         $this->community->text = $role_name != '' ? $role_name : $this->localization->get('Community_Pido');
-        $this->community->graphic = new UXImageView(new UXImage($role_icon != '' ? $role_icon : 'res://.data/ui/dialog/dialog_wnd/pidoras_roleicon.png'));
+        $this->community->graphic = new UXImageView(new UXImage($role_icon != '' ? $role_icon : 'res://.data/ui/dialog/pidoras_role.png'));
         $this->community->textColor = $role_color != '' ? $role_color : '#16a4cd';
         
         ($g = $this->community->graphic)->width = ($g->height = 16);
@@ -63,7 +63,7 @@ class pda_fragment_contacts extends AbstractForm
     }
     function setCharacterSelected($selected)
     {
-        $this->selected_new->opacity = $selected ? 0.35 : 0;
+        $this->selected_new->opacity = $selected ? 0.40 : 0;
                
         if ($selected)
         {

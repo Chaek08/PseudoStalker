@@ -33,6 +33,7 @@ class Client extends AbstractForm
         define('VersionID', 'v1.3 (rc2)');
         define('client_version', '3');
         define('Debug_Build', true);
+        define('ResTracker', false);
         
         $appId = "1387765734704418846";
         $discord = new DiscordRPC($appId);
@@ -121,7 +122,7 @@ class Client extends AbstractForm
         //$this->SaveUserLTX($this->ltx);
 
         UXApplication::runLater(function() use ($w, $h) {
-            if (Debug_Build)
+            if (ResTracker)
             {
                 static $prevRes = '';
 
