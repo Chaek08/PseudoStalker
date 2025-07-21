@@ -24,6 +24,11 @@ class console extends AbstractForm
         $this->localization = new Localization($language);
     }
     
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }
+        
     private $commandHistory = []; 
     private $historyIndex = -1;
     
@@ -32,7 +37,6 @@ class console extends AbstractForm
      */
     function EnterCommands(UXKeyEvent $e = null)
     {    
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
         $this->requestFocus();
     
         $command = trim($this->edit->text);
@@ -43,6 +47,8 @@ class console extends AbstractForm
         }
         $args = explode(" ", $command);
         $command = strtolower($args[0]);
+        
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
 
         switch ($command) 
         {
@@ -220,8 +226,6 @@ class console extends AbstractForm
                         if (!$GLOBALS['ContinueGameState'] || $this->form('Client')->MainMenu->visible || $this->form('Client')->Fail->visible) return;
 
                         static $lastToastId = 0;
-
-                        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
 
                         $parts = explode(" ", trim($this->edit->text), 2); 
                         $saveName = "";

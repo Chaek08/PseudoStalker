@@ -13,17 +13,17 @@ class dialog extends AbstractForm
     
     public $answerStep = 0;    
     
-    public $SDK_VoiceStart = '';
-    public $SDK_VoiceTalk1 = '';
-    public $SDK_VoiceTalk2 = '';
-    public $SDK_VoiceTalk3 = '';
+    public $SDK_VoiceStart;
+    public $SDK_VoiceTalk1;
+    public $SDK_VoiceTalk2;
+    public $SDK_VoiceTalk3;
     
-    public $SDK_AlexDesc1 = '';
-    public $SDK_AlexDesc2 = '';
-    public $SDK_AlexDesc3 = '';    
-    public $SDK_ActorDesc1 = '';
-    public $SDK_ActorDesc3 = '';
-    public $SDK_FinalPhase = '';
+    public $SDK_AlexDesc1;
+    public $SDK_AlexDesc2;
+    public $SDK_AlexDesc3;    
+    public $SDK_ActorDesc1;
+    public $SDK_ActorDesc3;
+    public $SDK_FinalPhase;
     
     public function __construct() 
     {
@@ -31,10 +31,12 @@ class dialog extends AbstractForm
 
         $this->localization = new Localization($language);
     }
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }
     function UpdateData()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
-    
         $actor_icon = trim($this->form('Client')->Pda->content->SDK_ActorIcon);
         $actor_name = trim($this->form('Client')->Pda->content->SDK_ActorName);
         $enemy_icon = trim($this->form('Client')->Pda->content->SDK_EnemyIcon);
@@ -47,6 +49,7 @@ class dialog extends AbstractForm
         $de_role_color = trim($this->form('Client')->Pda->content->SDK_DeRoleColor);
         $de_role_icon = trim($this->form('Client')->Pda->content->SDK_DeRoleIcon);
         
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
         $this->community_enemy->text = $pido_role_name != '' ? $pido_role_name : $this->localization->get('Community_Pido');
 
@@ -243,8 +246,6 @@ class dialog extends AbstractForm
 
     function Talk_1()
     {    
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        
         $path = trim($this->SDK_ActorDesc3);
         
         if ($path != '')
@@ -254,6 +255,7 @@ class dialog extends AbstractForm
         }
         else
         {          
+            $this->localization->setLanguage($this->getCurrentLanguageFromUI());
             $this->answer_desc->text = $this->localization->get('Dialog_Actor_Desc3');
         }
         
@@ -271,8 +273,6 @@ class dialog extends AbstractForm
 
     function Talk_2()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        
         $path = trim($this->SDK_FinalPhase);
         
         if ($path != '')
@@ -281,6 +281,7 @@ class dialog extends AbstractForm
         }
         else    
         {
+            $this->localization->setLanguage($this->getCurrentLanguageFromUI());
             $this->answer_desc->text = $this->localization->get('Dialog_Final_Phase');
         }
         
@@ -298,8 +299,6 @@ class dialog extends AbstractForm
 
     function Talk_3()
     {       
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        
         $this->form('Client')->HideDialog();
         $this->form('Client')->MainGame->content->RenderHud(true);
         
@@ -317,14 +316,13 @@ class dialog extends AbstractForm
             
         $this->form('Client')->Pda->content->Pda_Tasks->content->Step1_Complete();
         
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         $GLOBALS['discord']->setState($this->localization->get('RPC_Fight'));
         $GLOBALS['discord']->updateState();      
     }
 
     function StartDialog()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        
         $path = trim($this->SDK_ActorDesc1);
         
         if ($path != '')
@@ -333,6 +331,7 @@ class dialog extends AbstractForm
         }
         else 
         {
+            $this->localization->setLanguage($this->getCurrentLanguageFromUI());
             $this->answer_desc->text = $this->localization->get('Dialog_Actor_Desc1');
         }
         

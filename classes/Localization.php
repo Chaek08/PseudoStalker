@@ -12,39 +12,48 @@ class Localization {
         'English' => 'eng'
     ];
 
-    public function __construct($language, $directory = './gamedata/config/locales/') {
+    public function __construct($language, $directory = './gamedata/config/locales/')
+    {
         $this->directory = $directory;
 
         $internalLanguage = $this->resolveInternalLanguage('rus');
         $this->setLanguage($internalLanguage);
     }
 
-    public function setLanguage($language) {
+    public function setLanguage($language)
+    {
         $language = $this->resolveInternalLanguage($language);
 
         $this->language = $language;
         $filename = $this->directory . $language . '.json';
 
-        if (file_exists($filename)) {
+        if (file_exists($filename))
+        {
             $this->translations = json_decode(file_get_contents($filename), true);
-        } else {
+        }
+        else
+        {
             throw new \Exception("Localization file not found: $filename");
         }
     }
 
-    public function get($key) {
+    public function get($key)
+    {
         return $this->translations[$key] ?? $key;
-    }
+    } 
 
-    public function getCurrentLanguage() {
+    public function getCurrentLanguage()
+    {
         return $this->language;
     }
 
-    private function resolveInternalLanguage($language) {
+    private function resolveInternalLanguage($language)
+    {
         return $this->languageMap[$language] ?? $language;
     }
 
-    public function getDisplayLanguage() {
+    public function getDisplayLanguage()
+    {
         return array_search($this->language, $this->languageMap) ?: $this->language;
     }
 }

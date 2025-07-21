@@ -36,6 +36,11 @@ class UISaveWnd extends AbstractForm
         
         define("SAVE_DIRECTORY", "./userdata/savedgames/");
     }
+    
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }    
         
     /**
      * @event show 
@@ -173,8 +178,6 @@ class UISaveWnd extends AbstractForm
      */
     function BtnSaveGame(UXMouseEvent $e = null)
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-    
         $this->saveHistory[] = trim($this->Edit_SaveName->text);
         $this->historyIndex = count($this->saveHistory);
     

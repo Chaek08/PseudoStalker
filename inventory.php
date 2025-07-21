@@ -19,16 +19,16 @@ class inventory extends AbstractForm
     private $playerMonero = 40;
     private $moneyCurrency = 'RU';
     
-    public $SDK_OutfitName = '';
-    public $SDK_OutfitIcon = '';
-    public $SDK_OutfitPrice = '';
-    public $SDK_OutfitWeight = '';
-    public $SDK_OutfitDesc = '';
-    public $SDK_VodkaName = '';
-    public $SDK_VodkaIcon = '';
-    public $SDK_VodkaPrice = '';
-    public $SDK_VodkaWeight = '';
-    public $SDK_VodkaDesc = '';    
+    public $SDK_OutfitName;
+    public $SDK_OutfitIcon;
+    public $SDK_OutfitPrice;
+    public $SDK_OutfitWeight;
+    public $SDK_OutfitDesc;
+    public $SDK_VodkaName;
+    public $SDK_VodkaIcon;
+    public $SDK_VodkaPrice;
+    public $SDK_VodkaWeight;
+    public $SDK_VodkaDesc;    
        
     public function __construct() 
     {
@@ -36,6 +36,10 @@ class inventory extends AbstractForm
 
         $this->localization = new Localization($language);
     }
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }    
     function UpdateSelectedItems()
     {
         $GLOBALS['item_outfit_selected'] = false;    
@@ -61,7 +65,7 @@ class inventory extends AbstractForm
             $totalWeight += $this->outfitWeight;
         }
             
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);        
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         $WeightLabel = $this->localization->get('Weight_Label');
         
         $text = $WeightLabel . "  " . round($totalWeight, 1) . " / " . round($maxWeight, 1);
@@ -91,21 +95,21 @@ class inventory extends AbstractForm
     }
     function SetItemInfo()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        
         $this->inv_maket->image = null;
         $this->maket_count->text = null;
         $this->maket_weight->text = null;
         $this->maket_label->text = null;
         $this->maket_desc->text = null;        
         
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+          
         if ($GLOBALS['item_vodka_selected'])
         {
             $vodka_name = trim($this->SDK_VodkaName);
             $vodka_icon = trim($this->SDK_VodkaIcon);
             $vodka_weight = trim($this->SDK_VodkaWeight);
             $vodka_desc = trim($this->SDK_VodkaDesc);
-            $vodka_price = trim($this->SDK_VodkaPrice);
+            $vodka_price = trim($this->SDK_VodkaPrice);      
             
             $this->maket_label->text = $vodka_name != '' ? $vodka_name : $this->localization->get('Vodka_Inv_Name');
             $this->inv_maket->image = new UXImage($vodka_icon != '' ? $vodka_icon : 'res://.data/ui/inventory/item_vodka.png');
@@ -119,7 +123,7 @@ class inventory extends AbstractForm
             $outfit_icon = trim($this->SDK_OutfitIcon);
             $outfit_weight = trim($this->SDK_OutfitWeight);
             $outfit_desc = trim($this->SDK_OutfitDesc);
-            $outfit_price = trim($this->SDK_OutfitPrice);
+            $outfit_price = trim($this->SDK_OutfitPrice);        
             
             $this->maket_label->text = $outfit_name != '' ? $outfit_name : $this->localization->get('Outfit_Inv_Name');
             $this->inv_maket->image = new UXImage($outfit_icon != '' ? $outfit_icon : 'res://.data/ui/inventory/bandit_outfit.png');

@@ -6,25 +6,25 @@ use std, gui, framework, app;
 
 class pda extends AbstractForm
 {
-    public $SDK_ActorName = '';
-    public $SDK_ActorIcon = '';
-    public $SDK_ActorBio = '';    
-    public $SDK_EnemyName = '';
-    public $SDK_EnemyIcon = '';
-    public $SDK_EnemyBio = '';
-    public $SDK_ValerokName = '';
-    public $SDK_ValerokIcon = '';
-    public $SDK_ValerokBio = '';
+    public $SDK_ActorName;
+    public $SDK_ActorIcon;
+    public $SDK_ActorBio;    
+    public $SDK_EnemyName;
+    public $SDK_EnemyIcon;
+    public $SDK_EnemyBio;
+    public $SDK_ValerokName;
+    public $SDK_ValerokIcon;
+    public $SDK_ValerokBio;
     
-    public $SDK_DeRoleName = '';
-    public $SDK_DeRoleColor = '';
-    public $SDK_DeRoleIcon = '';
-    public $SDK_LaRoleName = '';
-    public $SDK_LaRoleColor = '';
-    public $SDK_LaRoleIcon = '';
-    public $SDK_PidoRoleName = '';
-    public $SDK_PidoRoleColor = '';
-    public $SDK_PidoRoleIcon = '';    
+    public $SDK_DeRoleName;
+    public $SDK_DeRoleColor;
+    public $SDK_DeRoleIcon;
+    public $SDK_LaRoleName;
+    public $SDK_LaRoleColor;
+    public $SDK_LaRoleIcon;
+    public $SDK_PidoRoleName;
+    public $SDK_PidoRoleColor;
+    public $SDK_PidoRoleIcon;    
     
     public function __construct() 
     {

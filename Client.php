@@ -60,7 +60,7 @@ class Client extends AbstractForm
         
         $this->MainGame->content->RenderHud(false);
         
-        $this->localization->setLanguage($this->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
         $discord->setDetails($this->localization->get('RPC_MainMenu'));
 
@@ -202,6 +202,10 @@ class Client extends AbstractForm
             Element::setText($this->MainMenu->content->version_detail, VersionID);
         }
     }
+    function getCurrentLanguageFromUI()
+    {
+        return $this->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }    
     function ShowLoadScreen(callable $task)
     {
         $this->LoadScreen->opacity = 1;
@@ -308,9 +312,10 @@ class Client extends AbstractForm
         file_put_contents($this->ltxPath, $content);
     }
     
-    public $SDK_FightSound = '';
-    public $SDK_ActorModel = '';
-    public $SDK_EnemyModel = '';
+    public $SDK_FightSound;
+    public $SDK_ActorModel;
+    public $SDK_EnemyModel;
+    
     function syncWithSDKLTX()
     {
         define('DATA_FILE', 'sdk_data.ltx');
@@ -627,8 +632,6 @@ class Client extends AbstractForm
     }
     function ShowMenu()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
-    
         $this->MainMenu->show();
         Media::play($this->MainMenu->content->MainMenuBackground);
         Media::pause($this->MainGame->content->Environment);
@@ -643,6 +646,7 @@ class Client extends AbstractForm
             }
         }
         
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         $GLOBALS['discord']->setDetails($this->localization->get('RPC_MainMenu'));
         $GLOBALS['discord']->updateState();        
     } 
@@ -709,6 +713,7 @@ class Client extends AbstractForm
         
         $this->Inventory->show();
         $this->Inventory->content->UpdateInventoryStatus();
+        
         if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/inv_open.mp3', true);
     }    
     /**
@@ -772,7 +777,7 @@ class Client extends AbstractForm
     
         static $lastToastId = 0;
     
-        $this->localization->setLanguage($this->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
         $saveName = System::getProperty('user.name') . '_quicksave';
         $this->MainMenu->content->UISaveWnd->content->Edit_SaveName->text = $saveName;

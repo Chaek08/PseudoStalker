@@ -104,13 +104,19 @@ class pda_fragment_ranking extends AbstractForm
             }
         });
     }
+    
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }     
+    
     function UpdateData()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-    
         $actor_in_raiting = trim($this->form('Client')->Pda->content->SDK_ActorName);
         $enemy_in_raiting = trim($this->form('Client')->Pda->content->SDK_EnemyName);
         $valerok_in_raiting = trim($this->form('Client')->Pda->content->SDK_ValerokName);
+        
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         
         $this->actor_in_raiting_name->text = $actor_in_raiting != '' ? $actor_in_raiting : $this->localization->get('GG_Name');
         $this->goblindav_in_raiting_name->text = $enemy_in_raiting != '' ? $enemy_in_raiting : $this->localization->get('Enemy_Name');
@@ -141,9 +147,10 @@ class pda_fragment_ranking extends AbstractForm
     }
     function ShowUserInfo()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
         $this->tab_detail->text = $this->localization->get('TabDetail');
+        
         $this->community_desc->show();
         $this->community->show(); 
         $this->rank_desc->show();        
@@ -307,7 +314,7 @@ class pda_fragment_ranking extends AbstractForm
     }
     function SetUserInfo()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
         if ($GLOBALS['SelectedEnemy'])
         {

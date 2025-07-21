@@ -16,12 +16,17 @@ class pda_fragment_tasks extends AbstractForm
         $this->localization = new Localization($language);
     }
     
-    public $SDK_QuestName = '';
-    public $SDK_QuestIcon = '';
-    public $SDK_QuestDesc = '';
-    public $SDK_QuestStep1 = '';
-    public $SDK_QuestStep2 = '';
-    public $SDK_QuestTarget = '';
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }    
+    
+    public $SDK_QuestName;
+    public $SDK_QuestIcon;
+    public $SDK_QuestDesc;
+    public $SDK_QuestStep1;
+    public $SDK_QuestStep2;
+    public $SDK_QuestTarget;
     
     /**
      * @event show 
@@ -100,14 +105,14 @@ class pda_fragment_tasks extends AbstractForm
       
     function UpdateData()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-    
         $quest_name = trim($this->SDK_QuestName);
         $quest_icon = trim($this->SDK_QuestIcon);
         $quest_desc = trim($this->SDK_QuestDesc);
         $quest_step1 = trim($this->SDK_QuestStep1);
         $quest_step2 = trim($this->SDK_QuestStep2);
         $quest_target = trim($this->SDK_QuestTarget);
+        
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         
         $this->task_label->text = $quest_name != '' ? $quest_name : $this->localization->get('DefeatEnemy_Task');
         $this->icon_task->image = new UXImage($quest_icon != '' ? $quest_icon : 'res://.data/ui/pda/icon_Task.png');
@@ -127,8 +132,6 @@ class pda_fragment_tasks extends AbstractForm
      */
     function DetailTask(UXMouseEvent $e = null)
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
-    
         if ($this->task_detail_text->visible)
         {
             $this->task_detail_text->hide();
@@ -141,6 +144,9 @@ class pda_fragment_tasks extends AbstractForm
         else
         {
             $this->task_detail_text->show();
+            
+            $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+            
             $this->tab_detail->text = $this->localization->get('TabTaskDetail');
 
             $this->quest_detail_btn->image = new UXImage('res://.data/ui/pda/task_detail_opened.png');
@@ -248,8 +254,6 @@ class pda_fragment_tasks extends AbstractForm
     }
     function Step1_Complete()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        
         $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));        
         
         if ($GLOBALS['AllSounds'])
@@ -258,6 +262,9 @@ class pda_fragment_tasks extends AbstractForm
         }
         $GLOBALS['Task_Status_Update'] = true;
         $this->form('Client')->MainGame->content->ShowMessageBox();
+        
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+        
         $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatGoblin_Task');
         $this->form('Client')->MainGame->content->ShowTaskStep();
         

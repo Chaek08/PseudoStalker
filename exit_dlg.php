@@ -18,6 +18,11 @@ class exit_dlg extends AbstractForm
         $this->localization = new Localization($language);
     }
     
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }
+        
     function UpdateDialogWnd()
     {
         $GLOBALS['ExitWndType'] = false;
@@ -29,13 +34,14 @@ class exit_dlg extends AbstractForm
     }
     function SetDialogWndType()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        
         $this->dialog_warning->image = null;
         $this->btn_yes->show();
+        
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+        
         $this->btn_yes->text = $this->localization->get('Yes_Label');
         $this->btn_no->text = $this->localization->get('No_Label');
-        
+          
         if ($GLOBALS['ExitWndType'])
         {
             $this->dialog_warning->image = new UXImage('res://.data/ui/exit_dialog/dialog_warning.png');

@@ -17,17 +17,22 @@ class pda_fragment_contacts extends AbstractForm
         $this->localization = new Localization($language);
     }
     
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }    
+    
     function UpdateData()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
-    
         $name = trim($this->form('Client')->Pda->content->SDK_EnemyName);
         $icon = trim($this->form('Client')->Pda->content->SDK_EnemyIcon);
         $bio = trim($this->form('Client')->Pda->content->SDK_EnemyBio);
         
         $role_name = trim($this->form('Client')->Pda->content->SDK_PidoRoleName);
         $role_icon = trim($this->form('Client')->Pda->content->SDK_PidoRoleIcon);
-        $role_color = trim($this->form('Client')->Pda->content->SDK_PidoRoleColor);        
+        $role_color = trim($this->form('Client')->Pda->content->SDK_PidoRoleColor);
+        
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         
         $this->name->text = $name !== '' ? $name : $this->localization->get('Enemy_Name');
         $this->icon->image = new UXImage($icon !== '' ? $icon : 'res://.data/ui/icon_npc/goblindav.png');
@@ -59,10 +64,13 @@ class pda_fragment_contacts extends AbstractForm
     function setCharacterSelected($selected)
     {
         $this->selected_new->opacity = $selected ? 0.35 : 0;
-
+               
         if ($selected)
         {
             $this->bio->show();
+            
+            $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+                        
             $this->tab_detail->text = $this->localization->get('TabBio');
         }
         else
@@ -75,9 +83,7 @@ class pda_fragment_contacts extends AbstractForm
      * @event selected_new.click-Left 
      */
     function CharacterClick(UXMouseEvent $e = null)
-    {    
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
-    
+    {
         $this->setCharacterSelected(true);
     }
     /**

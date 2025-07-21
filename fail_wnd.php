@@ -12,12 +12,12 @@ class fail_wnd extends AbstractForm
 {
     private $localization;
     
-    public $SDK_FailTextActor = '';
-    public $SDK_FailTextIconActor = '';
-    public $SDK_FailDescActor = '';
-    public $SDK_FailTextEnemy = '';
-    public $SDK_FailTextIconEnemy = '';
-    public $SDK_FailDescEnemy = '';
+    public $SDK_FailTextActor;
+    public $SDK_FailTextIconActor;
+    public $SDK_FailDescActor;
+    public $SDK_FailTextEnemy;
+    public $SDK_FailTextIconEnemy;
+    public $SDK_FailDescEnemy;
 
     public function __construct() 
     {
@@ -25,6 +25,11 @@ class fail_wnd extends AbstractForm
 
         $this->localization = new Localization($language);
     }
+    
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }     
     
     /**
      * @event exitbtn.click-Left 
@@ -61,7 +66,8 @@ class fail_wnd extends AbstractForm
     }
     function UpdateFailState()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+        
         if ($GLOBALS['ActorFailed'])
         {
             $enemy_model = trim($this->form('Client')->SDK_EnemyModel);

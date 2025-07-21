@@ -27,7 +27,13 @@ class UILoadWnd extends AbstractForm
         parent::__construct();
 
         $this->localization = new Localization($language);
-    }   
+    }
+    
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }    
+    
     /**
      * @event show 
      */
@@ -124,8 +130,6 @@ class UILoadWnd extends AbstractForm
      */
     function ShowSavePreview(UXEvent $e = null)
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-    
         $selectedSave = $this->saves_list->selectedItem;
         
         if (empty($selectedSave))
@@ -156,6 +160,8 @@ class UILoadWnd extends AbstractForm
         $this->savedata_time->show();
         $this->savedata_health->show();
         
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
+        
         $this->savedata_name->text = $selectedSave;
         $this->savedata_health->text = $this->localization->get('SaveData_Health_Label') . ' : ' . ($saveData['health']['gg']['value'] ?? '---%'); 
         $this->savedata_time->text = $this->localization->get('SaveData_Time_Label') . ' : ' . ($saveData['quest_time']['hm'] ?? '--:--') . '  ' . ($saveData['quest_time']['date'] ?? '--/--/----');
@@ -174,8 +180,6 @@ class UILoadWnd extends AbstractForm
      */
     function BtnLoadSave(UXMouseEvent $e = null)
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        
         $saveName = $this->saves_list->selectedItem;
         
         $filePath = SAVE_DIRECTORY . $saveName . '.sav';

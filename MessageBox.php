@@ -13,10 +13,15 @@ class MessageBox extends AbstractForm
         parent::__construct();
 
         $this->localization = new Localization($language);
+        
+        $this->InitMessageBox();       
     }
-    /**
-     * @event show 
-     */    
+    
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }
+           
     function InitMessageBox()
     {
         $GLOBALS['Task_Status_Update'] = false;
@@ -25,9 +30,9 @@ class MessageBox extends AbstractForm
     
     function UpdateMessageBox()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value); 
+        $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();
         
-        $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();   
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
     
         if ($GLOBALS['Task_Status_Update'])
         {

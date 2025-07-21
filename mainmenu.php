@@ -11,13 +11,18 @@ class mainmenu extends AbstractForm
 {
     private $localization;
 
-    public $SDK_MMBackground = '';
+    public $SDK_MMBackground;
 
     public function __construct()
     {
         parent::__construct();
 
         $this->localization = new Localization($language);
+    }
+    
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
     }
     
     function InitMainMenu()
@@ -41,8 +46,6 @@ class mainmenu extends AbstractForm
      */
     function BtnStartGame(UXMouseEvent $e = null)
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
-    
         $this->form('Client')->MainMenu->hide();
         $this->form('Client')->MainGame->show();
         
@@ -67,14 +70,17 @@ class mainmenu extends AbstractForm
             {
                  Media::play($this->form('Client')->MainGame->content->FightSound);
             }
-        }       
+        }
+           
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
         $GLOBALS['discord']->setDetails($this->localization->get('RPC_Ingame'));
         $GLOBALS['discord']->updateState();
     }
     function SwitchGameState()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+        
         if ($GLOBALS['NewGameState'])
         {
             $GLOBALS['NewGameState'] = false;

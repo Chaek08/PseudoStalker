@@ -19,16 +19,21 @@ class pda_fragments_stat extends AbstractForm
         $this->localization = new Localization($language);
     }
     
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }    
+    
     function UpdateData()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);    
-    
         $actor_name = trim($this->form('Client')->Pda->content->SDK_ActorName);
         $actor_icon = trim($this->form('Client')->Pda->content->SDK_ActorIcon);
         
         $role_name = trim($this->form('Client')->Pda->content->SDK_DeRoleName);
         $role_icon = trim($this->form('Client')->Pda->content->SDK_DeRoleIcon);
         $role_color = trim($this->form('Client')->Pda->content->SDK_DeRoleColor);
+        
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
 
         $this->tab_button->text = $actor_name !== '' ? $actor_name : $this->localization->get('GG_Name');
         $this->icon->image = new UXImage($actor_icon !== '' ? $actor_icon : 'res://.data/ui/icon_npc/actor.png');
@@ -84,11 +89,11 @@ class pda_fragments_stat extends AbstractForm
     }
     function UpdateFinalLabel()
     {
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);
-        
         $this->tab_final->hide();
         $this->final_label->hide();
         $this->final_label->text = null;
+        
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         
         if ($GLOBALS['ActorFailed'])
         {

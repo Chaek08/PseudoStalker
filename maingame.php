@@ -25,7 +25,11 @@ class maingame extends AbstractForm
         parent::__construct();
 
         $this->localization = new Localization($language);
-    }    
+    }
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }     
     
     function InitEnvironmentTimer($timeFromTasks = null)
     {    
@@ -806,9 +810,7 @@ class maingame extends AbstractForm
     }
     function ShowTaskStep()
     {
-        $this->Task_Step_Label->visible = true;
-        
-        $this->localization->setLanguage($this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value);        
+        $this->Task_Step_Label->visible = true;      
         
         Timer::after(4000, function () {
             UXApplication::runLater(function () {
@@ -824,6 +826,7 @@ class maingame extends AbstractForm
 
                 if ($GLOBALS['QuestCompleted'])
                 {
+                    $this->localization->setLanguage($this->getCurrentLanguageFromUI());
                     $this->Task_Step_Label->text = $this->localization->get('No_Active_Task');
                 }
             });
