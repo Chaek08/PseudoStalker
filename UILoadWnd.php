@@ -223,6 +223,7 @@ class UILoadWnd extends AbstractForm
             'environment_playpos',
             'fightsound_playpos',
         ];
+
         foreach ($requiredKeys as $key)
         {
             if (!$this->keyExists($saveData, explode('.', $key)))
@@ -253,7 +254,7 @@ class UILoadWnd extends AbstractForm
                 }                
             }
         }
-        
+
         if ($saveData['client_version'] != client_version)
         {
             if (!$this->form('Client')->ExitDialog->visible)

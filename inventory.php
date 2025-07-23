@@ -36,10 +36,12 @@ class inventory extends AbstractForm
 
         $this->localization = new Localization($language);
     }
+    
     function getCurrentLanguageFromUI()
     {
         return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }    
+    }
+    
     function UpdateSelectedItems()
     {
         $GLOBALS['item_outfit_selected'] = false;    

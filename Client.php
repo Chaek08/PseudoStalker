@@ -518,23 +518,52 @@ class Client extends AbstractForm
         $form = $this->form('Client');
         $console = $form->Console;
 
-        $formWidth = $form->Client->width;
-        $formHeight = $form->Client->height;
-
         $originalX = $console->x;
         $originalY = $console->y;
 
-        $console->x = max(0, min($console->x, $formWidth - $console->width));
-        $console->y = max(0, min($console->y, $formHeight - $console->height));
+        $console->x = max(0, min($console->x, $form->width - $console->width));
+        $console->y = max(0, min($console->y, $form->height - $console->height));
 
         UXApplication::runLater(function () use ($form, $console, $originalX, $originalY)
         {
-            $image = $this->layout->snapshot();
+            $image = $form->layout->snapshot();
 
             $username = System::getProperty('user.name');
-            $formName = 'Client';
             $time = Time::now()->toString('HH-mm-ss');
             $date = Time::now()->toString('dd-MM-yy');
+
+            $fragments = [
+                'LoadScreen'  => $this->LoadScreen,
+                'Fail'        => $this->Fail,
+                'ExitDialog'  => $this->ExitDialog,
+                'Dialog'      => $this->Dialog,
+                'Inventory'   => $this->Inventory,
+                'Pda'         => $this->Pda,
+                'MainMenu'    => $this->MainMenu,
+                'MainGame'    => $this->MainGame
+            ];
+
+            $formName = 'Client';
+            $foundVisible = false;
+
+            foreach ($fragments as $name => $fragment)
+            {
+                if ($fragment && $fragment->visible)
+                {
+                    if ($name != 'MainGame')
+                    {
+                        $formName = $name;
+                        $foundVisible = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!$foundVisible && $this->MainGame && $this->MainGame->visible)
+            {
+                $formName = 'MainGame';
+            }
+
             $filename = "ss_{$username}_{$date}_{$time}_({$formName}).jpg";
             $path = SCREENSHOT_DIRECTORY . $filename;
 
