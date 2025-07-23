@@ -337,6 +337,7 @@ class maingame extends AbstractForm
 
                     $particle = new UXImageView();
                     $particle->image = new UXImage("res://.data/ui/particles/blood.png");
+                    $particle->scale = $this->form('Client')->MainGame->scale;
                     $particle->width = 86;
                     $particle->height = 86;
 
@@ -489,6 +490,7 @@ class maingame extends AbstractForm
                     $particle->enabled = false;
                     $particle->opacity = 1;
                     $particle->image = new UXImage("res://.data/ui/particles/blood.png");
+                    $particle->scale = $this->form('Client')->MainGame->scale;
                     $particle->width = 86;
                     $particle->height = 86;
                 
@@ -656,6 +658,7 @@ class maingame extends AbstractForm
                 $particle->enabled = false;
                 $particle->opacity = 1;
                 $particle->image = new UXImage("res://.data/ui/particles/blood.png");
+                $particle->scale = $this->form('Client')->MainGame->scale;
                 $particle->width = 86;
                 $particle->height = 86;
 
