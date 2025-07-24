@@ -142,6 +142,7 @@ class mainmenu extends AbstractForm
     function BtnOpt(UXMouseEvent $e = null)
     {
         $this->dynamic_background->toFront();
+        $this->Options->content->SyncSwitcherStyles();
         $this->Options->show();
         $this->Options->toFront();
     }

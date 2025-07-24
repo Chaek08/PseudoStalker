@@ -61,6 +61,14 @@ class opt extends AbstractForm
         
         $this->Language_Switcher_Combobobx->value = ($this->form('Client')->ltx['language'] == 'rus') ? 'Русский' : 'English';           
     }
+    function SyncSwitcherStyles()
+    {
+        $this->AllSound_Switcher_Btn->classesString = $GLOBALS['AllSoundSwitcher_IsOn'] ? 'switch-on' : 'switch-off';
+        $this->MenuSound_Switcher_Btn->classesString = $GLOBALS['MenuSoundSwitcher_IsOn'] ? 'switch-on' : 'switch-off';
+        $this->FightSound_Switcher_Btn->classesString = $GLOBALS['FightSoundSwitcher_IsOn'] ? 'switch-on' : 'switch-off';
+        $this->Shadows_Switcher_Btn->classesString = $GLOBALS['ShadowsSwitcher_IsOn'] ? 'switch-on' : 'switch-off';
+        $this->Version_Switcher_Btn->classesString = $GLOBALS['VersionSwitcher_IsOn'] ? 'switch-on' : 'switch-off';
+    }    
     /**
      * @event Return_Btn.mouseDown-Left 
      */
