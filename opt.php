@@ -274,7 +274,7 @@ class opt extends AbstractForm
             //inventory
             $this->form('Client')->Inventory->content->health_bar_gg->dropShadowEffect->disable();   
             $this->form('Client')->Inventory->content->health_static_gg->dropShadowEffect->disable(); 
-            $this->form('Client')->Inventory->content->InventoryGrid->content->main->dropShadowEffect->disable();   
+            $this->form('Client')->Inventory->content->main->dropShadowEffect->disable();   
             //fail wnd             
             $this->form('Client')->Fail->content->Win_fail_desc->dropShadowEffect->disable(); 
             $this->form('Client')->Fail->content->Win_fail_text->dropShadowEffect->disable();   
@@ -347,7 +347,7 @@ class opt extends AbstractForm
             //inventory
             $this->form('Client')->Inventory->content->health_bar_gg->dropShadowEffect->enable();   
             $this->form('Client')->Inventory->content->health_static_gg->dropShadowEffect->enable(); 
-            $this->form('Client')->Inventory->content->InventoryGrid->content->main->dropShadowEffect->enable();   
+            $this->form('Client')->Inventory->content->main->dropShadowEffect->enable();   
             //fail wnd             
             $this->form('Client')->Fail->content->Win_fail_desc->dropShadowEffect->enable(); 
             $this->form('Client')->Fail->content->Win_fail_text->dropShadowEffect->enable();   
@@ -492,8 +492,10 @@ class opt extends AbstractForm
         $this->form('Client')->Inventory->content->button5->text = $this->localization->get('Inventory_Label');
         $this->form('Client')->Inventory->content->button6->text = $this->localization->get('Item_Label');
         $this->form('Client')->Inventory->content->button7->text = $this->localization->get('Equipment_Label');
-        $this->form('Client')->Inventory->content->InventoryGrid->content->Combobox_Drop->text = $this->localization->get('Drop_Label');
-        $this->form('Client')->Inventory->content->InventoryGrid->content->Combobox_Use->text = $this->localization->get('Use_Label');
+        $this->form('Client')->Inventory->content->Combobox_Drop->text = $this->localization->get('Drop_Label');
+        $this->form('Client')->Inventory->content->Combobox_Use->text = $this->localization->get('Use_Label');
+        $this->form('Client')->Inventory->content->Combobox_TakeOff->text = $this->localization->get('TakeOff_Label');
+        $this->form('Client')->Inventory->content->Combobox_PutOn->text = $this->localization->get('PutOn_Label');        
         $this->form('Client')->Inventory->content->maket_cond_label->text = $this->localization->get('Condition_Label');
 
         $this->form('Client')->Pda->content->tasks_label->text = $this->localization->get('Tasks_Label');

@@ -202,6 +202,7 @@ class UILoadWnd extends AbstractForm
             'objects_position.actor',
             'objects_position.actor.x',
             'objects_position.actor.y',
+            'objects_position.actor.is_wearing',            
             'objects_position.enemy',
             'objects_position.enemy.x',
             'objects_position.enemy.y',
@@ -344,6 +345,17 @@ class UILoadWnd extends AbstractForm
             
             $this->form('Client')->Inventory->content->InventoryGrid->content->medkitCount = $saveData['medkit_count'];
             $this->form('Client')->Inventory->content->InventoryGrid->content->updateMedkitCount();
+            
+            if (isset($saveData['objects_position']['actor']['is_wearing']))
+            {
+                $this->form('Client')->Inventory->content->InventoryGrid->content->isWearing = $saveData['objects_position']['actor']['is_wearing'];
+                
+                if ($this->form('Client')->Inventory->content->InventoryGrid->content->isWearing)
+                {
+                    $this->form('Client')->Inventory->content->InventoryGrid->content->selectedItem = $this->form('Client')->Inventory->content->InventoryGrid->content->Inv_Outfit;
+                    $this->form('Client')->Inventory->content->InventoryGrid->content->TakeOffItem();
+                }
+            }            
         
             $this->waitAndSetPosition($this->form('Client')->MainMenu->content->MainMenuBackground, $saveData['menubackground_playpos']);
             $this->waitAndSetPosition($this->form('Client')->MainMenu->content->MenuSound, $saveData['menusound_playpos']);

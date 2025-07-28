@@ -75,7 +75,7 @@ class fail_wnd extends AbstractForm
             $actor_failtexticon = trim($this->SDK_FailTextIconActor);
             $actor_faildesc = trim($this->SDK_FailDescActor);
                 
-            $this->Win_object->image = new UXImage($enemy_model != '' ? $enemy_model : 'res://.data/ui/fail_wnd/goblindav.png');
+            $this->Win_object->image = $actor_model != '' ? new UXImage($actor_model) : $this->form('Client')->MainGame->content->enemy->image;
             $this->Win_fail_text->text = $actor_failtext != '' ? $actor_failtext : $this->localization->get('ActorFail_Label');
             $this->Win_fail_text->graphic = new UXImageView(new UXImage($actor_failtexticon != '' ? $actor_failtexticon : 'res://.data/ui/fail_wnd/actor_fail.png'));
             $this->Win_fail_desc->text = $actor_faildesc != '' ? $actor_faildesc : $this->localization->get('ActorFail_Desc');
@@ -87,7 +87,7 @@ class fail_wnd extends AbstractForm
             $enemy_failtexticon = trim($this->SDK_FailTextIconEnemy);
             $enemy_faildesc = trim($this->SDK_FailDescEnemy);    
             
-            $this->Win_object->image = new UXImage($actor_model != '' ? $actor_model : 'res://.data/ui/fail_wnd/actor.png');
+            $this->Win_object->image = $actor_model != '' ? new UXImage($actor_model) : $this->form('Client')->MainGame->content->actor->image;
             $this->Win_fail_text->text = $enemy_failtext != '' ? $enemy_failtext : $this->localization->get('EnemyFail_Label');
             $this->Win_fail_text->graphic = new UXImageView(new UXImage($enemy_failtexticon != '' ? $enemy_failtexticon : 'res://.data/ui/fail_wnd/enemy_fail.png'));
             $this->Win_fail_desc->text = $enemy_faildesc != '' ? $enemy_faildesc : $this->localization->get('EnemyFail_Desc');                       

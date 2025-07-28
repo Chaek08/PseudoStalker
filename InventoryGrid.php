@@ -1,6 +1,9 @@
 <?php
 namespace app\forms;
 
+use php\gui\UXApplication;
+use php\time\Timer;
+use php\gui\UXImage;
 use behaviour\custom\LightingEffectBehaviour;
 use php\gui\animation\UXAnimationTimer;
 use php\gui\framework\AbstractForm;
@@ -35,7 +38,8 @@ class InventoryGrid extends AbstractForm
         
         $this->inventoryItems = [
             $this->Inv_Vodka,
-            $this->Inv_Medkit
+            $this->Inv_Medkit,
+            $this->Inv_Outfit
         ];        
 
         $this->addVodkaToInventory();
@@ -102,6 +106,8 @@ class InventoryGrid extends AbstractForm
         if ($this->canPlace($cellX, $cellY, $itemWidthCells, $itemHeightCells))
         {
             $this->placeItem($this->draggedItem, $cellX, $cellY, $itemWidthCells, $itemHeightCells);
+            
+            $this->form('Client')->Inventory->content->UpdateComboboxPosition();
         }
         else
         {
@@ -148,6 +154,21 @@ class InventoryGrid extends AbstractForm
         
         $this->repackInventory();
     }
+    function addOutfitToInventory()
+    {
+        $item = $this->Inv_Outfit;
+        $itemWidthCells = 2;
+        $itemHeightCells = 1;
+        
+        $slot = $this->findFreeSlot($itemWidthCells, $itemHeightCells);
+        list($cellX, $cellY) = $slot;
+
+        if (!$this->canPlace($cellX, $cellY, $itemWidthCells, $itemHeightCells)) return;
+
+        $this->placeItem($item, $cellX, $cellY, $itemWidthCells, $itemHeightCells);
+        
+        $this->repackInventory();
+    }    
     function updateMedkitCount()
     {    
         $posX = $this->Inv_Medkit->x;
@@ -237,21 +258,25 @@ class InventoryGrid extends AbstractForm
             }
         }
         return null;
-    }    
+    }   
     function repackInventory()
     {
+        $visibleItems = [];
         foreach ($this->inventoryItems as $item)
         {
             if ($item->visible)
             {
-                $this->removeItemFromGrid($item);
+                $visibleItems[] = $item;
             }
         }
 
-        foreach ($this->inventoryItems as $item)
+        foreach ($visibleItems as $item)
         {
-            if (!$item->visible) continue;
+            $this->removeItemFromGrid($item);
+        }
 
+        foreach ($visibleItems as $item)
+        {
             $w = ceil($item->width / 49);
             $h = ceil($item->height / 49);
 
@@ -277,7 +302,8 @@ class InventoryGrid extends AbstractForm
         $item = [
             'medkit' => $this->Inv_Medkit,
             'medkitCount' => $this->Inv_Medkit_Count,
-            'vodka' => $this->Inv_Vodka
+            'vodka' => $this->Inv_Vodka,
+            'outfit' => $this->Inv_Outfit,
         ];
 
         foreach ($item as $key => $obj)
@@ -320,14 +346,25 @@ class InventoryGrid extends AbstractForm
         $this->draggedItemOriginalPos = $this->draggedItem->position;
         
         $this->draggedItem->toFront();
-        $this->Inv_Medkit_Count->toFront();
-    }    
+    }
+    /**
+     * @event Inv_Outfit.mouseDown-Left 
+     */
+    function OutfittMouseDown(UXMouseEvent $e = null)
+    {
+        if ($this->inventoryLocked) return;    
+    
+        $this->draggedItem = $e->sender;
+        $this->draggedItemOriginalPos = $this->draggedItem->position;
+        
+        $this->draggedItem->toFront();
+    }       
     /**
      * @event Inv_Vodka.click-Left 
      */
     function SelectVodka(UXMouseEvent $e = null)
     {
-        $this->HideCombobox();
+        $this->form('Client')->Inventory->content->HideCombobox();
         
         if ($GLOBALS['item_vodka_selected']) return;
         
@@ -345,9 +382,9 @@ class InventoryGrid extends AbstractForm
      */
     function SelectMedkit(UXMouseEvent $e = null)
     {
-        $this->HideCombobox();
+        $this->form('Client')->Inventory->content->HideCombobox();
         
-        if ($GLOBALS['item_medkit_selected']) return;
+        if ($GLOBALS['item_medkit_selected']) return;   
         
         $this->form('Client')->Inventory->content->UpdateSelectedItems();
         $GLOBALS['item_medkit_selected'] = true;
@@ -359,13 +396,43 @@ class InventoryGrid extends AbstractForm
         if ($e->clickCount <= 2) $this->form('Client')->Inventory->content->UseSlotSound();
     }
     /**
+     * @event Inv_Outfit.click-Left 
+     */
+    function SelectOutfit(UXMouseEvent $e = null)
+    {    
+        $this->form('Client')->Inventory->content->HideCombobox();
+        
+        if ($GLOBALS['item_outfit_selected']) return;
+        
+        if ($e && $e->clickCount >= 2) return;
+        
+        $this->form('Client')->Inventory->content->UpdateSelectedItems();
+        $GLOBALS['item_outfit_selected'] = true;
+        
+        $this->form('Client')->Inventory->content->ShowUIText();
+        $this->form('Client')->Inventory->content->SetItemInfo();
+        $this->form('Client')->Inventory->content->SetItemCondition();
+        
+        $this->form('Client')->Inventory->content->UseSlotSound();        
+    }    
+    /**
      * @event Inv_Vodka.click-Right 
      */
     function VodkaActions(UXMouseEvent $e = null)
     {
         $this->selectedItem = $e->sender;
-        $this->ShowCombobox();
+        
+        $this->form('Client')->Inventory->content->ShowCombobox();
     }
+    /**
+     * @event Inv_Outfit.click-Right 
+     */
+    function OutfitActions(UXMouseEvent $e = null)
+    {    
+        $this->selectedItem = $e->sender;
+        
+        $this->form('Client')->Inventory->content->ShowCombobox();
+    }    
     /**
      * @event Inv_Medkit.click-Right 
      */
@@ -373,12 +440,13 @@ class InventoryGrid extends AbstractForm
     {
         if ($e->clickCount >= 2)
         {
-            $this->HideCombobox();
+            $this->form('Client')->Inventory->content->HideCombobox();
             return;
         }
         
         $this->selectedItem = $e->sender;
-        $this->ShowCombobox();
+        
+        $this->form('Client')->Inventory->content->ShowCombobox();
     }    
     /**
      * @event inv_grid.click-Left 
@@ -387,38 +455,33 @@ class InventoryGrid extends AbstractForm
     {    
         $this->form('Client')->Inventory->content->UpdateSelectedItems();
         $this->form('Client')->Inventory->content->HideUIText();   
-        $this->HideCombobox();
+        $this->form('Client')->Inventory->content->HideCombobox();
     }
-    /**
-     * @event Combobox_Drop.click-Left 
-     */
-    function DropItem(UXMouseEvent $e = null)
+    function DropItem()
     {
         if (!$this->selectedItem) return;
         
         $this->form('Client')->Inventory->content->DropSound();
-        $this->HideCombobox();
+        $this->form('Client')->Inventory->content->HideCombobox();
         
         $this->removeItemFromGrid($this->selectedItem);
         $this->selectedItem->visible = false;
         $this->repackInventory();
         
         $this->form('Client')->Inventory->content->UpdateInventoryStatus();
+        $this->form('Client')->Inventory->content->UpdateSelectedItems();
         $this->form('Client')->Inventory->content->HideUIText();
         
         $this->form('Client')->MainGame->content->SpawnItem(); //в нашем случае водка
         
         $this->selectedItem = null; 
     }
-    /**
-     * @event Combobox_Use.click-Left 
-     */
-    function UseItem(UXMouseEvent $e = null)
+    function UseItem()
     {
         if (!$this->selectedItem) return;
         
         $this->form('Client')->Inventory->content->UseSlotSound();
-        $this->HideCombobox();
+        $this->form('Client')->Inventory->content->HideCombobox();
         
         if ($this->selectedItem == $this->Inv_Vodka)
         {
@@ -446,9 +509,55 @@ class InventoryGrid extends AbstractForm
         $this->updateMedkitCount();
         
         $this->form('Client')->Inventory->content->UpdateInventoryStatus();
+        $this->form('Client')->Inventory->content->UpdateSelectedItems();
         $this->form('Client')->Inventory->content->HideUIText();
         
         $this->selectedItem = null;
+    }
+    
+    public $isWearing = false;
+    
+    function TakeOffItem()
+    {    
+        if (!$this->selectedItem) return;    
+    
+        $nakedModel = 'res://.data/ui/actor_noout.png';
+        $this->isWearing = true;
+        
+        $this->form('Client')->Inventory->content->inv_maket_visual->image = new UXImage($nakedModel);
+        $this->form('Client')->MainGame->content->actor->image = new UXImage($nakedModel);
+        
+        $this->addOutfitToInventory();
+        
+        $this->form('Client')->Inventory->content->HideCombobox();
+        $this->form('Client')->Inventory->content->HideUIText();
+        
+        $this->form('Client')->Inventory->content->DropSound();
+        
+        $this->selectedItem = null;
+        $GLOBALS['item_outfit_selected'] = false;        
+    }
+    function PutOnItem()
+    {
+        if (!$this->selectedItem) return;
+    
+        $wearingModel = 'res://.data/ui/maingame/sprite/actor.png';
+        $this->isWearing = false;
+    
+        $this->form('Client')->Inventory->content->inv_maket_visual->image = new UXImage($wearingModel);
+        $this->form('Client')->MainGame->content->actor->image = new UXImage($wearingModel);
+        
+        $this->removeItemFromGrid($this->selectedItem);
+        $this->selectedItem->visible = false;
+        $this->repackInventory();
+        
+        $this->form('Client')->Inventory->content->HideCombobox();
+        
+        $this->form('Client')->Inventory->content->HideUIText();
+        $this->form('Client')->Inventory->content->UseSlotSound();   
+        
+        $this->selectedItem = null;
+        $GLOBALS['item_outfit_selected'] = false;
     }
     /**
      * @event Inv_Medkit.click-2x 
@@ -468,7 +577,7 @@ class InventoryGrid extends AbstractForm
             $this->selectedItem->visible = false;
             $this->form('Client')->Inventory->content->UpdateInventoryStatus();
             $this->form('Client')->Inventory->content->HideUIText();
-            $this->HideCombobox();
+            $this->form('Client')->Inventory->content->HideCombobox();
         }
         $this->repackInventory();
         $this->updateMedkitCount();
@@ -494,6 +603,15 @@ class InventoryGrid extends AbstractForm
 
         $this->selectedItem = null;
     */
+    }
+    /**
+     * @event Inv_Outfit.click-2x 
+     */
+    function QuickUseOutfit(UXMouseEvent $e = null)
+    {    
+        $this->selectedItem = $e->sender;
+        
+        $this->PutOnItem();
     }
 
     public $isAnimatingBars = [];
@@ -620,73 +738,4 @@ class InventoryGrid extends AbstractForm
     {
         
     } 
-    function ShowCombobox()
-    {     
-        if (!$this->selectedItem) return;
-
-        $this->form('Client')->Inventory->content->PropertiesSound();
-
-        list($itemX, $itemY) = $this->selectedItem->position;
-
-        $comboWidth = $this->main->width;
-        $comboHeight = $this->main->height;
-
-        $gridLeft = 0;
-        $gridTop = 0;
-        $gridRight = 552;
-        $gridBottom = 784;
-
-        $comboX = $itemX;
-        $comboY = $itemY - $comboHeight - 10;
-
-        if ($comboX + $comboWidth > $gridRight)
-        {
-            $comboX = $gridRight - $comboWidth;
-        }
-
-        if ($comboX < $gridLeft)
-        {
-            $comboX = $gridLeft;
-        }
-
-        if ($comboY < $gridTop)
-        {
-            $comboY = $itemY + $this->selectedItem->height + 10;
-        }
-
-        $this->main->position = [$comboX, $comboY];
-        $offsetY = 8;
-
-        $this->Combobox_Use->hide();
-        $this->Combobox_Drop->hide();
-        
-        $this->main->show();
-        $this->main->toFront();
-
-        if ($this->selectedItem == $this->Inv_Vodka)
-        {
-            $this->Combobox_Drop->position = [$comboX + 8, $comboY + $offsetY];
-            $this->Combobox_Drop->toFront();
-            $this->Combobox_Drop->show();
-        }
-
-        if ($this->selectedItem == $this->Inv_Medkit)
-        {
-            $this->Combobox_Use->position = [$comboX + 8, $comboY + $offsetY];
-            $this->Combobox_Use->toFront();
-            $this->Combobox_Use->show();
-        }      
-    }    
-    function HideCombobox()
-    {  
-        $this->main->hide();
-        if ($this->selectedItem == $this->Inv_Medkit)
-        {
-            $this->Combobox_Use->hide();
-        }
-        if ($this->selectedItem == $this->Inv_Vodka)
-        {
-            $this->Combobox_Drop->hide();
-        }
-    }    
 }

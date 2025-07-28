@@ -170,6 +170,9 @@ class maingame extends AbstractForm
             $this->form('Client')->Inventory->content->SetItemCondition();
             
             $this->form('Client')->Inventory->content->InventoryGrid->content->lockInventory(false);
+            
+            $this->form('Client')->Inventory->content->InventoryGrid->content->selectedItem = $this->form('Client')->Inventory->content->InventoryGrid->content->Inv_Outfit;
+            $this->form('Client')->Inventory->content->InventoryGrid->content->PutOnItem();
 
             $this->actor->show();
             $this->enemy->show();

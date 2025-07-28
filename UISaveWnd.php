@@ -224,6 +224,7 @@ class UISaveWnd extends AbstractForm
                     'actor' => [
                         'x' => $this->form('Client')->MainGame->content->actor->position[0],
                         'y' => $this->form('Client')->MainGame->content->actor->position[1],
+                        'is_wearing' => $this->form('Client')->Inventory->content->InventoryGrid->content->isWearing,
                     ],
                     'enemy' => [
                         'x' => $this->form('Client')->MainGame->content->enemy->position[0],

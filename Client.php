@@ -19,6 +19,7 @@ use app\forms\classes\Localization;
 use discord\rpc\DiscordRPC;
 use php\gui\framework\AbstractForm;
 use php\gui\event\UXWindowEvent; 
+use php\gui\event\UXMouseEvent; 
 
 
 class Client extends AbstractForm
@@ -788,7 +789,7 @@ class Client extends AbstractForm
         $this->Inventory->content->UpdateSelectedItems();
         $this->Inventory->content->SetItemInfo();
         $this->Inventory->content->HideUIText(); 
-        $this->Inventory->content->InventoryGrid->content->HideCombobox();                              
+        $this->Inventory->content->HideCombobox();                              
         $this->Inventory->hide();
                 
         if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/inv_close.mp3', true);         
@@ -873,5 +874,5 @@ class Client extends AbstractForm
     function HideCheckTaskStep(UXKeyEvent $e = null)
     {
         $this->MainGame->content->Task_Step_Label->visible = false;
-    }    
+    }
 }
