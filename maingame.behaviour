@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <behaviours>
   <target id="item_vodka_0000">
-    <behaviour animated="1" direction="ALL" gridX="1" gridY="1" limitedByParent="" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
+    <behaviour animated="1" direction="ALL" gridX="1" gridY="1" limitedByParent="1" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
     <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
     <behaviour brightness="0" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
   </target>
   <target id="actor">
-    <behaviour animated="1" direction="LEFT_RIGHT" gridX="1" gridY="1" limitedByParent="" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
+    <behaviour animated="1" direction="LEFT_RIGHT" gridX="1" gridY="1" limitedByParent="1" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
     <behaviour brightness="-0.5" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
     <behaviour color="#000000" offsetX="2" offsetY="1.5" radius="27.5" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
   <target id="enemy">
-    <behaviour animated="1" direction="LEFT_RIGHT" gridX="1" gridY="1" limitedByParent="" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
+    <behaviour animated="1" direction="LEFT_RIGHT" gridX="1" gridY="1" limitedByParent="1" opacity="0.5" opacityEnabled="" type="behaviour\custom\DraggingBehaviour"/>
     <behaviour brightness="-0.5" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
     <behaviour color="#000000" offsetX="2" offsetY="1.5" radius="27.560975609756" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>

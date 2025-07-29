@@ -848,32 +848,4 @@ class maingame extends AbstractForm
             Animation::fadeOut($this->MessageBox, 500);
         });
     }
-    /**
-     * @event actor.outside 
-     */
-    function ActorOutside(UXEvent $e = null)
-    {    
-        $actor = $this->actor;
-        $form = $this->form('Client');
-
-        $originalX = $actor->x;
-        $originalY = $actor->y;
-
-        $actor->x = max(0, min($actor->x, $form->width - $actor->width));
-        $actor->y = max(0, min($actor->y, $form->height - $actor->height));
-    }
-    /**
-     * @event enemy.outside 
-     */
-    function EnemyOutside(UXEvent $e = null)
-    {    
-        $enemy = $this->enemy;
-        $form = $this->form('Client');
-
-        $originalX = $enemy->x;
-        $originalY = $enemy->y;
-
-        $enemy->x = max(0, min($enemy->x, $form->width - $enemy->width));
-        $enemy->y = max(0, min($enemy->y, $form->height - $enemy->height));        
-    }    
 }
