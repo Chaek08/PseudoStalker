@@ -300,8 +300,8 @@ class inventory extends AbstractForm
         $comboX = $mouseX;
         $comboY = $mouseY;
 
-        $screenWidth = $this->form('Client')->Client->width;
-        $screenHeight = $this->form('Client')->Client->height;
+        $screenWidth = $this->form('Client')->Client_Proxy->width;
+        $screenHeight = $this->form('Client')->Client_Proxy->height;
 
         if ($comboX + $comboWidth > $screenWidth)
         {
@@ -367,8 +367,8 @@ class inventory extends AbstractForm
         $comboX = $mouseX;
         $comboY = $mouseY;
 
-        $screenWidth = $this->form('Client')->Client->width; //ХУЙНЯ
-        $screenHeight = $this->form('Client')->Client->height; //ХУЙНЯ
+        $screenWidth = $this->form('Client')->Client_Proxy->width; //ХУЙНЯ
+        $screenHeight = $this->form('Client')->Client_Proxy->height; //ХУЙНЯ
 
         if ($comboX + $comboWidth > $screenWidth)
         {

@@ -155,8 +155,8 @@ class console extends AbstractForm
 
                                                 Timer::after(500, function () use ($form, $targetW, $targetH, $resolution) {
                                                         if ($form->Client) {
-                                                                $clientW = $form->Client->width;
-                                                                $clientH = $form->Client->height;
+                                                                $clientW = $form->Client_Proxy->width;
+                                                                $clientH = $form->Client_Proxy->height;
                                                         } elseif ($form->scene && $form->scene->window) {
                                                                 $clientW = $form->scene->window->width;
                                                                 $clientH = $form->scene->window->height;
@@ -184,8 +184,8 @@ class console extends AbstractForm
                                 }
                         } else {
                                 $this->edit->text = "";
-                                $currentW = $form->Client->width;
-                                $currentH = $form->Client->height;
+                                $currentW = $form->Client_Proxy->width;
+                                $currentH = $form->Client_Proxy->height;
                                 Element::appendText($this->Console_Log, "> Current resolution: {$currentW}x{$currentH}\n");
                         }
                         break;

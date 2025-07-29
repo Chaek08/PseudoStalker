@@ -85,8 +85,8 @@ class Client extends AbstractForm
 
         Timer::after(500, function () use ($targetW, $targetH)
         {
-            $clientW = $this->Client->width;
-            $clientH = $this->Client->height;
+            $clientW = $this->Client_Proxy->width;
+            $clientH = $this->Client_Proxy->height;
 
             $diffW = $this->width - $clientW;
             $diffH = $this->height - $clientH;
@@ -105,8 +105,8 @@ class Client extends AbstractForm
     private $prevClientH = null;    
     function trackResolution()
     {
-        $w = $this->Client->width;
-        $h = $this->Client->height;
+        $w = $this->Client_Proxy->width;
+        $h = $this->Client_Proxy->height;
 
         if ($this->prevClientW == $w && $this->prevClientH == $h)
         {
@@ -148,16 +148,16 @@ class Client extends AbstractForm
     }   
     function centerObject($obj)
     {
-        $sceneWidth = $this->Client->width;
-        $sceneHeight = $this->Client->height;
+        $sceneWidth = $this->Client_Proxy->width;
+        $sceneHeight = $this->Client_Proxy->height;
 
         $obj->x = ($sceneWidth - $obj->width) / 2;
         $obj->y = ($sceneHeight - $obj->height) / 2;
     }    
     function fitToScene($obj)
     {
-        $sceneW = $this->Client->width;
-        $sceneH = $this->Client->height;
+        $sceneW = $this->Client_Proxy->width;
+        $sceneH = $this->Client_Proxy->height;
 
         $scale = min(
             $sceneW / $obj->width,
