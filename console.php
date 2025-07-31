@@ -150,36 +150,23 @@ class console extends AbstractForm
                                         $targetH = (int)$parts[1];
 
                                         if ($targetW > 0 && $targetH > 0) {
-                                                $form->width = $targetW;
-                                                $form->height = $targetH;
+                                                $clientW = $form->Client_Proxy->width;
+                                                $clientH = $form->Client_Proxy->height;
 
-                                                Timer::after(500, function () use ($form, $targetW, $targetH, $resolution) {
-                                                        if ($form->Client) {
-                                                                $clientW = $form->Client_Proxy->width;
-                                                                $clientH = $form->Client_Proxy->height;
-                                                        } elseif ($form->scene && $form->scene->window) {
-                                                                $clientW = $form->scene->window->width;
-                                                                $clientH = $form->scene->window->height;
-                                                        } else {
-                                                                $clientW = $form->width;
-                                                                $clientH = $form->height;
-                                                        }
+                                                $diffW = $form->width - $clientW;
+                                                $diffH = $form->height - $clientH;
 
-                                                        $diffW = $form->width - $clientW;
-                                                        $diffH = $form->height - $clientH;
+                                                $form->width = $targetW + $diffW;
+                                                $form->height = $targetH + $diffH;
 
-                                                        $form->width = $targetW + $diffW;
-                                                        $form->height = $targetH + $diffH;
+                                                if ($form->ltxInitialized) {
+                                                        $form->ltx['vid_mode'] = $resolution;
+                                                        $form->SaveUserLTX($form->ltx);
+                                                }
 
-                                                        if ($form->ltxInitialized) {
-                                                                $form->ltx['vid_mode'] = $resolution;
-                                                                $form->SaveUserLTX($form->ltx);
-                                                        }
-
-                                                        if (method_exists($form, 'trackResolution')) {
-                                                                $form->trackResolution();
-                                                        }
-                                                });
+                                                if (method_exists($form, 'trackResolution')) {
+                                                        $form->trackResolution();
+                                                }
                                         }
                                 }
                         } else {

@@ -80,24 +80,18 @@ class Client extends AbstractForm
         $targetW = (int)$parts[0];
         $targetH = (int)$parts[1];
 
-        $this->width = $targetW;
-        $this->height = $targetH;
+        $clientW = $this->Client_Proxy->width;
+        $clientH = $this->Client_Proxy->height;
+        
+        $diffW = $this->width - $clientW;
+        $diffH = $this->height - $clientH;
+            
+        $this->width = $targetW + $diffW;
+        $this->height = $targetH + $diffH;
 
-        Timer::after(500, function () use ($targetW, $targetH)
-        {
-            $clientW = $this->Client_Proxy->width;
-            $clientH = $this->Client_Proxy->height;
+        $this->trackResolution();
 
-            $diffW = $this->width - $clientW;
-            $diffH = $this->height - $clientH;
-
-            $this->width = $targetW + $diffW;
-            $this->height = $targetH + $diffH;
-
-            $this->trackResolution();
-
-            Logger::info("window {$this->width}x{$this->height}, client via BG: {$clientW}x{$clientH}");
-        });
+        Logger::info("window {$this->width}x{$this->height}, client via BG: {$clientW}x{$clientH}");
     }       
     
     private $prevRes = null;
@@ -119,8 +113,8 @@ class Client extends AbstractForm
         
         $res = "{$w}x{$h}";
         
-        //$this->ltx['vid_mode'] = $res;
-        //$this->SaveUserLTX($this->ltx);
+        $this->ltx['vid_mode'] = $res;
+        $this->SaveUserLTX($this->ltx);
 
         UXApplication::runLater(function() use ($w, $h) {
             if (ResTracker)

@@ -446,7 +446,7 @@ class maingame extends AbstractForm
                 $this->blood_ui->y -= 60;
             }            
         }
-    }
+    }    
     /**
      * @event enemy.click-2x
      */       
@@ -535,9 +535,11 @@ class maingame extends AbstractForm
             return;
         }                    
     }
+    
     public $lastHitTime = 0;
     public $hitmarkLevel = 1;
     public $hitmarkVisibleUntil = 0;
+       
     /**
      * @event actor.click-2x
      */    
@@ -813,7 +815,7 @@ class maingame extends AbstractForm
                 $this->isLabelVisible = false;
             });
         }
-    }
+    }   
     function ShowTaskStep()
     {
         $this->Task_Step_Label->visible = true;      
