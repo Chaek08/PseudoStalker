@@ -70,7 +70,7 @@ class fail_wnd extends AbstractForm
         
         if ($GLOBALS['ActorFailed'])
         {
-            $enemy_model = trim($this->form('Client')->SDK_EnemyModel);
+            $enemy_model = trim($this->form('Client')->MainGame->content->SDK_EnemyModel);
             $actor_failtext = trim($this->SDK_FailTextActor);
             $actor_failtexticon = trim($this->SDK_FailTextIconActor);
             $actor_faildesc = trim($this->SDK_FailDescActor);
@@ -82,7 +82,7 @@ class fail_wnd extends AbstractForm
         }
         if ($GLOBALS['EnemyFailed'])
         {
-            $actor_model = trim($this->form('Client')->SDK_ActorModel);
+            $actor_model = trim($this->form('Client')->MainGame->content->SDK_ActorModel);
             $enemy_failtext = trim($this->SDK_FailTextEnemy);
             $enemy_failtexticon = trim($this->SDK_FailTextIconEnemy);
             $enemy_faildesc = trim($this->SDK_FailDescEnemy);    

@@ -307,11 +307,6 @@ class Client extends AbstractForm
         }        
         file_put_contents($this->ltxPath, $content);
     }
-    
-    public $SDK_FightSound;
-    public $SDK_ActorModel;
-    public $SDK_EnemyModel;
-    
     function syncWithSDKLTX()
     {
         define('DATA_FILE', 'sdk_data.ltx');
@@ -397,7 +392,7 @@ class Client extends AbstractForm
                 case 'actor_model': 
                     $this->MainGame->content->actor->image = new UXImage($value);
                     $this->Inventory->content->inv_maket_visual->image = new UXImage($value);
-                    $this->SDK_ActorModel = $value;
+                    $this->MainGame->content->SDK_ActorModel = $value;
                     break;
                 case 'actor_model_opt_stretch':
                     if ($value == 'on')
@@ -411,7 +406,7 @@ class Client extends AbstractForm
                     break;
                 case 'enemy_model':
                     $this->MainGame->content->enemy->image = new UXImage($value);
-                    $this->SDK_EnemyModel = $value;
+                    $this->MainGame->content->SDK_EnemyModel = $value;
                     break;
                 case 'enemy_model_opt_stretch':
                     if ($value == 'on')
@@ -423,7 +418,7 @@ class Client extends AbstractForm
                         $this->MainGame->content->enemy->stretch = false;
                     }
                     break;
-                case 'fight_sound': $this->SDK_FightSound = $value; break;
+                case 'fight_sound': $this->MainGame->content->SDK_FightSound = $value; break;
 
                 // QuestEditor
                 case 'quest_name': $this->Pda->content->Pda_Tasks->content->SDK_QuestName = $value; break;

@@ -19,6 +19,10 @@ class maingame extends AbstractForm
 {
     private $currentCycle = '';
     private $localization;
+    
+    public $SDK_FightSound;
+    public $SDK_ActorModel;
+    public $SDK_EnemyModel;    
 
     public function __construct() 
     {
