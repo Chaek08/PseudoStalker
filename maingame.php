@@ -135,8 +135,6 @@ class maingame extends AbstractForm
             return 'night';
         }
     }    
-
-
     function PlayFightSong()
     {    
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
@@ -450,6 +448,48 @@ class maingame extends AbstractForm
                 $this->blood_ui->y -= 60;
             }            
         }
+    }
+    function SpawnParticle($target)
+    {
+
+        if ($target == $this->actor)
+        {
+            $healthBar = $this->health_bar_actor;
+        }
+        else
+        {
+            $healthBar = $this->health_bar_enemy;
+        }    
+
+        $cursorX = $this->form('Client')->CustomCursor->x;
+        $cursorY = $this->form('Client')->CustomCursor->y;
+
+        for ($i = 0; $i < 3; $i++)
+        {
+            $scatterX = rand(-35, 35);
+            $scatterY = rand(-35, 35);
+
+            $particle = new UXImageView();
+            $particle->enabled = false;
+            $particle->opacity = 1;
+            $particle->image = new UXImage("res://.data/ui/particles/blood.png");
+            $particle->scale = $this->form('Client')->MainGame->scale;
+            $particle->width = 86;
+            $particle->height = 86;
+
+            $particle->x = $cursorX - ($particle->width / 2) + $scatterX;
+            $particle->y = $cursorY - ($particle->height / 2) + $scatterY;
+
+            $this->form('Client')->add($particle);
+
+            $delay = ($healthBar->width - 30 <= 54) ? 600 : 300;
+
+            Timer::after($delay, function () use ($particle) {
+                Animation::fadeOut($particle, 300, function () use ($particle) {
+                    $particle->free();
+                });
+            });
+        }
     }    
     /**
      * @event enemy.click-2x
@@ -486,43 +526,15 @@ class maingame extends AbstractForm
                 }
             });
             
-            if ($spawnParticles)
+            if ($spawnParticles) 
             {
-                for ($i = 0; $i < 2; $i++)
-                {
-                    $scatterX = rand(-25, 25);
-                    $scatterY = rand(-25, 25);
-
-                    $particle = new UXImageView();
-                    $particle->enabled = false;
-                    $particle->opacity = 1;
-                    $particle->image = new UXImage("res://.data/ui/particles/blood.png");
-                    $particle->scale = $this->form('Client')->MainGame->scale;
-                    $particle->width = 86;
-                    $particle->height = 86;
-                
-                    $cursorX = $this->form('Client')->CustomCursor->x;
-                    $cursorY = $this->form('Client')->CustomCursor->y;                
-
-                    $particle->x = $cursorX - ($particle->width / 2) + $scatterX;
-                    $particle->y = $cursorY - ($particle->height / 2) + $scatterY;
-
-                    $this->form('Client')->add($particle);
-
-                    $delay = ($this->health_bar_enemy->width - 30 <= 54) ? 600 : 300;
-
-                    Timer::after($delay, function () use ($particle) {
-                        Animation::fadeOut($particle, 300, function () use ($particle) {
-                            $particle->free();
-                        });
-                    });
-                }                
-            }            
+                $this->SpawnParticle($enemy); 
+            }
 
             if ($GLOBALS['AllSounds'])
             {
-                Media::open('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex');
-                Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_alex_damage');
+                Media::open('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor');
+                Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_actor_damage');
             }        
         }
         else     
@@ -532,13 +544,21 @@ class maingame extends AbstractForm
             $this->health_bar_enemy_b->hide();
             $this->Talk_Label->hide();
         
-            if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex');
+            $this->SpawnParticle($enemy);
+        
+            if ($GLOBALS['AllSounds']) 
+            {
+                Media::open('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor');
+                Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_actor_damage');
+                            
+                Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');                
+            }
         
             $GLOBALS['EnemyFailed'] = true;
             $this->finalizeBattle();
             return;
         }                    
-    }
+    }    
     
     public $lastHitTime = 0;
     public $hitmarkLevel = 1;
@@ -658,40 +678,12 @@ class maingame extends AbstractForm
                 }
             });
             
-            for ($i = 0; $i < 2; $i++) 
-            {
-                $scatterX = rand(-25, 25);
-                $scatterY = rand(-25, 25);
-
-                $particle = new UXImageView();
-                $particle->enabled = false;
-                $particle->opacity = 1;
-                $particle->image = new UXImage("res://.data/ui/particles/blood.png");
-                $particle->scale = $this->form('Client')->MainGame->scale;
-                $particle->width = 86;
-                $particle->height = 86;
-
-                $cursorX = $this->form('Client')->CustomCursor->x;
-                $cursorY = $this->form('Client')->CustomCursor->y;
-
-                $particle->x = $cursorX - ($particle->width / 2) + $scatterX;
-                $particle->y = $cursorY - ($particle->height / 2) + $scatterY;
-
-                $this->form('Client')->add($particle);
-
-                $delay = ($this->health_bar_gg->width - 30 <= 54) ? 600 : 300;
-
-                Timer::after($delay, function () use ($particle) {
-                    Animation::fadeOut($particle, 300, function () use ($particle) {
-                        $particle->free();
-                    });
-                });
-            }            
+            $this->SpawnParticle($actor);
         
             if ($GLOBALS['AllSounds'])
             {
-                Media::open('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor'); 
-                Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_actor_damage'); 
+                Media::open('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex');
+                Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_alex_damage');
             }        
         }
         else     
@@ -707,8 +699,16 @@ class maingame extends AbstractForm
                    
             if ($this->blood_ui->visible) $this->blood_ui->hide();       
             if ($this->HitMark->visible) $this->HitMark->hide();
-        
-            if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');
+                
+            $this->SpawnParticle($actor);
+                  
+            if ($GLOBALS['AllSounds'])
+            {
+                Media::open('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex');
+                Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_alex_damage');
+                            
+                Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex');
+            }
         
             $GLOBALS['ActorFailed'] = true;
             $this->finalizeBattle();

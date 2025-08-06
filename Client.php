@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\FPSGandon;
 use php\gui\animation\UXAnimationTimer;
 use action\Animation;
 use php\framework\Logger;
@@ -20,6 +21,7 @@ use discord\rpc\DiscordRPC;
 use php\gui\framework\AbstractForm;
 use php\gui\event\UXWindowEvent; 
 use php\gui\event\UXMouseEvent; 
+use php\gui\event\UXEvent; 
 
 
 class Client extends AbstractForm
@@ -59,7 +61,6 @@ class Client extends AbstractForm
         $this->MainGame->content->InitEnvironmentTimer();
         $this->MainGame->content->UpdateEnvironment();
                 
-        
         $this->MainGame->content->RenderHud(false);
         
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
@@ -69,7 +70,7 @@ class Client extends AbstractForm
         $discord->setBigImage("icon", $this->BuildID);
 
         $discord->setStartTimestamp(Time::now()->getTime());
-        $discord->updateState();        
+        $discord->updateState();
     }
     function applyResolutionFromLTX()
     {
@@ -198,10 +199,12 @@ class Client extends AbstractForm
             Element::setText($this->MainMenu->content->version_detail, VersionID);
         }
     }
+    
     function getCurrentLanguageFromUI()
     {
         return $this->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }    
+    }
+    
     function ShowLoadScreen(callable $task)
     {
         $this->LoadScreen->opacity = 1;
