@@ -292,140 +292,107 @@ class inventory extends AbstractForm
 
         $this->PropertiesSound();
 
-        list($mouseX, $mouseY) = $this->form('Client')->CustomCursor->position;
-
-        $comboWidth = $this->main->width;
-        $comboHeight = $this->main->height;
-
-        $comboX = $mouseX;
-        $comboY = $mouseY;
-
-        $screenWidth = $this->form('Client')->Client_Proxy->width;
-        $screenHeight = $this->form('Client')->Client_Proxy->height;
-
-        if ($comboX + $comboWidth > $screenWidth)
-        {
-            $comboX = $screenWidth - $comboWidth;
-        }
-        if ($comboX < 0)
-        {
-            $comboX = 0;
-        }
-        if ($comboY + $comboHeight > $screenHeight)
-        {
-            $comboY = $screenHeight - $comboHeight;
-        }
-
-        $this->main->position = [$comboX, $comboY];
+        list($comboX, $comboY) = $this->form('Client')->CustomCursor->position;
         $offsetY = 8;
 
-        $this->Combobox_Use->hide();
-        $this->Combobox_Drop->hide();
-    
-        $this->main->show();
-        $this->main->toFront();
+        $clientForm = $this->form('Client');
 
-        if ($this->InventoryGrid->content->selectedItem == $this->InventoryGrid->content->Inv_Vodka)
+        foreach (['main', 'Combobox_Use', 'Combobox_Drop', 'Combobox_TakeOff', 'Combobox_PutOn'] as $name)
         {
-            $this->Combobox_Drop->position = [$comboX + 8, $comboY + $offsetY];
-            $this->Combobox_Drop->toFront();
-            $this->Combobox_Drop->show();
-        }
-
-        if ($this->InventoryGrid->content->selectedItem == $this->InventoryGrid->content->Inv_Medkit)
-        {
-            $this->Combobox_Use->position = [$comboX + 8, $comboY + $offsetY];
-            $this->Combobox_Use->toFront();
-            $this->Combobox_Use->show();
-        }
-        
-        if ($this->InventoryGrid->content->selectedItem == $this->InventoryGrid->content->Inv_Outfit)
-        {
-            if (!$this->InventoryGrid->content->isWearing)
-            {        
-                $this->Combobox_TakeOff->position = [$comboX + 8, $comboY + $offsetY];
-                $this->Combobox_TakeOff->toFront();
-                $this->Combobox_TakeOff->show();
-            }
-            else 
+            $el = $this->{$name} ?? null;
+            if (is_object($el) && $el->parent != $clientForm)
             {
-                $this->Combobox_PutOn->position = [$comboX + 8, $comboY + $offsetY];
-                $this->Combobox_PutOn->toFront();
-                $this->Combobox_PutOn->show();
+                $clientForm->add($el);
             }
-        }        
+        }
+
+        $clientForm->main->position = [$comboX, $comboY];
+
+        foreach (['Combobox_Use', 'Combobox_Drop', 'Combobox_TakeOff', 'Combobox_PutOn'] as $name)
+        {
+            $clientForm->{$name}->hide();
+        }
+
+        $clientForm->main->show();
+        $clientForm->main->toFront();
+
+        $selected = $this->InventoryGrid->content->selectedItem;
+
+        if ($selected == $this->InventoryGrid->content->Inv_Vodka)
+        {
+            $clientForm->Combobox_Drop->position = [$comboX + 8, $comboY + $offsetY];
+            $clientForm->Combobox_Drop->toFront();
+            $clientForm->Combobox_Drop->show();
+        }
+        elseif ($selected == $this->InventoryGrid->content->Inv_Medkit)
+        {
+            $clientForm->Combobox_Use->position = [$comboX + 8, $comboY + $offsetY];
+            $clientForm->Combobox_Use->toFront();
+            $clientForm->Combobox_Use->show();
+        }
+        elseif ($selected == $this->InventoryGrid->content->Inv_Outfit)
+        {    
+            $targetBtn = $this->InventoryGrid->content->isWearing ? 'Combobox_PutOn' : 'Combobox_TakeOff';
+            $clientForm->{$targetBtn}->position = [$comboX + 8, $comboY + $offsetY];
+            $clientForm->{$targetBtn}->toFront();
+            $clientForm->{$targetBtn}->show();
+        }
     }
     function UpdateComboboxPosition()
     {
         if (!$this->InventoryGrid->content->selectedItem) return;
 
-        list($mouseX, $mouseY) = $this->form('Client')->CustomCursor->position;
+        list($comboX, $comboY) = $this->form('Client')->CustomCursor->position;
 
-        $comboWidth = $this->main->width;
-        $comboHeight = $this->main->height;
-
-        $comboX = $mouseX;
-        $comboY = $mouseY;
-
-        $screenWidth = $this->form('Client')->Client_Proxy->width; //ХУЙНЯ
-        $screenHeight = $this->form('Client')->Client_Proxy->height; //ХУЙНЯ
-
-        if ($comboX + $comboWidth > $screenWidth)
-        {
-            $comboX = $screenWidth - $comboWidth;
-        }
-
-        if ($comboX < 0)
-        {
-            $comboX = 0;
-        }
-
-        if ($comboY + $comboHeight > $screenHeight)
-        {
-            $comboY = $screenHeight - $comboHeight;
-        }
-
-        $this->main->position = [$comboX, $comboY];
+        $clientForm = $this->form('Client');
     
+        $clientForm->main->position = [$comboX, $comboY];
+    
+        $offsetX = 8;
         $offsetY = 8;
-    
-        if ($this->InventoryGrid->content->selectedItem == $this->InventoryGrid->content->Inv_Vodka)
+        
+        $selected = $this->InventoryGrid->content->selectedItem;
+
+        if ($selected == $this->InventoryGrid->content->Inv_Vodka)
         {
-            $this->Combobox_Drop->position = [$comboX + 8, $comboY + $offsetY];
+            $clientForm->Combobox_Drop->position = [$comboX + $offsetX, $comboY + $offsetY];
         }
 
-        if ($this->InventoryGrid->content->selectedItem == $this->InventoryGrid->content->Inv_Medkit)
+        if ($selected == $this->InventoryGrid->content->Inv_Medkit)
         {
-            $this->Combobox_Use->position = [$comboX + 8, $comboY + $offsetY];
+            $clientForm->Combobox_Use->position = [$comboX + $offsetX, $comboY + $offsetY];
         }
-        
-        if ($this->InventoryGrid->content->selectedItem == $this->InventoryGrid->content->Inv_Outfit)
+    
+        if ($selected == $this->InventoryGrid->content->Inv_Outfit) 
         {
             if (!$this->InventoryGrid->content->isWearing)
             {
-                $this->Combobox_TakeOff->position = [$comboX + 8, $comboY + $offsetY];
+                $clientForm->Combobox_TakeOff->position = [$comboX + $offsetX, $comboY + $offsetY];
             }
-            else 
+            else
             {
-                $this->Combobox_PutOn->position = [$comboX + 8, $comboY + $offsetY];
+                $clientForm->Combobox_PutOn->position = [$comboX + $offsetX, $comboY + $offsetY];
             }
         }        
     }
     function HideCombobox()
     {  
-        $this->main->hide();
+        $clientForm = $this->form('Client');
+        
+        $clientForm->main->hide();
+        
         if ($this->InventoryGrid->content->selectedItem == $this->InventoryGrid->content->Inv_Medkit)
         {
-            $this->Combobox_Use->hide();
+            $clientForm->Combobox_Use->hide();
         }
         if ($this->InventoryGrid->content->selectedItem == $this->InventoryGrid->content->Inv_Vodka)
         {
-            $this->Combobox_Drop->hide();
+            $clientForm->Combobox_Drop->hide();
         }
         if ($this->InventoryGrid->content->selectedItem == $this->InventoryGrid->content->Inv_Outfit)
         {       
-            $this->Combobox_TakeOff->hide();
-            $this->Combobox_PutOn->hide(); 
+            $clientForm->Combobox_TakeOff->hide();
+            $clientForm->Combobox_PutOn->hide(); 
         }        
     }        
 }
