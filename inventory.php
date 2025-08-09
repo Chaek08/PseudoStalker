@@ -374,21 +374,38 @@ class inventory extends AbstractForm
     function HideCombobox()
     {  
         $clientForm = $this->form('Client');
-        
-        $clientForm->main->hide();
-        
-        if ($this->InventoryGrid->content->selectedItem == $this->InventoryGrid->content->Inv_Medkit)
+
+        if (isset($clientForm->main) && is_object($clientForm->main))
         {
-            $clientForm->Combobox_Use->hide();
+            $clientForm->main->hide();
         }
-        if ($this->InventoryGrid->content->selectedItem == $this->InventoryGrid->content->Inv_Vodka)
+
+        $selected = $this->InventoryGrid->content->selectedItem;
+
+        if ($selected == $this->InventoryGrid->content->Inv_Medkit)
         {
-            $clientForm->Combobox_Drop->hide();
+            if (isset($clientForm->Combobox_Use) && is_object($clientForm->Combobox_Use))
+            {
+                $clientForm->Combobox_Use->hide();
+            }
         }
-        if ($this->InventoryGrid->content->selectedItem == $this->InventoryGrid->content->Inv_Outfit)
-        {       
-            $clientForm->Combobox_TakeOff->hide();
-            $clientForm->Combobox_PutOn->hide(); 
-        }        
+
+        if ($selected == $this->InventoryGrid->content->Inv_Vodka)
+        {
+            if (isset($clientForm->Combobox_Drop) && is_object($clientForm->Combobox_Drop)) {
+                $clientForm->Combobox_Drop->hide();
+            }
+        }
+
+        if ($selected == $this->InventoryGrid->content->Inv_Outfit)
+        {
+            foreach (['Combobox_TakeOff', 'Combobox_PutOn'] as $btn)
+            {
+                if (isset($clientForm->{$btn}) && is_object($clientForm->{$btn}))
+                {
+                    $clientForm->{$btn}->hide();
+                }
+            }
+        }     
     }        
 }
