@@ -293,7 +293,6 @@ class inventory extends AbstractForm
         $this->PropertiesSound();
 
         list($comboX, $comboY) = $this->form('Client')->CustomCursor->position;
-        $offsetY = 8;
 
         $clientForm = $this->form('Client');
 
@@ -320,20 +319,20 @@ class inventory extends AbstractForm
 
         if ($selected == $this->InventoryGrid->content->Inv_Vodka)
         {
-            $clientForm->Combobox_Drop->position = [$comboX + 8, $comboY + $offsetY];
+            $clientForm->Combobox_Drop->position = [$comboX + 8, $comboY + 8];
             $clientForm->Combobox_Drop->toFront();
             $clientForm->Combobox_Drop->show();
         }
         elseif ($selected == $this->InventoryGrid->content->Inv_Medkit)
         {
-            $clientForm->Combobox_Use->position = [$comboX + 8, $comboY + $offsetY];
+            $clientForm->Combobox_Use->position = [$comboX + 8, $comboY + 8];
             $clientForm->Combobox_Use->toFront();
             $clientForm->Combobox_Use->show();
         }
         elseif ($selected == $this->InventoryGrid->content->Inv_Outfit)
         {    
             $targetBtn = $this->InventoryGrid->content->isWearing ? 'Combobox_PutOn' : 'Combobox_TakeOff';
-            $clientForm->{$targetBtn}->position = [$comboX + 8, $comboY + $offsetY];
+            $clientForm->{$targetBtn}->position = [$comboX + 8, $comboY + 8];
             $clientForm->{$targetBtn}->toFront();
             $clientForm->{$targetBtn}->show();
         }
@@ -347,31 +346,28 @@ class inventory extends AbstractForm
         $clientForm = $this->form('Client');
     
         $clientForm->main->position = [$comboX, $comboY];
-    
-        $offsetX = 8;
-        $offsetY = 8;
         
         $selected = $this->InventoryGrid->content->selectedItem;
 
         if ($selected == $this->InventoryGrid->content->Inv_Vodka)
         {
-            $clientForm->Combobox_Drop->position = [$comboX + $offsetX, $comboY + $offsetY];
+            $clientForm->Combobox_Drop->position = [$comboX + 8, $comboY + 8];
         }
 
         if ($selected == $this->InventoryGrid->content->Inv_Medkit)
         {
-            $clientForm->Combobox_Use->position = [$comboX + $offsetX, $comboY + $offsetY];
+            $clientForm->Combobox_Use->position = [$comboX + 8, $comboY + 8];
         }
     
         if ($selected == $this->InventoryGrid->content->Inv_Outfit) 
         {
             if (!$this->InventoryGrid->content->isWearing)
             {
-                $clientForm->Combobox_TakeOff->position = [$comboX + $offsetX, $comboY + $offsetY];
+                $clientForm->Combobox_TakeOff->position = [$comboX + 8, $comboY + 8];
             }
             else
             {
-                $clientForm->Combobox_PutOn->position = [$comboX + $offsetX, $comboY + $offsetY];
+                $clientForm->Combobox_PutOn->position = [$comboX + 8, $comboY + 8];
             }
         }        
     }
