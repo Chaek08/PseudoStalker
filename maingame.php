@@ -544,7 +544,10 @@ class maingame extends AbstractForm
             $this->health_bar_enemy_b->hide();
             $this->Talk_Label->hide();
         
-            $this->SpawnParticle($enemy);
+            if ($spawnParticles) 
+            {
+                $this->SpawnParticle($enemy); 
+            }
         
             if ($GLOBALS['AllSounds']) 
             {
