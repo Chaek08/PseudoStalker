@@ -57,6 +57,8 @@ class mainmenu extends AbstractForm
             
             $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();
             $this->form('Client')->Dialog->content->UpdateData();
+            
+            $this->form('Client')->Inventory->content->InventoryGrid->content->MoveWeaponsToInvSlot(); //эта хуйня и будет опорой для аттача
         }
         
         Media::pause($this->MenuSound);

@@ -6,7 +6,17 @@
         <Font name="System Regular" size="12"/>
       </font>
     </FlatButton>
-    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="button4" layoutX="24" layoutY="72" opacity="0.95121951219512" prefHeight="800" prefWidth="568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="button" layoutX="200" layoutY="72" opacity="0.95121951219512" prefHeight="112" prefWidth="392" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="button12" layoutX="24" layoutY="72" opacity="0.95121951219512" prefHeight="112" prefWidth="168" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="button4" layoutX="24" layoutY="192" opacity="0.95121951219512" prefHeight="680" prefWidth="568" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -219,5 +229,13 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-Combobox_PutOn" visible=""/>
+    <Data cursor="DEFAULT" enabled="1" id="data-button" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-button12" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#cc8033" color="#cc8033" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#e6994d" id="Combobox_MoveToSlot" layoutX="8" layoutY="104" prefHeight="24" prefWidth="152" styleClass="x-flat-button " text="Combobox_MoveToSlot" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="13"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-Combobox_MoveToSlot" visible=""/>
   </children>
 </AnchorPane>

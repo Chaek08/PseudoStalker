@@ -15,6 +15,10 @@ class inventory extends AbstractForm
     private $vodkaWeight = 0.5;
     private $medkitWeight = 0.1;
     private $outfitWeight = 2.0;
+    private $pmWeight = 0.7;
+    private $pmAmmoWeight = 0.7;
+    private $ak74Weight = 5.2;
+    private $ak74AmmoWeight = 0.6;
     
     private $playerMonero = 40;
     private $moneyCurrency = 'RU';
@@ -47,6 +51,10 @@ class inventory extends AbstractForm
         $GLOBALS['item_outfit_selected'] = false;    
         $GLOBALS['item_vodka_selected'] = false;
         $GLOBALS['item_medkit_selected'] = false;
+        $GLOBALS['item_pm_selected'] = false;
+        $GLOBALS['item_ammo_9x18_selected'] = false;
+        $GLOBALS['item_ak74_selected'] = false;
+        $GLOBALS['item_ammo_5x45_selected'] = false;
     }
     function UpdateInventoryStatus()
     {
@@ -57,7 +65,7 @@ class inventory extends AbstractForm
         if ($this->InventoryGrid->content->Inv_Vodka->visible)
         {
            $totalWeight += $this->vodkaWeight; 
-        }
+        }        
         if ($this->InventoryGrid->content->Inv_Medkit->visible)
         {
             $totalWeight += $this->medkitWeight;
@@ -66,7 +74,23 @@ class inventory extends AbstractForm
         {
             $totalWeight += $this->outfitWeight;
         }
-            
+        if ($this->InventoryGrid->content->Inv_Wpn_Pm->visible)
+        {
+           $totalWeight += $this->pmWeight; 
+        }        
+        if ($this->InventoryGrid->content->Inv_Ammo_9x18->visible)
+        {
+           $totalWeight += $this->pmAmmoWeight; 
+        }
+        if ($this->InventoryGrid->content->Inv_Wpn_AK74->visible)
+        {
+           $totalWeight += $this->ak74Weight; 
+        }  
+         if ($this->InventoryGrid->content->Inv_Ammo_5x45->visible)
+        {
+           $totalWeight += $this->ak74AmmoWeight; 
+        }        
+                    
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         $WeightLabel = $this->localization->get('Weight_Label');
         
@@ -143,6 +167,46 @@ class inventory extends AbstractForm
             Element::setText($this->maket_count, "100" . ' ' . $this->moneyCurrency);
             Element::setText($this->maket_weight, sprintf('%.1fkg', $this->medkitWeight));
         }
+        if ($GLOBALS['item_pm_selected'])
+        {
+            $this->inv_maket->image = new UXImage('res://.data/ui/weapons/wpn_pm.png');
+            
+            $this->maket_label->text = $this->localization->get('PM_Name');
+            $this->maket_desc->text = $this->localization->get('PM_Desc');
+            
+            Element::setText($this->maket_count, "280" . ' ' . $this->moneyCurrency);
+            Element::setText($this->maket_weight, sprintf('%.1fkg', $this->pmWeight));
+        }
+        if ($GLOBALS['item_ammo_9x18_selected'])
+        {
+            $this->inv_maket->image = new UXImage('res://.data/ui/weapons/mag_9_18.png');
+            
+            $this->maket_label->text = $this->localization->get('Ammo9x18_Name');
+            $this->maket_desc->text = $this->localization->get('Ammo9x18_Desc');
+            
+            Element::setText($this->maket_count, "70" . ' ' . $this->moneyCurrency);
+            Element::setText($this->maket_weight, sprintf('%.1fkg', $this->pmAmmoWeight));            
+        }
+        if ($GLOBALS['item_ak74_selected'])
+        {
+            $this->inv_maket->image = new UXImage('res://.data/ui/weapons/wpn_ak74.png');
+            
+            $this->maket_label->text = $this->localization->get('AK74_Name');
+            $this->maket_desc->text = $this->localization->get('AK74_Desc');
+            
+            Element::setText($this->maket_count, "2000" . ' ' . $this->moneyCurrency);
+            Element::setText($this->maket_weight, sprintf('%.1fkg', $this->ak74Weight));
+        }
+        if ($GLOBALS['item_ammo_5x45_selected'])
+        {
+            $this->inv_maket->image = new UXImage('res://.data/ui/weapons/mag_5_45.png');
+            
+            $this->maket_label->text = $this->localization->get('Ammo5x45_Name');
+            $this->maket_desc->text = $this->localization->get('Ammo5x45_Desc');
+            
+            Element::setText($this->maket_count, "200" . ' ' . $this->moneyCurrency);
+            Element::setText($this->maket_weight, sprintf('%.1fkg', $this->ak74AmmoWeight));            
+        }        
     }
     function UseSlotSound()
     {
@@ -209,10 +273,26 @@ class inventory extends AbstractForm
     /**
      * @event Combobox_PutOn.click-Left 
      */
-    function Combobox_PutOn(UXMouseEvent $e = null)
+    function ComboboxPutOn(UXMouseEvent $e = null)
     {
         $this->InventoryGrid->content->PutOnItem();
     }
+    /**
+     * @event Combobox_MoveToSlot.click-Left 
+     */
+    function ComboboxMoveToSlot(UXMouseEvent $e = null)
+    {
+        $selected = $this->InventoryGrid->content->selectedItem;
+        
+        if ($selected == $this->InventoryGrid->content->Inv_Wpn_AK74)
+        {
+           $this->InventoryGrid->content->MoveAK74ToSlot();  
+        }
+        if ($selected == $this->InventoryGrid->content->Inv_Wpn_Pm)
+        {
+           $this->InventoryGrid->content->MovePmToSlot();  
+        }   
+    }    
     /**
      * @event inv_maket_visual.click-2x 
      */
@@ -228,8 +308,16 @@ class inventory extends AbstractForm
     {
         $this->InventoryGrid->content->medkitCount = 0;
         
+        $this->InventoryGrid->content->selectedItem = $this->form('Client')->Inventory->content->InventoryGrid->content->Inv_Outfit;
+        $this->InventoryGrid->content->PutOnItem();
+            
+        $this->InventoryGrid->content->akAmmoCount = 60;
+        $this->InventoryGrid->content->pmAmmoCount = 25;
+                   
         $this->InventoryGrid->content->addVodkaToInventory();
         $this->InventoryGrid->content->addMedkitToInventory();
+        $this->InventoryGrid->content->addAmmo5x45ToInventory();
+        $this->InventoryGrid->content->addAmmo9x18ToInventory();     
         
         $this->form('Client')->MainGame->content->item_vodka_0000->hide();
         $this->form('Client')->MainGame->content->item_vodka_0000->enabled = true;
@@ -284,7 +372,31 @@ class inventory extends AbstractForm
             $this->maket_cond->text = "100 %";
             $this->maket_cond->color = '#4d804d';
             $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
-        }        
+        }
+        if ($GLOBALS['item_pm_selected'])
+        {
+            $this->maket_cond->text = "100 %";
+            $this->maket_cond->color = '#4d804d';
+            $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
+        }
+        if ($GLOBALS['item_ammo_9x18_selected'])
+        {
+            $this->maket_cond->text = "100 %";
+            $this->maket_cond->color = '#4d804d';
+            $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
+        }
+        if ($GLOBALS['item_ak74_selected'])
+        {
+            $this->maket_cond->text = "100 %";
+            $this->maket_cond->color = '#4d804d';
+            $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
+        }
+         if ($GLOBALS['item_ammo_5x45_selected'])
+        {
+            $this->maket_cond->text = "100 %";
+            $this->maket_cond->color = '#4d804d';
+            $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
+        }       
     }  
     function ShowCombobox()
     {
@@ -296,7 +408,7 @@ class inventory extends AbstractForm
 
         $clientForm = $this->form('Client');
 
-        foreach (['main', 'Combobox_Use', 'Combobox_Drop', 'Combobox_TakeOff', 'Combobox_PutOn'] as $name)
+        foreach (['main', 'Combobox_Use', 'Combobox_Drop', 'Combobox_TakeOff', 'Combobox_PutOn', 'Combobox_MoveToSlot'] as $name)
         {
             $el = $this->{$name} ?? null;
             if (is_object($el) && $el->parent != $clientForm)
@@ -307,7 +419,7 @@ class inventory extends AbstractForm
 
         $clientForm->main->position = [$comboX, $comboY];
 
-        foreach (['Combobox_Use', 'Combobox_Drop', 'Combobox_TakeOff', 'Combobox_PutOn'] as $name)
+        foreach (['Combobox_Use', 'Combobox_Drop', 'Combobox_TakeOff', 'Combobox_PutOn', 'Combobox_MoveToSlot'] as $name)
         {
             $clientForm->{$name}->hide();
         }
@@ -329,6 +441,12 @@ class inventory extends AbstractForm
             $clientForm->Combobox_Use->toFront();
             $clientForm->Combobox_Use->show();
         }
+        elseif ($selected == $this->InventoryGrid->content->Inv_Wpn_Pm || $selected == $this->InventoryGrid->content->Inv_Wpn_AK74)
+        {
+            $clientForm->Combobox_MoveToSlot->position = [$comboX + 8, $comboY + 8];
+            $clientForm->Combobox_MoveToSlot->toFront();
+            $clientForm->Combobox_MoveToSlot->show();
+        }        
         elseif ($selected == $this->InventoryGrid->content->Inv_Outfit)
         {    
             $targetBtn = $this->InventoryGrid->content->isWearing ? 'Combobox_PutOn' : 'Combobox_TakeOff';
@@ -340,34 +458,58 @@ class inventory extends AbstractForm
     function UpdateComboboxPosition()
     {
         if (!$this->InventoryGrid->content->selectedItem) return;
-
-        list($comboX, $comboY) = $this->form('Client')->CustomCursor->position;
-
-        $clientForm = $this->form('Client');
     
-        $clientForm->main->position = [$comboX, $comboY];
+        list($comboX, $comboY) = $this->form('Client')->CustomCursor->position;
+        $clientForm = $this->form('Client');
+
+        if (!isset($clientForm->main) || !is_object($clientForm->main)) return;
+
+        if (isset($clientForm->width, $clientForm->main->width))
+        {
+            $maxX = max(0, $clientForm->width - $clientForm->main->width);
+            $comboX = max(0, min($comboX, $maxX));
+        }
         
+        if (isset($clientForm->height, $clientForm->main->height))
+        {
+            $maxY = max(0, $clientForm->height - $clientForm->main->height);
+            $comboY = max(0, min($comboY, $maxY));
+        }
+
+        $clientForm->main->position = [$comboX, $comboY];
+
         $selected = $this->InventoryGrid->content->selectedItem;
 
         if ($selected == $this->InventoryGrid->content->Inv_Vodka)
         {
-            $clientForm->Combobox_Drop->position = [$comboX + 8, $comboY + 8];
+            if (isset($clientForm->Combobox_Drop) && is_object($clientForm->Combobox_Drop))
+            {
+                $clientForm->Combobox_Drop->position = [$comboX + 8, $comboY + 8];
+            }
         }
 
         if ($selected == $this->InventoryGrid->content->Inv_Medkit)
         {
-            $clientForm->Combobox_Use->position = [$comboX + 8, $comboY + 8];
-        }
-    
-        if ($selected == $this->InventoryGrid->content->Inv_Outfit) 
-        {
-            if (!$this->InventoryGrid->content->isWearing)
+            if (isset($clientForm->Combobox_Use) && is_object($clientForm->Combobox_Use))
             {
-                $clientForm->Combobox_TakeOff->position = [$comboX + 8, $comboY + 8];
+                $clientForm->Combobox_Use->position = [$comboX + 8, $comboY + 8];
             }
-            else
+        }
+
+        if ($selected == $this->InventoryGrid->content->Inv_Wpn_Pm || $selected == $this->InventoryGrid->content->Inv_Wpn_AK74)
+        {
+            if (isset($clientForm->Combobox_MoveToSlot) && is_object($clientForm->Combobox_MoveToSlot))
             {
-                $clientForm->Combobox_PutOn->position = [$comboX + 8, $comboY + 8];
+                $clientForm->Combobox_MoveToSlot->position = [$comboX + 8, $comboY + 8];
+            }
+        }
+
+        if ($selected === $this->InventoryGrid->content->Inv_Outfit)
+        {
+            $btnName = $this->InventoryGrid->content->isWearing ? 'Combobox_TakeOff' : 'Combobox_PutOn';
+            if (isset($clientForm->{$btnName}) && is_object($clientForm->{$btnName}))
+            {
+                $clientForm->{$btnName}->position = [$comboX + 8, $comboY + 8];
             }
         }        
     }
@@ -392,10 +534,19 @@ class inventory extends AbstractForm
 
         if ($selected == $this->InventoryGrid->content->Inv_Vodka)
         {
-            if (isset($clientForm->Combobox_Drop) && is_object($clientForm->Combobox_Drop)) {
+            if (isset($clientForm->Combobox_Drop) && is_object($clientForm->Combobox_Drop))
+            {
                 $clientForm->Combobox_Drop->hide();
             }
         }
+        
+        if ($selected == $this->InventoryGrid->content->Inv_Wpn_Pm || $selected == $this->InventoryGrid->content->Inv_Wpn_AK74)
+        {
+            if (isset($clientForm->Combobox_MoveToSlot) && is_object($clientForm->Combobox_MoveToSlot))
+            {
+                $clientForm->Combobox_MoveToSlot->hide();
+            }
+        }        
 
         if ($selected == $this->InventoryGrid->content->Inv_Outfit)
         {

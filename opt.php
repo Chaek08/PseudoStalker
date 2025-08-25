@@ -495,7 +495,8 @@ class opt extends AbstractForm
         $this->form('Client')->Inventory->content->Combobox_Drop->text = $this->localization->get('Drop_Label');
         $this->form('Client')->Inventory->content->Combobox_Use->text = $this->localization->get('Use_Label');
         $this->form('Client')->Inventory->content->Combobox_TakeOff->text = $this->localization->get('TakeOff_Label');
-        $this->form('Client')->Inventory->content->Combobox_PutOn->text = $this->localization->get('PutOn_Label');        
+        $this->form('Client')->Inventory->content->Combobox_PutOn->text = $this->localization->get('PutOn_Label');
+        $this->form('Client')->Inventory->content->Combobox_MoveToSlot->text = $this->localization->get('MoveToSlot_Label');        
         $this->form('Client')->Inventory->content->maket_cond_label->text = $this->localization->get('Condition_Label');
 
         $this->form('Client')->Pda->content->tasks_label->text = $this->localization->get('Tasks_Label');

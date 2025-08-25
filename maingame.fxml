@@ -27,7 +27,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="53" id="GodMode_Icon" layoutX="32" layoutY="96" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="52">
+    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="53" id="GodMode_Icon" layoutX="40" layoutY="96" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="52">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -42,12 +42,12 @@
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="SavedGame_Toast" layoutX="0" layoutY="832" prefHeight="56" prefWidth="1600" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-opacity: 1;&#10;-fx-font-size: 25&#10;" styleClass="label " text="SavedGame_Toast" textAlignment="CENTER" textFill="#e8d2b0" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="0" id="SavedGame_Toast" layoutX="0" layoutY="824" prefHeight="56" prefWidth="1600" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-opacity: 1;&#10;-fx-font-size: 25&#10;" styleClass="label " text="SavedGame_Toast" textAlignment="CENTER" textFill="#e8d2b0" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
     </LabelEx>
-    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="70" id="blood_ui" layoutX="32" layoutY="96" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="53">
+    <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="70" id="blood_ui" layoutX="40" layoutY="0" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="53">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -86,7 +86,7 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/maingame/exit_icon.png" id="data-leave_btn" visible=""/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="384" id="idle_static_actor" layoutX="88" layoutY="416" mosaic="false" mosaicGap="0" opacity="0.4390243902439" proportional="false" stretch="true" styleClass="" textFill="#000000" width="248">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="384" id="idle_static_actor" layoutX="64" layoutY="416" mosaic="false" mosaicGap="0" opacity="0.44" proportional="false" stretch="true" styleClass="" textFill="#000000" width="248">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -106,7 +106,7 @@
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-pda_icon" image=".data/ui/maingame/ui_hud_pda.png" tooltipText="Необходимо проверить PDA" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-blood_ui" image=".data/ui/maingame/blood_mini.png" visible=""/>
-    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="185" id="fight_image" layoutX="0" layoutY="168" mosaic="false" mosaicGap="0" proportional="false" stretch="false" style="-fx-opacity: 1;" styleClass="" textFill="#000000" width="1600">
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="185" id="fight_image" layoutX="0" layoutY="176" mosaic="false" mosaicGap="0" proportional="false" stretch="false" style="-fx-opacity: 1;" styleClass="" textFill="#000000" width="1600">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -141,6 +141,12 @@
     <Data content="MessageBox" cursor="DEFAULT" enabled="1" id="data-MessageBox" visible=""/>
     <Data cursor="DEFAULT" enabled="" id="data-Task_Step_Label" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-Environment_Background" visible="1"/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="MessageBox" layoutX="32" layoutY="236" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="64" prefWidth="400" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="MessageBox" layoutX="32" layoutY="304" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="64" prefWidth="400" spacing="0" styleClass="fragment-pane "/>
+    <FlatButton alignment="CENTER_LEFT" borderRadius="15" color="#ffffff00" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="10" id="ui_mag_background" layoutX="40" layoutY="88" prefHeight="56" prefWidth="272" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 30" styleClass="x-flat-button " text="30/60" textAlignment="RIGHT" textFill="#ffa500" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="30"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/weapons/mag_5_45.png" id="data-ui_mag_background" visible=""/>
   </children>
 </AnchorPane>

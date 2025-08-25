@@ -1,6 +1,9 @@
 <?php
 namespace app\forms;
 
+use behaviour\custom\ColorAdjustEffectBehaviour;
+use php\time\Timer;
+use php\gui\UXImageView;
 use discord\rpc\DiscordRPC;
 use php\gui\UXMediaView;
 use php\gui\UXImage;
@@ -171,11 +174,19 @@ class maingame extends AbstractForm
             $this->form('Client')->Inventory->content->DespawnItems();
             $this->form('Client')->Inventory->content->SetItemCondition();
             
-            $this->form('Client')->Inventory->content->InventoryGrid->content->lockInventory(false);
+            //$this->form('Client')->Inventory->content->InventoryGrid->content->lockInventory(false);
             
-            $this->form('Client')->Inventory->content->InventoryGrid->content->selectedItem = $this->form('Client')->Inventory->content->InventoryGrid->content->Inv_Outfit;
-            $this->form('Client')->Inventory->content->InventoryGrid->content->PutOnItem();
-
+            $this->ak74Ammo = 30;
+            $this->pmAmmo = 8;
+            
+            foreach ($this->weaponData as &$data)
+            {
+                $data['jammed'] = false;
+                $data['jamHandled'] = false;
+            }
+            
+            $this->form('Client')->Inventory->content->InventoryGrid->content->MoveWeaponsToInvSlot();
+           
             $this->actor->show();
             $this->enemy->show();
             $this->actor->x = 112;
@@ -246,6 +257,7 @@ class maingame extends AbstractForm
 
             $this->Bleeding();
             
+            if ($this->CurrentWeaponType) $this->ui_mag_background->show();
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
             if ($GLOBALS['GodMode']) $this->GodMode_Icon->show();
             if (!$this->idle_static_actor->visible) $this->fight_image->show();
@@ -261,6 +273,8 @@ class maingame extends AbstractForm
             $this->health_static_enemy->hide();
             $this->health_bar_enemy->hide();
             $this->health_bar_enemy_b->hide();
+            
+            $this->ui_mag_background->hide();
 
             if ($this->blood_ui->visible) $this->blood_ui->hide();
             if ($this->GodMode_Icon->visible) $this->GodMode_Icon->hide();
@@ -282,6 +296,15 @@ class maingame extends AbstractForm
         $this->RenderHud(false);
         
         $this->form('Client')->Fail->show();
+        
+        if ($this->CurrentWeaponType == 'Pm')
+        {
+            $this->WeaponPm->hide();
+        }
+        if ($this->CurrentWeaponType == 'AK74')
+        {
+            $this->WeaponAK74->hide();
+        }
         
         if ($this->item_vodka_0000->visible) $this->item_vodka_0000->hide();
         if ($GLOBALS['ActorFailed']) $this->enemy->hide();
@@ -435,19 +458,30 @@ class maingame extends AbstractForm
     }
     function GodMode()
     {
+        $baseY = 96;
+
+        if ($this->WeaponPm || $this->WeaponAK74)
+        {
+            $this->ui_mag_background->y = $baseY;
+            $nextY = $baseY + 64;
+        }
+        else
+        {
+            $nextY = $baseY;
+        }
+
         if ($GLOBALS['GodMode'])
         {
             $this->GodMode_Icon->show();
-            $this->blood_ui->y += 60;
+            $this->GodMode_Icon->y = $nextY;
+            $nextY += 64;
         }
         else
         {
             $this->GodMode_Icon->hide();
-            if ($this->blood_ui->y != 96)
-            {
-                $this->blood_ui->y -= 60;
-            }            
         }
+
+        $this->blood_ui->y = $nextY;
     }
     function SpawnParticle($target)
     {
@@ -490,7 +524,7 @@ class maingame extends AbstractForm
                 });
             });
         }
-    }    
+    }   
     /**
      * @event enemy.click-2x
      */       
@@ -749,9 +783,9 @@ class maingame extends AbstractForm
         $this->leave_btn->show();
         
         if ($GLOBALS['ActorFailed']) $this->actor->hide();
-        if ($GLOBALS['EnemyFailed']) $this->enemy->hide();
+        if ($GLOBALS['EnemyFailed']) $this->enemy->hide();       
         
-        $this->form('Client')->Inventory->content->InventoryGrid->content->lockInventory(true);
+        //$this->form('Client')->Inventory->content->InventoryGrid->content->lockInventory(true);
         
         $this->item_vodka_0000->enabled = false;
         $this->item_vodka_0000->opacity = 0;
@@ -847,6 +881,7 @@ class maingame extends AbstractForm
             });
         });        
     }
+    
     function ShowMessageBox()
     {
         $this->MessageBox->opacity = 1;
@@ -856,5 +891,413 @@ class maingame extends AbstractForm
         Timer::after(3000, function () {
             Animation::fadeOut($this->MessageBox, 500);
         });
+    }
+    
+    public $WeaponPm;
+    public $WeaponAK74;
+    
+    public $pmAmmo = 8;
+    public $ak74Ammo = 30;
+    
+    private $tempTaskStep;
+     
+    private $weaponData = [
+        'Pm' => [
+            'ammoProp' => 'pmAmmo',
+            'maxAmmo' => 8,
+            'soundShot' => 'res://.data/audio/weapon/t_pm_shot.mp3',
+            'soundEmpty' => 'res://.data/audio/weapon/pistol_empty.mp3',
+            'particleOffset' => [158, 93],
+            'jammed' => false,
+            'jamHandled' => false,
+        ],
+        'AK74' => [
+            'ammoProp' => 'ak74Ammo',
+            'maxAmmo' => 30,
+            'soundShot' => 'res://.data/audio/weapon/ak74_shot_0.mp3',
+            'soundEmpty' => 'res://.data/audio/weapon/gen_empty.mp3',
+            'particleOffset' => [256, 96],
+            'jammed' => false,
+            'jamHandled' => false,
+        ],
+    ];    
+     
+    function Shoot()
+    {
+        if (!$GLOBALS['QuestStep1']) return;
+    
+        if (!$this->CurrentWeaponType || $this->isReloading)
+        {
+            return;
+        }
+
+        $weaponType = $this->CurrentWeaponType;
+
+        if (!isset($this->weaponData[$weaponType]))
+        {
+            return;
+        }
+
+        $data = &$this->weaponData[$weaponType];
+        $ammoProp = $data['ammoProp'];
+
+        if ($this->$ammoProp < $data['maxAmmo'] && rand(1, 35) == 1)
+        {
+            $data['jammed'] = true;
+        }
+
+        if ($data['jammed'] && !$data['jamHandled'])
+        {
+            $data['jamHandled'] = true;
+
+            if ($GLOBALS['AllSounds'])
+            {
+                Media::open($data['soundEmpty'], true, strtolower($weaponType) . '_jam');
+            }
+
+            $this->tempTaskStep = $this->Task_Step_Label->text;
+            $this->Task_Step_Label->visible = true;
+
+            $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+            $this->Task_Step_Label->text = $this->localization->get('GunJmammed');
+
+            Timer::after(4000, function () {
+                UXApplication::runLater(function () {
+                    $this->Task_Step_Label->visible = false;
+                    $this->Task_Step_Label->text = $this->tempTaskStep;
+                });
+            });
+            return;
+        }
+
+        if ($this->$ammoProp <= 0 || $data['jammed'])
+        {
+            if ($GLOBALS['AllSounds'])
+            {
+                Media::open($data['soundEmpty'], true, strtolower($weaponType) . '_empty');
+            }
+            
+            return;
+        }
+
+        $this->$ammoProp--;
+        $this->UpdateMagazine();
+
+        if ($GLOBALS['AllSounds'])
+        {
+            Media::open($data['soundShot'], true, strtolower($weaponType) . '_shot');
+        }
+
+        [$offsetX, $offsetY] = $data['particleOffset'];
+
+        $shootParticle = new UXImageView;
+        $shootParticle->image = new UXImage('res://.data/ui/particles/shoot.png');
+        $shootParticle->width = 128;
+        $shootParticle->height = 128;
+        $shootParticle->opacity = 1;
+
+        $shootParticle->x = $this->actor->x + $offsetX;
+        $shootParticle->y = $this->actor->y + $offsetY;
+        
+        $bloomEffect = new BloomEffectBehaviour();
+        $bloomEffect->apply($shootParticle);        
+
+        $this->add($shootParticle);
+
+        Animation::fadeOut($shootParticle, 120, function () use ($shootParticle) {
+            if ($shootParticle->parent)
+            {
+                $shootParticle->parent->remove($shootParticle);
+            }
+            $shootParticle->free();
+        });
+
+        $enemy = $this->enemy;
+        if ($enemy->visible)
+        {
+            $this->DamageEnemy(null, false);
+
+            for ($i = 0; $i < rand(2, 4); $i++)
+            {
+                $scatterX = rand(-25, 25);
+                $scatterY = rand(-25, 25);
+
+                $bloodParticle = new UXImageView();
+                $bloodParticle->image = new UXImage("res://.data/ui/particles/blood.png");
+                $bloodParticle->scale = $this->form('Client')->MainGame->scale;
+                $bloodParticle->width = 86;
+                $bloodParticle->height = 86;
+
+                $hitX = $enemy->x + ($enemy->width / 2) - ($bloodParticle->width / 2);
+                $hitY = $enemy->y - 10;
+
+                $bloodParticle->x = $hitX + $scatterX;
+                $bloodParticle->y = $hitY + $scatterY;
+                $bloodParticle->opacity = 1.0;
+
+                $this->add($bloodParticle);
+
+                Animation::fadeOut($bloodParticle, 300, function () use ($bloodParticle) {
+                    $bloodParticle->free();
+                });
+            }
+        }
+    }
+    
+    private $AttachmentTimer;
+    
+    function AttachWeapon(string $weaponType)
+    {
+        if ($this->AttachmentTimer)
+        {
+            $this->AttachmentTimer->cancel();
+            $this->AttachmentTimer = null;
+        }
+
+        $weaponProperty = "Weapon$weaponType";
+        $this->$weaponProperty = new UXImageView;
+
+        switch ($weaponType)
+        {
+            case 'Pm':
+                $this->$weaponProperty->image = new UXImage('res://.data/ui/weapons/wpn_pm.png');
+                
+                $offsetX = 112;
+                $offsetY = 152;
+                
+                if ($GLOBALS['AllSounds'])
+                {
+                    Media::open('res://.data/audio/weapon/pm_draw.mp3', true, 'pm_draw');
+                }
+                
+                break;
+
+            case 'AK74':
+                $this->$weaponProperty->image = new UXImage('res://.data/ui/weapons/wpn_ak74.png');
+                
+                $offsetX = 24;
+                $offsetY = 144;
+                
+                if ($GLOBALS['AllSounds'])
+                {
+                    Media::open('res://.data/audio/weapon/ak74_draw.mp3', true, 'ak74_draw');
+                }
+                
+                break;
+
+            default:
+                return;
+        }
+
+        $this->add($this->$weaponProperty);
+        
+        $colorAdjustEffect = new ColorAdjustEffectBehaviour();
+        $colorAdjustEffect->brightness = $this->actor->colorAdjustEffect->brightness;
+        $colorAdjustEffect->apply($this->$weaponProperty);
+        
+        $this->UpdateMagazine();
+
+        $this->$weaponProperty->on('mouseDown', function(UXMouseEvent $e){
+            $this->Shoot();
+        });
+        
+        $this->AttachmentTimer = Timer::every(6, function() use ($weaponProperty, $offsetX, $offsetY) {
+            if ($this->$weaponProperty)
+            {
+                $this->$weaponProperty->x = $this->actor->x + $offsetX;
+                $this->$weaponProperty->y = $this->actor->y + $offsetY;    
+                
+                $this->$weaponProperty->colorAdjustEffect->brightness = $this->actor->colorAdjustEffect->brightness;
+            }
+        });
+    }
+    
+    function DetachWeapon(string $weaponType)
+    {
+        if ($GLOBALS['AllSounds'])
+        {
+            Media::open('res://.data/audio/weapon/generic_close.mp3', true, 'generic_close');
+        }
+            
+        if ($this->AttachmentTimer)
+        {
+            $this->AttachmentTimer->cancel();
+            $this->AttachmentTimer = null;
+        }
+
+        $weaponProperty = "Weapon$weaponType";
+
+        if (!empty($this->$weaponProperty))
+        {
+            $this->remove($this->$weaponProperty);
+            $this->$weaponProperty = null;
+        }
+    
+        $this->UpdateMagazine();
+    }
+    
+    public $CurrentWeaponType;
+    
+    function SwitchWeapon(string $weaponType)
+    {
+        if ($this->CurrentWeaponType == $weaponType)
+        {
+            return;
+        }    
+    
+        $slotFlagMap = [
+            'Pm' => 'pmInWeaponSlot',
+            'AK74' => 'AK74InWeaponSlot',
+        ];
+
+        if (!isset($slotFlagMap[$weaponType]))
+        {
+            return;
+        }
+
+        $flagName = $slotFlagMap[$weaponType];
+        $inv = $this->form('Client')->Inventory->content->InventoryGrid->content;
+
+        if (empty($inv->$flagName))
+        {
+            return;
+        }    
+
+        if ($this->CurrentWeaponType)
+        {
+            $this->DetachWeapon($this->CurrentWeaponType);
+            $this->CurrentWeaponType = null;
+        }
+
+        $this->AttachWeapon($weaponType);
+        $this->CurrentWeaponType = $weaponType;
+    }    
+    
+    private $isReloading = false;
+
+    function ReloadWeapon()
+    {
+        if ($this->isReloading) return;
+        if (!$this->CurrentWeaponType) return;
+
+        switch ($this->CurrentWeaponType)
+        {
+            case 'Pm':
+                $this->ReloadActiveWeapon(
+                    "Pm",
+                    8,
+                    "pmAmmo",
+                    "pmAmmoCount",
+                    "res://.data/audio/weapon/pm_reload.mp3",
+                    2000
+                );
+                break;
+
+            case 'AK74':
+                $this->ReloadActiveWeapon(
+                    "AK74",
+                    30,
+                    "ak74Ammo",
+                    "akAmmoCount",
+                    "res://.data/audio/weapon/ak74_reload.mp3",
+                    1000
+                );
+                break;
+        }
+    }
+
+    function ReloadActiveWeapon($weaponKey, $magSize, $ammoVar, $ammoCountField, $soundPath, $delay)
+    {
+        $inv = $this->form('Client')->Inventory->content->InventoryGrid->content;
+        $totalAmmo = $inv->$ammoCountField;      
+
+        $jammed     = $this->weaponData[$weaponKey]['jammed'] ?? false;
+        $jamHandled = $this->weaponData[$weaponKey]['jamHandled'] ?? false;
+
+        if ($this->$ammoVar >= $magSize && !$jammed) return;
+
+        if ($totalAmmo <= 0 && !$jammed) return;
+
+        if ($GLOBALS['AllSounds'])
+        {
+            Media::open($soundPath, true, $weaponKey . "_reload");
+        }
+
+        $neededAmmo = $magSize - $this->$ammoVar;
+        if ($neededAmmo < 0) $neededAmmo = 0;
+
+        $this->isReloading = true;
+
+        Timer::after($delay, function() use ($neededAmmo, $ammoVar, $ammoCountField, $inv, $weaponKey, $jammed) {
+
+            UXApplication::runLater(function() use ($neededAmmo, $ammoVar, $ammoCountField, $inv, $weaponKey, $jammed) {
+
+                $totalAmmo = $inv->$ammoCountField;
+
+                if ($totalAmmo > 0)
+                {
+                    if ($totalAmmo < $neededAmmo)
+                    {
+                        $this->$ammoVar += $totalAmmo;
+                        $totalAmmo = 0;
+                    }
+                    else
+                    {
+                        $this->$ammoVar += $neededAmmo;
+                        $totalAmmo -= $neededAmmo;
+                    }
+                    $inv->$ammoCountField = $totalAmmo;
+                }
+
+                $updateFn = "updateAmmo" . strtoupper($ammoVar) . "Count";
+                if (method_exists($inv, $updateFn))
+                {
+                    $inv->$updateFn();
+                }
+
+                $this->UpdateMagazine();
+
+                $this->isReloading = false;
+
+                $this->weaponData[$weaponKey]['jammed'] = false;
+                $this->weaponData[$weaponKey]['jamHandled'] = false;       
+            });
+        });
+    }
+
+    function UpdateMagazine()
+    {
+        $this->ui_mag_background->hide();
+        $this->ui_mag_background->text = null;
+        $this->ui_mag_background->graphic = null;
+        
+        $currentAmmo = null;
+        $totalAmmo   = null;
+    
+        if ($this->WeaponPm)
+        {
+            if ($GLOBALS['HudVisible']) $this->ui_mag_background->show();
+                
+            $this->ui_mag_background->graphic = new UXImageView(new UXImage('res://.data/ui/weapons/mag_9_18.png'));
+            
+            $this->form('Client')->Inventory->content->InventoryGrid->content->updateAmmo9x18Count();
+            $totalAmmo   = $this->form('Client')->Inventory->content->InventoryGrid->content->pmAmmoCount;
+            $currentAmmo = $this->pmAmmo;
+        }
+
+        if ($this->WeaponAK74)
+        {
+            if ($GLOBALS['HudVisible']) $this->ui_mag_background->show();
+
+            $this->ui_mag_background->graphic = new UXImageView( new UXImage('res://.data/ui/weapons/mag_5_45_hud.png'));
+
+            $this->form('Client')->Inventory->content->InventoryGrid->content->updateAmmo5x45Count();
+            $totalAmmo   = $this->form('Client')->Inventory->content->InventoryGrid->content->akAmmoCount;
+            $currentAmmo = $this->ak74Ammo;
+        }
+
+        $this->ui_mag_background->text = $currentAmmo . '/' . $totalAmmo;
+        
+        $this->GodMode(); //апдейт позиции ебанных иконок
     }
 }

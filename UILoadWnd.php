@@ -223,6 +223,19 @@ class UILoadWnd extends AbstractForm
             'menusound_playpos',
             'environment_playpos',
             'fightsound_playpos',
+            'ammo',
+            'ammo.pm_mag',
+            'ammo.ak74_mag',
+            'ammo.pm_total',
+            'ammo.ak74_total',
+            'current_weapon',
+            'weapons_jam_state',
+            'weapons_jam_state.Pm',
+            'weapons_jam_state.Pm.jammed',
+            'weapons_jam_state.Pm.jamHandled',
+            'weapons_jam_state.AK74',
+            'weapons_jam_state.AK74.jammed',
+            'weapons_jam_state.AK74.jamHandled'       
         ];
 
         foreach ($requiredKeys as $key)
@@ -305,6 +318,47 @@ class UILoadWnd extends AbstractForm
                 $saveData['objects_position']['enemy']['y']
                 ];
             }
+            
+            if (isset($saveData['ammo']))
+            {
+                $this->form('Client')->MainGame->content->pmAmmo  = $saveData['ammo']['pm_mag'];
+                $this->form('Client')->MainGame->content->ak74Ammo = $saveData['ammo']['ak74_mag'];
+                $this->form('Client')->Inventory->content->InventoryGrid->content->pmAmmoCount = $saveData['ammo']['pm_total'];
+                $this->form('Client')->Inventory->content->InventoryGrid->content->akAmmoCount = $saveData['ammo']['ak74_total'];
+            }
+
+            if (isset($saveData['weapons_jam_state']))
+            {
+                $this->weaponData['Pm']['jammed']     = $saveData['weapons_jam_state']['Pm']['jammed'];
+                $this->weaponData['Pm']['jamHandled'] = $saveData['weapons_jam_state']['Pm']['jamHandled'];
+                $this->weaponData['AK74']['jammed']   = $saveData['weapons_jam_state']['AK74']['jammed'];
+                $this->weaponData['AK74']['jamHandled'] = $saveData['weapons_jam_state']['AK74']['jamHandled'];
+            }
+            
+            $this->form('Client')->MainGame->content->CurrentWeaponType = 'AK74';
+            $this->form('Client')->MainGame->content->DetachWeapon('AK74');
+        
+            $this->form('Client')->MainGame->content->CurrentWeaponType = 'Pm';
+            $this->form('Client')->MainGame->content->DetachWeapon('Pm');
+        
+            $this->form('Client')->MainGame->content->CurrentWeaponType = null; 
+                
+            if (isset($saveData['current_weapon']))
+            {
+                $this->CurrentWeaponType = $saveData['current_weapon'];
+            }
+                            
+            //$this->form('Client')->MainGame->content->AttachWeapon($saveData['current_weapon']);
+            
+            if ($saveData['current_weapon'] == 'Pm')
+            {
+                $this->form('Client')->SwitchWeapon1();
+            }
+            elseif ($saveData['current_weapon'] == 'AK74')
+            {
+                $this->form('Client')->SwitchWeapon2();
+            }            
+                    
             if (isset($saveData['objects_position']['item_vodka_0000']))
             {
                 $this->form('Client')->MainGame->content->item_vodka_0000->position = [

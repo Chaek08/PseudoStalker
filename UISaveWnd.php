@@ -206,24 +206,46 @@ class UISaveWnd extends AbstractForm
             
             $saveData = [
                 'client_version' => client_version,
+
+                'ammo' => [
+                'pm_mag'     => $this->form('Client')->MainGame->content->pmAmmo,
+                'ak74_mag'   => $this->form('Client')->MainGame->content->ak74Ammo,
+                'pm_total'   => $this->form('Client')->Inventory->content->InventoryGrid->content->pmAmmoCount,
+                'ak74_total' => $this->form('Client')->Inventory->content->InventoryGrid->content->akAmmoCount,
+                ],
+
+                'weapons_jam_state' => [
+                    'Pm' => [
+                        'jammed'     => $this->weaponData['Pm']['jammed'] ?? false,
+                        'jamHandled' => $this->weaponData['Pm']['jamHandled'] ?? false,
+                    ],
+                    'AK74' => [
+                        'jammed'     => $this->weaponData['AK74']['jammed'] ?? false,
+                        'jamHandled' => $this->weaponData['AK74']['jamHandled'] ?? false,
+                    ],
+                ],
+
+                'current_weapon' => $this->form('Client')->MainGame->content->CurrentWeaponType ?? null,
+
                 'health_gg_inv' => [
-                        'value' => $this->form('Client')->Inventory->content->health_bar_gg->text,
-                        'pb_width' => $this->form('Client')->Inventory->content->health_bar_gg->width,
+                    'value'    => $this->form('Client')->Inventory->content->health_bar_gg->text,
+                    'pb_width' => $this->form('Client')->Inventory->content->health_bar_gg->width,
                 ],
                 'health' => [
                     'gg' => [ 
-                        'value' => $this->form('Client')->MainGame->content->health_bar_gg->text,
+                        'value'    => $this->form('Client')->MainGame->content->health_bar_gg->text,
                         'pb_width' => $this->form('Client')->MainGame->content->health_bar_gg->width,
-                    ],
+                        ],
                     'enemy' => [
-                        'value' => $this->form('Client')->MainGame->content->health_bar_enemy->text,
+                        'value'    => $this->form('Client')->MainGame->content->health_bar_enemy->text,
                         'pb_width' => $this->form('Client')->MainGame->content->health_bar_enemy->width,
-                    ]
+                        ]
                 ],
+
                 'objects_position' => [
                     'actor' => [
-                        'x' => $this->form('Client')->MainGame->content->actor->position[0],
-                        'y' => $this->form('Client')->MainGame->content->actor->position[1],
+                        'x'          => $this->form('Client')->MainGame->content->actor->position[0],
+                        'y'          => $this->form('Client')->MainGame->content->actor->position[1],
                         'is_wearing' => $this->form('Client')->Inventory->content->InventoryGrid->content->isWearing,
                     ],
                     'enemy' => [
@@ -235,22 +257,25 @@ class UISaveWnd extends AbstractForm
                         'y' => $this->form('Client')->MainGame->content->item_vodka_0000->position[1],
                     ],
                 ],
+
                 'quest_time' => [
                     'date' => $this->form('Client')->Pda->content->Pda_Tasks->content->time_quest_date->text,
-                    'hm' => $this->form('Client')->Pda->content->Pda_Tasks->content->time_quest_hm->text,
+                    'hm'   => $this->form('Client')->Pda->content->Pda_Tasks->content->time_quest_hm->text,
                 ],
-                'vodka_exist' => $this->form('Client')->MainGame->content->item_vodka_0000->visible,
-                'medkit_count' => $this->form('Client')->Inventory->content->InventoryGrid->content->medkitCount,
-                'quest_step1' => isset($GLOBALS['QuestStep1']) ? $GLOBALS['QuestStep1'] : false,
-                'quest_completed' => isset($GLOBALS['QuestCompleted']) ? $GLOBALS['QuestCompleted'] : false,
-                'actor_failed' => isset($GLOBALS['ActorFailed']) ? $GLOBALS['ActorFailed'] : false,
-                'enemy_failed' => isset($GLOBALS['EnemyFailed']) ? $GLOBALS['EnemyFailed'] : false,
-                'need_to_check_pda' => isset($GLOBALS['NeedToCheckPDA']) ? $GLOBALS['NeedToCheckPDA'] : false,
+
+                'vodka_exist'   => $this->form('Client')->MainGame->content->item_vodka_0000->visible,
+                'medkit_count'  => $this->form('Client')->Inventory->content->InventoryGrid->content->medkitCount,
+                'quest_step1'   => $GLOBALS['QuestStep1']      ?? false,
+                'quest_completed' => $GLOBALS['QuestCompleted'] ?? false,
+                'actor_failed'    => $GLOBALS['ActorFailed']    ?? false,
+                'enemy_failed'    => $GLOBALS['EnemyFailed']    ?? false,
+                'need_to_check_pda' => $GLOBALS['NeedToCheckPDA'] ?? false,
+            
                 'menubackground_playpos' => $this->form('Client')->MainMenu->content->MainMenuBackground->positionMs,
-                'menusound_playpos' => $this->form('Client')->MainMenu->content->MenuSound->positionMs,
-                'environment_playpos' => $this->form('Client')->MainGame->content->Environment->positionMs,
-                'fightsound_playpos' => $this->form('Client')->MainGame->content->FightSound->positionMs,
+                'menusound_playpos'      => $this->form('Client')->MainMenu->content->MenuSound->positionMs,
+                'environment_playpos'    => $this->form('Client')->MainGame->content->Environment->positionMs,    'fightsound_playpos'     => $this->form('Client')->MainGame->content->FightSound->positionMs,
             ];
+        
             $encryptedData = DimasCryptoZlodey::encryptData(json_encode($saveData, JSON_PRETTY_PRINT));
             $this->saveScreenshot();
             Stream::putContents($filePath, $encryptedData);

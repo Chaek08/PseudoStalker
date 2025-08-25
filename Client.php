@@ -225,9 +225,11 @@ class Client extends AbstractForm
         $this->LoadScreen->hide();
         $this->CustomCursor->show();
     }    
+    
     public $ltx = [];
     public $ltxInitialized = false;
-    private $ltxPath = './userdata/user.ltx';    
+    private $ltxPath = './userdata/user.ltx';
+    
     function InitUserLTX()
     {
         $default = [
@@ -445,7 +447,14 @@ class Client extends AbstractForm
         if (Media::isStatus('PLAYING', 'hit_actor_damage')) Media::stop('hit_actor_damage');
         if (Media::isStatus('PLAYING', 'die_alex')) Media::stop('die_alex');
         if (Media::isStatus('PLAYING', 'die_actor')) Media::stop('die_actor');
-        
+        if (Media::isStatus('PLAYING', 'AK74_reload')) Media::stop('AK74_reload');
+        if (Media::isStatus('PLAYING', 'Pm_reload')) Media::stop('Pm_reload');
+        if (Media::isStatus('PLAYING', 'AK74_shot')) Media::stop('AK74_shot');
+        if (Media::isStatus('PLAYING', 'Pm_shot')) Media::stop('Pm_shot');        
+        if (Media::isStatus('PLAYING', 'pm_draw')) Media::stop('pm_draw');
+        if (Media::isStatus('PLAYING', 'ak74_draw')) Media::stop('ak74_draw');
+        if (Media::isStatus('PLAYING', 'generic_close')) Media::stop('generic_close');
+            
         if (!$GLOBALS['AllSounds']) $this->MainGame->content->Environment->volume = 0;
         
         $this->Dialog->content->StopVoice();
@@ -658,9 +667,10 @@ class Client extends AbstractForm
         $this->MainMenu->show();
         Media::play($this->MainMenu->content->MainMenuBackground);
         Media::pause($this->MainGame->content->Environment);
-        
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
         {
+            $this->StopAllSounds(); //возможно temp
+            
             Media::pause($this->MainGame->content->FightSound);
             
             if ($GLOBALS['MenuSound'])
@@ -736,6 +746,7 @@ class Client extends AbstractForm
         
         $this->Inventory->show();
         $this->Inventory->content->UpdateInventoryStatus();
+        $this->Inventory->content->InventoryGrid->content->repackInventory();
         
         if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/inv_open.mp3', true);
     }    
@@ -866,5 +877,29 @@ class Client extends AbstractForm
     function HideCheckTaskStep(UXKeyEvent $e = null)
     {
         $this->MainGame->content->Task_Step_Label->visible = false;
+    }
+
+    /**
+     * @event keyDown-R 
+     */
+    function ReloadWeaponProxy(UXKeyEvent $e = null)
+    {    
+        $this->MainGame->content->ReloadWeapon();
+    }
+
+    /**
+     * @event keyDown-1 
+     */
+    function SwitchWeapon1(UXKeyEvent $e = null)
+    {    
+        $this->MainGame->content->SwitchWeapon('Pm');
+    }
+
+    /**
+     * @event keyDown-2 
+     */
+    function SwitchWeapon2(UXKeyEvent $e = null)
+    {    
+        $this->MainGame->content->SwitchWeapon('AK74');
     }
 }
