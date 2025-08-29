@@ -530,72 +530,72 @@ class maingame extends AbstractForm
      */       
     function DamageEnemy(UXMouseEvent $e = null, bool $spawnParticles = true)
     { 
-        if ($this->health_bar_enemy->width != 54)
+        $minWidth     = 54;
+        $maxWidth     = 264;
+        $missChance   = 55;
+        $damageMinPct = 8;
+        $damageMaxPct = 20;
+    
+        if ($this->health_bar_enemy->width != $minWidth)
         {
-            $target = $this->health_bar_enemy->width - 30;
-            $this->form('Client')->animateResizeWidth($this->health_bar_enemy, $target, 3, function() {
-                if ($this->health_bar_enemy->width == 234)
-                {
-                    $this->health_bar_enemy->text = "75%";
-                }
-                if ($this->health_bar_enemy->width == 204)
-                {
-                    $this->health_bar_enemy->text = "55%";
-                }      
-                if ($this->health_bar_enemy->width == 174)
-                {
-                    $this->health_bar_enemy->text = "50%";
-                }  
-                if ($this->health_bar_enemy->width == 144)
-                {
-                    $this->health_bar_enemy->text = "33%";
-                }
-                if ($this->health_bar_enemy->width == 84)
-                {
-                    $this->health_bar_enemy->text = "15%";
-                }                
-                if ($this->health_bar_enemy->width == 54)
-                {
-                    $this->health_bar_enemy->text = "1%";
-                }
-            });
-            
-            if ($spawnParticles) 
+            $didMiss = rand(1, 100) <= $missChance;
+    
+            if (!$didMiss)
+            {
+                $curW   = $this->health_bar_enemy->width;
+                $curPct = round((($curW - $minWidth) / ($maxWidth - $minWidth)) * 99) + 1;
+                $curPct = max(1, min(100, $curPct));
+    
+                $dmgPct = rand($damageMinPct, $damageMaxPct);
+    
+                $newPct = max(1, $curPct - $dmgPct);
+    
+                $target = (int) round($minWidth + (($maxWidth - $minWidth) * ($newPct - 1) / 99));
+    
+                $this->form('Client')->animateResizeWidth($this->health_bar_enemy, $target, 3, function() {
+                    $minW = 54; $maxW = 264;
+                    $cur  = $this->health_bar_enemy->width;
+                    $pct  = round((($cur - $minW) / ($maxW - $minW)) * 99) + 1;
+                    $pct  = max(1, min(100, $pct));
+                    $this->health_bar_enemy->text = $pct . "%";
+                });
+            }
+    
+            if ($spawnParticles)
             {
                 $this->SpawnParticle($enemy); 
             }
-
+    
             if ($GLOBALS['AllSounds'])
             {
-                Media::open('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor');
-                Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_actor_damage');
-            }        
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/hit_vovchik.mp3', 'hit_actor');
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/kulak_ebanul.mp3', 'hit_actor_damage');
+            }
         }
-        else     
+        else
         {
             $this->health_static_enemy->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
             $this->health_bar_enemy->hide();
             $this->health_bar_enemy_b->hide();
             $this->Talk_Label->hide();
-        
-            if ($spawnParticles) 
+    
+            if ($spawnParticles)
             {
                 $this->SpawnParticle($enemy); 
             }
-        
-            if ($GLOBALS['AllSounds']) 
+    
+            if ($GLOBALS['AllSounds'])
             {
-                Media::open('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor');
-                Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_actor_damage');
-                            
-                Media::open('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');                
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/hit_vovchik.mp3', 'hit_actor');
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/kulak_ebanul.mp3', 'hit_actor_damage');
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/die_vovchik.mp3', 'die_actor');                
             }
-        
+    
             $GLOBALS['EnemyFailed'] = true;
             $this->finalizeBattle();
             return;
         }                    
-    }    
+    }
     
     public $lastHitTime = 0;
     public $hitmarkLevel = 1;
@@ -606,124 +606,101 @@ class maingame extends AbstractForm
      */    
     function DamageActor(UXMouseEvent $e = null)
     { 
-        if ($this->health_bar_gg->width != 54)
+        $minWidth       = 54;
+        $maxWidthMain   = 264;
+        $maxWidthInv    = 416;
+        $missChance     = 55;
+        $damageMinPct   = 8;
+        $damageMaxPct   = 20;
+    
+        if ($this->health_bar_gg->width != $minWidth)
         {
             if (!$GLOBALS['GodMode'])
             {
-                $target = $this->health_bar_gg->width - 30;
-                $this->form('Client')->animateResizeWidth($this->health_bar_gg, $target, 3, function() {
-                    if ($this->health_bar_gg->width == 234)
-                    {
-                        $this->health_bar_gg->text = "75%";
-                        $this->form('Client')->Inventory->content->health_bar_gg->width -= 100;           
-                        $this->form('Client')->Inventory->content->health_bar_gg->text = "75%"; 
-                    }
-                    if ($this->health_bar_gg->width == 204)
-                    {
-                        $this->health_bar_gg->text = "55%";
-                        $this->form('Client')->Inventory->content->health_bar_gg->width -= 50;            
-                        $this->form('Client')->Inventory->content->health_bar_gg->text = "55%";
-                    }      
-                    if ($this->health_bar_gg->width == 174)
-                    {
-                        $this->health_bar_gg->text = "50%";
-                        $this->form('Client')->Inventory->content->health_bar_gg->width -= 40;     
-                        $this->form('Client')->Inventory->content->health_bar_gg->text = "50%";         
-                    }  
-                    if ($this->health_bar_gg->width == 144)
-                    {
-                        $this->health_bar_gg->text = "33%";
-                        $this->form('Client')->Inventory->content->health_bar_gg->width -= 100;            
-                        $this->form('Client')->Inventory->content->health_bar_gg->text = "33%";
-                    }                
-                    if ($this->health_bar_gg->width == 84)
-                    {
-                        $this->health_bar_gg->text = "15%";
-                        $this->form('Client')->Inventory->content->health_bar_gg->width -= 40;
-                        $this->form('Client')->Inventory->content->health_bar_gg->text = "15%";   
-                    }
-                    if ($this->health_bar_gg->width == 54)
-                    {
-                        $this->health_bar_gg->text = "1%";
-                        $this->form('Client')->Inventory->content->health_bar_gg->width -= 50;
-                        $this->form('Client')->Inventory->content->health_bar_gg->text = "1%";
-                    }    
-                    $this->Bleeding();
-                });                
+                $didMiss = rand(1, 100) <= $missChance;
+    
+                if (!$didMiss)
+                {
+                    $currentW = $this->health_bar_gg->width;
+                    $currentPct = round((($currentW - $minWidth) / ($maxWidthMain - $minWidth)) * 99) + 1;
+                    if ($currentPct < 1)   $currentPct = 1;
+                    if ($currentPct > 100) $currentPct = 100;
+    
+                    $dmgPct = rand($damageMinPct, $damageMaxPct);
+    
+                    $newPct = max(1, $currentPct - $dmgPct);
+    
+                    $targetMain = (int) round($minWidth + (($maxWidthMain - $minWidth) * ($newPct - 1) / 99));
+                    $targetInv  = (int) round($minWidth + (($maxWidthInv  - $minWidth) * ($newPct - 1) / 99));
+    
+                    $this->form('Client')->animateResizeWidth($this->health_bar_gg, $targetMain, 3, function() {
+                        $minW = 54; $maxW = 264;
+                        $cur = $this->health_bar_gg->width;
+                        $pct = round((($cur - $minW) / ($maxW - $minW)) * 99) + 1;
+                        if ($pct < 1)   $pct = 1;
+                        if ($pct > 100) $pct = 100;
+                        $this->health_bar_gg->text = $pct . "%";
+                        $this->Bleeding();
+                    });
+    
+                    $invBar = $this->form('Client')->Inventory->content->health_bar_gg;
+                    $invBar->width = $targetInv;
+                    $invPct = round((($targetInv - $minWidth) / ($maxWidthInv - $minWidth)) * 99) + 1;
+                    $invPct = max(1, min(100, $invPct));
+                    $invBar->text = $invPct . "%";
+                }
             }
-
+            
             $now = Time::millis();
             $timeDiff = $now - $this->lastHitTime;
             $this->lastHitTime = $now;
-
+    
             if ($timeDiff < 500)
             {
-                if ($this->hitmarkLevel < 4) //6
+                if ($this->hitmarkLevel < 4)
                 {
                     $this->hitmarkLevel++;
                 }
             }
-
+    
             Timer::after(1500, function () {
                 $sinceLastHit = Time::millis() - $this->lastHitTime;
-                    if ($sinceLastHit >= 1500 && $this->hitmarkLevel > 1)
-                    {
-                        $this->hitmarkLevel--;
-                    }
+                if ($sinceLastHit >= 1500 && $this->hitmarkLevel > 1)
+                {
+                    $this->hitmarkLevel--;
+                }
             });
-
+    
             switch ($this->hitmarkLevel)
             {
-                case 1:
-                    $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_1.png");
-                    break;
-                case 2:
-                    $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_2.png");
-                    break;
-                case 3:
-                    $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_3.png");
-                    break;
-                case 4:
-                    $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_4.png");
-                    break;
-                /*     
-                case 5:
-                    $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_5.png");
-                    break; 
-                        
-                case 6:
-                    $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_6.png");
-                    break;   
-                */                                                    
+                case 1: $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_1.png"); break;
+                case 2: $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_2.png"); break;
+                case 3: $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_3.png"); break;
+                case 4: $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_4.png"); break;
             }
-
+    
             $this->HitMark->opacity = 0;
             $this->HitMark->visible = true;
-
             Animation::fadeIn($this->HitMark, 100);
-
             $this->hitmarkVisibleUntil = Time::millis() + 500;
-
+    
             Timer::after(500, function () {
                 if (Time::millis() >= $this->hitmarkVisibleUntil)
                 {
                     Animation::fadeOut($this->HitMark, 300);
-        
-                    Timer::after(300, function () {
-                        $this->hitmarkLevel = 1;
-                    });
+                    Timer::after(300, function () { $this->hitmarkLevel = 1; });
                 }
             });
-            
+    
             $this->SpawnParticle($actor);
-        
+    
             if ($GLOBALS['AllSounds'])
             {
-                Media::open('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex');
-                Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_alex_damage');
-            }        
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex');
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_alex_damage');
+            }
         }
-        else     
+        else
         {
             $this->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
             $this->health_bar_gg->hide();
@@ -733,25 +710,25 @@ class maingame extends AbstractForm
             $this->form('Client')->Inventory->content->health_bar_gg_b->hide();
             $this->form('Client')->Inventory->content->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
             $this->Talk_Label->hide();
-                   
-            if ($this->blood_ui->visible) $this->blood_ui->hide();       
-            if ($this->HitMark->visible) $this->HitMark->hide();
-                
+    
+            if ($this->blood_ui->visible) $this->blood_ui->hide();
+            if ($this->HitMark->visible)  $this->HitMark->hide();
+    
             $this->SpawnParticle($actor);
-                  
+    
             if ($GLOBALS['AllSounds'])
             {
-                Media::open('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex');
-                Media::open('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_alex_damage');
-                            
-                Media::open('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex');
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex');
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_alex_damage');
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex');
             }
-        
+    
             $GLOBALS['ActorFailed'] = true;
             $this->finalizeBattle();
             return;
-        }            
-    }    
+        }
+    }
+   
     function Bleeding()
     {
         if ($this->health_bar_gg->width == 264) return;
@@ -803,7 +780,7 @@ class maingame extends AbstractForm
             
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Failed();
             
-            if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');
+            if ($GLOBALS['AllSounds']) $this->form('Client')->playSoundAsync('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');
         }
         if ($GLOBALS['EnemyFailed'])
         {
@@ -811,7 +788,7 @@ class maingame extends AbstractForm
             
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Complete();
             
-            if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor');
+            if ($GLOBALS['AllSounds']) $this->form('Client')->playSoundAsync('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor');
         }
         $this->form('Client')->Pda->content->Pda_Tasks->content->Step_UpdatePda();
         

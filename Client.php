@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use php\lang\Thread;
 use app\forms\classes\FPSGandon;
 use php\gui\animation\UXAnimationTimer;
 use action\Animation;
@@ -163,7 +164,26 @@ class Client extends AbstractForm
         $obj->scaleY = $scale;    
 
         $this->centerObject($obj);
-    }    
+    }
+    function playSoundAsync(string $path, bool $loop = true, $channel = null)
+    {
+        (new Thread(function() use ($path, $loop, $channel)
+        {
+            if (is_bool($channel))
+            {
+                $channel = $channel ? 'true' : 'false';
+            }
+    
+            if ($channel != null)
+            {
+                Media::open($path, $loop, (string)$channel);
+            }
+            else
+            {
+                Media::open($path, $loop);
+            }
+        }))->start();
+    }      
     function GetVersion()
     {
         $filePath = "PseudoCore.dll";
@@ -748,7 +768,7 @@ class Client extends AbstractForm
         $this->Inventory->content->UpdateInventoryStatus();
         $this->Inventory->content->InventoryGrid->content->repackInventory();
         
-        if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/inv_open.mp3', true);
+        if ($GLOBALS['AllSounds']) $this->playSoundAsync('res://.data/audio/inv_open.mp3', true);
     }    
     /**
      * @event keyDown-F4 
@@ -795,7 +815,7 @@ class Client extends AbstractForm
         $this->Inventory->content->HideCombobox();                              
         $this->Inventory->hide();
                 
-        if ($GLOBALS['AllSounds']) Media::open('res://.data/audio/inv_close.mp3', true);         
+        if ($GLOBALS['AllSounds']) $this->playSoundAsync('res://.data/audio/inv_close.mp3', true);         
     }
     function HidePda()
     {

@@ -142,21 +142,20 @@ class dialog extends AbstractForm
             }
         }       
     }
-    private function playVoice($fileName, $mediaId)
+    
+    private function playVoiceAsync($fileName, $mediaId)
     {
         $languageCode = $this->localization->getCurrentLanguage();
-
         $soundPath = "./gamedata/sounds/{$languageCode}/dialog/{$fileName}.mp3";
-
-        if (file_exists($soundPath))
-        {
-            Media::open($soundPath, true, $mediaId);
-        } 
-        else
-        {
+    
+        if (!file_exists($soundPath)) {
             throw new \Exception("Sound file not found: $soundPath");
         }
-    }   
+    
+        (new Thread(function() use ($soundPath, $mediaId) {
+            Media::open($soundPath, true, $mediaId);
+        }))->start();
+    }
     
     function StopVoice()
     {
@@ -173,11 +172,11 @@ class dialog extends AbstractForm
         
             if ($path != '')
             {
-                Media::open($this->SDK_VoiceStart, true, "voice_start");
+                $this->form('Client')->playSoundAsync($this->SDK_VoiceStart, "voice_start");
             }
             else 
             {
-                $this->playVoice("voice_start", "voice_start");
+                $this->playVoiceAsync("voice_start", "voice_start");
             }
         }
     }
@@ -187,11 +186,11 @@ class dialog extends AbstractForm
         
         if ($path != '')
         {
-            Media::open($this->SDK_VoiceTalk1, true, "voice_talk1");
+            $this->form('Client')->playSoundAsync($this->SDK_VoiceTalk1, "voice_talk1");
         }
         else
         {
-            $this->playVoice("voice_talk1", "voice_talk1");
+            $this->playVoiceAsync("voice_talk1", "voice_talk1");
         }
     }
     function VoiceTalk_2()
@@ -200,11 +199,11 @@ class dialog extends AbstractForm
         
         if ($path != '')
         {
-            Media::open($this->SDK_VoiceTalk2, true, "voice_talk2");
+            $this->form('Client')->playSoundAsync($this->SDK_VoiceTalk2, "voice_talk2");
         }
         else
         {    
-            $this->playVoice("voice_talk2", "voice_talk2");
+            $this->playVoiceAsync("voice_talk2", "voice_talk2");
         }   
     }    
     function VoiceTalk_3()
@@ -217,7 +216,7 @@ class dialog extends AbstractForm
         }
         else
         {    
-            $this->playVoice("voice_talk3", "voice_talk3");
+            $this->playVoiceAsync("voice_talk3", "voice_talk3");
         }   
     }    
     

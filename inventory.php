@@ -212,21 +212,21 @@ class inventory extends AbstractForm
     {
         if ($GLOBALS['AllSounds'] && $this->form('Client')->Inventory->visible)
         {
-            Media::open('res://.data/audio/inv_slot.mp3', true, 'inv_use_slot'); 
+            $this->form('Client')->playSoundAsync('res://.data/audio/inv_slot.mp3', 'inv_use_slot'); 
         }     
     }
     function PropertiesSound()
     {
         if ($GLOBALS['AllSounds'] && $this->form('Client')->Inventory->visible)
         {
-            Media::open('res://.data/audio/inv_properties.mp3', true, 'inv_properties'); 
+            $this->form('Client')->playSoundAsync('res://.data/audio/inv_properties.mp3', 'inv_properties'); 
         }          
     }
     function DropSound()
     {
         if ($GLOBALS['AllSounds'] && $this->form('Client')->Inventory->visible)
         {
-            Media::open('res://.data/audio/inv_drop.mp3', true, 'inv_drop'); 
+            $this->form('Client')->playSoundAsync('res://.data/audio/inv_drop.mp3', 'inv_drop'); 
         }               
     }    
     /**
@@ -330,36 +330,43 @@ class inventory extends AbstractForm
         
         if ($GLOBALS['item_outfit_selected'])
         {
-            if ($this->form('Client')->MainGame->content->health_bar_gg->width == 264) // Дефолтный размер health bar, без наподобности в функции ResetOutfitCondition
+            $minHPWidth = 54;
+            $maxHPWidth = 264;
+            $hpWidth = $this->form('Client')->MainGame->content->health_bar_gg->width;
+    
+            $hpPercent = round((($hpWidth - $minHPWidth) / ($maxHPWidth - $minHPWidth)) * 100);
+            $hpPercent = max(1, min(100, $hpPercent));
+    
+            if ($hpPercent >= 80)
             {
-                $this->maket_cond->text = "100 %";
-                $this->maket_cond->color = '#4d804d';
-                $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
+                $armorPercent = 100;
+                $color = '#4d804d';
             }
-            if ($this->form('Client')->MainGame->content->health_bar_gg->width == 204 || $this->form('Client')->MainGame->content->health_bar_gg->width == 234)
+            elseif ($hpPercent >= 50)
             {
-                $this->maket_cond->text = "82 %";
-                $this->maket_cond->color = '#b3801a';
-                $this->form('Client')->animateResizeWidth($this->maket_cond, 168, 10);
+                $armorPercent = 67;
+                $color = '#b3801a';
             }
-            if ($this->form('Client')->MainGame->content->health_bar_gg->width == 174 || $this->form('Client')->MainGame->content->health_bar_gg->width == 144)
+            elseif ($hpPercent >= 30)
             {
-                $this->maket_cond->text = "67 %";
-                $this->maket_cond->color = '#b3801a';
-                $this->form('Client')->animateResizeWidth($this->maket_cond, 138, 10);
+                $armorPercent = 45;
+                $color = '#b3801a';
             }
-            if ($this->form('Client')->MainGame->content->health_bar_gg->width == 114)
+            else
             {
-                $this->maket_cond->text = "45 %";
-                $this->maket_cond->color = '#b3801a';
-                $this->form('Client')->animateResizeWidth($this->maket_cond, 118, 10);
+                $armorPercent = 13;
+                $color = '#990000';
             }
-            if ($this->form('Client')->MainGame->content->health_bar_gg->width == 84 || $this->form('Client')->MainGame->content->health_bar_gg->width == 54)
-            {
-                $this->maket_cond->text = "13 %";
-                $this->maket_cond->color = '#990000';
-                $this->form('Client')->animateResizeWidth($this->maket_cond, 74, 10);
-            }     
+    
+            $this->maket_cond->text = $armorPercent . " %";
+            $this->maket_cond->color = $color;
+    
+            $maxArmorWidth = 208;
+            $minArmorWidth = 40;
+            
+            $target = round($minArmorWidth + (($armorPercent / 100) * ($maxArmorWidth - $minArmorWidth)));
+    
+            $this->form('Client')->animateResizeWidth($this->maket_cond, $target, 10);
         }
         if ($GLOBALS['item_vodka_selected'])
         {

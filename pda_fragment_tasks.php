@@ -258,7 +258,7 @@ class pda_fragment_tasks extends AbstractForm
         
         if ($GLOBALS['AllSounds'])
         {
-            Media::open('res://.data/audio/pda.mp3', 'pda_task');
+            $this->form('Client')->playSoundAsync('res://.data/audio/pda.mp3', 'pda_task');
         }
         $GLOBALS['Task_Status_Update'] = true;
         $this->form('Client')->MainGame->content->ShowMessageBox();
@@ -279,7 +279,7 @@ class pda_fragment_tasks extends AbstractForm
         
         if ($GLOBALS['AllSounds'])
         {
-            Media::open('res://.data/audio/pda.mp3', 'pda_task');
+            $this->form('Client')->playSoundAsync('res://.data/audio/pda.mp3', 'pda_task');
         }
         $GLOBALS['Task_Status_Update'] = true;
         $this->form('Client')->MainGame->content->ShowMessageBox();
@@ -296,7 +296,7 @@ class pda_fragment_tasks extends AbstractForm
         
         if ($GLOBALS['AllSounds'])
         {
-            Media::open('res://.data/audio/pda.mp3', 'pda_task');
+            $this->form('Client')->playSoundAsync('res://.data/audio/pda.mp3', 'pda_task');
         }
         $GLOBALS['Task_Status_Failed'] = true;
         $this->form('Client')->MainGame->content->ShowMessageBox();
