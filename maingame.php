@@ -1,6 +1,9 @@
 <?php
 namespace app\forms;
 
+use app\forms\ui_test;
+use app\forms\classes\CActor;
+use app\forms\classes\Weapons\CWeapon_Dev;
 use behaviour\custom\ColorAdjustEffectBehaviour;
 use php\time\Timer;
 use php\gui\UXImageView;
@@ -27,11 +30,26 @@ class maingame extends AbstractForm
     public $SDK_ActorModel;
     public $SDK_EnemyModel;    
 
+
+    public $GameActor;
+    //weapons
+    public $WeaponDev;
+
     public function __construct() 
     {
         parent::__construct();
 
         $this->localization = new Localization($language);
+        
+        $this->GameActor = new CActor();
+        //
+        $this->WeaponDev = new CWeapon_Dev();
+        
+        
+        
+        
+        //ui_test
+         $this->GameActor->SetActiveWeapon($this->WeaponDev);
     }
     function getCurrentLanguageFromUI()
     {
