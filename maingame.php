@@ -113,7 +113,7 @@ class maingame extends AbstractForm
         
         if ($GLOBALS['AllSounds'])
         {
-            $this->Environment->volume = 100;
+            $this->Environment->volume = 65;
         }
     }
     function getTimeCycleByString($timeStr)
@@ -150,7 +150,7 @@ class maingame extends AbstractForm
             } 
             else
             {
-                Media::open('res://.data/audio/fight/fight_sound_20_05_2025.mp3', true, $this->FightSound);
+                Media::open('res://.data/audio/fight/fight_sound.mp3', true, $this->FightSound);
             }
         }
     }      
@@ -163,7 +163,7 @@ class maingame extends AbstractForm
             if ($GLOBALS['ActorFailed']) $GLOBALS['ActorFailed'] = false;
             if ($GLOBALS['EnemyFailed']) $GLOBALS['EnemyFailed'] = false;
 
-            if ($GLOBALS['AllSounds']) $this->form('Client')->StopAllSounds();
+            if ($GLOBALS['AllSounds']) $this->form('Client')->StopAllSoundsAsync();
             Media::stop($this->Environment);
 
             if ($this->fight_image->visible) $this->fight_image->hide();
@@ -485,46 +485,54 @@ class maingame extends AbstractForm
     }
     function SpawnParticle($target)
     {
-
         if ($target == $this->actor)
         {
             $healthBar = $this->health_bar_actor;
         }
-        else
+        else 
         {
             $healthBar = $this->health_bar_enemy;
         }    
-
+    
         $cursorX = $this->form('Client')->CustomCursor->x;
         $cursorY = $this->form('Client')->CustomCursor->y;
-
-        for ($i = 0; $i < 3; $i++)
-        {
+    
+        $bloodCount = rand(4, 6);
+    
+        array_map(function() use ($cursorX, $cursorY, $healthBar) {
             $scatterX = rand(-35, 35);
             $scatterY = rand(-35, 35);
-
-            $particle = new UXImageView();
-            $particle->enabled = false;
-            $particle->opacity = 1;
-            $particle->image = new UXImage("res://.data/ui/particles/blood.png");
-            $particle->scale = $this->form('Client')->MainGame->scale;
-            $particle->width = 86;
-            $particle->height = 86;
-
-            $particle->x = $cursorX - ($particle->width / 2) + $scatterX;
-            $particle->y = $cursorY - ($particle->height / 2) + $scatterY;
-
-            $this->form('Client')->add($particle);
-
-            $delay = ($healthBar->width - 30 <= 54) ? 600 : 300;
-
-            Timer::after($delay, function () use ($particle) {
-                Animation::fadeOut($particle, 300, function () use ($particle) {
-                    $particle->free();
-                });
-            });
-        }
-    }   
+    
+            $this->spawnParticleAsync(
+                function() use ($cursorX, $cursorY, $scatterX, $scatterY)
+                {
+                    $particle = new UXImageView();
+                    $particle->enabled = false;
+                    $particle->opacity = 1;
+                    $particle->image = new UXImage("res://.data/ui/particles/blood.png");
+                    $particle->scale = $this->form('Client')->MainGame->scale;
+                    $particle->width = 86;
+                    $particle->height = 86;
+    
+                    $particle->x = $cursorX - ($particle->width / 2) + $scatterX;
+                    $particle->y = $cursorY - ($particle->height / 2) + $scatterY;
+    
+                    return $particle;
+                },
+                function($particle) use ($healthBar)
+                {
+                    $delay = ($healthBar->width - 30 <= 54) ? 600 : 300;
+    
+                    Timer::after($delay, function () use ($particle) {
+                        Animation::fadeOut($particle, 300, function () use ($particle) {
+                            $particle->free();
+                        });
+                    });
+                }
+            );
+        }, range(1, $bloodCount));
+    }
+   
     /**
      * @event enemy.click-2x
      */       
@@ -532,7 +540,7 @@ class maingame extends AbstractForm
     { 
         $minWidth     = 54;
         $maxWidth     = 264;
-        $missChance   = 55;
+        $missChance   = 75; //пиздец
         $damageMinPct = 8;
         $damageMaxPct = 20;
     
@@ -568,8 +576,8 @@ class maingame extends AbstractForm
     
             if ($GLOBALS['AllSounds'])
             {
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/hit_vovchik.mp3', 'hit_actor');
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/kulak_ebanul.mp3', 'hit_actor_damage');
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor');
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_actor_damage');
             }
         }
         else
@@ -586,9 +594,9 @@ class maingame extends AbstractForm
     
             if ($GLOBALS['AllSounds'])
             {
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/hit_vovchik.mp3', 'hit_actor');
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/kulak_ebanul.mp3', 'hit_actor_damage');
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/die_vovchik.mp3', 'die_actor');                
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor');
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_actor_damage');
+                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');                
             }
     
             $GLOBALS['EnemyFailed'] = true;
@@ -609,7 +617,7 @@ class maingame extends AbstractForm
         $minWidth       = 54;
         $maxWidthMain   = 264;
         $maxWidthInv    = 416;
-        $missChance     = 55;
+        $missChance     = 75;
         $damageMinPct   = 8;
         $damageMaxPct   = 20;
     
@@ -772,7 +780,7 @@ class maingame extends AbstractForm
         $this->idle_static_actor->x = $this->actor->x;
         $this->idle_static_enemy->x = $this->enemy->x;
         
-        if ($GLOBALS['AllSounds']) $this->form('Client')->StopAllSounds();
+        if ($GLOBALS['AllSounds']) $this->form('Client')->StopAllSoundsAsync();
         
         if ($GLOBALS['ActorFailed'])
         {
@@ -790,6 +798,7 @@ class maingame extends AbstractForm
             
             if ($GLOBALS['AllSounds']) $this->form('Client')->playSoundAsync('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor');
         }
+        
         $this->form('Client')->Pda->content->Pda_Tasks->content->Step_UpdatePda();
         
         $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateRaiting();
@@ -898,7 +907,23 @@ class maingame extends AbstractForm
             'jamHandled' => false,
         ],
     ];    
-     
+    
+    function spawnParticleAsync(callable $factory, callable $afterAdd = null)
+    {
+        (new Thread(function() use ($factory, $afterAdd) {
+            $particle = $factory();
+    
+            UXApplication::runLater(function() use ($particle, $afterAdd) {
+                $this->add($particle);
+    
+                if ($afterAdd)
+                {
+                    $afterAdd($particle);
+                }
+            });
+        }))->start();
+    }
+
     function Shoot()
     {
         if (!$GLOBALS['QuestStep1']) return;
@@ -907,37 +932,37 @@ class maingame extends AbstractForm
         {
             return;
         }
-
+    
         $weaponType = $this->CurrentWeaponType;
-
+    
         if (!isset($this->weaponData[$weaponType]))
         {
             return;
         }
-
+    
         $data = &$this->weaponData[$weaponType];
         $ammoProp = $data['ammoProp'];
-
+    
         if ($this->$ammoProp < $data['maxAmmo'] && rand(1, 35) == 1)
         {
             $data['jammed'] = true;
         }
-
+    
         if ($data['jammed'] && !$data['jamHandled'])
         {
             $data['jamHandled'] = true;
-
+    
             if ($GLOBALS['AllSounds'])
             {
-                Media::open($data['soundEmpty'], true, strtolower($weaponType) . '_jam');
+                $this->form('Client')->playSoundAsync($data['soundEmpty'], true, strtolower($weaponType) . '_jam');
             }
-
+    
             $this->tempTaskStep = $this->Task_Step_Label->text;
             $this->Task_Step_Label->visible = true;
-
+    
             $this->localization->setLanguage($this->getCurrentLanguageFromUI());
             $this->Task_Step_Label->text = $this->localization->get('GunJmammed');
-
+    
             Timer::after(4000, function () {
                 UXApplication::runLater(function () {
                     $this->Task_Step_Label->visible = false;
@@ -946,81 +971,94 @@ class maingame extends AbstractForm
             });
             return;
         }
-
+    
         if ($this->$ammoProp <= 0 || $data['jammed'])
         {
             if ($GLOBALS['AllSounds'])
             {
-                Media::open($data['soundEmpty'], true, strtolower($weaponType) . '_empty');
+                $this->form('Client')->playSoundAsync($data['soundEmpty'], true, strtolower($weaponType) . '_empty');
             }
-            
             return;
         }
-
+    
         $this->$ammoProp--;
         $this->UpdateMagazine();
-
-        if ($GLOBALS['AllSounds'])
-        {
-            Media::open($data['soundShot'], true, strtolower($weaponType) . '_shot');
-        }
-
-        [$offsetX, $offsetY] = $data['particleOffset'];
-
-        $shootParticle = new UXImageView;
-        $shootParticle->image = new UXImage('res://.data/ui/particles/shoot.png');
-        $shootParticle->width = 128;
-        $shootParticle->height = 128;
-        $shootParticle->opacity = 1;
-
-        $shootParticle->x = $this->actor->x + $offsetX;
-        $shootParticle->y = $this->actor->y + $offsetY;
-        
-        $bloomEffect = new BloomEffectBehaviour();
-        $bloomEffect->apply($shootParticle);        
-
-        $this->add($shootParticle);
-
-        Animation::fadeOut($shootParticle, 120, function () use ($shootParticle) {
-            if ($shootParticle->parent)
-            {
-                $shootParticle->parent->remove($shootParticle);
-            }
-            $shootParticle->free();
-        });
-
-        $enemy = $this->enemy;
-        if ($enemy->visible)
-        {
-            $this->DamageEnemy(null, false);
-
-            for ($i = 0; $i < rand(2, 4); $i++)
-            {
-                $scatterX = rand(-25, 25);
-                $scatterY = rand(-25, 25);
-
-                $bloodParticle = new UXImageView();
-                $bloodParticle->image = new UXImage("res://.data/ui/particles/blood.png");
-                $bloodParticle->scale = $this->form('Client')->MainGame->scale;
-                $bloodParticle->width = 86;
-                $bloodParticle->height = 86;
-
-                $hitX = $enemy->x + ($enemy->width / 2) - ($bloodParticle->width / 2);
-                $hitY = $enemy->y - 10;
-
-                $bloodParticle->x = $hitX + $scatterX;
-                $bloodParticle->y = $hitY + $scatterY;
-                $bloodParticle->opacity = 1.0;
-
-                $this->add($bloodParticle);
-
-                Animation::fadeOut($bloodParticle, 300, function () use ($bloodParticle) {
-                    $bloodParticle->free();
-                });
-            }
-        }
-    }
     
+        UXApplication::runLater(function() use ($data) {
+    
+            if ($GLOBALS['AllSounds'])
+            {
+                $this->form('Client')->playSoundAsync($data['soundShot'], true, strtolower($this->CurrentWeaponType) . '_shot');
+            }
+    
+            [$offsetX, $offsetY] = $data['particleOffset'];
+            $this->spawnParticleAsync(
+                function() use ($offsetX, $offsetY) {
+                    $shootParticle = new UXImageView;
+                    $shootParticle->image = new UXImage('res://.data/ui/particles/shoot.png');
+                    $shootParticle->width = 128;
+                    $shootParticle->height = 128;
+                    $shootParticle->opacity = 1;
+                    $shootParticle->x = $this->actor->x + $offsetX;
+                    $shootParticle->y = $this->actor->y + $offsetY;
+    
+                    (new BloomEffectBehaviour())->apply($shootParticle);
+    
+                    return $shootParticle;
+                },
+                function($shootParticle) {
+                    Animation::fadeOut($shootParticle, 150, function () use ($shootParticle) {
+                        if ($shootParticle->parent) {
+                            $shootParticle->parent->remove($shootParticle);
+                        }
+                        $shootParticle->free();
+                    });
+                }
+            );
+    
+            $enemy = $this->enemy;
+            if ($enemy->visible)
+            {
+                $this->DamageEnemy(null, false);
+            
+                $bloodCount = rand(4, 7);
+            
+                array_map(function() use ($enemy, $offsetX, $offsetY)
+                {
+                    $scatterX = rand(-35, 35);
+                    $scatterY = rand(-35, 35);
+            
+                    $this->spawnParticleAsync(
+                        function() use ($enemy, $scatterX, $scatterY, $offsetY)
+                        {
+                            $bloodParticle = new UXImageView();
+                            $bloodParticle->image = new UXImage("res://.data/ui/particles/blood.png");
+                            $bloodParticle->scale = $this->form('Client')->MainGame->scale;
+                            $bloodParticle->width = 86;
+                            $bloodParticle->height = 86;
+            
+                            $hitX = $enemy->x + ($enemy->width / 2) - ($bloodParticle->width / 2);
+            
+                            $hitY = $this->actor->y + $offsetY;
+            
+                            $bloodParticle->x = $hitX + $scatterX;
+                            $bloodParticle->y = $hitY + $scatterY;
+                            $bloodParticle->opacity = 1.0;
+            
+                            return $bloodParticle;
+                        },
+                        function($bloodParticle)
+                        {
+                            Animation::fadeOut($bloodParticle, 400, function () use ($bloodParticle) {
+                                $bloodParticle->free();
+                            });
+                        }
+                    );
+                }, range(1, $bloodCount));
+            }
+        });
+    }
+
     private $AttachmentTimer;
     
     function AttachWeapon(string $weaponType)
@@ -1044,7 +1082,7 @@ class maingame extends AbstractForm
                 
                 if ($GLOBALS['AllSounds'])
                 {
-                    Media::open('res://.data/audio/weapon/pm_draw.mp3', true, 'pm_draw');
+                    $this->form('Client')->playSoundAsync('res://.data/audio/weapon/pm_draw.mp3', true, 'pm_draw');
                 }
                 
                 break;
@@ -1057,7 +1095,7 @@ class maingame extends AbstractForm
                 
                 if ($GLOBALS['AllSounds'])
                 {
-                    Media::open('res://.data/audio/weapon/ak74_draw.mp3', true, 'ak74_draw');
+                    $this->form('Client')->playSoundAsync('res://.data/audio/weapon/ak74_draw.mp3', true, 'ak74_draw');
                 }
                 
                 break;
@@ -1093,7 +1131,7 @@ class maingame extends AbstractForm
     {
         if ($GLOBALS['AllSounds'])
         {
-            Media::open('res://.data/audio/weapon/generic_close.mp3', true, 'generic_close');
+            $this->form('Client')->playSoundAsync('res://.data/audio/weapon/generic_close.mp3', true, 'generic_close');
         }
             
         if ($this->AttachmentTimer)
@@ -1197,7 +1235,7 @@ class maingame extends AbstractForm
 
         if ($GLOBALS['AllSounds'])
         {
-            Media::open($soundPath, true, $weaponKey . "_reload");
+            $this->form('Client')->playSoundAsync($soundPath, true, $weaponKey . "_reload");
         }
 
         $neededAmmo = $magSize - $this->$ammoVar;

@@ -477,8 +477,47 @@ class Client extends AbstractForm
             
         if (!$GLOBALS['AllSounds']) $this->MainGame->content->Environment->volume = 0;
         
-        $this->Dialog->content->StopVoice();
+        $this->Dialog->content->StopVoice();        
     }
+    function StopAllSoundsAsync()
+    {
+        (new Thread(function() {
+            $channels = [
+                $this->MainGame->content->FightSound,
+                $this->MainMenu->content->MenuSound,
+                'v_enemy', 'v_actor',
+                'hit_alex', 'hit_alex_damage',
+                'hit_actor', 'hit_actor_damage',
+                'die_alex', 'die_actor',
+                'AK74_reload', 'Pm_reload',
+                'AK74_shot', 'Pm_shot',
+                'pm_draw', 'ak74_draw',
+                'generic_close'
+            ];
+    
+            foreach ($channels as $ch)
+            {
+                if (Media::isStatus('PLAYING', $ch))
+                {
+                    Media::stop($ch);
+                }
+            }
+    
+            UXApplication::runLater(function() {
+                if (!$GLOBALS['AllSounds'])
+                {
+                    $this->MainGame->content->Environment->volume = 0;
+                }
+    
+                if ($this->Dialog && $this->Dialog->content)
+                {
+                    $this->Dialog->content->StopVoice();
+                }
+            });
+    
+        }))->start();
+    }
+
     public $isAnimating = false;
     private $isAnimatingBars = [];
     function animateResizeWidth($node, $targetWidth, $speed = 1, $callback = null)
@@ -689,7 +728,7 @@ class Client extends AbstractForm
         Media::pause($this->MainGame->content->Environment);
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
         {
-            $this->StopAllSounds(); //возможно temp
+            $this->StopAllSoundsAsync(); //возможно temp
             
             Media::pause($this->MainGame->content->FightSound);
             

@@ -143,6 +143,17 @@ class dialog extends AbstractForm
         }       
     }
     
+    function StopVoice()
+    {
+        $channels = ['voice_start', 'voice_talk1', 'voice_talk2', 'voice_talk3'];
+    
+        foreach ($channels as $ch) {
+            if (Media::isStatus('PLAYING', $ch)) {
+                Media::stop($ch);
+            }
+        }
+    }
+    
     private function playVoiceAsync($fileName, $mediaId)
     {
         $languageCode = $this->localization->getCurrentLanguage();
@@ -156,14 +167,7 @@ class dialog extends AbstractForm
             Media::open($soundPath, true, $mediaId);
         }))->start();
     }
-    
-    function StopVoice()
-    {
-        Media::stop('voice_start');
-        Media::stop('voice_talk1');
-        Media::stop('voice_talk2');
-        Media::stop('voice_talk3');
-    }
+   
     function VoiceStart()
     {
         if ($GLOBALS['AllSounds'])
