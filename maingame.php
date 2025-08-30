@@ -739,22 +739,42 @@ class maingame extends AbstractForm
    
     function Bleeding()
     {
-        if ($this->health_bar_gg->width == 264) return;
+        $minHPWidth = 54;
+        $maxHPWidth = 264;
         
-        $GLOBALS['ActorFailed'] ? $this->blood_ui->hide() : $this->blood_ui->show();
-
-        if ($this->health_bar_gg->width == 204 || $this->health_bar_gg->width == 174)
+        $curW = $this->health_bar_gg->width;
+    
+        if ($curW >= $maxHPWidth)
+        {
+            $this->blood_ui->hide();
+            return;
+        }
+    
+        if ($GLOBALS['ActorFailed'])
+        {
+            $this->blood_ui->hide();
+            return;
+        }
+        else
+        {
+            $this->blood_ui->show();
+        }
+    
+        $hpPercent = round((($curW - $minHPWidth) / ($maxHPWidth - $minHPWidth)) * 100);
+        $hpPercent = max(1, min(100, $hpPercent));
+    
+        if ($hpPercent >= 60)
         {
             $this->blood_ui->image = new UXImage('res://.data/ui/maingame/blood_mini.png');
         }
-        if ($this->health_bar_gg->width == 144)
+        elseif ($hpPercent >= 30)
         {
-            $this->blood_ui->image = new UXImage('res://.data/ui/maingame/blood_medium.png');            
+            $this->blood_ui->image = new UXImage('res://.data/ui/maingame/blood_medium.png');
         }
-        if ($this->health_bar_gg->width == 84)
+        else
         {
             $this->blood_ui->image = new UXImage('res://.data/ui/maingame/blood_ultra.png');
-        }        
+        }       
     }
     function finalizeBattle()
     {
