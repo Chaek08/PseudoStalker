@@ -1,40 +1,42 @@
 <?php
 namespace app\forms\classes;
 
+use behaviour\custom\DraggingBehaviour;
+
 
 class CActor 
 {
+    private $dragging 
     //private $Inventory;
     private $activeWeapon;
     private $model;
     
+    private $canInteractive;
+    
     public function __construct()
     {
-            $pos= [0,0];
-            //$this->activeWeapon = 0;
+        $this->dragging = new DraggingBehaviour();
+        
+        $this->dragging->setProperties([
+            "direction"=>"LEFT_RIGHT",
+        ]);
+    }
+
+    public function CanInteractive() {return $this->canInteractive;}
+    
+    public function SetInteractive($b) { 
+            $this->canInteractive = $b; 
+            $this->dragging->enabled = $b;      
     }
     
-    public function SetModel($mdl)
-    {
-        $this->model = $mdl;
+    public function SetModel($mdl) 
+    { 
+        $this->model = $mdl; 
+        $this->dragging->apply($this->model);
     }
-    
-    public function GetModel()
-    {
-        return $this->model;
-    }
-    
-    
-    public function GetPosX() { return $this->pos[0]; }
-    public function GetPosY() { return $this->pos[1]; }
-    
-    public function SetPos($x,$y) { $this->pos = [$x,$y]; }
-    public function SetPosX($x) { $this->pos[0] = [$x]; }
-    public function SetPosY($y) { $this->pos[0] = [$y]; }
+    public function GetModel() { return $this->model; }
     
     public function SetActiveWeapon($wpn) {  $this->activeWeapon = $wpn; }
-    
     public function HasActiveWeapon() : bool { return $this->activeWeapon !== null; }
-    
     public function GetActiveWeapon() {  return $this->activeWeapon; }
 }
