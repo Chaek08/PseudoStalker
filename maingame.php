@@ -44,6 +44,7 @@ class maingame extends AbstractForm
         $this->GameActor = new CActor();
         $this->GameActor->SetModel($this->actor);
         
+        $this->GameActor->SetInteractive(false);
         //
         $this->WeaponDev = new CWeapon_Dev();
         
@@ -211,11 +212,11 @@ class maingame extends AbstractForm
             $this->enemy->show();
             $this->enemy->x = 1312;
 
-            $this->GameActor->SetPosX(112);
-
-            $this->idle_static_actor->show();
+            $this->GameActor->GetModel()->x = 112;
+            $this->GameActor->SetInteractive(false);
+            //$this->idle_static_actor->show();
             $this->idle_static_enemy->show();
-            $this->idle_static_actor->x = $this->GameActor->GetPosX();
+            //$this->idle_static_actor->x = $this->GameActor->GetPosX();
             $this->idle_static_enemy->x = $this->enemy->x;
 
             $this->form('Client')->Pda->content->DefaultState();
@@ -281,7 +282,8 @@ class maingame extends AbstractForm
             if ($this->CurrentWeaponType) $this->ui_mag_background->show();
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
             if ($GLOBALS['GodMode']) $this->GodMode_Icon->show();
-            if (!$this->idle_static_actor->visible) $this->fight_image->show();
+            //if (!$this->idle_static_actor->visible) $this->fight_image->show();
+            if ($this->GameActor->CanInteractive()) $this->fight_image->show();
             if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed']) $this->leave_btn->show();
         
             $GLOBALS['HudVisible'] = true;
@@ -635,6 +637,10 @@ class maingame extends AbstractForm
      */    
     function DamageActor(UXMouseEvent $e = null)
     { 
+        if (!$this->GameActor->CanInteractive()) 
+        {
+            return;
+        }            
         $minWidth       = 54;
         $maxWidthMain   = 264;
         $maxWidthInv    = 416;
@@ -816,9 +822,10 @@ class maingame extends AbstractForm
         $this->item_vodka_0000->enabled = false;
         $this->item_vodka_0000->opacity = 0;
         
-        $this->idle_static_actor->show();
+        //$this->idle_static_actor->show();
+        $this->GameActor->ToggleInteractive(false);
         $this->idle_static_enemy->show();
-        $this->idle_static_actor->x = $this->GameActor->GetModel()->x;
+        //$this->idle_static_actor->x = $this->GameActor->GetModel()->x;
         $this->idle_static_enemy->x = $this->enemy->x;
         
         if ($GLOBALS['AllSounds']) $this->form('Client')->StopAllSoundsAsync();
