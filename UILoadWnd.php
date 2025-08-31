@@ -182,6 +182,9 @@ class UILoadWnd extends AbstractForm
     {
         $saveName = $this->saves_list->selectedItem;
         
+        if ($saveName == "")
+            return;
+        
         $filePath = SAVE_DIRECTORY . $saveName . '.sav';
         $encryptedData = Stream::getContents($filePath);
         $saveData = json_decode(DimasCryptoZlodey::decryptData($encryptedData), true);
