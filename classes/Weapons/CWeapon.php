@@ -13,6 +13,9 @@ class CWeapon
     protected $jammed;
     protected $jamHandled;
 
+    protected $isReloading;
+    protected $image;
+
     public function __construct()
     {
             $this->jamHandled = false;

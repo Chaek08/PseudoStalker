@@ -42,6 +42,8 @@ class maingame extends AbstractForm
         $this->localization = new Localization($language);
         
         $this->GameActor = new CActor();
+        $this->GameActor->SetModel($this->actor);
+        
         //
         $this->WeaponDev = new CWeapon_Dev();
         
@@ -116,7 +118,7 @@ class maingame extends AbstractForm
             Media::open($backgroundPath, false, $this->Environment);
 
             $brightness = $brightnessByCycle[$newCycle];
-            $this->actor->colorAdjustEffect->brightness = $brightness;
+            $this->GameActor->GetModel()->colorAdjustEffect->brightness = $brightness;
             $this->enemy->colorAdjustEffect->brightness = $brightness;
             $this->item_vodka_0000->colorAdjustEffect->brightness = $brightness;       
         }
@@ -205,14 +207,15 @@ class maingame extends AbstractForm
             
             $this->form('Client')->Inventory->content->InventoryGrid->content->MoveWeaponsToInvSlot();
            
-            $this->actor->show();
+            $this->GameActor->GetModel()->show();
             $this->enemy->show();
-            $this->actor->x = 112;
             $this->enemy->x = 1312;
+
+            $this->GameActor->SetPosX(112);
 
             $this->idle_static_actor->show();
             $this->idle_static_enemy->show();
-            $this->idle_static_actor->x = $this->actor->x;
+            $this->idle_static_actor->x = $this->GameActor->GetPosX();
             $this->idle_static_enemy->x = $this->enemy->x;
 
             $this->form('Client')->Pda->content->DefaultState();
@@ -326,11 +329,11 @@ class maingame extends AbstractForm
         
         if ($this->item_vodka_0000->visible) $this->item_vodka_0000->hide();
         if ($GLOBALS['ActorFailed']) $this->enemy->hide();
-        if ($GLOBALS['EnemyFailed']) $this->actor->hide();
+        if ($GLOBALS['EnemyFailed']) $this->GameActor->GetModel()->hide();
     }
     function SpawnItem()
     {
-        $actor = $this->actor;
+        $actor = $this->GameActor->GetModel();
         $vodka = $this->item_vodka_0000;
 
         $floorOffset = -10;
@@ -419,7 +422,7 @@ class maingame extends AbstractForm
     function VodkaDraggingEnable(UXMouseEvent $e = null)
     {    
         $vodka = $this->item_vodka_0000;
-        $actor = $this->actor;
+        $actor = $this->GameActor->GetModel();
 
         $targetX = $actor->x + ($actor->width * 1.2) - ($vodka->width / 2);
         $targetY = $vodka->y;
@@ -503,7 +506,7 @@ class maingame extends AbstractForm
     }
     function SpawnParticle($target)
     {
-        if ($target == $this->actor)
+        if ($target == $this->GameActor->GetModel())
         {
             $healthBar = $this->health_bar_actor;
         }
@@ -805,7 +808,7 @@ class maingame extends AbstractForm
         $this->fight_image->blinkAnim->disable();
         $this->leave_btn->show();
         
-        if ($GLOBALS['ActorFailed']) $this->actor->hide();
+        if ($GLOBALS['ActorFailed']) $this->GameActor->GetModel()->hide();
         if ($GLOBALS['EnemyFailed']) $this->enemy->hide();       
         
         //$this->form('Client')->Inventory->content->InventoryGrid->content->lockInventory(true);
@@ -815,14 +818,14 @@ class maingame extends AbstractForm
         
         $this->idle_static_actor->show();
         $this->idle_static_enemy->show();
-        $this->idle_static_actor->x = $this->actor->x;
+        $this->idle_static_actor->x = $this->GameActor->GetModel()->x;
         $this->idle_static_enemy->x = $this->enemy->x;
         
         if ($GLOBALS['AllSounds']) $this->form('Client')->StopAllSoundsAsync();
         
         if ($GLOBALS['ActorFailed'])
         {
-            $this->actor->hide();
+            $this->GameActor->GetModel()->hide();
             
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Failed();
             
@@ -1037,8 +1040,8 @@ class maingame extends AbstractForm
                     $shootParticle->width = 128;
                     $shootParticle->height = 128;
                     $shootParticle->opacity = 1;
-                    $shootParticle->x = $this->actor->x + $offsetX;
-                    $shootParticle->y = $this->actor->y + $offsetY;
+                    $shootParticle->x = $this->GameActor->GetModel()->x + $offsetX;
+                    $shootParticle->y = $this->GameActor->GetModel()->y + $offsetY;
     
                     (new BloomEffectBehaviour())->apply($shootParticle);
     
@@ -1077,7 +1080,7 @@ class maingame extends AbstractForm
             
                             $hitX = $enemy->x + ($enemy->width / 2) - ($bloodParticle->width / 2);
             
-                            $hitY = $this->actor->y + $offsetY;
+                            $hitY = $this->GameActor->GetModel()->y + $offsetY;
             
                             $bloodParticle->x = $hitX + $scatterX;
                             $bloodParticle->y = $hitY + $scatterY;
@@ -1145,7 +1148,7 @@ class maingame extends AbstractForm
         $this->add($this->$weaponProperty);
         
         $colorAdjustEffect = new ColorAdjustEffectBehaviour();
-        $colorAdjustEffect->brightness = $this->actor->colorAdjustEffect->brightness;
+        $colorAdjustEffect->brightness = $this->GameActor->GetModel()->colorAdjustEffect->brightness;
         $colorAdjustEffect->apply($this->$weaponProperty);
         
         $this->UpdateMagazine();
@@ -1157,10 +1160,10 @@ class maingame extends AbstractForm
         $this->AttachmentTimer = Timer::every(6, function() use ($weaponProperty, $offsetX, $offsetY) {
             if ($this->$weaponProperty)
             {
-                $this->$weaponProperty->x = $this->actor->x + $offsetX;
-                $this->$weaponProperty->y = $this->actor->y + $offsetY;    
+                $this->$weaponProperty->x = $this->GameActor->GetModel()->x + $offsetX;
+                $this->$weaponProperty->y = $this->GameActor->GetModel()->y + $offsetY;    
                 
-                $this->$weaponProperty->colorAdjustEffect->brightness = $this->actor->colorAdjustEffect->brightness;
+                $this->$weaponProperty->colorAdjustEffect->brightness = $this->GameActor->GetModel()->colorAdjustEffect->brightness;
             }
         });
     }
