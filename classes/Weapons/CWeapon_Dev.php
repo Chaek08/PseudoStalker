@@ -1,5 +1,6 @@
 <?php
 namespace app\forms\classes\Weapons;
+use php\gui\UXImage;
 use app\forms\classes\Weapons\CWeapon;
 use app\forms\classes\CWeapon;
 
@@ -15,5 +16,7 @@ class CWeapon_Dev extends CWeapon
         $this->soundShot = 'res://.data/audio/weapon/t_pm_shot.mp3';
         $this->soundEmpty = 'res://.data/audio/weapon/pistol_empty.mp3';
         $this->particleOffset = [158,93];
+        
+        $this->image = new UXImage('res://.data/ui/weapons/wpn_pm.png');
     }
 }
