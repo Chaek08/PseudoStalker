@@ -313,12 +313,13 @@ class dialog extends AbstractForm
         {
             $this->form('Client')->MainGame->content->PlayFightSong();
         }
-        
-        $this->form('Client')->MainGame->content->idle_static_actor->hide();
-        $this->form('Client')->MainGame->content->idle_static_enemy->hide(); 
             
         $this->form('Client')->Pda->content->Pda_Tasks->content->Step1_Complete();
+
+        $this->form('Client')->MainGame->content->GameActor->SetInteractive(true);
         
+        $this->form('Client')->MainGame->content->item_vodka_0000->enabled = true;
+
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         $GLOBALS['discord']->setState($this->localization->get('RPC_Fight'));
         $GLOBALS['discord']->updateState();      

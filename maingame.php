@@ -50,7 +50,6 @@ class maingame extends AbstractForm
         
         
         
-        
         //ui_test
          $this->GameActor->SetActiveWeapon($this->WeaponDev);
     }
@@ -214,10 +213,8 @@ class maingame extends AbstractForm
 
             $this->GameActor->GetModel()->x = 112;
             $this->GameActor->SetInteractive(false);
-            //$this->idle_static_actor->show();
-            $this->idle_static_enemy->show();
-            //$this->idle_static_actor->x = $this->GameActor->GetPosX();
-            $this->idle_static_enemy->x = $this->enemy->x;
+            
+            $this->item_vodka_0000->enabled = false;
 
             $this->form('Client')->Pda->content->DefaultState();
             $this->form('Client')->Pda->content->Pda_Contacts->content->UpdateContacts();
@@ -282,7 +279,6 @@ class maingame extends AbstractForm
             if ($this->CurrentWeaponType) $this->ui_mag_background->show();
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
             if ($GLOBALS['GodMode']) $this->GodMode_Icon->show();
-            //if (!$this->idle_static_actor->visible) $this->fight_image->show();
             if ($this->GameActor->CanInteractive()) $this->fight_image->show();
             if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed']) $this->leave_btn->show();
         
@@ -822,11 +818,9 @@ class maingame extends AbstractForm
         $this->item_vodka_0000->enabled = false;
         $this->item_vodka_0000->opacity = 0;
         
-        //$this->idle_static_actor->show();
-        $this->GameActor->ToggleInteractive(false);
-        $this->idle_static_enemy->show();
-        //$this->idle_static_actor->x = $this->GameActor->GetModel()->x;
-        $this->idle_static_enemy->x = $this->enemy->x;
+        //$this->GameActor->ToggleInteractive(false);
+        $this->GameActor->SetInteractive(false);
+        $this->enemy->enabled = false; //для него может быть потом отдельный класс, подобный CActor
         
         if ($GLOBALS['AllSounds']) $this->form('Client')->StopAllSoundsAsync();
         
@@ -854,11 +848,10 @@ class maingame extends AbstractForm
         $GLOBALS['discord']->setState(null);
         $GLOBALS['discord']->updateState();        
     }
-    
     protected $isHovered = false;
-    protected $isLabelVisible = false;
+    protected $isLabelVisible = false;    
     /**
-     * @event idle_static_enemy.mouseEnter
+     * @event enemy.mouseEnter
      */
     function EnemyHoverEnter(UXMouseEvent $e = null)
     {
@@ -877,7 +870,7 @@ class maingame extends AbstractForm
         });
     }
     /**
-     * @event idle_static_enemy.mouseExit
+     * @event enemy.mouseExit
      */
     function EnemyHoverExit(UXMouseEvent $e = null)
     {
@@ -890,7 +883,7 @@ class maingame extends AbstractForm
                 $this->isLabelVisible = false;
             });
         }
-    }   
+    }    
     function ShowTaskStep()
     {
         $this->Task_Step_Label->visible = true;      
