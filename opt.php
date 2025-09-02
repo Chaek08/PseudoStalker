@@ -547,27 +547,13 @@ class opt extends AbstractForm
         $this->form('Client')->Pda->content->Pda_Statistic->content->tab_final->text = $this->localization->get('Timeline_Tab');
         $this->form('Client')->Pda->content->Pda_Statistic->content->target_label->text = $this->localization->get('Target_Label');
 
-        $this->form('Client')->Dialog->content->alex_label_1->text = $this->localization->get('Enemy_Name');
-        $this->form('Client')->Dialog->content->alex_desc_1->text = $this->localization->get('Dialog_Goblin_Desc1');
-        $this->form('Client')->Dialog->content->alex_label_2->text = $this->localization->get('Enemy_Name');
-        $this->form('Client')->Dialog->content->alex_desc_2->text = $this->localization->get('Dialog_Goblin_Desc2');
-        $this->form('Client')->Dialog->content->alex_label_3->text = $this->localization->get('Enemy_Name');
-        $this->form('Client')->Dialog->content->alex_desc_3->text = $this->localization->get('Dialog_Goblin_Desc3');
-        $this->form('Client')->Dialog->content->actor_label_1->text = $this->localization->get('GG_Name');
-        $this->form('Client')->Dialog->content->actor_desc_1->text = $this->localization->get('Dialog_Actor_Desc1');
-        $this->form('Client')->Dialog->content->actor_label_3->text = $this->localization->get('GG_Name');
-        $this->form('Client')->Dialog->content->actor_desc_3->text = $this->localization->get('Dialog_Actor_Desc3');
-        $this->form('Client')->Dialog->content->answer_name->text = $this->localization->get('GG_Name');
         $this->form('Client')->Dialog->content->answer_desc->text = $this->localization->get('Dialog_Actor_Desc1');
-        $this->form('Client')->Dialog->content->gg_name->text = $this->localization->get('GG_Name');
-        $this->form('Client')->Dialog->content->enemy_name->text = $this->localization->get('Enemy_Name');
         $this->form('Client')->Dialog->content->rank_desc->text = $this->localization->get('Rank_Desc');
         $this->form('Client')->Dialog->content->rank->text = $this->localization->get('Rank_Master');
         $this->form('Client')->Dialog->content->labelAlt->text = $this->localization->get('Rank_Veterinarian');
         $this->form('Client')->Dialog->content->label->text = $this->localization->get('Rank_Desc');
         $this->form('Client')->Dialog->content->community_desc->text = $this->localization->get('Group_Label');
         $this->form('Client')->Dialog->content->label3->text = $this->localization->get('Group_Label');
-        $this->form('Client')->Dialog->content->community_enemy->text = $this->localization->get('Community_Pido');
     
         $this->form('Client')->Fail->content->returnbtn->text = $this->localization->get('Return_Button');
         $this->form('Client')->Fail->content->exitbtn->text = $this->localization->get('Exit_Button');

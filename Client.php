@@ -834,12 +834,11 @@ class Client extends AbstractForm
         $this->MainGame->content->RenderHud(false);
     
         $this->Dialog->content->StartDialog();
-        $this->Dialog->content->VoiceStart();
+        $this->Dialog->content->VoicePlay(0);
         $this->Dialog->show();
     }  
     function HideDialog()
     {
-        $this->Dialog->content->ClearDialog();
         $this->Dialog->content->StopVoice();
         
         $this->Dialog->content->answerStep = 0;
