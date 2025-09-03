@@ -292,6 +292,7 @@ class dialog extends AbstractForm
         $enemy_role_icon  = $this->preferValue($this->form('Client')->Pda->content->SDK_PidoRoleIcon, '', 'res://.data/ui/dialog/pidoras_role.png');
         $enemy_role_color = $this->preferValue($this->form('Client')->Pda->content->SDK_PidoRoleColor, '', '#16a4cd');
     
+        $actor_desc_1     = $this->preferValue($this->SDK_ActorDesc3, 'Dialog_Actor_Desc1');
         $actor_desc_3     = $this->preferValue($this->SDK_ActorDesc3, 'Dialog_Actor_Desc3');
         $goblin_desc_2    = $this->preferValue($this->SDK_AlexDesc2, 'Dialog_Goblin_Desc2');
     
@@ -303,7 +304,7 @@ class dialog extends AbstractForm
             $this->VoicePlay(1);
         }
     
-        $this->addDialogMessage($actor_name, $actor_role_color, $actor_role_icon, $actor_desc_3);
+        $this->addDialogMessage($actor_name, $actor_role_color, $actor_role_icon, $actor_desc_1);
         $this->addDialogMessage($enemy_name, $enemy_role_color, $enemy_role_icon, $goblin_desc_2);
     }
     
