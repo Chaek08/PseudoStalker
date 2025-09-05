@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use Throwable;
 use php\gui\UXImageView;
 use php\gui\UXImage;
 use std, gui, framework, app;
@@ -64,13 +65,17 @@ class dialog extends AbstractForm
         if (!($this->Dialog_Kunteynir->content instanceof UXVBox))
         {
             $box = new UXVBox();
-            $box->spacing = 6;
-            $box->alignment = "TOP_LEFT";
+            $box->spacing   = 6;
+            $box->alignment = 'TOP_LEFT';
+            $box->fillWidth = true;
+            $box->useMaxWidth = true;
             $this->Dialog_Kunteynir->content = $box;
+    
+            $this->Dialog_Kunteynir->fitToWidth = true;
         }
         $this->dialogContainer = $this->Dialog_Kunteynir->content;
     }   
-    
+ 
     function addDialogMessage(string $name, string $color, string $iconPath, string $text): void
     {
         $this->ensureDialogContainer();
@@ -105,25 +110,77 @@ class dialog extends AbstractForm
     
         $this->dialogContainer->add($block);
     
-        uiLater(function () {
-            $this->Dialog_Kunteynir->vvalue = 1.0;
-        });
-    } 
+        (new Thread(function () use ($block) { //ёбанные в жопу потоки, ёбанный в жопу скролл, дима зайцев гондурас
+            for ($i = 0; $i < 3; $i++)
+            {
+                try { usleep(50000); } catch (\Throwable $e) { }
+                uiLater(function () use ($block)
+                {
+                    try { $this->Dialog_Kunteynir->scrollToNode($block); } catch (\Throwable $e) {}
+                    try { $this->Dialog_Kunteynir->vvalue = 1;} catch (\Throwable $e) {}
+                });
+            }
+        }))->start();
+    }
+    
+    private $lastPhraseIndex = 0;
+    
+    private function getRandomPhrase(): string
+    {
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+    
+        $max = 56;
+    
+        do
+        {
+            $index = rand(1, $max);
+        }
+        while ($index == $this->lastPhraseIndex);
+    
+        $this->lastPhraseIndex = $index;
+    
+        return $this->localization->get("Dialog_Random_Phrase_{$index}");
+    }
     
     function StartDialog()
     {
-        $this->ClearDialog();
-        
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
     
-        $enemy_name = $this->preferValue($this->form('Client')->Pda->content->SDK_EnemyName, 'Enemy_Name');
-        $pido_role_color = $this->preferValue($this->form('Client')->Pda->content->SDK_PidoRoleColor, '', '#16a4cd');
-        $pido_role_icon = $this->preferValue($this->form('Client')->Pda->content->SDK_PidoRoleIcon, '', 'res://.data/ui/dialog/pidoras_role.png');
-        $alex_desc_1 = $this->preferValue($this->SDK_AlexDesc1, 'Dialog_Goblin_Desc1');
-        $actor_desc_1 = $this->preferValue($this->SDK_ActorDesc1, 'Dialog_Actor_Desc1');
+        $enemy_name  = $this->preferValue($this->form('Client')->Pda->content->SDK_EnemyName, 'Enemy_Name');
+        $enemy_icon  = $this->preferValue($this->form('Client')->Pda->content->SDK_PidoRoleIcon, '', 'res://.data/ui/dialog/pidoras_role.png');
+        $enemy_color = $this->preferValue($this->form('Client')->Pda->content->SDK_PidoRoleColor, '', '#16a4cd');
     
-        $this->addDialogMessage($enemy_name, $pido_role_color, $pido_role_icon, $alex_desc_1);
-        $this->answer_desc->text = $actor_desc_1;
+        $actor_name  = $this->preferValue($this->form('Client')->Pda->content->SDK_ActorName, 'GG_Name');
+        $actor_icon  = $this->preferValue($this->form('Client')->Pda->content->SDK_DeRoleIcon, '', 'res://.data/ui/dialog/danila_emoji_role.png');
+        $actor_color = $this->preferValue($this->form('Client')->Pda->content->SDK_DeRoleColor, '', '#ee991a');
+    
+        $this->dialogSteps = [];
+    
+        $rounds = rand(5, 25);
+        $voiceIndex = 0;
+    
+        for ($r = 0; $r < $rounds; $r++)
+        {
+            $this->dialogSteps[] = [
+                'speaker' => 'enemy',
+                'name'    => $enemy_name,
+                'icon'    => $enemy_icon,
+                'color'   => $enemy_color,
+                'voice'   => ($voiceIndex < 4 ? $voiceIndex++ : null),
+            ];
+    
+            $this->dialogSteps[] = [
+                'speaker' => 'player',
+                'name'    => $actor_name,
+                'icon'    => $actor_icon,
+                'color'   => $actor_color,
+            ];
+        }
+    
+        $this->dialogSteps[] = ['speaker' => 'final'];
+    
+        $this->answerStep = 0;
+        $this->advanceToNextPlayer();
     }
 
     function ClearDialog(): void
@@ -200,8 +257,10 @@ class dialog extends AbstractForm
     {
         $channels = ['voice_start', 'voice_talk1', 'voice_talk2', 'voice_talk3'];
     
-        foreach ($channels as $ch) {
-            if (Media::isStatus('PLAYING', $ch)) {
+        foreach ($channels as $ch)
+        {
+            if (Media::isStatus('PLAYING', $ch))
+            {
                 Media::stop($ch);
             }
         }
@@ -261,90 +320,70 @@ class dialog extends AbstractForm
      * @event answer_desc.click-Left 
      */
     function EnterAnswer(UXMouseEvent $e = null)
-    {    
+    {
+        if (!isset($this->dialogSteps[$this->answerStep]) || $this->dialogSteps[$this->answerStep]['speaker'] !== 'player')
+        {
+            $this->advanceToNextPlayer();
+            if (!isset($this->dialogSteps[$this->answerStep]) || $this->dialogSteps[$this->answerStep]['speaker'] !== 'player')
+            {
+                return;
+            }
+        }
+    
+        $step = $this->dialogSteps[$this->answerStep];
+    
+        $playerPhrase = $this->answer_desc->text;
+        $this->addDialogMessage($step['name'], $step['color'], $step['icon'], $playerPhrase);
+        
         $this->answerStep++;
-
-        if ($this->answerStep == 1)
-        {
-            $this->Talk_1();
-        }
-        elseif ($this->answerStep == 2)
-        {
-            $this->Talk_2();
-        }
-        elseif ($this->answerStep == 3)
-        {
-            $this->Talk_3();
-            
-            $this->answerStep = 0;
-        }        
-    }    
-
-    function Talk_1()
-    {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-    
-        $actor_name       = $this->preferValue($this->form('Client')->Pda->content->SDK_ActorName, 'GG_Name');
-        $actor_role_icon  = $this->preferValue($this->form('Client')->Pda->content->SDK_DeRoleIcon, '', 'res://.data/ui/dialog/danila_emoji_role.png');
-        $actor_role_color = $this->preferValue($this->form('Client')->Pda->content->SDK_DeRoleColor, '', '#ee991a');
-    
-        $enemy_name       = $this->preferValue($this->form('Client')->Pda->content->SDK_EnemyName, 'Enemy_Name');
-        $enemy_role_icon  = $this->preferValue($this->form('Client')->Pda->content->SDK_PidoRoleIcon, '', 'res://.data/ui/dialog/pidoras_role.png');
-        $enemy_role_color = $this->preferValue($this->form('Client')->Pda->content->SDK_PidoRoleColor, '', '#16a4cd');
-    
-        $actor_desc_1     = $this->preferValue($this->SDK_ActorDesc1, 'Dialog_Actor_Desc1');
-        $actor_desc_3     = $this->preferValue($this->SDK_ActorDesc3, 'Dialog_Actor_Desc3');
-        $goblin_desc_2    = $this->preferValue($this->SDK_AlexDesc2, 'Dialog_Goblin_Desc2');
-    
-        $this->answer_desc->text = $actor_desc_3;
-    
-        if ($GLOBALS['AllSounds'])
-        {
-            $this->StopVoice();
-            $this->VoicePlay(1);
-        }
-    
-        $this->addDialogMessage($actor_name, $actor_role_color, $actor_role_icon, $actor_desc_1);
-        $this->addDialogMessage($enemy_name, $enemy_role_color, $enemy_role_icon, $goblin_desc_2);
+        $this->advanceToNextPlayer();
     }
-    
-    function Talk_2()
+        
+    private function advanceToNextPlayer(): void
     {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-    
-        $actor_name       = $this->preferValue($this->form('Client')->Pda->content->SDK_ActorName, 'GG_Name');
-        $actor_role_icon  = $this->preferValue($this->form('Client')->Pda->content->SDK_DeRoleIcon, '', 'res://.data/ui/dialog/danila_emoji_role.png');
-        $actor_role_color = $this->preferValue($this->form('Client')->Pda->content->SDK_DeRoleColor, '', '#ee991a');
-    
-        $enemy_name       = $this->preferValue($this->form('Client')->Pda->content->SDK_EnemyName, 'Enemy_Name');
-        $enemy_role_icon  = $this->preferValue($this->form('Client')->Pda->content->SDK_PidoRoleIcon, '', 'res://.data/ui/dialog/pidoras_role.png');
-        $enemy_role_color = $this->preferValue($this->form('Client')->Pda->content->SDK_PidoRoleColor, '', '#16a4cd');
-    
-        $final_phase   = $this->preferValue($this->SDK_FinalPhase, 'Dialog_Final_Phase');
-        $actor_desc_3  = $this->preferValue($this->SDK_ActorDesc3, 'Dialog_Actor_Desc3');
-        $goblin_desc_3 = $this->preferValue($this->SDK_AlexDesc3, 'Dialog_Goblin_Desc3');
-    
-        $this->answer_desc->text = $final_phase;
-    
-        if ($GLOBALS['AllSounds'])
+        while (isset($this->dialogSteps[$this->answerStep]))
         {
-            $this->StopVoice();
-            $this->VoicePlay(2);
-        }
+            $step = $this->dialogSteps[$this->answerStep];
     
-        $this->addDialogMessage($actor_name, $actor_role_color, $actor_role_icon, $actor_desc_3);
-        $this->addDialogMessage($enemy_name, $enemy_role_color, $enemy_role_icon, $goblin_desc_3);
+            if ($step['speaker'] == 'enemy')
+            {
+            /*
+                if ($GLOBALS['AllSounds'] && isset($step['voice']))
+                {
+                    $this->StopVoice();
+                    $this->VoicePlay($step['voice']);
+                }
+            */
+                $this->addDialogMessage($step['name'], $step['color'], $step['icon'], $this->getRandomPhrase());
+                $this->answerStep++;
+                continue;
+            }
+    
+            if ($step['speaker'] == 'player')
+            {
+                $this->answer_desc->text = $this->getRandomPhrase();
+                return;
+            }
+    
+            if ($step['speaker'] == 'final')
+            {
+                $this->Talk_Final();
+                $this->answerStep = 0;
+                return;
+            }
+        }
     }
 
-    function Talk_3()
+    function Talk_Final()
     {       
         $this->form('Client')->HideDialog();
         $this->form('Client')->MainGame->content->RenderHud(true);
-        
+        /*
         if ($GLOBALS['AllSounds'])
         {
             $this->VoicePlay(3);
         }
+        */
         if ($GLOBALS['FightSound'])
         {
             $this->form('Client')->MainGame->content->PlayFightSong();

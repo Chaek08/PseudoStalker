@@ -380,7 +380,7 @@ class UILoadWnd extends AbstractForm
             }
             if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted']) 
             {
-                $this->form('Client')->Dialog->content->Talk_3();
+                $this->form('Client')->Dialog->content->Talk_Final();
             
                 $this->form('Client')->MainGame->content->fight_image->show();
             }
