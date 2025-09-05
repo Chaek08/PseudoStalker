@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\UI\UIRoles;
 use php\gui\UXImage;
 use std, gui, framework, app;
 use php\gui\event\UXWindowEvent; 
@@ -28,21 +29,14 @@ class pda_fragment_contacts extends AbstractForm
         $icon = trim($this->form('Client')->Pda->content->SDK_EnemyIcon);
         $bio = trim($this->form('Client')->Pda->content->SDK_EnemyBio);
         
-        $role_name = trim($this->form('Client')->Pda->content->SDK_PidoRoleName);
-        $role_icon = trim($this->form('Client')->Pda->content->SDK_PidoRoleIcon);
-        $role_color = trim($this->form('Client')->Pda->content->SDK_PidoRoleColor);
-        
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         
         $this->name->text = $name !== '' ? $name : $this->localization->get('Enemy_Name');
         $this->icon->image = new UXImage($icon !== '' ? $icon : 'res://.data/ui/icon_npc/goblindav.png');
         $this->bio->text = $bio !== '' ? $bio : $this->localization->get('GoblindaV_Bio');
         
-        $this->community->text = $role_name != '' ? $role_name : $this->localization->get('Community_Pido');
-        $this->community->graphic = new UXImageView(new UXImage($role_icon != '' ? $role_icon : 'res://.data/ui/dialog/pidoras_role.png'));
-        $this->community->textColor = $role_color != '' ? $role_color : '#16a4cd';
-        
-        ($g = $this->community->graphic)->width = ($g->height = 16);
+        $roles = new UIRoles($this, $this->localization);
+        $roles->pidoras($this->community);
     }    
     /**
      * @event selected_new.click-2x 

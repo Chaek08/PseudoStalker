@@ -515,7 +515,6 @@ class opt extends AbstractForm
 
         $this->form('Client')->Pda->content->Pda_Contacts->content->name->text = $this->localization->get('Contact_Goblin');
         $this->form('Client')->Pda->content->Pda_Contacts->content->community_desc->text = $this->localization->get('Group_Label');
-        $this->form('Client')->Pda->content->Pda_Contacts->content->community->text = $this->localization->get('Community_Pido');
         $this->form('Client')->Pda->content->Pda_Contacts->content->reputation_desc->text = $this->localization->get('Reputation_Desc');
         $this->form('Client')->Pda->content->Pda_Contacts->content->reputation->text = $this->localization->get('Reputation_Bad');
         $this->form('Client')->Pda->content->Pda_Contacts->content->relationship_desc->text = $this->localization->get('Attitude_Label');

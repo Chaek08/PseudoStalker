@@ -146,16 +146,22 @@ class dialog extends AbstractForm
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
     
-        $enemy_name  = $this->preferValue($this->form('Client')->Pda->content->SDK_EnemyName, 'Enemy_Name');
-        $enemy_icon  = $this->preferValue($this->form('Client')->Pda->content->SDK_PidoRoleIcon, '', 'res://.data/ui/dialog/pidoras_role.png');
-        $enemy_color = $this->preferValue($this->form('Client')->Pda->content->SDK_PidoRoleColor, '', '#16a4cd');
+        $roles = new UIRoles($this, $this->localization);
     
-        $actor_name  = $this->preferValue($this->form('Client')->Pda->content->SDK_ActorName, 'GG_Name');
-        $actor_icon  = $this->preferValue($this->form('Client')->Pda->content->SDK_DeRoleIcon, '', 'res://.data/ui/dialog/danila_emoji_role.png');
-        $actor_color = $this->preferValue($this->form('Client')->Pda->content->SDK_DeRoleColor, '', '#ee991a');
+        $pidoData = $roles->pidoras($this->community_enemy);
+        $deData   = $roles->danilaEmoji($this->community_actor);
+    
+        $enemy_name = $this->preferValue(
+            $this->form('Client')->Pda->content->SDK_EnemyName,
+            'Enemy_Name'
+        );
+    
+        $actor_name = $this->preferValue(
+            $this->form('Client')->Pda->content->SDK_ActorName,
+            'GG_Name'
+        );
     
         $this->dialogSteps = [];
-    
         $rounds = rand(5, 25);
         $voiceIndex = 0;
     
@@ -164,16 +170,16 @@ class dialog extends AbstractForm
             $this->dialogSteps[] = [
                 'speaker' => 'enemy',
                 'name'    => $enemy_name,
-                'icon'    => $enemy_icon,
-                'color'   => $enemy_color,
+                'icon'    => $pidoData['icon'],
+                'color'   => $pidoData['color'],
                 'voice'   => ($voiceIndex < 4 ? $voiceIndex++ : null),
             ];
     
             $this->dialogSteps[] = [
                 'speaker' => 'player',
                 'name'    => $actor_name,
-                'icon'    => $actor_icon,
-                'color'   => $actor_color,
+                'icon'    => $deData['icon'],
+                'color'   => $deData['color'],
             ];
         }
     
@@ -197,47 +203,31 @@ class dialog extends AbstractForm
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
     
+        $roles = new UIRoles($this, $this->localization);
+    
+        $pidoData = $roles->pidoras($this->community_enemy);
+        $deData   = $roles->danilaEmoji($this->community_actor);
+    
         $actor_icon = trim($this->form('Client')->Pda->content->SDK_ActorIcon);
-        $actor_name = trim($this->form('Client')->Pda->content->SDK_ActorName);
         $enemy_icon = trim($this->form('Client')->Pda->content->SDK_EnemyIcon);
-        $enemy_name = trim($this->form('Client')->Pda->content->SDK_EnemyName);
-    
-        $pido_role_name = trim($this->form('Client')->Pda->content->SDK_PidoRoleName);
-        $pido_role_color = trim($this->form('Client')->Pda->content->SDK_PidoRoleColor);
-        $pido_role_icon = trim($this->form('Client')->Pda->content->SDK_PidoRoleIcon);
-    
-        $de_role_name = trim($this->form('Client')->Pda->content->SDK_DeRoleName);
-        $de_role_color = trim($this->form('Client')->Pda->content->SDK_DeRoleColor);
-        $de_role_icon = trim($this->form('Client')->Pda->content->SDK_DeRoleIcon);
-    
-        $this->community_enemy->text = $pido_role_name != '' ? $pido_role_name : $this->localization->get('Community_Pido');
-        $pidoIcon = $pido_role_icon != '' ? $pido_role_icon : 'res://.data/ui/dialog/pidoras_role.png';
-        $this->community_enemy->graphic = new UXImageView(new UXImage($pidoIcon));
-        $pidoColor = $pido_role_color != '' ? $pido_role_color : '#16a4cd';
-        $this->community_enemy->textColor = $pidoColor;
-    
-        $this->community_actor->text = $de_role_name != '' ? $de_role_name : $this->localization->get('DE_Community');
-        $deIcon = $de_role_icon != '' ? $de_role_icon : 'res://.data/ui/dialog/danila_emoji_role.png';
-        $this->community_actor->graphic = new UXImageView(new UXImage($deIcon));
-        $deColor = $de_role_color != '' ? $de_role_color : '#ee991a';
-        $this->community_actor->textColor = $deColor;
     
         $this->icon_gg->image = new UXImage($actor_icon !== '' ? $actor_icon : 'res://.data/ui/icon_npc/actor.png');
         $this->icon_enemy->image = new UXImage($enemy_icon !== '' ? $enemy_icon : 'res://.data/ui/icon_npc/goblindav.png');
     
+        $actor_name = trim($this->form('Client')->Pda->content->SDK_ActorName);
+        $enemy_name = trim($this->form('Client')->Pda->content->SDK_EnemyName);
+    
         $this->gg_name->text = $actor_name != '' ? $actor_name : $this->localization->get('GG_Name');
-        $this->gg_name->textColor = $deColor;
+        $this->gg_name->textColor = $deData['color'];
     
         $this->enemy_name->text = $enemy_name != '' ? $enemy_name : $this->localization->get('Enemy_Name');
-        $this->enemy_name->textColor = $pidoColor;
+        $this->enemy_name->textColor = $pidoData['color'];
     
         $this->answer_name->text = $actor_name != '' ? $actor_name : $this->localization->get('GG_Name');
-        $this->answer_name->textColor = $deColor;
-        $this->answer_name->graphic = new UXImageView(new UXImage($deIcon));
-
-        $scale_map_16 = [$this->community_actor, $this->community_enemy];
-        
-        foreach ($scale_map_16 as $el)
+        $this->answer_name->textColor = $deData['color'];
+        $this->answer_name->graphic = new UXImageView(new UXImage($deData['icon']));
+    
+        foreach ([$this->community_actor, $this->community_enemy] as $el)
         {
             if ($el->graphic)
             {
@@ -245,13 +235,14 @@ class dialog extends AbstractForm
                 $g->width = $g->height = 16;
             }
         }
-        
+    
         if ($this->answer_name->graphic)
         {
             $g = $this->answer_name->graphic;
             $g->width = $g->height = 24;
-        }    
+        }
     }
+
 
     function StopVoice()
     {

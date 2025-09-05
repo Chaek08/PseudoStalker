@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\UI\UIRoles;
 use php\gui\UXImage;
 use php\gui\UXImageView;
 use std, gui, framework, app;
@@ -121,8 +122,6 @@ class pda_fragment_ranking extends AbstractForm
         $this->actor_in_raiting_name->text = $actor_in_raiting != '' ? $actor_in_raiting : $this->localization->get('GG_Name');
         $this->goblindav_in_raiting_name->text = $enemy_in_raiting != '' ? $enemy_in_raiting : $this->localization->get('Enemy_Name');
         $this->valerok_in_raiting_name->text = $valerok_in_raiting != '' ? $valerok_in_raiting : $this->localization->get('Ranking_Valerok');
-        
-        ($g = $this->community->graphic)->width = ($g->height = 16);
     }
     
     function ResetUserInfo()
@@ -264,62 +263,16 @@ class pda_fragment_ranking extends AbstractForm
             }                     
         } 
     }
-    function ResetRole()
-    {
-        Element::setText($this->community, '-');
-        $this->community->textColor = 'white';    
-        $this->community->graphic = new UXImageView(new UXImage('res://.data/ui/dialog/no_role.png'));         
-    }
-    function LadcegaRole()
-    {
-        $name = trim($this->form('Client')->Pda->content->SDK_LaRoleName);
-        $icon = trim($this->form('Client')->Pda->content->SDK_LaRoleIcon);
-        $color = trim($this->form('Client')->Pda->content->SDK_LaRoleColor);
-        
-        $this->community->text = $name !== '' ? $name : $this->localization->get('LA_Community');
-        $this->community->graphic = $icon !== ''
-            ? new UXImageView(new UXImage($icon))
-            : new UXImageView(new UXImage('res://.data/ui/dialog/ladcega_role.png'));
-        $this->community->textColor = $color !== '' ? $color : '#e64d4d';
-        
-        ($g = $this->community->graphic)->width = ($g->height = 16);
-    }    
-    function DanilaEmojiRole()
-    {
-        $name = trim($this->form('Client')->Pda->content->SDK_DeRoleName);
-        $icon = trim($this->form('Client')->Pda->content->SDK_DeRoleIcon);
-        $color = trim($this->form('Client')->Pda->content->SDK_DeRoleColor);
-        
-        $this->community->text = $name !== '' ? $name : $this->localization->get('DE_Community');
-        $this->community->graphic = $icon !== ''
-            ? new UXImageView(new UXImage($icon))
-            : new UXImageView(new UXImage('res://.data/ui/dialog/danila_emoji_role.png'));
-        $this->community->textColor = $color !== '' ? $color : '#cc8033';
-        
-        ($g = $this->community->graphic)->width = ($g->height = 16);
-    }
-    function PidorasRole()
-    {
-        $name = trim($this->form('Client')->Pda->content->SDK_PidoRoleName);
-        $icon = trim($this->form('Client')->Pda->content->SDK_PidoRoleIcon);
-        $color = trim($this->form('Client')->Pda->content->SDK_PidoRoleColor);
-        
-        $this->community->text = $name !== '' ? $name : $this->localization->get('Community_Pido');
-        $this->community->graphic = $icon !== ''
-            ? new UXImageView(new UXImage($icon))
-            : new UXImageView(new UXImage('res://.data/ui/dialog/pidoras_role.png'));
-        $this->community->textColor = $color !== '' ? $color : '#16a4cd';
-        
-        ($g = $this->community->graphic)->width = ($g->height = 16);
-    }
     function SetUserInfo()
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
+        $roles = new UIRoles($this, $this->localization);
+        
         if ($GLOBALS['SelectedEnemy'])
         {
-            $this->ResetRole();
-            $this->PidorasRole();
+            $roles->pidoras($this->community);
+            
             $this->DeathFilter();
             
             $this->rank->text = $this->localization->get('Rank_Veterinarian');
@@ -334,8 +287,8 @@ class pda_fragment_ranking extends AbstractForm
         }
         if ($GLOBALS['SelectedValera'])
         {
-            $this->ResetRole();
-            $this->LadcegaRole();
+            $roles->ladcega($this->community);
+            
             $this->DeathFilter();
             
             $this->rank->text = $this->localization->get('Rank_Master');
@@ -350,9 +303,10 @@ class pda_fragment_ranking extends AbstractForm
         }       
         if ($GLOBALS['SelectedActor'])
         {
-            $this->ResetRole();        
-            $this->DanilaEmojiRole();          
+            $roles->danilaEmoji($this->community);
+                  
             $this->DeathFilter();
+            
             $this->rank->text = $this->localization->get('Rank_Master');
             $this->attitude->hide();
             $this->relationship->hide();
