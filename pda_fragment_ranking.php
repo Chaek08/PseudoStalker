@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\UI\UICharacterInfo;
 use app\forms\classes\UI\UIRoles;
 use php\gui\UXImage;
 use php\gui\UXImageView;
@@ -113,15 +114,15 @@ class pda_fragment_ranking extends AbstractForm
     
     function UpdateData()
     {
-        $actor_in_raiting = trim($this->form('Client')->Pda->content->SDK_ActorName);
-        $enemy_in_raiting = trim($this->form('Client')->Pda->content->SDK_EnemyName);
-        $valerok_in_raiting = trim($this->form('Client')->Pda->content->SDK_ValerokName);
-        
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         
-        $this->actor_in_raiting_name->text = $actor_in_raiting != '' ? $actor_in_raiting : $this->localization->get('GG_Name');
-        $this->goblindav_in_raiting_name->text = $enemy_in_raiting != '' ? $enemy_in_raiting : $this->localization->get('Enemy_Name');
-        $this->valerok_in_raiting_name->text = $valerok_in_raiting != '' ? $valerok_in_raiting : $this->localization->get('Ranking_Valerok');
+        $actorInfo = (new UICharacterInfo($this, $this->localization))->setName($this->actor_in_raiting_name);
+        $enemyInfo = (new UICharacterInfo($this, $this->localization))->setName($this->goblindav_in_raiting_name);
+        $valerokInfo = (new UICharacterInfo($this, $this->localization))->setName($this->valerok_in_raiting_name);
+
+        $actorInfo->setActor();
+        $enemyInfo->setEnemy();
+        $valerokInfo->setValerok();
     }
     
     function ResetUserInfo()
@@ -140,7 +141,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->bio->hide();         
         $this->separator->hide(); 
         $this->user_icon->hide();       
-        $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/no_icon.png');     
+        $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/no_icon.png'); 
         
         if ($this->death_filter->visible) $this->death_filter->hide();
     }
@@ -267,55 +268,23 @@ class pda_fragment_ranking extends AbstractForm
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
-        $roles = new UIRoles($this, $this->localization);
+        $charInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio);
+        
+        $this->DeathFilter();
         
         if ($GLOBALS['SelectedEnemy'])
         {
-            $roles->pidoras($this->community);
-            
-            $this->DeathFilter();
-            
-            $this->rank->text = $this->localization->get('Rank_Veterinarian');
-            $this->relationship->text = $this->localization->get('Relationship_Enemy');
-            $this->relationship->textColor = ('#cc3333');
-            
-            $icon_path = trim($this->form('Client')->Pda->content->SDK_EnemyIcon);
-            $bio_path = trim($this->form('Client')->Pda->content->SDK_EnemyBio);
-            
-            $this->user_icon->image = new UXImage($icon_path != '' ? $icon_path : 'res://.data/ui/icon_npc/goblindav.png');
-            $this->bio->text = $bio_path != '' ? $bio_path : $this->localization->get('GoblindaV_Bio');
+            $charInfo->setEnemy();
         }
-        if ($GLOBALS['SelectedValera'])
+        elseif ($GLOBALS['SelectedValera'])
         {
-            $roles->ladcega($this->community);
-            
-            $this->DeathFilter();
-            
-            $this->rank->text = $this->localization->get('Rank_Master');
-            $this->relationship->text = $this->localization->get('Relationship_Friend');
-            $this->relationship->textColor = ('#669966');
-            
-            $icon_path = trim($this->form('Client')->Pda->content->SDK_ValerokIcon);
-            $bio_path = trim($this->form('Client')->Pda->content->SDK_ValerokBio);
-            
-            $this->user_icon->image = new UXImage($icon_path != '' ? $icon_path : 'res://.data/ui/icon_npc/valerok.png');
-            $this->bio->text = $bio_path != '' ? $bio_path : $this->localization->get('Valerok_Bio');
-        }       
-        if ($GLOBALS['SelectedActor'])
+            $charInfo->setValerok();
+        }
+        elseif ($GLOBALS['SelectedActor'])
         {
-            $roles->danilaEmoji($this->community);
-                  
-            $this->DeathFilter();
-            
-            $this->rank->text = $this->localization->get('Rank_Master');
             $this->attitude->hide();
             $this->relationship->hide();
-            
-            $icon_path = trim($this->form('Client')->Pda->content->SDK_ActorIcon);
-            $bio_path = trim($this->form('Client')->Pda->content->SDK_ActorBio);
-            
-            $this->user_icon->image = new UXImage($icon_path != '' ? $icon_path : 'res://.data/ui/icon_npc/actor.png');
-            $this->bio->text = $bio_path != '' ? $bio_path : $this->localization->get('Actor_Bio');
-        }       
+            $charInfo->setActor();
+        }
     }
 }

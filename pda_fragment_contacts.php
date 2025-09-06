@@ -25,18 +25,10 @@ class pda_fragment_contacts extends AbstractForm
     
     function UpdateData()
     {
-        $name = trim($this->form('Client')->Pda->content->SDK_EnemyName);
-        $icon = trim($this->form('Client')->Pda->content->SDK_EnemyIcon);
-        $bio = trim($this->form('Client')->Pda->content->SDK_EnemyBio);
-        
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         
-        $this->name->text = $name !== '' ? $name : $this->localization->get('Enemy_Name');
-        $this->icon->image = new UXImage($icon !== '' ? $icon : 'res://.data/ui/icon_npc/goblindav.png');
-        $this->bio->text = $bio !== '' ? $bio : $this->localization->get('GoblindaV_Bio');
-        
-        $roles = new UIRoles($this, $this->localization);
-        $roles->pidoras($this->community);
+        $charInfo = new UICharacterInfo($this, $this->localization, $this->icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->name, $this->reputation);
+        $charInfo->setEnemy();
     }    
     /**
      * @event selected_new.click-2x 

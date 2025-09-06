@@ -146,21 +146,16 @@ class dialog extends AbstractForm
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
     
+        $actorCharacterInfo = (new UICharacterInfo($this, $this->localization))->setName($this->gg_name);
+        $enemyCharacterInfo = (new UICharacterInfo($this, $this->localization))->setName($this->enemy_name);
+
+        $actorCharacterInfo->setActor();
+        $enemyCharacterInfo->setEnemy();
+        
         $roles = new UIRoles($this, $this->localization);
-    
-        $pidoData = $roles->pidoras($this->community_enemy);
-        $deData   = $roles->danilaEmoji($this->community_actor);
-    
-        $enemy_name = $this->preferValue(
-            $this->form('Client')->Pda->content->SDK_EnemyName,
-            'Enemy_Name'
-        );
-    
-        $actor_name = $this->preferValue(
-            $this->form('Client')->Pda->content->SDK_ActorName,
-            'GG_Name'
-        );
-    
+        $actorRoleData = $roles->danilaEmoji($this->community_actor);
+        $enemyRoleData = $roles->pidoras($this->community_enemy);        
+        
         $this->dialogSteps = [];
         $rounds = rand(5, 25);
         $voiceIndex = 0;
@@ -169,17 +164,16 @@ class dialog extends AbstractForm
         {
             $this->dialogSteps[] = [
                 'speaker' => 'enemy',
-                'name'    => $enemy_name,
-                'icon'    => $pidoData['icon'],
-                'color'   => $pidoData['color'],
-                'voice'   => ($voiceIndex < 4 ? $voiceIndex++ : null),
+                'name'    => $enemyCharacterInfo->name->text,
+                'icon'    => $enemyRoleData['icon'],
+                'color'   => $enemyRoleData['color'],
             ];
-    
+            
             $this->dialogSteps[] = [
                 'speaker' => 'player',
-                'name'    => $actor_name,
-                'icon'    => $deData['icon'],
-                'color'   => $deData['color'],
+                'name'    => $actorCharacterInfo->name->text,
+                'icon'    => $actorRoleData['icon'],
+                'color'   => $actorRoleData['color'],
             ];
         }
     
@@ -203,29 +197,21 @@ class dialog extends AbstractForm
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
     
-        $roles = new UIRoles($this, $this->localization);
+        $actorCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon_gg, $this->rank_actor, null, $this->community_actor, null, $this->gg_name);
+        $enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon_enemy, $this->rank_enemy, null, $this->community_enemy, null, $this->enemy_name);
+
+        $actorCharacterInfo->setActor();
+        $enemyCharacterInfo->setEnemy();
     
-        $pidoData = $roles->pidoras($this->community_enemy);
-        $deData   = $roles->danilaEmoji($this->community_actor);
+        $actorRoleData = (new UIRoles($this, $this->localization))->danilaEmoji($this->community_actor);
+        $enemyRoleData = (new UIRoles($this, $this->localization))->pidoras($this->community_enemy);
+        
+        $this->gg_name->textColor = $actorRoleData['color']; 
+        $this->enemy_name->textColor = $enemyRoleData['color'];    
     
-        $actor_icon = trim($this->form('Client')->Pda->content->SDK_ActorIcon);
-        $enemy_icon = trim($this->form('Client')->Pda->content->SDK_EnemyIcon);
-    
-        $this->icon_gg->image = new UXImage($actor_icon !== '' ? $actor_icon : 'res://.data/ui/icon_npc/actor.png');
-        $this->icon_enemy->image = new UXImage($enemy_icon !== '' ? $enemy_icon : 'res://.data/ui/icon_npc/goblindav.png');
-    
-        $actor_name = trim($this->form('Client')->Pda->content->SDK_ActorName);
-        $enemy_name = trim($this->form('Client')->Pda->content->SDK_EnemyName);
-    
-        $this->gg_name->text = $actor_name != '' ? $actor_name : $this->localization->get('GG_Name');
-        $this->gg_name->textColor = $deData['color'];
-    
-        $this->enemy_name->text = $enemy_name != '' ? $enemy_name : $this->localization->get('Enemy_Name');
-        $this->enemy_name->textColor = $pidoData['color'];
-    
-        $this->answer_name->text = $actor_name != '' ? $actor_name : $this->localization->get('GG_Name');
-        $this->answer_name->textColor = $deData['color'];
-        $this->answer_name->graphic = new UXImageView(new UXImage($deData['icon']));
+        $this->answer_name->text = $this->gg_name->text;
+        $this->answer_name->textColor = $actorRoleData['color'];
+        $this->answer_name->graphic = new UXImageView(new UXImage($actorRoleData['icon']));
     
         foreach ([$this->community_actor, $this->community_enemy] as $el)
         {
@@ -242,7 +228,6 @@ class dialog extends AbstractForm
             $g->width = $g->height = 24;
         }
     }
-
 
     function StopVoice()
     {

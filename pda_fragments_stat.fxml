@@ -17,8 +17,8 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-icon" image=".data/ui/icon_npc/actor.png" tooltipText="" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="160" layoutY="80" prefHeight="19.951171875" prefWidth="51.15966796875" styleClass="label " text="мастер" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <Data cursor="DEFAULT" enabled="1" id="data-icon" image=".data/ui/icon_npc/no_icon.png" tooltipText="" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank" layoutX="160" layoutY="80" prefHeight="19.951171875" prefWidth="51.15966796875" styleClass="label " text="rank" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
@@ -36,19 +36,19 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-community_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community" layoutX="160" layoutY="120" prefHeight="21" prefWidth="176" styleClass="label " text="Danila Emoji" textAlignment="LEFT" textFill="#cc8033" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community" layoutX="160" layoutY="120" prefHeight="21" prefWidth="176" styleClass="label " text="community" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/danila_emoji_role.png" id="data-community" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-community" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="reputation_desc" layoutX="160" layoutY="144" prefHeight="19.951171875" prefWidth="71.62353515625" styleClass="label " text="репутация" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-reputation_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="reputation" layoutX="160" layoutY="160" prefHeight="19.951171875" prefWidth="64.00634765625" styleClass="label " text="Отлично" textAlignment="LEFT" textFill="#669966" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="reputation" layoutX="160" layoutY="160" prefHeight="21" prefWidth="168" styleClass="label " text="reputation" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>

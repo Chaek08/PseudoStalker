@@ -27,17 +27,12 @@ class pda_fragments_stat extends AbstractForm
     
     function UpdateData()
     {
-        $actor_name = trim($this->form('Client')->Pda->content->SDK_ActorName);
-        $actor_icon = trim($this->form('Client')->Pda->content->SDK_ActorIcon);
-        
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
 
-        $this->tab_button->text = $actor_name !== '' ? $actor_name : $this->localization->get('GG_Name');
-        $this->icon->image = new UXImage($actor_icon !== '' ? $actor_icon : 'res://.data/ui/icon_npc/actor.png');
-         
-        $roles = new UIRoles($this, $this->localization);
-        $roles->danilaEmoji($this->community);
+        $charInfo = new UICharacterInfo($this, $this->localization, $this->icon, $this->rank, $this->null, $this->community, $this->null, $this->tab_button, $this->reputation);
+        $charInfo->setActor();
     }
+    
     /**
      * @event show 
      */

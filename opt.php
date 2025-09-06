@@ -546,10 +546,7 @@ class opt extends AbstractForm
         $this->form('Client')->Pda->content->Pda_Statistic->content->tab_final->text = $this->localization->get('Timeline_Tab');
         $this->form('Client')->Pda->content->Pda_Statistic->content->target_label->text = $this->localization->get('Target_Label');
 
-        $this->form('Client')->Dialog->content->answer_desc->text = $this->localization->get('Dialog_Actor_Desc1');
         $this->form('Client')->Dialog->content->rank_desc->text = $this->localization->get('Rank_Desc');
-        $this->form('Client')->Dialog->content->rank->text = $this->localization->get('Rank_Master');
-        $this->form('Client')->Dialog->content->labelAlt->text = $this->localization->get('Rank_Veterinarian');
         $this->form('Client')->Dialog->content->label->text = $this->localization->get('Rank_Desc');
         $this->form('Client')->Dialog->content->community_desc->text = $this->localization->get('Group_Label');
         $this->form('Client')->Dialog->content->label3->text = $this->localization->get('Group_Label');
