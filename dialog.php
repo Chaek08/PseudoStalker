@@ -144,6 +144,8 @@ class dialog extends AbstractForm
     
     function StartDialog()
     {
+        $this->ClearDialog();
+    
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
     
         $actorCharacterInfo = (new UICharacterInfo($this, $this->localization))->setName($this->gg_name);

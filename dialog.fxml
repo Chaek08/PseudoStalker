@@ -113,7 +113,5 @@
     <Data cursor="DEFAULT" enabled="1" id="data-Dialog_Kunteynir" visible="1"/>
     <Separator focusTraversable="false" id="separator" layoutX="440" layoutY="760" opacity="0.05" orientation="HORIZONTAL" prefHeight="8" prefWidth="720" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
-    <Separator focusTraversable="false" id="separatorAlt" layoutX="1632" layoutY="784" opacity="0.05" orientation="HORIZONTAL" prefHeight="8" prefWidth="736" styleClass="separator "/>
-    <Data cursor="DEFAULT" enabled="1" id="data-separatorAlt" visible="1"/>
   </children>
 </AnchorPane>
