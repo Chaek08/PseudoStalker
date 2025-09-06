@@ -113,11 +113,10 @@ class dialog extends AbstractForm
         (new Thread(function () use ($block) { //ёбанные в жопу потоки, ёбанный в жопу скролл, дима зайцев гондурас
             for ($i = 0; $i < 3; $i++)
             {
-                try { usleep(50000); } catch (\Throwable $e) { }
-                uiLater(function () use ($block)
-                {
-                    try { $this->Dialog_Kunteynir->scrollToNode($block); } catch (\Throwable $e) {}
-                    try { $this->Dialog_Kunteynir->vvalue = 1;} catch (\Throwable $e) {}
+                usleep(50000);
+                uiLater(function () use ($block) {
+                    $this->Dialog_Kunteynir->scrollToNode($block);
+                    $this->Dialog_Kunteynir->vvalue = 1;
                 });
             }
         }))->start();
