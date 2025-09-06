@@ -140,8 +140,10 @@ class pda_fragment_ranking extends AbstractForm
         $this->attitude->hide(); 
         $this->bio->hide();         
         $this->separator->hide(); 
-        $this->user_icon->hide();       
-        $this->user_icon->image = new UXImage('res://.data/ui/icon_npc/no_icon.png'); 
+        $this->user_icon->hide();   
+            
+        $charInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio);
+        $charInfo->reset();
         
         if ($this->death_filter->visible) $this->death_filter->hide();
     }
