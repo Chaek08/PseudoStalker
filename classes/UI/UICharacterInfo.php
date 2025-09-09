@@ -1,9 +1,8 @@
 <?php
 namespace app\forms\classes\UI;
 
+use php\framework\Logger;
 use php\gui\UXImage;
-use php\gui\UXImageView;
-use php\gui\UXLabel;
 use app\forms\classes\UI\UIRoles;
 use app\forms\classes\Localization;
 
@@ -20,6 +19,8 @@ class UICharacterInfo
     public $bio;
     public $name;
     public $reputation;
+
+    private $character; // actor | valerok | enemy
 
     public function __construct(
         $form,
@@ -43,6 +44,18 @@ class UICharacterInfo
         $this->bio = $bio;
         $this->name = $name;
         $this->reputation = $reputation;
+
+        foreach (['Actor', 'Valerok', 'Enemy'] as $who)
+        {
+            if (!isset($GLOBALS[$who . 'RankValue']))
+            {
+                $GLOBALS[$who . 'RankValue'] = 0;
+            }
+            if (!isset($GLOBALS[$who . 'BaseRankValue']))
+            {
+                $GLOBALS[$who . 'BaseRankValue'] = 0;
+            }
+        }
     }
     
     public function setIcon($icon) { $this->icon = $icon; return $this; }
@@ -53,11 +66,66 @@ class UICharacterInfo
     public function setName($name) { $this->name = $name; return $this; }
     public function setReputation($reputation) { $this->reputation = $reputation; return $this; }    
 
+    public function addRank(int $value) { return $this->setRankValue($this->getRankValue() + $value); }
+    public function removeRank(int $value) { return $this->setRankValue($this->getRankValue() - $value); }
+    public function resetRank() { return $this->setRankValue($this->getBaseRankValue()); }
+
+    public function setRankValue(int $value, bool $isBase = false)
+    {
+        if (!$this->character) return $this;
+
+        $prefix = ucfirst($this->character);
+        $GLOBALS[$prefix . 'RankValue'] = $value;
+
+        if ($isBase)
+        {
+            $GLOBALS[$prefix . 'BaseRankValue'] = $value;
+        }
+
+        if ($this->rank)
+        {
+            $this->rank->text = $this->getRankByValue($value);
+        }
+
+        return $this;
+    }
+
+    public function getRankValue(): int
+    {
+        if (!$this->character) return 0;
+        return $GLOBALS[ucfirst($this->character) . 'RankValue'];
+    }
+
+    public function getBaseRankValue(): int
+    {
+        if (!$this->character) return 0;
+        return $GLOBALS[ucfirst($this->character) . 'BaseRankValue'];
+    }
+
+    private function getRankByValue(int $value): string
+    {
+        if ($value >= 900) return $this->localization->get('Rank_Master');
+        elseif ($value >= 600) return $this->localization->get('Rank_Veterinarian');
+        elseif ($value >= 300) return $this->localization->get('Rank_Experienced');
+        elseif ($value >= 100) return $this->localization->get('Rank_Novice');
+        else return;
+    }
+
     public function setEnemy()
     {
-        if ($this->community) $this->roles->pidoras($this->community);
+        $this->character = 'enemy';
 
-        if ($this->rank) $this->rank->text = $this->localization->get('Rank_Veterinarian');
+        if ($this->community) $this->roles->pidoras($this->community);
+        
+        if (!isset($GLOBALS['EnemyRankValue']) || $GLOBALS['EnemyRankValue'] === 0)
+        {
+            $this->setRankValue(666, true);
+        }
+        else
+        {
+            $this->setRankValue($GLOBALS['EnemyRankValue']);
+        }
+
         if ($this->relationship)
         {
             $this->relationship->text = $this->localization->get('Relationship_Enemy');
@@ -77,9 +145,19 @@ class UICharacterInfo
 
     public function setValerok()
     {
-        if ($this->community) $this->roles->ladcega($this->community);
+        $this->character = 'valerok';
 
-        if ($this->rank) $this->rank->text = $this->localization->get('Rank_Master');
+        if ($this->community) $this->roles->ladcega($this->community);
+        
+        if (!isset($GLOBALS['ValerokRankValue']) || $GLOBALS['ValerokRankValue'] === 0)
+        {
+            $this->setRankValue(777, true);
+        }
+        else
+        {
+            $this->setRankValue($GLOBALS['ValerokRankValue']);
+        }
+
         if ($this->relationship)
         {
             $this->relationship->text = $this->localization->get('Relationship_Friend');
@@ -99,9 +177,19 @@ class UICharacterInfo
 
     public function setActor()
     {
-        if ($this->community) $this->roles->danilaEmoji($this->community);
+        $this->character = 'actor';
 
-        if ($this->rank) $this->rank->text = $this->localization->get('Rank_Master');
+        if ($this->community) $this->roles->danilaEmoji($this->community);
+        
+        if (!isset($GLOBALS['ActorRankValue']) || $GLOBALS['ActorRankValue'] === 0)
+        {
+            $this->setRankValue(152, true);
+        }
+        else
+        {
+            $this->setRankValue($GLOBALS['ActorRankValue']);
+        }
+
         if ($this->relationship) $this->relationship->visible = false;
 
         $namePath = trim($this->form->form('Client')->Pda->content->SDK_ActorName);
@@ -121,7 +209,10 @@ class UICharacterInfo
         {
             if ($this->$prop) $this->$prop->text = null;
         }
+
         if ($this->relationship) $this->relationship->visible = true;
         if ($this->icon) $this->icon->image = new UXImage('res://.data/ui/icon_npc/no_icon.png');
+
+        $this->setRankValue($this->getBaseRankValue());
     }
 }

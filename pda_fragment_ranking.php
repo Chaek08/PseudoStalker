@@ -12,6 +12,10 @@ use app\forms\classes\Localization;
 class pda_fragment_ranking extends AbstractForm
 {
     private $localization;
+    
+    private $actorCharacterInfo;
+    private $enemyCharacterInfo; 
+    public $valerokCharacterInfo;      
 
     public function __construct() 
     {
@@ -19,9 +23,21 @@ class pda_fragment_ranking extends AbstractForm
 
         $this->localization = new Localization($language);
         
+        uiLater(function() {
+            $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
+            
+            $this->actorCharacterInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio);
+            $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio);
+            $this->valerokCharacterInfo =  new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio);
+    
+            $this->actorCharacterInfo->setActor();
+            $this->enemyCharacterInfo->setEnemy();
+            $this->valerokCharacterInfo->setValerok();            
+        });     
+        
         $GLOBALS['SelectedActor'] = false;
         $GLOBALS['SelectedEnemy'] = false;
-        $GLOBALS['SelectedValera'] = false;
+        $GLOBALS['SelectedValera'] = false;        
         
         $groups = [
             'actor_in_raiting' => [
@@ -114,15 +130,9 @@ class pda_fragment_ranking extends AbstractForm
     
     function UpdateData()
     {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
-        
-        $actorInfo = (new UICharacterInfo($this, $this->localization))->setName($this->actor_in_raiting_name);
-        $enemyInfo = (new UICharacterInfo($this, $this->localization))->setName($this->goblindav_in_raiting_name);
-        $valerokInfo = (new UICharacterInfo($this, $this->localization))->setName($this->valerok_in_raiting_name);
-
-        $actorInfo->setActor();
-        $enemyInfo->setEnemy();
-        $valerokInfo->setValerok();
+        $this->actor_in_raiting_rank->text = $this->actorCharacterInfo->getRankValue();
+        $this->goblindav_in_raiting_rank->text = $this->enemyCharacterInfo->getRankValue();
+        $this->valerok_in_raiting_rank->text = $this->valerokCharacterInfo->getRankValue();
     }
     
     function ResetUserInfo()
@@ -142,9 +152,10 @@ class pda_fragment_ranking extends AbstractForm
         $this->separator->hide(); 
         $this->user_icon->hide();   
             
-        $charInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio);
-        $charInfo->reset();
-        
+        //$this->actorCharacterInfo->reset();
+        //$this->enemyCharacterInfo->reset();
+        //$this->valerokCharacterInfo->reset();
+               
         if ($this->death_filter->visible) $this->death_filter->hide();
     }
     function ShowUserInfo()
@@ -270,23 +281,21 @@ class pda_fragment_ranking extends AbstractForm
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
-        $charInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio);
-        
         $this->DeathFilter();
         
         if ($GLOBALS['SelectedEnemy'])
         {
-            $charInfo->setEnemy();
+            $this->enemyCharacterInfo->setEnemy();
         }
         elseif ($GLOBALS['SelectedValera'])
         {
-            $charInfo->setValerok();
+            $this->valerokCharacterInfo->setValerok();
         }
         elseif ($GLOBALS['SelectedActor'])
         {
             $this->attitude->hide();
             $this->relationship->hide();
-            $charInfo->setActor();
+            $this->actorCharacterInfo->setActor();
         }
     }
 }

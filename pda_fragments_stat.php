@@ -12,26 +12,39 @@ use app\forms\classes\Localization;
 class pda_fragments_stat extends AbstractForm
 {
     private $localization;
-
+    
+    private $actorCharacterInfo;
+    private $enemyCharacterInfo;
+    
     public function __construct() 
     {
         parent::__construct();
 
         $this->localization = new Localization($language);
+        
+        uiLater(function () {
+            $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+            
+            $this->actorCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon, $this->rank, $this->null, $this->community, $this->null, $this->tab_button, $this->reputation); 
+            $this->actorCharacterInfo->setActor();
+                    
+            $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon_enemy, $this->rank_enemy, null, $this->community_enemy, null, $this->enemy_name);
+            $this->enemyCharacterInfo->setEnemy();
+        });
     }
-    
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }    
     
     function UpdateData()
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
-
-        $charInfo = new UICharacterInfo($this, $this->localization, $this->icon, $this->rank, $this->null, $this->community, $this->null, $this->tab_button, $this->reputation);
-        $charInfo->setActor();
+    
+        $this->actorCharacterInfo->setActor();
+        $this->enemyCharacterInfo->setEnemy();
     }
+        
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }    
     
     /**
      * @event show 
@@ -61,19 +74,25 @@ class pda_fragments_stat extends AbstractForm
     {
         if ($GLOBALS['EnemyFailed'])
         {
-            $this->statistic_num->text = "10021\n1000\n1\n\n11022";  
-            $this->form('Client')->Pda->content->Pda_Ranking->content->actor_in_raiting_rank->text = "11022";                           
+            //$this->statistic_num->text = "10021\n1000\n1\n\n11022";  
+            
+            $this->actorCharacterInfo->addRank(1500); 
+            $this->form('Client')->Pda->content->Pda_Ranking->content->actor_in_raiting_rank->text = $this->actorCharacterInfo->getRankValue();     
         }
         if ($GLOBALS['ActorFailed'])
         {
-            $this->form('Client')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_rank->text = "301";
+            $this->enemyCharacterInfo->addRank(1000);
+            $this->form('Client')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_rank->text = $this->enemyCharacterInfo->getRankValue();
         }
         if (!$GLOBALS['QuestCompleted'])
         {
             $this->InitRaiting();
             
-            $this->form('Client')->Pda->content->Pda_Ranking->content->actor_in_raiting_rank->text = "10699";
-            $this->form('Client')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_rank->text = "228";           
+            $this->actorCharacterInfo->resetRank();
+            $this->enemyCharacterInfo->resetRank();            
+            
+            $this->form('Client')->Pda->content->Pda_Ranking->content->actor_in_raiting_rank->text = $this->actorCharacterInfo->getRankValue();
+            $this->form('Client')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_rank->text = $this->enemyCharacterInfo->getRankValue();
         }
     }
     function UpdateFinalLabel()

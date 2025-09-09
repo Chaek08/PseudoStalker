@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\UI\UICharacterInfo;
 use Throwable;
 use php\gui\UXImageView;
 use php\gui\UXImage;
@@ -11,6 +12,9 @@ use php\gui\event\UXMouseEvent;
 class dialog extends AbstractForm
 {
     private $localization;
+    
+    private $actorCharacterInfo;
+    private $enemyCharacterInfo;    
     
     public $answerStep = 0;    
     
@@ -31,6 +35,14 @@ class dialog extends AbstractForm
         parent::__construct();
 
         $this->localization = new Localization($language);
+        
+        uiLater(function(){
+            $this->actorCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon_gg, $this->rank_actor, null, $this->community_actor, null, $this->gg_name);
+            $this->actorCharacterInfo->setActor();
+            
+            $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon_enemy, $this->rank_enemy, null, $this->community_enemy, null, $this->enemy_name);
+            $this->enemyCharacterInfo->setEnemy();    
+        });    
     }
     
     function getCurrentLanguageFromUI()
@@ -146,12 +158,6 @@ class dialog extends AbstractForm
         $this->ClearDialog();
     
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-    
-        $actorCharacterInfo = (new UICharacterInfo($this, $this->localization))->setName($this->gg_name);
-        $enemyCharacterInfo = (new UICharacterInfo($this, $this->localization))->setName($this->enemy_name);
-
-        $actorCharacterInfo->setActor();
-        $enemyCharacterInfo->setEnemy();
         
         $roles = new UIRoles($this, $this->localization);
         $actorRoleData = $roles->danilaEmoji($this->community_actor);
@@ -165,14 +171,14 @@ class dialog extends AbstractForm
         {
             $this->dialogSteps[] = [
                 'speaker' => 'enemy',
-                'name'    => $enemyCharacterInfo->name->text,
+                'name'    => $this->enemyCharacterInfo->name->text,
                 'icon'    => $enemyRoleData['icon'],
                 'color'   => $enemyRoleData['color'],
             ];
             
             $this->dialogSteps[] = [
                 'speaker' => 'player',
-                'name'    => $actorCharacterInfo->name->text,
+                'name'    => $this->actorCharacterInfo->name->text,
                 'icon'    => $actorRoleData['icon'],
                 'color'   => $actorRoleData['color'],
             ];
@@ -197,12 +203,6 @@ class dialog extends AbstractForm
     function UpdateData()
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-    
-        $actorCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon_gg, $this->rank_actor, null, $this->community_actor, null, $this->gg_name);
-        $enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon_enemy, $this->rank_enemy, null, $this->community_enemy, null, $this->enemy_name);
-
-        $actorCharacterInfo->setActor();
-        $enemyCharacterInfo->setEnemy();
     
         $actorRoleData = (new UIRoles($this, $this->localization))->danilaEmoji($this->community_actor);
         $enemyRoleData = (new UIRoles($this, $this->localization))->pidoras($this->community_enemy);
@@ -365,6 +365,8 @@ class dialog extends AbstractForm
         {
             $this->form('Client')->MainGame->content->PlayFightSong();
         }
+            
+        $this->actorCharacterInfo->addRank(45);
             
         $this->form('Client')->Pda->content->Pda_Tasks->content->Step1_Complete();
 

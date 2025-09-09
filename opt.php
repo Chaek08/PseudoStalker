@@ -513,15 +513,10 @@ class opt extends AbstractForm
         $this->form('Client')->Pda->content->Pda_Tasks->content->failed_task->text = $this->localization->get('FailedTasks_Label');
         $this->form('Client')->Pda->content->Pda_Tasks->content->tab_button->text = $this->localization->get('Tasks_Label');
 
-        $this->form('Client')->Pda->content->Pda_Contacts->content->name->text = $this->localization->get('Contact_Goblin');
         $this->form('Client')->Pda->content->Pda_Contacts->content->community_desc->text = $this->localization->get('Group_Label');
         $this->form('Client')->Pda->content->Pda_Contacts->content->reputation_desc->text = $this->localization->get('Reputation_Desc');
-        $this->form('Client')->Pda->content->Pda_Contacts->content->reputation->text = $this->localization->get('Reputation_Bad');
         $this->form('Client')->Pda->content->Pda_Contacts->content->relationship_desc->text = $this->localization->get('Attitude_Label');
-        $this->form('Client')->Pda->content->Pda_Contacts->content->relationship->text = $this->localization->get('Relationship_Enemy');
         $this->form('Client')->Pda->content->Pda_Contacts->content->rank_desc->text = $this->localization->get('Rank_Desc');
-        $this->form('Client')->Pda->content->Pda_Contacts->content->rank->text = $this->localization->get('Rank_Veterinarian');
-        $this->form('Client')->Pda->content->Pda_Contacts->content->bio->text = $this->localization->get('GoblindaV_Bio');
         $this->form('Client')->Pda->content->Pda_Contacts->content->tab_button->text = $this->localization->get('Contacts_Label');
         
         $this->form('Client')->Pda->content->Pda_Ranking->content->name_label->text = $this->localization->get('Name_Label');
@@ -529,19 +524,13 @@ class opt extends AbstractForm
         $this->form('Client')->Pda->content->Pda_Ranking->content->rank_desc->text = $this->localization->get('Rank_Desc');
         $this->form('Client')->Pda->content->Pda_Ranking->content->community_desc->text = $this->localization->get('Group_Label');
         $this->form('Client')->Pda->content->Pda_Ranking->content->attitude->text = $this->localization->get('Attitude_Label');
-        $this->form('Client')->Pda->content->Pda_Ranking->content->actor_in_raiting_name->text = $this->localization->get('GG_Name');
-        $this->form('Client')->Pda->content->Pda_Ranking->content->valerok_in_raiting_name->text = $this->localization->get('Ranking_Valerok');
-        $this->form('Client')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_name->text = $this->localization->get('Enemy_Name');
         $this->form('Client')->Pda->content->Pda_Ranking->content->tab_button->text = $this->localization->get('Ranks_Label');
     
-        $this->form('Client')->Pda->content->Pda_Statistic->content->tab_button->text = $this->localization->get('GG_Name');
         $this->form('Client')->Pda->content->Pda_Statistic->content->Statistic_Label->text = $this->localization->get('Statistic_Label');
         $this->form('Client')->Pda->content->Pda_Statistic->content->statistic->text = $this->localization->get('Statistic_Details');
         $this->form('Client')->Pda->content->Pda_Statistic->content->rank_desc->text = $this->localization->get('Rank_Desc');
-        $this->form('Client')->Pda->content->Pda_Statistic->content->rank->text = $this->localization->get('Rank_Master');
         $this->form('Client')->Pda->content->Pda_Statistic->content->community_desc->text = $this->localization->get('Group_Label');
         $this->form('Client')->Pda->content->Pda_Statistic->content->reputation_desc->text = $this->localization->get('Reputation_Desc');
-        $this->form('Client')->Pda->content->Pda_Statistic->content->reputation->text = $this->localization->get('Statistic_Reputation_Excellent');
         $this->form('Client')->Pda->content->Pda_Statistic->content->buttonAlt->text = $this->localization->get('Info_Button');
         $this->form('Client')->Pda->content->Pda_Statistic->content->tab_final->text = $this->localization->get('Timeline_Tab');
         $this->form('Client')->Pda->content->Pda_Statistic->content->target_label->text = $this->localization->get('Target_Label');

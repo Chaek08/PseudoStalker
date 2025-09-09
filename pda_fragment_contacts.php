@@ -10,6 +10,8 @@ use php\gui\event\UXWindowEvent;
 class pda_fragment_contacts extends AbstractForm
 {
     private $localization;
+    
+    private $enemyCharacterInfo;     
 
     public function __construct() 
     {
@@ -27,8 +29,8 @@ class pda_fragment_contacts extends AbstractForm
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         
-        $charInfo = new UICharacterInfo($this, $this->localization, $this->icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->name, $this->reputation);
-        $charInfo->setEnemy();
+        $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->name, $this->reputation);
+        $this->enemyCharacterInfo->setEnemy();
     }    
     /**
      * @event selected_new.click-2x 
