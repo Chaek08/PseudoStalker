@@ -1,5 +1,6 @@
 <?php
 namespace app\forms;
+use app\forms\classes\UI\RatingManager;
 use app\forms\classes\UI\UIRoles;
 use php\gui\UXImage;
 use php\gui\UXImageView;
@@ -51,7 +52,8 @@ class pda_fragments_stat extends AbstractForm
      */
     function InitRaiting(UXWindowEvent $e = null)
     {    
-        $this->statistic_num->text = "9700\n999\n0\n\n10699";
+        //$this->statistic_num->text = "9700\n999\n0\n\n10699";
+        //todo: общий рейтинг с использованием RatingManager
     }
     /**
      * @event icon.click-2x 
@@ -63,11 +65,10 @@ class pda_fragments_stat extends AbstractForm
     
         $this->form('Client')->Pda->content->RankingBtn();
         
-        $this->form('Client')->Pda->content->Pda_Ranking->content->ResetBtnColor();
-        foreach (['actor_in_raiting_pos', 'actor_in_raiting_name', 'actor_in_raiting_rank'] as $labelName)
-        {
-            $this->form('Client')->Pda->content->Pda_Ranking->content->{$labelName}->textColor = '#cccccc';
-        }
+        $this->form('Client')->Pda->content->Pda_Ranking->content->ratingHueta->clickEntry(
+            $this->form('Client')->Pda->content->Pda_Ranking->content->actorCharacterInfo->name
+        );
+
         $this->form('Client')->Pda->content->Pda_Ranking->content->ActorInListBtn();
     }
     function UpdateRaiting()
@@ -77,12 +78,12 @@ class pda_fragments_stat extends AbstractForm
             //$this->statistic_num->text = "10021\n1000\n1\n\n11022";  
             
             $this->actorCharacterInfo->addRank(1500); 
-            $this->form('Client')->Pda->content->Pda_Ranking->content->actor_in_raiting_rank->text = $this->actorCharacterInfo->getRankValue();     
+            $this->form('Client')->Pda->content->Pda_Ranking->content->UpdateData();    
         }
         if ($GLOBALS['ActorFailed'])
         {
-            $this->enemyCharacterInfo->addRank(1000);
-            $this->form('Client')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_rank->text = $this->enemyCharacterInfo->getRankValue();
+            $this->enemyCharacterInfo->addRank(1200);
+            $this->form('Client')->Pda->content->Pda_Ranking->content->UpdateData();
         }
         if (!$GLOBALS['QuestCompleted'])
         {
@@ -91,8 +92,7 @@ class pda_fragments_stat extends AbstractForm
             $this->actorCharacterInfo->resetRank();
             $this->enemyCharacterInfo->resetRank();            
             
-            $this->form('Client')->Pda->content->Pda_Ranking->content->actor_in_raiting_rank->text = $this->actorCharacterInfo->getRankValue();
-            $this->form('Client')->Pda->content->Pda_Ranking->content->goblindav_in_raiting_rank->text = $this->enemyCharacterInfo->getRankValue();
+            $this->form('Client')->Pda->content->Pda_Ranking->content->UpdateData();
         }
     }
     function UpdateFinalLabel()

@@ -13,10 +13,16 @@ class pda_fragment_ranking extends AbstractForm
 {
     private $localization;
     
-    private $actorCharacterInfo;
-    private $enemyCharacterInfo; 
-    public $valerokCharacterInfo;      
-
+    public $actorCharacterInfo;
+    public $enemyCharacterInfo; 
+    public $valerokCharacterInfo;
+    
+    public $actorCharacterName;
+    public $enemyCharacterName;
+    public $valerokCharacterName;
+    
+    public $ratingHueta;
+        
     public function __construct() 
     {
         parent::__construct();
@@ -26,101 +32,44 @@ class pda_fragment_ranking extends AbstractForm
         uiLater(function() {
             $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
             
-            $this->actorCharacterInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio);
-            $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio);
-            $this->valerokCharacterInfo =  new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio);
+            $this->actorCharacterInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->actorCharacterName);
+            $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->enemyCharacterName);
+            $this->valerokCharacterInfo =  new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->valeroCharacterName);
     
             $this->actorCharacterInfo->setActor();
             $this->enemyCharacterInfo->setEnemy();
-            $this->valerokCharacterInfo->setValerok();            
-        });     
+            $this->valerokCharacterInfo->setValerok();
+            
+            $this->ratingHueta = new RatingManager();
+            
+            if (Debug_Build) for($i=0;$i<27;$i++) $this->ratingHueta->setEntry(substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,rand(6,12)),rand(100,1000));       
+                                            
+            $this->ratingHueta->setEntry($this->actorCharacterInfo->name, $this->actorCharacterInfo->getRankValue());
+            $this->ratingHueta->setEntry($this->enemyCharacterInfo->name, $this->enemyCharacterInfo->getRankValue());
+            $this->ratingHueta->setEntry($this->valerokCharacterInfo->name, $this->valerokCharacterInfo->getRankValue());
+            
+            $this->ratingHueta->render($this->ratingKunteynir);
+                    
+            $this->ratingHueta->onClick($this->actorCharacterInfo->name, function($entry) {
+                $this->ActorInListBtn();
+            });
+            
+            $this->ratingHueta->onClick($this->enemyCharacterInfo->name, function($entry) {
+                $this->EnemyInListBtn();
+            });
+            
+            $this->ratingHueta->onClick($this->valerokCharacterInfo->name, function($entry) {
+                $this->ValerokInListBtn();
+            });
+            
+            $this->ratingHueta->onBackgroundClick = function() {
+                $this->HideUserInfo();
+            };
+        });  
         
         $GLOBALS['SelectedActor'] = false;
         $GLOBALS['SelectedEnemy'] = false;
-        $GLOBALS['SelectedValera'] = false;        
-        
-        $groups = [
-            'actor_in_raiting' => [
-                'actor_in_raiting_pos',
-                'actor_in_raiting_name',
-                'actor_in_raiting_rank'
-            ],
-            'valerok_in_raiting' => [
-                'valerok_in_raiting_pos',
-                'valerok_in_raiting_name',
-                'valerok_in_raiting_rank'
-            ],
-            'goblindav_in_raiting' => [
-                'goblindav_in_raiting_pos',
-                'goblindav_in_raiting_name',
-                'goblindav_in_raiting_rank'
-            ]
-        ];
-
-        $this->activeRatingGroup = null;
-
-        foreach ($groups as $groupName => $labels)
-        {
-            $group = $this->{$groupName};
-
-            $group->on("mouseEnter", function($e) use ($labels) {
-                foreach ($labels as $labelName)
-                {
-                    $label = $this->{$labelName};
-                    if ($label->textColor != "#cccccc")
-                    {
-                        $label->textColor = "#ffffff";
-                    }
-                }
-            });
-
-            $group->on("mouseExit", function($e) use ($labels) {
-                foreach ($labels as $labelName) {
-                    $label = $this->{$labelName};
-                    if ($label->textColor != "#cccccc")
-                    {    
-                        $label->textColor = "#999999";
-                    }
-                }
-            });
-
-            $group->on("mouseDown", function($e) use ($groupName) {
-                $this->activeRatingGroup = $groupName;
-            });
-        }
-
-        $this->on("mouseUp", function($e) use ($groups) {
-            if ($this->activeRatingGroup != null)
-            {
-                $groupName = $this->activeRatingGroup;
-                $group = $this->{$groupName};
-
-                if ($group->hover)
-                {
-                    $this->ResetBtnColor(); // вот здесь вызываем
-
-                    foreach ($groups[$groupName] as $labelName)
-                    {
-                        $this->{$labelName}->textColor = "#cccccc";
-                    }
-
-                    switch ($groupName)
-                    {
-                        case 'actor_in_raiting':
-                            $this->ActorInListBtn();
-                            break;
-                        case 'valerok_in_raiting':
-                            $this->ValerokInListBtn();
-                            break;
-                        case 'goblindav_in_raiting':
-                            $this->EnemyInListBtn();
-                            break;
-                    }
-                }
-
-                $this->activeRatingGroup = null;
-            }
-        });
+        $GLOBALS['SelectedValera'] = false;
     }
     
     function getCurrentLanguageFromUI()
@@ -130,9 +79,11 @@ class pda_fragment_ranking extends AbstractForm
     
     function UpdateData()
     {
-        $this->actor_in_raiting_rank->text = $this->actorCharacterInfo->getRankValue();
-        $this->goblindav_in_raiting_rank->text = $this->enemyCharacterInfo->getRankValue();
-        $this->valerok_in_raiting_rank->text = $this->valerokCharacterInfo->getRankValue();
+        $this->ratingHueta->setEntry($this->actorCharacterInfo->name, $this->actorCharacterInfo->getRankValue());
+        $this->ratingHueta->setEntry($this->enemyCharacterInfo->name, $this->enemyCharacterInfo->getRankValue());
+        $this->ratingHueta->setEntry($this->valerokCharacterInfo->name, $this->valerokCharacterInfo->getRankValue());
+        
+        $this->ratingHueta->render($this->ratingKunteynir);
     }
     
     function ResetUserInfo()
@@ -151,10 +102,6 @@ class pda_fragment_ranking extends AbstractForm
         $this->bio->hide();         
         $this->separator->hide(); 
         $this->user_icon->hide();   
-            
-        //$this->actorCharacterInfo->reset();
-        //$this->enemyCharacterInfo->reset();
-        //$this->valerokCharacterInfo->reset();
                
         if ($this->death_filter->visible) $this->death_filter->hide();
     }
@@ -184,17 +131,7 @@ class pda_fragment_ranking extends AbstractForm
     }
     function ResetBtnColor()
     {
-        $this->actor_in_raiting_pos->textColor = '#999999';
-        $this->actor_in_raiting_name->textColor = '#999999';
-        $this->actor_in_raiting_rank->textColor = '#999999';
-        
-        $this->valerok_in_raiting_pos->textColor = '#999999';
-        $this->valerok_in_raiting_name->textColor = '#999999';
-        $this->valerok_in_raiting_rank->textColor = '#999999';
-        
-        $this->goblindav_in_raiting_pos->textColor = '#999999';
-        $this->goblindav_in_raiting_name->textColor = '#999999';
-        $this->goblindav_in_raiting_rank->textColor = '#999999';
+        $this->ratingHueta->resetColors();
     }
     function DeathFilter() // Cake-crypto
     { 
@@ -216,9 +153,7 @@ class pda_fragment_ranking extends AbstractForm
             $this->death_filter->hide();
         }
     }
-    /**
-     * @event actor_in_raiting.click-Left 
-     */
+
     function ActorInListBtn(UXMouseEvent $e = null)
     {    
         $this->ResetUserInfo();
@@ -227,9 +162,7 @@ class pda_fragment_ranking extends AbstractForm
         $GLOBALS['SelectedActor'] = true;
         $this->SetUserInfo();
     }
-    /**
-     * @event valerok_in_raiting.click-Left 
-     */
+
     function ValerokInListBtn(UXMouseEvent $e = null)
     {    
         $this->ResetUserInfo();
@@ -238,9 +171,7 @@ class pda_fragment_ranking extends AbstractForm
         $GLOBALS['SelectedValera'] = true;
         $this->SetUserInfo();
     }
-    /**
-     * @event goblindav_in_raiting.click-Left 
-     */
+
     function EnemyInListBtn(UXMouseEvent $e = null)
     {    
         $this->ResetUserInfo();

@@ -203,6 +203,9 @@ class dialog extends AbstractForm
     function UpdateData()
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+        
+        $this->actorCharacterInfo->setActor();
+        $this->enemyCharacterInfo->setEnemy();
     
         $actorRoleData = (new UIRoles($this, $this->localization))->danilaEmoji($this->community_actor);
         $enemyRoleData = (new UIRoles($this, $this->localization))->pidoras($this->community_enemy);

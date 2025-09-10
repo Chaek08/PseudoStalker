@@ -60,7 +60,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-statistic" visible="1"/>
-    <LabelEx alignment="TOP_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic_num" layoutX="200" layoutY="256" prefHeight="216" prefWidth="128" styleClass="label " text="9700&#10;999&#10;0&#10;&#10;10699" textAlignment="RIGHT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="TOP_RIGHT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="statistic_num" layoutX="200" layoutY="256" prefHeight="216" prefWidth="128" styleClass="label " text="-&#10;-&#10;-&#10;&#10;-" textAlignment="RIGHT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Bold" size="15"/>
       </font>

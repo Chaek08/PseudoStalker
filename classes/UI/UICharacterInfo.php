@@ -1,6 +1,7 @@
 <?php
 namespace app\forms\classes\UI;
 
+use Throwable;
 use php\framework\Logger;
 use php\gui\UXImage;
 use app\forms\classes\UI\UIRoles;
@@ -57,7 +58,7 @@ class UICharacterInfo
             }
         }
     }
-    
+         
     public function setIcon($icon) { $this->icon = $icon; return $this; }
     public function setRank($rank) { $this->rank = $rank; return $this; }
     public function setRelationship($relationship) { $this->relationship = $relationship; return $this; }
@@ -114,9 +115,9 @@ class UICharacterInfo
     public function setEnemy()
     {
         $this->character = 'enemy';
-
+    
         if ($this->community) $this->roles->pidoras($this->community);
-        
+    
         if (!isset($GLOBALS['EnemyRankValue']) || $GLOBALS['EnemyRankValue'] === 0)
         {
             $this->setRankValue(666, true);
@@ -125,30 +126,55 @@ class UICharacterInfo
         {
             $this->setRankValue($GLOBALS['EnemyRankValue']);
         }
-
+    
         if ($this->relationship)
         {
             $this->relationship->text = $this->localization->get('Relationship_Enemy');
             $this->relationship->textColor = '#cc3333';
         }
-
-        $namePath = trim($this->form->form('Client')->Pda->content->SDK_EnemyName);
-        $iconPath = trim($this->form->form('Client')->Pda->content->SDK_EnemyIcon);
-        $bioPath  = trim($this->form->form('Client')->Pda->content->SDK_EnemyBio);
+    
+        $namePath       = trim($this->form->form('Client')->Pda->content->SDK_EnemyName);
+        $iconPath       = trim($this->form->form('Client')->Pda->content->SDK_EnemyIcon);
+        $bioPath        = trim($this->form->form('Client')->Pda->content->SDK_EnemyBio);
         $reputationPath = trim($this->form->form('Client')->Pda->content->SDK_EnemyReputation);
-
-        if ($this->name) $this->name->text = $namePath ?: $this->localization->get('Enemy_Name');
-        if ($this->icon) $this->icon->image = new UXImage($iconPath ?: 'res://.data/ui/icon_npc/icon_petyx.png');
-        if ($this->bio) $this->bio->text = $bioPath ?: $this->localization->get('GoblindaV_Bio');
-        if ($this->reputation) $this->reputation->text = $reputationPath ?: $this->localization->get('Enemy_Reputation_Default');
+    
+        $nameText = $namePath !== '' ? $namePath : $this->localization->get('Enemy_Name');
+        $bioText  = $bioPath  !== '' ? $bioPath  : $this->localization->get('GoblindaV_Bio');
+        $repText  = $reputationPath !== '' ? $reputationPath : $this->localization->get('Enemy_Reputation_Default');
+        $iconImage = new UXImage($iconPath !== '' ? $iconPath : 'res://.data/ui/icon_npc/icon_petyx.png');
+    
+        if (is_object($this->name)) {
+            $this->name->text = $nameText;
+        } else {
+            $this->name = $nameText;
+        }
+    
+        if (is_object($this->bio)) {
+            $this->bio->text = $bioText;
+        } else {
+            $this->bio = $bioText;
+        }
+    
+        if (is_object($this->reputation)) {
+            $this->reputation->text = $repText;
+        } else {
+            $this->reputation = $repText;
+        }
+    
+        if (is_object($this->icon)) {
+            $this->icon->image = $iconImage;
+        } else {
+            $this->icon = $iconImage;
+        }
     }
+
 
     public function setValerok()
     {
         $this->character = 'valerok';
-
+    
         if ($this->community) $this->roles->ladcega($this->community);
-        
+    
         if (!isset($GLOBALS['ValerokRankValue']) || $GLOBALS['ValerokRankValue'] === 0)
         {
             $this->setRankValue(777, true);
@@ -157,30 +183,54 @@ class UICharacterInfo
         {
             $this->setRankValue($GLOBALS['ValerokRankValue']);
         }
-
+    
         if ($this->relationship)
         {
             $this->relationship->text = $this->localization->get('Relationship_Friend');
             $this->relationship->textColor = '#669966';
         }
-
-        $namePath = trim($this->form->form('Client')->Pda->content->SDK_ValerokName);
-        $iconPath = trim($this->form->form('Client')->Pda->content->SDK_ValerokIcon);
-        $bioPath  = trim($this->form->form('Client')->Pda->content->SDK_ValerokBio);
+    
+        $namePath       = trim($this->form->form('Client')->Pda->content->SDK_ValerokName);
+        $iconPath       = trim($this->form->form('Client')->Pda->content->SDK_ValerokIcon);
+        $bioPath        = trim($this->form->form('Client')->Pda->content->SDK_ValerokBio);
         $reputationPath = trim($this->form->form('Client')->Pda->content->SDK_ValerokReputation);
-
-        if ($this->name) $this->name->text = $namePath ?: $this->localization->get('Valerok_Name');
-        if ($this->icon) $this->icon->image = new UXImage($iconPath ?: 'res://.data/ui/icon_npc/valerok.png');
-        if ($this->bio) $this->bio->text = $bioPath ?: $this->localization->get('Valerok_Bio');
-        if ($this->reputation) $this->reputation->text = $reputationPath ?: $this->localization->get('Valerok_Reputation_Default');
+    
+        $nameText = $namePath !== '' ? $namePath : $this->localization->get('Valerok_Name');
+        $bioText  = $bioPath  !== '' ? $bioPath  : $this->localization->get('Valerok_Bio');
+        $repText  = $reputationPath !== '' ? $reputationPath : $this->localization->get('Valerok_Reputation_Default');
+        $iconImage = new UXImage($iconPath !== '' ? $iconPath : 'res://.data/ui/icon_npc/valerok.png');
+    
+        if (is_object($this->name)) {
+            $this->name->text = $nameText;
+        } else {
+            $this->name = $nameText;
+        }
+    
+        if (is_object($this->bio)) {
+            $this->bio->text = $bioText;
+        } else {
+            $this->bio = $bioText;
+        }
+    
+        if (is_object($this->reputation)) {
+            $this->reputation->text = $repText;
+        } else {
+            $this->reputation = $repText;
+        }
+    
+        if (is_object($this->icon)) {
+            $this->icon->image = $iconImage;
+        } else {
+            $this->icon = $iconImage;
+        }
     }
 
     public function setActor()
     {
         $this->character = 'actor';
-
+    
         if ($this->community) $this->roles->danilaEmoji($this->community);
-        
+    
         if (!isset($GLOBALS['ActorRankValue']) || $GLOBALS['ActorRankValue'] === 0)
         {
             $this->setRankValue(152, true);
@@ -189,18 +239,42 @@ class UICharacterInfo
         {
             $this->setRankValue($GLOBALS['ActorRankValue']);
         }
-
+    
         if ($this->relationship) $this->relationship->visible = false;
-
+    
         $namePath = trim($this->form->form('Client')->Pda->content->SDK_ActorName);
         $iconPath = trim($this->form->form('Client')->Pda->content->SDK_ActorIcon);
         $bioPath  = trim($this->form->form('Client')->Pda->content->SDK_ActorBio);
         $reputationPath = trim($this->form->form('Client')->Pda->content->SDK_ActorReputation);
-
-        if ($this->name) $this->name->text = $namePath ?: $this->localization->get('GG_Name');
-        if ($this->icon) $this->icon->image = new UXImage($iconPath ?: 'res://.data/ui/icon_npc/actor.png');
-        if ($this->bio) $this->bio->text = $bioPath ?: $this->localization->get('Actor_Bio');
-        if ($this->reputation) $this->reputation->text = $reputationPath ?: $this->localization->get('Actor_Reputation_Default');
+    
+        $nameText = $namePath !== '' ? $namePath : $this->localization->get('GG_Name');
+        $bioText  = $bioPath !== ''  ? $bioPath  : $this->localization->get('Actor_Bio');
+        $repText  = $reputationPath !== '' ? $reputationPath : $this->localization->get('Actor_Reputation_Default');
+        $iconImage = new UXImage($iconPath !== '' ? $iconPath : 'res://.data/ui/icon_npc/actor.png');
+    
+        if (is_object($this->name)) {
+            $this->name->text = $nameText;
+        } else {
+            $this->name = $nameText;
+        }
+    
+        if (is_object($this->bio)) {
+            $this->bio->text = $bioText;
+        } else {
+            $this->bio = $bioText;
+        }
+    
+        if (is_object($this->reputation)) {
+            $this->reputation->text = $repText;
+        } else {
+            $this->reputation = $repText;
+        }
+    
+        if (is_object($this->icon)) {
+            $this->icon->image = $iconImage;
+        } else {
+            $this->icon = $iconImage;
+        }
     }
 
     public function reset()

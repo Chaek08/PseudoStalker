@@ -829,11 +829,11 @@ class Client extends AbstractForm
     function ShowDialog(UXKeyEvent $e = null)
     {          
         if ($this->CheckVisibledFragments()) return;
-        //if ($GLOBALS['QuestStep1']) return;
+        if ($GLOBALS['QuestStep1']) return;
         
         $this->MainGame->content->RenderHud(false);
     
-        if (!$GLOBALS['QuestStep1']) $this->Dialog->content->StartDialog();
+        $this->Dialog->content->StartDialog();
         //$this->Dialog->content->VoicePlay(0);
         $this->Dialog->show();
     }  

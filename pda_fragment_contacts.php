@@ -42,11 +42,10 @@ class pda_fragment_contacts extends AbstractForm
     
         $this->form('Client')->Pda->content->RankingBtn();
         
-        $this->form('Client')->Pda->content->Pda_Ranking->content->ResetBtnColor();
-        foreach (['goblindav_in_raiting_pos', 'goblindav_in_raiting_name', 'goblindav_in_raiting_rank'] as $labelName)
-        {
-            $this->form('Client')->Pda->content->Pda_Ranking->content->{$labelName}->textColor = '#cccccc';
-        }        
+        $this->form('Client')->Pda->content->Pda_Ranking->content->ratingHueta->clickEntry(
+            $this->form('Client')->Pda->content->Pda_Ranking->content->enemyCharacterInfo->name
+        );
+               
         $this->form('Client')->Pda->content->Pda_Ranking->content->EnemyInListBtn();        
     }
     function setCharacterSelected($selected)
