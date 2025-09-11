@@ -29,43 +29,22 @@ class pda_fragment_ranking extends AbstractForm
 
         $this->localization = new Localization($language);
         
+        $this->ratingHueta = new RatingManager();
+        
         uiLater(function() {
             $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
             
             $this->actorCharacterInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->actorCharacterName);
-            $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->enemyCharacterName);
-            $this->valerokCharacterInfo =  new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->valeroCharacterName);
-    
             $this->actorCharacterInfo->setActor();
+            
+            $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->enemyCharacterName);
             $this->enemyCharacterInfo->setEnemy();
+            
+            $this->valerokCharacterInfo =  new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->valeroCharacterName);
             $this->valerokCharacterInfo->setValerok();
             
-            $this->ratingHueta = new RatingManager();
-            
-            if (Debug_Build) for($i=0;$i<27;$i++) $this->ratingHueta->setEntry(substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,rand(6,12)),rand(100,1000));       
-                                            
-            $this->ratingHueta->setEntry($this->actorCharacterInfo->name, $this->actorCharacterInfo->getRankValue());
-            $this->ratingHueta->setEntry($this->enemyCharacterInfo->name, $this->enemyCharacterInfo->getRankValue());
-            $this->ratingHueta->setEntry($this->valerokCharacterInfo->name, $this->valerokCharacterInfo->getRankValue());
-            
-            $this->ratingHueta->render($this->ratingKunteynir);
-                    
-            $this->ratingHueta->onClick($this->actorCharacterInfo->name, function($entry) {
-                $this->ActorInListBtn();
-            });
-            
-            $this->ratingHueta->onClick($this->enemyCharacterInfo->name, function($entry) {
-                $this->EnemyInListBtn();
-            });
-            
-            $this->ratingHueta->onClick($this->valerokCharacterInfo->name, function($entry) {
-                $this->ValerokInListBtn();
-            });
-            
-            $this->ratingHueta->onBackgroundClick = function() {
-                $this->HideUserInfo();
-            };
-        });  
+            //for($i=0;$i<27;$i++) $this->ratingHueta->setEntry(substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,rand(6,12)),rand(100,1000));            
+        });
         
         $GLOBALS['SelectedActor'] = false;
         $GLOBALS['SelectedEnemy'] = false;
@@ -79,11 +58,35 @@ class pda_fragment_ranking extends AbstractForm
     
     function UpdateData()
     {
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+        
+        $this->ratingHueta->clearContainer($this->ratingKunteynir);
+        
+        $this->actorCharacterInfo->setActor();
+        $this->enemyCharacterInfo->setEnemy();
+        $this->valerokCharacterInfo->setValerok();                
+                
         $this->ratingHueta->setEntry($this->actorCharacterInfo->name, $this->actorCharacterInfo->getRankValue());
         $this->ratingHueta->setEntry($this->enemyCharacterInfo->name, $this->enemyCharacterInfo->getRankValue());
         $this->ratingHueta->setEntry($this->valerokCharacterInfo->name, $this->valerokCharacterInfo->getRankValue());
         
         $this->ratingHueta->render($this->ratingKunteynir);
+        
+        $this->ratingHueta->onClick($this->actorCharacterInfo->name, function($entry) {
+            $this->ActorInListBtn();
+        });
+            
+        $this->ratingHueta->onClick($this->enemyCharacterInfo->name, function($entry) {
+            $this->EnemyInListBtn();
+        });
+            
+        $this->ratingHueta->onClick($this->valerokCharacterInfo->name, function($entry) {
+            $this->ValerokInListBtn();
+        });
+            
+        $this->ratingHueta->onBackgroundClick = function() {
+            $this->HideUserInfo();
+        };        
     }
     
     function ResetUserInfo()

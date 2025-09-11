@@ -96,6 +96,23 @@ class RatingManager
         }
     }
     
+    public function clearContainer(UXScrollPane $scroll)
+    {
+        if ($scroll->content instanceof UXVBox)
+        {
+            $scroll->content->children->clear();
+        }
+    
+        foreach ($this->entries as $entry)
+        {
+            $entry->node = null;
+            $entry->labels = [];
+        }
+    
+        $this->entries = [];
+        $this->activeEntry = null;
+    }    
+    
     public function render(UXScrollPane $scroll)
     {
         if (!($scroll->content instanceof UXVBox))
