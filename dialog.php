@@ -8,6 +8,7 @@ use php\gui\UXImage;
 use std, gui, framework, app;
 use app\forms\classes\Localization;
 use php\gui\event\UXMouseEvent; 
+use app\forms\classes\QuestManager;
 
 class dialog extends AbstractForm
 {
@@ -370,8 +371,12 @@ class dialog extends AbstractForm
         }
             
         $this->actorCharacterInfo->addRank(45);
-            
-        $this->form('Client')->Pda->content->Pda_Tasks->content->Step1_Complete();
+        
+        $pdaTasks = $this->form('Client')->Pda->content->Pda_Tasks->content;
+        $pdaTasks->completeStep("goblin_quest", 0);
+        $quest = $pdaTasks->questManager->getQuest("goblin_quest");
+        $pdaTasks->showQuest($quest);
+        //$this->form('Client')->Pda->content->Pda_Tasks->content->Step1_Complete();
 
         $this->form('Client')->MainGame->content->GameActor->SetInteractive(true);
         

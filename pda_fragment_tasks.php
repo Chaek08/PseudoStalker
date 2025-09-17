@@ -1,19 +1,41 @@
 <?php
 namespace app\forms;
 
+use Throwable;
 use php\gui\UXImage;
 use std, gui, framework, app;
 use php\time\Time;
+use app\forms\classes\QuestManager;
 
 class pda_fragment_tasks extends AbstractForm
 {
     private $localization;
-
+    
+    public $questManager;
+    
+    public $currentQuestId = null;
+    
     public function __construct() 
     {
         parent::__construct();
 
         $this->localization = new Localization($language);
+        
+        $this->questManager = new QuestManager();
+        
+        $onQuestEvent = function (string $event, array $data, QuestManager $emitter) {
+            $this->form('Client')->MainGame->content->ShowMessageBox();   
+            $this->updatePdaNotification();
+        };
+        
+        $this->questManager->on(QuestManager::EVENT_STEP_UPDATED, $onQuestEvent);
+        $this->questManager->on(QuestManager::EVENT_QUEST_UPDATED, $onQuestEvent);
+        $this->questManager->on(QuestManager::EVENT_QUEST_COMPLETED, $onQuestEvent);
+        $this->questManager->on(QuestManager::EVENT_QUEST_FAILED, $onQuestEvent);
+        
+        uiLater(function() {
+           $this->form('Client')->MainGame->content->MessageBox->content->attachQuestManager($this->questManager);
+        });
     }
     
     function getCurrentLanguageFromUI()
@@ -33,7 +55,30 @@ class pda_fragment_tasks extends AbstractForm
      */
     function InitTasks(UXWindowEvent $e = null)
     {
-        $this->UpdateQuestTime();
+        $goblinQuest = new QuestManager(
+            "goblin_quest",
+            $this->localization->get('DefeatEnemy_Task'),
+            "res://.data/ui/pda/icon_Task.png",
+            $this->localization->get('TaskDetails'),
+            [
+                ['text' => $this->localization->get('TalkToGoblin_Task'),  'status' => QuestManager::STATUS_PROCESS],
+                ['text' => $this->localization->get('DefeatGoblin_Task'),  'status' => QuestManager::STATUS_PROCESS],
+            ]
+        );
+
+        $this->questManager->addQuest($goblinQuest);
+        
+        $this->currentQuestId = $goblinQuest->id;
+        $this->showQuest($goblinQuest);
+
+        $this->quest_detail_btn->on("click", function () {
+            $qid = $this->currentQuestId;
+            if ($qid)
+            {
+                $quest = $this->questManager->getQuest($qid);
+                if ($quest) $this->toggleDetails($quest);
+            }
+        });
         
         $buttons = [
             'active_task',
@@ -100,36 +145,184 @@ class pda_fragment_tasks extends AbstractForm
 
                 $this->activePressedTaskLabel = null;
             }
-        });        
+        });                
     }
-      
-    function UpdateData()
+    
+    function refreshQuestLocalization(): void
     {
-        $quest_name = trim($this->SDK_QuestName);
-        $quest_icon = trim($this->SDK_QuestIcon);
-        $quest_desc = trim($this->SDK_QuestDesc);
-        $quest_step1 = trim($this->SDK_QuestStep1);
-        $quest_step2 = trim($this->SDK_QuestStep2);
-        $quest_target = trim($this->SDK_QuestTarget);
-        
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
-        
-        $this->task_label->text = $quest_name != '' ? $quest_name : $this->localization->get('DefeatEnemy_Task');
-        $this->icon_task->image = new UXImage($quest_icon != '' ? $quest_icon : 'res://.data/ui/pda/icon_Task.png');
-        $this->task_detail_text->text = $quest_desc != '' ? $quest_desc : $this->localization->get('TaskDetails');
-        $this->step1->text = $quest_step1 != '' ? $quest_step1 : $this->localization->get('TalkToGoblin_Task');
-        $this->step2->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatGoblin_Task');
-        $this->form('Client')->Pda->content->Pda_Statistic->content->target_label->text = $quest_target != '' ? $quest_target : $this->localization->get('Target_Label');
-        
-        if (!$GLOBALS['QuestStep1']) $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_step1 != '' ? $quest_step1 : $this->localization->get('TalkToGoblin_Task');
-        if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted']) $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatGoblin_Task');
-        
-        $this->form('Client')->MainGame->content->MessageBox->content->Task_Name->text = $quest_name != '' ? $quest_name : $this->localization->get('DefeatEnemy_Task');
-        $this->form('Client')->MainGame->content->MessageBox->content->Icon->image = new UXImage($quest_icon != '' ? $quest_icon : 'res://.data/ui/pda/icon_Task.png');
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+    
+        $quest = $this->questManager->getQuest("goblin_quest");
+        if (!$quest) return;
+    
+        $quest->name        = $this->localization->get('DefeatEnemy_Task');
+        $quest->description = $this->localization->get('TaskDetails');
+    
+        if (isset($quest->steps[0]))
+        {
+            $quest->steps[0]['text'] = $this->localization->get('TalkToGoblin_Task');
+        }
+        if (isset($quest->steps[1]))
+        {
+            $quest->steps[1]['text'] = $this->localization->get('DefeatGoblin_Task');
+        }
+    
+        $this->showQuest($quest);
     }
-    /**
-    * @event quest_detail_btn.click-Left 
-     */
+    
+    function showQuest(QuestManager $quest)
+    {
+        $this->currentQuestId = $quest->id;
+
+        $this->task_label->text = $quest->name;
+        $this->icon_task->image = new UXImage($quest->icon);
+
+        $this->time_quest_hm->text = Time::now()->toString('HH:mm');
+        $this->time_quest_date->text = Time::now()->toString('dd/MM/YYYY');
+
+        if (isset($quest->steps[0]))
+        {
+            $this->step1->text = $quest->steps[0]['text'];
+            $this->updateStep($this->step1, $quest->steps[0]['status']);
+        }
+        else
+        {
+            $this->step1->text = '';
+            $this->step1->graphic = null;
+        }
+
+        if (isset($quest->steps[1]))
+        {
+            $this->step2->text = $quest->steps[1]['text'];
+            $this->updateStep($this->step2, $quest->steps[1]['status']);
+        }
+        else
+        {
+            $this->step2->text = '';
+            $this->step2->graphic = null;
+        }
+    }
+
+    function updateStep($label, $status)
+    {
+        $status = $status ?? QuestManager::STATUS_PROCESS;
+
+        switch ($status)
+        {
+            case QuestManager::STATUS_PROCESS:
+                $label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_process.png'));
+                break;
+            case QuestManager::STATUS_COMPLETED:
+                $label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));
+                break;
+            case QuestManager::STATUS_FAILED:
+                $label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png'));
+                break;
+            default:
+                $label->graphic = null;
+                break;
+        }
+    }
+
+    function updateData(QuestManager $quest)
+    {
+        uiLater(function() use ($quest) {
+            $this->showQuest($quest);
+        });
+    }
+
+    function toggleDetails(QuestManager $quest)
+    {
+        if ($this->task_detail_text->visible)
+        {
+            $this->task_detail_text->hide();
+            $this->tab_detail->text = null;
+            $this->quest_detail_btn->image = new UXImage('res://.data/ui/pda/task_detail_off.png');
+        }
+        else
+        {
+            $this->task_detail_text->text = $quest->description;
+            $this->task_detail_text->show();
+
+            $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+            $this->tab_detail->text = $this->localization->get('TabTaskDetail');
+
+            $this->quest_detail_btn->image = new UXImage('res://.data/ui/pda/task_detail_opened.png');
+        }
+    }
+
+    function completeStep($questId, $stepIndex)
+    {
+        $changed = $this->questManager->completeStep($questId, $stepIndex);
+        
+        if ($changed && !empty($GLOBALS['AllSounds']) && $GLOBALS['AllSounds'])
+        {
+            $this->form('Client')->playSoundAsync('res://.data/audio/pda.mp3', 'pda_task');
+        }        
+
+        $quest = $this->questManager->getQuest($questId);
+        if ($quest)
+        {
+            uiLater(function() use ($quest){
+                $this->showQuest($quest);
+            });
+        }
+
+        return $changed;
+    }
+
+    function failStep($questId, $stepIndex)
+    {
+        $changed = $this->questManager->failStep($questId, $stepIndex);
+        
+        if ($changed && !empty($GLOBALS['AllSounds']) && $GLOBALS['AllSounds'])
+        {
+            $this->form('Client')->playSoundAsync('res://.data/audio/pda.mp3', 'pda_task');
+        }        
+
+        $quest = $this->questManager->getQuest($questId);
+        if ($quest)
+        {
+            uiLater(function() use ($quest) {
+                $this->showQuest($quest);
+            });
+        }
+
+        return $changed;
+    }    
+    
+    function updatePdaNotification()
+    {
+        if ($this->questManager->hasUnreadNotifications())
+        {
+            if ($GLOBALS['HudVisible'])
+            {
+                $this->form('Client')->MainGame->content->pda_icon->show();
+            }
+            $this->form('Client')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_new_icon.png'));
+        }
+        else
+        {
+            if ($GLOBALS['HudVisible'])
+            {
+                $this->form('Client')->MainGame->content->pda_icon->hide();
+            }
+            $this->form('Client')->Pda->content->stat_label->graphic =  new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));
+        }
+    }
+    
+    function clearPdaNotification()
+    {
+        $this->form('Client')->Pda->content->Pda_Tasks->content->questManager->markAllNotificationsRead();
+    
+        $this->form('Client')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));
+    
+        if ($GLOBALS['HudVisible'])
+        {
+            $this->form('Client')->MainGame->content->pda_icon->hide();
+        }
+    }
+     
     function DetailTask(UXMouseEvent $e = null)
     {
         if ($this->task_detail_text->visible)
@@ -172,33 +365,57 @@ class pda_fragment_tasks extends AbstractForm
      * @event active_task.click-Left 
      */
     function ShowActiveTasks(UXMouseEvent $e = null)
-    {    
-        $GLOBALS['QuestCompleted'] ? $this->DeleteTask() : $this->AddTask();
-    }
-    /**
-     * @event passive_task.click-Left 
-     */
-    function ShowPassiveTasks(UXMouseEvent $e = null)
-    {    
-        
-        $GLOBALS['EnemyFailed'] ? $this->AddTask() : $this->DeleteTask();
-    }
-    /**
-     * @event failed_task.click-Left 
-     */
-    function ShowFailedTasks(UXMouseEvent $e = null)
-    {    
-        
-        if ($GLOBALS['ActorFailed']) //актор проиграл
+    {
+        $quest = $this->questManager->getQuest($this->currentQuestId);
+        if (!$quest) return;
+    
+        if ($quest->status === QuestManager::STATUS_ACTIVE)
         {
             $this->AddTask();
-            $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png'));
         }
         else
         {
             $this->DeleteTask();
-        }        
+        }
     }
+    
+    /**
+     * @event passive_task.click-Left 
+     */
+    function ShowPassiveTasks(UXMouseEvent $e = null)
+    {
+        $quest = $this->questManager->getQuest($this->currentQuestId);
+        if (!$quest) return;
+    
+        if ($quest->status === QuestManager::STATUS_COMPLETED)
+        {
+            $this->AddTask();
+        }
+        else
+        {
+            $this->DeleteTask();
+        }
+    }
+    
+    /**
+     * @event failed_task.click-Left 
+     */
+    function ShowFailedTasks(UXMouseEvent $e = null)
+    {
+        $quest = $this->questManager->getQuest($this->currentQuestId);
+        if (!$quest) return;
+    
+        if ($quest->status === QuestManager::STATUS_FAILED)
+        {
+            $this->AddTask();
+            //$this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png'));
+        }
+        else
+        {
+            $this->DeleteTask();
+        }
+    }
+
     function ResetBtnColor()
     {
         foreach (['active_task', 'passive_task', 'failed_task'] as $btn)
@@ -206,6 +423,7 @@ class pda_fragment_tasks extends AbstractForm
             $this->{$btn}->textColor = "#777778";
         }      
     }
+    
     function AddTask()
     {
         $this->task_label->show();
@@ -216,101 +434,13 @@ class pda_fragment_tasks extends AbstractForm
         $this->step1->show();
         $this->step2->show();
     }
+    
     function UpdateQuestTime()
     {
         $this->time_quest_hm->text = Time::now()->toString('HH:mm');
         $this->time_quest_date->text = Time::now()->toString('dd/MM/YYYY');
-    }    
-    function Step_UpdatePda()
-    {
-        if ($GLOBALS['QuestCompleted'])
-        {
-           if ($this->form('Client')->Pda->content->Pda_Statistic->visible)
-           {
-               if ($GLOBALS['NeedToCheckPDA'] && $GLOBALS['HudVisible']) $this->form('Client')->MainGame->content->pda_icon->show();
-           }
-           else
-           {
-               if ($GLOBALS['NeedToCheckPDA'] && $GLOBALS['HudVisible']) $this->form('Client')->MainGame->content->pda_icon->show();
-               $this->form('Client')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_new_icon.png')); 
-           }     
-        }
-        else 
-        {
-           if ($GLOBALS['NeedToCheckPDA'] && $GLOBALS['HudVisible']) $this->form('Client')->MainGame->content->pda_icon->hide();
-           $this->form('Client')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));              
-        }
     }
-    function Step_DeletePda()
-    {
-        $GLOBALS['NeedToCheckPDA'] = false;
-        
-        $this->form('Client')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));
-        
-        if ($GLOBALS['HudVisible'])
-        {
-           $this->form('Client')->MainGame->content->pda_icon->hide();
-        }
-    }
-    function Step1_Complete()
-    {
-        $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));        
-        
-        if ($GLOBALS['AllSounds'])
-        {
-            $this->form('Client')->playSoundAsync('res://.data/audio/pda.mp3', 'pda_task');
-        }
-        $GLOBALS['Task_Status_Update'] = true;
-        $this->form('Client')->MainGame->content->ShowMessageBox();
-        
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
-        $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatGoblin_Task');
-        $this->form('Client')->MainGame->content->ShowTaskStep();
-        
-        $GLOBALS['QuestStep1'] = true;
-    }
-    function Step2_Complete()
-    {
-        $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));
-        $this->DeleteTask();
-        
-        $this->form('Client')->Pda->content->Pda_Contacts->content->UpdateContacts();
-        
-        if ($GLOBALS['AllSounds'])
-        {
-            $this->form('Client')->playSoundAsync('res://.data/audio/pda.mp3', 'pda_task');
-        }
-        $GLOBALS['Task_Status_Update'] = true;
-        $this->form('Client')->MainGame->content->ShowMessageBox();
-        $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatEnemy_Task');        
-        
-        $GLOBALS['QuestCompleted'] = true;
-        
-        $this->form('Client')->MainGame->content->ShowTaskStep();
-    }   
-    function Step2_Failed()
-    {
-        $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png')); 
-        $this->DeleteTask();  
-        
-        if ($GLOBALS['AllSounds'])
-        {
-            $this->form('Client')->playSoundAsync('res://.data/audio/pda.mp3', 'pda_task');
-        }
-        $GLOBALS['Task_Status_Failed'] = true;
-        $this->form('Client')->MainGame->content->ShowMessageBox();
-        $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_name != '' ? $quest_name : $this->localization->get('DefeatEnemy_Task');        
-
-        $GLOBALS['QuestCompleted'] = true;    //технически выполнен пусть и завален нахуй
-        
-        $this->form('Client')->MainGame->content->ShowTaskStep();
-    }
-    function StepReset()
-    {
-        $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_process.png'));    
-        $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_process.png'));    
-    }    
+    
     function DeleteTask()
     {
         $this->task_label->hide();

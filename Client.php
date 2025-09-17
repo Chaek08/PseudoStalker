@@ -23,12 +23,15 @@ use php\gui\framework\AbstractForm;
 use php\gui\event\UXWindowEvent; 
 use php\gui\event\UXMouseEvent; 
 use php\gui\event\UXEvent; 
-
+use app\forms\classes\QuestManager;
 
 class Client extends AbstractForm
 {
     private $localization;
     
+    private $questManager;
+    private $tasksForm;
+        
     /**
      * @event show 
      */
@@ -49,7 +52,12 @@ class Client extends AbstractForm
         $GLOBALS['FightSound'] = true;
         $GLOBALS['HudVisible'] = true;
         
-        $this->localization = new Localization($language);     
+        $this->localization = new Localization($language);
+        
+        uiLater(function () {
+            $this->tasksForm = $this->form('Client')->Pda->content->Pda_Tasks->content;
+            $this->questManager = $this->tasksForm->questManager;
+        });
         
         $this->syncWithSDKLTX();
         $this->InitUserLTX();        
@@ -98,7 +106,8 @@ class Client extends AbstractForm
     
     private $prevRes = null;
     private $prevClientW = null;
-    private $prevClientH = null;    
+    private $prevClientH = null;
+    
     function trackResolution()
     {
         $w = $this->Client_Proxy->width;
@@ -829,7 +838,16 @@ class Client extends AbstractForm
     function ShowDialog(UXKeyEvent $e = null)
     {          
         if ($this->CheckVisibledFragments()) return;
-        if ($GLOBALS['QuestStep1']) return;
+        
+        $quest = $this->questManager->getQuest($this->tasksForm->currentQuestId);
+        if ($quest)
+        {
+            $step1 = $quest->getStep(0);
+            if ($step1 && $step1['status'] === QuestManager::STATUS_COMPLETED)
+            {
+                return;
+            }
+        }
         
         $this->MainGame->content->RenderHud(false);
     

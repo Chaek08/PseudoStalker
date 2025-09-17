@@ -20,11 +20,15 @@ use php\gui\event\UXMouseEvent;
 use php\framework\Logger;
 use app\forms\classes\Localization;
 use php\gui\event\UXEvent; 
+use app\forms\classes\QuestManager;
 
 class maingame extends AbstractForm
 {
     private $currentCycle = '';
     private $localization;
+    
+    private $questManager;
+    private $tasksForm; 
     
     public $SDK_FightSound;
     public $SDK_ActorModel;
@@ -41,6 +45,11 @@ class maingame extends AbstractForm
 
         $this->localization = new Localization($language);
         
+        uiLater(function () {
+            $this->tasksForm = $this->form('Client')->Pda->content->Pda_Tasks->content;
+            $this->questManager = $this->tasksForm->questManager;
+        });        
+        
         $this->GameActor = new CActor();
         $this->GameActor->SetModel($this->actor);
         
@@ -49,9 +58,8 @@ class maingame extends AbstractForm
         $this->WeaponDev = new CWeapon_Dev();
         
         
-        
         //ui_test
-         $this->GameActor->SetActiveWeapon($this->WeaponDev);
+        $this->GameActor->SetActiveWeapon($this->WeaponDev);
     }
     function getCurrentLanguageFromUI()
     {
@@ -173,13 +181,12 @@ class maingame extends AbstractForm
                 Media::open('res://.data/audio/fight/fight_sound.mp3', true, $this->FightSound);
             }
         }
-    }      
+    }    
+           
     function ResetGameClient(callable $afterReset = null)
     {
         $this->form('Client')->ShowLoadScreen(function () use ($afterReset)
         {
-            if ($GLOBALS['QuestStep1']) $GLOBALS['QuestStep1'] = false;
-            if ($GLOBALS['QuestCompleted']) $GLOBALS['QuestCompleted'] = false;
             if ($GLOBALS['ActorFailed']) $GLOBALS['ActorFailed'] = false;
             if ($GLOBALS['EnemyFailed']) $GLOBALS['EnemyFailed'] = false;
 
@@ -187,7 +194,6 @@ class maingame extends AbstractForm
             Media::stop($this->Environment);
 
             if ($this->fight_image->visible) $this->fight_image->hide();
-            if ($this->leave_btn->visible || !$GLOBALS['QuestCompleted']) $this->leave_btn->hide();
             if ($this->form('Client')->Fail->visible) $this->form('Client')->Fail->hide();
             if ($this->blood_ui->visible) $this->blood_ui->hide();
 
@@ -215,14 +221,20 @@ class maingame extends AbstractForm
             $this->GameActor->SetInteractive(false);
             
             $this->item_vodka_0000->enabled = false;
-
+            
+            $tasks = $this->form('Client')->Pda->content->Pda_Tasks->content;
+            
+            $quest = $this->questManager->getQuest("goblin_quest");
+            $quest->reset();
+            
+            $tasks->clearPdaNotification();
+            $tasks->InitTasks();
+            
             $this->form('Client')->Pda->content->DefaultState();
             $this->form('Client')->Pda->content->Pda_Contacts->content->UpdateContacts();
-            $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateQuestTime();
             $this->form('Client')->Pda->content->Pda_Tasks->content->DeleteTask();
             $this->form('Client')->Pda->content->Pda_Tasks->content->ShowActiveTasks();
-            $this->form('Client')->Pda->content->Pda_Tasks->content->StepReset();
-            $this->form('Client')->Pda->content->Pda_Tasks->content->Step_DeletePda();
+            
             $this->form('Client')->Pda->content->Pda_Ranking->content->DeathFilter();
             $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateRaiting();
             $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
@@ -256,7 +268,7 @@ class maingame extends AbstractForm
                 $afterReset();
             }
         });
-    }
+    }    
     function RenderHud($enable)
     {
         if ($enable) 
@@ -277,7 +289,12 @@ class maingame extends AbstractForm
             $this->Bleeding();
             
             if ($this->CurrentWeaponType) $this->ui_mag_background->show();
-            if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
+            
+            if ($this->form('Client')->Pda->content->Pda_Tasks->content->questManager->hasUnreadNotifications())
+            {
+                $this->pda_icon->show();
+            }
+            
             if ($GLOBALS['GodMode']) $this->GodMode_Icon->show();
             if ($this->GameActor->CanInteractive()) $this->fight_image->show();
             if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed']) $this->leave_btn->show();
@@ -436,43 +453,53 @@ class maingame extends AbstractForm
     }    
     function GetHealth() 
     {
-        if (!$GLOBLAS['QuestStep1'])
+        $quest = $this->questManager->getQuest($this->tasksForm->currentQuestId);
+        if (!$quest) return;
+    
+        $step1 = $quest->getStep(0);
+    
+        if (!$step1 || $step1['status'] !== QuestManager::STATUS_COMPLETED)
         {
             $this->health_bar_gg->width = 264;
             $this->form('Client')->Inventory->content->health_bar_gg->width = 416;
             $this->health_bar_enemy->width = 264;
-            
+    
             $this->health_bar_gg->text = "100%";
             $this->form('Client')->Inventory->content->health_bar_gg->text = "100%";
             $this->health_bar_enemy->text = "100%";
         }
-        if (!$GLOBALS['ActorFailed'])
+    
+        if ($quest->status !== QuestManager::STATUS_FAILED)
         {
             $this->form('Client')->Inventory->content->health_static_gg->graphic = null;
             $this->form('Client')->Inventory->content->health_bar_gg->show();
             $this->form('Client')->Inventory->content->health_bar_gg_b->show();
-            
+    
             $this->health_static_gg->graphic = null;
         }
-        else 
+        else
         {
-            $this->form('Client')->Inventory->content->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
+            $skull = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
+    
+            $this->form('Client')->Inventory->content->health_static_gg->graphic = $skull;
             $this->form('Client')->Inventory->content->health_bar_gg->hide();
             $this->form('Client')->Inventory->content->health_bar_gg_b->hide();
-            
+    
             $this->health_bar_gg->hide();
             $this->health_bar_gg_b->hide();
-            $this->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
+            $this->health_static_gg->graphic = $skull;
         }
-        if (!$GLOBALS['EnemyFailed'])
+    
+        if ($quest->status !== QuestManager::STATUS_COMPLETED)
         {
             $this->health_static_enemy->graphic = null;
         }
-        else 
+        else
         {
+            $skull = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
             $this->health_bar_enemy->hide();
             $this->health_bar_enemy_b->hide();
-            $this->health_static_enemy->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
+            $this->health_static_enemy->graphic = $skull;
         }
     }
     function GodMode()
@@ -557,6 +584,10 @@ class maingame extends AbstractForm
      */       
     function DamageEnemy(UXMouseEvent $e = null, bool $spawnParticles = true)
     { 
+        if (!$this->GameActor->CanInteractive()) //temp
+        {
+            return;
+        }    
         $minWidth     = 54;
         $maxWidth     = 264;
         $missChance   = 75; //пиздец
@@ -636,7 +667,7 @@ class maingame extends AbstractForm
         if (!$this->GameActor->CanInteractive()) 
         {
             return;
-        }            
+        }
         $minWidth       = 54;
         $maxWidthMain   = 264;
         $maxWidthInv    = 416;
@@ -801,8 +832,6 @@ class maingame extends AbstractForm
     }
     function finalizeBattle()
     {
-        $GLOBALS['NeedToCheckPDA'] = true;
-        
         $this->form('Client')->Fail->content->UpdateFailState();
         $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
     
@@ -828,7 +857,12 @@ class maingame extends AbstractForm
         {
             $this->GameActor->GetModel()->hide();
             
-            $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Failed();
+            $pdaTasks = $this->form('Client')->Pda->content->Pda_Tasks->content;
+            $pdaTasks->failStep("goblin_quest", 1);
+            $pdaTasks->questManager->failQuest("goblin_quest");
+            $quest = $pdaTasks->questManager->getQuest("goblin_quest");
+            $pdaTasks->showQuest($quest);
+            //$this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Failed();
             
             if ($GLOBALS['AllSounds']) $this->form('Client')->playSoundAsync('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');
         }
@@ -836,12 +870,17 @@ class maingame extends AbstractForm
         {
             $this->enemy->hide();
             
-            $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Complete();
+            $pdaTasks = $this->form('Client')->Pda->content->Pda_Tasks->content;
+            $pdaTasks->completeStep("goblin_quest", 1);
+            $pdaTasks->questManager->completeQuest("goblin_quest");
+            $quest = $pdaTasks->questManager->getQuest("goblin_quest");
+            $pdaTasks->showQuest($quest);            
+            //$this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Complete();
             
             if ($GLOBALS['AllSounds']) $this->form('Client')->playSoundAsync('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor');
         }
         
-        $this->form('Client')->Pda->content->Pda_Tasks->content->Step_UpdatePda();
+        $this->form('Client')->Pda->content->Pda_Tasks->content->updatePdaNotification();
         
         $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateRaiting();
         
@@ -855,7 +894,15 @@ class maingame extends AbstractForm
      */
     function EnemyHoverEnter(UXMouseEvent $e = null)
     {
-        if ($GLOBALS['QuestStep1']) return;
+        $quest = $this->questManager->getQuest($this->tasksForm->currentQuestId);
+        if ($quest)
+        {
+            $step1 = $quest->getStep(0);
+            if ($step1 && $step1['status'] === QuestManager::STATUS_COMPLETED)
+            {
+                return;
+            }
+        }
         
         $this->isHovered = true;
 
@@ -883,37 +930,61 @@ class maingame extends AbstractForm
                 $this->isLabelVisible = false;
             });
         }
-    }    
-    function ShowTaskStep()
+    }  
+      
+    private $taskStepTimer = null;
+    
+    function ShowTaskStep(string $text, string $questId = null): void
     {
-        $this->Task_Step_Label->visible = true;      
-        
-        Timer::after(4000, function () {
-            UXApplication::runLater(function () {
+        $this->Task_Step_Label->text = $text;
+        $this->Task_Step_Label->visible = true; 
+    
+        if ($this->taskStepTimer) 
+        {
+            $this->taskStepTimer->cancel();
+            $this->taskStepTimer = null;
+        }
+    
+        $this->taskStepTimer = Timer::after(4000, function () use ($questId) {
+            UXApplication::runLater(function () use ($questId) {
+
                 $this->Task_Step_Label->visible = false;
-
-                if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted'])
-                {
-                    $this->fight_image->opacity = 0;
-                    $this->fight_image->visible = true;
-                    Animation::fadeIn($this->fight_image, 400);
-                    $this->fight_image->blinkAnim->enable();
+    
+                $qid = $questId ?: ($this->tasksForm->currentQuestId ?? null);
+                $quest = $qid ? $this->questManager->getQuest($qid) : null;
+                if (!$quest) return;
+    
+                $step0 = $quest->getStep(0);
+                if ($step0 && (($step0['status'] ?? QuestManager::STATUS_PROCESS) === QuestManager::STATUS_COMPLETED)
+                    && $quest->status !== QuestManager::STATUS_COMPLETED) 
+                    {
+    
+                    if (isset($this->fight_image))
+                    {
+                        $this->fight_image->opacity = 0;
+                        $this->fight_image->visible = true;
+                        Animation::fadeIn($this->fight_image, 400);
+                        if (isset($this->fight_image->blinkAnim))
+                        {
+                            $this->fight_image->blinkAnim->enable();
+                        }
+                    }
                 }
-
-                if ($GLOBALS['QuestCompleted'])
+    
+                if ($quest->status === QuestManager::STATUS_COMPLETED)
                 {
                     $this->localization->setLanguage($this->getCurrentLanguageFromUI());
                     $this->Task_Step_Label->text = $this->localization->get('No_Active_Task');
+                    $this->fight_image->visible = false;
                 }
             });
-        });        
+        });
     }
-    
+
     function ShowMessageBox()
     {
         $this->MessageBox->opacity = 1;
         $this->MessageBox->visible = true;
-        $this->MessageBox->content->UpdateMessageBox();
 
         Timer::after(3000, function () {
             Animation::fadeOut($this->MessageBox, 500);
@@ -967,7 +1038,15 @@ class maingame extends AbstractForm
 
     function Shoot()
     {
-        if (!$GLOBALS['QuestStep1']) return;
+        $quest = $this->questManager->getQuest($this->tasksForm->currentQuestId);
+        if ($quest)
+        {
+            $step1 = $quest->getStep(0);
+            if (!$step1 || $step1['status'] !== QuestManager::STATUS_COMPLETED)
+            {
+                return;
+            }
+        }
     
         if (!$this->CurrentWeaponType || $this->isReloading)
         {

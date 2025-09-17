@@ -7,16 +7,25 @@ use php\gui\event\UXMouseEvent;
 use php\gui\event\UXWindowEvent; 
 use php\gui\event\UXEvent;
 use app\forms\classes\Localization;
+use app\forms\classes\QuestManager;
 
 class opt extends AbstractForm
 {
     private $localization;
+    
+    private $questManager;
+    private $tasksForm;    
 
     public function __construct() 
     {
         parent::__construct();
 
         $this->localization = new Localization($language);
+        
+        uiLater(function () {
+            $this->tasksForm = $this->form('Client')->Pda->content->Pda_Tasks->content;
+            $this->questManager = $this->tasksForm->questManager;
+        });        
     }
     
     function InitOptions()
@@ -504,10 +513,6 @@ class opt extends AbstractForm
         $this->form('Client')->Pda->content->ranks_label->text = $this->localization->get('Ranks_Label');
         $this->form('Client')->Pda->content->stat_label->text = $this->localization->get('Data_Label');
         
-        $this->form('Client')->Pda->content->Pda_Tasks->content->task_label->text = $this->localization->get('DefeatEnemy_Task');
-        $this->form('Client')->Pda->content->Pda_Tasks->content->step1->text = $this->localization->get('TalkToGoblin_Task');
-        $this->form('Client')->Pda->content->Pda_Tasks->content->step2->text = $this->localization->get('DefeatGoblin_Task');
-        $this->form('Client')->Pda->content->Pda_Tasks->content->task_detail_text->text = $this->localization->get('TaskDetails');
         $this->form('Client')->Pda->content->Pda_Tasks->content->active_task->text = $this->localization->get('ActiveTasks_Label');
         $this->form('Client')->Pda->content->Pda_Tasks->content->passive_task->text = $this->localization->get('CompletedTasks_Label');
         $this->form('Client')->Pda->content->Pda_Tasks->content->failed_task->text = $this->localization->get('FailedTasks_Label');
@@ -542,18 +547,18 @@ class opt extends AbstractForm
     
         $this->form('Client')->Fail->content->returnbtn->text = $this->localization->get('Return_Button');
         $this->form('Client')->Fail->content->exitbtn->text = $this->localization->get('Exit_Button');
+        
+        $this->form('Client')->Pda->content->Pda_Tasks->content->refreshQuestLocalization();
             
-        if ($GLOBALS['QuestCompleted']) 
-        {
+        if (($q = $this->questManager->getQuest($this->tasksForm->currentQuestId))
+            && $q->status === QuestManager::STATUS_COMPLETED) {
+        
             $this->form('Client')->Fail->content->UpdateFailState();
             $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
-            
             $this->form('Client')->Task_Step_Label->text = $this->localization->get('No_Active_Task');
         }
         
         $this->form('Client')->MainMenu->content->UILoadWnd->content->ShowSavePreview();
-        
-        $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();
         
         if ($this->form('Client')->MainMenu->visible)
         {
@@ -563,14 +568,19 @@ class opt extends AbstractForm
         {
             $GLOBALS['discord']->setDetails($this->localization->get('RPC_Ingame'));
         }
-        if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted'])
-        {
+
+        if (($q = $this->questManager->getQuest($this->tasksForm->currentQuestId))
+            && $q->status === QuestManager::STATUS_ACTIVE
+            && ($s0 = $q->getStep(0))
+            && (($s0['status'] ?? QuestManager::STATUS_PROCESS) === QuestManager::STATUS_COMPLETED)) {
+        
             $GLOBALS['discord']->setState($this->localization->get('RPC_Fight'));
         }
-        else 
+        else
         {
             $GLOBALS['discord']->setState(null);
         }
+        
         $GLOBALS['discord']->updateState();
     }
 }
