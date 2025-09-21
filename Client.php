@@ -839,8 +839,7 @@ class Client extends AbstractForm
     {          
         if ($this->CheckVisibledFragments()) return;
         
-        $quest = $this->questManager->getQuest($this->tasksForm->currentQuestId);
-        if ($quest)
+        if ($quest = $this->questManager->getQuest($this->tasksForm->currentQuestId))
         {
             $step1 = $quest->getStep(0);
             if ($step1 && $step1['status'] === QuestManager::STATUS_COMPLETED)

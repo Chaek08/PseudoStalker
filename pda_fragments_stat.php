@@ -79,8 +79,7 @@ class pda_fragments_stat extends AbstractForm
     }
     function UpdateRaiting()
     {
-        $quest = $this->questManager->getQuest($this->tasksForm->currentQuestId);
-        if (!$quest) return;
+        if (!$quest = $this->questManager->getQuest($this->tasksForm->currentQuestId)) return;
     
         if ($quest->status === QuestManager::STATUS_COMPLETED)
         {
@@ -111,8 +110,7 @@ class pda_fragments_stat extends AbstractForm
         
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         
-        $quest = $this->questManager->getQuest($this->tasksForm->currentQuestId);
-        if (!$quest) return;
+        if (!$quest = $this->questManager->getQuest($this->tasksForm->currentQuestId)) return;
                 
         if ($quest->status === QuestManager::STATUS_FAILED)
         {

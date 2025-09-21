@@ -146,8 +146,7 @@ class pda extends AbstractForm
     {  
         if (!$this->Pda_Tasks->visible) $this->DefaultState();
     
-        $quest = $this->Pda_Tasks->content->questManager->getQuest($this->Pda_Tasks->content->currentQuestId);
-        if (!$quest)
+        if (!$quest = $this->Pda_Tasks->content->questManager->getQuest($this->Pda_Tasks->content->currentQuestId);)
         {
             $this->Pda_Tasks->show();
             $this->Pda_Background->hide();
