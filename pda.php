@@ -145,40 +145,35 @@ class pda extends AbstractForm
     function TasksBtn(UXMouseEvent $e = null)
     {  
         if (!$this->Pda_Tasks->visible) $this->DefaultState();
-    
-        $quest = $this->Pda_Tasks->content->questManager->getQuest($this->Pda_Tasks->content->currentQuestId);
-        if (!$quest)
-        {
-            $this->Pda_Tasks->show();
-            $this->Pda_Background->hide();
-            return;
-        }
-    
-        if ($quest->status === QuestManager::STATUS_ACTIVE)
+              
+        $this->Pda_Tasks->content->UpdateData();
+                
+        if (!$GLOBALS['QuestCompleted']) 
         {
             $this->Pda_Tasks->content->ResetBtnColor();
             $this->Pda_Tasks->content->active_task->textColor = '#d59b30';
+            
             $this->Pda_Tasks->content->ShowActiveTasks();
         }
-    
-        if ($quest->status === QuestManager::STATUS_FAILED)
+        if ($GLOBALS['QuestCompleted'] && $GLOBALS['ActorFailed'])
         {
             $this->Pda_Tasks->content->ResetBtnColor();
             $this->Pda_Tasks->content->failed_task->textColor = '#d59b30';
+        
             $this->Pda_Tasks->content->ShowFailedTasks();
         }
-    
-        if ($quest->status === QuestManager::STATUS_COMPLETED)
+        if ($GLOBALS['QuestCompleted'] && $GLOBALS['EnemyFailed'])
         {
             $this->Pda_Tasks->content->ResetBtnColor();
             $this->Pda_Tasks->content->passive_task->textColor = '#d59b30';
+        
             $this->Pda_Tasks->content->ShowPassiveTasks();
-        }
-    
+        }        
+        
         $this->Pda_Tasks->show();
-        $this->Pda_Background->hide();
-    }
-  
+        
+        $this->Pda_Background->hide();                                                                                             
+    }   
     /**
      * @event contacts_label.click-Left 
      */
@@ -204,6 +199,6 @@ class pda extends AbstractForm
         $this->Pda_Background->hide();
         
         $this->Pda_Ranking->content->DeathFilter();
-        $this->form('Client')->Pda->content->Pda_Tasks->content->clearPdaNotification();
+        $this->form('Client')->Pda->content->Pda_Tasks->content->Step_DeletePda();
     }  
 }

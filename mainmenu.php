@@ -77,7 +77,7 @@ class mainmenu extends AbstractForm
         $GLOBALS['discord']->updateState();
         
         //предзагрузка здесь, чтобы в ui не палиться
-        //$this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();
+        $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();
         $this->form('Client')->Dialog->content->UpdateData();
     }
     function SwitchGameState()

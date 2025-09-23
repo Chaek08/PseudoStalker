@@ -17,19 +17,13 @@ class pda_fragments_stat extends AbstractForm
     private $actorCharacterInfo;
     private $enemyCharacterInfo;
     
-    private $questManager;
-    private $tasksForm;    
-    
     public function __construct() 
     {
         parent::__construct();
 
-        $this->localization = new Localization($language);  
+        $this->localization = new Localization($language);
         
         uiLater(function () {
-            $this->tasksForm = $this->form('Client')->Pda->content->Pda_Tasks->content;
-            $this->questManager = $this->tasksForm->questManager;
-        
             $this->localization->setLanguage($this->getCurrentLanguageFromUI());
             
             $this->actorCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon, $this->rank, $this->null, $this->community, $this->null, $this->tab_button, $this->reputation); 
@@ -79,30 +73,28 @@ class pda_fragments_stat extends AbstractForm
     }
     function UpdateRaiting()
     {
-        $quest = $this->questManager->getQuest($this->tasksForm->currentQuestId);
-        if (!$quest) return;
-    
-        if ($quest->status === QuestManager::STATUS_COMPLETED)
+        if ($GLOBALS['EnemyFailed'])
         {
-            $this->actorCharacterInfo->addRank(1500);     
+            //$this->statistic_num->text = "10021\n1000\n1\n\n11022";  
+            
+            $this->actorCharacterInfo->addRank(1500); 
+            $this->form('Client')->Pda->content->Pda_Ranking->content->UpdateData();    
         }
-    
-        if ($quest->status === QuestManager::STATUS_FAILED)
+        if ($GLOBALS['ActorFailed'])
         {
             $this->enemyCharacterInfo->addRank(1200);
+            $this->form('Client')->Pda->content->Pda_Ranking->content->UpdateData();
         }
-    
-        if ($quest->status === QuestManager::STATUS_ACTIVE)
+        if (!$GLOBALS['QuestCompleted'])
         {
             $this->InitRaiting();
             
             $this->actorCharacterInfo->resetRank();
-            $this->enemyCharacterInfo->resetRank();
+            $this->enemyCharacterInfo->resetRank();            
+            
+            $this->form('Client')->Pda->content->Pda_Ranking->content->UpdateData();
         }
-        
-        $this->form('Client')->Pda->content->Pda_Ranking->content->UpdateData();        
-    } 
-    
+    }
     function UpdateFinalLabel()
     {
         $this->tab_final->hide();
@@ -111,16 +103,13 @@ class pda_fragments_stat extends AbstractForm
         
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         
-        $quest = $this->questManager->getQuest($this->tasksForm->currentQuestId);
-        if (!$quest) return;
-                
-        if ($quest->status === QuestManager::STATUS_FAILED)
+        if ($GLOBALS['ActorFailed'])
         {
             $this->tab_final->show();
             $this->final_label->show();
             $this->final_label->text = $this->localization->get('FinalLabel_ActorFail');
         }
-        if ($quest->status === QuestManager::STATUS_COMPLETED)
+        if ($GLOBALS['EnemyFailed'])
         {
             $this->tab_final->show();
             $this->final_label->show();
