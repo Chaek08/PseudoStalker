@@ -100,7 +100,7 @@ class MessageBox extends AbstractForm
             $this->Task_Status->text = $this->localization->get('Task_Status_Failed');
         }
     
-        //$this->form('Client')->MainGame->content->ShowTaskStep($text, $quest ? $quest->id : null);
+        $this->form('Client')->MainGame->content->ShowTaskStep($text, $quest ? $quest->id : null);
         $this->form('Client')->MainGame->content->ShowMessageBox();
     }
 

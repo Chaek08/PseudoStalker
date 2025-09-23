@@ -14,13 +14,10 @@ class dialog extends AbstractForm
 {
     private $localization;
     
-    private $questManager;
-    private $tasksForm;     
-    
     private $actorCharacterInfo;
     private $enemyCharacterInfo;    
     
-    public $answerStep = 0;
+    public $answerStep = 0;    
     
     public $SDK_VoiceStart;
     public $SDK_VoiceTalk1;
@@ -40,15 +37,12 @@ class dialog extends AbstractForm
 
         $this->localization = new Localization($language);
         
-        uiLater(function() {
-            $this->tasksForm = $this->form('Client')->Pda->content->Pda_Tasks->content;
-            $this->questManager = $this->tasksForm->questManager;        
-        
+        uiLater(function(){
             $this->actorCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon_gg, $this->rank_actor, null, $this->community_actor, null, $this->gg_name);
             $this->actorCharacterInfo->setActor();
             
             $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon_enemy, $this->rank_enemy, null, $this->community_enemy, null, $this->enemy_name);
-            $this->enemyCharacterInfo->setEnemy();
+            $this->enemyCharacterInfo->setEnemy();    
         });    
     }
     
@@ -378,8 +372,10 @@ class dialog extends AbstractForm
             
         $this->actorCharacterInfo->addRank(45);
         
-        $this->tasksForm->completeStep("goblin_quest", 0);
-        $this->tasksForm->showQuest($this->questManager->getQuest("goblin_quest"));        
+        $pdaTasks = $this->form('Client')->Pda->content->Pda_Tasks->content;
+        $pdaTasks->completeStep("goblin_quest", 0);
+        $quest = $pdaTasks->questManager->getQuest("goblin_quest");
+        $pdaTasks->showQuest($quest);
         //$this->form('Client')->Pda->content->Pda_Tasks->content->Step1_Complete();
 
         $this->form('Client')->MainGame->content->GameActor->SetInteractive(true);

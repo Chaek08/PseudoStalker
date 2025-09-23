@@ -222,11 +222,13 @@ class maingame extends AbstractForm
             
             $this->item_vodka_0000->enabled = false;
             
+            $tasks = $this->form('Client')->Pda->content->Pda_Tasks->content;
+            
             $quest = $this->questManager->getQuest("goblin_quest");
             $quest->reset();
             
-            $this->tasksForm->clearPdaNotification();
-            $this->tasksForm->InitTasks();
+            $tasks->clearPdaNotification();
+            $tasks->InitTasks();
             
             $this->form('Client')->Pda->content->DefaultState();
             $this->form('Client')->Pda->content->Pda_Contacts->content->UpdateContacts();
@@ -288,7 +290,7 @@ class maingame extends AbstractForm
             
             if ($this->CurrentWeaponType) $this->ui_mag_background->show();
             
-            if ($this->questManager->hasUnreadNotifications())
+            if ($this->form('Client')->Pda->content->Pda_Tasks->content->questManager->hasUnreadNotifications())
             {
                 $this->pda_icon->show();
             }
@@ -830,29 +832,6 @@ class maingame extends AbstractForm
     }
     function finalizeBattle()
     {
-        if ($GLOBALS['ActorFailed'])
-        {
-            $this->GameActor->GetModel()->hide();
-            
-            $this->tasksForm->failStep("goblin_quest", 1);
-            $this->questManager->failQuest("goblin_quest");
-            $this->tasksForm->showQuest($this->questManager->getQuest("goblin_quest"));
-            //$this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Failed();
-            
-            if ($GLOBALS['AllSounds']) $this->form('Client')->playSoundAsync('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');
-        }
-        if ($GLOBALS['EnemyFailed'])
-        {
-            $this->enemy->hide();
-            
-            $this->tasksForm->completeStep("goblin_quest", 1);
-            $this->questManager->completeQuest("goblin_quest");
-            $this->tasksForm->showQuest($this->questManager->getQuest("goblin_quest"));
-            //$this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Complete();
-            
-            if ($GLOBALS['AllSounds']) $this->form('Client')->playSoundAsync('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor');
-        }
-        
         $this->form('Client')->Fail->content->UpdateFailState();
         $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
     
@@ -874,6 +853,33 @@ class maingame extends AbstractForm
         
         if ($GLOBALS['AllSounds']) $this->form('Client')->StopAllSoundsAsync();
         
+        if ($GLOBALS['ActorFailed'])
+        {
+            $this->GameActor->GetModel()->hide();
+            
+            $pdaTasks = $this->form('Client')->Pda->content->Pda_Tasks->content;
+            $pdaTasks->failStep("goblin_quest", 1);
+            $pdaTasks->questManager->failQuest("goblin_quest");
+            $quest = $pdaTasks->questManager->getQuest("goblin_quest");
+            $pdaTasks->showQuest($quest);
+            //$this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Failed();
+            
+            if ($GLOBALS['AllSounds']) $this->form('Client')->playSoundAsync('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');
+        }
+        if ($GLOBALS['EnemyFailed'])
+        {
+            $this->enemy->hide();
+            
+            $pdaTasks = $this->form('Client')->Pda->content->Pda_Tasks->content;
+            $pdaTasks->completeStep("goblin_quest", 1);
+            $pdaTasks->questManager->completeQuest("goblin_quest");
+            $quest = $pdaTasks->questManager->getQuest("goblin_quest");
+            $pdaTasks->showQuest($quest);            
+            //$this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Complete();
+            
+            if ($GLOBALS['AllSounds']) $this->form('Client')->playSoundAsync('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor');
+        }
+        
         $this->form('Client')->Pda->content->Pda_Tasks->content->updatePdaNotification();
         
         $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateRaiting();
@@ -888,7 +894,8 @@ class maingame extends AbstractForm
      */
     function EnemyHoverEnter(UXMouseEvent $e = null)
     {
-        if ($quest = $this->questManager->getQuest($this->tasksForm->currentQuestId))
+        $quest = $this->questManager->getQuest($this->tasksForm->currentQuestId);
+        if ($quest)
         {
             $step1 = $quest->getStep(0);
             if ($step1 && $step1['status'] === QuestManager::STATUS_COMPLETED)
@@ -1031,7 +1038,8 @@ class maingame extends AbstractForm
 
     function Shoot()
     {
-        if ($quest = $this->questManager->getQuest($this->tasksForm->currentQuestId))
+        $quest = $this->questManager->getQuest($this->tasksForm->currentQuestId);
+        if ($quest)
         {
             $step1 = $quest->getStep(0);
             if (!$step1 || $step1['status'] !== QuestManager::STATUS_COMPLETED)
