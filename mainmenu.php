@@ -124,20 +124,14 @@ class mainmenu extends AbstractForm
      */
     function BtnEndGame(UXMouseEvent $e = null)
     {
-        $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
-        $GLOBALS['EndGameWndType'] = true;
-        $this->form('Client')->ExitDialog->content->SetDialogWndType();
-        $this->form('Client')->ExitDialog->show();
+        $this->form('Client')->ExitDialog->content->showDialog(exit_dlg::TYPE_END_GAME);
     }
     /**
      * @event Btn_Exit_Windows.mouseDown-Left 
      */
     function BtnExitWindows(UXMouseEvent $e = null)
     {
-        $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
-        $GLOBALS['ExitWndType'] = true;
-        $this->form('Client')->ExitDialog->content->SetDialogWndType();
-        $this->form('Client')->ExitDialog->show();
+        $this->form('Client')->ExitDialog->content->showDialog(exit_dlg::TYPE_EXIT);
     }
     /**
      * @event Btn_Opt.mouseDown-Left 

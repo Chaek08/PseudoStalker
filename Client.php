@@ -818,10 +818,7 @@ class Client extends AbstractForm
         
         $this->MainGame->content->RenderHud(false);
         
-        $this->ExitDialog->content->UpdateDialogWnd();
-        $GLOBALS['ExitWndType'] = true;
-        $this->ExitDialog->content->SetDialogWndType();
-        $this->ExitDialog->show();        
+        $this->ExitDialog->content->showDialog(exit_dlg::TYPE_EXIT);       
     }
     /**
      * @event keyDown-F

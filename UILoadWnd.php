@@ -172,28 +172,23 @@ class UILoadWnd extends AbstractForm
         
         $result = $this->SaveLoadManager->validateSave($saveData);
         
-        if (!$result['ok'])
+        if (!$result['ok']) //нам не нужна exitdialog хуета, ибо здесь нет выбора да или нет
         {
+            $this->localization->setLanguage($this->getCurrentLanguageFromUI());
             if ($result['error'] === 'corrupt')
             {
                 if (!$this->form('Client')->ExitDialog->visible)
                 {
-                    $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
-                    $GLOBALS['CorruptSaveType'] = true;
-                    $this->form('Client')->ExitDialog->content->SetDialogWndType();
-                    $this->form('Client')->ExitDialog->show();
-                
-                    return;
+                    //$this->form('Client')->ExitDialog->content->showDialog(exit_dlg::TYPE_CORRUPT_SAVE);
+                    $this->form('Client')->toast($this->localization->get('SaveCorruptToast'));
                 }
             }
             elseif ($result['error'] === 'version')
             {
                 if (!$this->form('Client')->ExitDialog->visible)
                 {
-                    $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
-                    $GLOBALS['ClientVersionErrorType'] = true;
-                    $this->form('Client')->ExitDialog->content->SetDialogWndType();
-                    $this->form('Client')->ExitDialog->show();
+                    //$this->form('Client')->ExitDialog->content->showDialog(exit_dlg::TYPE_CLIENT_VERSION_ERR);
+                    $this->form('Client')->toast($this->localization->get('InvalidGameClientToast'));
                 }
             }
             return;
@@ -212,11 +207,7 @@ class UILoadWnd extends AbstractForm
         {       
             if (!$this->form('Client')->ExitDialog->visible)
             {
-                $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
-                $GLOBALS['RemoveSaveType'] = true;
-                $this->form('Client')->ExitDialog->content->SetDialogWndType();
-                $this->form('Client')->ExitDialog->show();
-                
+                $this->form('Client')->ExitDialog->content->showDialog(exit_dlg::TYPE_REMOVE_SAVE);
                 return;
             } 
         

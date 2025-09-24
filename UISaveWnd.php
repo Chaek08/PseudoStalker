@@ -196,10 +196,7 @@ class UISaveWnd extends AbstractForm
             {
                 if (!$this->form('Client')->ExitDialog->visible)
                 {
-                    $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
-                    $GLOBALS['RewriteSaveType'] = true;
-                    $this->form('Client')->ExitDialog->content->SetDialogWndType();
-                    $this->form('Client')->ExitDialog->show();
+                    $this->form('Client')->ExitDialog->content->showDialog(exit_dlg::TYPE_REWRITE_SAVE);
                     return;
                 }
             }
@@ -223,11 +220,7 @@ class UISaveWnd extends AbstractForm
         {
             if (!$this->form('Client')->ExitDialog->visible)
             {
-                $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
-                $GLOBALS['RemoveSaveType'] = true;
-                $this->form('Client')->ExitDialog->content->SetDialogWndType();
-                $this->form('Client')->ExitDialog->show();
-                
+                $this->form('Client')->ExitDialog->content->showDialog(exit_dlg::TYPE_REMOVE_SAVE);
                 return;
             }
                     
