@@ -828,7 +828,15 @@ class maingame extends AbstractForm
         if ($GLOBALS['ActorFailed'])
         {
             $this->GameActor->GetModel()->hide();
-            
+            if ($this->CurrentWeaponType == 'Pm')
+            {
+                $this->WeaponPm->hide();
+            }
+            if ($this->CurrentWeaponType == 'AK74')
+            {
+                $this->WeaponAK74->hide();
+            }      
+              
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Failed();
             
             if ($GLOBALS['AllSounds']) $this->form('Client')->playSoundAsync('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');
@@ -1200,6 +1208,8 @@ class maingame extends AbstractForm
         {
             return;
         }    
+        
+        if ($GLOBALS['ActorFailed']) return;        
     
         $slotFlagMap = [
             'Pm' => 'pmInWeaponSlot',
@@ -1234,6 +1244,8 @@ class maingame extends AbstractForm
     {
         if ($this->isReloading) return;
         if (!$this->CurrentWeaponType) return;
+        
+        if ($GLOBALS['ActorFailed']) return;        
 
         switch ($this->CurrentWeaponType)
         {
