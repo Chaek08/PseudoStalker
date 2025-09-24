@@ -52,8 +52,18 @@ class pda_fragments_stat extends AbstractForm
      */
     function InitRaiting(UXWindowEvent $e = null)
     {    
-        //$this->statistic_num->text = "9700\n999\n0\n\n10699";
-        //todo: общий рейтинг с использованием RatingManager
+        uiLater(function () {
+            $rank = $this->actorCharacterInfo->getRankValue();
+        
+            $part1 = intdiv($rank, 2);
+            $part2 = intdiv($rank, 3);
+        
+            $questStatus = !empty($GLOBALS['QuestCompleted']) ? 1 : 0;
+        
+            $total = $rank;
+        
+            $this->statistic_num->text = $part1 . "\n" . $part2 . "\n" . $questStatus . "\n\n" . $total;            
+        });
     }
     /**
      * @event icon.click-2x 
@@ -75,8 +85,6 @@ class pda_fragments_stat extends AbstractForm
     {
         if ($GLOBALS['EnemyFailed'])
         {
-            //$this->statistic_num->text = "10021\n1000\n1\n\n11022";  
-            
             $this->actorCharacterInfo->addRank(1500); 
             $this->form('Client')->Pda->content->Pda_Ranking->content->UpdateData();    
         }
@@ -87,13 +95,13 @@ class pda_fragments_stat extends AbstractForm
         }
         if (!$GLOBALS['QuestCompleted'])
         {
-            $this->InitRaiting();
-            
             $this->actorCharacterInfo->resetRank();
             $this->enemyCharacterInfo->resetRank();            
             
             $this->form('Client')->Pda->content->Pda_Ranking->content->UpdateData();
         }
+        
+        $this->InitRaiting();
     }
     function UpdateFinalLabel()
     {
