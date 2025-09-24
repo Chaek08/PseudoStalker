@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use Throwable;
 use app\forms\ui_test;
 use app\forms\classes\CActor;
 use app\forms\classes\Weapons\CWeapon_Dev;
@@ -1100,8 +1101,7 @@ class maingame extends AbstractForm
         });
     }
 
-    private $AttachmentTimer;
-    
+    private $AttachmentTimer = null;
     function AttachWeapon(string $weaponType)
     {
         if ($this->AttachmentTimer)
@@ -1109,61 +1109,63 @@ class maingame extends AbstractForm
             $this->AttachmentTimer->cancel();
             $this->AttachmentTimer = null;
         }
-
+    
         $weaponProperty = "Weapon$weaponType";
         $this->$weaponProperty = new UXImageView;
-
+    
         switch ($weaponType)
         {
             case 'Pm':
                 $this->$weaponProperty->image = new UXImage('res://.data/ui/weapons/wpn_pm.png');
-                
                 $offsetX = 112;
                 $offsetY = 152;
-                
                 if ($GLOBALS['AllSounds'])
                 {
                     $this->form('Client')->playSoundAsync('res://.data/audio/weapon/pm_draw.mp3', true, 'pm_draw');
                 }
-                
                 break;
-
+    
             case 'AK74':
                 $this->$weaponProperty->image = new UXImage('res://.data/ui/weapons/wpn_ak74.png');
-                
                 $offsetX = 24;
                 $offsetY = 144;
-                
                 if ($GLOBALS['AllSounds'])
                 {
                     $this->form('Client')->playSoundAsync('res://.data/audio/weapon/ak74_draw.mp3', true, 'ak74_draw');
                 }
-                
                 break;
-
+    
             default:
                 return;
         }
-
+    
         $this->add($this->$weaponProperty);
-        
+    
         $colorAdjustEffect = new ColorAdjustEffectBehaviour();
         $colorAdjustEffect->brightness = $this->GameActor->GetModel()->colorAdjustEffect->brightness;
         $colorAdjustEffect->apply($this->$weaponProperty);
-        
+    
         $this->UpdateMagazine();
-
-        $this->$weaponProperty->on('mouseDown', function(UXMouseEvent $e){
+    
+        $this->$weaponProperty->on('mouseDown', function(UXMouseEvent $e) {
             $this->Shoot();
         });
-        
-        $this->AttachmentTimer = Timer::every(6, function() use ($weaponProperty, $offsetX, $offsetY) {
-            if ($this->$weaponProperty)
+    
+        $model = $this->GameActor->GetModel();
+        $this->$weaponProperty->x = $model->x + $offsetX;
+        $this->$weaponProperty->y = $model->y + $offsetY;
+    
+        $this->AttachmentTimer = Timer::every(1, function() use ($weaponProperty, $offsetX, $offsetY) {
+            if (!empty($this->$weaponProperty) && $this->GameActor && $this->GameActor->GetModel())
             {
-                $this->$weaponProperty->x = $this->GameActor->GetModel()->x + $offsetX;
-                $this->$weaponProperty->y = $this->GameActor->GetModel()->y + $offsetY;    
-                
-                $this->$weaponProperty->colorAdjustEffect->brightness = $this->GameActor->GetModel()->colorAdjustEffect->brightness;
+                $model = $this->GameActor->GetModel();
+                $this->$weaponProperty->x = $model->x + $offsetX;
+                $this->$weaponProperty->y = $model->y + $offsetY;
+    
+                if ($this->$weaponProperty->colorAdjustEffect)
+                {
+                    $this->$weaponProperty->colorAdjustEffect->brightness = $model->colorAdjustEffect->brightness;
+                }
             }
         });
     }
@@ -1174,15 +1176,14 @@ class maingame extends AbstractForm
         {
             $this->form('Client')->playSoundAsync('res://.data/audio/weapon/generic_close.mp3', true, 'generic_close');
         }
-            
+    
         if ($this->AttachmentTimer)
         {
             $this->AttachmentTimer->cancel();
             $this->AttachmentTimer = null;
         }
-
+    
         $weaponProperty = "Weapon$weaponType";
-
         if (!empty($this->$weaponProperty))
         {
             $this->remove($this->$weaponProperty);
@@ -1193,7 +1194,6 @@ class maingame extends AbstractForm
     }
     
     public $CurrentWeaponType;
-    
     function SwitchWeapon(string $weaponType)
     {
         if ($this->CurrentWeaponType == $weaponType)
@@ -1230,7 +1230,6 @@ class maingame extends AbstractForm
     }    
     
     private $isReloading = false;
-
     function ReloadWeapon()
     {
         if ($this->isReloading) return;
