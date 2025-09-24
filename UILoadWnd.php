@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\SaveLoadManager;
 use php\gui\UXImage;
 use php\gui\UXClipboard;
 use Exception;
@@ -21,12 +22,17 @@ use app\forms\classes\DimasCryptoZlodey;
 class UILoadWnd extends AbstractForm
 {
     private $localization;
+    
+    public $SaveLoadManager;
 
     public function __construct() 
     {
         parent::__construct();
 
         $this->localization = new Localization($language);
+        
+        $weaponData = &$this->weaponData;
+        $this->SaveLoadManager = new SaveLoadManager(array($this, 'form'), $weaponData);            
     }
     
     function getCurrentLanguageFromUI()
@@ -49,7 +55,7 @@ class UILoadWnd extends AbstractForm
     }
     function refreshSavesList()
     {
-        $directory = new File(SAVE_DIRECTORY);
+        $directory = new File($this->SaveLoadManager->getSaveDir());
         $newItems = [];
 
         if ($directory->exists())
@@ -88,35 +94,6 @@ class UILoadWnd extends AbstractForm
             }
         }
     }
-    function keyExists($array, $keys)
-    {
-        $key = array_shift($keys);
-        if (!isset($array[$key]))
-        {
-            return false;
-        }
-        if (count($keys) === 0)
-        {
-            return true;
-        }
-        return $this->keyExists($array[$key], $keys);
-    }
-    function waitAndSetPosition($player, $positionMs, $retries = 10)
-    {
-        Timer::after(100, function () use ($player, $positionMs, $retries){
-            uiLater(function () use ($player, $positionMs, $retries) {
-            //TODO: таки разобраться с проверкой на duration
-                if ($player->status == 'READY' || $player->status == 'PLAYING')
-                {
-                    $player->positionMs = $positionMs;
-                }
-                elseif ($retries > 0)
-                {
-                    $this->waitAndSetPosition($player, $positionMs, $retries - 1);
-                }
-            });
-        });
-    }  
     /**
      * @event Return_Btn.click-Left 
      */
@@ -138,9 +115,8 @@ class UILoadWnd extends AbstractForm
             return;
         }
         
-        $imagePath = SAVE_DIRECTORY . $selectedSave . '.jpg';
-        $saveFile = SAVE_DIRECTORY . $selectedSave . '.sav';
-
+        $imagePath = $this->SaveLoadManager->getSaveDir() . $selectedSave . '.jpg';
+    
         if (file_exists($imagePath))
         {
             $this->noise->hide();
@@ -152,10 +128,17 @@ class UILoadWnd extends AbstractForm
             $this->save_image->hide();
             $this->noise->show();
         }
-        
-        $encryptedData = Stream::getContents($saveFile);
-        $saveData = json_decode(DimasCryptoZlodey::decryptData($encryptedData), true);
-        
+    
+        $saveData = $this->SaveLoadManager->load($selectedSave);
+    
+        if ($saveData === null)
+        {
+            $this->savedata_name->text   = $selectedSave;
+            $this->savedata_health->text = '---%';
+            $this->savedata_time->text   = '--:-- --/--/----';
+            return;
+        }
+    
         $this->savedata_name->show();
         $this->savedata_time->show();
         $this->savedata_health->show();
@@ -163,8 +146,11 @@ class UILoadWnd extends AbstractForm
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         
         $this->savedata_name->text = $selectedSave;
-        $this->savedata_health->text = $this->localization->get('SaveData_Health_Label') . ' : ' . ($saveData['health']['gg']['value'] ?? '---%'); 
-        $this->savedata_time->text = $this->localization->get('SaveData_Time_Label') . ' : ' . ($saveData['quest_time']['hm'] ?? '--:--') . '  ' . ($saveData['quest_time']['date'] ?? '--/--/----');
+        $this->savedata_health->text = $this->localization->get('SaveData_Health_Label') 
+            . ' : ' . ($saveData['health']['gg']['value'] ?? '---%'); 
+        $this->savedata_time->text = $this->localization->get('SaveData_Time_Label') 
+            . ' : ' . ($saveData['quest_time']['hm'] ?? '--:--') 
+            . '  ' . ($saveData['quest_time']['date'] ?? '--/--/----');
     }
     function HideSavePreview()
     {
@@ -181,69 +167,14 @@ class UILoadWnd extends AbstractForm
     function BtnLoadSave(UXMouseEvent $e = null)
     {
         $saveName = $this->saves_list->selectedItem;
+        $saveData = $this->SaveLoadManager->load($saveName);
+        if ($saveData === null) return;
         
-        if ($saveName == "")
-            return;
+        $result = $this->SaveLoadManager->validateSave($saveData);
         
-        $filePath = SAVE_DIRECTORY . $saveName . '.sav';
-        $encryptedData = Stream::getContents($filePath);
-        $saveData = json_decode(DimasCryptoZlodey::decryptData($encryptedData), true);
-                
-        $requiredKeys = [
-            'client_version',
-            'health',
-            'health.gg',
-            'health_gg_inv',
-            'health_gg_inv.value',
-            'health_gg_inv.pb_width',
-            'health.gg.value',
-            'health.gg.pb_width',
-            'health.enemy',
-            'health.enemy.value',
-            'health.enemy.pb_width',
-            'objects_position',
-            'objects_position.actor',
-            'objects_position.actor.x',
-            'objects_position.actor.y',
-            'objects_position.actor.is_wearing',            
-            'objects_position.enemy',
-            'objects_position.enemy.x',
-            'objects_position.enemy.y',
-            'objects_position.item_vodka_0000',
-            'objects_position.item_vodka_0000.x',
-            'objects_position.item_vodka_0000.y',
-            'quest_time',
-            'quest_time.date',
-            'quest_time.hm',
-            'vodka_exist',
-            'medkit_count',
-            'quest_step1',
-            'quest_completed',
-            'actor_failed',
-            'enemy_failed',
-            'need_to_check_pda',
-            'menubackground_playpos',
-            'menusound_playpos',
-            'environment_playpos',
-            'fightsound_playpos',
-            'ammo',
-            'ammo.pm_mag',
-            'ammo.ak74_mag',
-            'ammo.pm_total',
-            'ammo.ak74_total',
-            'current_weapon',
-            'weapons_jam_state',
-            'weapons_jam_state.Pm',
-            'weapons_jam_state.Pm.jammed',
-            'weapons_jam_state.Pm.jamHandled',
-            'weapons_jam_state.AK74',
-            'weapons_jam_state.AK74.jammed',
-            'weapons_jam_state.AK74.jamHandled'       
-        ];
-
-        foreach ($requiredKeys as $key)
+        if (!$result['ok'])
         {
-            if (!$this->keyExists($saveData, explode('.', $key)))
+            if ($result['error'] === 'corrupt')
             {
                 if (!$this->form('Client')->ExitDialog->visible)
                 {
@@ -253,178 +184,22 @@ class UILoadWnd extends AbstractForm
                     $this->form('Client')->ExitDialog->show();
                 
                     return;
-                }                
-            }
-        }
-        foreach ($saveData as $key => $value)
-        {
-            if (!in_array($key, $requiredKeys))
-            {
-                if (!$this->form('Client')->ExitDialog->visible)
-                {
-                    $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
-                    $GLOBALS['CorruptSaveType'] = true;
-                    $this->form('Client')->ExitDialog->content->SetDialogWndType();
-                    $this->form('Client')->ExitDialog->show();
-                
-                    return;
-                }                
-            }
-        }
-
-        if ($saveData['client_version'] != client_version)
-        {
-            if (!$this->form('Client')->ExitDialog->visible)
-            {
-                $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
-                $GLOBALS['ClientVersionErrorType'] = true;
-                $this->form('Client')->ExitDialog->content->SetDialogWndType();
-                $this->form('Client')->ExitDialog->show();
-                
-                return;
-            }
-        }
-        
-        $this->form('Client')->MainGame->content->ResetGameClient(function () use ($saveData, $saveName)
-        {        
-            $this->form('Client')->MainMenu->content->UILoadWnd->content->ReturnBtn();
-            $this->form('Client')->MainMenu->content->BtnStartGame();
-            if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = false;
-        
-            $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();    
-            $this->form('Client')->Pda->content->Pda_Tasks->content->time_quest_date->text = $saveData['quest_time']['date'];
-            $this->form('Client')->Pda->content->Pda_Tasks->content->time_quest_hm->text = $saveData['quest_time']['hm'];
-            $this->form('Client')->MainGame->content->item_vodka_0000->visible = $saveData['vodka_exist'];
-            if ($this->form('Client')->MainGame->content->item_vodka_0000->visible) 
-            {
-                if ($this->form('Client')->Inventory->content->InventoryGrid->content->selectedItem = $this->form('Client')->Inventory->content->InventoryGrid->content->Inv_Vodka)
-                $this->form('Client')->Inventory->content->InventoryGrid->content->DropItem();
-            }
-        
-            $GLOBALS['QuestStep1'] = $saveData['quest_step1'];
-            $GLOBALS['QuestCompleted'] = $saveData['quest_completed'];
-            $GLOBALS['ActorFailed'] = $saveData['actor_failed'];
-            $GLOBALS['EnemyFailed'] = $saveData['enemy_failed'];
-            $GLOBALS['NeedToCheckPDA'] = $saveData['need_to_check_pda'];
-        
-            if (isset($saveData['objects_position']['actor']))
-            {
-                $this->form('Client')->MainGame->content->actor->position = [
-                $saveData['objects_position']['actor']['x'],
-                $saveData['objects_position']['actor']['y']
-                ];
-            }
-            if (isset($saveData['objects_position']['enemy']))
-            {
-                $this->form('Client')->MainGame->content->enemy->position = [
-                $saveData['objects_position']['enemy']['x'],
-                $saveData['objects_position']['enemy']['y']
-                ];
-            }
-            
-            if (isset($saveData['ammo']))
-            {
-                $this->form('Client')->MainGame->content->pmAmmo  = $saveData['ammo']['pm_mag'];
-                $this->form('Client')->MainGame->content->ak74Ammo = $saveData['ammo']['ak74_mag'];
-                $this->form('Client')->Inventory->content->InventoryGrid->content->pmAmmoCount = $saveData['ammo']['pm_total'];
-                $this->form('Client')->Inventory->content->InventoryGrid->content->akAmmoCount = $saveData['ammo']['ak74_total'];
-            }
-
-            if (isset($saveData['weapons_jam_state']))
-            {
-                $this->weaponData['Pm']['jammed']     = $saveData['weapons_jam_state']['Pm']['jammed'];
-                $this->weaponData['Pm']['jamHandled'] = $saveData['weapons_jam_state']['Pm']['jamHandled'];
-                $this->weaponData['AK74']['jammed']   = $saveData['weapons_jam_state']['AK74']['jammed'];
-                $this->weaponData['AK74']['jamHandled'] = $saveData['weapons_jam_state']['AK74']['jamHandled'];
-            }
-            
-            $this->form('Client')->MainGame->content->CurrentWeaponType = 'AK74';
-            $this->form('Client')->MainGame->content->DetachWeapon('AK74');
-        
-            $this->form('Client')->MainGame->content->CurrentWeaponType = 'Pm';
-            $this->form('Client')->MainGame->content->DetachWeapon('Pm');
-        
-            $this->form('Client')->MainGame->content->CurrentWeaponType = null; 
-                
-            if (isset($saveData['current_weapon']))
-            {
-                $this->CurrentWeaponType = $saveData['current_weapon'];
-            }
-                            
-            //$this->form('Client')->MainGame->content->AttachWeapon($saveData['current_weapon']);
-            
-            if ($saveData['current_weapon'] == 'Pm')
-            {
-                $this->form('Client')->SwitchWeapon1();
-            }
-            elseif ($saveData['current_weapon'] == 'AK74')
-            {
-                $this->form('Client')->SwitchWeapon2();
-            }            
-                    
-            if (isset($saveData['objects_position']['item_vodka_0000']))
-            {
-                $this->form('Client')->MainGame->content->item_vodka_0000->position = [
-                $saveData['objects_position']['item_vodka_0000']['x'],
-                $saveData['objects_position']['item_vodka_0000']['y']
-                ];
-            }
-            if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed'])
-            {
-                if ($saveData['quest_step1'] == true) $this->form('Client')->Pda->content->Pda_Tasks->content->Step1_Complete();
-                $this->form('Client')->MainGame->content->finalizeBattle();
-            
-                $this->form('Client')->Pda->content->Pda_Ranking->content->DeathFilter();
-                if ($this->form('Client')->Fail->visible) $this->form('Client')->Fail->content->ReturnBtn();
-                if ($saveData['need_to_check_pda'] == false) $this->form('Client')->Pda->content->Pda_Tasks->content->Step_DeletePda();
-            }
-            if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted']) 
-            {
-                $this->form('Client')->Dialog->content->Talk_Final();
-            
-                $this->form('Client')->MainGame->content->fight_image->show();
-            }
-        
-            if ($this->form('Client')->MainGame->content->MessageBox->visible) $this->form('Client')->MainGame->content->MessageBox->hide();
-            if ($this->form('Client')->MainGame->content->Task_Step_Label->visible) $this->form('Client')->MainGame->content->Task_Step_Label->hide();
-                
-            $this->form('Client')->MainGame->content->InitEnvironmentTimer($saveData['quest_time']['hm']);     
-            $this->form('Client')->MainGame->content->UpdateEnvironment($saveData['quest_time']['hm']);
-            
-            $this->form('Client')->MainGame->content->GetHealth();
-            $this->form('Client')->MainGame->content->health_bar_gg->text = $saveData['health']['gg']['value'];
-            $this->form('Client')->MainGame->content->health_bar_gg->width = $saveData['health']['gg']['pb_width'];
-            $this->form('Client')->Inventory->content->health_bar_gg->width = $saveData['health_gg_inv']['pb_width'];
-            $this->form('Client')->Inventory->content->health_bar_gg->text = $saveData['health_gg_inv']['value'];
-            $this->form('Client')->MainGame->content->health_bar_enemy->text = $saveData['health']['enemy']['value'];
-            $this->form('Client')->MainGame->content->health_bar_enemy->width = $saveData['health']['enemy']['pb_width'];
-            $this->form('Client')->MainGame->content->Bleeding();
-            
-            $this->form('Client')->Inventory->content->InventoryGrid->content->medkitCount = $saveData['medkit_count'];
-            $this->form('Client')->Inventory->content->InventoryGrid->content->updateMedkitCount();
-            
-            if (isset($saveData['objects_position']['actor']['is_wearing']))
-            {
-                $this->form('Client')->Inventory->content->InventoryGrid->content->isWearing = $saveData['objects_position']['actor']['is_wearing'];
-                
-                if ($this->form('Client')->Inventory->content->InventoryGrid->content->isWearing)
-                {
-                    $this->form('Client')->Inventory->content->InventoryGrid->content->selectedItem = $this->form('Client')->Inventory->content->InventoryGrid->content->Inv_Outfit;
-                    $this->form('Client')->Inventory->content->InventoryGrid->content->TakeOffItem();
                 }
-            }            
+            }
+            elseif ($result['error'] === 'version')
+            {
+                if (!$this->form('Client')->ExitDialog->visible)
+                {
+                    $this->form('Client')->ExitDialog->content->UpdateDialogWnd();
+                    $GLOBALS['ClientVersionErrorType'] = true;
+                    $this->form('Client')->ExitDialog->content->SetDialogWndType();
+                    $this->form('Client')->ExitDialog->show();
+                }
+            }
+            return;
+        }
         
-            $this->waitAndSetPosition($this->form('Client')->MainMenu->content->MainMenuBackground, $saveData['menubackground_playpos']);
-            $this->waitAndSetPosition($this->form('Client')->MainMenu->content->MenuSound, $saveData['menusound_playpos']);
-            $this->waitAndSetPosition($this->form('Client')->MainGame->content->Environment, $saveData['environment_playpos']);
-            $this->waitAndSetPosition($this->form('Client')->MainGame->content->FightSound, $saveData['fightsound_playpos']);
-        
-            $this->form('Client')->MainGame->content->PlayEnvironment();
-        
-            if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = true;
-                
-            if (Debug_Build) Logger::info("Loaded save: " . $saveName);
-        });
+        $this->SaveLoadManager->applySaveData($saveData, $saveName);
     }
     /**
      * @event Remove_Save_Btn.click-Left 
@@ -445,8 +220,8 @@ class UILoadWnd extends AbstractForm
                 return;
             } 
         
-            $filePath = SAVE_DIRECTORY . $selectedSave . '.sav';
-            $imagePath = SAVE_DIRECTORY . $selectedSave . '.jpg';
+            $filePath = $this->SaveLoadManager->getSaveDir() . $selectedSave . '.sav';
+            $imagePath = $this->SaveLoadManager->getSaveDir() . $selectedSave . '.jpg';
 
             if (file_exists($filePath))
             {

@@ -907,7 +907,7 @@ class Client extends AbstractForm
         $latestTime = 0;
 
         foreach ($items as $index => $saveName) {
-            $filePath = SAVE_DIRECTORY . $saveName . '.sav';
+            $filePath = $this->MainMenu->content->UILoadWnd->content->SaveLoadManager->getSaveDir() . $saveName . '.sav';
             if (file_exists($filePath))
             {
                 $fileTime = filemtime($filePath);

@@ -16,18 +16,18 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="task_label" layoutX="120" layoutY="64" prefHeight="25" prefWidth="192" styleClass="label " text="Поразить пiдораса" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="task_label" layoutX="120" layoutY="64" prefHeight="25" prefWidth="192" styleClass="label " text="task_label" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="16"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-task_label" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="47" id="icon_task" layoutX="24" layoutY="64" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="83">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="47" id="icon_task" layoutX="24" layoutY="64" mosaic="true" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="83">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <Data cursor="DEFAULT" enabled="1" id="data-icon_task" image=".data/ui/pda/icon_Task.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-icon_task" image=".data/ui/no_texture.png" visible="1"/>
     <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="time_quest_date" layoutX="120" layoutY="88" prefHeight="20" prefWidth="80" styleClass="label " text="04/01/2023" textAlignment="LEFT" textFill="#8099ff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="14"/>
@@ -49,13 +49,13 @@
         <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="step1" layoutX="24" layoutY="120" prefHeight="21" prefWidth="328" styleClass="label " text="Поговорить с гоблиндавом" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="step1" layoutX="24" layoutY="120" prefHeight="21" prefWidth="328" styleClass="label " text="step1" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/pda/task_step_process.png" id="data-step1" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="step2" layoutX="24" layoutY="144" prefHeight="21" prefWidth="328" styleClass="label " text="Дать жоск пиздюлей гоблиндаву" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="step2" layoutX="24" layoutY="144" prefHeight="21" prefWidth="328" styleClass="label " text="step2" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="15"/>
       </font>

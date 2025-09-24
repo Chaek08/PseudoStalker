@@ -263,7 +263,7 @@ class console extends AbstractForm
                         $saveName = trim($parts[1]);
                         if ($saveName !== "")
                         {
-                            $filePath = SAVE_DIRECTORY . $saveName . '.sav';
+                            $filePath = $this->form('Client')->MainMenu->content->UILoadWnd->content->SaveLoadManager->getSaveDir() . $saveName . '.sav';
                             if (file_exists($filePath))
                             {
                                 $loadWnd = $this->form('Client')->MainMenu->content->UILoadWnd->content;
