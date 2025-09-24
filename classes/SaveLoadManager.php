@@ -31,8 +31,10 @@ class SaveLoadManager
 
     protected function keyExists(array $array, array $keys): bool
     {
-        foreach ($keys as $key) {
-            if (!is_array($array) || !array_key_exists($key, $array)) {
+        foreach ($keys as $key)
+        {
+            if (!is_array($array) || !array_key_exists($key, $array))
+            {
                 return false;
             }
             $array = $array[$key];
@@ -163,21 +165,27 @@ class SaveLoadManager
             'weapons_jam_state.AK74.jammed',
             'weapons_jam_state.AK74.jamHandled',
         ];
-
+    
+        $missing = [];
+    
         foreach ($requiredKeys as $key)
         {
             $parts = explode('.', $key);
             if (!$this->keyExists($data, $parts))
             {
-                if (Debug_Build) 
+                if (Debug_Build)
                 {
                     Logger::error("Corrupt save: missing key '$key'");
                 }
-                return ['ok' => false, 'error' => 'corrupt', 'missing' => $key];
+                $missing[] = $key;
             }
-
         }
-
+    
+        if (!empty($missing))
+        {
+            return ['ok' => false, 'error' => 'corrupt', 'missing' => $missing];
+        }
+    
         if (!isset($data['client_version']) || $data['client_version'] !== client_version)
         {
             if (Debug_Build)
@@ -186,10 +194,10 @@ class SaveLoadManager
             }
             return ['ok' => false, 'error' => 'version'];
         }
-
+    
         return ['ok' => true];
     }
-
+    
     public function save($saveName)
     {
         if ($saveName === '') return;
