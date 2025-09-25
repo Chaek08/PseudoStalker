@@ -90,40 +90,15 @@ class opt extends AbstractForm
             
             $GLOBALS['AllSounds'] = false;
         
-            if ($this->form('Client')->ltx['mm_sound'] != 'on')
+            if ($GLOBALS['MenuSound'])
             {
-                if ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
-                {
-                    if ($this->form('Client')->ltxInitialized == false)
-                    {
-                        if ($this->form('Client')->ltx['mm_sound'] == 'off')
-                        {
-                            $this->MenuSoundSwitcher();
-                        }
-                    }
-                    else
-                    {
-                        $this->MenuSoundSwitcher();
-                    }
-                }    
+                $this->MenuSoundSwitcher();
+                $this->MenuSound_Switcher_Btn->enabled = false;
             }
-
-            if ($this->form('Client')->ltx['fight_sound'] != 'on')
+            if ($GLOBALS['FightSound'])
             {
-                if ($this->FightSound_Switcher_Btn->text == $this->localization->get('TurnOn_Label'))
-                {
-                    if ($this->form('Client')->ltxInitialized == false)
-                    {
-                        if ($this->form('Client')->ltx['fight_sound'] == 'off')
-                        {
-                            $this->FightSoundSwitcher();
-                        }
-                    }
-                    else
-                    {
-                        $this->FightSoundSwitcher();
-                    }
-                }
+                $this->FightSoundSwitcher();
+                $this->FightSound_Switcher_Btn->enabled = false;
             }
             
             $this->form('Client')->StopAllSounds();
@@ -141,20 +116,15 @@ class opt extends AbstractForm
         
             $GLOBALS['AllSounds'] = true;
         
-            if ($this->MenuSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label'))
+            if (!$GLOBALS['MenuSound'])
             {
-                if ($this->form('Client')->ltx['mm_sound'] != 'on')
-                {
-                    $this->MenuSoundSwitcher();
-                }
+                $this->MenuSoundSwitcher();
+                $this->MenuSound_Switcher_Btn->enabled = true;
             }
-
-            if ($this->FightSound_Switcher_Btn->text == $this->localization->get('TurnOff_Label'))
+            if (!$GLOBALS['FightSound'])
             {
-                if ($this->form('Client')->ltx['fight_sound'] != 'on')
-                {
-                    $this->FightSoundSwitcher();
-                }
+                $this->FightSoundSwitcher();
+                $this->FightSound_Switcher_Btn->enabled = true;
             } 
             
             $this->form('Client')->ltx['all_sounds'] = 'on';
