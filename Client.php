@@ -38,6 +38,7 @@ class Client extends AbstractForm
         define('client_version', '3');
         define('Debug_Build', true);
         define('ResTracker', false);
+        define('UseLegacyEnvironment', false);
         
         $appId = "1387765734704418846";
         $discord = new DiscordRPC($appId);

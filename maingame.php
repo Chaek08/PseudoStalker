@@ -49,10 +49,8 @@ class maingame extends AbstractForm
         //
         $this->WeaponDev = new CWeapon_Dev();
         
-        
-        
-        //ui_test
-         $this->GameActor->SetActiveWeapon($this->WeaponDev);
+        //wip
+        $this->GameActor->SetActiveWeapon($this->WeaponDev);
     }
     function getCurrentLanguageFromUI()
     {
@@ -61,6 +59,13 @@ class maingame extends AbstractForm
     
     function InitEnvironmentTimer($timeFromTasks = null)
     {    
+        if (defined('UseLegacyEnvironment') && UseLegacyEnvironment == true)
+        {
+            $this->platform->show();
+            $this->Environment_Background->hide();
+            return;
+        }
+        
         $this->EnvironmentTimer->stop();    
     
         if ($timeFromTasks != null)
@@ -81,6 +86,11 @@ class maingame extends AbstractForm
     }    
     function UpdateEnvironment($timeFromTasks = null)
     {        
+        if (defined('UseLegacyEnvironment') && UseLegacyEnvironment == true)
+        {
+            return;
+        }
+        
         $this->Environment->view = $this->Environment_Background;
 
         $timeStr = $timeFromTasks ?? Time::now()->toString('HH:mm');
