@@ -558,7 +558,8 @@ class maingame extends AbstractForm
                             $particle->free();
                         });
                     });
-                }
+                },
+                true
             );
         }, range(1, $bloodCount));
     }
@@ -570,7 +571,7 @@ class maingame extends AbstractForm
     { 
         $minWidth     = 54;
         $maxWidth     = 264;
-        $missChance   = 75; //пиздец
+        $missChance   = 35;
         $damageMinPct = 8;
         $damageMaxPct = 20;
     
@@ -651,7 +652,7 @@ class maingame extends AbstractForm
         $minWidth       = 54;
         $maxWidthMain   = 264;
         $maxWidthInv    = 416;
-        $missChance     = 75;
+        $missChance     = 35;
         $damageMinPct   = 8;
         $damageMaxPct   = 20;
     
@@ -968,13 +969,20 @@ class maingame extends AbstractForm
         ],
     ];    
     
-    function spawnParticleAsync(callable $factory, callable $afterAdd = null)
+    function spawnParticleAsync(callable $factory, callable $afterAdd = null, bool $toClient = false)
     {
-        (new Thread(function() use ($factory, $afterAdd) {
+        (new Thread(function() use ($factory, $afterAdd, $toClient) {
             $particle = $factory();
     
-            UXApplication::runLater(function() use ($particle, $afterAdd) {
-                $this->add($particle);
+            UXApplication::runLater(function() use ($particle, $afterAdd, $toClient) {
+                if ($toClient)
+                {
+                    $this->form('Client')->add($particle);
+                }
+                else
+                {
+                    $this->add($particle);
+                }
     
                 if ($afterAdd)
                 {
@@ -983,6 +991,7 @@ class maingame extends AbstractForm
             });
         }))->start();
     }
+
 
     function Shoot()
     {
