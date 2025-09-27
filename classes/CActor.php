@@ -18,7 +18,8 @@ class CActor
         $this->dragging = new DraggingBehaviour();
         
         $this->dragging->setProperties([
-            "direction"=>"LEFT_RIGHT",
+            "direction"=> "LEFT_RIGHT",
+            "limitedByParent" => true,
         ]);
     }
 
