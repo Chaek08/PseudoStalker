@@ -460,14 +460,14 @@ class Client extends AbstractForm
     {
         if (Media::isStatus('PLAYING', $this->MainGame->content->FightSound)) Media::stop($this->MainGame->content->FightSound);
         if (Media::isStatus('PLAYING', $this->MainMenu->content->MenuSound)) Media::stop($this->MainMenu->content->MenuSound);
-        if (Media::isStatus('PLAYING', 'v_enemy')) Media::stop('v_enemy');
-        if (Media::isStatus('PLAYING', 'v_actor')) Media::stop('v_actor');
-        if (Media::isStatus('PLAYING', 'hit_alex')) Media::stop('hit_alex');
-        if (Media::isStatus('PLAYING', 'hit_alex_damage')) Media::stop('hit_alex_damage');      
-        if (Media::isStatus('PLAYING', 'hit_actor')) Media::stop('hit_actor');
-        if (Media::isStatus('PLAYING', 'hit_actor_damage')) Media::stop('hit_actor_damage');
-        if (Media::isStatus('PLAYING', 'die_alex')) Media::stop('die_alex');
-        if (Media::isStatus('PLAYING', 'die_actor')) Media::stop('die_actor');
+        //if (Media::isStatus('PLAYING', 'v_enemy')) Media::stop('v_enemy');
+        //if (Media::isStatus('PLAYING', 'v_actor')) Media::stop('v_actor');
+        //if (Media::isStatus('PLAYING', 'hit_enemy')) Media::stop('hit_enemy');
+        //if (Media::isStatus('PLAYING', 'hit_enemy_damage')) Media::stop('hit_enemy_damage');      
+        //if (Media::isStatus('PLAYING', 'hit_actor')) Media::stop('hit_actor');
+        //if (Media::isStatus('PLAYING', 'hit_actor_damage')) Media::stop('hit_actor_damage');
+        //if (Media::isStatus('PLAYING', 'die_enemy')) Media::stop('die_enemy');
+        //if (Media::isStatus('PLAYING', 'die_actor')) Media::stop('die_actor');
         if (Media::isStatus('PLAYING', 'AK74_reload')) Media::stop('AK74_reload');
         if (Media::isStatus('PLAYING', 'Pm_reload')) Media::stop('Pm_reload');
         if (Media::isStatus('PLAYING', 'AK74_shot')) Media::stop('AK74_shot');
@@ -486,10 +486,10 @@ class Client extends AbstractForm
             $channels = [
                 $this->MainGame->content->FightSound,
                 $this->MainMenu->content->MenuSound,
-                'v_enemy', 'v_actor',
-                'hit_alex', 'hit_alex_damage',
-                'hit_actor', 'hit_actor_damage',
-                'die_alex', 'die_actor',
+                //'v_enemy', 'v_actor',
+                //'hit_enemy', 'hit_enemy_damage',
+                //'hit_actor', 'hit_actor_damage',
+                //'die_enemy', 'die_actor',
                 'AK74_reload', 'Pm_reload',
                 'AK74_shot', 'Pm_shot',
                 'pm_draw', 'ak74_draw',
@@ -729,7 +729,7 @@ class Client extends AbstractForm
         Media::pause($this->MainGame->content->Environment);
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
         {
-            $this->StopAllSoundsAsync(); //возможно temp
+            //$this->StopAllSoundsAsync(); //возможно temp
             
             Media::pause($this->MainGame->content->FightSound);
             

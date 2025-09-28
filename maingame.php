@@ -569,9 +569,13 @@ class maingame extends AbstractForm
      */       
     function DamageEnemy(UXMouseEvent $e = null, bool $spawnParticles = true)
     { 
+        if (!$this->GameActor->CanInteractive()) 
+        {
+            return;
+        }    
         $minWidth     = 54;
         $maxWidth     = 264;
-        $missChance   = 35;
+        $missChance   = 75;
         $damageMinPct = 8;
         $damageMaxPct = 20;
     
@@ -607,8 +611,24 @@ class maingame extends AbstractForm
     
             if ($GLOBALS['AllSounds'])
             {
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor');
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_actor_damage');
+                $randEbanul = rand(0, 5);
+                $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", true, 'hit_enemy_damage');
+                
+                $playHitChance = 90;
+                if (rand(1, 100) <= $playHitChance)
+                {
+                    $randHit = rand(1, 8);
+                    $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/enemy/hit_{$randHit}.mp3", true, 'hit_enemy');
+                }
+                
+                $playCoverChance = 35;
+                if (rand(1, 100) <= $playCoverChance)
+                {            
+                    Timer::after(2500, function() use ($randCover) {
+                        $randCover = rand(1, 5);
+                        $this->form('Client')->playSoundAsync("res://.data/audio/fight/cover_sounds/enemy/cover_fire_{$randCover}.mp3", true, 'hit_cover_enemy');
+                    });
+                }
             }
         }
         else
@@ -625,9 +645,11 @@ class maingame extends AbstractForm
     
             if ($GLOBALS['AllSounds'])
             {
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/hit_vovchik.mp3', true, 'hit_actor');
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_actor_damage');
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/die_vovchik.mp3', true, 'die_actor');                
+                $randEbanul = rand(0, 5);
+                $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", true, 'hit_enemy_damage');
+                
+                $randDie = rand(1, 7);
+                $this->form('Client')->playSoundAsync("res://.data/audio/fight/death_sounds/enemy/death_{$randDie}.mp3", true, 'die_enemy');
             }
     
             $GLOBALS['EnemyFailed'] = true;
@@ -652,7 +674,7 @@ class maingame extends AbstractForm
         $minWidth       = 54;
         $maxWidthMain   = 264;
         $maxWidthInv    = 416;
-        $missChance     = 35;
+        $missChance     = 75;
         $damageMinPct   = 8;
         $damageMaxPct   = 20;
     
@@ -739,8 +761,24 @@ class maingame extends AbstractForm
     
             if ($GLOBALS['AllSounds'])
             {
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex');
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_alex_damage');
+                $randEbanul = rand(0, 5);
+                $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", true, 'hit_actor_damage');
+                         
+                $playHitChance = 90;
+                if (rand(1, 100) <= $playHitChance)
+                {                            
+                    $randHit = rand(1, 3);
+                    $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/actor/hit_{$randHit}.mp3", true, 'hit_actor');
+                }
+                
+                $playCoverChance = 35;
+                if (rand(1, 100) <= $playCoverChance)
+                {            
+                    Timer::after(1500, function() use ($randCover) {
+                        $randCover = rand(1, 5);
+                        $this->form('Client')->playSoundAsync("res://.data/audio/fight/cover_sounds/actor/cover_fire_{$randCover}.mp3", true, 'hit_cover_actor');
+                    });
+                }                
             }
         }
         else
@@ -761,9 +799,11 @@ class maingame extends AbstractForm
     
             if ($GLOBALS['AllSounds'])
             {
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/hit_alex.mp3', true, 'hit_alex');
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/kulak_ebanul.mp3', true, 'hit_alex_damage');
-                $this->form('Client')->playSoundAsync('res://.data/audio/hit_sound/die_alex.mp3', true, 'die_alex');
+                $randEbanul = rand(0, 5);
+                $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", true, 'hit_actor_damage');
+
+                $randDie = rand(1, 4);
+                $this->form('Client')->playSoundAsync("res://.data/audio/fight/death_sounds/actor/death_{$randDie}.mp3", true, 'die_actor');                
             }
     
             $GLOBALS['ActorFailed'] = true;
@@ -1012,7 +1052,7 @@ class maingame extends AbstractForm
         $data = &$this->weaponData[$weaponType];
         $ammoProp = $data['ammoProp'];
     
-        if ($this->$ammoProp < $data['maxAmmo'] && rand(1, 35) == 1)
+        if ($this->$ammoProp < $data['maxAmmo'] && rand(1, 60) == 1)
         {
             $data['jammed'] = true;
         }
