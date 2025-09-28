@@ -52,14 +52,17 @@ class fail_wnd extends AbstractForm
         if ($GLOBALS['ActorFailed']) $this->form('Client')->MainGame->content->GameEnemy->GetModel()->show();
         if ($GLOBALS['EnemyFailed']) $this->form('Client')->MainGame->content->GameActor->GetModel()->show();
         
-        if ($this->form('Client')->MainGame->content->CurrentWeaponType == 'Pm')
+        if (!$GLOBALS['ActorFailed'])
         {
-            $this->form('Client')->MainGame->content->WeaponPm->show();
-        }
-        if ($this->form('Client')->MainGame->content->CurrentWeaponType == 'AK74')
-        {
-            $this->form('Client')->MainGame->content->WeaponAK74->show();
-        }        
+            if ($this->form('Client')->MainGame->content->CurrentWeaponType == 'Pm')
+            {
+                $this->form('Client')->MainGame->content->WeaponPm->show();
+            }
+            if ($this->form('Client')->MainGame->content->CurrentWeaponType == 'AK74')
+            {
+                $this->form('Client')->MainGame->content->WeaponAK74->show();
+            }
+        }    
                    
         if ($GLOBALS['AllSounds'])
         {
