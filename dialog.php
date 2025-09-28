@@ -374,7 +374,8 @@ class dialog extends AbstractForm
         $this->form('Client')->Pda->content->Pda_Tasks->content->Step1_Complete();
 
         $this->form('Client')->MainGame->content->GameActor->SetInteractive(true);
-        
+        $this->form('Client')->MainGame->content->GameEnemy->SetInteractive(true);
+                
         $this->form('Client')->MainGame->content->item_vodka_0000->enabled = true;
 
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());

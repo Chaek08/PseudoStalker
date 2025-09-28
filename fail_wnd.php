@@ -49,8 +49,8 @@ class fail_wnd extends AbstractForm
         
         $this->form('Client')->Fail->hide();
         if (!$this->form('Client')->Inventory->content->InventoryGrid->content->Inv_Vodka->visible || $this->form('Client')->MainGame->content->item_vodka_0000->opacity != 0) $this->form('Client')->MainGame->content->item_vodka_0000->show();
-        if ($GLOBALS['ActorFailed']) $this->form('Client')->MainGame->content->enemy->show();
-        if ($GLOBALS['EnemyFailed']) $this->form('Client')->MainGame->content->actor->show();
+        if ($GLOBALS['ActorFailed']) $this->form('Client')->MainGame->content->GameEnemy->GetModel()->show();
+        if ($GLOBALS['EnemyFailed']) $this->form('Client')->MainGame->content->GameActor->GetModel()->show();
         
         if ($this->form('Client')->MainGame->content->CurrentWeaponType == 'Pm')
         {

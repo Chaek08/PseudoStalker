@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\CEnemy;
 use Throwable;
 use app\forms\ui_test;
 use app\forms\classes\CActor;
@@ -33,6 +34,7 @@ class maingame extends AbstractForm
 
 
     public $GameActor;
+    public $GameEnemy;    
     //weapons
     public $WeaponDev;
 
@@ -46,6 +48,12 @@ class maingame extends AbstractForm
         $this->GameActor->SetModel($this->actor);
         
         $this->GameActor->SetInteractive(false);
+        
+        $this->GameEnemy = new CEnemy();
+        $this->GameEnemy->SetModel($this->enemy);
+        
+        $this->GameEnemy->SetInteractive(false);
+        
         //
         $this->WeaponDev = new CWeapon_Dev();
         
@@ -130,7 +138,7 @@ class maingame extends AbstractForm
 
             $brightness = $brightnessByCycle[$newCycle];
             $this->GameActor->GetModel()->colorAdjustEffect->brightness = $brightness;
-            $this->enemy->colorAdjustEffect->brightness = $brightness;
+            $this->GameEnemy->GetModel()->colorAdjustEffect->brightness = $brightness;
             $this->item_vodka_0000->colorAdjustEffect->brightness = $brightness;       
         }
         if (!$this->form('Client')->MainMenu->visible)
@@ -219,11 +227,14 @@ class maingame extends AbstractForm
             $this->form('Client')->Inventory->content->InventoryGrid->content->MoveWeaponsToInvSlot();
            
             $this->GameActor->GetModel()->show();
-            $this->enemy->show();
-            $this->enemy->x = 1312;
-
             $this->GameActor->GetModel()->x = 112;
+            
             $this->GameActor->SetInteractive(false);
+            
+            $this->GameEnemy->GetModel()->show();
+            $this->GameEnemy->GetModel()->x = 1312;
+            
+            $this->GameEnemy->SetInteractive(false);
             
             $this->item_vodka_0000->enabled = false;
 
@@ -290,7 +301,7 @@ class maingame extends AbstractForm
             if ($this->CurrentWeaponType) $this->ui_mag_background->show();
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
             if ($GLOBALS['GodMode']) $this->GodMode_Icon->show();
-            if ($this->GameActor->CanInteractive()) $this->fight_image->show();
+            if ($this->GameActor->CanInteractive() || $this->GameEnemy->CanInteractive()) $this->fight_image->show();
             if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed']) $this->leave_btn->show();
         
             $GLOBALS['HudVisible'] = true;
@@ -337,7 +348,7 @@ class maingame extends AbstractForm
         }
         
         if ($this->item_vodka_0000->visible) $this->item_vodka_0000->hide();
-        if ($GLOBALS['ActorFailed']) $this->enemy->hide();
+        if ($GLOBALS['ActorFailed']) $this->GameEnemy->GetModel()->hide();
         if ($GLOBALS['EnemyFailed']) $this->GameActor->GetModel()->hide();
     }
     function SpawnItem()
@@ -361,7 +372,7 @@ class maingame extends AbstractForm
     function VodkaAttack(UXMouseEvent $e = null)
     {
         $vodka = $this->item_vodka_0000;
-        $enemy = $this->enemy;
+        $enemy = $this->GameEnemy->GetModel();
 
         $targetX = $enemy->x + ($enemy->width / 2) - ($vodka->width / 2);
         $targetY_Head = $enemy->y;
@@ -569,10 +580,11 @@ class maingame extends AbstractForm
      */       
     function DamageEnemy(UXMouseEvent $e = null, bool $spawnParticles = true)
     { 
-        if (!$this->GameActor->CanInteractive()) 
+        if (!$this->GameEnemy->CanInteractive())
         {
             return;
-        }    
+        }
+        
         $minWidth     = 54;
         $maxWidth     = 264;
         $missChance   = 75;
@@ -863,16 +875,15 @@ class maingame extends AbstractForm
         $this->leave_btn->show();
         
         if ($GLOBALS['ActorFailed']) $this->GameActor->GetModel()->hide();
-        if ($GLOBALS['EnemyFailed']) $this->enemy->hide();       
+        if ($GLOBALS['EnemyFailed']) $this->GameEnemy->GetModel()->hide();     
         
         //$this->form('Client')->Inventory->content->InventoryGrid->content->lockInventory(true);
         
         $this->item_vodka_0000->enabled = false;
         $this->item_vodka_0000->opacity = 0;
         
-        //$this->GameActor->ToggleInteractive(false);
         $this->GameActor->SetInteractive(false);
-        $this->enemy->enabled = false; //для него может быть потом отдельный класс, подобный CActor
+        $this->GameEnemy->SetInteractive(false);
         
         if ($GLOBALS['AllSounds']) $this->form('Client')->StopAllSoundsAsync();
         
@@ -894,7 +905,7 @@ class maingame extends AbstractForm
         }
         if ($GLOBALS['EnemyFailed'])
         {
-            $this->enemy->hide();
+            $this->GameEnemy->GetModel()->hide();
             
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Complete();
             
@@ -1125,7 +1136,7 @@ class maingame extends AbstractForm
                 }
             );
     
-            $enemy = $this->enemy;
+            $enemy = $this->GameEnemy->GetModel();
             if ($enemy->visible)
             {
                 $this->DamageEnemy(null, false);
