@@ -364,8 +364,8 @@ class opt extends AbstractForm
             
             if (Debug_Build)
             {
-                $this->form('Client')->version->hide();
-                $this->form('Client')->version_detail->hide();
+                $this->form('Client')->DebugUtilities->content->version->hide();
+                $this->form('Client')->DebugUtilities->content->version_detail->hide();
             }
             else 
             {  
@@ -387,8 +387,8 @@ class opt extends AbstractForm
             
             if (Debug_Build)
             {
-                $this->form('Client')->version->show();
-                $this->form('Client')->version_detail->show();           
+                $this->form('Client')->DebugUtilities->content->version->show();
+                $this->form('Client')->DebugUtilities->content->version_detail->show();           
             }
             else
             {  

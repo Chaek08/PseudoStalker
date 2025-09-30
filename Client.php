@@ -37,7 +37,7 @@ class Client extends AbstractForm
         define('VersionID', 'v1.3 (rc2)');
         define('client_version', '3');
         define('Debug_Build', true);
-        define('ResTracker', false);
+        define('ResTracker', true);
         define('UseLegacyEnvironment', false);
         
         $appId = "1387765734704418846";
@@ -99,7 +99,8 @@ class Client extends AbstractForm
     
     private $prevRes = null;
     private $prevClientW = null;
-    private $prevClientH = null;    
+    private $prevClientH = null;
+    
     function trackResolution()
     {
         $w = $this->Client_Proxy->width;
@@ -128,7 +129,7 @@ class Client extends AbstractForm
                 if ($res != $prevRes)
                 {
                     $prevRes = $res;
-                    $this->track_res->text = $res;
+                    $this->DebugUtilities->content->track_res->text = $res;
                 }
             }
             
@@ -139,10 +140,12 @@ class Client extends AbstractForm
             $this->fitToScene($this->ExitDialog);
             $this->fitToScene($this->Inventory);
             $this->fitToScene($this->Fail);
+            $this->fitToScene($this->DebugUtilities);
         });
 
         Timer::after(700, [$this, 'trackResolution']);
     }   
+    
     function centerObject($obj)
     {
         $sceneWidth = $this->Client_Proxy->width;
@@ -151,6 +154,7 @@ class Client extends AbstractForm
         $obj->x = ($sceneWidth - $obj->width) / 2;
         $obj->y = ($sceneHeight - $obj->height) / 2;
     }    
+    
     function fitToScene($obj)
     {
         $sceneW = $this->Client_Proxy->width;
@@ -166,6 +170,7 @@ class Client extends AbstractForm
 
         $this->centerObject($obj);
     }
+    
     function playSoundAsync(string $path, bool $loop = true, $channel = null)
     {
         (new Thread(function() use ($path, $loop, $channel)
@@ -209,9 +214,9 @@ class Client extends AbstractForm
 
         if (Debug_Build)
         {
-            $this->version->show();
-            $this->version_detail->show();
-            Element::setText($this->version_detail, $this->BuildID);
+            $this->DebugUtilities->content->version->show();
+            $this->DebugUtilities->content->version_detail->show();
+            Element::setText($this->DebugUtilities->content->version_detail, $this->BuildID);
         }
         else
         {

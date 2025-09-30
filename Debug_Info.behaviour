@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<behaviours>
+  <target id="track_res">
+    <behaviour animated="" delay="0" duration="500" maxOpacity="1" minOpacity="0" repeatCount="-1" type="behaviour\custom\BlinkAnimationBehaviour" when="ALWAYS"/>
+  </target>
+</behaviours>
