@@ -105,13 +105,13 @@ class Client extends AbstractForm
     {
         $w = $this->Client_Proxy->width;
         $h = $this->Client_Proxy->height;
-
+    
         if ($this->prevClientW == $w && $this->prevClientH == $h)
         {
             Timer::after(700, [$this, 'trackResolution']);
             return;
         }
-
+    
         $this->prevClientW = $w;
         $this->prevClientH = $h;
         
@@ -119,12 +119,12 @@ class Client extends AbstractForm
         
         $this->ltx['vid_mode'] = $res;
         $this->SaveUserLTX($this->ltx);
-
+    
         UXApplication::runLater(function() use ($w, $h) {
             if (ResTracker)
             {
                 static $prevRes = '';
-
+    
                 $res = "$w x $h";
                 if ($res != $prevRes)
                 {
@@ -132,43 +132,29 @@ class Client extends AbstractForm
                     $this->DebugUtilities->content->track_res->text = $res;
                 }
             }
-            
-            $this->fitToScene($this->MainGame);
-            $this->fitToScene($this->MainMenu);
-            $this->fitToScene($this->Pda);
-            $this->fitToScene($this->Dialog);
-            $this->fitToScene($this->ExitDialog);
-            $this->fitToScene($this->Inventory);
-            $this->fitToScene($this->Fail);
-            $this->fitToScene($this->DebugUtilities);
+    
+            $sceneW = $this->Client_Proxy->width;
+            $sceneH = $this->Client_Proxy->height;
+    
+            foreach ([
+                $this->MainGame,
+                $this->MainMenu,
+                $this->Pda,
+                $this->Dialog,
+                $this->ExitDialog,
+                $this->Inventory,
+                $this->Fail,
+                $this->DebugUtilities
+            ] as $obj) {
+                $scale = min($sceneW / $obj->width, $sceneH / $obj->height);
+                $obj->scaleX = $scale;
+                $obj->scaleY = $scale;
+                $obj->x = ($sceneW - $obj->width) / 2;
+                $obj->y = ($sceneH - $obj->height) / 2;
+            }
         });
-
+    
         Timer::after(700, [$this, 'trackResolution']);
-    }   
-    
-    function centerObject($obj)
-    {
-        $sceneWidth = $this->Client_Proxy->width;
-        $sceneHeight = $this->Client_Proxy->height;
-
-        $obj->x = ($sceneWidth - $obj->width) / 2;
-        $obj->y = ($sceneHeight - $obj->height) / 2;
-    }    
-    
-    function fitToScene($obj)
-    {
-        $sceneW = $this->Client_Proxy->width;
-        $sceneH = $this->Client_Proxy->height;
-
-        $scale = min(
-            $sceneW / $obj->width,
-            $sceneH / $obj->height
-        );
-
-        $obj->scaleX = $scale;
-        $obj->scaleY = $scale;    
-
-        $this->centerObject($obj);
     }
     
     function playSoundAsync(string $path, bool $loop = true, $channel = null)
