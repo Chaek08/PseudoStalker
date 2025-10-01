@@ -205,14 +205,12 @@ class maingame extends AbstractForm
             Media::stop($this->Environment);
 
             if ($this->fight_image->visible) $this->fight_image->hide();
-            if ($this->leave_btn->visible || !$GLOBALS['QuestCompleted']) $this->leave_btn->hide();
+            if ($this->Leave_Label->visible || !$GLOBALS['QuestCompleted']) $this->Leave_Label->hide();
             if ($this->form('Client')->Fail->visible) $this->form('Client')->Fail->hide();
             if ($this->blood_ui->visible) $this->blood_ui->hide();
 
             $this->form('Client')->Inventory->content->DespawnItems();
             $this->form('Client')->Inventory->content->SetItemCondition();
-            
-            //$this->form('Client')->Inventory->content->InventoryGrid->content->lockInventory(false);
             
             $this->ak74Ammo = 30;
             $this->pmAmmo = 8;
@@ -301,7 +299,7 @@ class maingame extends AbstractForm
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
             if ($GLOBALS['GodMode']) $this->GodMode_Icon->show();
             if ($this->GameActor->CanInteractive() || $this->GameEnemy->CanInteractive()) $this->fight_image->show();
-            if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed']) $this->leave_btn->show();
+            if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed']) $this->Leave_Label->show();
         
             $GLOBALS['HudVisible'] = true;
         } 
@@ -321,18 +319,18 @@ class maingame extends AbstractForm
             if ($this->pda_icon->visible) $this->pda_icon->hide();
             if ($this->fight_image->visible) $this->fight_image->hide();
             if ($this->SavedGame_Toast->visible) $this->SavedGame_Toast->hide();
-            if ($this->leave_btn->visible) $this->leave_btn->hide();
+            if ($this->Leave_Label->visible) $this->Leave_Label->hide();
             if ($this->MessageBox->visible) $this->MessageBox->hide();
             if ($this->Task_Step_Label->visible) $this->Task_Step_Label->hide();
         
             $GLOBALS['HudVisible'] = false;
         }
     }
-    /**
-     * @event leave_btn.click-Left 
-     */
-    function LeaveBtn(UXMouseEvent $e = null)
+
+    function LeaveGame()
     {    
+        if (!$GLOBALS['QuestCompleted']) return;
+    
         $this->RenderHud(false);
         
         $this->form('Client')->Fail->show();
@@ -350,6 +348,7 @@ class maingame extends AbstractForm
         if ($GLOBALS['ActorFailed']) $this->GameEnemy->GetModel()->hide();
         if ($GLOBALS['EnemyFailed']) $this->GameActor->GetModel()->hide();
     }
+    
     function SpawnItem()
     {
         $actor = $this->GameActor->GetModel();
@@ -871,12 +870,14 @@ class maingame extends AbstractForm
     
         $this->fight_image->hide();
         $this->fight_image->blinkAnim->disable();
-        $this->leave_btn->show();
-        
+        Timer::after(4000, function () {
+            UXApplication::runLater(function () {        
+                $this->Leave_Label->show();
+            });
+        });
+                
         if ($GLOBALS['ActorFailed']) $this->GameActor->GetModel()->hide();
         if ($GLOBALS['EnemyFailed']) $this->GameEnemy->GetModel()->hide();     
-        
-        //$this->form('Client')->Inventory->content->InventoryGrid->content->lockInventory(true);
         
         $this->item_vodka_0000->enabled = false;
         $this->item_vodka_0000->opacity = 0;

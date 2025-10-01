@@ -216,7 +216,7 @@ class opt extends AbstractForm
             $this->form('Client')->MainGame->content->enemy->dropShadowEffect->disable();   
             $this->form('Client')->MainGame->content->Talk_Label->dropShadowEffect->disable();   
             $this->form('Client')->MainGame->content->SavedGame_Toast->dropShadowEffect->disable();
-            $this->form('Client')->MainGame->content->leave_btn->dropShadowEffect->disable();  
+            $this->form('Client')->MainGame->content->Leave_Label->dropShadowEffect->disable();  
             $this->form('Client')->MainGame->content->health_static_enemy->dropShadowEffect->disable();     
             $this->form('Client')->MainGame->content->health_static_gg->dropShadowEffect->disable();     
             $this->form('Client')->MainGame->content->health_bar_enemy->dropShadowEffect->disable();     
@@ -289,7 +289,7 @@ class opt extends AbstractForm
             $this->form('Client')->MainGame->content->enemy->dropShadowEffect->enable();
             $this->form('Client')->MainGame->content->Talk_Label->dropShadowEffect->enable();
             $this->form('Client')->MainGame->content->SavedGame_Toast->dropShadowEffect->enable();
-            $this->form('Client')->MainGame->content->leave_btn->dropShadowEffect->enable();
+            $this->form('Client')->MainGame->content->Leave_Label->dropShadowEffect->enable();
             $this->form('Client')->MainGame->content->health_static_enemy->dropShadowEffect->enable();     
             $this->form('Client')->MainGame->content->health_static_gg->dropShadowEffect->enable();
             $this->form('Client')->MainGame->content->health_bar_enemy->dropShadowEffect->enable();
@@ -456,7 +456,7 @@ class opt extends AbstractForm
         $this->form('Client')->MainMenu->content->UILoadWnd->content->Remove_Save_Btn->text = $this->localization->get('Remove_Btn');
 
         $this->form('Client')->MainGame->content->Talk_Label->text = $this->localization->get('Talk_Label');
-        $this->form('Client')->MainGame->content->leave_btn->text = $this->localization->get('Leave_Label');
+        $this->form('Client')->MainGame->content->Leave_Label->text = $this->localization->get('Leave_Label');
 
         $this->form('Client')->Inventory->content->time_label->text = $this->localization->get('Time_Label');
         $this->form('Client')->Inventory->content->button5->text = $this->localization->get('Inventory_Label');

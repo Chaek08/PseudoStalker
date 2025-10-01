@@ -951,4 +951,12 @@ class Client extends AbstractForm
     {    
         $this->MainGame->content->SwitchWeapon('AK74');
     }
+
+    /**
+     * @event keyDown-Enter 
+     */
+    function LeaveBtn(UXKeyEvent $e = null)
+    {    
+        $this->MainGame->content->LeaveGame();
+    }
 }
