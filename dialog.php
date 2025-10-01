@@ -16,19 +16,7 @@ class dialog extends AbstractForm
     private $actorCharacterInfo;
     private $enemyCharacterInfo;    
     
-    public $answerStep = 0;    
-    
-    public $SDK_VoiceStart;
-    public $SDK_VoiceTalk1;
-    public $SDK_VoiceTalk2;
-    public $SDK_VoiceTalk3;
-    
-    public $SDK_AlexDesc1;
-    public $SDK_AlexDesc2;
-    public $SDK_AlexDesc3;    
-    public $SDK_ActorDesc1;
-    public $SDK_ActorDesc3;
-    public $SDK_FinalPhase;
+    public $answerStep = 0;
     
     public function __construct() 
     {

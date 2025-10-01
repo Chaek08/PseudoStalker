@@ -385,19 +385,7 @@ class Client extends AbstractForm
                 case 'enemy_icon': $this->Pda->content->SDK_EnemyIcon = $value; break;
                 case 'valerok_name': $this->Pda->content->SDK_ValerokName = $value; break;
                 case 'valerok_bio':  $this->Pda->content->SDK_ValerokBio = $value; break;
-                case 'valerok_icon': $this->Pda->content->SDK_ValerokIcon = $value; break;           
-            
-                // DialogEditor
-                case 'alex_desc_1': $this->Dialog->content->SDK_AlexDesc1 = $value; break;
-                case 'actor_desc_1': $this->Dialog->content->SDK_ActorDesc1 = $value; break;
-                case 'alex_desc_2': $this->Dialog->content->SDK_AlexDesc2 = $value; break;
-                case 'alex_desc_3': $this->Dialog->content->SDK_AlexDesc3 = $value; break;
-                case 'actor_desc_3': $this->Dialog->content->SDK_ActorDesc3 = $value; break;
-                case 'final_phase': $this->Dialog->content->SDK_FinalPhase = $value; break;                 
-                case 'voice_start': $this->Dialog->content->SDK_VoiceStart = $value; break;
-                case 'voice_talk1': $this->Dialog->content->SDK_VoiceTalk1 = $value; break;
-                case 'voice_talk2': $this->Dialog->content->SDK_VoiceTalk2 = $value; break;
-                case 'voice_talk3': $this->Dialog->content->SDK_VoiceTalk3 = $value; break;            
+                case 'valerok_icon': $this->Pda->content->SDK_ValerokIcon = $value; break;                     
             
                 // MgEditor
                 case 'mm_background': $this->MainMenu->content->SDK_MMBackground = $value; break;
