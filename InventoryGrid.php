@@ -1145,74 +1145,30 @@ class InventoryGrid extends AbstractForm
     }
     function ApplyMedkitEffect()
     {
-        $bar = $this->form('Client')->MainGame->content->health_bar_gg;
+        $minWidth     = 54;
+        $maxWidthMain = 264;
+        $maxWidthInv  = 416;
+    
+        $bar     = $this->form('Client')->MainGame->content->health_bar_gg;
         $inv_bar = $this->form('Client')->Inventory->content->health_bar_gg;
-
-        $width = $bar->width;
-
-        switch ($width)
-        {
-            case 54:
-                $bar->width += 30;
-                $bar->text = "15%";
-
-                $target = $inv_bar->width + 50;
-                $this->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
-                    $inv_bar->text = "15%";
-                });
-                break;
-
-            case 84:
-                $bar->width += 60;
-                $bar->text = "33%";
-
-                $target = $inv_bar->width + 100;
-                $this->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
-                    $inv_bar->text = "33%";
-                });
-                break;
-
-            case 114:
-            case 144:
-                $bar->width += 30;
-                $bar->text = "50%";
-
-                $target = $inv_bar->width + 40;
-                $this->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
-                    $inv_bar->text = "50%";
-                });
-                break;
-
-            case 174:
-                $bar->width += 30;
-                $bar->text = "55%";
-
-                $target = $inv_bar->width + 40;
-                $this->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
-                    $inv_bar->text = "55%";
-                });
-                break;
-
-            case 204:
-                $bar->width += 30;
-                $bar->text = "75%";
-
-                $target = $inv_bar->width + 100;
-                $this->animateResizeWidth($inv_bar, $target, 5, function() use ($inv_bar) {
-                    $inv_bar->text = "75%";
-                });
-                break;
-
-            case 234:
-                $bar->width += 30;
-                if ($bar->width > 264) $bar->width = 264;
-                $bar->text = "100%";
-
-                $this->animateResizeWidth($inv_bar, 416, 5, function() use ($inv_bar) {
-                    $inv_bar->text = "100%";
-                });
-                break;
-        }
+    
+        $currentW   = $bar->width;
+        $currentPct = round((($currentW - $minWidth) / ($maxWidthMain - $minWidth)) * 99) + 1;
+        $currentPct = max(1, min(100, $currentPct));
+    
+        $healPct = 20;
+        $newPct  = min(100, $currentPct + $healPct);
+    
+        $targetMain = (int) round($minWidth + (($maxWidthMain - $minWidth) * ($newPct - 1) / 99));
+        $targetInv  = (int) round($minWidth + (($maxWidthInv  - $minWidth) * ($newPct - 1) / 99));
+    
+        $this->animateResizeWidth($bar, $targetMain, 5, function() use ($bar, $newPct) {
+            $bar->text = $newPct . "%";
+        });
+    
+        $this->animateResizeWidth($inv_bar, $targetInv, 5, function() use ($inv_bar, $newPct) {
+            $inv_bar->text = $newPct . "%";
+        });
     }
     function ApplyVodkaEffect()
     {
