@@ -1143,6 +1143,7 @@ class InventoryGrid extends AbstractForm
 
         $timer->start();
     }
+    
     function ApplyMedkitEffect()
     {
         $minWidth     = 54;

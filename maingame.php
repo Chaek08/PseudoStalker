@@ -631,7 +631,7 @@ class maingame extends AbstractForm
                     $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/enemy/hit_{$randHit}.mp3", true, 'hit_enemy');
                 }
                 
-                $playCoverChance = 35;
+                $playCoverChance = 20;
                 if (rand(1, 100) <= $playCoverChance)
                 {            
                     Timer::after(2500, function() use ($randCover) {
@@ -781,11 +781,11 @@ class maingame extends AbstractForm
                     $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/actor/hit_{$randHit}.mp3", true, 'hit_actor');
                 }
                 
-                $playCoverChance = 35;
+                $playCoverChance = 20;
                 if (rand(1, 100) <= $playCoverChance)
                 {            
                     Timer::after(1500, function() use ($randCover) {
-                        $randCover = rand(1, 5);
+                        $randCover = rand(1, 2);
                         $this->form('Client')->playSoundAsync("res://.data/audio/fight/cover_sounds/actor/cover_fire_{$randCover}.mp3", true, 'hit_cover_actor');
                     });
                 }                
