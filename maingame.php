@@ -572,7 +572,9 @@ class maingame extends AbstractForm
             );
         }, range(1, $bloodCount));
     }
-   
+    
+    private $coverTimer;
+    
     /**
      * @event enemy.click-2x
      */       
@@ -632,11 +634,17 @@ class maingame extends AbstractForm
                 }
                 
                 $playCoverChance = 20;
-                if (rand(1, 100) <= $playCoverChance)
-                {            
-                    Timer::after(2500, function() use ($randCover) {
+                if (rand(1, 100) <= 20)
+                {
+                    if ($this->coverTimer)
+                    {
+                        $this->coverTimer->cancel();
+                        $this->coverTimer = null;
+                    }
+                    $this->coverTimer = Timer::after(2500, function () {
                         $randCover = rand(1, 5);
                         $this->form('Client')->playSoundAsync("res://.data/audio/fight/cover_sounds/enemy/cover_fire_{$randCover}.mp3", true, 'hit_cover_enemy');
+                        $this->coverTimer = null;
                     });
                 }
             }
@@ -781,14 +789,20 @@ class maingame extends AbstractForm
                     $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/actor/hit_{$randHit}.mp3", true, 'hit_actor');
                 }
                 
-                $playCoverChance = 20;
-                if (rand(1, 100) <= $playCoverChance)
-                {            
-                    Timer::after(1500, function() use ($randCover) {
+                $playCoverChance = 40;
+                if (rand(1, 100) <= 20)
+                {
+                    if ($this->coverTimer)
+                    {
+                        $this->coverTimer->cancel();
+                        $this->coverTimer = null;
+                    }
+                    $this->coverTimer = Timer::after(2500, function () {
                         $randCover = rand(1, 2);
                         $this->form('Client')->playSoundAsync("res://.data/audio/fight/cover_sounds/actor/cover_fire_{$randCover}.mp3", true, 'hit_cover_actor');
+                        $this->coverTimer = null;
                     });
-                }                
+                }               
             }
         }
         else
@@ -1043,7 +1057,8 @@ class maingame extends AbstractForm
         }))->start();
     }
 
-
+    private $shotPool;
+    
     function Shoot()
     {
         if (!$GLOBALS['QuestStep1']) return;
@@ -1108,7 +1123,12 @@ class maingame extends AbstractForm
     
             if ($GLOBALS['AllSounds'])
             {
-                $this->form('Client')->playSoundAsync($data['soundShot'], true, strtolower($this->CurrentWeaponType) . '_shot');
+                $pool = $this->shotPool ?? ($this->shotPool = new ShotSoundPool());
+                $pool->playShot(
+                    $this->form('Client'),
+                    $data['soundShot'],
+                    strtolower($this->CurrentWeaponType) . '_shot'
+                );
             }
     
             [$offsetX, $offsetY] = $data['particleOffset'];
