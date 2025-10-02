@@ -37,6 +37,7 @@ class CActor
     }
     public function GetModel() { return $this->model; }
     
+    //TODO: связать с классом CWeapon
     public function SetActiveWeapon($wpn) {  $this->activeWeapon = $wpn; }
     public function HasActiveWeapon() : bool { return $this->activeWeapon !== null; }
     public function GetActiveWeapon() {  return $this->activeWeapon; }

@@ -45,23 +45,18 @@ class fail_wnd extends AbstractForm
      */
     function ReturnBtn(UXMouseEvent $e = null)
     {
-        $this->form('Client')->MainGame->content->RenderHud(true);
+        $Client = $this->form('Client');
         
-        $this->form('Client')->Fail->hide();
-        if (!$this->form('Client')->Inventory->content->InventoryGrid->content->Inv_Vodka->visible || $this->form('Client')->MainGame->content->item_vodka_0000->opacity != 0) $this->form('Client')->MainGame->content->item_vodka_0000->show();
-        if ($GLOBALS['ActorFailed']) $this->form('Client')->MainGame->content->GameEnemy->GetModel()->show();
-        if ($GLOBALS['EnemyFailed']) $this->form('Client')->MainGame->content->GameActor->GetModel()->show();
+        $Client->MainGame->content->RenderHud(true);
+        
+        $Client->Fail->hide();
+        if (!$Client->Inventory->content->InventoryGrid->content->Inv_Vodka->visible || $Client->MainGame->content->item_vodka_0000->opacity != 0) $Client->MainGame->content->item_vodka_0000->show();
+        if ($GLOBALS['ActorFailed']) $Client->MainGame->content->GameEnemy->GetModel()->show();
+        if ($GLOBALS['EnemyFailed']) $Client->MainGame->content->GameActor->GetModel()->show();
         
         if (!$GLOBALS['ActorFailed'])
         {
-            if ($this->form('Client')->MainGame->content->CurrentWeaponType == 'Pm')
-            {
-                $this->form('Client')->MainGame->content->WeaponPm->show();
-            }
-            if ($this->form('Client')->MainGame->content->CurrentWeaponType == 'AK74')
-            {
-                $this->form('Client')->MainGame->content->WeaponAK74->show();
-            }
+            if ($Client->MainGame->content->currentWeapon) $Client->MainGame->content->currentWeapon->softShow();
         }    
                    
         if ($GLOBALS['AllSounds'])

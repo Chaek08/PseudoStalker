@@ -952,24 +952,37 @@ class InventoryGrid extends AbstractForm
     
     function MoveWeaponsToInvSlot()
     {
-        $weapons = ['AK74', 'Pm'];
-
-        foreach ($weapons as $weapon)
+        $pm = $this->Inv_Wpn_Pm;
+        if ($pm)
         {
-            $method = "Move{$weapon}ToSlot";
+            $this->removeItemFromGrid($pm);
             
-            if (method_exists($this, $method))
-            {
-                $this->$method();
-            }
-
-            $this->form('Client')->MainGame->content->CurrentWeaponType = $weapon;
-            $this->form('Client')->MainGame->content->DetachWeapon($weapon);
+            $pm->position = [$this->PmSlotPos[0], $this->PmSlotPos[1]];
+            $pm->visible = true;
+            $pm->enabled = true;
+            
+            $this->pmInWeaponSlot = true;
         }
-
-        $this->form('Client')->MainGame->content->CurrentWeaponType = null;
-
-        $this->form('Client')->SwitchWeapon1();
+    
+        $ak = $this->Inv_Wpn_AK74;
+        if ($ak)
+        {
+            $this->removeItemFromGrid($ak);
+            
+            $ak->position = [$this->Ak74SlotPos[0], $this->Ak74SlotPos[1]];
+            $ak->visible = true;
+            $ak->enabled = true;
+            
+            $this->AK74InWeaponSlot = true;
+        }
+    
+        $this->repackInventory();
+    
+        $mg = $this->form('Client')->MainGame->content;
+        $mg->SwitchWeapon('Pm');
+    
+        $this->form('Client')->Inventory->content->UseSlotSound();
+        $this->form('Client')->Inventory->content->HideCombobox();
     }
 
     /**
@@ -1005,91 +1018,63 @@ class InventoryGrid extends AbstractForm
                 'weaponType' => 'AK74',
             ],
         ];
-
         if (!isset($weaponMap[$weaponName])) return;
-
-        $weapon = $weaponMap[$weaponName]['item'];
-        $slotX = $weaponMap[$weaponName]['slotPos'][0];
-        $slotY = $weaponMap[$weaponName]['slotPos'][1];
-        $flagName = $weaponMap[$weaponName]['flag'];
-        $size = $weaponMap[$weaponName]['gridSize'];
-        $weaponType = $weaponMap[$weaponName]['weaponType'];
-
+    
+        $weapon      = $weaponMap[$weaponName]['item'];
+        $slotX       = $weaponMap[$weaponName]['slotPos'][0];
+        $slotY       = $weaponMap[$weaponName]['slotPos'][1];
+        $flagName    = $weaponMap[$weaponName]['flag'];
+        $size        = $weaponMap[$weaponName]['gridSize'];
+        $weaponType  = $weaponMap[$weaponName]['weaponType'];
+    
         $this->selectedItem = $weapon;
-
+    
         if ($this->$flagName)
         {
             $slot = $this->findFreeSlot($size[0], $size[1]);
-            
             if ($slot != null)
             {
                 list($cellX, $cellY) = $slot;
                 $this->placeItem($weapon, $cellX, $cellY, $size[0], $size[1]);
-
-                $this->$flagName = false;
+                $this->$flagName = false; 
                 $weapon->enabled = true;
                 $weapon->visible = true;
-
-                if ($this->form('Client')->MainGame->content->CurrentWeaponType == $weaponType)
-                {
-                    $this->form('Client')->MainGame->content->DetachWeapon($weaponType);
-                    $this->form('Client')->MainGame->content->CurrentWeaponType = null;
-                }
-                
-                $this->form('Client')->MainGame->content->UpdateMagazine();
-                
+    
+                $mg = $this->form('Client')->MainGame->content;
+                $mg->UnequipCurrentWeapon();
+    
                 $this->form('Client')->Inventory->content->UseSlotSound();
                 $this->form('Client')->Inventory->content->HideCombobox();
             }
             return;
         }
-
+    
         $foundInGrid = false;
         for ($x = 0; $x < 11; $x++)
         {
-            for ($y = 0; $y < 16; $y++)
-            {
-                if ($this->grid[$x][$y] == $weapon)
+            for ($y = 0; $y < 16; $y++) {
+                if ($this->grid[$x][$y] === $weapon)
                 {
                     $this->grid[$x][$y] = null;
                     $foundInGrid = true;
                 }
             }
         }
-
-        if ($foundInGrid || ($e && $e->sender == $weapon))
+    
+        if ($foundInGrid)
         {
             $weapon->position = [$slotX, $slotY];
             $weapon->visible = true;
             $weapon->enabled = true;
-
             $this->$flagName = true;
-            
-            foreach (['Pm', 'AK74'] as $wt)
-            {
-                if ($this->form('Client')->MainGame->content->CurrentWeaponType == $wt)
-                {
-                    $this->form('Client')->MainGame->content->DetachWeapon($wt);
-                    $this->form('Client')->MainGame->content->CurrentWeaponType = null;
-                }
-            }            
-                      
-            $this->form('Client')->MainGame->content->AttachWeapon($weaponType);
-            $this->form('Client')->MainGame->content->CurrentWeaponType = $weaponType;
-            
-            if ($weaponType == 'Pm')
-            {
-                $this->form('Client')->SwitchWeapon1();
-            }
-            elseif ($weaponType == 'AK74')
-            {
-                $this->form('Client')->SwitchWeapon2();
-            }
-
+    
+            $mg = $this->form('Client')->MainGame->content;
+            $mg->SwitchWeapon($weaponType);
+    
             $this->form('Client')->Inventory->content->UseSlotSound();
             $this->form('Client')->Inventory->content->HideCombobox();
         }
-
+    
         $this->repackInventory();    
         $this->selectedItem = null;
     }

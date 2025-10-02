@@ -31,11 +31,11 @@ class maingame extends AbstractForm
     public $SDK_ActorModel;
     public $SDK_EnemyModel;    
 
-
     public $GameActor;
-    public $GameEnemy;    
-    //weapons
-    public $WeaponDev;
+    public $GameEnemy;
+
+    public $currentWeapon = null;  
+    public $weaponState = [];    
 
     public function __construct() 
     {
@@ -52,13 +52,8 @@ class maingame extends AbstractForm
         $this->GameEnemy->SetModel($this->enemy);
         
         $this->GameEnemy->SetInteractive(false);
-        
-        //
-        $this->WeaponDev = new CWeapon_Dev();
-        
-        //wip
-        $this->GameActor->SetActiveWeapon($this->WeaponDev);
     }
+    
     function getCurrentLanguageFromUI()
     {
         return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
@@ -212,14 +207,28 @@ class maingame extends AbstractForm
             $this->form('Client')->Inventory->content->DespawnItems();
             $this->form('Client')->Inventory->content->SetItemCondition();
             
-            $this->ak74Ammo = 30;
-            $this->pmAmmo = 8;
-            
-            foreach ($this->weaponData as &$data)
+            $this->SwitchWeapon('Pm');
+            UXApplication::runLater(function ()
             {
-                $data['jammed'] = false;
-                $data['jamHandled'] = false;
-            }
+                if ($this->currentWeapon && $this->currentWeapon->getType() === 'Pm')
+                {
+                    $w = $this->currentWeapon;
+                    $w->importState(['jammed' => false, 'jamHandled' => false]);
+                    $w->setAmmo($w->getMagSize());
+                    $this->UpdateMagazine();
+                }
+    
+                $this->SwitchWeapon('AK74');
+                UXApplication::runLater(function () {
+                    if ($this->currentWeapon && $this->currentWeapon->getType() === 'AK74')
+                    {
+                        $w = $this->currentWeapon;
+                        $w->importState(['jammed' => false, 'jamHandled' => false]);
+                        $w->setAmmo($w->getMagSize());
+                        $this->UpdateMagazine();
+                    }
+                });
+            });
             
             $this->form('Client')->Inventory->content->InventoryGrid->content->MoveWeaponsToInvSlot();
            
@@ -295,7 +304,7 @@ class maingame extends AbstractForm
 
             $this->Bleeding();
             
-            if ($this->CurrentWeaponType) $this->ui_mag_background->show();
+            if ($this->currentWeapon) $this->ui_mag_background->show();
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
             if ($GLOBALS['GodMode']) $this->GodMode_Icon->show();
             if ($this->GameActor->CanInteractive() || $this->GameEnemy->CanInteractive()) $this->fight_image->show();
@@ -335,14 +344,7 @@ class maingame extends AbstractForm
         
         $this->form('Client')->Fail->show();
         
-        if ($this->CurrentWeaponType == 'Pm')
-        {
-            $this->WeaponPm->hide();
-        }
-        if ($this->CurrentWeaponType == 'AK74')
-        {
-            $this->WeaponAK74->hide();
-        }
+        if ($this->currentWeapon) $this->currentWeapon->softHide();
         
         if ($this->item_vodka_0000->visible) $this->item_vodka_0000->hide();
         if ($GLOBALS['ActorFailed']) $this->GameEnemy->GetModel()->hide();
@@ -498,17 +500,15 @@ class maingame extends AbstractForm
     function GodMode()
     {
         $baseY = 96;
-
-        if ($this->WeaponPm || $this->WeaponAK74)
+        
+        $nextY = $baseY;
+    
+        if ($this->currentWeapon !== null)
         {
             $this->ui_mag_background->y = $baseY;
             $nextY = $baseY + 64;
         }
-        else
-        {
-            $nextY = $baseY;
-        }
-
+    
         if ($GLOBALS['GodMode'])
         {
             $this->GodMode_Icon->show();
@@ -519,7 +519,7 @@ class maingame extends AbstractForm
         {
             $this->GodMode_Icon->hide();
         }
-
+    
         $this->blood_ui->y = $nextY;
     }
     function SpawnParticle($target)
@@ -904,14 +904,8 @@ class maingame extends AbstractForm
         if ($GLOBALS['ActorFailed'])
         {
             $this->GameActor->GetModel()->hide();
-            if ($this->CurrentWeaponType == 'Pm')
-            {
-                $this->WeaponPm->hide();
-            }
-            if ($this->CurrentWeaponType == 'AK74')
-            {
-                $this->WeaponAK74->hide();
-            }      
+            
+            if ($this->currentWeapon) $this->currentWeapon->softHide();
               
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Failed();
             
@@ -1003,36 +997,7 @@ class maingame extends AbstractForm
         Timer::after(3000, function () {
             Animation::fadeOut($this->MessageBox, 500);
         });
-    }
-    
-    public $WeaponPm;
-    public $WeaponAK74;
-    
-    public $pmAmmo = 8;
-    public $ak74Ammo = 30;
-    
-    private $tempTaskStep;
-     
-    private $weaponData = [
-        'Pm' => [
-            'ammoProp' => 'pmAmmo',
-            'maxAmmo' => 8,
-            'soundShot' => 'res://.data/audio/weapon/t_pm_shot.mp3',
-            'soundEmpty' => 'res://.data/audio/weapon/pistol_empty.mp3',
-            'particleOffset' => [158, 93],
-            'jammed' => false,
-            'jamHandled' => false,
-        ],
-        'AK74' => [
-            'ammoProp' => 'ak74Ammo',
-            'maxAmmo' => 30,
-            'soundShot' => 'res://.data/audio/weapon/ak74_shot_0.mp3',
-            'soundEmpty' => 'res://.data/audio/weapon/gen_empty.mp3',
-            'particleOffset' => [256, 96],
-            'jammed' => false,
-            'jamHandled' => false,
-        ],
-    ];    
+    }  
     
     function spawnParticleAsync(callable $factory, callable $afterAdd = null, bool $toClient = false)
     {
@@ -1055,406 +1020,94 @@ class maingame extends AbstractForm
                 }
             });
         }))->start();
-    }
-
-    private $shotPool;
-    
-    function Shoot()
-    {
-        if (!$GLOBALS['QuestStep1']) return;
-    
-        if (!$this->CurrentWeaponType || $this->isReloading)
-        {
-            return;
-        }
-    
-        $weaponType = $this->CurrentWeaponType;
-    
-        if (!isset($this->weaponData[$weaponType]))
-        {
-            return;
-        }
-    
-        $data = &$this->weaponData[$weaponType];
-        $ammoProp = $data['ammoProp'];
-    
-        if ($this->$ammoProp < $data['maxAmmo'] && rand(1, 60) == 1)
-        {
-            $data['jammed'] = true;
-        }
-    
-        if ($data['jammed'] && !$data['jamHandled'])
-        {
-            $data['jamHandled'] = true;
-    
-            if ($GLOBALS['AllSounds'])
-            {
-                $this->form('Client')->playSoundAsync($data['soundEmpty'], true, strtolower($weaponType) . '_jam');
-            }
-    
-            $this->tempTaskStep = $this->Task_Step_Label->text;
-            $this->Task_Step_Label->visible = true;
-    
-            $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-            $this->Task_Step_Label->text = $this->localization->get('GunJmammed');
-    
-            Timer::after(4000, function () {
-                UXApplication::runLater(function () {
-                    $this->Task_Step_Label->visible = false;
-                    $this->Task_Step_Label->text = $this->tempTaskStep;
-                });
-            });
-            return;
-        }
-    
-        if ($this->$ammoProp <= 0 || $data['jammed'])
-        {
-            if ($GLOBALS['AllSounds'])
-            {
-                $this->form('Client')->playSoundAsync($data['soundEmpty'], true, strtolower($weaponType) . '_empty');
-            }
-            return;
-        }
-    
-        $this->$ammoProp--;
-        $this->UpdateMagazine();
-    
-        UXApplication::runLater(function() use ($data) {
-    
-            if ($GLOBALS['AllSounds'])
-            {
-                $pool = $this->shotPool ?? ($this->shotPool = new ShotSoundPool());
-                $pool->playShot(
-                    $this->form('Client'),
-                    $data['soundShot'],
-                    strtolower($this->CurrentWeaponType) . '_shot'
-                );
-            }
-    
-            [$offsetX, $offsetY] = $data['particleOffset'];
-            $this->spawnParticleAsync(
-                function() use ($offsetX, $offsetY) {
-                    $shootParticle = new UXImageView;
-                    $shootParticle->image = new UXImage('res://.data/ui/particles/shoot.png');
-                    $shootParticle->width = 128;
-                    $shootParticle->height = 128;
-                    $shootParticle->opacity = 1;
-                    $shootParticle->x = $this->GameActor->GetModel()->x + $offsetX;
-                    $shootParticle->y = $this->GameActor->GetModel()->y + $offsetY;
-    
-                    (new BloomEffectBehaviour())->apply($shootParticle);
-    
-                    return $shootParticle;
-                },
-                function($shootParticle) {
-                    Animation::fadeOut($shootParticle, 150, function () use ($shootParticle) {
-                        if ($shootParticle->parent) {
-                            $shootParticle->parent->remove($shootParticle);
-                        }
-                        $shootParticle->free();
-                    });
-                }
-            );
-    
-            $enemy = $this->GameEnemy->GetModel();
-            if ($enemy->visible)
-            {
-                $this->DamageEnemy(null, false);
-            
-                $bloodCount = rand(4, 7);
-            
-                array_map(function() use ($enemy, $offsetX, $offsetY)
-                {
-                    $scatterX = rand(-35, 35);
-                    $scatterY = rand(-35, 35);
-            
-                    $this->spawnParticleAsync(
-                        function() use ($enemy, $scatterX, $scatterY, $offsetY)
-                        {
-                            $bloodParticle = new UXImageView();
-                            $bloodParticle->image = new UXImage("res://.data/ui/particles/blood.png");
-                            $bloodParticle->scale = $this->form('Client')->MainGame->scale;
-                            $bloodParticle->width = 86;
-                            $bloodParticle->height = 86;
-            
-                            $hitX = $enemy->x + ($enemy->width / 2) - ($bloodParticle->width / 2);
-            
-                            $hitY = $this->GameActor->GetModel()->y + $offsetY;
-            
-                            $bloodParticle->x = $hitX + $scatterX;
-                            $bloodParticle->y = $hitY + $scatterY;
-                            $bloodParticle->opacity = 1.0;
-            
-                            return $bloodParticle;
-                        },
-                        function($bloodParticle)
-                        {
-                            Animation::fadeOut($bloodParticle, 400, function () use ($bloodParticle) {
-                                $bloodParticle->free();
-                            });
-                        }
-                    );
-                }, range(1, $bloodCount));
-            }
-        });
-    }
-
-    private $AttachmentTimer = null;
-    function AttachWeapon(string $weaponType)
-    {
-        if ($this->AttachmentTimer)
-        {
-            $this->AttachmentTimer->cancel();
-            $this->AttachmentTimer = null;
-        }
-    
-        $weaponProperty = "Weapon$weaponType";
-        $this->$weaponProperty = new UXImageView;
-    
-        switch ($weaponType)
-        {
-            case 'Pm':
-                $this->$weaponProperty->image = new UXImage('res://.data/ui/weapons/wpn_pm.png');
-                $offsetX = 112;
-                $offsetY = 152;
-                if ($GLOBALS['AllSounds'])
-                {
-                    $this->form('Client')->playSoundAsync('res://.data/audio/weapon/pm_draw.mp3', true, 'pm_draw');
-                }
-                break;
-    
-            case 'AK74':
-                $this->$weaponProperty->image = new UXImage('res://.data/ui/weapons/wpn_ak74.png');
-                $offsetX = 24;
-                $offsetY = 144;
-                if ($GLOBALS['AllSounds'])
-                {
-                    $this->form('Client')->playSoundAsync('res://.data/audio/weapon/ak74_draw.mp3', true, 'ak74_draw');
-                }
-                break;
-    
-            default:
-                return;
-        }
-    
-        $this->add($this->$weaponProperty);
-    
-        $colorAdjustEffect = new ColorAdjustEffectBehaviour();
-        $colorAdjustEffect->brightness = $this->GameActor->GetModel()->colorAdjustEffect->brightness;
-        $colorAdjustEffect->apply($this->$weaponProperty);
-    
-        $this->UpdateMagazine();
-    
-        $this->$weaponProperty->on('mouseDown', function(UXMouseEvent $e) {
-            $this->Shoot();
-        });
-    
-        $model = $this->GameActor->GetModel();
-        $this->$weaponProperty->x = $model->x + $offsetX;
-        $this->$weaponProperty->y = $model->y + $offsetY;
-    
-        $this->AttachmentTimer = Timer::every(1, function() use ($weaponProperty, $offsetX, $offsetY) {
-            if (!empty($this->$weaponProperty) && $this->GameActor && $this->GameActor->GetModel())
-            {
-                $model = $this->GameActor->GetModel();
-                $this->$weaponProperty->x = $model->x + $offsetX;
-                $this->$weaponProperty->y = $model->y + $offsetY;
-    
-                if ($this->$weaponProperty->colorAdjustEffect)
-                {
-                    $this->$weaponProperty->colorAdjustEffect->brightness = $model->colorAdjustEffect->brightness;
-                }
-            }
-        });
-    }
-    
-    function DetachWeapon(string $weaponType)
-    {
-        if ($GLOBALS['AllSounds'])
-        {
-            $this->form('Client')->playSoundAsync('res://.data/audio/weapon/generic_close.mp3', true, 'generic_close');
-        }
-    
-        if ($this->AttachmentTimer)
-        {
-            $this->AttachmentTimer->cancel();
-            $this->AttachmentTimer = null;
-        }
-    
-        $weaponProperty = "Weapon$weaponType";
-        if (!empty($this->$weaponProperty))
-        {
-            $this->remove($this->$weaponProperty);
-            $this->$weaponProperty = null;
-        }
-    
-        $this->UpdateMagazine();
-    }
-    
-    public $CurrentWeaponType;
-    function SwitchWeapon(string $weaponType)
-    {
-        if ($this->CurrentWeaponType == $weaponType)
-        {
-            return;
-        }    
-        
-        if ($GLOBALS['ActorFailed']) return;        
-    
-        $slotFlagMap = [
-            'Pm' => 'pmInWeaponSlot',
-            'AK74' => 'AK74InWeaponSlot',
-        ];
-
-        if (!isset($slotFlagMap[$weaponType]))
-        {
-            return;
-        }
-
-        $flagName = $slotFlagMap[$weaponType];
-        $inv = $this->form('Client')->Inventory->content->InventoryGrid->content;
-
-        if (empty($inv->$flagName))
-        {
-            return;
-        }    
-
-        if ($this->CurrentWeaponType)
-        {
-            $this->DetachWeapon($this->CurrentWeaponType);
-            $this->CurrentWeaponType = null;
-        }
-
-        $this->AttachWeapon($weaponType);
-        $this->CurrentWeaponType = $weaponType;
     }    
     
-    private $isReloading = false;
-    function ReloadWeapon()
+    public function UnequipCurrentWeapon(): void
     {
-        if ($this->isReloading) return;
-        if (!$this->CurrentWeaponType) return;
-        
-        if ($GLOBALS['ActorFailed']) return;        
-
-        switch ($this->CurrentWeaponType)
+        if ($this->currentWeapon)
         {
-            case 'Pm':
-                $this->ReloadActiveWeapon(
-                    "Pm",
-                    8,
-                    "pmAmmo",
-                    "pmAmmoCount",
-                    "res://.data/audio/weapon/pm_reload.mp3",
-                    2000
-                );
-                break;
-
-            case 'AK74':
-                $this->ReloadActiveWeapon(
-                    "AK74",
-                    30,
-                    "ak74Ammo",
-                    "akAmmoCount",
-                    "res://.data/audio/weapon/ak74_reload.mp3",
-                    1000
-                );
-                break;
+            $this->weaponState[$this->currentWeapon->getType()] = $this->currentWeapon->exportState();
+            $this->currentWeapon->detach();
+            $this->currentWeapon = null;
+            $this->UpdateMagazine();
         }
     }
-
-    function ReloadActiveWeapon($weaponKey, $magSize, $ammoVar, $ammoCountField, $soundPath, $delay)
+    
+    public function SwitchWeapon(?string $weaponType): void
     {
+        if ($weaponType === null) { $this->UnequipCurrentWeapon(); return; }
+        if ($this->currentWeapon && $this->currentWeapon->getType() === $weaponType) return;
+    
         $inv = $this->form('Client')->Inventory->content->InventoryGrid->content;
-        $totalAmmo = $inv->$ammoCountField;      
-
-        $jammed     = $this->weaponData[$weaponKey]['jammed'] ?? false;
-        $jamHandled = $this->weaponData[$weaponKey]['jamHandled'] ?? false;
-
-        if ($this->$ammoVar >= $magSize && !$jammed) return;
-
-        if ($totalAmmo <= 0 && !$jammed) return;
-
-        if ($GLOBALS['AllSounds'])
+        $flag = ($weaponType === 'Pm') ? 'pmInWeaponSlot' : (($weaponType === 'AK74') ? 'AK74InWeaponSlot' : null);
+        if (!$flag || empty($inv->$flag)) return;
+    
+        if ($this->currentWeapon) { $this->UnequipCurrentWeapon(); }
+    
+        $weapon = CWeaponFactory::create($weaponType, $this);
+        if (!$weapon) return;
+    
+        if (isset($this->weaponState[$weaponType]))
         {
-            $this->form('Client')->playSoundAsync($soundPath, true, $weaponKey . "_reload");
+            $weapon->importState($this->weaponState[$weaponType]);
         }
-
-        $neededAmmo = $magSize - $this->$ammoVar;
-        if ($neededAmmo < 0) $neededAmmo = 0;
-
-        $this->isReloading = true;
-
-        Timer::after($delay, function() use ($neededAmmo, $ammoVar, $ammoCountField, $inv, $weaponKey, $jammed) {
-
-            UXApplication::runLater(function() use ($neededAmmo, $ammoVar, $ammoCountField, $inv, $weaponKey, $jammed) {
-
-                $totalAmmo = $inv->$ammoCountField;
-
-                if ($totalAmmo > 0)
-                {
-                    if ($totalAmmo < $neededAmmo)
-                    {
-                        $this->$ammoVar += $totalAmmo;
-                        $totalAmmo = 0;
-                    }
-                    else
-                    {
-                        $this->$ammoVar += $neededAmmo;
-                        $totalAmmo -= $neededAmmo;
-                    }
-                    $inv->$ammoCountField = $totalAmmo;
-                }
-
-                $updateFn = "updateAmmo" . strtoupper($ammoVar) . "Count";
-                if (method_exists($inv, $updateFn))
-                {
-                    $inv->$updateFn();
-                }
-
-                $this->UpdateMagazine();
-
-                $this->isReloading = false;
-
-                $this->weaponData[$weaponKey]['jammed'] = false;
-                $this->weaponData[$weaponKey]['jamHandled'] = false;       
-            });
-        });
+    
+        $weapon->attach();
+        $this->currentWeapon = $weapon;
+        $this->UpdateMagazine();
     }
-
-    function UpdateMagazine()
+    
+    public function Shoot(): void
+    {
+        if (empty($GLOBALS['QuestStep1'])) return;
+        if (!$this->currentWeapon) return;
+        $this->currentWeapon->shoot();
+    }
+    
+    public function ReloadWeapon(): void
+    {
+        if (!$this->currentWeapon) return;
+        $this->currentWeapon->reload();
+    }
+    
+    public function UpdateMagazine(): void
     {
         $this->ui_mag_background->hide();
         $this->ui_mag_background->text = null;
         $this->ui_mag_background->graphic = null;
         
-        $currentAmmo = null;
-        $totalAmmo   = null;
+        $this->GodMode();        
     
-        if ($this->WeaponPm)
-        {
-            if ($GLOBALS['HudVisible']) $this->ui_mag_background->show();
-                
-            $this->ui_mag_background->graphic = new UXImageView(new UXImage('res://.data/ui/weapons/mag_9_18.png'));
-            
-            $this->form('Client')->Inventory->content->InventoryGrid->content->updateAmmo9x18Count();
-            $totalAmmo   = $this->form('Client')->Inventory->content->InventoryGrid->content->pmAmmoCount;
-            $currentAmmo = $this->pmAmmo;
-        }
-
-        if ($this->WeaponAK74)
-        {
-            if ($GLOBALS['HudVisible']) $this->ui_mag_background->show();
-
-            $this->ui_mag_background->graphic = new UXImageView( new UXImage('res://.data/ui/weapons/mag_5_45_hud.png'));
-
-            $this->form('Client')->Inventory->content->InventoryGrid->content->updateAmmo5x45Count();
-            $totalAmmo   = $this->form('Client')->Inventory->content->InventoryGrid->content->akAmmoCount;
-            $currentAmmo = $this->ak74Ammo;
-        }
-
+        if (!$this->currentWeapon) return;
+    
+        if (!empty($GLOBALS['HudVisible'])) $this->ui_mag_background->show();
+    
+        $imgPath = $this->currentWeapon->hudMagImage();
+        $this->ui_mag_background->graphic = new UXImageView(new UXImage($imgPath));
+    
+        $currentAmmo = $this->currentWeapon->getAmmo();
+        $totalAmmo   = $this->currentWeapon->getTotalAmmoFromInventory();
         $this->ui_mag_background->text = $currentAmmo . '/' . $totalAmmo;
-        
-        $this->GodMode(); //апдейт позиции ебанных иконок
+    }
+    
+    public function showJamHintUI(string $textKey): void
+    {
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+    
+        $lbl = $this->Task_Step_Label;
+        $prev = $lbl->text ?? null;
+    
+        $lbl->visible = true;
+        $lbl->text = $this->localization->get($textKey);
+    
+        Timer::after(4000, function () use ($prev) {
+            UXApplication::runLater(function () use ($prev){
+                $this->Task_Step_Label->visible = false;
+                if ($prev !== null)
+                {
+                    $this->Task_Step_Label->text = $prev;
+                }
+            });
+        });
     }
 }
