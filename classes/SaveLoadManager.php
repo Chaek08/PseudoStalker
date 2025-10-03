@@ -1,6 +1,7 @@
 <?php
 namespace app\forms\classes;
 
+use php\gui\UXApplication;
 use php\time\Timer;
 use php\framework\Logger;
 use php\io\Stream;
@@ -44,60 +45,67 @@ class SaveLoadManager
 
     public function collectSaveData()
     {
-        $c = $this->callForm('Client');
-
-        return array(
+        $c  = $this->callForm('Client');
+        $mg = $c->MainGame->content;
+    
+        $stateList = [
+            'Pm'   => $mg->weaponState['Pm']   ?? ['ammo' => 0, 'jammed' => false, 'jamHandled' => false],
+            'AK74' => $mg->weaponState['AK74'] ?? ['ammo' => 0, 'jammed' => false, 'jamHandled' => false],
+        ];
+    
+        $currentType = null;
+        if ($mg->currentWeapon)
+        {
+            $currentType = $mg->currentWeapon->getType();
+            $stateList[$currentType] = $mg->currentWeapon->exportState();
+        }
+    
+        $data = [
             'client_version' => client_version,
-            'ammo' => array(
-                'pm_mag'     => $c->MainGame->content->pmAmmo,
-                'ak74_mag'   => $c->MainGame->content->ak74Ammo,
+    
+            'ammo' => [
                 'pm_total'   => $c->Inventory->content->InventoryGrid->content->pmAmmoCount,
                 'ak74_total' => $c->Inventory->content->InventoryGrid->content->akAmmoCount,
-            ),
-            'weapons_jam_state' => array(
-                'Pm' => array(
-                    'jammed'     => isset($this->weaponData['Pm']['jammed']) ? $this->weaponData['Pm']['jammed'] : false,
-                    'jamHandled' => isset($this->weaponData['Pm']['jamHandled']) ? $this->weaponData['Pm']['jamHandled'] : false,
-                ),
-                'AK74' => array(
-                    'jammed'     => isset($this->weaponData['AK74']['jammed']) ? $this->weaponData['AK74']['jammed'] : false,
-                    'jamHandled' => isset($this->weaponData['AK74']['jamHandled']) ? $this->weaponData['AK74']['jamHandled'] : false,
-                ),
-            ),
-            'current_weapon' => isset($c->MainGame->content->CurrentWeaponType) ? $c->MainGame->content->CurrentWeaponType : null,
-            'health_gg_inv' => array(
+            ],
+    
+            'weapons' => [
+                'current' => $currentType,
+                'list'    => $stateList,
+            ],
+    
+            'health_gg_inv' => [
                 'value'    => $c->Inventory->content->health_bar_gg->text,
                 'pb_width' => $c->Inventory->content->health_bar_gg->width,
-            ),
-            'health' => array(
-                'gg' => array(
+            ],
+            'health' => [
+                'gg' => [
                     'value'    => $c->MainGame->content->health_bar_gg->text,
                     'pb_width' => $c->MainGame->content->health_bar_gg->width,
-                ),
-                'enemy' => array(
+                ],
+                'enemy' => [
                     'value'    => $c->MainGame->content->health_bar_enemy->text,
                     'pb_width' => $c->MainGame->content->health_bar_enemy->width,
-                ),
-            ),
-            'objects_position' => array(
-                'actor' => array(
+                ],
+            ],
+            'objects_position' => [
+                'actor' => [
                     'x' => $c->MainGame->content->actor->position[0],
                     'y' => $c->MainGame->content->actor->position[1],
                     'is_wearing' => $c->Inventory->content->InventoryGrid->content->isWearing,
-                ),
-                'enemy' => array(
+                ],
+                'enemy' => [
                     'x' => $c->MainGame->content->enemy->position[0],
                     'y' => $c->MainGame->content->enemy->position[1],
-                ),
-                'item_vodka_0000' => array(
+                ],
+                'item_vodka_0000' => [
                     'x' => $c->MainGame->content->item_vodka_0000->position[0],
                     'y' => $c->MainGame->content->item_vodka_0000->position[1],
-                ),
-            ),
-            'quest_time' => array(
+                ],
+            ],
+            'quest_time' => [
                 'date' => $c->Pda->content->Pda_Tasks->content->time_quest_date->text,
                 'hm'   => $c->Pda->content->Pda_Tasks->content->time_quest_hm->text,
-            ),
+            ],
             'vodka_exist'      => $c->MainGame->content->item_vodka_0000->visible,
             'medkit_count'     => $c->Inventory->content->InventoryGrid->content->medkitCount,
             'quest_step1'      => isset($GLOBALS['QuestStep1']) ? $GLOBALS['QuestStep1'] : false,
@@ -109,13 +117,17 @@ class SaveLoadManager
             'menusound_playpos'      => $c->MainMenu->content->MenuSound->positionMs,
             'environment_playpos'    => $c->MainGame->content->Environment->positionMs,
             'fightsound_playpos'     => $c->MainGame->content->FightSound->positionMs,
-        );
+        ];
+    
+        return $data;
     }
+
 
     public function validateSave(array $data): array
     {
         $requiredKeys = [
             'client_version',
+        
             'health',
             'health.gg',
             'health_gg_inv',
@@ -126,6 +138,7 @@ class SaveLoadManager
             'health.enemy',
             'health.enemy.value',
             'health.enemy.pb_width',
+        
             'objects_position',
             'objects_position.actor',
             'objects_position.actor.x',
@@ -137,9 +150,11 @@ class SaveLoadManager
             'objects_position.item_vodka_0000',
             'objects_position.item_vodka_0000.x',
             'objects_position.item_vodka_0000.y',
+        
             'quest_time',
             'quest_time.date',
             'quest_time.hm',
+        
             'vodka_exist',
             'medkit_count',
             'quest_step1',
@@ -147,25 +162,29 @@ class SaveLoadManager
             'actor_failed',
             'enemy_failed',
             'need_to_check_pda',
+        
             'menubackground_playpos',
             'menusound_playpos',
             'environment_playpos',
             'fightsound_playpos',
+        
             'ammo',
-            'ammo.pm_mag',
-            'ammo.ak74_mag',
             'ammo.pm_total',
             'ammo.ak74_total',
-            'current_weapon',
-            'weapons_jam_state',
-            'weapons_jam_state.Pm',
-            'weapons_jam_state.Pm.jammed',
-            'weapons_jam_state.Pm.jamHandled',
-            'weapons_jam_state.AK74',
-            'weapons_jam_state.AK74.jammed',
-            'weapons_jam_state.AK74.jamHandled',
+        
+            'weapons',
+            'weapons.current',
+            'weapons.list',
+            'weapons.list.Pm',
+            'weapons.list.Pm.ammo',
+            'weapons.list.Pm.jammed',
+            'weapons.list.Pm.jamHandled',
+            'weapons.list.AK74',
+            'weapons.list.AK74.ammo',
+            'weapons.list.AK74.jammed',
+            'weapons.list.AK74.jamHandled',
         ];
-    
+
         $missing = [];
     
         foreach ($requiredKeys as $key)
@@ -202,7 +221,8 @@ class SaveLoadManager
     {
         if ($saveName === '') return;
 
-        if (!is_dir($this->saveDir)) {
+        if (!is_dir($this->saveDir))
+        {
             mkdir($this->saveDir, 0777, true);
         }
 
@@ -212,7 +232,8 @@ class SaveLoadManager
         $encrypted = DimasCryptoZlodey::encryptData($json);
         Stream::putContents($path, $encrypted);
 
-        if (defined('Debug_Build') && Debug_Build) {
+        if (defined('Debug_Build') && Debug_Build)
+        {
             Logger::info("Saved game: " . $saveName);
         }
     }
@@ -270,43 +291,42 @@ class SaveLoadManager
                 ];
             }
     
-            if (isset($saveData['ammo']))
-            {
-                $form->MainGame->content->pmAmmo   = $saveData['ammo']['pm_mag'];
-                $form->MainGame->content->ak74Ammo = $saveData['ammo']['ak74_mag'];
-                $form->Inventory->content->InventoryGrid->content->pmAmmoCount = $saveData['ammo']['pm_total'];
-                $form->Inventory->content->InventoryGrid->content->akAmmoCount = $saveData['ammo']['ak74_total'];
-            }
+            UXApplication::runLater(function () use ($saveData, $form) {
     
-            if (isset($saveData['weapons_jam_state']))
-            {
-                $this->weaponData['Pm']['jammed']       = $saveData['weapons_jam_state']['Pm']['jammed'];
-                $this->weaponData['Pm']['jamHandled']   = $saveData['weapons_jam_state']['Pm']['jamHandled'];
-                $this->weaponData['AK74']['jammed']     = $saveData['weapons_jam_state']['AK74']['jammed'];
-                $this->weaponData['AK74']['jamHandled'] = $saveData['weapons_jam_state']['AK74']['jamHandled'];
-            }
+                UXApplication::runLater(function () use ($saveData, $form) {
     
-            $form->MainGame->content->CurrentWeaponType = 'AK74';
-            $form->MainGame->content->DetachWeapon('AK74');
+                    if (isset($saveData['ammo']))
+                    {
+                        $inv = $form->Inventory->content->InventoryGrid->content;
+                        $inv->pmAmmoCount = $saveData['ammo']['pm_total'] ?? 0;
+                        $inv->akAmmoCount = $saveData['ammo']['ak74_total'] ?? 0;
+                    }
     
-            $form->MainGame->content->CurrentWeaponType = 'Pm';
-            $form->MainGame->content->DetachWeapon('Pm');
+                    if (isset($saveData['weapons']))
+                    {
+                        $wep = $saveData['weapons'];
+                        $savedList = is_array($wep['list'] ?? null) ? $wep['list'] : [];
+                        $desired   = $wep['current'] ?? null;
+                    
+                        $mg = $form->MainGame->content;
+                    
+                        $mg->weaponState = $savedList;
+                    
+                        $mg->SwitchWeapon($desired);
+                    
+                        $mg->weaponState = $savedList;
+                    
+                        if ($desired && isset($savedList[$desired]) && $mg->currentWeapon)
+                        {
+                            $mg->currentWeapon->importState($savedList[$desired]);
+                        }
+                    
+                        $mg->UpdateMagazine();
+                    }
     
-            $form->MainGame->content->CurrentWeaponType = null;
-    
-            if (isset($saveData['current_weapon']))
-            {
-                $this->CurrentWeaponType = $saveData['current_weapon'];
-            }
-    
-            if ($saveData['current_weapon'] == 'Pm')
-            {
-                $form->SwitchWeapon1();
-            }
-            elseif ($saveData['current_weapon'] == 'AK74')
-            {
-                $form->SwitchWeapon2();
-            }
+                    $form->MainGame->content->UpdateMagazine();
+                });
+            });   
     
             if (isset($saveData['objects_position']['item_vodka_0000']))
             {
