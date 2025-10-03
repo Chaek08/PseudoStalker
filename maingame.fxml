@@ -142,7 +142,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="" graphic="" id="data-Leave_Label" visible="1"/>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="24" id="ui_disk_io" layoutX="1576" layoutY="872" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="24">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="24" id="ui_disk_io" layoutX="1571" layoutY="872" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="24">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

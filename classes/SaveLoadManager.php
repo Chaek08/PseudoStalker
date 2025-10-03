@@ -259,14 +259,34 @@ class SaveLoadManager
 
     public function load($saveName)
     {
-        $path = $this->saveDir . $saveName . '.sav';
-        if (!file_exists($path)) return null;
-
-        $raw  = Stream::getContents($path);
-        $data = json_decode(DimasCryptoZlodey::decryptData($raw), true);
-
-        return $data ?: null;
+        $client = $this->callForm('Client');
+        $diskIo = $client->MainGame->content->ui_disk_io ?? null;
+    
+        if ($diskIo)
+        {
+            $diskIo->visible = true;
+        }
+    
+        try {
+            $path = $this->saveDir . $saveName . '.sav';
+            if (!file_exists($path)) return null;
+    
+            $raw  = Stream::getContents($path);
+            $data = json_decode(DimasCryptoZlodey::decryptData($raw), true);
+    
+            return $data ?: null;
+        } finally {
+            if ($diskIo)
+            {
+                Timer::after(6000, function () use ($diskIo) {
+                    uiLater(function () use ($diskIo) {
+                        $diskIo->visible = false;
+                    });
+                });
+            }
+        }
     }
+
 
     public function applySaveData(array $saveData, string $saveName): void
     {
