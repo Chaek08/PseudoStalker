@@ -220,21 +220,40 @@ class SaveLoadManager
     public function save($saveName)
     {
         if ($saveName === '') return;
-
-        if (!is_dir($this->saveDir))
+    
+        $client = $this->callForm('Client');
+        $diskIo = $client->MainGame->content->ui_disk_io ?? null;
+    
+        if ($diskIo)
         {
-            mkdir($this->saveDir, 0777, true);
+            $diskIo->visible = true;
         }
-
-        $path = $this->saveDir . $saveName . '.sav';
-        $data = $this->collectSaveData();
-        $json = json_encode($data);
-        $encrypted = DimasCryptoZlodey::encryptData($json);
-        Stream::putContents($path, $encrypted);
-
-        if (defined('Debug_Build') && Debug_Build)
-        {
-            Logger::info("Saved game: " . $saveName);
+    
+        try {
+            if (!is_dir($this->saveDir))
+            {
+                mkdir($this->saveDir, 0777, true);
+            }
+    
+            $path = $this->saveDir . $saveName . '.sav';
+            $data = $this->collectSaveData();
+            $json = json_encode($data);
+            $encrypted = DimasCryptoZlodey::encryptData($json);
+            Stream::putContents($path, $encrypted);
+    
+            if (defined('Debug_Build') && Debug_Build)
+            {
+                Logger::info("Saved game: " . $saveName);
+            }
+        } finally {
+            if ($diskIo)
+            {
+                Timer::after(6000, function () use ($diskIo) {
+                    uiLater(function () use ($diskIo) {
+                        $diskIo->visible = false;
+                    });
+                });
+            }
         }
     }
 
