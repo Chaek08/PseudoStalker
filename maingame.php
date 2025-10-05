@@ -322,13 +322,14 @@ class maingame extends AbstractForm
             $this->health_bar_enemy_b->hide();
             
             $this->ui_mag_background->hide();
-
+            
+            $this->Leave_Label->hide();
+            
             if ($this->blood_ui->visible) $this->blood_ui->hide();
             if ($this->GodMode_Icon->visible) $this->GodMode_Icon->hide();
             if ($this->pda_icon->visible) $this->pda_icon->hide();
             if ($this->fight_image->visible) $this->fight_image->hide();
             if ($this->SavedGame_Toast->visible) $this->SavedGame_Toast->hide();
-            if ($this->Leave_Label->visible) $this->Leave_Label->hide();
             if ($this->MessageBox->visible) $this->MessageBox->hide();
             if ($this->Task_Step_Label->visible) $this->Task_Step_Label->hide();
         
@@ -342,6 +343,7 @@ class maingame extends AbstractForm
     
         $this->RenderHud(false);
         
+        $this->form('Client')->Fail->content->UpdateFailState();
         $this->form('Client')->Fail->show();
         
         if ($this->currentWeapon) $this->currentWeapon->softHide();
@@ -879,7 +881,6 @@ class maingame extends AbstractForm
     {
         $GLOBALS['NeedToCheckPDA'] = true;
         
-        $this->form('Client')->Fail->content->UpdateFailState();
         $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
     
         $this->fight_image->hide();
