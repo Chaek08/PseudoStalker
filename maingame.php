@@ -339,7 +339,7 @@ class maingame extends AbstractForm
 
     function LeaveGame()
     {    
-        if (!$GLOBALS['QuestCompleted']) return;
+        if (!$GLOBALS['QuestCompleted'] || !$this->Leave_Label->visible) return;
     
         $this->RenderHud(false);
         
@@ -906,7 +906,7 @@ class maingame extends AbstractForm
         {
             $this->GameActor->GetModel()->hide();
             
-            if ($this->currentWeapon) $this->currentWeapon->softHide();
+            if ($this->currentWeapon) $this->UnequipCurrentWeapon();
               
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Failed();
             
@@ -1036,6 +1036,7 @@ class maingame extends AbstractForm
     
     public function SwitchWeapon(?string $weaponType): void
     {
+        if (!$this->GameActor->GetModel()->visible) return;
         if ($weaponType === null) { $this->UnequipCurrentWeapon(); return; }
         if ($this->currentWeapon && $this->currentWeapon->getType() === $weaponType) return;
     
