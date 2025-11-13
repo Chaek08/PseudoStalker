@@ -6,6 +6,8 @@ use std, gui, framework, app;
 
 class pda extends AbstractForm
 {
+    private $localization;
+
     public $SDK_ActorName;
     public $SDK_ActorIcon;
     public $SDK_ActorBio;    
@@ -29,82 +31,113 @@ class pda extends AbstractForm
     public function __construct() 
     {
         parent::__construct();
+        
+        $this->localization = new Localization($language);        
     
         $this->time_year->watchMaker->format = 'dd/MM/yyyy';
     }
+    
+    function getCurrentLanguageFromUI()
+    {
+        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }    
+    
     function InitPDA()
     {
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());    
+    
         $buttons = [
-            'tasks_label',
-            'contacts_label',
-            'ranks_label',
-            'stat_label'
+            'tasks_label'    => $this->localization->get('TaskLabelTooltip'),
+            'contacts_label' => $this->localization->get('ContactsLabelTooltip'),
+            'ranks_label'    => $this->localization->get('RanksLabelTooltip'),
+            'stat_label'     => $this->localization->get('StatLabelTooltip')
         ];
-
+    
         $this->activePressedLabel = null;
-
-        foreach ($buttons as $btnName)
+    
+        foreach ($buttons as $btnName => $tooltipText)
         {
             $label = $this->{$btnName};
-
-            $label->on("mouseEnter", function($e) use ($label) {
+    
+            $tooltip = new CustomTooltip($this->form('Client'));
+            $tooltip->setText($tooltipText);
+    
+            $label->on('mouseEnter', function($e) use ($tooltip, $label) {
+                if ($tooltip->showTimer)
+                { 
+                    $tooltip->showTimer->cancel(); 
+                    $tooltip->showTimer = null; 
+                }
+                $tooltip->showTimer = Timer::after($tooltip->delayMs, function () use ($tooltip) {
+                    uiLater(function () use ($tooltip) {
+                        $tooltip->repositionAtCursor();
+                        $tooltip->show();
+                    });
+                });
+    
                 if ($label->textColor != "#d59b30")
                 {
                     $label->textColor = "white";
                 }
             });
-
-            $label->on("mouseExit", function($e) use ($label) {
+    
+            $label->on('mouseExit', function($e) use ($tooltip, $label) {
+                if ($tooltip->showTimer)
+                { 
+                    $tooltip->showTimer->cancel(); 
+                    $tooltip->showTimer = null; 
+                }
+                $tooltip->hide();
+    
                 if ($label->textColor != "#d59b30")
                 {
                     $label->textColor = "#777778";
                 }
             });
-
+    
+            $label->on('mouseMove', function($e) use ($tooltip) {
+                if ($tooltip->visible)
+                {
+                    $tooltip->repositionAtCursor();
+                }
+            });
+    
             $label->on("mouseDown", function($e) use ($label, $btnName) {
                 $this->activePressedLabel = $btnName;
             });
         }
-
+    
         $this->on("mouseUp", function($e) use ($buttons) {
             if ($this->activePressedLabel != null)
             {
                 $btnName = $this->activePressedLabel;
                 $label = $this->{$btnName};
-
+    
                 if ($label->hover)
                 {
                     $this->UpdateBtnColor();
                     $label->textColor = "#d59b30";
-
+    
                     switch ($btnName)
                     {
-                        case 'tasks_label':
-                            $this->TasksBtn();
-                            break;
-                        case 'contacts_label':
-                            $this->ContactsBtn();
-                            break;
-                        case 'ranks_label':
-                            $this->RankingBtn();
-                            break;
-                        case 'stat_label':
-                            $this->StatisticBtn();
-                            break;
+                        case 'tasks_label':    $this->TasksBtn();     break;
+                        case 'contacts_label': $this->ContactsBtn();  break;
+                        case 'ranks_label':    $this->RankingBtn();   break;
+                        case 'stat_label':     $this->StatisticBtn(); break;
                     }
                 }
-                else
+                else if ($label->textColor != "#d59b30")
                 {
-                    if ($label->textColor != "#d59b30")
-                    {
-                        $label->textColor = "#777778";
-                    }
+                    $label->textColor = "#777778";
                 }
-
+    
                 $this->activePressedLabel = null;
             }
         });
+        
+        $this->Pda_Tasks->content->InitTasks();
     }
+
     function DefaultState()
     {
         $this->Pda_Ranking->hide(); 

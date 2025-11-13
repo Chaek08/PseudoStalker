@@ -28,50 +28,78 @@ class pda_fragment_tasks extends AbstractForm
     public $SDK_QuestStep2;
     public $SDK_QuestTarget;
     
-    /**
-     * @event show 
-     */
-    function InitTasks(UXWindowEvent $e = null)
+    function InitTasks()
     {
         $this->UpdateQuestTime();
         
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());  
+          
         $buttons = [
-            'active_task',
-            'passive_task',
-            'failed_task'
+            'active_task'  => $this->localization->get('ActiveTaskTooltip'),
+            'passive_task' => $this->localization->get('PassiveTaskTooltip'),
+            'failed_task'  => $this->localization->get('FailedTaskTooltip'),
+            'quest_detail_btn' =>  $this->localization->get('TaskDetailTooltip')           
         ];
-
+    
         $this->activePressedTaskLabel = null;
-
-        foreach ($buttons as $btnName)
+    
+        foreach ($buttons as $btnName => $tooltipText)
         {
             $label = $this->{$btnName};
-
-            $label->on("mouseEnter", function($e) use ($label) {
+    
+            $tooltip = new CustomTooltip($this->form('Client'));
+            $tooltip->setText($tooltipText);
+    
+            $label->on('mouseEnter', function($e) use ($tooltip, $label) {
+                if ($tooltip->showTimer)
+                { 
+                    $tooltip->showTimer->cancel(); 
+                    $tooltip->showTimer = null; 
+                }
+                $tooltip->showTimer = Timer::after($tooltip->delayMs, function () use ($tooltip) {
+                    uiLater(function () use ($tooltip) {
+                        $tooltip->repositionAtCursor();
+                        $tooltip->show();
+                    });
+                });
+    
                 if ($label->textColor != "#d59b30")
                 {
                     $label->textColor = "white";
                 }
             });
-
-            $label->on("mouseExit", function($e) use ($label) {
-                if ($label->textColor != "#d59b30")
-                {
+    
+            $label->on('mouseExit', function($e) use ($tooltip, $label) {
+                if ($tooltip->showTimer)
+                { 
+                    $tooltip->showTimer->cancel(); 
+                    $tooltip->showTimer = null; 
+                }
+                $tooltip->hide();
+    
+                if ($label->textColor != "#d59b30") {
                     $label->textColor = "#777778";
                 }
             });
-
+    
+            $label->on('mouseMove', function($e) use ($tooltip) {
+                if ($tooltip->visible)
+                {
+                    $tooltip->repositionAtCursor();
+                }
+            });
+    
             $label->on("mouseDown", function($e) use ($btnName) {
                 $this->activePressedTaskLabel = $btnName;
             });
         }
-
+    
         $this->on("mouseUp", function($e) use ($buttons) {
             if ($this->activePressedTaskLabel != null)
             {
                 $btnName = $this->activePressedTaskLabel;
                 $label = $this->{$btnName};
-
+    
                 if ($label->hover)
                 {
                     $this->ResetBtnColor();
@@ -90,19 +118,16 @@ class pda_fragment_tasks extends AbstractForm
                             break;
                     }
                 }
-                else
+                else if ($label->textColor != "#d59b30")
                 {
-                    if ($label->textColor != "#d59b30")
-                    {
-                        $label->textColor = "#777778";
-                    }
+                    $label->textColor = "#777778";
                 }
-
+    
                 $this->activePressedTaskLabel = null;
             }
-        });        
+        });
     }
-      
+
     function UpdateData()
     {
         $quest_name = trim($this->SDK_QuestName);
