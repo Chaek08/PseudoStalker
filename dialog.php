@@ -237,7 +237,7 @@ class dialog extends AbstractForm
     private function playVoiceAsync($fileName, $mediaId)
     {
         $languageCode = $this->localization->getCurrentLanguage();
-        $soundPath = "./gamedata/sounds/{$languageCode}/dialog/{$fileName}.mp3";
+        $soundPath = "./gamedata/sounds/voice/{$languageCode}/dialog/{$fileName}.mp3";
     
         if (!file_exists($soundPath))
         {
