@@ -14,6 +14,8 @@ class pda_fragment_tasks extends AbstractForm
         parent::__construct();
 
         $this->localization = new Localization($language);
+        
+        $this->UpdateQuestTime();
     }
     
     function getCurrentLanguageFromUI()
@@ -30,8 +32,6 @@ class pda_fragment_tasks extends AbstractForm
     
     function InitTasks()
     {
-        $this->UpdateQuestTime();
-        
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());  
           
         $buttons = [
