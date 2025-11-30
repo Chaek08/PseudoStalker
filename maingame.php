@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\Environment;
 use app\forms\classes\CEnemy;
 use Throwable;
 use app\forms\classes\CActor;
@@ -30,6 +31,8 @@ class maingame extends AbstractForm
     public $SDK_FightSound;
     public $SDK_ActorModel;
     public $SDK_EnemyModel;    
+    
+    public $Environment;
 
     public $GameActor;
     public $GameEnemy;
@@ -42,7 +45,7 @@ class maingame extends AbstractForm
         parent::__construct();
 
         $this->localization = new Localization($language);
-        
+               
         $this->GameActor = new CActor();
         $this->GameActor->SetModel($this->actor);
         
@@ -52,6 +55,18 @@ class maingame extends AbstractForm
         $this->GameEnemy->SetModel($this->enemy);
         
         $this->GameEnemy->SetInteractive(false);
+        
+        $this->Environment = new Environment($this->Environment_Space);
+        $this->Environment->startAmbient();
+        $this->Environment->pause();
+        $this->Environment->setOnCycleChange(function ($old, $new) use ($this) {
+            $brightness = $this->Environment->getEnvironmentBrightness();
+            
+            $this->GameActor->GetModel()->colorAdjustEffect->brightness   = $brightness;
+            $this->GameEnemy->GetModel()->colorAdjustEffect->brightness   = $brightness;
+            $this->item_vodka_0000->colorAdjustEffect->brightness         = $brightness;
+        });
+        $this->Environment->fireCycleChangeOnce();           
     }
     
     function getCurrentLanguageFromUI()
@@ -59,134 +74,23 @@ class maingame extends AbstractForm
         return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
     }     
     
-    function InitEnvironmentTimer($timeFromTasks = null)
-    {    
-        if (defined('UseLegacyEnvironment') && UseLegacyEnvironment == true)
-        {
-            $this->platform->show();
-            $this->Environment_Background->hide();
-            return;
-        }
-        
-        $this->EnvironmentTimer->stop();    
-    
-        if ($timeFromTasks != null)
-        {
-            //Logger::info("Timer not started (custom time used: $timeFromTasks)");
-            $this->UpdateEnvironment($timeFromTasks);
-            return;
-        }
-        
-        $this->EnvironmentTimer->on("action", function()
-        {
-            $this->UpdateEnvironment();
-            //Logger::info("Timer updated: " . Time::now()->toString('HH:mm:ss'));
-        });
-        
-        $this->EnvironmentTimer->start();
-        
-    }    
-    function UpdateEnvironment($timeFromTasks = null)
-    {        
-        if (defined('UseLegacyEnvironment') && UseLegacyEnvironment == true)
-        {
-            return;
-        }
-        
-        $this->Environment->view = $this->Environment_Background;
-
-        $timeStr = $timeFromTasks ?? Time::now()->toString('HH:mm');
-        $newCycle = $this->getTimeCycleByString($timeStr);
-
-        $backgroundPaths = [
-            'morning' => "./gamedata/textures/environment/morning.mp4",
-            'day' => "./gamedata/textures/environment/day.mp4",
-            'evening' => "./gamedata/textures/environment/evening.mp4",
-            'night' => "./gamedata/textures/environment/night.mp4"
-        ];
-
-        $brightnessByCycle = [
-            'morning' => -0.1,
-            'day' => 0.0,
-            'evening' => -0.2,
-            'night' => -0.4
-        ];
-
-        if ($newCycle != $this->currentCycle)
-        {
-            if ($this->currentCycle == '')
-            {
-                Logger::info("Set cycle: " . $newCycle);
-            }
-            else
-            {
-                Logger::info("Cycle changed: " . $this->currentCycle . " -> " . $newCycle);
-            }
-
-            $this->currentCycle = $newCycle;
-
-            Media::stop($this->Environment);
-
-            $backgroundPath = $backgroundPaths[$newCycle];
-            Media::open($backgroundPath, false, $this->Environment);
-
-            $brightness = $brightnessByCycle[$newCycle];
-            $this->GameActor->GetModel()->colorAdjustEffect->brightness = $brightness;
-            $this->GameEnemy->GetModel()->colorAdjustEffect->brightness = $brightness;
-            $this->item_vodka_0000->colorAdjustEffect->brightness = $brightness;       
-        }
-        if (!$this->form('Client')->MainMenu->visible)
-        {
-            $this->PlayEnvironment();
-        }
-    }
-    function PlayEnvironment()
-    {
-        Media::play($this->Environment);
-        
-        if ($GLOBALS['AllSounds'])
-        {
-            $this->Environment->volume = 65;
-        }
-    }
-    function getTimeCycleByString($timeStr)
-    {
-        $hourStr = substr($timeStr, 0, 2);
-        $hour = (int)$hourStr;
-
-        if ($hour >= 5 && $hour < 11)
-        {
-            return 'morning';
-        }
-        elseif ($hour >= 11 && $hour < 18)
-        {
-            return 'day';
-        }
-        elseif ($hour >= 18 && $hour < 21)
-        {
-            return 'evening';
-        }
-        else
-        {
-            return 'night';
-        }
-    }    
     function PlayFightSong()
-    {    
+    {
+        $path = trim($this->SDK_FightSound);
+    
+        if ($path == '')
+        {
+            $path = 'res://.data/audio/fight/fight_sound.mp3';
+        }
+    
+        Media::open($path, false, $this->FightSound);
+    
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
         {
-            $path = trim($this->SDK_FightSound);
-
-            if ($path != '')
-            {
-                Media::open($path, true, $this->FightSound);
-            } 
-            else
-            {
-                Media::open('res://.data/audio/fight/fight_sound.mp3', true, $this->FightSound);
-            }
+            $this->FightSound->play();
         }
-    }      
+    }    
+    
     function ResetGameClient(callable $afterReset = null)
     {
         $this->form('Client')->ShowLoadScreen(function () use ($afterReset)
@@ -266,13 +170,26 @@ class maingame extends AbstractForm
             {
                 $this->form('Client')->MainMenu->content->InitMainMenu();
             }
-            else
+            
+            if ($this->Environment)
             {
-                $this->PlayEnvironment();
+                $this->Environment->stop();
             }
             
-            $this->InitEnvironmentTimer();
-            $this->UpdateEnvironment();            
+            if (empty($GLOBALS['IsSaveLoading']))
+            {
+                $this->Environment = new Environment($this->Environment_Space);
+                $this->Environment->startAmbient();
+                $this->Environment->pause();
+                $this->Environment->setOnCycleChange(function ($old, $new) use ($this) {
+                    $brightness = $this->Environment->getEnvironmentBrightness();
+            
+                    $this->GameActor->GetModel()->colorAdjustEffect->brightness   = $brightness;
+                    $this->GameEnemy->GetModel()->colorAdjustEffect->brightness   = $brightness;
+                    $this->item_vodka_0000->colorAdjustEffect->brightness         = $brightness;
+                });
+
+            }         
 
             $this->form('Client')->Dialog->content->StartDialog();
             

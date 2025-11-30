@@ -30,6 +30,7 @@ class opt extends AbstractForm
         $GLOBALS['AllSoundSwitcher_IsOn'] = true;
         $GLOBALS['MenuSoundSwitcher_IsOn'] = true;
         $GLOBALS['FightSoundSwitcher_IsOn'] = true;
+        $GLOBALS['AmbientSoundSwitcher_IsOn'] = true;
                           
         if (!$GLOBALS['AllSounds'])
         {
@@ -45,6 +46,10 @@ class opt extends AbstractForm
         {
             $this->FightSoundSwitcher();
         }
+        if (!$GLOBALS['AmbientSound'])
+        {
+            $this->AmbientSoundSwitcher();
+        }        
            
         if ($this->form('Client')->ltx['all_sounds'] == 'off')
         {
@@ -58,6 +63,10 @@ class opt extends AbstractForm
         {
             $this->FightSoundSwitcher();
         }
+        if ($this->form('Client')->ltx['ambient_sound'] == 'off' && $this->form('Client')->ltx['all_sounds'] == 'on')
+        {
+            $this->AmbientSoundSwitcher();
+        }        
         
         $this->Language_Switcher_Combobobx->value = ($this->form('Client')->ltx['language'] == 'rus') ? 'Русский' : 'English';           
     }
@@ -66,6 +75,7 @@ class opt extends AbstractForm
         $this->AllSound_Switcher_Btn->classesString = $GLOBALS['AllSoundSwitcher_IsOn'] ? 'switch-on' : 'switch-off';
         $this->MenuSound_Switcher_Btn->classesString = $GLOBALS['MenuSoundSwitcher_IsOn'] ? 'switch-on' : 'switch-off';
         $this->FightSound_Switcher_Btn->classesString = $GLOBALS['FightSoundSwitcher_IsOn'] ? 'switch-on' : 'switch-off';
+        $this->AmbientSound_Switcher_Btn->classesString = $GLOBALS['AmbientSoundSwitcher_IsOn'] ? 'switch-on' : 'switch-off';        
         $this->Shadows_Switcher_Btn->classesString = $GLOBALS['ShadowsSwitcher_IsOn'] ? 'switch-on' : 'switch-off';
         $this->Version_Switcher_Btn->classesString = $GLOBALS['VersionSwitcher_IsOn'] ? 'switch-on' : 'switch-off';
     }    
@@ -100,6 +110,11 @@ class opt extends AbstractForm
                 $this->FightSoundSwitcher();
                 $this->FightSound_Switcher_Btn->enabled = false;
             }
+            if ($GLOBALS['AmbientSound'])
+            {
+                $this->AmbientSoundSwitcher();
+                $this->AmbientSound_Switcher_Btn->enabled = false;
+            }            
             
             $this->form('Client')->StopAllSounds();
             
@@ -125,7 +140,12 @@ class opt extends AbstractForm
             {
                 $this->FightSoundSwitcher();
                 $this->FightSound_Switcher_Btn->enabled = true;
-            } 
+            }
+            if (!$GLOBALS['AmbientSound'])
+            {
+                $this->AmbientSoundSwitcher();
+                $this->AmbientSound_Switcher_Btn->enabled = true;
+            }             
             
             $this->form('Client')->ltx['all_sounds'] = 'on';
             $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
@@ -199,6 +219,40 @@ class opt extends AbstractForm
             return;
         }
     }
+    
+    /**
+     * @event AmbientSound_Switcher_Btn.mouseDown-Left 
+     */
+    function AmbientSoundSwitcher(UXMouseEvent $e = null)
+    {
+        if ($GLOBALS['AmbientSoundSwitcher_IsOn'])
+        {
+            $GLOBALS['AmbientSoundSwitcher_IsOn'] = false;
+            $this->AmbientSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
+            $this->AmbientSound_Switcher_Btn->classesString = 'switch-off';
+            
+            $GLOBALS['AmbientSound'] = false;
+            
+            $this->form('Client')->ltx['ambient_sound'] = 'off';
+            $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
+            
+            return;
+        }
+        else 
+        {
+            $GLOBALS['AmbientSoundSwitcher_IsOn'] = true;
+            $this->AmbientSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
+            $this->AmbientSound_Switcher_Btn->classesString = 'switch-on';
+            
+            $GLOBALS['AmbientSound'] = true;
+            
+            $this->form('Client')->ltx['ambient_sound'] = 'on';
+            $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
+            
+            return;
+        }
+    }    
+    
     /**
      * @event Shadows_Switcher_Btn.mouseDown-Left 
      */
@@ -268,6 +322,8 @@ class opt extends AbstractForm
             $this->form('Client')->MainMenu->content->Options->content->Version_Switcher_Btn->dropShadowEffect->disable();
             $this->form('Client')->MainMenu->content->Options->content->FightSound_Label->dropShadowEffect->disable();    
             $this->form('Client')->MainMenu->content->Options->content->FightSound_Switcher_Btn->dropShadowEffect->disable();
+            $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Label->dropShadowEffect->disable();
+            $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Switcher_Btn->dropShadowEffect->disable();                
             $this->form('Client')->MainMenu->content->Options->content->Language_Label->dropShadowEffect->disable();
             $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->disable();
             
@@ -341,6 +397,8 @@ class opt extends AbstractForm
             $this->form('Client')->MainMenu->content->Options->content->Version_Switcher_Btn->dropShadowEffect->enable();
             $this->form('Client')->MainMenu->content->Options->content->FightSound_Label->dropShadowEffect->enable();
             $this->form('Client')->MainMenu->content->Options->content->FightSound_Switcher_Btn->dropShadowEffect->enable();
+            $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Label->dropShadowEffect->enable();
+            $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Switcher_Btn->dropShadowEffect->enable();            
             $this->form('Client')->MainMenu->content->Options->content->Language_Label->dropShadowEffect->enable();
             $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->enable();  
             
@@ -402,6 +460,7 @@ class opt extends AbstractForm
             return;
         }
     } 
+    
     /**
      * @event Language_Switcher_Combobobx.action 
      */
@@ -431,6 +490,7 @@ class opt extends AbstractForm
         $this->AllSound_Label->text = $this->localization->get('AllSound_Label');
         $this->MenuSound_Label->text = $this->localization->get('MenuSound_Label');
         $this->FightSound_Label->text = $this->localization->get('FightSound_Label');
+        $this->AmbientSound_Label->text = $this->localization->get('AmbientSound_Label');        
         $this->Shadows_Label->text = $this->localization->get('Shadows_Label');
         $this->Version_Label->text = $this->localization->get('Version_Label');
         $this->Language_Label->text = $this->localization->get('Language_Label');
@@ -438,6 +498,7 @@ class opt extends AbstractForm
         $this->AllSound_Switcher_Btn->text = $this->localization->get($GLOBALS['AllSoundSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
         $this->MenuSound_Switcher_Btn->text = $this->localization->get($GLOBALS['MenuSoundSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
         $this->FightSound_Switcher_Btn->text = $this->localization->get($GLOBALS['FightSoundSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
+        $this->AmbientSound_Switcher_Btn->text = $this->localization->get($GLOBALS['AmbientSoundSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');        
         $this->Shadows_Switcher_Btn->text = $this->localization->get($GLOBALS['ShadowsSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
         $this->Version_Switcher_Btn->text = $this->localization->get($GLOBALS['VersionSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
 

@@ -61,7 +61,7 @@ class mainmenu extends AbstractForm
         Media::pause($this->MenuSound);
         Media::pause($this->MainMenuBackground);
         
-        $this->form('Client')->MainGame->content->PlayEnvironment();
+        $this->form('Client')->MainGame->content->Environment->resume();
         
         if ($this->form('Client')->MainGame->content->fight_image->visible)
         {

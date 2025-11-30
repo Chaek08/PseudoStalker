@@ -48,6 +48,7 @@ class Client extends AbstractForm
         $GLOBALS['AllSounds']  = true;
         $GLOBALS['MenuSound']  = true;
         $GLOBALS['FightSound'] = true;
+        $GLOBALS['AmbientSound'] = true;        
         $GLOBALS['HudVisible'] = true;
         
         $this->localization = new Localization($language);     
@@ -59,9 +60,6 @@ class Client extends AbstractForm
 
         $this->MainMenu->content->InitMainMenu();
         $this->MainMenu->content->Options->content->InitOptions();
-
-        $this->MainGame->content->InitEnvironmentTimer();
-        $this->MainGame->content->UpdateEnvironment();
                 
         $this->MainGame->content->RenderHud(false);
         
@@ -250,6 +248,7 @@ class Client extends AbstractForm
             'all_sounds' => 'on',
             'mm_sound' => 'on',
             'fight_sound' => 'on',
+            'ambient_sound' => 'on',            
             'r_version' => 'on',
             'g_god' => 'off',
             'vid_mode' => '1600x900',
@@ -704,8 +703,11 @@ class Client extends AbstractForm
     function ShowMenu()
     {
         $this->MainMenu->show();
+        
         Media::play($this->MainMenu->content->MainMenuBackground);
-        Media::pause($this->MainGame->content->Environment);
+        
+        $this->MainGame->content->Environment->pause();
+        
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
         {
             //$this->StopAllSoundsAsync(); //возможно temp

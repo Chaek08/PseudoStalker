@@ -1,0 +1,1017 @@
+<?php
+namespace app\forms\classes;
+
+use php\framework\Logger;
+use php\time\Time;
+use php\time\Timer;
+use script\MediaPlayerScript;
+use php\lang\Logger;
+
+class Environment
+{
+    protected $soundBasePath    = './gamedata/sounds/';
+    protected $texturesBasePath = './gamedata/textures/';
+
+    protected $videoPlayer;
+    protected $ambientPlayer;
+    protected $sfxPlayer;
+    protected $effectPlayer;
+    protected $rainPlayer;
+    protected $anomalyPlayer;
+
+    protected $mediaView;
+
+    protected $currentCycle = '';
+
+    protected $currentLocationIndex = -1;
+    protected $lastLocationIndex    = -1;
+
+    protected $manualCycle = null;
+
+    protected $currentBackgroundPath = null;
+    protected $currentAmbientPath    = null;
+
+    public $timerId;
+    public $sfxTimerId;
+    public $effectTimerId;
+    public $ambientTimerId;
+
+    public $isPaused     = false;
+    public $isRainy      = false;
+    public $isAnomalyHum = false;
+
+    protected $onCycleChange = null;
+
+    protected $brightnessByCycle = [
+        'morning'     => -0.1,
+        'day'         =>  0.0,
+        'evening'     => -0.2,
+        'night'       => -0.4,
+        'underground' => -0.4,
+    ];
+
+    protected $volumeSfx     = 0.04;
+    protected $volumeAmbient = 0.15;
+    protected $volumeEffect  = 0.15;
+    protected $volumeRain    = 0.02;
+    protected $volumeAnomaly = 0.05;
+
+    protected $sfxPeriods = [
+        'evening'     => [6, 9],
+        'night'       => [6, 9],
+        'morning'     => [8, 14],
+        'day'         => [8, 14],
+        'underground' => [5, 10],
+    ];
+
+    protected $effectPeriods = [
+        'morning' => [30, 60],
+        'day'     => [40, 90],
+        'evening' => [90, 120],
+        'night'   => [130, 160],
+    ];
+
+    protected $locations = [
+        'L0' => [
+            'morning' => [ 'path' => 'environment/L0/L0_Morning', 'anomaly' => true ],
+            'day'     => [ 'path' => 'environment/L0/L0_Day',     'anomaly' => true ],
+            'evening' => [ 'path' => 'environment/L0/L0_Evening', 'anomaly' => true ],
+            'night'   => [ 'path' => 'environment/L0/L0_Night',   'rain' => true, 'anomaly' => true ],
+        ],
+        'L1' => [
+            'morning' => [ 'path' => 'environment/L1/L1_Morning', 'anomaly' => true ],
+            'day'     => [ 'path' => 'environment/L1/L1_Day',     'anomaly' => true ],
+            'evening' => [ 'path' => 'environment/L1/L1_Evening', 'anomaly' => true ],
+            'night'   => [ 'path' => 'environment/L1/L1_Night',   'anomaly' => true ],
+        ],
+        'L2' => [
+            'morning' => [ 'path' => 'environment/L2/L2_Morning', 'anomaly' => true ],
+            'day'     => [ 'path' => 'environment/L2/L2_Day',     'anomaly' => true ],
+            'evening' => [ 'path' => 'environment/L2/L2_Evening', 'anomaly' => true ],
+            'night'   => [ 'path' => 'environment/L2/L2_Night',   'anomaly' => true ],
+        ],
+        'L3' => [
+            'morning' => [ 'path' => 'environment/L3/L3_Morning', 'anomaly' => true ],
+            'day'     => [ 'path' => 'environment/L3/L3_Day',     'anomaly' => true ],
+            'evening' => [ 'path' => 'environment/L3/L3_Evening', 'anomaly' => true ],
+            'night'   => [ 'path' => 'environment/L3/L3_Night',   'anomaly' => true ],
+        ],
+        'L4' => [
+            'morning' => [ 'path' => 'environment/L4/L4_Morning', 'anomaly' => true ],
+            'day'     => [ 'path' => 'environment/L4/L4_Day',     'anomaly' => true ],
+            'evening' => [ 'path' => 'environment/L4/L4_Evening', 'anomaly' => true ],
+            'night'   => [ 'path' => 'environment/L4/L4_Night',   'rain' => true, 'anomaly' => true ],
+        ],
+        'L5' => [
+            'underground' => [ 'path' => 'environment/L5/L5U_Underground'],
+        ],
+    ];
+
+    protected $anomalyLoopPath = 'environment/anomaly/gravi_gudenie';
+    protected $rainLoopPath    = 'environment/weather/rain';
+
+    protected $thunderSounds = [
+        'environment/weather/thunder-0',
+        'environment/weather/thunder-1',
+        'environment/weather/thunder-2',
+        'environment/weather/thunder-3',
+    ];
+
+    protected $ambientSounds = [
+        [ 'path' => 'environment/ambient/amb00', 'length' => 221 ],
+        [ 'path' => 'environment/ambient/amb01', 'length' => 247 ],
+        [ 'path' => 'environment/ambient/amb02', 'length' => 248 ],
+        [ 'path' => 'environment/ambient/amb03', 'length' => 299 ],
+        [ 'path' => 'environment/ambient/amb04', 'length' => 796 ],
+        [ 'path' => 'environment/ambient/amb05', 'length' => 363 ],
+        [ 'path' => 'environment/ambient/amb06', 'length' => 191 ],
+    ];
+
+    protected function isUnderground()
+    {
+        return $this->currentCycle === 'underground';
+    }
+
+    protected $rndSoundsByCycle = [
+        'evening' => [
+            'environment/rnd_outdoor/rnd_boar', 'environment/rnd_outdoor/rnd_wind_tree',
+            'environment/rnd_outdoor/rnd_horror','environment/rnd_outdoor/rnd_pdog',
+            'environment/rnd_outdoor/rnd_pdog1','environment/rnd_outdoor/rnd_cat2',
+            'environment/rnd_outdoor/rnd_cat1','environment/rnd_outdoor/rnd_boar3',
+            'environment/rnd_outdoor/crickets_1','environment/rnd_outdoor/crickets_2',
+            'environment/rnd_outdoor/crickets_3','environment/rnd_outdoor/rnd_dog',
+            'environment/rnd_outdoor/rnd_dog1','environment/rnd_outdoor/rnd_dog2',
+            'environment/rnd_outdoor/rnd_dog3','environment/rnd_outdoor/rnd_fly2',
+            'environment/rnd_outdoor/rnd_fly3','environment/rnd_outdoor/rnd_krik1',
+            'environment/rnd_outdoor/rnd_krik2','environment/rnd_outdoor/rnd_krik3',
+            'environment/rnd_outdoor/rnd_moan','environment/rnd_outdoor/rnd_moan1',
+            'environment/rnd_outdoor/owl_1','environment/rnd_outdoor/owl_2',
+            'environment/rnd_outdoor/owl_3','environment/rnd_outdoor/rnd_dark',
+            'environment/rnd_outdoor/rnd_dark0','environment/rnd_outdoor/rnd_dark1',
+            'environment/rnd_outdoor/rnd_shooting_5','environment/rnd_outdoor/rnd_shooting_7',
+            'environment/rnd_outdoor/rnd_swamp','environment/rnd_outdoor/rnd_dark4',
+            'environment/rnd_outdoor/rnd_howling_1','environment/rnd_outdoor/rnd_howling_2',
+        ],
+        'night' => [
+            'environment/rnd_outdoor/rnd_boar','environment/rnd_outdoor/rnd_wind_tree',
+            'environment/rnd_outdoor/rnd_shooting_6','environment/rnd_outdoor/rnd_horror',
+            'environment/rnd_outdoor/rnd_pdog1','environment/rnd_outdoor/rnd_pdog2',
+            'environment/rnd_outdoor/rnd_obval','environment/rnd_outdoor/rnd_cat1',
+            'environment/rnd_outdoor/rnd_dark5','environment/rnd_outdoor/rnd_dark8',
+            'environment/rnd_outdoor/crickets_2','environment/rnd_outdoor/rnd_dark9',
+            'environment/rnd_outdoor/rnd_dark3','environment/rnd_outdoor/rnd_dark10',
+            'environment/rnd_outdoor/rnd_horror1','environment/rnd_outdoor/owl_1',
+            'environment/rnd_outdoor/owl_2','environment/rnd_outdoor/rnd_krik9',
+            'environment/rnd_outdoor/rnd_krik8','environment/rnd_outdoor/rnd_krik7',
+            'environment/rnd_outdoor/rnd_moan5','environment/rnd_outdoor/rnd_moan6',
+            'environment/rnd_outdoor/rnd_rock2','environment/rnd_outdoor/rnd_rock3',
+            'environment/rnd_outdoor/rnd_rock4','environment/rnd_outdoor/rnd_dark',
+            'environment/rnd_outdoor/rnd_dark0','environment/rnd_outdoor/rnd_dark1',
+            'environment/rnd_outdoor/rnd_shooting_9','environment/rnd_outdoor/rnd_shOOTing_10',
+            'environment/rnd_outdoor/rnd_dark4','environment/rnd_outdoor/rnd_howling_1',
+            'environment/rnd_outdoor/rnd_howling_2',
+        ],
+        'morning' => [
+            'environment/rnd_outdoor/rnd_boar1','environment/rnd_outdoor/rnd_bird1',
+            'environment/rnd_outdoor/rnd_bird2','environment/rnd_outdoor/rnd_bird4',
+            'environment/rnd_outdoor/rnd_boar','environment/rnd_outdoor/rnd_boar2',
+            'environment/rnd_outdoor/rnd_boar3','environment/rnd_outdoor/rnd_darkwind5',
+            'environment/rnd_outdoor/rnd_dog','environment/rnd_outdoor/rnd_dog1',
+            'environment/rnd_outdoor/rnd_dog2','environment/rnd_outdoor/rnd_dog3',
+            'environment/rnd_outdoor/rnd_fly','environment/rnd_outdoor/rnd_fly1',
+            'environment/rnd_outdoor/rnd_fly2','environment/rnd_outdoor/rnd_fly3',
+            'environment/rnd_outdoor/rnd_krik6','environment/rnd_outdoor/rnd_krik8',
+            'environment/rnd_outdoor/rnd_krik9','environment/rnd_outdoor/rnd_moan',
+            'environment/rnd_outdoor/rnd_moan3','environment/rnd_outdoor/rnd_shooting_4',
+            'environment/rnd_outdoor/rnd_krik3','environment/rnd_outdoor/rnd_shooting_9',
+            'environment/rnd_outdoor/rnd_shooting_3','environment/rnd_outdoor/rnd_swamp',
+            'environment/rnd_outdoor/rnd_wind_tree',
+        ],
+        'day' => [
+            'environment/rnd_outdoor/rnd_boar3','environment/rnd_outdoor/rnd_dark10',
+            'environment/rnd_outdoor/rnd_dark6','environment/rnd_outdoor/rnd_dark2',
+            'environment/rnd_outdoor/rnd_dark5','environment/rnd_outdoor/rnd_wind_tree',
+            'environment/rnd_outdoor/crow1','environment/rnd_outdoor/crow2',
+            'environment/rnd_outdoor/crow3','environment/rnd_outdoor/rnd_bird2',
+            'environment/rnd_outdoor/rnd_boar','environment/rnd_outdoor/rnd_boar2',
+            'environment/rnd_outdoor/rnd_boar3','environment/rnd_outdoor/rnd_darkwind3',
+            'environment/rnd_outdoor/rnd_darkwind4','environment/rnd_outdoor/rnd_darkwind5',
+            'environment/rnd_outdoor/rnd_dog','environment/rnd_outdoor/rnd_dog1',
+            'environment/rnd_outdoor/rnd_dog2','environment/rnd_outdoor/rnd_dog3',
+            'environment/rnd_outdoor/rnd_fly','environment/rnd_outdoor/rnd_fly1',
+            'environment/rnd_outdoor/rnd_fly2','environment/rnd_outdoor/rnd_fly3',
+            'environment/rnd_outdoor/rnd_krik3','environment/rnd_outdoor/rnd_krik2',
+            'environment/rnd_outdoor/rnd_krik1','environment/rnd_outdoor/rnd_krik4',
+            'environment/rnd_outdoor/rnd_krik5','environment/rnd_outdoor/rnd_krik6',
+            'environment/rnd_outdoor/rnd_moan2','environment/rnd_outdoor/rnd_moan3',
+            'environment/rnd_outdoor/rnd_shooting_1','environment/rnd_outdoor/rnd_shooting_2',
+            'environment/rnd_outdoor/rnd_shooting_3','environment/rnd_outdoor/rnd_shooting_4',
+            'environment/rnd_outdoor/rnd_shooting_5','environment/rnd_outdoor/rnd_shooting_7',
+            'environment/rnd_outdoor/rnd_shooting_8','environment/rnd_outdoor/rnd_shooting_9',
+            'environment/rnd_outdoor/rnd_shooting_10','environment/rnd_outdoor/rnd_swamp',
+            'environment/rnd_outdoor/rnd_wind_tree',
+        ],
+        'underground' => [
+            'environment/underground/breath_1','environment/underground/breath_2',
+            'environment/underground/hit_2','environment/underground/hit_1',
+            'environment/underground/strange_noise_1','environment/underground/strange_noise_2',
+            'environment/underground/strange_noise_3','environment/underground/rnd_drop_1',
+            'environment/underground/rnd_drop_2','environment/underground/rnd_drop_3',
+            'environment/underground/rnd_drop_4','environment/underground/rnd_drop_5',
+            'environment/underground/rnd_drop_6','environment/underground/rnd_metal1',
+            'environment/underground/rnd_metal2','environment/underground/rnd_metal3',
+            'environment/underground/rnd_rat_panic_1','environment/underground/rnd_rat_panic_2',
+            'environment/underground/rnd_rat_panic_3',
+        ],
+    ];
+
+    protected $effectsByName = [
+        'ae0_effect_0' => ['life_time' => 10, 'sound' => 'environment/rnd_outdoor/rnd_wind_3'],
+        'ae0_effect_1' => ['life_time' => 7,  'sound' => 'environment/rnd_outdoor/rnd_wind_2'],
+        'ae0_effect_2' => ['life_time' => 10, 'sound' => 'environment/rnd_outdoor/rnd_wind_3'],
+        'ae0_effect_3' => ['life_time' => 10, 'sound' => 'environment/rnd_outdoor/rnd_wind_3'],
+        'ae0_effect_4' => ['life_time' => 15, 'sound' => 'environment/rnd_outdoor/rnd_wind_2'],
+        'ae0_effect_5' => ['life_time' => 7,  'sound' => 'environment/rnd_outdoor/rnd_wind_2'],
+        'ae0_effect_6' => ['life_time' => 7,  'sound' => 'environment/rnd_outdoor/rnd_wind_1'],
+        'ae0_effect_7' => ['life_time' => 8,  'sound' => 'environment/rnd_outdoor/rnd_wind_1'],
+        'ae0_effect_8' => ['life_time' => 7,  'sound' => 'environment/rnd_outdoor/rnd_wind_2'],
+        'ae0_effect_9' => ['life_time' => 10, 'sound' => 'environment/rnd_outdoor/rnd_wind_3'],
+    ];
+
+    protected $effectsByCycle = [
+        'morning' => ['ae0_effect_4'],
+        'day'     => ['ae0_effect_1','ae0_effect_2','ae0_effect_3','ae0_effect_5','ae0_effect_6','ae0_effect_7','ae0_effect_8','ae0_effect_9'],
+        'evening' => ['ae0_effect_0','ae0_effect_1','ae0_effect_2','ae0_effect_3','ae0_effect_8'],
+        'night'   => ['ae0_effect_1','ae0_effect_2','ae0_effect_3','ae0_effect_8'],
+    ];
+
+    public function __construct($mediaView)
+    {
+        $this->mediaView = $mediaView;
+
+        $this->videoPlayer       = new MediaPlayerScript();
+        $this->videoPlayer->view = $this->mediaView;
+        $this->videoPlayer->loop = true;
+
+        $this->ambientPlayer = new MediaPlayerScript();
+        $this->sfxPlayer     = new MediaPlayerScript();
+        $this->effectPlayer  = new MediaPlayerScript();
+        $this->rainPlayer    = new MediaPlayerScript();
+        $this->anomalyPlayer = new MediaPlayerScript();
+
+        $this->update();
+
+        $self = $this;
+        $this->timerId = Timer::every(60 * 1000, function () use ($self) {
+            $self->update();
+        });
+
+        $this->scheduleNextSfx();
+        $this->scheduleNextEffect();
+    }
+
+    public function setOnCycleChange($callback)
+    {
+        if ($callback === null || is_callable($callback))
+        {
+            $this->onCycleChange = $callback;
+        }
+    }
+
+    public function fireCycleChangeOnce()
+    {
+        if ($this->onCycleChange !== null)
+        {
+            call_user_func($this->onCycleChange, $this->currentCycle, $this->currentCycle);
+        }
+    }
+
+    public function getEnvironmentBrightness()
+    {
+        $cycle = $this->currentCycle ?: 'day';
+        return $this->brightnessByCycle[$cycle] ?? 0.0;
+    }
+
+    protected function pickRandom(array $list)
+    {
+        if (empty($list)) return null;
+        return $list[array_rand($list)];
+    }
+
+    protected function pickRandomAmbient()
+    {
+        if (empty($this->ambientSounds)) return [null, null, 0];
+    
+        $item = $this->ambientSounds[array_rand($this->ambientSounds)];
+    
+        $rawPath = $item['path'];
+        $path    = $this->soundBasePath . $rawPath . '.mp3';
+        $length  = isset($item['length']) ? (int)$item['length'] : 0;
+    
+        return [$path, $rawPath, $length];
+    }
+
+    protected function scheduleTimer(&$timerField, array $period, callable $callback)
+    {
+        if ($timerField !== null)
+        {
+            $timerField->cancel();
+            $timerField = null;
+        }
+
+        $min = $period[0];
+        $max = $period[1];
+
+        $delaySec = mt_rand($min, $max);
+        $delayMs  = $delaySec * 1000;
+
+        $self = $this;
+
+        $timerField = Timer::after($delayMs, function () use ($self, $callback, $delaySec) {
+            if ($self->isPaused) return;
+            $callback($delaySec);
+        });
+    }
+
+    protected function pickLocationForCycle($cycle)
+    {
+        if ($this->currentLocationIndex >= 0)
+        {
+            $index = $this->currentLocationIndex;
+        }
+        else
+        {
+            $maxIndex = 5; // L0..L5
+            if ($this->lastLocationIndex < 0)
+            {
+                $index = mt_rand(0, $maxIndex);
+            }
+            else
+            {
+                if ($maxIndex == 0)
+                {
+                    $index = 0;
+                }
+                else
+                {
+                    do { $index = mt_rand(0, $maxIndex);
+                    } while ($index === $this->lastLocationIndex);
+                }
+            }
+    
+            $this->currentLocationIndex = $index;
+            $this->lastLocationIndex    = $index;
+        }
+    
+        $locId = 'L' . $index;
+    
+        if (empty($this->locations[$locId][$cycle]))
+        {
+            return [null, false, false, null, $index];
+        }
+    
+        $item    = $this->locations[$locId][$cycle];
+        $rawPath = $item['path'];
+        $path    = $this->texturesBasePath . $rawPath . '.mp4';
+        $rain    = !empty($item['rain']);
+        $anomaly = !empty($item['anomaly']);
+    
+        return [$path, $rain, $anomaly, $rawPath, $index];
+    }
+
+    public function setLocationIndex($index)
+    {
+        $index = (int)$index;
+        if ($index < 0) $index = 0;
+        if ($index > 5) $index = 5;
+    
+        $this->currentLocationIndex = $index;
+        $this->lastLocationIndex    = $index;
+        Logger::debug("[Environment]: manual location set to L{$index}");
+    
+        if ($index === 5)
+        {
+            $cycle = 'underground';
+        }
+        else
+        {
+            $cycle = $this->currentCycle !== ''
+                ? $this->currentCycle
+                : $this->getTimeCycleByString(Time::now()->toString('HH:mm'));
+
+            if ($cycle === 'underground')
+            {
+                $cycle = 'night';
+            }
+        }
+    
+        if ($this->sfxTimerId)
+        {
+            $this->sfxTimerId->cancel();
+            $this->sfxTimerId = null;
+        }
+        if ($this->effectTimerId)
+        {
+            $this->effectTimerId->cancel();
+            $this->effectTimerId = null;
+        }
+        if ($this->ambientTimerId)
+        {
+            $this->ambientTimerId->cancel();
+            $this->ambientTimerId = null;
+        }
+    
+        $this->updateWithCycle($cycle);
+    }
+
+    public function playAmbientByIndex($index)
+    {
+        $index = (int)$index;
+        if ($index < 0 || $index >= count($this->ambientSounds))
+        {
+            Logger::debug("[Environment]: playAmbientByIndex invalid index {$index}");
+            return false;
+        }
+    
+        $item   = $this->ambientSounds[$index];
+        $raw    = $item['path'];
+        $path   = $this->soundBasePath . $raw . '.mp3';
+        $length = isset($item['length']) ? (int)$item['length'] : 0;
+    
+        $this->playAmbientInternal($path, $raw, $length, "[{$index}] forced");
+    
+        return true;
+    }
+
+    public function isActive()
+    {
+        return !$this->isPaused;
+    }
+
+    public function update($timeStr = null)
+    {
+        if (!$this->isActive()) return;
+
+        if ($this->manualCycle !== null)
+        {
+            $this->updateWithCycle($this->manualCycle);
+            return;
+        }
+
+        $cycle = $this->getTimeCycleByString($timeStr ?: Time::now()->toString('HH:mm'));
+
+        if ($this->currentLocationIndex === 5)
+        {
+            $cycle = 'underground';
+        }
+
+        $this->updateWithCycle($cycle);
+    }
+
+    public function scheduleNextSfx()
+    {
+        $cycle = $this->currentCycle ?: 'day';
+
+        if (empty($this->rndSoundsByCycle[$cycle])) return;
+        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+
+        $periods = $this->sfxPeriods;
+        $period  = $periods[$cycle] ?? [8, 14];
+
+        $this->scheduleTimer($this->sfxTimerId, $period, function ($delaySec) {
+            if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+            Logger::debug("[Environment]: sfx tick after {$delaySec}s");
+            $this->playRandomSfx();
+            $this->scheduleNextSfx();
+        });
+    }
+
+    public function scheduleNextEffect()
+    {
+        $cycle = $this->currentCycle ?: 'day';
+
+        if ($cycle === 'underground')
+        {
+            return;
+        }
+
+        if (empty($this->effectsByCycle[$cycle])) return;
+        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+        $periods = $this->effectPeriods;
+        $period  = $periods[$cycle] ?? [40, 90];
+
+        $this->scheduleTimer($this->effectTimerId, $period, function ($delaySec) {
+            if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+            Logger::debug("[Environment]: effect tick after {$delaySec}s");
+            $this->playRandomEffect();
+            $this->scheduleNextEffect();
+        });
+    }
+
+    public function scheduleNextAmbient($lengthSec = null)
+    {
+        if ($this->ambientTimerId !== null)
+        {
+            $this->ambientTimerId->cancel();
+            $this->ambientTimerId = null;
+        }
+
+        if (empty($this->ambientSounds) || !$this->isActive()) return;
+        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+
+        if ($lengthSec === null)
+        {
+            list($_path, $len) = $this->pickRandomAmbient();
+            $lengthSec = $len > 0 ? $len : 120;
+        }
+
+        $jitter = 5;
+        $min = max(1, $lengthSec - $jitter);
+        $max = $lengthSec + $jitter;
+
+        $delaySec = mt_rand($min, $max);
+        $delayMs  = $delaySec * 1000;
+
+        $self = $this;
+
+        $this->ambientTimerId = Timer::after($delayMs, function () use ($self, $delaySec) {
+            if (!$self->isActive()) return;
+            if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+            if (isset($GLOBALS['AmbientSound']) && !$GLOBALS['AmbientSound']) return;
+
+            Logger::debug("[Environment]: ambient tick after {$delaySec}s");
+            $self->playRandomAmbient();
+        });
+    }
+
+    public function playRandomSfx()
+    {
+        if (!$this->isActive()) return;
+        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+
+        $cycle = $this->isUnderground() ? 'underground' : ($this->currentCycle ?: 'day');
+
+        $list = $this->rndSoundsByCycle[$cycle] ?? [];
+
+        $sound = ($this->isRainy && mt_rand(1, 100) <= 50)
+            ? $this->pickRandom($this->thunderSounds)
+            : $this->pickRandom($list);
+
+        if ($sound === null) return;
+
+        $file = $sound . '.mp3';
+        $path = $this->soundBasePath . $file;
+
+        $this->sfxPlayer->stop();
+        $this->sfxPlayer->open($path);
+        $this->sfxPlayer->volume = $this->volumeSfx;
+        $this->sfxPlayer->play();
+
+        Logger::debug("[Environment]: sfx '{$sound}' played (cycle '{$cycle}')");
+    }
+
+    public function playRandomEffect()
+    {
+        if (!$this->isActive()) return;
+        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+
+        $cycle = $this->currentCycle ?: 'day';
+
+        if ($cycle === 'underground')
+        {
+            return;
+        }
+
+        $effectNames = $this->effectsByCycle[$cycle] ?? [];
+        $effectName  = $this->pickRandom($effectNames);
+        if ($effectName === null) return;
+
+        if (empty($this->effectsByName[$effectName])) return;
+        $effect = $this->effectsByName[$effectName];
+
+        $file      = $effect['sound'] . '.mp3';
+        $soundPath = $this->soundBasePath . $file;
+
+        $this->effectPlayer->stop();
+        $this->effectPlayer->open($soundPath);
+        $this->effectPlayer->volume = $this->volumeEffect;
+        $this->effectPlayer->play();
+
+        Logger::debug("[Environment]: effect '{$effectName}' sound '{$file}' played, life_time={$effect['life_time']}s");
+    }
+
+    protected function playAmbientInternal($path, $rawPath, $length, $tag = '')
+    {
+        if (!$this->isActive()) return;
+        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+        if ($path === null) return;
+    
+        $this->currentAmbientPath = $path;
+    
+        $this->ambientPlayer->stop();
+        $this->ambientPlayer->open($path);
+        $this->ambientPlayer->volume = $this->volumeAmbient;
+        $this->ambientPlayer->play();
+    
+        if ($tag === '')
+        {
+            Logger::debug("[Environment]: ambient '{$rawPath}' played (length={$length}s)");
+        }
+        else
+        {
+            Logger::debug("[Environment]: ambient {$tag} '{$rawPath}' played (length={$length}s)");
+        }
+    
+        $this->scheduleNextAmbient($length);
+    }
+
+    public function playRandomAmbient()
+    {
+        list($path, $rawPath, $length) = $this->pickRandomAmbient();
+        $this->playAmbientInternal($path, $rawPath, $length);
+    }
+
+    public function startAmbient()
+    {
+        if (!$this->isActive()) return;
+        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+        $this->playRandomAmbient();
+    }
+
+    public function stopAmbient()
+    {
+        if (isset($GLOBALS['AmbientSound']) && !$GLOBALS['AmbientSound']) return;
+        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+
+        if ($this->ambientTimerId !== null)
+        {
+            $this->ambientTimerId->cancel();
+            $this->ambientTimerId = null;
+        }
+        $this->ambientPlayer->stop();
+    }
+
+    public function pauseAmbient()
+    {
+        if (isset($GLOBALS['AmbientSound']) && !$GLOBALS['AmbientSound']) return;
+        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+        $this->ambientPlayer->pause();
+        Logger::debug("[Environment]: ambient paused");
+    }
+
+    public function resumeAmbient()
+    {
+        if (isset($GLOBALS['AmbientSound']) && !$GLOBALS['AmbientSound']) return;
+        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+        if (!$this->isActive()) return;
+        $this->ambientPlayer->play();
+        Logger::debug("[Environment]: ambient resumed");
+    }
+
+    public function setRainy($flag)
+    {
+        $this->isRainy = (bool)$flag;
+        $this->isRainy ? $this->startRain() : $this->stopRain();
+    }
+
+    protected function startRain()
+    {
+        if (!$this->isActive()) return;
+        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+
+        $this->rainPlayer->stop();
+        $this->rainPlayer->open($this->soundBasePath . $this->rainLoopPath . '.mp3');
+        $this->rainPlayer->volume = $this->volumeRain;
+        $this->rainPlayer->loop   = true;
+        $this->rainPlayer->play();
+
+        Logger::debug("[Environment]: rain started '{$this->rainLoopPath}'");
+    }
+
+    protected function stopRain()
+    {
+        $this->rainPlayer->stop();
+        Logger::debug("[Environment]: rain stopped");
+    }
+
+    public function setAnomalyHum($flag)
+    {
+        $this->isAnomalyHum = (bool)$flag;
+        $this->isAnomalyHum ? $this->startAnomalyHum() : $this->stopAnomalyHum();
+    }
+
+    protected function startAnomalyHum()
+    {
+        if (!$this->isActive()) return;
+        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+
+        $this->anomalyPlayer->stop();
+        $this->anomalyPlayer->open($this->soundBasePath . $this->anomalyLoopPath . '.mp3');
+        $this->anomalyPlayer->volume = $this->volumeAnomaly;
+        $this->anomalyPlayer->loop   = true;
+        $this->anomalyPlayer->play();
+
+        Logger::debug("[Environment]: anomaly hum started '{$this->anomalyLoopPath}'");
+    }
+
+    protected function stopAnomalyHum()
+    {
+        $this->anomalyPlayer->stop();
+        Logger::debug("[Environment]: anomaly hum stopped");
+    }
+
+    public function pause()
+    {
+        if ($this->isPaused) return;
+
+        $this->isPaused = true;
+
+        $this->videoPlayer->pause();
+        $this->ambientPlayer->pause();
+        $this->sfxPlayer->pause();
+        $this->effectPlayer->pause();
+        $this->rainPlayer->pause();
+        $this->anomalyPlayer->pause();
+
+        Logger::debug("[Environment]: paused");
+    }
+
+    public function resume()
+    {
+        if (!$this->isPaused) return;
+
+        $this->isPaused = false;
+
+        $this->videoPlayer->play();
+
+        if (!isset($GLOBALS['AllSounds']) || $GLOBALS['AllSounds'])
+        {
+            if (!isset($GLOBALS['AmbientSound']) || $GLOBALS['AmbientSound'])
+            {
+                $this->ambientPlayer->play();
+            }
+
+            $this->sfxPlayer->play();
+            $this->effectPlayer->play();
+
+            if ($this->isRainy)
+            {
+                $this->rainPlayer->play();
+            }
+            if ($this->isAnomalyHum)
+            {
+                $this->anomalyPlayer->play();
+            }
+        }
+
+        if ($this->sfxTimerId)
+        {
+            $this->sfxTimerId->cancel();
+            $this->sfxTimerId = null;
+        }
+        if ($this->effectTimerId)
+        {
+            $this->effectTimerId->cancel();
+            $this->effectTimerId = null;
+        }
+        if ($this->ambientTimerId)
+        {
+            $this->ambientTimerId->cancel();
+            $this->ambientTimerId = null;
+        }
+
+        if (!isset($GLOBALS['AllSounds']) || $GLOBALS['AllSounds'])
+        {
+            $this->scheduleNextSfx();
+            $this->scheduleNextEffect();
+            $this->scheduleNextAmbient();
+        }
+
+        Logger::debug("[Environment]: resumed");
+    }
+
+    public function setCycle($cycle)
+    {
+        if ($cycle === null)
+        {
+            $this->manualCycle = null;
+            Logger::debug("[Environment]: manual cycle cleared, using time");
+            $this->update();
+            return;
+        }
+
+        $allowed = ['morning', 'day', 'evening', 'night', 'underground'];
+        if (!in_array($cycle, $allowed, true))
+        {
+            Logger::debug("[Environment]: invalid manual cycle '{$cycle}'");
+            return;
+        }
+
+        $this->manualCycle = $cycle;
+        Logger::debug("[Environment]: manual cycle set to '{$cycle}'");
+
+        $this->updateWithCycle($cycle);
+    }
+
+    protected function updateWithCycle($cycle)
+    {
+        if (!$this->isActive()) return;
+    
+        $old = $this->currentCycle;
+    
+        list($backgroundPath, $rain, $anomaly, $rawPath, $locIndex) = $this->pickLocationForCycle($cycle);
+        if ($backgroundPath === null)
+        {
+            return;
+        }
+    
+        $cycleChanged = ($cycle !== $this->currentCycle);
+        $bgChanged    = ($backgroundPath !== $this->currentBackgroundPath);
+    
+        if ($cycleChanged || $bgChanged)
+        {
+            if ($cycleChanged)
+            {
+                Logger::debug("[Environment]: cycle changed {$this->currentCycle} -> {$cycle}");
+                $this->currentCycle = $cycle;
+            }
+    
+            $this->currentBackgroundPath = $backgroundPath;
+    
+            $this->videoPlayer->stop();
+            $this->videoPlayer->open($backgroundPath);
+            $this->videoPlayer->play();
+    
+            Logger::debug(
+                "[Environment]: video '{$rawPath}' started for cycle '{$cycle}' (L{$locIndex}, rain=" .
+                ($rain ? '1' : '0') . ", anomaly=" . ($anomaly ? '1' : '0') . ")"
+            );
+    
+            $this->setRainy($rain);
+            $this->setAnomalyHum($anomaly);
+    
+            $this->scheduleNextSfx();
+            $this->scheduleNextEffect();
+    
+            if ($cycleChanged && $this->onCycleChange !== null) {
+                call_user_func($this->onCycleChange, $old, $cycle);
+            }
+        }
+        else
+        {
+            $this->videoPlayer->play();
+        }
+    }
+
+    protected function getTimeCycleByString($timeStr)
+    {
+        $hour = (int) substr($timeStr, 0, 2);
+
+        if ($hour >= 5 && $hour < 11)  return 'morning';
+        if ($hour >= 11 && $hour < 18) return 'day';
+        if ($hour >= 18 && $hour < 21) return 'evening';
+        return 'night';
+    }
+
+    public function getAmbientPlayer()
+    {
+        return $this->ambientPlayer;
+    }
+
+    protected function safeStopPlayer($player)
+    {
+        if ($player)
+        {
+            $player->stop();
+        }
+    }
+
+    public function stop()
+    {
+        if ($this->timerId)
+        {
+            $this->timerId->cancel();
+            $this->timerId = null;
+        }
+
+        if ($this->sfxTimerId)
+        {
+            $this->sfxTimerId->cancel();
+            $this->sfxTimerId = null;
+        }
+
+        if ($this->effectTimerId)
+        {
+            $this->effectTimerId->cancel();
+            $this->effectTimerId = null;
+        }
+
+        if ($this->ambientTimerId)
+        {
+            $this->ambientTimerId->cancel();
+            $this->ambientTimerId = null;
+        }
+
+        $this->safeStopPlayer($this->videoPlayer);
+        $this->safeStopPlayer($this->ambientPlayer);
+        $this->safeStopPlayer($this->sfxPlayer);
+        $this->safeStopPlayer($this->effectPlayer);
+        $this->safeStopPlayer($this->rainPlayer);
+        $this->safeStopPlayer($this->anomalyPlayer);
+    }
+
+    public function playBackgroundPath($path)
+    {
+        if (!$this->isActive()) return;
+        if (!$path) return;
+
+        $this->currentBackgroundPath = $path;
+
+        $this->videoPlayer->stop();
+        $this->videoPlayer->open($path);
+        $this->videoPlayer->play();
+
+        Logger::debug("[Environment]: background restored '{$path}'");
+    }
+
+    public function playAmbientPath($path)
+    {
+        if (!$this->isActive()) return;
+        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+        if (isset($GLOBALS['AmbientSound']) && !$GLOBALS['AmbientSound']) return;
+        if (!$path) return;
+
+        $this->currentAmbientPath = $path;
+
+        $this->ambientPlayer->stop();
+        $this->ambientPlayer->open($path);
+        $this->ambientPlayer->volume = $this->volumeAmbient;
+        $this->ambientPlayer->play();
+
+        Logger::debug("[Environment]: ambient restored '{$path}'");
+    }
+
+    public function getState()
+    {
+        return [
+            'location_index'   => $this->currentLocationIndex,
+            'cycle'            => $this->currentCycle,
+            'manual_cycle'     => $this->manualCycle,
+            'is_rainy'         => $this->isRainy,
+            'is_anomaly_hum'   => $this->isAnomalyHum,
+            'background_path'  => $this->currentBackgroundPath,
+            'ambient_path'     => $this->currentAmbientPath,
+            'ambient_position' => $this->ambientPlayer ? $this->ambientPlayer->positionMs : 0,
+        ];
+    }
+
+    public function restoreState(array $state, $timeHm)
+    {
+        if (!empty($state['cycle']))
+        {
+            $this->currentCycle = $state['cycle'];
+        }
+        elseif ($timeHm)
+        {
+            $this->currentCycle = $this->getTimeCycleByString($timeHm);
+        }
+
+        if (isset($state['location_index']))
+        {
+            $this->currentLocationIndex = (int)$state['location_index'];
+        }
+
+        if (array_key_exists('manual_cycle', $state))
+        {
+            $this->manualCycle = $state['manual_cycle'] !== null ? (string)$state['manual_cycle'] : null;
+        }
+
+        $this->updateWithCycle($this->currentCycle);
+
+        if (!empty($state['background_path']))
+        {
+            $this->playBackgroundPath($state['background_path']);
+        }
+
+        if (!empty($state['ambient_path']))
+        {
+            $this->playAmbientPath($state['ambient_path']);
+        }
+
+        if (isset($state['is_rainy']))
+        {
+            $this->setRainy((bool)$state['is_rainy']);
+        }
+
+        if (isset($state['is_anomaly_hum']))
+        {
+            $this->setAnomalyHum((bool)$state['is_anomaly_hum']);
+        }
+
+        if ($this->onCycleChange !== null)
+        {
+            Logger::debug("[Environment]: restoreState -> force onCycleChange for cycle={$this->currentCycle}");
+            call_user_func($this->onCycleChange, $this->currentCycle, $this->currentCycle);
+        }
+    }
+}

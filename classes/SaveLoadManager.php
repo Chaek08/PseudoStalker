@@ -115,7 +115,7 @@ class SaveLoadManager
             'need_to_check_pda'=> isset($GLOBALS['NeedToCheckPDA']) ? $GLOBALS['NeedToCheckPDA'] : false,
             'menubackground_playpos' => $c->MainMenu->content->MainMenuBackground->positionMs,
             'menusound_playpos'      => $c->MainMenu->content->MenuSound->positionMs,
-            'environment_playpos'    => $c->MainGame->content->Environment->positionMs,
+            'environment_state'      => $c->MainGame->content->Environment->getState(),            
             'fightsound_playpos'     => $c->MainGame->content->FightSound->positionMs,
         ];
     
@@ -165,9 +165,15 @@ class SaveLoadManager
         
             'menubackground_playpos',
             'menusound_playpos',
-            'environment_playpos',
             'fightsound_playpos',
-        
+                        
+            'environment_state',
+            'environment_state.location_index',
+            'environment_state.cycle',
+            'environment_state.background_path',
+            'environment_state.ambient_path',
+            'environment_state.ambient_position',
+            
             'ammo',
             'ammo.pm_total',
             'ammo.ak74_total',
@@ -291,7 +297,9 @@ class SaveLoadManager
     public function applySaveData(array $saveData, string $saveName): void
     {
         $form = $this->callForm('Client');
-
+        //убрать эту хуйню!!!!!!!!!!!! йй системой загрузки лвла!!!!!!!!!!!!!!!!!!
+        $GLOBALS['IsSaveLoading'] = true;     //убрать эту хуйню!!!!!!!!!!!! йй системой загрузки лвла!!!!!!!!!!!!!!!!!!   
+//убрать эту хуйню!!!!!!!!!!!! йй системой загрузки лвла!!!!!!!!!!!!!!!!!!
         $form->MainGame->content->ResetGameClient(function () use ($saveData, $saveName, $form)
         {
             $form->MainMenu->content->UILoadWnd->content->ReturnBtn();
@@ -394,9 +402,6 @@ class SaveLoadManager
             if ($form->MainGame->content->MessageBox->visible) $form->MainGame->content->MessageBox->hide();
             if ($form->MainGame->content->Task_Step_Label->visible) $form->MainGame->content->Task_Step_Label->hide();
     
-            $form->MainGame->content->InitEnvironmentTimer($saveData['quest_time']['hm']);
-            $form->MainGame->content->UpdateEnvironment($saveData['quest_time']['hm']);
-    
             $form->MainGame->content->GetHealth();
             $form->MainGame->content->health_bar_gg->text  = $saveData['health']['gg']['value'];
             $form->MainGame->content->health_bar_gg->width = $saveData['health']['gg']['pb_width'];
@@ -418,15 +423,27 @@ class SaveLoadManager
                     $form->Inventory->content->InventoryGrid->content->TakeOffItem();
                 }
             }
+            
+            if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = true;            
     
             $this->waitAndSetPosition($form->MainMenu->content->MainMenuBackground, $saveData['menubackground_playpos']);
             $this->waitAndSetPosition($form->MainMenu->content->MenuSound, $saveData['menusound_playpos']);
-            $this->waitAndSetPosition($form->MainGame->content->Environment, $saveData['environment_playpos']);
             $this->waitAndSetPosition($form->MainGame->content->FightSound, $saveData['fightsound_playpos']);
-    
-            $form->MainGame->content->PlayEnvironment();
-    
-            if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = true;
+            
+            if (isset($saveData['environment_state']) && is_array($saveData['environment_state']))
+            {
+                $env = $form->MainGame->content->Environment;
+                $env->restoreState($saveData['environment_state'], $saveData['quest_time']['hm']);
+                $env->resume();
+                
+                $ambientPlayer = $env->getAmbientPlayer();
+                if ($ambientPlayer && isset($saveData['environment_state']['ambient_position']))
+                {
+                    $this->waitAndSetPosition($ambientPlayer, $saveData['environment_state']['ambient_position']);
+                }              
+            }        
+            
+            $GLOBALS['IsSaveLoading'] = false; //убрать эту хуйню!!!!!!!!!!!! йй системой загрузки лвла!!!!!!!!!!!!!!!!!!
     
             if (Debug_Build) Logger::info("Loaded save: " . $saveName);
         });

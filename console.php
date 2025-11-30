@@ -53,12 +53,11 @@ class console extends AbstractForm
         switch ($command) 
         {
                 case "clear":
-                        $this->edit->text = "";
                         $this->Console_Log->text = "";
+                        $this->edit->text = "";
                         break;
 
                 case "help":
-                        $this->edit->text = "";
                         $commands = [
                                 "exit",
                                 "clear",
@@ -74,17 +73,20 @@ class console extends AbstractForm
                                 "snd_all [off/on]",
                                 "openform [form_name]",
                                 "call [function_name]",                           
-                                "language [rus/eng]"
+                                "language [rus/eng]",
+                                "set_level [0-4]",
+                                "set_cycle [night, morning, day, evening, underground]",
+                                "set_ambient [1-6]"
                         ];
                         $commandsList = implode("\n> ", $commands);
                         Element::appendText($this->Console_Log, "> Available commands:\n> $commandsList\n\n");
                         Element::appendText($this->Console_Log, "> If you cannot open the PDA, inventory, etc. with the console open, press the TAB key to switch focus!\n");
+                        $this->edit->text = "";
                         break;
                         
                 case "openform":
                         if (isset($args[1])) {
                                 $formName = $args[1];
-                                $this->edit->text = "";
                                 if (app()->form($formName)) {
                                         app()->showForm($formName);
                                         Element::appendText($this->Console_Log, "> Form '$formName' opened successfully.\n");
@@ -94,11 +96,11 @@ class console extends AbstractForm
                         } else {
                                 Element::appendText($this->Console_Log, "> Specify the form name: openform form_name\n");
                         }
+                        $this->edit->text = "";
                         break;
 
                 case "r_version":
                         if (isset($args[1])) {
-                                $this->edit->text = "";
                                 Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
                                 $btn = $this->form('Client')->MainMenu->content->Options->content->Version_Switcher_Btn;
@@ -106,11 +108,11 @@ class console extends AbstractForm
                                         $this->form('Client')->MainMenu->content->Options->content->VersionSwitcher();
                                 }
                         }
+                        $this->edit->text = "";
                         break;
                         
                 case "g_god":
                         if (isset($args[1])) {
-                            $this->edit->text = "";
                             Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
                             if ($args[1] == "on")
@@ -136,6 +138,7 @@ class console extends AbstractForm
                                 }
                             }
                         }
+                        $this->edit->text = "";
                         break;    
                 
                 case "vid_mode":
@@ -170,18 +173,17 @@ class console extends AbstractForm
                                         }
                                 }
                         } else {
-                                $this->edit->text = "";
                                 $currentW = $form->Client_Proxy->width;
                                 $currentH = $form->Client_Proxy->height;
                                 Element::appendText($this->Console_Log, "> Current resolution: {$currentW}x{$currentH}\n");
                         }
+                        $this->edit->text = "";
                         break;
 
                              
 
                 case "r_shadows":
                         if (isset($args[1])) {
-                                $this->edit->text = "";
                                 Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
                                 $btn = $this->form('Client')->MainMenu->content->Options->content->Shadows_Switcher_Btn;
@@ -189,11 +191,11 @@ class console extends AbstractForm
                                         $this->form('Client')->MainMenu->content->Options->content->ShadowsSwitcher();
                                 }
                         }
+                        $this->edit->text = "";
                         break;
 
                 case "snd_all":
                         if (isset($args[1])) {
-                                $this->edit->text = "";
                                 Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
 
                                 $btn = $this->form('Client')->MainMenu->content->Options->content->AllSound_Switcher_Btn;
@@ -201,12 +203,13 @@ class console extends AbstractForm
                                         $this->form('Client')->MainMenu->content->Options->content->AllSoundSwitcher();
                                 }
                         }
+                        $this->edit->text = "";
                         break;
                         
                 case "version":
-                        $this->edit->text = "";
                         global $BuildID;
                         Element::appendText($this->Console_Log, "> PseudoStalker, " . VersionID . ", " . $this->form('Client')->BuildID . "\n");
+                        $this->edit->text = "";
                         break;                       
                         
                 case "save":
@@ -233,7 +236,6 @@ class console extends AbstractForm
                         $saveUI->BtnSaveGame();
 
                         Element::appendText($this->Console_Log, "> Saved game: $saveName\n");
-                        $this->edit->text = "";
 
                         $this->form('Client')->MainGame->content->SavedGame_Toast->opacity = 0;
                         $this->form('Client')->MainGame->content->SavedGame_Toast->visible = true;
@@ -254,6 +256,8 @@ class console extends AbstractForm
                         $GLOBALS['AutoRewriteSave'] = false;
 
                         $GLOBALS['lastToastId'] = $lastToastId;
+                        
+                        $this->edit->text = "";
                         break;
                         
                 case "load":
@@ -283,6 +287,7 @@ class console extends AbstractForm
                         }
                     }
                 }
+                
                 $this->edit->text = "";
                 break;
                       
@@ -346,11 +351,12 @@ class console extends AbstractForm
                         } else {
                                 Element::appendText($this->Console_Log, "> Usage: call formName[.fragment].methodName [arg1] [arg2] ...\n");
                         }
+                        
+                        $this->edit->text = "";
                         break;
 
                 case "language":
                         $args = explode(" ", trim($this->edit->text));
-                        $this->edit->text = "";
 
                         $languageMap = [
                                 'rus' => 'Русский',
@@ -367,12 +373,138 @@ class console extends AbstractForm
                                 $displayLang = $languageMap[$currentLang] ?? $currentLang;
                                 Element::appendText($this->Console_Log, "> Current language: {$currentLang} ({$displayLang})\n");
                         }
+                        
+                        $this->edit->text = "";
                         break;
                         
                 case "sync_sdk_ltx":
                         $this->form('Client')->syncWithSDKLTX();
                         Element::appendText($this->Console_Log, "> {$command}\n");
-                        break;                         
+                        
+                        $this->edit->text = "";
+                        break;      
+                        
+                case "set_cycle":
+                    if (isset($args[1])) {
+                        $cycle = strtolower($args[1]);
+                        $allowed = ['morning', 'day', 'evening', 'night', 'underground'];
+    
+                        if (in_array($cycle, $allowed, true)) {
+                            $this->edit->text = "";
+    
+                            $mg  = $this->form('Client')->MainGame->content;
+                            if ($mg->Environment) {
+                                $mg->Environment->setCycle($cycle);
+                                Element::appendText(
+                                    $this->Console_Log,
+                                    "> set_cycle {$cycle}\n"
+                                );
+                            } else {
+                                Element::appendText(
+                                    $this->Console_Log,
+                                    "> Environment is not initialized.\n"
+                                );
+                            }
+                        } else {
+                            Element::appendText(
+                                $this->Console_Log,
+                                "> Usage: set_cycle [morning|day|evening|night|underground]\n"
+                            );
+                        }
+                    } else {
+                        Element::appendText(
+                            $this->Console_Log,
+                            "> Usage: set_cycle [morning|day|evening|night|underground]\n"
+                        );
+                    }
+                    
+                    $this->edit->text = "";
+                    break;    
+                    
+                case "set_level":
+                    if (isset($args[1])) {
+                        $arg = strtoupper($args[1]);
+    
+                        if ($arg[0] === 'L') {
+                            $num = substr($arg, 1);
+                        } else {
+                            $num = $arg;
+                        }
+    
+                        if (is_numeric($num)) {
+                            $idx = (int)$num;
+                            if ($idx >= 0 && $idx <= 5) {
+                                $this->edit->text = "";
+    
+                                $mg = $this->form('Client')->MainGame->content;
+                                if ($mg->Environment) {
+                                    $mg->Environment->setLocationIndex($idx);
+                                    Element::appendText(
+                                        $this->Console_Log,
+                                        "> set_level L{$idx}\n"
+                                    );
+                                } else {
+                                    Element::appendText(
+                                        $this->Console_Log,
+                                        "> Environment is not initialized.\n"
+                                    );
+                                }
+                            } else {
+                                Element::appendText(
+                                    $this->Console_Log,
+                                    "> Usage: set_level L0..L5 or 0..5\n"
+                                );
+                            }
+                        } else {
+                            Element::appendText(
+                                $this->Console_Log,
+                                "> Usage: set_level L0..L5 or 0..5\n"
+                            );
+                        }
+                    } else {
+                        Element::appendText(
+                            $this->Console_Log,
+                            "> Usage: set_level L0..L5 or 0..5\n"
+                        );
+                    }
+                    
+                    $this->edit->text = "";
+                    break;
+                                                           
+                case "set_ambient":
+                    if (isset($args[1])) {
+                        $idx = (int)$args[1];
+    
+                        $mg = $this->form('Client')->MainGame->content;
+                        if ($mg->Environment) {
+                            $ok = $mg->Environment->playAmbientByIndex($idx);
+                            if ($ok) {
+                                $this->edit->text = "";
+                                Element::appendText(
+                                    $this->Console_Log,
+                                    "> set_ambient {$idx}\n"
+                                );
+                            } else {
+                                Element::appendText(
+                                    $this->Console_Log,
+                                    "> Invalid ambient index: {$idx}\n"
+                                );
+                            }
+                        } else {
+                            Element::appendText(
+                                $this->Console_Log,
+                                "> Environment is not initialized.\n"
+                            );
+                        }
+                    } else {
+                        Element::appendText(
+                            $this->Console_Log,
+                            "> Usage: set_ambient [index]\n"
+                        );
+                    }
+                    
+                    $this->edit->text = "";
+                    break;
 
                 default:
                         if ($this->edit->text != "") {
