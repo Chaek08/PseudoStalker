@@ -18,6 +18,7 @@ use php\desktop\Mouse;
 class CustomTooltip
 {
     public $form
+    public $mainGame;    
     public $overlay; //внутренняя залупа, на которой будет лежать тултип
     public $rect;
     public $label;
@@ -35,7 +36,8 @@ class CustomTooltip
     public function __construct(UXForm $form)
     {
         $this->form = $form;
-
+        $this->mainGame = $form->MainGame;
+        
         $this->ensureOverlay();
 
         $this->rect = new UXRectangle();
@@ -114,7 +116,8 @@ class CustomTooltip
         });
     
         $targetNode->on('mouseMove', function (UXMouseEvent $e) {
-            if ($this->visible) {
+            if ($this->visible)
+            {
                 $this->repositionAtCursor();
             }
         });
@@ -160,6 +163,9 @@ class CustomTooltip
             $this->rect->y = $y;
             $this->label->x = $x + $this->offsetX;
             $this->label->y = $y;
+            
+            $this->rect->scale = $this->mainGame->scale;
+            $this->label->scale = $this->mainGame->scale;
     
             $this->label->toFront();
             $this->rect->toBack();

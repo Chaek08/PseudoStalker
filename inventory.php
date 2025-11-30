@@ -432,6 +432,7 @@ class inventory extends AbstractForm
         }
 
         $clientForm->main->show();
+        $clientForm->main->scale = $clientForm->MainGame->scale;
         $clientForm->main->toFront();
 
         $selected = $this->InventoryGrid->content->selectedItem;
@@ -439,18 +440,21 @@ class inventory extends AbstractForm
         if ($selected == $this->InventoryGrid->content->Inv_Vodka)
         {
             $clientForm->Combobox_Drop->position = [$comboX + 8, $comboY + 8];
+            $clientForm->Combobox_Drop->scale = $clientForm->MainGame->scale;
             $clientForm->Combobox_Drop->toFront();
             $clientForm->Combobox_Drop->show();
         }
         elseif ($selected == $this->InventoryGrid->content->Inv_Medkit)
         {
             $clientForm->Combobox_Use->position = [$comboX + 8, $comboY + 8];
+            $clientForm->Combobox_Use->scale = $clientForm->MainGame->scale;
             $clientForm->Combobox_Use->toFront();
             $clientForm->Combobox_Use->show();
         }
         elseif ($selected == $this->InventoryGrid->content->Inv_Wpn_Pm || $selected == $this->InventoryGrid->content->Inv_Wpn_AK74)
         {
             $clientForm->Combobox_MoveToSlot->position = [$comboX + 8, $comboY + 8];
+            $clientForm->Combobox_MoveToSlot->scale = $clientForm->MainGame->scale;
             $clientForm->Combobox_MoveToSlot->toFront();
             $clientForm->Combobox_MoveToSlot->show();
         }        
@@ -458,6 +462,7 @@ class inventory extends AbstractForm
         {    
             $targetBtn = $this->InventoryGrid->content->isWearing ? 'Combobox_PutOn' : 'Combobox_TakeOff';
             $clientForm->{$targetBtn}->position = [$comboX + 8, $comboY + 8];
+            $clientForm->{$targetBtn}->scale = $clientForm->MainGame->scale;
             $clientForm->{$targetBtn}->toFront();
             $clientForm->{$targetBtn}->show();
         }
