@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\exit_dlg;
 use app\forms\classes\SaveLoadManager;
 use php\gui\UXImage;
 use php\gui\UXClipboard;
@@ -192,6 +193,15 @@ class UILoadWnd extends AbstractForm
                 }
             }
             return;
+        }
+        
+        if (!empty($GLOBALS['ContinueGameState']))
+        {
+            if (!$this->form('Client')->ExitDialog->visible && $this->form('Client')->MainMenu->visible)
+            {        
+                $this->form('Client')->ExitDialog->content->showDialog(exit_dlg::TYPE_LOAD_WITH_LOSS);
+                return;
+            }
         }
         
         $this->SaveLoadManager->applySaveData($saveData, $saveName);

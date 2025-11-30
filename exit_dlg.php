@@ -15,6 +15,7 @@ class exit_dlg extends AbstractForm
     const TYPE_REMOVE_SAVE        = 'remove_save';
     const TYPE_CORRUPT_SAVE       = 'corrupt_save';
     const TYPE_CLIENT_VERSION_ERR = 'client_version_error';
+    const TYPE_LOAD_WITH_LOSS     = 'load_with_loss';
 
     private $localization;
     private $currentType = null;
@@ -75,6 +76,11 @@ class exit_dlg extends AbstractForm
                 $this->btn_yes->hide();
                 $this->btn_no->text = 'OK';
                 break;
+                
+            case self::TYPE_LOAD_WITH_LOSS:
+                $this->dialog_warning->image = new UXImage('res://.data/ui/exit_dialog/dialog_warning.png');
+                $this->dialog_text->text = $this->localization->get('LoadWithLossDialog_Text');
+                break;                
         }
 
         $this->currentType = $type;
@@ -117,6 +123,11 @@ class exit_dlg extends AbstractForm
                 }
                 $this->form('Client')->ExitDialog->hide();
                 break;
+                
+            case self::TYPE_LOAD_WITH_LOSS:
+                $this->form('Client')->MainMenu->content->UILoadWnd->content->BtnLoadSave();
+                $this->form('Client')->ExitDialog->hide();
+                break;                
 
             case self::TYPE_CORRUPT_SAVE:
             case self::TYPE_CLIENT_VERSION_ERR:
