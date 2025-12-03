@@ -947,6 +947,8 @@ class Client extends AbstractForm
      */
     function LeaveBtn(UXKeyEvent $e = null)
     {    
+        if ($this->CheckVisibledFragments()) return;
+    
         $this->MainGame->content->LeaveGame();
     }
 }
