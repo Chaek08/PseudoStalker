@@ -12,7 +12,4 @@
   <target id="inv_maket_visual">
     <behaviour brightness="0" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
   </target>
-  <target id="main">
-    <behaviour color="#333333" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
-  </target>
 </behaviours>

@@ -265,67 +265,70 @@ class opt extends AbstractForm
             $this->Shadows_Switcher_Btn->classesString = 'switch-off';
             
             //Client
-            $this->form('Client')->MainGame->content->item_vodka_0000->dropShadowEffect->disable();   
-            $this->form('Client')->MainGame->content->actor->dropShadowEffect->disable();  
-            $this->form('Client')->MainGame->content->enemy->dropShadowEffect->disable();   
-            $this->form('Client')->MainGame->content->Talk_Label->dropShadowEffect->disable();   
-            $this->form('Client')->MainGame->content->SavedGame_Toast->dropShadowEffect->disable();
-            $this->form('Client')->MainGame->content->leave_btn->dropShadowEffect->disable();  
-            $this->form('Client')->MainGame->content->health_static_enemy->dropShadowEffect->disable();     
-            $this->form('Client')->MainGame->content->health_static_gg->dropShadowEffect->disable();     
-            $this->form('Client')->MainGame->content->health_bar_enemy->dropShadowEffect->disable();     
-            $this->form('Client')->MainGame->content->health_bar_gg->dropShadowEffect->disable();          
-            $this->form('Client')->MainGame->content->fight_image->dropShadowEffect->disable();       
-            //dialog
-            $this->form('Client')->Dialog->content->actor_character->dropShadowEffect->disable();
-            $this->form('Client')->Dialog->content->alex_character->dropShadowEffect->disable();
-            $this->form('Client')->Dialog->content->icon_enemy->dropShadowEffect->disable(); 
-            $this->form('Client')->Dialog->content->icon_gg->dropShadowEffect->disable();      
-            //pda + all fragments
-            $this->form('Client')->Pda->content->toolbar_frame_main->dropShadowEffect->disable();
-            $this->form('Client')->Pda->content->toolbar_frame_time->dropShadowEffect->disable();
-            $this->form('Client')->Pda->content->Pda_Tasks->content->frame_01->dropShadowEffect->disable(); 
-            $this->form('Client')->Pda->content->Pda_Tasks->content->frame_detail_02->dropShadowEffect->disable();  
-            $this->form('Client')->Pda->content->Pda_Contacts->content->frame_01->dropShadowEffect->disable();    
-            $this->form('Client')->Pda->content->Pda_Contacts->content->button->dropShadowEffect->disable();    
-            $this->form('Client')->Pda->content->Pda_Contacts->content->icon->dropShadowEffect->disable();                                                 
-            $this->form('Client')->Pda->content->Pda_Ranking->content->user_icon->dropShadowEffect->disable(); 
-            $this->form('Client')->Pda->content->Pda_Ranking->content->frame_01->dropShadowEffect->disable();    
-            $this->form('Client')->Pda->content->Pda_Ranking->content->button->dropShadowEffect->disable();   
-            $this->form('Client')->Pda->content->Pda_Statistic->content->frame_01->dropShadowEffect->disable();    
-            $this->form('Client')->Pda->content->Pda_Statistic->content->button->dropShadowEffect->disable();  
-            $this->form('Client')->Pda->content->Pda_Statistic->content->icon->dropShadowEffect->disable();   
-            //inventory
-            $this->form('Client')->Inventory->content->health_bar_gg->dropShadowEffect->disable();   
-            $this->form('Client')->Inventory->content->health_static_gg->dropShadowEffect->disable(); 
-            $this->form('Client')->Inventory->content->main->dropShadowEffect->disable();   
-            //fail wnd             
-            $this->form('Client')->Fail->content->Win_fail_desc->dropShadowEffect->disable(); 
-            $this->form('Client')->Fail->content->Win_fail_text->dropShadowEffect->disable();   
-            $this->form('Client')->Fail->content->Win_object->dropShadowEffect->disable(); 
-            $this->form('Client')->Fail->content->exitbtn->dropShadowEffect->disable(); 
-            $this->form('Client')->Fail->content->returnbtn->dropShadowEffect->disable(); 
-            //mainmenu + opt                
-            $this->form('Client')->MainMenu->content->Btn_Exit_Windows->dropShadowEffect->disable();    
-            $this->form('Client')->MainMenu->content->Btn_Start_Game->dropShadowEffect->disable();
-            $this->form('Client')->MainMenu->content->Btn_End_Game->dropShadowEffect->disable();          
-            $this->form('Client')->MainMenu->content->Btn_Opt->dropShadowEffect->disable();  
-            $this->form('Client')->MainMenu->content->logo->dropShadowEffect->disable();
-            $this->form('Client')->MainMenu->content->Options->content->Return_Btn->dropShadowEffect->disable();
-            $this->form('Client')->MainMenu->content->Options->content->AllSound_Label->dropShadowEffect->disable();
-            $this->form('Client')->MainMenu->content->Options->content->AllSound_Switcher_Btn->dropShadowEffect->disable();              
-            $this->form('Client')->MainMenu->content->Options->content->MenuSound_Label->dropShadowEffect->disable(); 
-            $this->form('Client')->MainMenu->content->Options->content->MenuSound_Switcher_Btn->dropShadowEffect->disable();            
-            $this->form('Client')->MainMenu->content->Options->content->Shadows_Label->dropShadowEffect->disable();
-            $this->form('Client')->MainMenu->content->Options->content->Shadows_Switcher_Btn->dropShadowEffect->disable();                
-            $this->form('Client')->MainMenu->content->Options->content->Version_Label->dropShadowEffect->disable();
-            $this->form('Client')->MainMenu->content->Options->content->Version_Switcher_Btn->dropShadowEffect->disable();
-            $this->form('Client')->MainMenu->content->Options->content->FightSound_Label->dropShadowEffect->disable();    
-            $this->form('Client')->MainMenu->content->Options->content->FightSound_Switcher_Btn->dropShadowEffect->disable();
-            $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Label->dropShadowEffect->disable();
-            $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Switcher_Btn->dropShadowEffect->disable();                
-            $this->form('Client')->MainMenu->content->Options->content->Language_Label->dropShadowEffect->disable();
-            $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->disable();
+            uiLater(function () {
+                $this->form('Client')->MainGame->content->item_vodka_0000->dropShadowEffect->disable();   
+                $this->form('Client')->MainGame->content->actor->dropShadowEffect->disable();  
+                $this->form('Client')->MainGame->content->enemy->dropShadowEffect->disable();   
+                $this->form('Client')->MainGame->content->Talk_Label->dropShadowEffect->disable();   
+                $this->form('Client')->MainGame->content->SavedGame_Toast->dropShadowEffect->disable();
+                $this->form('Client')->MainGame->content->leave_btn->dropShadowEffect->disable();  
+                $this->form('Client')->MainGame->content->health_static_enemy->dropShadowEffect->disable();     
+                $this->form('Client')->MainGame->content->health_static_gg->dropShadowEffect->disable();     
+                $this->form('Client')->MainGame->content->health_bar_enemy->dropShadowEffect->disable();     
+                $this->form('Client')->MainGame->content->health_bar_gg->dropShadowEffect->disable();          
+                $this->form('Client')->MainGame->content->fight_image->dropShadowEffect->disable();       
+                //dialog
+                $this->form('Client')->Dialog->content->actor_character->dropShadowEffect->disable();
+                $this->form('Client')->Dialog->content->alex_character->dropShadowEffect->disable();
+                $this->form('Client')->Dialog->content->icon_enemy->dropShadowEffect->disable(); 
+                $this->form('Client')->Dialog->content->icon_gg->dropShadowEffect->disable();      
+                //pda + all fragments
+                $this->form('Client')->Pda->content->toolbar_frame_main->dropShadowEffect->disable();
+                $this->form('Client')->Pda->content->toolbar_frame_time->dropShadowEffect->disable();
+                $this->form('Client')->Pda->content->Pda_Tasks->content->frame_01->dropShadowEffect->disable(); 
+                $this->form('Client')->Pda->content->Pda_Tasks->content->frame_detail_02->dropShadowEffect->disable();  
+                $this->form('Client')->Pda->content->Pda_Contacts->content->frame_01->dropShadowEffect->disable();    
+                $this->form('Client')->Pda->content->Pda_Contacts->content->button->dropShadowEffect->disable();    
+                $this->form('Client')->Pda->content->Pda_Contacts->content->icon->dropShadowEffect->disable();                                                 
+                $this->form('Client')->Pda->content->Pda_Ranking->content->user_icon->dropShadowEffect->disable(); 
+                $this->form('Client')->Pda->content->Pda_Ranking->content->frame_01->dropShadowEffect->disable();    
+                $this->form('Client')->Pda->content->Pda_Ranking->content->button->dropShadowEffect->disable();   
+                $this->form('Client')->Pda->content->Pda_Statistic->content->frame_01->dropShadowEffect->disable();    
+                $this->form('Client')->Pda->content->Pda_Statistic->content->button->dropShadowEffect->disable();  
+                $this->form('Client')->Pda->content->Pda_Statistic->content->icon->dropShadowEffect->disable();   
+                //inventory
+                $this->form('Client')->Inventory->content->health_bar_gg->dropShadowEffect->disable();   
+                $this->form('Client')->Inventory->content->health_static_gg->dropShadowEffect->disable(); 
+                $this->form('Client')->Inventory->content->contextMenu->shadowBehaviour->disable();
+              
+                //fail wnd             
+                $this->form('Client')->Fail->content->Win_fail_desc->dropShadowEffect->disable(); 
+                $this->form('Client')->Fail->content->Win_fail_text->dropShadowEffect->disable();   
+                $this->form('Client')->Fail->content->Win_object->dropShadowEffect->disable(); 
+                $this->form('Client')->Fail->content->exitbtn->dropShadowEffect->disable(); 
+                $this->form('Client')->Fail->content->returnbtn->dropShadowEffect->disable(); 
+                //mainmenu + opt                
+                $this->form('Client')->MainMenu->content->Btn_Exit_Windows->dropShadowEffect->disable();    
+                $this->form('Client')->MainMenu->content->Btn_Start_Game->dropShadowEffect->disable();
+                $this->form('Client')->MainMenu->content->Btn_End_Game->dropShadowEffect->disable();          
+                $this->form('Client')->MainMenu->content->Btn_Opt->dropShadowEffect->disable();  
+                $this->form('Client')->MainMenu->content->logo->dropShadowEffect->disable();
+                $this->form('Client')->MainMenu->content->Options->content->Return_Btn->dropShadowEffect->disable();
+                $this->form('Client')->MainMenu->content->Options->content->AllSound_Label->dropShadowEffect->disable();
+                $this->form('Client')->MainMenu->content->Options->content->AllSound_Switcher_Btn->dropShadowEffect->disable();              
+                $this->form('Client')->MainMenu->content->Options->content->MenuSound_Label->dropShadowEffect->disable(); 
+                $this->form('Client')->MainMenu->content->Options->content->MenuSound_Switcher_Btn->dropShadowEffect->disable();            
+                $this->form('Client')->MainMenu->content->Options->content->Shadows_Label->dropShadowEffect->disable();
+                $this->form('Client')->MainMenu->content->Options->content->Shadows_Switcher_Btn->dropShadowEffect->disable();                
+                $this->form('Client')->MainMenu->content->Options->content->Version_Label->dropShadowEffect->disable();
+                $this->form('Client')->MainMenu->content->Options->content->Version_Switcher_Btn->dropShadowEffect->disable();
+                $this->form('Client')->MainMenu->content->Options->content->FightSound_Label->dropShadowEffect->disable();    
+                $this->form('Client')->MainMenu->content->Options->content->FightSound_Switcher_Btn->dropShadowEffect->disable();
+                $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Label->dropShadowEffect->disable();
+                $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Switcher_Btn->dropShadowEffect->disable();                
+                $this->form('Client')->MainMenu->content->Options->content->Language_Label->dropShadowEffect->disable();
+                $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->disable();
+            }); 
             
             $this->form('Client')->ltx['r_shadows'] = 'off';
             $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
@@ -339,68 +342,70 @@ class opt extends AbstractForm
             $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
             $this->Shadows_Switcher_Btn->classesString = 'switch-on';
             
-            //Client
-            $this->form('Client')->MainGame->content->item_vodka_0000->dropShadowEffect->enable();
-            $this->form('Client')->MainGame->content->actor->dropShadowEffect->enable();
-            $this->form('Client')->MainGame->content->enemy->dropShadowEffect->enable();
-            $this->form('Client')->MainGame->content->Talk_Label->dropShadowEffect->enable();
-            $this->form('Client')->MainGame->content->SavedGame_Toast->dropShadowEffect->enable();
-            $this->form('Client')->MainGame->content->leave_btn->dropShadowEffect->enable();
-            $this->form('Client')->MainGame->content->health_static_enemy->dropShadowEffect->enable();     
-            $this->form('Client')->MainGame->content->health_static_gg->dropShadowEffect->enable();
-            $this->form('Client')->MainGame->content->health_bar_enemy->dropShadowEffect->enable();
-            $this->form('Client')->MainGame->content->health_bar_gg->dropShadowEffect->enable();          
-            $this->form('Client')->MainGame->content->fight_image->dropShadowEffect->enable();       
-            //dialog
-            $this->form('Client')->Dialog->content->actor_character->dropShadowEffect->enable();
-            $this->form('Client')->Dialog->content->alex_character->dropShadowEffect->enable();
-            $this->form('Client')->Dialog->content->icon_enemy->dropShadowEffect->enable(); 
-            $this->form('Client')->Dialog->content->icon_gg->dropShadowEffect->enable();      
-            //pda + all fragments
-            $this->form('Client')->Pda->content->toolbar_frame_main->dropShadowEffect->enable();
-            $this->form('Client')->Pda->content->toolbar_frame_time->dropShadowEffect->enable();
-            $this->form('Client')->Pda->content->Pda_Tasks->content->frame_01->dropShadowEffect->enable(); 
-            $this->form('Client')->Pda->content->Pda_Tasks->content->frame_detail_02->dropShadowEffect->enable();  
-            $this->form('Client')->Pda->content->Pda_Contacts->content->frame_01->dropShadowEffect->enable();    
-            $this->form('Client')->Pda->content->Pda_Contacts->content->button->dropShadowEffect->enable();    
-            $this->form('Client')->Pda->content->Pda_Contacts->content->icon->dropShadowEffect->enable();                                                 
-            $this->form('Client')->Pda->content->Pda_Ranking->content->user_icon->dropShadowEffect->enable(); 
-            $this->form('Client')->Pda->content->Pda_Ranking->content->frame_01->dropShadowEffect->enable();    
-            $this->form('Client')->Pda->content->Pda_Ranking->content->button->dropShadowEffect->enable();   
-            $this->form('Client')->Pda->content->Pda_Statistic->content->frame_01->dropShadowEffect->enable();    
-            $this->form('Client')->Pda->content->Pda_Statistic->content->button->dropShadowEffect->enable();  
-            $this->form('Client')->Pda->content->Pda_Statistic->content->icon->dropShadowEffect->enable();   
-            //inventory
-            $this->form('Client')->Inventory->content->health_bar_gg->dropShadowEffect->enable();   
-            $this->form('Client')->Inventory->content->health_static_gg->dropShadowEffect->enable(); 
-            $this->form('Client')->Inventory->content->main->dropShadowEffect->enable();   
-            //fail wnd             
-            $this->form('Client')->Fail->content->Win_fail_desc->dropShadowEffect->enable(); 
-            $this->form('Client')->Fail->content->Win_fail_text->dropShadowEffect->enable();   
-            $this->form('Client')->Fail->content->Win_object->dropShadowEffect->enable(); 
-            $this->form('Client')->Fail->content->exitbtn->dropShadowEffect->enable(); 
-            $this->form('Client')->Fail->content->returnbtn->dropShadowEffect->enable(); 
-            //mainmenu + opt                
-            $this->form('Client')->MainMenu->content->Btn_Exit_Windows->dropShadowEffect->enable();    
-            $this->form('Client')->MainMenu->content->Btn_Start_Game->dropShadowEffect->enable();
-            $this->form('Client')->MainMenu->content->Btn_End_Game->dropShadowEffect->enable();          
-            $this->form('Client')->MainMenu->content->Btn_Opt->dropShadowEffect->enable();  
-            $this->form('Client')->MainMenu->content->logo->dropShadowEffect->enable();
-            $this->form('Client')->MainMenu->content->Options->content->Return_Btn->dropShadowEffect->enable();
-            $this->form('Client')->MainMenu->content->Options->content->AllSound_Label->dropShadowEffect->enable();
-            $this->form('Client')->MainMenu->content->Options->content->AllSound_Switcher_Btn->dropShadowEffect->enable();              
-            $this->form('Client')->MainMenu->content->Options->content->MenuSound_Label->dropShadowEffect->enable(); 
-            $this->form('Client')->MainMenu->content->Options->content->MenuSound_Switcher_Btn->dropShadowEffect->enable();            
-            $this->form('Client')->MainMenu->content->Options->content->Shadows_Label->dropShadowEffect->enable();
-            $this->form('Client')->MainMenu->content->Options->content->Shadows_Switcher_Btn->dropShadowEffect->enable();                
-            $this->form('Client')->MainMenu->content->Options->content->Version_Label->dropShadowEffect->enable();
-            $this->form('Client')->MainMenu->content->Options->content->Version_Switcher_Btn->dropShadowEffect->enable();
-            $this->form('Client')->MainMenu->content->Options->content->FightSound_Label->dropShadowEffect->enable();
-            $this->form('Client')->MainMenu->content->Options->content->FightSound_Switcher_Btn->dropShadowEffect->enable();
-            $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Label->dropShadowEffect->enable();
-            $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Switcher_Btn->dropShadowEffect->enable();            
-            $this->form('Client')->MainMenu->content->Options->content->Language_Label->dropShadowEffect->enable();
-            $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->enable();  
+            uiLater(function () {
+                //Client
+                $this->form('Client')->MainGame->content->item_vodka_0000->dropShadowEffect->enable();
+                $this->form('Client')->MainGame->content->actor->dropShadowEffect->enable();
+                $this->form('Client')->MainGame->content->enemy->dropShadowEffect->enable();
+                $this->form('Client')->MainGame->content->Talk_Label->dropShadowEffect->enable();
+                $this->form('Client')->MainGame->content->SavedGame_Toast->dropShadowEffect->enable();
+                $this->form('Client')->MainGame->content->leave_btn->dropShadowEffect->enable();
+                $this->form('Client')->MainGame->content->health_static_enemy->dropShadowEffect->enable();     
+                $this->form('Client')->MainGame->content->health_static_gg->dropShadowEffect->enable();
+                $this->form('Client')->MainGame->content->health_bar_enemy->dropShadowEffect->enable();
+                $this->form('Client')->MainGame->content->health_bar_gg->dropShadowEffect->enable();          
+                $this->form('Client')->MainGame->content->fight_image->dropShadowEffect->enable();       
+                //dialog
+                $this->form('Client')->Dialog->content->actor_character->dropShadowEffect->enable();
+                $this->form('Client')->Dialog->content->alex_character->dropShadowEffect->enable();
+                $this->form('Client')->Dialog->content->icon_enemy->dropShadowEffect->enable(); 
+                $this->form('Client')->Dialog->content->icon_gg->dropShadowEffect->enable();      
+                //pda + all fragments
+                $this->form('Client')->Pda->content->toolbar_frame_main->dropShadowEffect->enable();
+                $this->form('Client')->Pda->content->toolbar_frame_time->dropShadowEffect->enable();
+                $this->form('Client')->Pda->content->Pda_Tasks->content->frame_01->dropShadowEffect->enable(); 
+                $this->form('Client')->Pda->content->Pda_Tasks->content->frame_detail_02->dropShadowEffect->enable();  
+                $this->form('Client')->Pda->content->Pda_Contacts->content->frame_01->dropShadowEffect->enable();    
+                $this->form('Client')->Pda->content->Pda_Contacts->content->button->dropShadowEffect->enable();    
+                $this->form('Client')->Pda->content->Pda_Contacts->content->icon->dropShadowEffect->enable();                                                 
+                $this->form('Client')->Pda->content->Pda_Ranking->content->user_icon->dropShadowEffect->enable(); 
+                $this->form('Client')->Pda->content->Pda_Ranking->content->frame_01->dropShadowEffect->enable();    
+                $this->form('Client')->Pda->content->Pda_Ranking->content->button->dropShadowEffect->enable();   
+                $this->form('Client')->Pda->content->Pda_Statistic->content->frame_01->dropShadowEffect->enable();    
+                $this->form('Client')->Pda->content->Pda_Statistic->content->button->dropShadowEffect->enable();  
+                $this->form('Client')->Pda->content->Pda_Statistic->content->icon->dropShadowEffect->enable();   
+                //inventory
+                $this->form('Client')->Inventory->content->health_bar_gg->dropShadowEffect->enable();   
+                $this->form('Client')->Inventory->content->health_static_gg->dropShadowEffect->enable(); 
+                $this->form('Client')->Inventory->content->contextMenu->shadowBehaviour->enable();
+                //fail wnd             
+                $this->form('Client')->Fail->content->Win_fail_desc->dropShadowEffect->enable(); 
+                $this->form('Client')->Fail->content->Win_fail_text->dropShadowEffect->enable();   
+                $this->form('Client')->Fail->content->Win_object->dropShadowEffect->enable(); 
+                $this->form('Client')->Fail->content->exitbtn->dropShadowEffect->enable(); 
+                $this->form('Client')->Fail->content->returnbtn->dropShadowEffect->enable(); 
+                //mainmenu + opt                
+                $this->form('Client')->MainMenu->content->Btn_Exit_Windows->dropShadowEffect->enable();    
+                $this->form('Client')->MainMenu->content->Btn_Start_Game->dropShadowEffect->enable();
+                $this->form('Client')->MainMenu->content->Btn_End_Game->dropShadowEffect->enable();          
+                $this->form('Client')->MainMenu->content->Btn_Opt->dropShadowEffect->enable();  
+                $this->form('Client')->MainMenu->content->logo->dropShadowEffect->enable();
+                $this->form('Client')->MainMenu->content->Options->content->Return_Btn->dropShadowEffect->enable();
+                $this->form('Client')->MainMenu->content->Options->content->AllSound_Label->dropShadowEffect->enable();
+                $this->form('Client')->MainMenu->content->Options->content->AllSound_Switcher_Btn->dropShadowEffect->enable();              
+                $this->form('Client')->MainMenu->content->Options->content->MenuSound_Label->dropShadowEffect->enable(); 
+                $this->form('Client')->MainMenu->content->Options->content->MenuSound_Switcher_Btn->dropShadowEffect->enable();            
+                $this->form('Client')->MainMenu->content->Options->content->Shadows_Label->dropShadowEffect->enable();
+                $this->form('Client')->MainMenu->content->Options->content->Shadows_Switcher_Btn->dropShadowEffect->enable();                
+                $this->form('Client')->MainMenu->content->Options->content->Version_Label->dropShadowEffect->enable();
+                $this->form('Client')->MainMenu->content->Options->content->Version_Switcher_Btn->dropShadowEffect->enable();
+                $this->form('Client')->MainMenu->content->Options->content->FightSound_Label->dropShadowEffect->enable();
+                $this->form('Client')->MainMenu->content->Options->content->FightSound_Switcher_Btn->dropShadowEffect->enable();
+                $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Label->dropShadowEffect->enable();
+                $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Switcher_Btn->dropShadowEffect->enable();            
+                $this->form('Client')->MainMenu->content->Options->content->Language_Label->dropShadowEffect->enable();
+                $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->enable();  
+            }); 
             
             $this->form('Client')->ltx['r_shadows'] = 'on';
             $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);                      
@@ -522,12 +527,7 @@ class opt extends AbstractForm
         $this->form('Client')->Inventory->content->time_label->text = $this->localization->get('Time_Label');
         $this->form('Client')->Inventory->content->button5->text = $this->localization->get('Inventory_Label');
         $this->form('Client')->Inventory->content->button6->text = $this->localization->get('Item_Label');
-        $this->form('Client')->Inventory->content->button7->text = $this->localization->get('Equipment_Label');
-        $this->form('Client')->Inventory->content->Combobox_Drop->text = $this->localization->get('Drop_Label');
-        $this->form('Client')->Inventory->content->Combobox_Use->text = $this->localization->get('Use_Label');
-        $this->form('Client')->Inventory->content->Combobox_TakeOff->text = $this->localization->get('TakeOff_Label');
-        $this->form('Client')->Inventory->content->Combobox_PutOn->text = $this->localization->get('PutOn_Label');
-        $this->form('Client')->Inventory->content->Combobox_MoveToSlot->text = $this->localization->get('MoveToSlot_Label');        
+        $this->form('Client')->Inventory->content->button7->text = $this->localization->get('Equipment_Label');      
         $this->form('Client')->Inventory->content->maket_cond_label->text = $this->localization->get('Condition_Label');
 
         $this->form('Client')->Pda->content->tasks_label->text = $this->localization->get('Tasks_Label');

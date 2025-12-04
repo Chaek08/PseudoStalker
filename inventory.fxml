@@ -199,43 +199,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-time_label" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="5" color="#ff7d00" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="main" layoutX="8" layoutY="8" opacity="0.75609756097561" prefHeight="40" prefWidth="168" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="12"/>
-      </font>
-    </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-main" visible=""/>
-    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#cc8033" color="#cc8033" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#e6994d" id="Combobox_Drop" layoutX="8" layoutY="8" prefHeight="24" prefWidth="152" styleClass="x-flat-button " text="Combobox_Drop" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="13"/>
-      </font>
-    </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-Combobox_Drop" visible=""/>
-    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#cc8033" color="#cc8033" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#e6994d" id="Combobox_Use" layoutX="8" layoutY="32" prefHeight="24" prefWidth="152" styleClass="x-flat-button " text="Combobox_Use" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="13"/>
-      </font>
-    </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-Combobox_Use" visible=""/>
-    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#cc8033" color="#cc8033" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#e6994d" id="Combobox_TakeOff" layoutX="8" layoutY="56" prefHeight="24" prefWidth="152" styleClass="x-flat-button " text="Combobox_TakeOff" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="13"/>
-      </font>
-    </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-Combobox_TakeOff" visible=""/>
-    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#cc8033" color="#cc8033" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#e6994d" id="Combobox_PutOn" layoutX="8" layoutY="80" prefHeight="24" prefWidth="152" styleClass="x-flat-button " text="Combobox_PutOn" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="13"/>
-      </font>
-    </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-Combobox_PutOn" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-button" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-button12" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="5" clickColor="#cc8033" color="#cc8033" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#e6994d" id="Combobox_MoveToSlot" layoutX="8" layoutY="104" prefHeight="24" prefWidth="152" styleClass="x-flat-button " text="Combobox_MoveToSlot" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
-      <font>
-        <Font name="System Regular" size="13"/>
-      </font>
-    </FlatButton>
-    <Data cursor="DEFAULT" enabled="1" id="data-Combobox_MoveToSlot" visible=""/>
   </children>
 </AnchorPane>

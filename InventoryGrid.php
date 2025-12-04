@@ -24,6 +24,8 @@ class InventoryGrid extends AbstractForm
     public $pmAmmoCount = 25; //default
     public $akAmmoCount = 60; //default
     
+    public $isWearing = false;    
+    
     public function __construct()
     {
         parent::__construct();
@@ -845,8 +847,6 @@ class InventoryGrid extends AbstractForm
         $this->selectedItem = null;
     }
     
-    public $isWearing = false;
-    
     function TakeOffItem()
     {    
         if (!$this->selectedItem) return;    
@@ -867,6 +867,7 @@ class InventoryGrid extends AbstractForm
         $this->selectedItem = null;
         $GLOBALS['item_outfit_selected'] = false;        
     }
+    
     function PutOnItem()
     {
         if (!$this->selectedItem) return;
@@ -889,6 +890,21 @@ class InventoryGrid extends AbstractForm
         $this->selectedItem = null;
         $GLOBALS['item_outfit_selected'] = false;
     }
+    
+    function MoveToSlot()
+    {
+        $selected = $this->selectedItem;
+        
+        if ($selected == $this->Inv_Wpn_AK74)
+        {
+           $this->MoveAK74ToSlot();  
+        }
+        if ($selected == $this->Inv_Wpn_Pm)
+        {
+           $this->MovePmToSlot();  
+        }   
+    }  
+        
     /**
      * @event Inv_Medkit.click-2x 
      */

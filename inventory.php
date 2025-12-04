@@ -12,6 +12,8 @@ class inventory extends AbstractForm
 {
     private $localization;
     
+    public $contextMenu;    
+    
     private $vodkaWeight = 0.5;
     private $medkitWeight = 0.1;
     private $outfitWeight = 2.0;
@@ -32,13 +34,35 @@ class inventory extends AbstractForm
     public $SDK_VodkaIcon;
     public $SDK_VodkaPrice;
     public $SDK_VodkaWeight;
-    public $SDK_VodkaDesc;    
+    public $SDK_VodkaDesc;
        
     public function __construct() 
     {
         parent::__construct();
 
         $this->localization = new Localization($language);
+        
+        uiLater(function () {
+            $inv = $this->InventoryGrid->content;
+          
+            $this->contextMenu = new InventoryContextMenu($this->form('Client'), $inv, $this->localization);
+            
+            if ($btn = $this->contextMenu->getButton('drop')) {
+                $btn->on('click', function () use ($inv) { $inv->DropItem(); $this->HideCombobox(); });
+            }
+            if ($btn = $this->contextMenu->getButton('use')) {
+                $btn->on('click', function () use ($inv) { $inv->UseItem(); $this->HideCombobox(); });
+            }
+            if ($btn = $this->contextMenu->getButton('takeOff')) {
+                $btn->on('click', function () use ($inv) { $inv->TakeOffItem(); $this->HideCombobox(); });
+            }
+            if ($btn = $this->contextMenu->getButton('putOn')) {
+                $btn->on('click', function () use ($inv) { $inv->PutOnItem(); $this->HideCombobox(); });
+            }
+            if ($btn = $this->contextMenu->getButton('moveToSlot')) {
+                $btn->on('click', function () use ($inv) { $inv->MoveToSlot(); $this->HideCombobox(); });
+            }    
+        });    
     }
     
     function getCurrentLanguageFromUI()
@@ -248,51 +272,7 @@ class inventory extends AbstractForm
         $this->InventoryGrid->content->selectedItem = $this->InventoryGrid->content->Inv_Outfit; // СИТУАЦИЯ
         
         $this->ShowCombobox();
-    }    
-    /**
-     * @event Combobox_Drop.click-Left 
-     */
-    function ComboboxDrop(UXMouseEvent $e = null)
-    {
-        $this->InventoryGrid->content->DropItem(); 
-    }
-    /**
-     * @event Combobox_Use.click-Left 
-     */
-    function ComboboxUse(UXMouseEvent $e = null)
-    {
-        $this->InventoryGrid->content->UseItem();
-    }
-    /**
-     * @event Combobox_TakeOff.click-Left 
-     */
-    function ComboboxTakeOff(UXMouseEvent $e = null)
-    {
-        $this->InventoryGrid->content->TakeOffItem();
-    }
-    /**
-     * @event Combobox_PutOn.click-Left 
-     */
-    function ComboboxPutOn(UXMouseEvent $e = null)
-    {
-        $this->InventoryGrid->content->PutOnItem();
-    }
-    /**
-     * @event Combobox_MoveToSlot.click-Left 
-     */
-    function ComboboxMoveToSlot(UXMouseEvent $e = null)
-    {
-        $selected = $this->InventoryGrid->content->selectedItem;
-        
-        if ($selected == $this->InventoryGrid->content->Inv_Wpn_AK74)
-        {
-           $this->InventoryGrid->content->MoveAK74ToSlot();  
-        }
-        if ($selected == $this->InventoryGrid->content->Inv_Wpn_Pm)
-        {
-           $this->InventoryGrid->content->MovePmToSlot();  
-        }   
-    }    
+    }      
     /**
      * @event inv_maket_visual.click-2x 
      */
@@ -304,6 +284,7 @@ class inventory extends AbstractForm
         
         $this->InventoryGrid->content->TakeOffItem();
     }
+    
     function DespawnItems()
     {
         $this->InventoryGrid->content->medkitCount = 0;
@@ -324,6 +305,7 @@ class inventory extends AbstractForm
         $this->form('Client')->MainGame->content->item_vodka_0000->opacity = 100;
         $this->form('Client')->MainGame->content->item_vodka_0000->position = [256,696];
     }
+    
     function SetItemCondition()
     {
         $this->maket_cond->width = 0;
@@ -404,171 +386,35 @@ class inventory extends AbstractForm
             $this->maket_cond->color = '#4d804d';
             $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
         }       
-    }  
+    } 
+     
     function ShowCombobox()
     {
-        if (!$this->InventoryGrid->content->selectedItem) return;
+        $selected = $this->InventoryGrid->content->selectedItem;
+        if (!$selected) return;
 
         $this->PropertiesSound();
 
-        list($comboX, $comboY) = $this->form('Client')->CustomCursor->position;
-
-        $clientForm = $this->form('Client');
-
-        foreach (['main', 'Combobox_Use', 'Combobox_Drop', 'Combobox_TakeOff', 'Combobox_PutOn', 'Combobox_MoveToSlot'] as $name)
-        {
-            $el = $this->{$name} ?? null;
-            if (is_object($el) && $el->parent != $clientForm)
-            {
-                $clientForm->add($el);
-            }
-        }
-
-        $clientForm->main->position = [$comboX, $comboY];
-
-        foreach (['Combobox_Use', 'Combobox_Drop', 'Combobox_TakeOff', 'Combobox_PutOn', 'Combobox_MoveToSlot'] as $name)
-        {
-            $clientForm->{$name}->hide();
-        }
-
-        $clientForm->main->show();
-        $clientForm->main->scale = $clientForm->MainGame->scale;
-        $clientForm->main->toFront();
-
-        $selected = $this->InventoryGrid->content->selectedItem;
-
-        if ($selected == $this->InventoryGrid->content->Inv_Vodka)
-        {
-            $clientForm->Combobox_Drop->position = [$comboX + 8, $comboY + 8];
-            $clientForm->Combobox_Drop->scale = $clientForm->MainGame->scale;
-            $clientForm->Combobox_Drop->toFront();
-            $clientForm->Combobox_Drop->show();
-        }
-        elseif ($selected == $this->InventoryGrid->content->Inv_Medkit)
-        {
-            $clientForm->Combobox_Use->position = [$comboX + 8, $comboY + 8];
-            $clientForm->Combobox_Use->scale = $clientForm->MainGame->scale;
-            $clientForm->Combobox_Use->toFront();
-            $clientForm->Combobox_Use->show();
-        }
-        elseif ($selected == $this->InventoryGrid->content->Inv_Wpn_Pm || $selected == $this->InventoryGrid->content->Inv_Wpn_AK74)
-        {
-            $clientForm->Combobox_MoveToSlot->position = [$comboX + 8, $comboY + 8];
-            $clientForm->Combobox_MoveToSlot->scale = $clientForm->MainGame->scale;
-            $clientForm->Combobox_MoveToSlot->toFront();
-            $clientForm->Combobox_MoveToSlot->show();
-        }        
-        elseif ($selected == $this->InventoryGrid->content->Inv_Outfit)
-        {    
-            $targetBtn = $this->InventoryGrid->content->isWearing ? 'Combobox_PutOn' : 'Combobox_TakeOff';
-            $clientForm->{$targetBtn}->position = [$comboX + 8, $comboY + 8];
-            $clientForm->{$targetBtn}->scale = $clientForm->MainGame->scale;
-            $clientForm->{$targetBtn}->toFront();
-            $clientForm->{$targetBtn}->show();
-        }
+        $cursorPos = $this->form('Client')->CustomCursor->position;
+        $isWearing = $this->InventoryGrid->content->isWearing;
+        
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+        $this->contextMenu->refreshCaptions();
+        
+        $this->contextMenu->showForItem($selected, $cursorPos, $isWearing);
     }
+
     function UpdateComboboxPosition()
     {
-        if (!$this->InventoryGrid->content->selectedItem) return;
-    
-        list($comboX, $comboY) = $this->form('Client')->CustomCursor->position;
-        $clientForm = $this->form('Client');
-
-        if (!isset($clientForm->main) || !is_object($clientForm->main)) return;
-
-        if (isset($clientForm->width, $clientForm->main->width))
-        {
-            $maxX = max(0, $clientForm->width - $clientForm->main->width);
-            $comboX = max(0, min($comboX, $maxX));
-        }
-        
-        if (isset($clientForm->height, $clientForm->main->height))
-        {
-            $maxY = max(0, $clientForm->height - $clientForm->main->height);
-            $comboY = max(0, min($comboY, $maxY));
-        }
-
-        $clientForm->main->position = [$comboX, $comboY];
-
         $selected = $this->InventoryGrid->content->selectedItem;
+        if (!$selected) return;
 
-        if ($selected == $this->InventoryGrid->content->Inv_Vodka)
-        {
-            if (isset($clientForm->Combobox_Drop) && is_object($clientForm->Combobox_Drop))
-            {
-                $clientForm->Combobox_Drop->position = [$comboX + 8, $comboY + 8];
-            }
-        }
-
-        if ($selected == $this->InventoryGrid->content->Inv_Medkit)
-        {
-            if (isset($clientForm->Combobox_Use) && is_object($clientForm->Combobox_Use))
-            {
-                $clientForm->Combobox_Use->position = [$comboX + 8, $comboY + 8];
-            }
-        }
-
-        if ($selected == $this->InventoryGrid->content->Inv_Wpn_Pm || $selected == $this->InventoryGrid->content->Inv_Wpn_AK74)
-        {
-            if (isset($clientForm->Combobox_MoveToSlot) && is_object($clientForm->Combobox_MoveToSlot))
-            {
-                $clientForm->Combobox_MoveToSlot->position = [$comboX + 8, $comboY + 8];
-            }
-        }
-
-        if ($selected === $this->InventoryGrid->content->Inv_Outfit)
-        {
-            $btnName = $this->InventoryGrid->content->isWearing ? 'Combobox_TakeOff' : 'Combobox_PutOn';
-            if (isset($clientForm->{$btnName}) && is_object($clientForm->{$btnName}))
-            {
-                $clientForm->{$btnName}->position = [$comboX + 8, $comboY + 8];
-            }
-        }        
+        $cursorPos = $this->form('Client')->CustomCursor->position;
+        $this->contextMenu->updatePosition($cursorPos);
     }
+
     function HideCombobox()
-    {  
-        $clientForm = $this->form('Client');
-
-        if (isset($clientForm->main) && is_object($clientForm->main))
-        {
-            $clientForm->main->hide();
-        }
-
-        $selected = $this->InventoryGrid->content->selectedItem;
-
-        if ($selected == $this->InventoryGrid->content->Inv_Medkit)
-        {
-            if (isset($clientForm->Combobox_Use) && is_object($clientForm->Combobox_Use))
-            {
-                $clientForm->Combobox_Use->hide();
-            }
-        }
-
-        if ($selected == $this->InventoryGrid->content->Inv_Vodka)
-        {
-            if (isset($clientForm->Combobox_Drop) && is_object($clientForm->Combobox_Drop))
-            {
-                $clientForm->Combobox_Drop->hide();
-            }
-        }
-        
-        if ($selected == $this->InventoryGrid->content->Inv_Wpn_Pm || $selected == $this->InventoryGrid->content->Inv_Wpn_AK74)
-        {
-            if (isset($clientForm->Combobox_MoveToSlot) && is_object($clientForm->Combobox_MoveToSlot))
-            {
-                $clientForm->Combobox_MoveToSlot->hide();
-            }
-        }        
-
-        if ($selected == $this->InventoryGrid->content->Inv_Outfit)
-        {
-            foreach (['Combobox_TakeOff', 'Combobox_PutOn'] as $btn)
-            {
-                if (isset($clientForm->{$btn}) && is_object($clientForm->{$btn}))
-                {
-                    $clientForm->{$btn}->hide();
-                }
-            }
-        }     
-    }        
+    {
+        $this->contextMenu->hide();
+    }
 }
