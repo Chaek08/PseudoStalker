@@ -71,6 +71,7 @@ class console extends AbstractForm
                                 "r_version [off/on]",
                                 "r_shadows [off/on]",
                                 "snd_all [off/on]",
+                                "snd_ambient [off/on]",
                                 "openform [form_name]",
                                 "call [function_name]",                           
                                 "language [rus/eng]",
@@ -191,6 +192,10 @@ class console extends AbstractForm
                                         $this->form('Client')->MainMenu->content->Options->content->ShadowsSwitcher();
                                 }
                         }
+                        else 
+                        {
+                            Element::appendText($this->Console_Log, "> Usage r_shadows [off/on]\n");
+                        }                        
                         $this->edit->text = "";
                         break;
 
@@ -200,11 +205,35 @@ class console extends AbstractForm
 
                                 $btn = $this->form('Client')->MainMenu->content->Options->content->AllSound_Switcher_Btn;
                                 if (($args[1] === "off" && $btn->text == $this->localization->get('TurnOn_Label')) || ($args[1] === "on" && $btn->text == $this->localization->get('TurnOff_Label'))) {
+                                        $this->form('Client')->MainGame->content->Environment->pause();
                                         $this->form('Client')->MainMenu->content->Options->content->AllSoundSwitcher();
+                                        $this->form('Client')->MainGame->content->Environment->resume();
                                 }
                         }
+                        else 
+                        {
+                            Element::appendText($this->Console_Log, "> Usage snd_all [off/on]\n");
+                        }                        
                         $this->edit->text = "";
                         break;
+                        
+                case "snd_ambient":
+                        if (isset($args[1])) {
+                                Element::appendText($this->Console_Log, "> {$command} {$args[1]}\n");
+
+                                $btn = $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Switcher_Btn;
+                                if (($args[1] === "off" && $btn->text == $this->localization->get('TurnOn_Label')) || ($args[1] === "on" && $btn->text == $this->localization->get('TurnOff_Label'))) {
+                                        $this->form('Client')->MainGame->content->Environment->pauseAmbient();
+                                        $this->form('Client')->MainMenu->content->Options->content->AmbientSoundSwitcher();
+                                        $this->form('Client')->MainGame->content->Environment->resumeAmbient();
+                                }
+                        }
+                        else 
+                        {
+                            Element::appendText($this->Console_Log, "> Usage snd_ambient [off/on]\n");
+                        }
+                        $this->edit->text = "";
+                        break;                        
                         
                 case "version":
                         global $BuildID;

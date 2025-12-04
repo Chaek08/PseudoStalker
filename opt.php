@@ -179,7 +179,10 @@ class opt extends AbstractForm
             $this->MenuSound_Switcher_Btn->classesString = 'switch-on';
             
             $GLOBALS['MenuSound'] = true;
-            Media::play($this->form('Client')->MainMenu->content->MenuSound);
+            if ($this->form('Client')->MainMenu->visible)
+            {
+                Media::play($this->form('Client')->MainMenu->content->MenuSound);
+            }
             
             $this->form('Client')->ltx['mm_sound'] = 'on';
             $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
