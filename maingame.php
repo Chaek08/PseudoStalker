@@ -104,7 +104,7 @@ class maingame extends AbstractForm
             Media::stop($this->Environment);
 
             if ($this->fight_image->visible) $this->fight_image->hide();
-            if ($this->Leave_Label->visible || !$GLOBALS['QuestCompleted']) $this->Leave_Label->hide();
+            if ($this->leave_btn->visible || !$GLOBALS['QuestCompleted']) $this->leave_btn->hide();
             if ($this->form('Client')->Fail->visible) $this->form('Client')->Fail->hide();
             if ($this->blood_ui->visible) $this->blood_ui->hide();
 
@@ -225,7 +225,7 @@ class maingame extends AbstractForm
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
             if ($GLOBALS['GodMode']) $this->GodMode_Icon->show();
             if ($this->GameActor->CanInteractive() || $this->GameEnemy->CanInteractive()) $this->fight_image->show();
-            if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed']) $this->Leave_Label->show();
+            if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed']) $this->leave_btn->show();
         
             $GLOBALS['HudVisible'] = true;
         } 
@@ -240,7 +240,7 @@ class maingame extends AbstractForm
             
             $this->ui_mag_background->hide();
             
-            $this->Leave_Label->hide();
+            $this->leave_btn->hide();
             
             if ($this->blood_ui->visible) $this->blood_ui->hide();
             if ($this->GodMode_Icon->visible) $this->GodMode_Icon->hide();
@@ -254,10 +254,11 @@ class maingame extends AbstractForm
         }
     }
 
-    function LeaveGame()
-    {    
-        if (!$GLOBALS['QuestCompleted'] || !$this->Leave_Label->visible) return;
-    
+    /**
+     * @event leave_btn.click-Left 
+     */
+    function LeaveBtn(UXMouseEvent $e = null)
+    {
         $this->RenderHud(false);
         
         $this->form('Client')->Fail->content->UpdateFailState();
@@ -802,11 +803,8 @@ class maingame extends AbstractForm
     
         $this->fight_image->hide();
         $this->fight_image->blinkAnim->disable();
-        Timer::after(4000, function () {
-            UXApplication::runLater(function () {        
-                $this->Leave_Label->show();
-            });
-        });
+        
+        $this->leave_btn->show();
                 
         if ($GLOBALS['ActorFailed']) $this->GameActor->GetModel()->hide();
         if ($GLOBALS['EnemyFailed']) $this->GameEnemy->GetModel()->hide();     

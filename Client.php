@@ -742,6 +742,8 @@ class Client extends AbstractForm
      */
     function OpenConsole(UXKeyEvent $e = null)
     {    
+        if ($this->Console->visible) return;
+        
         $this->Console->visible = !$this->Console->visible;
         $this->Console->toFront();
     }
@@ -940,15 +942,5 @@ class Client extends AbstractForm
     function SwitchWeapon2(UXKeyEvent $e = null)
     {    
         $this->MainGame->content->SwitchWeapon('AK74');
-    }
-
-    /**
-     * @event keyDown-Enter 
-     */
-    function LeaveBtn(UXKeyEvent $e = null)
-    {    
-        if ($this->CheckVisibledFragments()) return;
-    
-        $this->MainGame->content->LeaveGame();
     }
 }
