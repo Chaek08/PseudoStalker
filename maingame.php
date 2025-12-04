@@ -971,6 +971,15 @@ class maingame extends AbstractForm
     
         $weapon->attach();
         $this->currentWeapon = $weapon;
+        if (isset($GLOBALS['ShadowsSwitcher_IsOn']) && !$GLOBALS['ShadowsSwitcher_IsOn'])
+        {
+            $this->currentWeapon->disableShadow();
+        }
+        else
+        {
+            $this->currentWeapon->enableShadow();
+        }        
+        
         $this->UpdateMagazine();
     }
     

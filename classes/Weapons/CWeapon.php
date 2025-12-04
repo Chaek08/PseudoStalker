@@ -1,6 +1,7 @@
 <?php
 namespace app\forms\classes\Weapons;
 
+use behaviour\custom\DropShadowEffectBehaviour;
 use php\gui\UXApplication;
 use php\time\Timer;
 use action\Animation;
@@ -39,6 +40,7 @@ abstract class CWeapon
 
     protected $prevTaskLabelText = null;
        
+    public $dropShadowEffect;
 
     public function __construct($owner) { $this->owner = $owner; }
 
@@ -58,6 +60,20 @@ abstract class CWeapon
             $this->view->x = $model->x + $this->offsetX;
             $this->view->y = $model->y + $this->offsetY;
             (new ColorAdjustEffectBehaviour())->apply($this->view);
+            
+            $this->dropShadowEffect = new DropShadowEffectBehaviour();
+            $this->dropShadowEffect->color   = '#1a1a1a';
+            $this->dropShadowEffect->offsetX = 0;
+            $this->dropShadowEffect->offsetY = 0;
+            $this->dropShadowEffect->radius  = 10;
+            $this->dropShadowEffect->spread  = 0;
+            $this->dropShadowEffect->when    = 'ALWAYS';
+            $this->dropShadowEffect->apply($this->view);     
+            if (isset($GLOBALS['ShadowsSwitcher_IsOn']) && !$GLOBALS['ShadowsSwitcher_IsOn'])
+            {
+                $this->dropShadowEffect->disable();
+            }
+                   
             $this->owner->add($this->view);
 
             if (!empty($this->soundDraw) && !empty($GLOBALS['AllSounds']))
@@ -296,6 +312,22 @@ abstract class CWeapon
         if (method_exists($this->owner, 'showJamHintUI'))
         {
             $this->owner->showJamHintUI('GunJmammed');
+        }
+    }
+    
+    public function enableShadow(): void
+    {
+        if ($this->dropShadowEffect)
+        {
+            $this->dropShadowEffect->enable();
+        }
+    }
+    
+    public function disableShadow(): void
+    {
+        if ($this->dropShadowEffect)
+        {
+            $this->dropShadowEffect->disable();
         }
     }    
     

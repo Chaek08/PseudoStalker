@@ -17,7 +17,7 @@ class InventoryContextMenu
     protected $main;
     protected $buttons = [];
     
-    public $shadowBehaviour;    
+    public $dropShadowEffect;    
 
     public function __construct($clientForm, $inventoryContent, Localization $localization)
     {
@@ -48,14 +48,14 @@ class InventoryContextMenu
         $this->main->wrapText = false;
         $this->main->font = UXFont::of('System Regular', 12);
         
-        $this->shadowBehaviour = new DropShadowEffectBehaviour();
-        $this->shadowBehaviour->color   = '#222222';
-        $this->shadowBehaviour->offsetX = 0;
-        $this->shadowBehaviour->offsetY = 0;
-        $this->shadowBehaviour->radius  = 10;
-        $this->shadowBehaviour->spread  = 0;
-        $this->shadowBehaviour->when    = 'ALWAYS';
-        $this->shadowBehaviour->apply($this->main);    
+        $this->dropShadowEffect = new DropShadowEffectBehaviour();
+        $this->dropShadowEffect->color   = '#222222';
+        $this->dropShadowEffect->offsetX = 0;
+        $this->dropShadowEffect->offsetY = 0;
+        $this->dropShadowEffect->radius  = 10;
+        $this->dropShadowEffect->spread  = 0;
+        $this->dropShadowEffect->when    = 'ALWAYS';
+        $this->dropShadowEffect->apply($this->main);    
     
         $this->form->add($this->main);
         $this->main->hide();
