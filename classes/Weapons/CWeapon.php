@@ -67,7 +67,6 @@ abstract class CWeapon
 
             $this->startFollowTimer();
 
-            // Клик мышью = выстрел
             $this->view->on('mouseDown', function () {
                 $this->owner->Shoot();
             });
@@ -78,7 +77,7 @@ abstract class CWeapon
 
     public function detach(): void
     {
-        if ($this->attachTimer) { $this->attachTimer->cancel(); $this->attachTimer = null; } // остановить тикер [web:182]
+        if ($this->attachTimer) { $this->attachTimer->cancel(); $this->attachTimer = null; }
         $this->fxLater(function () {
             if ($this->view) {
                 $this->owner->remove($this->view);
@@ -214,7 +213,19 @@ abstract class CWeapon
             });
         });
 
+        $actor = $this->owner->GameActor->GetModel();
         $enemy = $this->owner->GameEnemy->GetModel();
+
+        if (!$enemy || !$actor || !$enemy->visible)
+        {
+            return;
+        }
+
+        if ($actor->x > $enemy->x)
+        {
+            return;
+        }
+        
         if ($enemy->visible)
         {
             $this->owner->DamageEnemy(null, false);
