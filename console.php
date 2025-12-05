@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\exit_dlg;
 use php\framework\Logger;
 use php\time\Timer;
 use action\Animation;
@@ -28,9 +29,34 @@ class console extends AbstractForm
     {
         return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
     }
-        
+    
+    private $availableCommands = [
+        'exit'        => '',
+        'clear'       => '',
+        'help'        => '',
+        'version'     => '',
+        'sync_sdk_ltx'=> '',
+        'save'        => ' [name]',
+        'load'        => ' [name]',
+        'g_god'       => ' [off/on]',
+        'vid_mode'    => ' [1600x900]',
+        'r_version'   => ' [off/on]',
+        'r_shadows'   => ' [off/on]',
+        'snd_all'     => ' [off/on]',
+        'snd_ambient' => ' [off/on]',
+        'openform'    => ' [form_name]',
+        'call'        => ' [function_name]',
+        'language'    => ' [rus/eng]',
+        'set_level'   => ' [0-4]',
+        'set_cycle'   => ' [night, morning, day, evening, underground]',
+        'set_ambient' => ' [1-6]',
+    ];
+
+    private $tabMatches = [];
     private $commandHistory = []; 
+    
     private $historyIndex = -1;
+    private $tabIndex = 0;
     
     /**
      * @event edit.keyDown-Enter 
@@ -39,6 +65,8 @@ class console extends AbstractForm
     {    
         $this->requestFocus();
     
+        $this->tabMatches = [];
+        
         $command = trim($this->edit->text);
         if ($command !== "")
         {
@@ -52,38 +80,33 @@ class console extends AbstractForm
 
         switch ($command) 
         {
+                case "help":
+                    $lines = [];
+                
+                    foreach ($this->availableCommands as $name => $hint)
+                    {
+                        $lines[] = $name . $hint;
+                    }
+                
+                    $commandsList = implode("\n> ", $lines);
+                
+                    Element::appendText($this->Console_Log, "> Available commands:\n> {$commandsList}\n\n");
+                    Element::appendText($this->Console_Log, "> If you cannot open the PDA, inventory, etc. with the console open, press the TAB key to switch focus!\n");
+                    $this->edit->text = "";
+                    break;
+
+                case "exit":
+                        $this->Console_Log->text = "> exit\n";
+                        $this->edit->text = "";
+                        $this->form('Client')->OpenConsole();
+                        $this->form('exit_dlg')->showDialog(exit_dlg::TYPE_EXIT);
+                        $this->form('exit_dlg')->AcceptButton();
+                        break;                        
+                        
                 case "clear":
                         $this->Console_Log->text = "";
                         $this->edit->text = "";
-                        break;
-
-                case "help":
-                        $commands = [
-                                "exit",
-                                "clear",
-                                "help",
-                                "version",
-                                "sync_sdk_ltx",
-                                "save",
-                                "load",
-                                "g_god [off/on]",
-                                "vid_mode [1600x900]",
-                                "r_version [off/on]",
-                                "r_shadows [off/on]",
-                                "snd_all [off/on]",
-                                "snd_ambient [off/on]",
-                                "openform [form_name]",
-                                "call [function_name]",                           
-                                "language [rus/eng]",
-                                "set_level [0-4]",
-                                "set_cycle [night, morning, day, evening, underground]",
-                                "set_ambient [1-6]"
-                        ];
-                        $commandsList = implode("\n> ", $commands);
-                        Element::appendText($this->Console_Log, "> Available commands:\n> $commandsList\n\n");
-                        Element::appendText($this->Console_Log, "> If you cannot open the PDA, inventory, etc. with the console open, press the TAB key to switch focus!\n");
-                        $this->edit->text = "";
-                        break;
+                        break;                
                         
                 case "openform":
                         if (isset($args[1])) {
@@ -549,6 +572,7 @@ class console extends AbstractForm
      */
     function handleArrowUp(UXKeyEvent $e) 
     {    
+        $this->tabMatches = [];
         if (!empty($this->commandHistory) && $this->historyIndex > 0)
         {
             $this->historyIndex--;
@@ -568,6 +592,7 @@ class console extends AbstractForm
      */
     function handleArrowDown(UXKeyEvent $e) 
     {    
+        $this->tabMatches = [];
         if ($this->historyIndex < count($this->commandHistory) - 1)
         {
             $this->historyIndex++;
@@ -582,6 +607,104 @@ class console extends AbstractForm
            $this->edit->positionCaret(strlen($this->edit->text));
         });
     }
+    /**
+     * @event edit.keyDown
+     */
+    function handleEditKeyDown(UXKeyEvent $e)
+    {
+        if ($e->codeName === 'TAB')
+        {
+            return;
+        }
+
+        $this->tabMatches = [];
+        $this->tabIndex = 0;
+    }
+    
+    /**
+     * @event edit.keyDown-Tab
+     */
+    function autocomplete(UXKeyEvent $e)
+    {
+        $text  = trim($this->edit->text);
+        $names = array_keys($this->availableCommands);
+    
+        if ($text === "")
+        {
+            $this->tabMatches = $names;
+            $this->tabIndex   = 0;
+    
+            $this->edit->text = $this->tabMatches[$this->tabIndex];
+            $this->edit->positionCaret(strlen($this->edit->text));
+            $e->consume();
+            return;
+        }
+    
+        $exact      = false;
+        $exactIndex = 0;
+    
+        foreach ($names as $i => $name)
+        {
+            if ($name === $text)
+            {
+                $exact      = true;
+                $exactIndex = $i;
+                break;
+            }
+        }
+    
+        if ($exact)
+        {
+            $this->tabMatches = $names;
+    
+            $this->tabIndex = $exactIndex + 1;
+            if ($this->tabIndex >= count($this->tabMatches))
+            {
+                $this->tabIndex = 0;
+            }
+    
+            $this->edit->text = $this->tabMatches[$this->tabIndex];
+            $this->edit->positionCaret(strlen($this->edit->text));
+            $e->consume();
+            return;
+        }
+        
+        if (empty($this->tabMatches))
+        {
+            $lower = strtolower($text);
+            $this->tabMatches = [];
+    
+            foreach ($names as $name)
+            {
+                if (strpos($name, $lower) === 0)
+                {
+                    $this->tabMatches[] = $name;
+                }
+            }
+    
+            if (empty($this->tabMatches))
+            {
+                $e->consume();
+                return;
+            }
+    
+            $this->tabIndex = 0;
+        }
+        else
+        {
+            $this->tabIndex++;
+            if ($this->tabIndex >= count($this->tabMatches))
+            {
+                $this->tabIndex = 0;
+            }
+        }
+    
+        $this->edit->text = $this->tabMatches[$this->tabIndex];
+        $this->edit->positionCaret(strlen($this->edit->text));
+    
+        $e->consume();
+    }
+
     /**
      * @event close_btn.click-Left 
      */
