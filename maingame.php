@@ -431,7 +431,7 @@ class maingame extends AbstractForm
     
         if ($GLOBALS['GodMode'])
         {
-            $this->GodMode_Icon->show();
+            if ($GLOBALS['HudVisible']) $this->GodMode_Icon->show();
             $this->GodMode_Icon->y = $nextY;
             $nextY += 64;
         }
