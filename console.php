@@ -50,6 +50,7 @@ class console extends AbstractForm
         'set_level'   => ' [0-4]',
         'set_cycle'   => ' [night, morning, day, evening, underground]',
         'set_ambient' => ' [1-6]',
+        'env_reset'   => ''
     ];
 
     private $tabMatches = [];
@@ -557,6 +558,24 @@ class console extends AbstractForm
                     
                     $this->edit->text = "";
                     break;
+                    
+                case "env_reset":
+                    Element::appendText($this->Console_Log, "> env_reset\n");
+                
+                    $mg = $this->form('Client')->MainGame->content;
+                
+                    if (isset($mg->Environment) && is_object($mg->Environment) && method_exists($mg->Environment, 'reset'))
+                    {
+                        $mg->Environment->reset();
+                    }
+                    else
+                    {
+                        Element::appendText($this->Console_Log, "> Environment is not initialized or reset() not found.\n");
+                    }
+                
+                    $this->edit->text = "";
+                    break;
+                    
 
                 default:
                         if ($this->edit->text != "") {

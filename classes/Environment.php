@@ -919,7 +919,40 @@ class Environment
         $this->safeStopPlayer($this->rainPlayer);
         $this->safeStopPlayer($this->anomalyPlayer);
     }
-
+    
+    public function reset()
+    {
+        $this->stop();
+    
+        $this->isPaused     = false;
+        $this->isRainy      = false;
+        $this->isAnomalyHum = false;
+    
+        $this->currentCycle = '';
+        $this->manualCycle  = null;
+    
+        $this->currentBackgroundPath = null;
+        $this->currentAmbientPath    = null;
+    
+        $this->currentLocationIndex = -1;
+        $this->lastLocationIndex    = -1;
+    
+        $this->update();
+    
+        $self = $this;
+        $this->timerId = Timer::every(60 * 1000, function () use ($self) {
+            $self->update();
+        });
+    
+        $this->scheduleNextSfx();
+        $this->scheduleNextEffect();
+    
+        $this->scheduleNextAmbient();
+        $this->startAmbient();        
+    
+        Logger::debug("[Environment]: is reset");
+    }
+    
     public function playBackgroundPath($path)
     {
         if (!$this->isActive()) return;
