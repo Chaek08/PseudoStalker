@@ -73,13 +73,15 @@ class pda_fragment_contacts extends AbstractForm
     {
         $this->setCharacterSelected(true);
     }
+    
     /**
      * @event frame.click-Left 
      */
     function HideCharacter(UXMouseEvent $e = null)
     {    
         $this->setCharacterSelected(false);         
-    }      
+    }  
+        
     function UpdateContacts()
     {
         $elements = [

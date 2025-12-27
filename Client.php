@@ -833,7 +833,8 @@ class Client extends AbstractForm
         $this->Inventory->content->UpdateSelectedItems();
         $this->Inventory->content->SetItemInfo();
         $this->Inventory->content->HideUIText(); 
-        $this->Inventory->content->HideCombobox();                              
+        $this->Inventory->content->HideCombobox();
+        $this->Inventory->content->InventoryGrid->content->endDragUI();
         $this->Inventory->hide();
                 
         if ($GLOBALS['AllSounds']) $this->playSoundAsync('res://.data/audio/inv_close.mp3', true);         

@@ -44,7 +44,7 @@
     </ImageViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-inv_grid_wpn_2" image=".data/ui/inventory/ui_grid.png" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-Inv_Wpn_Pm" image=".data/ui/weapons/wpn_pm.png" visible="1"/>
-    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="47" id="Inv_Wpn_Pm" layoutX="0" layoutY="0" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="47">
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="47" id="Inv_Wpn_Pm" layoutX="0" layoutY="0" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="47">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -61,7 +61,7 @@
         <Font name="System Regular" size="13"/>
       </font>
     </FlatButton>
-    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="96" id="Inv_Wpn_AK74" layoutX="176" layoutY="0" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="248">
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="96" id="Inv_Wpn_AK74" layoutX="176" layoutY="0" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="245">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

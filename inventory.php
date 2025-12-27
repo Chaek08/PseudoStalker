@@ -35,6 +35,19 @@ class inventory extends AbstractForm
     public $SDK_VodkaPrice;
     public $SDK_VodkaWeight;
     public $SDK_VodkaDesc;
+    
+    //ПРОСЛОЙКА ДЛЯ ПЕРЕТАСКИВАНИЯ БРОНИ В СЛОТ ИНВГРИД И ОБРАТНО
+    private $dragOutfit = false;
+    private $outfitDragStartTime = 0.0;
+    private $outfitDragDelayTimer = null;
+    private $outfitGhost = null;
+    private $outfitGhostFollowTimer = null;
+    
+    private $dragDelaySec = 0.10;
+    private $followTickMs = 3;
+    
+    private $invGridRect = ['x'=>32, 'y'=>80,  'w'=>552, 'h'=>784];
+    private $invGridTopSlotsH = 96;
        
     public function __construct() 
     {
@@ -272,7 +285,57 @@ class inventory extends AbstractForm
         $this->InventoryGrid->content->selectedItem = $this->InventoryGrid->content->Inv_Outfit; // СИТУАЦИЯ
         
         $this->ShowCombobox();
-    }      
+    }  
+    
+    /**
+     * @event inv_maket_visual.mouseDown-Left 
+     */
+    function OutfitDragStart(UXMouseEvent $e = null)
+    {
+        if ($this->InventoryGrid->content->isWearing) return;
+    
+        $this->dragOutfit = true;
+        $this->outfitDragStartTime = microtime(true);
+    
+        $this->outfitDragDelayTimer = Timer::every(1, function () {
+            if (!$this->dragOutfit) { $this->cancelOutfitDragDelay(); return; }
+            if ((microtime(true) - $this->outfitDragStartTime) < $this->dragDelaySec) return;
+    
+            uiLater(function () {
+                if (!$this->dragOutfit) return;
+                $this->createOutfitGhost();
+                $this->startOutfitGhostFollow();
+            });
+    
+            $this->cancelOutfitDragDelay();
+        });
+    }
+
+    /**
+     * @event mouseUp-Left
+     */
+    function OutfitDragEnd(UXMouseEvent $e = null)
+    {
+        if (!$this->dragOutfit) return;
+    
+        $mx = $e->x;
+        $my = $e->y;
+    
+        $this->dragOutfit = false;
+        $this->endOutfitDragUI();
+    
+        if ($this->isInsideGridCellsArea($mx, $my))
+        {
+            $grid = $this->InventoryGrid->content;
+        
+            $grid->selectedItem = $grid->Inv_Outfit;
+            $grid->TakeOffItem();
+        
+            $this->UpdateInventoryStatus();
+            $this->HideCombobox();
+        }
+    }    
+    
     /**
      * @event inv_maket_visual.click-2x 
      */
@@ -416,5 +479,90 @@ class inventory extends AbstractForm
     function HideCombobox()
     {
         $this->contextMenu->hide();
+    }
+    
+    private function pointInRect($x, $y, $r): bool
+    {
+        return $x >= $r['x'] && $x < ($r['x'] + $r['w']) && $y >= $r['y'] && $y < ($r['y'] + $r['h']);
+    }
+    
+    private function isInsideGridCellsArea($sceneX, $sceneY): bool
+    {
+        $cellsRect = [
+            'x' => $this->invGridRect['x'],
+            'y' => $this->invGridRect['y'] + $this->invGridTopSlotsH,
+            'w' => $this->invGridRect['w'],
+            'h' => $this->invGridRect['h'] - $this->invGridTopSlotsH,
+        ];
+        return $this->pointInRect($sceneX, $sceneY, $cellsRect);
+    }
+    
+    private function createOutfitGhost(): void
+    {
+        $this->destroyOutfitGhost();
+    
+        $this->outfitGhost = new UXImageView();
+        $this->outfitGhost->image = $this->InventoryGrid->content->Inv_Outfit->image;
+        $this->outfitGhost->opacity = 0.6;
+        $this->outfitGhost->enabled = false;
+        $this->outfitGhost->visible = false;
+    
+        $this->form('Client')->add($this->outfitGhost);
+        $this->outfitGhost->toFront();
+    }
+    
+    private function startOutfitGhostFollow(): void
+    {
+        $this->stopOutfitGhostFollow();
+    
+        $this->outfitGhostFollowTimer = Timer::every($this->followTickMs, function () {
+            uiLater(function () {
+                if (!$this->dragOutfit || !$this->outfitGhost) return;
+    
+                $cursor = $this->form('Client')->CustomCursor;
+                if (!$cursor) return;
+    
+                $this->outfitGhost->visible = true;
+    
+                $x = $cursor->x - ($this->outfitGhost->width / 2);
+                $y = $cursor->y - ($this->outfitGhost->height / 2);
+    
+                $this->outfitGhost->position = [$x, $y];
+            });
+        });
+    }
+    
+    private function stopOutfitGhostFollow(): void
+    {
+        if ($this->outfitGhostFollowTimer)
+        {
+            $this->outfitGhostFollowTimer->cancel();
+            $this->outfitGhostFollowTimer = null;
+        }
+    }
+    
+    private function destroyOutfitGhost(): void
+    {
+        if ($this->outfitGhost)
+        {
+            $this->form('Client')->remove($this->outfitGhost);
+            $this->outfitGhost = null;
+        }
+    }
+    
+    private function cancelOutfitDragDelay(): void
+    {
+        if ($this->outfitDragDelayTimer)
+        {
+            $this->outfitDragDelayTimer->cancel();
+            $this->outfitDragDelayTimer = null;
+        }
+    }
+    
+    private function endOutfitDragUI(): void
+    {
+        $this->cancelOutfitDragDelay();
+        $this->stopOutfitGhostFollow();
+        $this->destroyOutfitGhost();
     }
 }
