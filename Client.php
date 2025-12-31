@@ -37,14 +37,9 @@ class Client extends AbstractForm
         define('VersionID', 'v1.3 (rc2)');
         define('client_version', '3');
         define('Debug_Build', true);
-        define('ResTracker', true);
+        define('ResTracker', false);
         define('UseLegacyEnvironment', false);
         
-        $appId = "1387765734704418846";
-        $discord = new DiscordRPC($appId);
-        
-        $GLOBALS['discord'] = $discord;
-
         $GLOBALS['AllSounds']  = true;
         $GLOBALS['MenuSound']  = true;
         $GLOBALS['FightSound'] = true;
@@ -64,13 +59,6 @@ class Client extends AbstractForm
         $this->MainGame->content->RenderHud(false);
         
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
-        $discord->setDetails($this->localization->get('RPC_MainMenu'));
-
-        $discord->setBigImage("icon", $this->BuildID);
-
-        $discord->setStartTimestamp(Time::now()->getTime());
-        $discord->updateState();
     }
     function applyResolutionFromLTX()
     {
@@ -252,7 +240,8 @@ class Client extends AbstractForm
             'r_version' => 'on',
             'g_god' => 'off',
             'vid_mode' => '1600x900',
-            'vid_fullscreen' => 'off'
+            'vid_fullscreen' => 'off',
+            'discord_rpc' => 'on'
         ];
 
         if (!file_exists($this->ltxPath))
@@ -280,6 +269,20 @@ class Client extends AbstractForm
         {
             $this->FullscreenMode();
         }
+        
+        if ($this->ltx['discord_rpc'] == 'on')
+        {
+            $appId = "1387765734704418846";
+            $discord = new DiscordRPC($appId);
+        
+            $discord->setDetails($this->localization->get('RPC_MainMenu'));
+            $discord->setBigImage("icon", $this->BuildID);
+            $discord->setStartTimestamp(Time::now()->getTime());
+            
+            $discord->updateState();
+        
+            $GLOBALS['discord'] = $discord;
+        }        
 
         $this->ltxInitialized = true;
     }
@@ -721,8 +724,12 @@ class Client extends AbstractForm
         }
         
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        $GLOBALS['discord']->setDetails($this->localization->get('RPC_MainMenu'));
-        $GLOBALS['discord']->updateState();        
+        
+        if ($this->ltx['discord_rpc'] == 'on')
+        {        
+            $GLOBALS['discord']->setDetails($this->localization->get('RPC_MainMenu'));
+            $GLOBALS['discord']->updateState();   
+        }     
     } 
        
     function CheckVisibledFragments()

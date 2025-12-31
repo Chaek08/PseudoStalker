@@ -367,7 +367,11 @@ class dialog extends AbstractForm
         $this->form('Client')->MainGame->content->item_vodka_0000->enabled = true;
 
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        $GLOBALS['discord']->setState($this->localization->get('RPC_Fight'));
-        $GLOBALS['discord']->updateState();      
+        
+        if ($this->form('Client')->ltx['discord_rpc'] == 'on')
+        {        
+            $GLOBALS['discord']->setState($this->localization->get('RPC_Fight'));
+            $GLOBALS['discord']->updateState();      
+        }
     }
 }

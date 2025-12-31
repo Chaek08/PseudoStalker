@@ -599,22 +599,27 @@ class opt extends AbstractForm
         
         $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();
         
-        if ($this->form('Client')->MainMenu->visible)
+        if ($this->form('Client')->ltx['discord_rpc'] == 'on')
         {
-            $GLOBALS['discord']->setDetails($this->localization->get('RPC_MainMenu'));
+            if ($this->form('Client')->MainMenu->visible)
+            {
+                $GLOBALS['discord']->setDetails($this->localization->get('RPC_MainMenu'));
+            }
+            else 
+            {
+                $GLOBALS['discord']->setDetails($this->localization->get('RPC_Ingame'));
+            }
+            
+            if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted'])
+            {
+                $GLOBALS['discord']->setState($this->localization->get('RPC_Fight'));
+            }
+            else 
+            {
+                $GLOBALS['discord']->setState(null);
+            }
+            
+            $GLOBALS['discord']->updateState();            
         }
-        else 
-        {
-            $GLOBALS['discord']->setDetails($this->localization->get('RPC_Ingame'));
-        }
-        if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted'])
-        {
-            $GLOBALS['discord']->setState($this->localization->get('RPC_Fight'));
-        }
-        else 
-        {
-            $GLOBALS['discord']->setState(null);
-        }
-        $GLOBALS['discord']->updateState();
     }
 }

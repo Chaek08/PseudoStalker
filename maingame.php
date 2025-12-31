@@ -193,8 +193,11 @@ class maingame extends AbstractForm
 
             $this->form('Client')->Dialog->content->StartDialog();
             
-            $GLOBALS['discord']->setState(null);
-            $GLOBALS['discord']->updateState();             
+            if ($this->form('Client')->ltx['discord_rpc'] == 'on')
+            {            
+                $GLOBALS['discord']->setState(null);
+                $GLOBALS['discord']->updateState();           
+            }  
             
             if ($afterReset)
             {
@@ -840,8 +843,11 @@ class maingame extends AbstractForm
         
         $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateRaiting();
         
-        $GLOBALS['discord']->setState(null);
-        $GLOBALS['discord']->updateState();        
+        if ($this->form('Client')->ltx['discord_rpc'] == 'on')
+        {        
+            $GLOBALS['discord']->setState(null);
+            $GLOBALS['discord']->updateState();    
+        }    
     }
     protected $isHovered = false;
     protected $isLabelVisible = false;    
