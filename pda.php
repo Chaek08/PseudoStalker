@@ -37,7 +37,7 @@ class pda extends AbstractForm
         
         $this->localization = new Localization($language);        
     
-        $this->time_year->watchMaker->format = 'dd/MM/yyyy';
+        $this->time_year->watchMaker->format = 'dd/MM/YYYY';
     }
     
     function getCurrentLanguageFromUI()
