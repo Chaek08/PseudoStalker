@@ -205,7 +205,7 @@ class UICharacterInfo
         $namePath       = trim($this->form->form('Client')->Pda->content->SDK_ValerokName);
         $iconPath       = trim($this->form->form('Client')->Pda->content->SDK_ValerokIcon);
         $bioPath        = trim($this->form->form('Client')->Pda->content->SDK_ValerokBio);
-        $reputationPath = trim($this->form->form('Client')->Pda->content->SDK_ValerokReputation);
+        //$reputationPath = trim($this->form->form('Client')->Pda->content->SDK_ValerokReputation);
     
         $nameText = $namePath !== '' ? $namePath : $this->localization->get('Valerok_Name');
         $bioText  = $bioPath  !== '' ? $bioPath  : $this->localization->get('Valerok_Bio');
@@ -337,7 +337,7 @@ class UICharacterInfo
         $namePath = trim($this->form->form('Client')->Pda->content->SDK_DanilaName);
         $iconPath = trim($this->form->form('Client')->Pda->content->SDK_DanilaIcon);
         $bioPath  = trim($this->form->form('Client')->Pda->content->SDK_DanilaBio);
-        $reputationPath = trim($this->form->form('Client')->Pda->content->SDK_DanilaReputation);
+        //$reputationPath = trim($this->form->form('Client')->Pda->content->SDK_DanilaReputation);
     
         $nameText = $namePath !== '' ? $namePath : $this->localization->get('Danila_Name');
         $bioText  = $bioPath !== ''  ? $bioPath  : $this->localization->get('Danila_Bio');

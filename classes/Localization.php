@@ -2,6 +2,8 @@
 
 namespace app\forms\classes;
 
+use app\forms\classes\Debug;
+
 class Localization {
     private $translations = [];
     private $language;
@@ -33,7 +35,7 @@ class Localization {
         }
         else
         {
-            throw new \Exception("Localization file not found: $filename");
+            Debug::fatal("Localization file not found\n$filename", __FILE__, __LINE__);
         }
     }
 

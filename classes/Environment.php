@@ -1,6 +1,8 @@
 <?php
 namespace app\forms\classes;
 
+use Throwable;
+use app\forms\classes\Debug;
 use php\framework\Logger;
 use php\time\Time;
 use php\time\Timer;
@@ -248,10 +250,20 @@ class Environment
     public function __construct($mediaView)
     {
         $this->mediaView = $mediaView;
+        
+        if ($mediaView == null)
+        {
+            Debug::fatal('Environment: mediaView is null', __FILE__, __LINE__);
+            return;
+        }        
 
-        $this->videoPlayer       = new MediaPlayerScript();
-        $this->videoPlayer->view = $this->mediaView;
-        $this->videoPlayer->loop = true;
+        try {
+            $this->videoPlayer = new MediaPlayerScript();
+            $this->videoPlayer->view = $this->mediaView;
+            $this->videoPlayer->loop = true;
+        } catch (\Throwable $e) {
+            Debug::fatal('Environment: video player init failed', __FILE__, __LINE__);
+        }
 
         $this->ambientPlayer = new MediaPlayerScript();
         $this->sfxPlayer     = new MediaPlayerScript();
@@ -367,6 +379,7 @@ class Environment
     
         if (empty($this->locations[$locId][$cycle]))
         {
+            Debug::fail("Environment: missing location '{$locId}' for cycle '{$cycle}'", __FILE__, __LINE__);
             return [null, false, false, null, $index];
         }
     
@@ -562,10 +575,14 @@ class Environment
         $file = $sound . '.mp3';
         $path = $this->soundBasePath . $file;
 
-        $this->sfxPlayer->stop();
-        $this->sfxPlayer->open($path);
-        $this->sfxPlayer->volume = $this->volumeSfx;
-        $this->sfxPlayer->play();
+        try {
+            $this->sfxPlayer->stop();
+            $this->sfxPlayer->open($path);
+            $this->sfxPlayer->volume = $this->volumeSfx;
+            $this->sfxPlayer->play();
+        } catch (\Throwable $e) {
+            Debug::fail("Environment: sfx open failed '{$path}'", __FILE__, __LINE__);
+        }
 
         Logger::debug("[Environment]: sfx '{$sound}' played (cycle '{$cycle}')");
     }
@@ -678,13 +695,17 @@ class Environment
     {
         if (!$this->isActive()) return;
         if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
-
-        $this->rainPlayer->stop();
-        $this->rainPlayer->open($this->soundBasePath . $this->rainLoopPath . '.mp3');
-        $this->rainPlayer->volume = $this->volumeRain;
-        $this->rainPlayer->loop   = true;
-        $this->rainPlayer->play();
-
+        
+        try {
+            $this->rainPlayer->stop();
+            $this->rainPlayer->open($this->soundBasePath . $this->rainLoopPath . '.mp3');
+            $this->rainPlayer->volume = $this->volumeRain;
+            $this->rainPlayer->loop   = true;
+            $this->rainPlayer->play();
+        } catch (\Throwable $e) {
+            Debug::fail("Environment: rain sound failed", __FILE__, __LINE__);
+        }
+        
         Logger::debug("[Environment]: rain started '{$this->rainLoopPath}'");
     }
 
@@ -822,6 +843,7 @@ class Environment
         list($backgroundPath, $rain, $anomaly, $rawPath, $locIndex) = $this->pickLocationForCycle($cycle);
         if ($backgroundPath === null)
         {
+            Debug::fail("Environment: no background for cycle '{$cycle}'", __FILE__, __LINE__);
             return;
         }
     
@@ -838,10 +860,15 @@ class Environment
     
             $this->currentBackgroundPath = $backgroundPath;
     
-            $this->videoPlayer->stop();
-            $this->videoPlayer->open($backgroundPath);
-            $this->videoPlayer->play();
-    
+            try {
+                $this->videoPlayer->stop();
+                $this->videoPlayer->open($backgroundPath);
+                $this->videoPlayer->play();
+            } catch (\Throwable $e) {
+                Debug::fail("Environment: video open failed '{$backgroundPath}'", __FILE__, __LINE__);
+                return;
+            }
+
             Logger::debug(
                 "[Environment]: video '{$rawPath}' started for cycle '{$cycle}' (L{$locIndex}, rain=" .
                 ($rain ? '1' : '0') . ", anomaly=" . ($anomaly ? '1' : '0') . ")"
@@ -1000,6 +1027,12 @@ class Environment
 
     public function restoreState(array $state, $timeHm)
     {
+        if (!is_array($state))
+        {
+            Debug::fail('Environment: restoreState got invalid state', __FILE__, __LINE__);
+            return;
+        }
+    
         if (!empty($state['cycle']))
         {
             $this->currentCycle = $state['cycle'];

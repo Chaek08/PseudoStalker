@@ -6,6 +6,7 @@ use php\time\Timer;
 use php\framework\Logger;
 use php\io\Stream;
 use app\forms\classes\DimasCryptoZlodey;
+use app\forms\classes\Debug;
 
 class SaveLoadManager
 {
@@ -198,10 +199,9 @@ class SaveLoadManager
             $parts = explode('.', $key);
             if (!$this->keyExists($data, $parts))
             {
-                if (Debug_Build)
-                {
-                    Logger::error("Corrupt save: missing key '$key'");
-                }
+                Debug_Build
+                    ? Debug::fail("Corrupt save:\nmissing key '$key'", __FILE__, __LINE__)
+                    : Logger::error("Corrupt save: missing key '$key'");
                 $missing[] = $key;
             }
         }
@@ -213,10 +213,16 @@ class SaveLoadManager
     
         if (!isset($data['client_version']) || $data['client_version'] !== client_version)
         {
-            if (Debug_Build)
-            {
-                Logger::error("Version mismatch in save: expected " . client_version . ", got " . ($data['client_version'] ?? 'null'));
-            }
+            Debug_Build
+                ? Debug::fail(
+                    "Version mismatch in save:\n expected " . client_version . ", got " . ($data['client_version'] ?? 'null'),
+                    __FILE__,
+                    __LINE__
+                  )
+                : Logger::error(
+                    "Version mismatch in save: expected " . client_version . ", got " . ($data['client_version'] ?? 'null')
+                  );
+                
             return ['ok' => false, 'error' => 'version'];
         }
     
@@ -388,7 +394,7 @@ class SaveLoadManager
                 if ($saveData['quest_step1'] == true) $form->Pda->content->Pda_Tasks->content->Step1_Complete();
                 $form->MainGame->content->finalizeBattle();
     
-                $form->Pda->content->Pda_Ranking->content->DeathFilter();
+                $form->Pda->content->Pda_Ranking->content->DeathFilterManager();
                 if ($form->Fail->visible) $form->Fail->content->ReturnBtn();
                 if ($saveData['need_to_check_pda'] == false) $form->Pda->content->Pda_Tasks->content->Step_DeletePda();
             }
@@ -477,6 +483,10 @@ class SaveLoadManager
         $result = $this->validateSave($saveData);
         if (!$result['ok'])
         {
+            if (Debug_Build)
+            {
+                Debug::fail("Cannot load save '{$saveName}': " . $result['error'], __FILE__, __LINE__);
+            }
             return;
         }
 

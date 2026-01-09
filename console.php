@@ -13,6 +13,7 @@ use php\gui\event\UXWindowEvent;
 use php\gui\event\UXKeyEvent; 
 use php\gui\event\UXMouseEvent; 
 use app\forms\classes\Localization;
+use app\forms\classes\Debug;
 
 class console extends AbstractForm
 {
@@ -50,7 +51,8 @@ class console extends AbstractForm
         'set_level'   => ' [0-4]',
         'set_cycle'   => ' [night, morning, day, evening, underground]',
         'set_ambient' => ' [1-6]',
-        'env_reset'   => ''
+        'env_reset'   => '',
+        'fatal'       => ' [message]'       
     ];
 
     private $tabMatches = [];
@@ -575,6 +577,15 @@ class console extends AbstractForm
                 
                     $this->edit->text = "";
                     break;
+                    
+                case "fatal":
+                    $message = isset($args[1]) ? implode(" ", array_slice($args, 1)) : "Fatal error triggered from console";
+                    
+                    Debug::fatal($message, __FILE__, __LINE__);
+                    
+                    $this->edit->text = "";
+                    break;
+                    
                     
 
                 default:

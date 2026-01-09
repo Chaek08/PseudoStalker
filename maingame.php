@@ -82,8 +82,16 @@ class maingame extends AbstractForm
         {
             $path = 'res://.data/audio/fight/fight_sound.mp3';
         }
-    
-        Media::open($path, false, $this->FightSound);
+        
+        try
+        {
+            Media::open($path, false, $this->FightSound);
+        }
+        catch (\Throwable $e)
+        {
+            Debug::fail("Fight sound not found: $path", __FILE__, __LINE__);
+            return;
+        }
     
         if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
         {
@@ -968,7 +976,11 @@ class maingame extends AbstractForm
         if ($this->currentWeapon) { $this->UnequipCurrentWeapon(); }
     
         $weapon = CWeaponFactory::create($weaponType, $this);
-        if (!$weapon) return;
+        if (!$weapon)
+        {
+            Debug::fail("Weapon '$weaponType' not created", __FILE__, __LINE__);
+            return;
+        }
     
         if (isset($this->weaponState[$weaponType]))
         {

@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\Environment;
 use php\lang\Thread;
 use app\forms\classes\FPSGandon;
 use php\gui\animation\UXAnimationTimer;
@@ -23,7 +24,7 @@ use php\gui\framework\AbstractForm;
 use php\gui\event\UXWindowEvent; 
 use php\gui\event\UXMouseEvent; 
 use php\gui\event\UXEvent; 
-
+use app\forms\classes\Debug;
 
 class Client extends AbstractForm
 {
@@ -46,25 +47,40 @@ class Client extends AbstractForm
         $GLOBALS['AmbientSound'] = true;        
         $GLOBALS['HudVisible'] = true;
         
-        $this->localization = new Localization($language);     
+        $this->localization = new Localization($language); 
+        
+        if (!$this->localization) Debug::fatal(__CLASS__ . ': Localization init failed', __FILE__, __LINE__);
         
         $this->syncWithSDKLTX();
         $this->InitUserLTX();        
 
         $this->GetVersion();
 
-        $this->MainMenu->content->InitMainMenu();
+        $this->MainMenu->content->InitMainMenu();       
         $this->MainMenu->content->Options->content->InitOptions();
                 
         $this->MainGame->content->RenderHud(false);
         
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+        
+        $user = System::getProperty('user.name');
+        if ($user == 'ok1') 
+        {
+            Debug::fatal("Incorrect player:\n$user", __FILE__, __LINE__);
+            $this->free();
+        }       
     }
     function applyResolutionFromLTX()
     {
         $parts = explode('x', $this->ltx['vid_mode']);
 
-        if (count($parts) != 2) return;
+        if (!preg_match('/^[1-9]\d*x[1-9]\d*$/', $this->ltx['vid_mode']))
+        {
+            uiLater(function(){
+                Debug::fatal("Invalid vid_mode '{$this->ltx['vid_mode']}'", __FILE__, __LINE__);                
+            });
+            return;
+        }
 
         $targetW = (int)$parts[0];
         $targetH = (int)$parts[1];
@@ -166,14 +182,18 @@ class Client extends AbstractForm
     {
         $filePath = "PseudoCore.dll";
 
-        if (!file_exists($filePath))
+        if (!file_exists($filePath)) 
         {
-            app()->shutdown();
-            return;
+            Debug::fatal('PseudoCore.dll not found', __FILE__, __LINE__);
         }
 
         $encrypted = file_get_contents($filePath);
         $this->BuildID = '(null)';
+        
+        if ($encrypted == false) 
+        {
+            Debug::fail('Failed to read PseudoCore.dll', __FILE__, __LINE__);
+        }
 
         if ($encrypted != false)
         {
@@ -323,7 +343,13 @@ class Client extends AbstractForm
         if (!is_dir($dir))
         {
             mkdir($dir, 0777, true);
-        }        
+        }
+        
+        if (!is_writable(dirname($this->ltxPath))) 
+        {
+            Debug::fatal(__CLASS__.': user.ltx directory not writable', __FILE__, __LINE__);
+        }
+        
         file_put_contents($this->ltxPath, $content);
     }
     function syncWithSDKLTX()

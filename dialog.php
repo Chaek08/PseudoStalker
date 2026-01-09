@@ -30,7 +30,7 @@ class dialog extends AbstractForm
             
             $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon_enemy, $this->rank_enemy, null, $this->community_enemy, null, $this->enemy_name);
             $this->enemyCharacterInfo->setEnemy();    
-        });    
+        });         
     }
     
     function getCurrentLanguageFromUI()
@@ -241,7 +241,7 @@ class dialog extends AbstractForm
     
         if (!file_exists($soundPath))
         {
-            throw new \Exception("Sound file not found: $soundPath");
+            Debug::fatal("Sound file not found: $soundPath", __FILE__, __LINE__);
         }
     
         (new Thread(function() use ($soundPath, $mediaId) {
