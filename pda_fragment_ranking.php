@@ -16,12 +16,15 @@ class pda_fragment_ranking extends AbstractForm
     public $actorCharacterInfo;
     public $enemyCharacterInfo; 
     public $valerokCharacterInfo;
-    
+    public $danilaCharacterInfo;
+        
     public $actorCharacterName;
     public $enemyCharacterName;
     public $valerokCharacterName;
-    
+    public $danilaCharacterName;
+        
     public $ratingHueta;
+    public $deathFilter;
         
     public function __construct() 
     {
@@ -40,8 +43,11 @@ class pda_fragment_ranking extends AbstractForm
             $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->enemyCharacterName);
             $this->enemyCharacterInfo->setEnemy();
             
-            $this->valerokCharacterInfo =  new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->valeroCharacterName);
+            $this->valerokCharacterInfo =  new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->valerokCharacterName);
             $this->valerokCharacterInfo->setValerok();
+            
+            $this->danilaCharacterInfo =  new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->danilaCharacterInfo);
+            $this->danilaCharacterInfo->setDanila();            
             
             //for($i=0;$i<27;$i++) $this->ratingHueta->setEntry(substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,rand(6,12)),rand(100,1000));            
         });
@@ -49,6 +55,7 @@ class pda_fragment_ranking extends AbstractForm
         $GLOBALS['SelectedActor'] = false;
         $GLOBALS['SelectedEnemy'] = false;
         $GLOBALS['SelectedValera'] = false;
+        $GLOBALS['SelectedDanila'] = false;        
     }
     
     function getCurrentLanguageFromUI()
@@ -65,11 +72,13 @@ class pda_fragment_ranking extends AbstractForm
         $this->actorCharacterInfo->setActor();
         $this->enemyCharacterInfo->setEnemy();
         $this->valerokCharacterInfo->setValerok();                
-                
+        $this->danilaCharacterInfo->setDanila();  
+                        
         $this->ratingHueta->setEntry($this->actorCharacterInfo->name, $this->actorCharacterInfo->getRankValue());
         $this->ratingHueta->setEntry($this->enemyCharacterInfo->name, $this->enemyCharacterInfo->getRankValue());
         $this->ratingHueta->setEntry($this->valerokCharacterInfo->name, $this->valerokCharacterInfo->getRankValue());
-        
+        $this->ratingHueta->setEntry($this->danilaCharacterInfo->name, $this->danilaCharacterInfo->getRankValue());
+                
         $this->ratingHueta->render($this->ratingKunteynir);
         
         $this->ratingHueta->onClick($this->actorCharacterInfo->name, function($entry) {
@@ -83,6 +92,10 @@ class pda_fragment_ranking extends AbstractForm
         $this->ratingHueta->onClick($this->valerokCharacterInfo->name, function($entry) {
             $this->ValerokInListBtn();
         });
+        
+        $this->ratingHueta->onClick($this->danilaCharacterInfo->name, function($entry) {
+            $this->DanilaInListBtn();
+        });        
             
         $this->ratingHueta->onBackgroundClick = function() {
             $this->HideUserInfo();
@@ -94,7 +107,8 @@ class pda_fragment_ranking extends AbstractForm
         $GLOBALS['SelectedActor'] = false;
         $GLOBALS['SelectedEnemy'] = false;
         $GLOBALS['SelectedValera'] = false;
-            
+        $GLOBALS['SelectedDanila'] = false;
+                    
         $this->tab_detail->text = null;
         $this->community_desc->hide();
         $this->community->hide(); 
@@ -104,9 +118,9 @@ class pda_fragment_ranking extends AbstractForm
         $this->attitude->hide(); 
         $this->bio->hide();         
         $this->separator->hide(); 
+        
         $this->user_icon->hide();   
-               
-        if ($this->death_filter->visible) $this->death_filter->hide();
+        $this->removeDeathFilter($this->user_icon);
     }
     function ShowUserInfo()
     {
@@ -132,32 +146,48 @@ class pda_fragment_ranking extends AbstractForm
         $this->ResetUserInfo();
         $this->ResetBtnColor();
     }
+    
     function ResetBtnColor()
     {
         $this->ratingHueta->resetColors();
     }
-    function DeathFilter() // Cake-crypto
+    
+    function applyDeathFilter($image)
+    {
+        $image->innerShadowEffect->radius = 1000;
+        $image->innerShadowEffect->color = '#b40000cc';
+    }    
+    
+    function removeDeathFilter($image)
+    {
+        $image->innerShadowEffect->radius = 0;
+        $image->innerShadowEffect->color = null;
+    }
+    
+    function DeathFilterManager() // Cake-crypto
     { 
         if ($this->form('Client')->Pda->content->Pda_Statistic->visible)
         {
-            $GLOBALS['ActorFailed'] ? $this->form('Client')->Pda->content->Pda_Statistic->content->death_filter->show() : $this->form('Client')->Pda->content->Pda_Statistic->content->death_filter->hide();           
+            $GLOBALS['ActorFailed']
+                ? $this->applyDeathFilter($this->form('Client')->Pda->content->Pda_Statistic->content->icon)
+                : $this->removeDeathFilter($this->form('Client')->Pda->content->Pda_Statistic->content->icon);           
         }
         
         if ($GLOBALS['SelectedActor']) //Проверяем, выбран ли сейчас нужный user
         {
-            $GLOBALS['ActorFailed'] ? $this->death_filter->show() : $this->death_filter->hide();
+            $GLOBALS['ActorFailed'] ? $this->applyDeathFilter($this->user_icon) : $this->removeDeathFilter($this->user_icon);
         }
         if ($GLOBALS['SelectedEnemy']) //Проверяем, выбран ли сейчас нужный user
         {
-            $GLOBALS['EnemyFailed'] ? $this->death_filter->show() : $this->death_filter->hide(); //Проверяем, мёртв ли противник, чтобы в дальнейшем прописать ему DeathFilter
+            $GLOBALS['EnemyFailed'] ? $this->applyDeathFilter($this->user_icon) : $this->removeDeathFilter($this->user_icon); //Проверяем, мёртв ли противник, чтобы в дальнейшем прописать ему DeathFilter
         }
-        if ($GLOBALS['SelectedValera']) //Проверяем, выбран ли сейчас нужный user
+        if ($GLOBALS['SelectedValera'] || $GLOBALS['SelectedDanila']) //Проверяем, выбран ли сейчас нужный user
         {
-            $this->death_filter->hide();
+            $this->removeDeathFilter($this->user_icon);
         }
     }
 
-    function ActorInListBtn(UXMouseEvent $e = null)
+    function ActorInListBtn()
     {    
         $this->ResetUserInfo();
         $this->ShowUserInfo();
@@ -166,7 +196,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->SetUserInfo();
     }
 
-    function ValerokInListBtn(UXMouseEvent $e = null)
+    function ValerokInListBtn()
     {    
         $this->ResetUserInfo();
         $this->ShowUserInfo();
@@ -175,7 +205,7 @@ class pda_fragment_ranking extends AbstractForm
         $this->SetUserInfo();
     }
 
-    function EnemyInListBtn(UXMouseEvent $e = null)
+    function EnemyInListBtn()
     {    
         $this->ResetUserInfo();
         $this->ShowUserInfo();
@@ -183,6 +213,15 @@ class pda_fragment_ranking extends AbstractForm
         $GLOBALS['SelectedEnemy'] = true;
         $this->SetUserInfo();
     }
+    
+    function DanilaInListBtn()
+    {    
+        $this->ResetUserInfo();
+        $this->ShowUserInfo();
+        
+        $GLOBALS['SelectedDanila'] = true;
+        $this->SetUserInfo();
+    }    
     /**
      * @event user_icon.click-2x 
      */
@@ -215,7 +254,7 @@ class pda_fragment_ranking extends AbstractForm
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
-        $this->DeathFilter();
+        $this->DeathFilterManager();
         
         if ($GLOBALS['SelectedEnemy'])
         {
@@ -225,6 +264,10 @@ class pda_fragment_ranking extends AbstractForm
         {
             $this->valerokCharacterInfo->setValerok();
         }
+        elseif ($GLOBALS['SelectedDanila'])
+        {
+            $this->danilaCharacterInfo->setDanila();
+        }        
         elseif ($GLOBALS['SelectedActor'])
         {
             $this->attitude->hide();

@@ -44,7 +44,7 @@ class maingame extends AbstractForm
     {
         parent::__construct();
 
-        $this->localization = new Localization($language);
+        $this->localization = new Localization($language); 
                
         $this->GameActor = new CActor();
         $this->GameActor->SetModel($this->actor);
@@ -66,7 +66,7 @@ class maingame extends AbstractForm
             $this->GameEnemy->GetModel()->colorAdjustEffect->brightness   = $brightness;
             $this->item_vodka_0000->colorAdjustEffect->brightness         = $brightness;
         });
-        $this->Environment->fireCycleChangeOnce();           
+        $this->Environment->fireCycleChangeOnce();   
     }
     
     function getCurrentLanguageFromUI()
@@ -155,7 +155,7 @@ class maingame extends AbstractForm
             $this->form('Client')->Pda->content->Pda_Tasks->content->ShowActiveTasks();
             $this->form('Client')->Pda->content->Pda_Tasks->content->StepReset();
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step_DeletePda();
-            $this->form('Client')->Pda->content->Pda_Ranking->content->DeathFilter();
+            $this->form('Client')->Pda->content->Pda_Ranking->content->DeathFilterManager();
             $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateRaiting();
             $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
 

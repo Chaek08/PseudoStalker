@@ -17,6 +17,9 @@ class pda extends AbstractForm
     public $SDK_ValerokName;
     public $SDK_ValerokIcon;
     public $SDK_ValerokBio;
+    public $SDK_DanilaName;
+    public $SDK_DanilaIcon;
+    public $SDK_DanilaBio;    
     
     public $SDK_DeRoleName;
     public $SDK_DeRoleColor;
@@ -232,7 +235,7 @@ class pda extends AbstractForm
         $this->Pda_Background->hide();
         
         $this->Pda_Statistic->content->InitRaiting();
-        $this->Pda_Ranking->content->DeathFilter();
+        $this->Pda_Ranking->content->DeathFilterManager();
         $this->Pda_Tasks->content->Step_DeletePda();
     }  
 }
