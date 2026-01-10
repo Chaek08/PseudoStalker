@@ -52,12 +52,12 @@ class maingame extends AbstractForm
         
         $this->Particles = new ParticleManager($this);        
                
-        $this->GameActor = new CActor();
+        $this->GameActor = new CActor($this);
         $this->GameActor->SetModel($this->actor);
         
         $this->GameActor->SetInteractive(false);
         
-        $this->GameEnemy = new CEnemy();
+        $this->GameEnemy = new CEnemy($this);
         $this->GameEnemy->SetModel($this->enemy);
         
         $this->GameEnemy->SetInteractive(false);
@@ -467,7 +467,7 @@ class maingame extends AbstractForm
                     }
                     $this->coverTimer = Timer::after(2500, function () {
                         $randCover = rand(1, 5);
-                        $this->form('Client')->playSoundAsync("res://.data/audio/fight/cover_sounds/enemy/cover_fire_{$randCover}.mp3", true, 'hit_cover_enemy');
+                        $this->GameEnemy->playSound("res://.data/audio/fight/cover_sounds/enemy/cover_fire_{$randCover}.mp3", 900);
                         $this->coverTimer = null;
                     });
                 }
@@ -604,7 +604,7 @@ class maingame extends AbstractForm
 
             if ($GLOBALS['AllSounds'])
             {
-                $randEbanul = rand(0, 5);
+                $randEbanul = rand(0, 5);            
                 $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", true, 'hit_actor_damage');
                          
                 $playHitChance = 90;
@@ -624,7 +624,7 @@ class maingame extends AbstractForm
                     }
                     $this->coverTimer = Timer::after(2500, function () {
                         $randCover = rand(1, 2);
-                        $this->form('Client')->playSoundAsync("res://.data/audio/fight/cover_sounds/actor/cover_fire_{$randCover}.mp3", true, 'hit_cover_actor');
+                        $this->GameActor->playSound("res://.data/audio/fight/cover_sounds/actor/cover_fire_{$randCover}.mp3", 900);    
                         $this->coverTimer = null;
                     });
                 }               

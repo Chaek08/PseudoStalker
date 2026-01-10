@@ -475,6 +475,7 @@ class Client extends AbstractForm
         //if (Media::isStatus('PLAYING', 'hit_actor_damage')) Media::stop('hit_actor_damage');
         //if (Media::isStatus('PLAYING', 'die_enemy')) Media::stop('die_enemy');
         //if (Media::isStatus('PLAYING', 'die_actor')) Media::stop('die_actor');
+        if (Media::isStatus('PLAYING', 'entity_voice')) Media::stop('entity_voice');
         if (Media::isStatus('PLAYING', 'AK74_reload')) Media::stop('AK74_reload');
         if (Media::isStatus('PLAYING', 'Pm_reload')) Media::stop('Pm_reload');
         if (Media::isStatus('PLAYING', 'AK74_shot')) Media::stop('AK74_shot');
@@ -497,6 +498,7 @@ class Client extends AbstractForm
                 //'hit_enemy', 'hit_enemy_damage',
                 //'hit_actor', 'hit_actor_damage',
                 //'die_enemy', 'die_actor',
+                'entity_voice',
                 'AK74_reload', 'Pm_reload',
                 'AK74_shot', 'Pm_shot',
                 'pm_draw', 'ak74_draw',
