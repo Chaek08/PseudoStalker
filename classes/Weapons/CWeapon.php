@@ -213,55 +213,16 @@ abstract class CWeapon
 
     protected function spawnMuzzleAndBlood(): void
     {
-        [$ox, $oy] = $this->particleOffset;
-
-        $this->owner->spawnParticleAsync(function () use ($ox, $oy) {
-            $p = new UXImageView(new UXImage('res://.data/ui/particles/shoot.png'));
-            $p->width = 128; $p->height = 128; $p->opacity = 1;
-            $p->x = $this->owner->GameActor->GetModel()->x + $ox;
-            $p->y = $this->owner->GameActor->GetModel()->y + $oy;
-            (new \behaviour\custom\BloomEffectBehaviour())->apply($p);
-            return $p;
-        }, function ($p) {
-            Animation::fadeOut($p, 150, function () use ($p) {
-                if ($p->parent) { $p->parent->remove($p); }
-                $p->free();
-            });
-        });
-
         $actor = $this->owner->GameActor->GetModel();
         $enemy = $this->owner->GameEnemy->GetModel();
-
-        if (!$enemy || !$actor || !$enemy->visible)
-        {
-            return;
-        }
-
-        if ($actor->x > $enemy->x)
-        {
-            return;
-        }
-        
-        if ($enemy->visible)
+    
+        if (!$actor) return;
+    
+        $this->owner->Particles->weaponShot($actor, $enemy, $this->particleOffset[0], $this->particleOffset[1]);
+    
+        if ($enemy && $enemy->visible && $actor->x < $enemy->x)
         {
             $this->owner->DamageEnemy(null, false);
-            $bloodCount = rand(4, 7);
-            foreach (range(1, $bloodCount) as $_) {
-                $scatterX = rand(-35, 35);
-                $scatterY = rand(-35, 35);
-                $this->owner->spawnParticleAsync(function () use ($enemy, $scatterX, $scatterY, $oy) {
-                    $b = new UXImageView(new UXImage('res://.data/ui/particles/blood.png'));
-                    $b->scale = $this->owner->form('Client')->MainGame->scale;
-                    $b->width = 86; $b->height = 86; $b->opacity = 1.0;
-                    $hitX = $enemy->x + ($enemy->width / 2) - ($b->width / 2);
-                    $hitY = $this->owner->GameActor->GetModel()->y + $oy;
-                    $b->x = $hitX + $scatterX;
-                    $b->y = $hitY + $scatterY;
-                    return $b;
-                }, function ($b) {
-                    Animation::fadeOut($b, 400, function () use ($b) { $b->free(); });
-                });
-            }
         }
     }
 

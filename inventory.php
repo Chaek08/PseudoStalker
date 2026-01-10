@@ -363,10 +363,7 @@ class inventory extends AbstractForm
         $this->InventoryGrid->content->addAmmo5x45ToInventory();
         $this->InventoryGrid->content->addAmmo9x18ToInventory();     
         
-        $this->form('Client')->MainGame->content->item_vodka_0000->hide();
-        $this->form('Client')->MainGame->content->item_vodka_0000->enabled = true;
-        $this->form('Client')->MainGame->content->item_vodka_0000->opacity = 100;
-        $this->form('Client')->MainGame->content->item_vodka_0000->position = [256,696];
+        $this->form('Client')->MainGame->content->ItemVodka->despawn();
     }
     
     function SetItemCondition()

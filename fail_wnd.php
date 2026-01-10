@@ -48,9 +48,15 @@ class fail_wnd extends AbstractForm
         $Client = $this->form('Client');
         
         $Client->MainGame->content->RenderHud(true);
+        $Vodka = $Client->MainGame->content->ItemVodka;
         
         $Client->Fail->hide();
-        if (!$Client->Inventory->content->InventoryGrid->content->Inv_Vodka->visible || $Client->MainGame->content->item_vodka_0000->opacity != 0) $Client->MainGame->content->item_vodka_0000->show();
+        
+        if (!$Client->Inventory->content->InventoryGrid->content->Inv_Vodka->visible|| !$Vodka->isVisible())
+        {
+            $vodka->show();
+        }
+        
         if ($GLOBALS['ActorFailed']) $Client->MainGame->content->GameEnemy->GetModel()->show();
         if ($GLOBALS['EnemyFailed']) $Client->MainGame->content->GameActor->GetModel()->show();
         

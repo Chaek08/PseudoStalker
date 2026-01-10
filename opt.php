@@ -269,7 +269,7 @@ class opt extends AbstractForm
             
             //Client
             uiLater(function () {
-                $this->form('Client')->MainGame->content->item_vodka_0000->dropShadowEffect->disable();   
+                $this->form('Client')->MainGame->content->ItemVodka->disableShadow();  
                 $this->form('Client')->MainGame->content->actor->dropShadowEffect->disable();  
                 $this->form('Client')->MainGame->content->enemy->dropShadowEffect->disable();   
                 $this->form('Client')->MainGame->content->Talk_Label->dropShadowEffect->disable();   
@@ -352,7 +352,7 @@ class opt extends AbstractForm
             
             uiLater(function () {
                 //Client
-                $this->form('Client')->MainGame->content->item_vodka_0000->dropShadowEffect->enable();
+                $this->form('Client')->MainGame->content->ItemVodka->enableShadow();
                 $this->form('Client')->MainGame->content->actor->dropShadowEffect->enable();
                 $this->form('Client')->MainGame->content->enemy->dropShadowEffect->enable();
                 $this->form('Client')->MainGame->content->Talk_Label->dropShadowEffect->enable();

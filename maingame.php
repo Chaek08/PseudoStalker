@@ -22,6 +22,7 @@ use php\gui\event\UXMouseEvent;
 use php\framework\Logger;
 use app\forms\classes\Localization;
 use php\gui\event\UXEvent; 
+use app\forms\classes\ParticleManager;
 
 class maingame extends AbstractForm
 {
@@ -33,18 +34,23 @@ class maingame extends AbstractForm
     public $SDK_EnemyModel;    
     
     public $Environment;
+    public $Particles;
 
     public $GameActor;
     public $GameEnemy;
 
     public $currentWeapon = null;  
-    public $weaponState = [];    
+    public $weaponState = [];
+    
+    public $ItemVodka;
 
     public function __construct() 
     {
         parent::__construct();
 
         $this->localization = new Localization($language); 
+        
+        $this->Particles = new ParticleManager($this);        
                
         $this->GameActor = new CActor();
         $this->GameActor->SetModel($this->actor);
@@ -56,6 +62,11 @@ class maingame extends AbstractForm
         
         $this->GameEnemy->SetInteractive(false);
         
+        $this->ItemVodka = new CVodka($this, $this->item_vodka_0000, $this->GameActor, $this->GameEnemy); //CItem zavtra
+        $this->ItemVodka->disable();
+        $this->ItemVodka->hide();
+        $this->ItemVodka->resetVisual();
+        
         $this->Environment = new Environment($this->Environment_Space);
         $this->Environment->startAmbient();
         $this->Environment->pause();
@@ -64,7 +75,8 @@ class maingame extends AbstractForm
             
             $this->GameActor->GetModel()->colorAdjustEffect->brightness   = $brightness;
             $this->GameEnemy->GetModel()->colorAdjustEffect->brightness   = $brightness;
-            $this->item_vodka_0000->colorAdjustEffect->brightness         = $brightness;
+            
+            $this->ItemVodka->setBrightness($brightness);
         });
         $this->Environment->fireCycleChangeOnce();   
     }
@@ -154,7 +166,7 @@ class maingame extends AbstractForm
             
             $this->GameEnemy->SetInteractive(false);
             
-            $this->item_vodka_0000->enabled = false;
+            $this->ItemVodka->disable();
 
             $this->form('Client')->Pda->content->DefaultState();
             $this->form('Client')->Pda->content->Pda_Contacts->content->UpdateContacts();
@@ -277,116 +289,35 @@ class maingame extends AbstractForm
         
         if ($this->currentWeapon) $this->currentWeapon->softHide();
         
-        if ($this->item_vodka_0000->visible) $this->item_vodka_0000->hide();
+        if ($this->ItemVodka->isVisible()) $this->ItemVodka->hide();
         if ($GLOBALS['ActorFailed']) $this->GameEnemy->GetModel()->hide();
         if ($GLOBALS['EnemyFailed']) $this->GameActor->GetModel()->hide();
     }
     
     function SpawnItem()
     {
-        $actor = $this->GameActor->GetModel();
-        $vodka = $this->item_vodka_0000;
-
-        $floorOffset = -10;
-
-        $spawnX = $actor->x + ($actor->width * 1.2);
-        $spawnY = $actor->y + $actor->height - $vodka->height + $floorOffset;
-
-        $vodka->x = $spawnX;
-        $vodka->y = $spawnY;
-        $vodka->opacity = 100;
-        $vodka->show();
-    }  
+        $this->ItemVodka->spawn();
+    }
+    
     /**
      * @event item_vodka_0000.click-2x
      */
     function VodkaAttack(UXMouseEvent $e = null)
     {
-        $vodka = $this->item_vodka_0000;
-        $enemy = $this->GameEnemy->GetModel();
-
-        $targetX = $enemy->x + ($enemy->width / 2) - ($vodka->width / 2);
-        $targetY_Head = $enemy->y;
-
-        $floorOffset = -10;
-        $floorY = $enemy->y + $enemy->height - $vodka->height + $floorOffset;
-
-        $startX = $vodka->x;
-        $startY = $vodka->y;
-
-        $dx = $targetX - $startX;
-        $dy = $targetY_Head - $startY;
-
-        $distance = sqrt($dx * $dx + $dy * $dy);
-
-        $speed = 0.9;
-        $duration = (int)($distance / $speed);
-
-        $initialEnemyX = $enemy->x;
-        $initialEnemyY = $enemy->y;
-
-        Animation::moveTo($vodka, $duration, $targetX, $targetY_Head, function () use ($vodka, $enemy, $floorY, $initialEnemyX, $initialEnemyY) {
-            $enemyStillHere = $enemy->x === $initialEnemyX && $enemy->y === $initialEnemyY;
-
-            if ($enemyStillHere && Geometry::intersect($vodka, $enemy))
-            {
-                for ($i = 0; $i < rand(2, 4); $i++)
-                {
-                    $scatterX = rand(-25, 25);
-                    $scatterY = rand(-25, 25);
-
-                    $particle = new UXImageView();
-                    $particle->image = new UXImage("res://.data/ui/particles/blood.png");
-                    $particle->scale = $this->form('Client')->MainGame->scale;
-                    $particle->width = 86;
-                    $particle->height = 86;
-
-                    $hitX = $enemy->x + ($enemy->width / 2) - ($particle->width / 2);
-                    $hitY = $enemy->y - 10;
-
-                    $particle->x = $hitX + $scatterX;
-                    $particle->y = $hitY + $scatterY;
-                    $particle->opacity = 1.0;
-
-                    $this->add($particle);
-
-                    Animation::fadeOut($particle, 300, function () use ($particle) {
-                        $particle->free();
-                    });
-                } 
-            
-                $this->DamageEnemy(null, false);
-
-                Animation::displace($vodka, 300, -150, -10, function () use ($vodka, $floorY) {
-                    Animation::moveTo($vodka, 300, $vodka->x, $floorY);
-                });
-            }
-            else
-            {
-                Animation::moveTo($vodka, 400, $vodka->x, $floorY);
-            }
+        $this->ItemVodka->throwAtEnemy(function ($enemy) {
+            $this->Particles->bloodConeAtTarget($enemy);
+            $this->DamageEnemy(null, false, false);
         });
     }
+
     /**
      * @event item_vodka_0000.click-Right 
      */
     function VodkaDraggingEnable(UXMouseEvent $e = null)
     {    
-        $vodka = $this->item_vodka_0000;
-        $actor = $this->GameActor->GetModel();
-
-        $targetX = $actor->x + ($actor->width * 1.2) - ($vodka->width / 2);
-        $targetY = $vodka->y;
-
-        $dx = $targetX - $vodka->x;
-        $dy = 0;
-        $distance = sqrt($dx * $dx + $dy * $dy);
-
-        $speed = 1.3;
-        $duration = (int)($distance / $speed);
-
-        Animation::moveTo($vodka, $duration, $targetX, $targetY);
-    }    
+        $this->ItemVodka->returnToActor();
+    } 
+       
     function GetHealth() 
     {
         if (!$GLOBLAS['QuestStep1'])
@@ -453,63 +384,13 @@ class maingame extends AbstractForm
     
         $this->blood_ui->y = $nextY;
     }
-    function SpawnParticle($target)
-    {
-        if ($target == $this->GameActor->GetModel())
-        {
-            $healthBar = $this->health_bar_actor;
-        }
-        else 
-        {
-            $healthBar = $this->health_bar_enemy;
-        }    
-    
-        $cursorX = $this->form('Client')->CustomCursor->x;
-        $cursorY = $this->form('Client')->CustomCursor->y;
-    
-        $bloodCount = rand(4, 6);
-    
-        array_map(function() use ($cursorX, $cursorY, $healthBar) {
-            $scatterX = rand(-35, 35);
-            $scatterY = rand(-35, 35);
-    
-            $this->spawnParticleAsync(
-                function() use ($cursorX, $cursorY, $scatterX, $scatterY)
-                {
-                    $particle = new UXImageView();
-                    $particle->enabled = false;
-                    $particle->opacity = 1;
-                    $particle->image = new UXImage("res://.data/ui/particles/blood.png");
-                    $particle->scale = $this->form('Client')->MainGame->scale;
-                    $particle->width = 86;
-                    $particle->height = 86;
-    
-                    $particle->x = $cursorX - ($particle->width / 2) + $scatterX;
-                    $particle->y = $cursorY - ($particle->height / 2) + $scatterY;
-    
-                    return $particle;
-                },
-                function($particle) use ($healthBar)
-                {
-                    $delay = ($healthBar->width - 30 <= 54) ? 600 : 300;
-    
-                    Timer::after($delay, function () use ($particle) {
-                        Animation::fadeOut($particle, 300, function () use ($particle) {
-                            $particle->free();
-                        });
-                    });
-                },
-                true
-            );
-        }, range(1, $bloodCount));
-    }
     
     private $coverTimer;
     
     /**
      * @event enemy.click-2x
      */       
-    function DamageEnemy(UXMouseEvent $e = null, bool $spawnParticles = true)
+    function DamageEnemy(UXMouseEvent $e = null, bool $spawnParticles = true,  bool $damageByMouse = true)
     { 
         if (!$this->GameEnemy->CanInteractive())
         {
@@ -549,9 +430,21 @@ class maingame extends AbstractForm
     
             if ($spawnParticles)
             {
-                $this->SpawnParticle($enemy); 
+                if ($damageByMouse)
+                {
+                    $cursor = $this->form('Client')->CustomCursor;
+                    $enemy  = $this->GameEnemy->GetModel();
+            
+                    $floorY = $enemy->y + $enemy->height - 20;
+            
+                    $this->Particles->bloodBurstAtPoint($cursor->x, $cursor->y, $floorY, 4, 7);
+                }
+                else
+                {
+                    $this->Particles->bloodConeAtTarget($this->GameEnemy->GetModel());
+                }
             }
-    
+
             if ($GLOBALS['AllSounds'])
             {
                 $randEbanul = rand(0, 5);
@@ -589,9 +482,9 @@ class maingame extends AbstractForm
     
             if ($spawnParticles)
             {
-                $this->SpawnParticle($enemy); 
+                $this->Particles->bloodConeAtTarget($this->GameEnemy->GetModel());
             }
-    
+
             if ($GLOBALS['AllSounds'])
             {
                 $randEbanul = rand(0, 5);
@@ -706,8 +599,9 @@ class maingame extends AbstractForm
                 }
             });
     
-            $this->SpawnParticle($actor);
-    
+            $floorY = $this->GameActor->GetModel()->y + $this->GameActor->GetModel()->height - 20;
+            $this->Particles->bloodBurstAtPoint($this->form('Client')->CustomCursor->x, $this->form('Client')->CustomCursor->y, $floorY, 4, 7);
+
             if ($GLOBALS['AllSounds'])
             {
                 $randEbanul = rand(0, 5);
@@ -750,7 +644,7 @@ class maingame extends AbstractForm
             if ($this->blood_ui->visible) $this->blood_ui->hide();
             if ($this->HitMark->visible)  $this->HitMark->hide();
     
-            $this->SpawnParticle($actor);
+            $this->Particles->bloodConeAtTarget($this->GameActor->GetModel());
     
             if ($GLOBALS['AllSounds'])
             {
@@ -820,8 +714,9 @@ class maingame extends AbstractForm
         if ($GLOBALS['ActorFailed']) $this->GameActor->GetModel()->hide();
         if ($GLOBALS['EnemyFailed']) $this->GameEnemy->GetModel()->hide();     
         
-        $this->item_vodka_0000->enabled = false;
-        $this->item_vodka_0000->opacity = 0;
+        $this->ItemVodka->disable();
+        $this->ItemVodka->setOpacity(0);
+        $this->ItemVodka->hide();
         
         $this->GameActor->SetInteractive(false);
         $this->GameEnemy->SetInteractive(false);
@@ -928,29 +823,6 @@ class maingame extends AbstractForm
             Animation::fadeOut($this->MessageBox, 500);
         });
     }  
-    
-    function spawnParticleAsync(callable $factory, callable $afterAdd = null, bool $toClient = false)
-    {
-        (new Thread(function() use ($factory, $afterAdd, $toClient) {
-            $particle = $factory();
-    
-            UXApplication::runLater(function() use ($particle, $afterAdd, $toClient) {
-                if ($toClient)
-                {
-                    $this->form('Client')->add($particle);
-                }
-                else
-                {
-                    $this->add($particle);
-                }
-    
-                if ($afterAdd)
-                {
-                    $afterAdd($particle);
-                }
-            });
-        }))->start();
-    }    
     
     public function UnequipCurrentWeapon(): void
     {

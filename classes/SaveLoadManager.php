@@ -317,7 +317,7 @@ class SaveLoadManager
             $form->Pda->content->Pda_Tasks->content->time_quest_hm->text   = $saveData['quest_time']['hm'];
     
             $form->MainGame->content->item_vodka_0000->visible = $saveData['vodka_exist'];
-            if ($form->MainGame->content->item_vodka_0000->visible)
+            if ($form->MainGame->content->ItemVodka->isVisible())
             {
                 if ($form->Inventory->content->InventoryGrid->content->selectedItem = $form->Inventory->content->InventoryGrid->content->Inv_Vodka)
                     $form->Inventory->content->InventoryGrid->content->DropItem();
