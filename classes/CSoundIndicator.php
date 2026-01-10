@@ -2,6 +2,7 @@
 namespace app\forms\classes;
 
 use php\time\Timer;
+use php\gui\UXApplication;
 use action\Animation;
 use php\gui\UXImageView;
 use php\gui\UXImage;
@@ -9,55 +10,40 @@ use php\gui\UXImage;
 class CSoundIndicator
 {
     private $icon;
-    private $ownerModel;
+    private $model;
+    private $parent;
     private $followTimer;
 
     private const ICON_SIZE = 56;
     private const FOLLOW_INTERVAL = 8;
 
-    public function __construct($ownerModel)
+    public function __construct($model)
     {
-        $this->ownerModel = $ownerModel;
+        $this->model  = $model;
+        $this->parent = $model->parent;
 
         $this->icon = new UXImageView(new UXImage('res://.data/ui/maingame/speaker.png'));
 
         $this->icon->fitWidth  = self::ICON_SIZE;
         $this->icon->fitHeight = self::ICON_SIZE;
-
-        $this->icon->visible = false;
-        $this->icon->opacity = 0;
+        $this->icon->visible  = false;
+        $this->icon->opacity  = 0;
         $this->icon->mouseTransparent = true;
 
-        $ownerModel->parent->children->add($this->icon);
+        $this->parent->children->add($this->icon);
     }
 
     public function playFor(int $durationMs): void
     {
-        $this->forceUpdatePosition();
+        $this->updatePosition();
 
-        uiLater(function () {
-            $this->forceUpdatePosition();
-        });
+        $this->icon->visible = true;
+        Animation::fadeIn($this->icon, 150);
 
         $this->startFollow();
-        $this->show();
 
         Timer::after($durationMs, function () {
             $this->hide();
-        });
-    }
-
-    private function show(): void
-    {
-        $this->icon->visible = true;
-        Animation::fadeIn($this->icon, 150);
-    }
-
-    private function hide(): void
-    {
-        Animation::fadeOut($this->icon, 200, function () {
-            $this->icon->visible = false;
-            $this->stopFollow();
         });
     }
 
@@ -66,7 +52,9 @@ class CSoundIndicator
         $this->stopFollow();
 
         $this->followTimer = Timer::every(self::FOLLOW_INTERVAL, function () {
-            $this->safeFollowTick();
+            UXApplication::runLater(function () {
+                $this->updatePosition();
+            });
         });
     }
 
@@ -79,56 +67,35 @@ class CSoundIndicator
         }
     }
 
-    private function safeFollowTick(): void
-    {
-        $m = $this->ownerModel;
-
-        if (!$m || $m->width <= 0 || $m->height <= 0)
-        {
-            return;
-        }
-
-        if ($m->x == 0 && $m->y == 0)
-        {
-            return;
-        }
-
-        $this->updatePosition();
-    }
-
-    private function forceUpdatePosition(): void
-    {
-        $m = $this->ownerModel;
-
-        if (!$m) return;
-
-        $x = $m->x + ($m->width / 2) - (self::ICON_SIZE / 2);
-        $y = $m->y - self::ICON_SIZE;
-
-        if (!is_numeric($x) || !is_numeric($y)) return;
-
-        $this->icon->x = $x;
-        $this->icon->y = $y;
-    }
-
     private function updatePosition(): void
     {
-        $this->forceUpdatePosition();
+        $m = $this->model;
+        if (!$m) return;
+
+        $this->icon->x = $m->x + ($m->width / 2) - (self::ICON_SIZE / 2);
+
+        $this->icon->y = $m->y - self::ICON_SIZE;
     }
-    
+
+    private function hide(): void
+    {
+        Animation::fadeOut($this->icon, 200, function () {
+            $this->icon->visible = false;
+            $this->stopFollow();
+        });
+    }
+
     public function destroy(): void
     {
-        if (method_exists($this, 'stopFollow'))
-        {
-            $this->stopFollow();
-        }
-    
+        $this->stopFollow();
+
         if ($this->icon && $this->icon->parent)
         {
             $this->icon->parent->children->remove($this->icon);
         }
-    
-        $this->icon = null;
-        $this->ownerModel = null;
+
+        $this->icon  = null;
+        $this->model = null;
+        $this->parent = null;
     }
 }

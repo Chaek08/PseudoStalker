@@ -98,7 +98,7 @@ class pda_fragment_contacts extends AbstractForm
 
         foreach ($elements as $el)
         {
-            if ($GLOBALS['EnemyFailed'])
+            if ($this->form('Client')->MainGame->content->GameEnemy->isDead())
             {
                 $el->hide();
             }

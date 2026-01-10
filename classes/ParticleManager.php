@@ -45,10 +45,10 @@ class ParticleManager
         $hitY   = $actorModel->y + $muzzleOffsetY;
         $floorY = $enemyModel->y + $enemyModel->height - 20;
     
-        $this->bloodBurstAtPoint($hitX, $hitY, $floorY, 4, 7);
+        $this->bloodBurstAtPoint($hitX, $hitY, $floorY, 4, 7, true);
     }
 
-    public function bloodBurstAtPoint(float $originX, float $originY, float $floorY, int $countMin = 6, int $countMax = 10): void
+    public function bloodBurstAtPoint(float $originX, float $originY, float $floorY, int $countMin = 6, int $countMax = 10, bool $isWeaponShot = false): void
     {
         $count = rand($countMin, $countMax);
 
@@ -62,11 +62,8 @@ class ParticleManager
 
             $impulseX = cos($angleRad) * $force;
             $impulseY = sin($angleRad) * $force - rand(15, 30);
-
-            $this->spawnParticle(
-                $this->makeBloodFactory($originX, $originY, $scatterX, $scatterY),
-                $this->makeBurstAnimator($impulseX, $impulseY, $floorY)
-            );
+                        
+            $this->spawnParticle($this->makeBloodFactory($originX, $originY, $scatterX, $scatterY), $this->makeBurstAnimator($impulseX, $impulseY, $floorY, $isWeaponShot), !$isWeaponShot);
         }
     }
 
@@ -94,24 +91,32 @@ class ParticleManager
             $impulseX = cos($angleRad) * $force;
             $impulseY = -sin($angleRad) * $force;
 
-            $this->spawnParticle(
-                $this->makeBloodFactory($originX, $originY, $scatterX, $scatterY),
-                $this->makeConeAnimator($impulseX, $impulseY, $floorY)
-            );
+            $this->spawnParticle($this->makeBloodFactory($originX, $originY, $scatterX, $scatterY), $this->makeConeAnimator($impulseX, $impulseY, $floorY));
         }
     }
 
-    protected function spawnParticle(callable $factory, callable $animator): void
+    protected function spawnParticle(callable $factory, callable $animator, bool $toClient = false): void
     {
-        (new Thread(function () use ($factory, $animator) {
-
+        (new Thread(function () use ($factory, $animator, $toClient) {
+    
             $particle = $factory();
-
-            UXApplication::runLater(function () use ($particle, $animator) {
-                $this->form->form('Client')->add($particle);
+    
+            UXApplication::runLater(function () use ($particle, $animator, $toClient) {
+    
+                if ($toClient)
+                {
+                    $particle->scale = $this->form->form('Client')->MainGame->scale;
+                    
+                    $this->form->form('Client')->add($particle);
+                }
+                else
+                {
+                    $this->form->form('Client')->MainGame->content->add($particle);
+                }
+    
                 $animator($particle);
             });
-
+    
         }))->start();
     }
 
@@ -122,11 +127,10 @@ class ParticleManager
             $p = new UXImageView();
             $p->enabled = false;
             $p->opacity = 1;
-            $p->image   = new UXImage('res://.data/ui/particles/blood.png');
-            $p->scale   = $this->form->form('Client')->MainGame->scale;
+            $p->image   = new UXImage('res://.data/ui/particles/blood.png');     
             $p->width   = 86;
             $p->height  = 86;
-
+            
             $p->x = $originX - ($p->width / 2) + $scatterX;
             $p->y = $originY - ($p->height / 2) + $scatterY;
 
@@ -134,21 +138,32 @@ class ParticleManager
         };
     }
     
-    protected function makeBurstAnimator(float $impulseX, float $impulseY, float $floorY): callable
+    protected function makeBurstAnimator(float $impulseX, float $impulseY, float $floorY, bool $toClient = false): callable
     {
-        return function ($p) use ($impulseX, $impulseY, $floorY) {
-
-            Animation::displace($p, 200, $impulseX, $impulseY);
-
-            Timer::after(210, function () use ($p, $floorY) {
-
-                if ($p->y < $floorY)
+        return function ($p) use ($impulseX, $impulseY, $floorY, $toClient) {
+    
+            $scale = 1;
+    
+            if ($toClient) {
+                $scale = $this->form->form('Client')->MainGame->scale;
+            }
+    
+            $dx = $impulseX / $scale;
+            $dy = $impulseY / $scale;
+    
+            Animation::displace($p, 200, $dx, $dy);
+    
+            Timer::after(210, function () use ($p, $floorY, $scale) {
+    
+                $targetY = $floorY / $scale;
+    
+                if ($p->y < $targetY)
                 {
                     Animation::moveTo(
                         $p,
                         360,
                         $p->x,
-                        $floorY,
+                        $targetY,
                         function () use ($p) {
                             Animation::fadeOut($p, 420, function () use ($p) {
                                 $p->free();

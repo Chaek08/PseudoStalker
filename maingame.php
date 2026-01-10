@@ -117,8 +117,6 @@ class maingame extends AbstractForm
         {
             if ($GLOBALS['QuestStep1']) $GLOBALS['QuestStep1'] = false;
             if ($GLOBALS['QuestCompleted']) $GLOBALS['QuestCompleted'] = false;
-            if ($GLOBALS['ActorFailed']) $GLOBALS['ActorFailed'] = false;
-            if ($GLOBALS['EnemyFailed']) $GLOBALS['EnemyFailed'] = false;
 
             if ($GLOBALS['AllSounds']) $this->form('Client')->StopAllSoundsAsync();
             Media::stop($this->Environment);
@@ -156,15 +154,8 @@ class maingame extends AbstractForm
             
             $this->form('Client')->Inventory->content->InventoryGrid->content->MoveWeaponsToInvSlot();
            
-            $this->GameActor->GetModel()->show();
-            $this->GameActor->GetModel()->x = 112;
-            
-            $this->GameActor->SetInteractive(false);
-            
-            $this->GameEnemy->GetModel()->show();
-            $this->GameEnemy->GetModel()->x = 1312;
-            
-            $this->GameEnemy->SetInteractive(false);
+            $this->GameActor->respawn(112, $this->GameActor->GetModel()->y, false);
+            $this->GameEnemy->respawn(1312, $this->GameEnemy->GetModel()->y, false);
             
             $this->ItemVodka->disable();
 
@@ -230,13 +221,13 @@ class maingame extends AbstractForm
         if ($enable) 
         {
             $this->health_static_gg->show();
-            if (!$GLOBALS['ActorFailed']) 
+            if (!$this->GameActor->isDead()) 
             {
                 $this->health_bar_gg->show();
                 $this->health_bar_gg_b->show();
             }
             $this->health_static_enemy->show();
-            if (!$GLOBALS['EnemyFailed']) 
+            if (!$this->GameEnemy->isDead()) 
             {
                 $this->health_bar_enemy->show();
                 $this->health_bar_enemy_b->show();
@@ -248,7 +239,7 @@ class maingame extends AbstractForm
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
             if ($GLOBALS['GodMode']) $this->GodMode_Icon->show();
             if ($this->GameActor->CanInteractive() || $this->GameEnemy->CanInteractive()) $this->fight_image->show();
-            if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed']) $this->leave_btn->show();
+            if ($this->GameActor->isDead() || $this->GameEnemy->isDead()) $this->leave_btn->show();
         
             $GLOBALS['HudVisible'] = true;
         } 
@@ -290,8 +281,8 @@ class maingame extends AbstractForm
         if ($this->currentWeapon) $this->currentWeapon->softHide();
         
         if ($this->ItemVodka->isVisible()) $this->ItemVodka->hide();
-        if ($GLOBALS['ActorFailed']) $this->GameEnemy->GetModel()->hide();
-        if ($GLOBALS['EnemyFailed']) $this->GameActor->GetModel()->hide();
+        if ($this->GameActor->isDead()) $this->GameEnemy->GetModel()->hide();
+        if ($this->GameEnemy->isDead()) $this->GameActor->GetModel()->hide();
     }
     
     function SpawnItem()
@@ -330,7 +321,7 @@ class maingame extends AbstractForm
             $this->form('Client')->Inventory->content->health_bar_gg->text = "100%";
             $this->health_bar_enemy->text = "100%";
         }
-        if (!$GLOBALS['ActorFailed'])
+        if (!$this->GameActor->isDead())
         {
             $this->form('Client')->Inventory->content->health_static_gg->graphic = null;
             $this->form('Client')->Inventory->content->health_bar_gg->show();
@@ -348,7 +339,7 @@ class maingame extends AbstractForm
             $this->health_bar_gg_b->hide();
             $this->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
         }
-        if (!$GLOBALS['EnemyFailed'])
+        if (!$this->GameEnemy->isDead())
         {
             $this->health_static_enemy->graphic = null;
         }
@@ -436,7 +427,7 @@ class maingame extends AbstractForm
                     $enemy  = $this->GameEnemy->GetModel();
             
                     $floorY = $enemy->y + $enemy->height - 20;
-            
+
                     $this->Particles->bloodBurstAtPoint($cursor->x, $cursor->y, $floorY, 4, 7);
                 }
                 else
@@ -494,7 +485,8 @@ class maingame extends AbstractForm
                 $this->form('Client')->playSoundAsync("res://.data/audio/fight/death_sounds/enemy/death_{$randDie}.mp3", true, 'die_enemy');
             }
     
-            $GLOBALS['EnemyFailed'] = true;
+            $this->GameEnemy->death();
+            //$GLOBALS['EnemyFailed'] = true;
             $this->finalizeBattle();
             return;
         }                    
@@ -654,8 +646,9 @@ class maingame extends AbstractForm
                 $randDie = rand(1, 4);
                 $this->form('Client')->playSoundAsync("res://.data/audio/fight/death_sounds/actor/death_{$randDie}.mp3", true, 'die_actor');                
             }
-    
-            $GLOBALS['ActorFailed'] = true;
+            
+            $this->GameActor->death();
+            //$GLOBALS['ActorFailed'] = true;
             $this->finalizeBattle();
             return;
         }
@@ -674,7 +667,7 @@ class maingame extends AbstractForm
             return;
         }
     
-        if ($GLOBALS['ActorFailed'])
+        if ($this->GameActor->isDead())
         {
             $this->blood_ui->hide();
             return;
@@ -711,21 +704,21 @@ class maingame extends AbstractForm
         
         $this->leave_btn->show();
                 
-        if ($GLOBALS['ActorFailed']) $this->GameActor->GetModel()->hide();
-        if ($GLOBALS['EnemyFailed']) $this->GameEnemy->GetModel()->hide();     
+        //if ($GLOBALS['ActorFailed']) $this->GameActor->GetModel()->hide();
+        //if ($GLOBALS['EnemyFailed']) $this->GameEnemy->GetModel()->hide();     
         
         $this->ItemVodka->disable();
         $this->ItemVodka->setOpacity(0);
         $this->ItemVodka->hide();
         
-        $this->GameActor->SetInteractive(false);
-        $this->GameEnemy->SetInteractive(false);
+       // $this->GameActor->SetInteractive(false);
+       // $this->GameEnemy->SetInteractive(false);
         
         if ($GLOBALS['AllSounds']) $this->form('Client')->StopAllSoundsAsync();
         
-        if ($GLOBALS['ActorFailed'])
+        if ($this->GameActor->isDead())
         {
-            $this->GameActor->GetModel()->hide();
+            $this->GameEnemy->SetInteractive(false);
             
             if ($this->currentWeapon) $this->UnequipCurrentWeapon();
               
@@ -733,9 +726,9 @@ class maingame extends AbstractForm
             
             if ($GLOBALS['AllSounds']) $this->form('Client')->playSoundAsync('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');
         }
-        if ($GLOBALS['EnemyFailed'])
+        if ($this->GameEnemy->isDead())
         {
-            $this->GameEnemy->GetModel()->hide();
+            $this->GameActor->SetInteractive(false);
             
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Complete();
             

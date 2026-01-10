@@ -54,24 +54,24 @@ class fail_wnd extends AbstractForm
         
         if (!$Client->Inventory->content->InventoryGrid->content->Inv_Vodka->visible|| !$Vodka->isVisible())
         {
-            $vodka->show();
+            $Vodka->show();
         }
         
-        if ($GLOBALS['ActorFailed']) $Client->MainGame->content->GameEnemy->GetModel()->show();
-        if ($GLOBALS['EnemyFailed']) $Client->MainGame->content->GameActor->GetModel()->show();
+        if ($Client->MainGame->content->GameActor->isDead()) $Client->MainGame->content->GameEnemy->GetModel()->show();
+        if ($Client->MainGame->content->GameEnemy->isDead()) $Client->MainGame->content->GameActor->GetModel()->show();
         
-        if (!$GLOBALS['ActorFailed'])
+        if (!$Client->MainGame->content->GameActor->isDead())
         {
             if ($Client->MainGame->content->currentWeapon) $Client->MainGame->content->currentWeapon->softShow();
         }    
                    
         if ($GLOBALS['AllSounds'])
         {
-            if ($GLOBALS['ActorFailed'])
+            if ($Client->MainGame->content->GameActor->isDead())
             {
                 if (Media::isStatus('PLAYING','v_enemy')) Media::stop('v_enemy');
             }
-            if ($GLOBALS['EnemyFailed'])
+            if ($Client->MainGame->content->GameEnemy->isDead())
             {
                 if (Media::isStatus('PLAYING','v_actor')) Media::stop('v_actor');                
             }                
@@ -81,7 +81,8 @@ class fail_wnd extends AbstractForm
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
-        if ($GLOBALS['ActorFailed'])
+        $Client = $this->form('Client');
+        if ($Client->MainGame->content->GameActor->isDead())
         {
             $enemy_model = trim($this->form('Client')->MainGame->content->SDK_EnemyModel);
             $actor_failtext = trim($this->SDK_FailTextActor);
@@ -93,7 +94,7 @@ class fail_wnd extends AbstractForm
             $this->Win_fail_text->graphic = new UXImageView(new UXImage($actor_failtexticon != '' ? $actor_failtexticon : 'res://.data/ui/fail_wnd/actor_fail.png'));
             $this->Win_fail_desc->text = $actor_faildesc != '' ? $actor_faildesc : $this->localization->get('ActorFail_Desc');
         }
-        if ($GLOBALS['EnemyFailed'])
+        if ($Client->MainGame->content->GameEnemy->isDead())
         {
             $actor_model = trim($this->form('Client')->MainGame->content->SDK_ActorModel);
             $enemy_failtext = trim($this->SDK_FailTextEnemy);

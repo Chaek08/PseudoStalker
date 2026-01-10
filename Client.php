@@ -820,7 +820,7 @@ class Client extends AbstractForm
     {       
         if ($this->CheckVisibledFragments()) return;
         
-        if ($GLOBALS['ActorFailed']) return;
+        if ($this->MainGame->content->GameActor->isDead()) return;
         
         $this->MainGame->content->RenderHud(false);
         

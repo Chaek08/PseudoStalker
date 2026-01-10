@@ -83,12 +83,12 @@ class pda_fragments_stat extends AbstractForm
     }
     function UpdateRaiting()
     {
-        if ($GLOBALS['EnemyFailed'])
+        if ($this->form('Client')->MainGame->content->GameEnemy->isDead())
         {
             $this->actorCharacterInfo->addRank(1500); 
             $this->form('Client')->Pda->content->Pda_Ranking->content->UpdateData();    
         }
-        if ($GLOBALS['ActorFailed'])
+        if ($this->form('Client')->MainGame->content->GameActor->isDead())
         {
             $this->enemyCharacterInfo->addRank(1200);
             $this->form('Client')->Pda->content->Pda_Ranking->content->UpdateData();
@@ -111,13 +111,13 @@ class pda_fragments_stat extends AbstractForm
         
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         
-        if ($GLOBALS['ActorFailed'])
+        if ($this->form('Client')->MainGame->content->GameActor->isDead())
         {
             $this->tab_final->show();
             $this->final_label->show();
             $this->final_label->text = $this->localization->get('FinalLabel_ActorFail');
         }
-        if ($GLOBALS['EnemyFailed'])
+        if ($this->form('Client')->MainGame->content->GameEnemy->isDead())
         {
             $this->tab_final->show();
             $this->final_label->show();

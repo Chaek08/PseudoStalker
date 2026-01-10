@@ -111,8 +111,14 @@ class SaveLoadManager
             'medkit_count'     => $c->Inventory->content->InventoryGrid->content->medkitCount,
             'quest_step1'      => isset($GLOBALS['QuestStep1']) ? $GLOBALS['QuestStep1'] : false,
             'quest_completed'  => isset($GLOBALS['QuestCompleted']) ? $GLOBALS['QuestCompleted'] : false,
-            'actor_failed'     => isset($GLOBALS['ActorFailed']) ? $GLOBALS['ActorFailed'] : false,
-            'enemy_failed'     => isset($GLOBALS['EnemyFailed']) ? $GLOBALS['EnemyFailed'] : false,
+            'actors_state' => [
+                'actor' => [
+                    'dead' => $c->MainGame->content->GameActor->isDead(),
+                ],
+                'enemy' => [
+                    'dead' => $c->MainGame->content->GameEnemy->isDead(),
+                ],
+            ],
             'need_to_check_pda'=> isset($GLOBALS['NeedToCheckPDA']) ? $GLOBALS['NeedToCheckPDA'] : false,
             'menubackground_playpos' => $c->MainMenu->content->MainMenuBackground->positionMs,
             'menusound_playpos'      => $c->MainMenu->content->MenuSound->positionMs,
@@ -160,8 +166,11 @@ class SaveLoadManager
             'medkit_count',
             'quest_step1',
             'quest_completed',
-            'actor_failed',
-            'enemy_failed',
+            'actors_state',
+            'actors_state.actor',
+            'actors_state.actor.dead',
+            'actors_state.enemy',
+            'actors_state.enemy.dead',
             'need_to_check_pda',
         
             'menubackground_playpos',
@@ -180,7 +189,6 @@ class SaveLoadManager
             'ammo.ak74_total',
         
             'weapons',
-            'weapons.current',
             'weapons.list',
             'weapons.list.Pm',
             'weapons.list.Pm.ammo',
@@ -325,23 +333,23 @@ class SaveLoadManager
     
             $GLOBALS['QuestStep1']     = $saveData['quest_step1'];
             $GLOBALS['QuestCompleted'] = $saveData['quest_completed'];
-            $GLOBALS['ActorFailed']    = $saveData['actor_failed'];
-            $GLOBALS['EnemyFailed']    = $saveData['enemy_failed'];
             $GLOBALS['NeedToCheckPDA'] = $saveData['need_to_check_pda'];
     
             if (isset($saveData['objects_position']['actor']))
             {
-                $form->MainGame->content->actor->position = [
+                $form->MainGame->content->GameActor->respawn(
                     $saveData['objects_position']['actor']['x'],
-                    $saveData['objects_position']['actor']['y']
-                ];
+                    $saveData['objects_position']['actor']['y'],
+                    false
+                );
             }
             if (isset($saveData['objects_position']['enemy']))
             {
-                $form->MainGame->content->enemy->position = [
+                $form->MainGame->content->GameEnemy->respawn(
                     $saveData['objects_position']['enemy']['x'],
-                    $saveData['objects_position']['enemy']['y']
-                ];
+                    $saveData['objects_position']['enemy']['y'],
+                    false
+                );
             }
     
             UXApplication::runLater(function () use ($saveData, $form) {
@@ -365,18 +373,23 @@ class SaveLoadManager
                     
                         $mg->weaponState = $savedList;
                     
-                        $mg->SwitchWeapon($desired);
-                    
-                        $mg->weaponState = $savedList;
-                    
-                        if ($desired && isset($savedList[$desired]) && $mg->currentWeapon)
+                        if ($desired !== null)
                         {
-                            $mg->currentWeapon->importState($savedList[$desired]);
+                            $mg->SwitchWeapon($desired);
+                    
+                            if (isset($savedList[$desired]) && $mg->currentWeapon)
+                            {
+                                $mg->currentWeapon->importState($savedList[$desired]);
+                            }
+                        }
+                        else
+                        {
+                            $mg->UnequipCurrentWeapon();
                         }
                     
                         $mg->UpdateMagazine();
                     }
-    
+
                     $form->MainGame->content->UpdateMagazine();
                 });
             });   
@@ -388,17 +401,53 @@ class SaveLoadManager
                     $saveData['objects_position']['item_vodka_0000']['y']
                 ];
             }
-    
-            if ($GLOBALS['ActorFailed'] || $GLOBALS['EnemyFailed'])
+            
+            $actorState = $saveData['actors_state']['actor']['dead'] ?? false;
+            $enemyState = $saveData['actors_state']['enemy']['dead'] ?? false;
+            
+            if ($actorState)
             {
-                if ($saveData['quest_step1'] == true) $form->Pda->content->Pda_Tasks->content->Step1_Complete();
-                $form->MainGame->content->finalizeBattle();
-    
-                $form->Pda->content->Pda_Ranking->content->DeathFilterManager();
-                if ($form->Fail->visible) $form->Fail->content->ReturnBtn();
-                if ($saveData['need_to_check_pda'] == false) $form->Pda->content->Pda_Tasks->content->Step_DeletePda();
+                $form->MainGame->content->GameActor->death();
             }
-    
+            else
+            {
+                $form->MainGame->content->GameActor->revive();
+            }
+            
+            if ($enemyState)
+            {
+                $form->MainGame->content->GameEnemy->death();
+            }
+            else
+            {
+                $form->MainGame->content->GameEnemy->revive();
+            }
+            
+            $actorWasDead = $saveData['actors_state']['actor']['dead'] ?? false;
+            $enemyWasDead = $saveData['actors_state']['enemy']['dead'] ?? false;
+            
+            if ($actorWasDead || $enemyWasDead)
+            {
+                if ($saveData['quest_step1'] == true)
+                {
+                    $form->Pda->content->Pda_Tasks->content->Step1_Complete();
+                }
+            
+                $form->MainGame->content->finalizeBattle();
+            
+                $form->Pda->content->Pda_Ranking->content->DeathFilterManager();
+            
+                if ($form->Fail->visible)
+                {
+                    $form->Fail->content->ReturnBtn();
+                }
+            
+                if ($saveData['need_to_check_pda'] == false)
+                {
+                    $form->Pda->content->Pda_Tasks->content->Step_DeletePda();
+                }
+            }
+
             if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted'])
             {
                 $form->Dialog->content->Talk_Final();

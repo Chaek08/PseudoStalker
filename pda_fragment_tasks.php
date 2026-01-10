@@ -206,7 +206,7 @@ class pda_fragment_tasks extends AbstractForm
     function ShowPassiveTasks(UXMouseEvent $e = null)
     {    
         
-        $GLOBALS['EnemyFailed'] ? $this->AddTask() : $this->DeleteTask();
+        $this->form('Client')->MainGame->content->GameEnemy->isDead() ? $this->AddTask() : $this->DeleteTask();
     }
     /**
      * @event failed_task.click-Left 
@@ -214,7 +214,7 @@ class pda_fragment_tasks extends AbstractForm
     function ShowFailedTasks(UXMouseEvent $e = null)
     {    
         
-        if ($GLOBALS['ActorFailed']) //актор проиграл
+        if ($this->form('Client')->MainGame->content->GameActor->isDead()) //актор проиграл
         {
             $this->AddTask();
             $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png'));

@@ -168,18 +168,18 @@ class pda_fragment_ranking extends AbstractForm
     { 
         if ($this->form('Client')->Pda->content->Pda_Statistic->visible)
         {
-            $GLOBALS['ActorFailed']
+            $this->form('Client')->MainGame->content->GameActor->isDead()
                 ? $this->applyDeathFilter($this->form('Client')->Pda->content->Pda_Statistic->content->icon)
                 : $this->removeDeathFilter($this->form('Client')->Pda->content->Pda_Statistic->content->icon);           
         }
         
         if ($GLOBALS['SelectedActor']) //Проверяем, выбран ли сейчас нужный user
         {
-            $GLOBALS['ActorFailed'] ? $this->applyDeathFilter($this->user_icon) : $this->removeDeathFilter($this->user_icon);
+            $this->form('Client')->MainGame->content->GameActor->isDead() ? $this->applyDeathFilter($this->user_icon) : $this->removeDeathFilter($this->user_icon);
         }
         if ($GLOBALS['SelectedEnemy']) //Проверяем, выбран ли сейчас нужный user
         {
-            $GLOBALS['EnemyFailed'] ? $this->applyDeathFilter($this->user_icon) : $this->removeDeathFilter($this->user_icon); //Проверяем, мёртв ли противник, чтобы в дальнейшем прописать ему DeathFilter
+            $this->form('Client')->MainGame->content->GameEnemy->isDead() ? $this->applyDeathFilter($this->user_icon) : $this->removeDeathFilter($this->user_icon); //Проверяем, мёртв ли противник, чтобы в дальнейшем прописать ему DeathFilter
         }
         if ($GLOBALS['SelectedValera'] || $GLOBALS['SelectedDanila']) //Проверяем, выбран ли сейчас нужный user
         {
@@ -236,7 +236,7 @@ class pda_fragment_ranking extends AbstractForm
         }
         if ($this->form('Client')->Pda->content->Pda_Contacts->content->icon->visible)
         {
-            if ($GLOBALS['EnemyFailed'])
+            if ($this->form('Client')->MainGame->content->GameEnemy->isDead())
             {
                 return;
             }
