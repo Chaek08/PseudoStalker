@@ -1,49 +1,51 @@
 <?php
 namespace app\forms\classes;
 
+use app\forms\classes\Weapons\CWeapon;
 use php\time\Timer;
-use php\gui\UXApplication;
 use action\Animation;
 use php\gui\UXImageView;
 use php\gui\UXImage;
+use php\gui\UXApplication;
 
 class CSoundIndicator
 {
     private $icon;
-    private $model;
-    private $parent;
+    private $ownerModel;
     private $followTimer;
 
     private const ICON_SIZE = 56;
-    private const FOLLOW_INTERVAL = 8;
+    private const FOLLOW_INTERVAL = 1;
 
-    public function __construct($model)
+    public function __construct($ownerModel)
     {
-        $this->model  = $model;
-        $this->parent = $model->parent;
+        $this->ownerModel = $ownerModel;
 
         $this->icon = new UXImageView(new UXImage('res://.data/ui/maingame/speaker.png'));
 
         $this->icon->fitWidth  = self::ICON_SIZE;
         $this->icon->fitHeight = self::ICON_SIZE;
-        $this->icon->visible  = false;
-        $this->icon->opacity  = 0;
         $this->icon->mouseTransparent = true;
+        $this->icon->visible = false;
+        $this->icon->opacity = 0;
 
-        $this->parent->children->add($this->icon);
+        $ownerModel->parent->add($this->icon);
     }
 
     public function playFor(int $durationMs): void
     {
-        $this->updatePosition();
-
-        $this->icon->visible = true;
-        Animation::fadeIn($this->icon, 150);
+        $this->fxLater(function () {
+            $this->updatePosition();
+            $this->icon->visible = true;
+            Animation::fadeIn($this->icon, 150);
+        });
 
         $this->startFollow();
 
         Timer::after($durationMs, function () {
-            $this->hide();
+            $this->fxLater(function () {
+                $this->hide();
+            });
         });
     }
 
@@ -52,7 +54,7 @@ class CSoundIndicator
         $this->stopFollow();
 
         $this->followTimer = Timer::every(self::FOLLOW_INTERVAL, function () {
-            UXApplication::runLater(function () {
+            $this->fxLater(function () {
                 $this->updatePosition();
             });
         });
@@ -69,11 +71,10 @@ class CSoundIndicator
 
     private function updatePosition(): void
     {
-        $m = $this->model;
+        $m = $this->ownerModel;
         if (!$m) return;
 
         $this->icon->x = $m->x + ($m->width / 2) - (self::ICON_SIZE / 2);
-
         $this->icon->y = $m->y - self::ICON_SIZE;
     }
 
@@ -91,11 +92,15 @@ class CSoundIndicator
 
         if ($this->icon && $this->icon->parent)
         {
-            $this->icon->parent->children->remove($this->icon);
+            $this->icon->parent->remove($this->icon);
         }
 
-        $this->icon  = null;
-        $this->model = null;
-        $this->parent = null;
+        $this->icon = null;
+        $this->ownerModel = null;
+    }
+
+    private function fxLater(callable $fn): void
+    {
+        UXApplication::runLater($fn);
     }
 }
