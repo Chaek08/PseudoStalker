@@ -6,6 +6,7 @@ use php\framework\Logger;
 use php\gui\UXImage;
 use app\forms\classes\UI\UIRoles;
 use app\forms\classes\Localization;
+use app\forms\classes\CharacterRank;
 
 class UICharacterInfo
 {
@@ -67,40 +68,38 @@ class UICharacterInfo
     public function setName($name) { $this->name = $name; return $this; }
     public function setReputation($reputation) { $this->reputation = $reputation; return $this; }    
 
-    public function addRank(int $value) { return $this->setRankValue($this->getRankValue() + $value); }
-    public function removeRank(int $value) { return $this->setRankValue($this->getRankValue() - $value); }
-    public function resetRank() { return $this->setRankValue($this->getBaseRankValue()); }
+    public function resetRank()
+    {
+        if (!$this->character) return $this;
+    
+        CharacterRank::reset($this->character);
+        return $this->updateRankText();
+    }
+
+    private function updateRankText()
+    {
+        if ($this->rank)
+        {
+            $this->rank->text = $this->getRankByValue(CharacterRank::get($this->character));
+        }
+        
+        return $this;
+    }
+
+    public function addRank(int $value)
+    {
+        if (!$this->character) return $this;
+    
+        CharacterRank::add($this->character, $value);
+        return $this->updateRankText();
+    }
 
     public function setRankValue(int $value, bool $isBase = false)
     {
         if (!$this->character) return $this;
-
-        $prefix = ucfirst($this->character);
-        $GLOBALS[$prefix . 'RankValue'] = $value;
-
-        if ($isBase)
-        {
-            $GLOBALS[$prefix . 'BaseRankValue'] = $value;
-        }
-
-        if ($this->rank)
-        {
-            $this->rank->text = $this->getRankByValue($value);
-        }
-
-        return $this;
-    }
-
-    public function getRankValue(): int
-    {
-        if (!$this->character) return 0;
-        return $GLOBALS[ucfirst($this->character) . 'RankValue'];
-    }
-
-    public function getBaseRankValue(): int
-    {
-        if (!$this->character) return 0;
-        return $GLOBALS[ucfirst($this->character) . 'BaseRankValue'];
+    
+        CharacterRank::set($this->character, $value, $isBase);
+        return $this->updateRankText();
     }
 
     private function getRankByValue(int $value): string
@@ -118,15 +117,9 @@ class UICharacterInfo
     
         if ($this->community) $this->roles->pidoras($this->community);
     
-        if (!isset($GLOBALS['EnemyRankValue']) || $GLOBALS['EnemyRankValue'] === 0)
-        {
-            $this->setRankValue(666, true);
-        }
-        else
-        {
-            $this->setRankValue($GLOBALS['EnemyRankValue']);
-        }
-    
+        CharacterRank::init('enemy', 337);
+        $this->updateRankText();
+        
         if ($this->relationship)
         {
             $this->relationship->text = $this->localization->get('Relationship_Enemy');
@@ -187,14 +180,8 @@ class UICharacterInfo
     
         if ($this->community) $this->roles->ladcega($this->community);
     
-        if (!isset($GLOBALS['ValerokRankValue']) || $GLOBALS['ValerokRankValue'] === 0)
-        {
-            $this->setRankValue(777, true);
-        }
-        else
-        {
-            $this->setRankValue($GLOBALS['ValerokRankValue']);
-        }
+        CharacterRank::init('valerok', 777);
+        $this->updateRankText();
     
         if ($this->relationship)
         {
@@ -255,14 +242,8 @@ class UICharacterInfo
     
         if ($this->community) $this->roles->danilaEmoji($this->community);
     
-        if (!isset($GLOBALS['ActorRankValue']) || $GLOBALS['ActorRankValue'] === 0)
-        {
-            $this->setRankValue(152, true);
-        }
-        else
-        {
-            $this->setRankValue($GLOBALS['ActorRankValue']);
-        }
+        CharacterRank::init('actor', 152);
+        $this->updateRankText();
     
         if ($this->relationship) $this->relationship->visible = false;
     
@@ -319,14 +300,8 @@ class UICharacterInfo
     
         if ($this->community) $this->roles->danilaEmoji($this->community);
     
-        if (!isset($GLOBALS['DanilaRankValue']) || $GLOBALS['DanilaRankValue'] === 0)
-        {
-            $this->setRankValue(854, true);
-        }
-        else
-        {
-            $this->setRankValue($GLOBALS['DanilaRankValue']);
-        }
+        CharacterRank::init('danila', 854);
+        $this->updateRankText();
         
         if ($this->relationship)
         {

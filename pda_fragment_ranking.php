@@ -74,10 +74,10 @@ class pda_fragment_ranking extends AbstractForm
         $this->valerokCharacterInfo->setValerok();                
         $this->danilaCharacterInfo->setDanila();  
                         
-        $this->ratingHueta->setEntry($this->actorCharacterInfo->name, $this->actorCharacterInfo->getRankValue());
-        $this->ratingHueta->setEntry($this->enemyCharacterInfo->name, $this->enemyCharacterInfo->getRankValue());
-        $this->ratingHueta->setEntry($this->valerokCharacterInfo->name, $this->valerokCharacterInfo->getRankValue());
-        $this->ratingHueta->setEntry($this->danilaCharacterInfo->name, $this->danilaCharacterInfo->getRankValue());
+        $this->ratingHueta->setEntry($this->actorCharacterInfo->name, CharacterRank::get('actor'));
+        $this->ratingHueta->setEntry($this->enemyCharacterInfo->name, CharacterRank::get('enemy'));
+        $this->ratingHueta->setEntry($this->valerokCharacterInfo->name, CharacterRank::get('valerok'));
+        $this->ratingHueta->setEntry($this->danilaCharacterInfo->name, CharacterRank::get('danila'));
                 
         $this->ratingHueta->render($this->ratingKunteynir);
         

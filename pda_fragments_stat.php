@@ -53,7 +53,7 @@ class pda_fragments_stat extends AbstractForm
     function InitRaiting(UXWindowEvent $e = null)
     {    
         uiLater(function () {
-            $rank = $this->actorCharacterInfo->getRankValue();
+            $rank = CharacterRank::get('actor');
         
             $part1 = intdiv($rank, 2);
             $part2 = intdiv($rank, 3);
