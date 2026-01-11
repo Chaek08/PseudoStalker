@@ -372,12 +372,8 @@ class inventory extends AbstractForm
         
         if ($GLOBALS['item_outfit_selected'])
         {
-            $minHPWidth = 54;
-            $maxHPWidth = 264;
-            $hpWidth = $this->form('Client')->MainGame->content->health_bar_gg->width;
-    
-            $hpPercent = round((($hpWidth - $minHPWidth) / ($maxHPWidth - $minHPWidth)) * 100);
-            $hpPercent = max(1, min(100, $hpPercent));
+            $actor = $this->form('Client')->MainGame->content->GameActor;
+            $hpPercent = $actor->getHpPercent();
     
             if ($hpPercent >= 80)
             {

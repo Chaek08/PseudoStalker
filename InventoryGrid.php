@@ -913,77 +913,19 @@ class InventoryGrid extends AbstractForm
         $this->form('Client')->Inventory->content->HideCombobox();
     }
     
-    function animateResizeWidth($node, $targetWidth, $speed = 1, $callback = null)
-    {
-        $id = spl_object_hash($node);
-        
-        if (isset($this->isAnimatingBarsTimers[$id])) {
-            $this->isAnimatingBarsTimers[$id]->stop();
-        }
-        
-        $this->isAnimatingBars[$id] = true;
-        
-        $timer = new UXAnimationTimer(function () use ($node, $targetWidth, $speed, &$timer, $callback, $id) {
-            if ($node->width < $targetWidth)
-            {
-                $node->width += $speed;
-                if ($node->width >= $targetWidth)
-                {
-                    $node->width = $targetWidth;
-                    $timer->stop();
-                    $this->isAnimatingBars[$id] = false;
-                    if ($callback) $callback();
-                }
-            }
-            elseif ($node->width > $targetWidth)
-            {
-                $node->width -= $speed;
-                if ($node->width <= $targetWidth)
-                {
-                    $node->width = $targetWidth;
-                    $timer->stop();
-                    $this->isAnimatingBars[$id] = false;
-                    if ($callback) $callback();
-                }
-            }
-            else
-            {
-                $timer->stop();
-                $this->isAnimatingBars[$id] = false;
-                if ($callback) $callback();
-            }
-        });
-        
-        $this->isAnimatingBarsTimers[$id] = $timer;
-        $timer->start();
-    }
-    
     function ApplyMedkitEffect()
     {
-        $minWidth = 54;
-        $maxWidthMain = 264;
-        $maxWidthInv = 416;
-        
-        $bar = $this->form('Client')->MainGame->content->health_bar_gg;
-        $inv_bar = $this->form('Client')->Inventory->content->health_bar_gg;
-        
-        $currentW = $bar->width;
-        $currentPct = round((($currentW - $minWidth) / ($maxWidthMain - $minWidth)) * 99) + 1;
-        $currentPct = max(1, min(100, $currentPct));
-        
+        $actor = $this->form('Client')->MainGame->content->GameActor;
+    
+        if ($actor->isDead())
+        {
+            return;
+        }
+    
         $healPct = 20;
-        $newPct = min(100, $currentPct + $healPct);
-        
-        $targetMain = (int) round($minWidth + (($maxWidthMain - $minWidth) * ($newPct - 1) / 99));
-        $targetInv = (int) round($minWidth + (($maxWidthInv - $minWidth) * ($newPct - 1) / 99));
-        
-        $this->animateResizeWidth($bar, $targetMain, 5, function() use ($bar, $newPct) {
-            $bar->text = $newPct . "%";
-        });
-        
-        $this->animateResizeWidth($inv_bar, $targetInv, 5, function() use ($inv_bar, $newPct) {
-            $inv_bar->text = $newPct . "%";
-        });
+        $healAmount = (int)(($actor->getMaxHP() * $healPct) / 100);
+    
+        $actor->heal($healAmount);
     }
 }
 

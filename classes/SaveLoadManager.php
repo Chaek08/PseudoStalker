@@ -74,18 +74,12 @@ class SaveLoadManager
                 'list'    => $stateList,
             ],
     
-            'health_gg_inv' => [
-                'value'    => $c->Inventory->content->health_bar_gg->text,
-                'pb_width' => $c->Inventory->content->health_bar_gg->width,
-            ],
             'health' => [
-                'gg' => [
-                    'value'    => $c->MainGame->content->health_bar_gg->text,
-                    'pb_width' => $c->MainGame->content->health_bar_gg->width,
+                'actor' => [
+                    'hp' => $c->MainGame->content->GameActor->getHp(),
                 ],
                 'enemy' => [
-                    'value'    => $c->MainGame->content->health_bar_enemy->text,
-                    'pb_width' => $c->MainGame->content->health_bar_enemy->width,
+                    'hp' => $c->MainGame->content->GameEnemy->getHp(),
                 ],
             ],
             'objects_position' => [
@@ -136,15 +130,10 @@ class SaveLoadManager
             'client_version',
         
             'health',
-            'health.gg',
-            'health_gg_inv',
-            'health_gg_inv.value',
-            'health_gg_inv.pb_width',
-            'health.gg.value',
-            'health.gg.pb_width',
+            'health.actor',
+            'health.actor.hp',
             'health.enemy',
-            'health.enemy.value',
-            'health.enemy.pb_width',
+            'health.enemy.hp',
         
             'objects_position',
             'objects_position.actor',
@@ -457,15 +446,20 @@ class SaveLoadManager
             if ($form->MainGame->content->MessageBox->visible) $form->MainGame->content->MessageBox->hide();
             if ($form->MainGame->content->Task_Step_Label->visible) $form->MainGame->content->Task_Step_Label->hide();
     
-            $form->MainGame->content->GetHealth();
-            $form->MainGame->content->health_bar_gg->text  = $saveData['health']['gg']['value'];
-            $form->MainGame->content->health_bar_gg->width = $saveData['health']['gg']['pb_width'];
-            $form->Inventory->content->health_bar_gg->width = $saveData['health_gg_inv']['pb_width'];
-            $form->Inventory->content->health_bar_gg->text  = $saveData['health_gg_inv']['value'];
-            $form->MainGame->content->health_bar_enemy->text  = $saveData['health']['enemy']['value'];
-            $form->MainGame->content->health_bar_enemy->width = $saveData['health']['enemy']['pb_width'];
-            $form->MainGame->content->Bleeding();
-    
+            if (isset($saveData['health']['actor']['hp']))
+            {
+                $form->MainGame->content->GameActor->setHp((int)$saveData['health']['actor']['hp']);
+            }
+            
+            if (isset($saveData['health']['enemy']['hp']))
+            {
+                $form->MainGame->content->GameEnemy->setHp((int)$saveData['health']['enemy']['hp']);
+            }
+            
+            UXApplication::runLater(function () use ($form) { //НАСРАЛ
+                $form->MainGame->content->GetHealth();
+            });
+            
             $form->Inventory->content->InventoryGrid->content->medkitCount = $saveData['medkit_count'];
             $form->Inventory->content->InventoryGrid->content->updateMedkitCount();
     

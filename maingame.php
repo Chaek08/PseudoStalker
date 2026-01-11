@@ -66,6 +66,23 @@ class maingame extends AbstractForm
         
         $this->GameEnemy->SetInteractive(false);
         
+        $this->GameActor->onHpChanged(function ($entity) {
+            $this->Bleeding();
+            $this->updateActorHealthUI($entity);
+        });
+        
+        $this->GameActor->onDeath(function () {
+            $this->onActorDeath();
+        });
+        
+        $this->GameEnemy->onHpChanged(function ($entity) {
+            $this->updateEnemyHealthUI($entity);
+        });
+        
+        $this->GameEnemy->onDeath(function () {
+            $this->onEnemyDeath();
+        });
+        
         $this->HitMark = new HitMark($this->HitMark_Visual);
         
         $this->ItemVodka = new CVodka($this, $this->item_vodka_0000, $this->GameActor, $this->GameEnemy); //CItem zavtra
@@ -159,9 +176,14 @@ class maingame extends AbstractForm
             });
             
             $this->form('Client')->Inventory->content->InventoryGrid->content->MoveWeaponsToInvSlot();
-           
+                   
             $this->GameActor->respawn(112, $this->GameActor->GetModel()->y, false);
             $this->GameEnemy->respawn(1312, $this->GameEnemy->GetModel()->y, false);
+            
+            $this->form('Client')->Inventory->content->health_bar_gg->show();
+            $this->form('Client')->Inventory->content->health_bar_gg_b->show();
+            $this->form('Client')->Inventory->content->health_static_gg->show();
+            $this->form('Client')->Inventory->content->health_static_gg->graphic = null;
             
             $this->ItemVodka->disable();
 
@@ -317,45 +339,10 @@ class maingame extends AbstractForm
        
     function GetHealth() 
     {
-        if (!$GLOBLAS['QuestStep1'])
-        {
-            $this->health_bar_gg->width = 264;
-            $this->form('Client')->Inventory->content->health_bar_gg->width = 416;
-            $this->health_bar_enemy->width = 264;
-            
-            $this->health_bar_gg->text = "100%";
-            $this->form('Client')->Inventory->content->health_bar_gg->text = "100%";
-            $this->health_bar_enemy->text = "100%";
-        }
-        if (!$this->GameActor->isDead())
-        {
-            $this->form('Client')->Inventory->content->health_static_gg->graphic = null;
-            $this->form('Client')->Inventory->content->health_bar_gg->show();
-            $this->form('Client')->Inventory->content->health_bar_gg_b->show();
-            
-            $this->health_static_gg->graphic = null;
-        }
-        else 
-        {
-            $this->form('Client')->Inventory->content->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
-            $this->form('Client')->Inventory->content->health_bar_gg->hide();
-            $this->form('Client')->Inventory->content->health_bar_gg_b->hide();
-            
-            $this->health_bar_gg->hide();
-            $this->health_bar_gg_b->hide();
-            $this->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
-        }
-        if (!$this->GameEnemy->isDead())
-        {
-            $this->health_static_enemy->graphic = null;
-        }
-        else 
-        {
-            $this->health_bar_enemy->hide();
-            $this->health_bar_enemy_b->hide();
-            $this->health_static_enemy->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
-        }
+        $this->updateActorHealthUI($this->GameActor);
+        $this->updateEnemyHealthUI($this->GameEnemy);
     }
+    
     function GodMode()
     {
         $baseY = 96;
@@ -382,280 +369,151 @@ class maingame extends AbstractForm
         $this->blood_ui->y = $nextY;
     }
     
-    private $coverTimer;
-    
+    private $enemyCoverTimer; //2 отдельных таймера, дабы избежать гонки их же
+    private $actorCoverTimer;
+
     /**
      * @event enemy.click-2x
      */       
-    function DamageEnemy(UXMouseEvent $e = null, bool $spawnParticles = true,  bool $damageByMouse = true)
-    { 
+    function DamageEnemy(UXMouseEvent $e = null, bool $spawnParticles = true, bool $damageByMouse = true)
+    {
         if (!$this->GameEnemy->CanInteractive())
         {
             return;
         }
-        
-        $minWidth     = 54;
-        $maxWidth     = 264;
+    
         $missChance   = 75;
-        $damageMinPct = 8;
-        $damageMaxPct = 20;
+        $damageMin   = 8;
+        $damageMax   = 20;
     
-        if ($this->health_bar_enemy->width != $minWidth)
+        if (rand(1, 100) > $missChance)
         {
-            $didMiss = rand(1, 100) <= $missChance;
-    
-            if (!$didMiss)
-            {
-                $curW   = $this->health_bar_enemy->width;
-                $curPct = round((($curW - $minWidth) / ($maxWidth - $minWidth)) * 99) + 1;
-                $curPct = max(1, min(100, $curPct));
-    
-                $dmgPct = rand($damageMinPct, $damageMaxPct);
-    
-                $newPct = max(1, $curPct - $dmgPct);
-    
-                $target = (int) round($minWidth + (($maxWidth - $minWidth) * ($newPct - 1) / 99));
-    
-                $this->form('Client')->animateResizeWidth($this->health_bar_enemy, $target, 3, function() {
-                    $minW = 54; $maxW = 264;
-                    $cur  = $this->health_bar_enemy->width;
-                    $pct  = round((($cur - $minW) / ($maxW - $minW)) * 99) + 1;
-                    $pct  = max(1, min(100, $pct));
-                    $this->health_bar_enemy->text = $pct . "%";
-                });
-            }
-    
-            if ($spawnParticles)
-            {
-                if ($damageByMouse)
-                {
-                    $enemy  = $this->GameEnemy->GetModel();
-                    
-                    $localX = $e->x;
-                    $localY = $e->y;                    
-                    
-                    $originX = $enemy->x + $localX;
-                    $originY = $enemy->y + $localY;                    
-            
-                    $floorY = $enemy->y + $enemy->height - 20;
-
-                    $this->Particles->bloodBurstAtPoint($originX, $originY, $floorY, 4, 7);
-                }
-                else
-                {
-                    $this->Particles->bloodConeAtTarget($this->GameEnemy->GetModel());
-                }
-            }
-
-            if ($GLOBALS['AllSounds'])
-            {
-                $randEbanul = rand(0, 5);
-                $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", true, 'hit_enemy_damage');
-                
-                $playHitChance = 90;
-                if (rand(1, 100) <= $playHitChance)
-                {
-                    $randHit = rand(1, 8);
-                    $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/enemy/hit_{$randHit}.mp3", true, 'hit_enemy');
-                }
-                
-                $playCoverChance = 20;
-                if (rand(1, 100) <= 20)
-                {
-                    if ($this->coverTimer)
-                    {
-                        $this->coverTimer->cancel();
-                        $this->coverTimer = null;
-                    }
-                    $this->coverTimer = Timer::after(2500, function () {
-                        $randCover = rand(1, 5);
-                        $this->GameEnemy->playSound("res://.data/audio/fight/cover_sounds/enemy/cover_fire_{$randCover}.mp3", 900);
-                        $this->coverTimer = null;
-                    });
-                }
-            }
+            $damage = rand($damageMin, $damageMax);
+            $this->GameEnemy->applyDamage($damage);
         }
-        else
-        {
-            $this->health_static_enemy->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
-            $this->health_bar_enemy->hide();
-            $this->health_bar_enemy_b->hide();
-            $this->Talk_Label->hide();
     
-            if ($spawnParticles)
+        if ($spawnParticles)
+        {
+            if ($damageByMouse && $e)
+            {
+                $enemy  = $this->GameEnemy->GetModel();
+    
+                $originX = $enemy->x + $e->x;
+                $originY = $enemy->y + $e->y;
+                $floorY  = $enemy->y + $enemy->height - 20;
+    
+                $this->Particles->bloodBurstAtPoint($originX, $originY, $floorY, 4, 7);
+            }
+            else
             {
                 $this->Particles->bloodConeAtTarget($this->GameEnemy->GetModel());
             }
-
-            if ($GLOBALS['AllSounds'])
+        }
+    
+        if ($GLOBALS['AllSounds'])
+        {
+            $rand = rand(0, 5);
+            $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$rand}.mp3", true, 'hit_enemy_damage');
+    
+            if (rand(1, 100) <= 90)
             {
-                $randEbanul = rand(0, 5);
-                $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", true, 'hit_enemy_damage');
-                
-                $randDie = rand(1, 7);
-                $this->form('Client')->playSoundAsync("res://.data/audio/fight/death_sounds/enemy/death_{$randDie}.mp3", true, 'die_enemy');
+                $randHit = rand(1, 8);
+                $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/enemy/hit_{$randHit}.mp3", true, 'hit_enemy');
             }
     
-            $this->GameEnemy->death();
-            //$GLOBALS['EnemyFailed'] = true;
-            $this->finalizeBattle();
-            return;
-        }                    
-    }
-    
-    /**
-     * @event actor.click-2x
-     */    
-    function DamageActor(UXMouseEvent $e = null)
-    { 
-        if (!$this->GameActor->CanInteractive()) 
-        {
-            return;
-        }            
-        $minWidth       = 54;
-        $maxWidthMain   = 264;
-        $maxWidthInv    = 416;
-        $missChance     = 75;
-        $damageMinPct   = 8;
-        $damageMaxPct   = 20;
-    
-        if ($this->health_bar_gg->width != $minWidth)
-        {
-            if (!$GLOBALS['GodMode'])
+            if (rand(1, 100) <= 20)
             {
-                $didMiss = rand(1, 100) <= $missChance;
-    
-                if (!$didMiss)
+                if ($this->enemyCoverTimer)
                 {
-                    $currentW = $this->health_bar_gg->width;
-                    $currentPct = round((($currentW - $minWidth) / ($maxWidthMain - $minWidth)) * 99) + 1;
-                    if ($currentPct < 1)   $currentPct = 1;
-                    if ($currentPct > 100) $currentPct = 100;
-    
-                    $dmgPct = rand($damageMinPct, $damageMaxPct);
-    
-                    $newPct = max(1, $currentPct - $dmgPct);
-    
-                    $targetMain = (int) round($minWidth + (($maxWidthMain - $minWidth) * ($newPct - 1) / 99));
-                    $targetInv  = (int) round($minWidth + (($maxWidthInv  - $minWidth) * ($newPct - 1) / 99));
-    
-                    $this->form('Client')->animateResizeWidth($this->health_bar_gg, $targetMain, 3, function() {
-                        $minW = 54; $maxW = 264;
-                        $cur = $this->health_bar_gg->width;
-                        $pct = round((($cur - $minW) / ($maxW - $minW)) * 99) + 1;
-                        if ($pct < 1)   $pct = 1;
-                        if ($pct > 100) $pct = 100;
-                        $this->health_bar_gg->text = $pct . "%";
-                        $this->Bleeding();
-                    });
-    
-                    $invBar = $this->form('Client')->Inventory->content->health_bar_gg;
-                    $invBar->width = $targetInv;
-                    $invPct = round((($targetInv - $minWidth) / ($maxWidthInv - $minWidth)) * 99) + 1;
-                    $invPct = max(1, min(100, $invPct));
-                    $invBar->text = $invPct . "%";
+                    $this->enemyCoverTimer->cancel();
+                    $this->enemyCoverTimer = null;
                 }
-            }
-            
-            $this->HitMark->play();
-            
-            $actor  = $this->GameActor->GetModel();
-                    
-            $localX = $e->x;
-            $localY = $e->y;                    
-                    
-            $originX = $actor->x + $localX;
-            $originY = $actor->y + $localY;                    
-            
-            $floorY = $actor->y + $actor->height - 20;
-
-            $this->Particles->bloodBurstAtPoint($originX, $originY, $floorY, 4, 7);    
-                    
-            if ($GLOBALS['AllSounds'])
-            {
-                $randEbanul = rand(0, 5);            
-                $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", true, 'hit_actor_damage');
-                         
-                $playHitChance = 90;
-                if (rand(1, 100) <= $playHitChance)
-                {                            
-                    $randHit = rand(1, 3);
-                    $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/actor/hit_{$randHit}.mp3", true, 'hit_actor');
-                }
-                
-                $playCoverChance = 40;
-                if (rand(1, 100) <= 20)
-                {
-                    if ($this->coverTimer)
-                    {
-                        $this->coverTimer->cancel();
-                        $this->coverTimer = null;
-                    }
-                    $this->coverTimer = Timer::after(2500, function () {
-                        $randCover = rand(1, 2);
-                        $this->GameActor->playSound("res://.data/audio/fight/cover_sounds/actor/cover_fire_{$randCover}.mp3", 900);    
-                        $this->coverTimer = null;
-                    });
-                }               
+    
+                $this->enemyCoverTimer = Timer::after(2500, function () {
+                    $randCover = rand(1, 5);
+                    $this->GameEnemy->playSound("res://.data/audio/fight/cover_sounds/enemy/cover_fire_{$randCover}.mp3", 900);
+                    $this->enemyCoverTimer = null;
+                });
             }
         }
-        else
-        {
-            $this->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
-            $this->health_bar_gg->hide();
-            $this->health_bar_gg_b->hide();
-            $this->Bleeding();
-            $this->form('Client')->Inventory->content->health_bar_gg->hide();
-            $this->form('Client')->Inventory->content->health_bar_gg_b->hide();
-            $this->form('Client')->Inventory->content->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
-            $this->Talk_Label->hide();
-    
-            if ($this->blood_ui->visible) $this->blood_ui->hide();
-            if ($this->HitMark->isVisible())  $this->HitMark->hide();
-    
-            $this->Particles->bloodConeAtTarget($this->GameActor->GetModel());
-    
-            if ($GLOBALS['AllSounds'])
-            {
-                $randEbanul = rand(0, 5);
-                $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", true, 'hit_actor_damage');
+    }
 
-                $randDie = rand(1, 4);
-                $this->form('Client')->playSoundAsync("res://.data/audio/fight/death_sounds/actor/death_{$randDie}.mp3", true, 'die_actor');                
-            }
-            
-            $this->GameActor->death();
-            //$GLOBALS['ActorFailed'] = true;
-            $this->finalizeBattle();
+    /**
+     * @event actor.click-2x
+     */
+    function DamageActor(UXMouseEvent $e = null)
+    {
+        if (!$this->GameActor->CanInteractive())
+        {
             return;
+        }
+    
+        if (!$GLOBALS['GodMode'])
+        {
+            $missChance = 75;
+    
+            if (rand(1, 100) > $missChance)
+            {
+                $damage = rand(8, 20);
+                $this->GameActor->applyDamage($damage);
+            }
+        }
+    
+        $this->HitMark->play();
+    
+        $actor = $this->GameActor->GetModel();
+    
+        $originX = $actor->x + $e->x;
+        $originY = $actor->y + $e->y;
+        $floorY  = $actor->y + $actor->height - 20;
+    
+        $this->Particles->bloodBurstAtPoint($originX, $originY, $floorY, 4,7);
+    
+        if ($GLOBALS['AllSounds'])
+        {
+            $randEbanul = rand(0, 5);
+            $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", true, 'hit_actor_damage');
+    
+            if (rand(1, 100) <= 90)
+            {
+                $randHit = rand(1, 3);
+                $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/actor/hit_{$randHit}.mp3", true, 'hit_actor');
+            }
+    
+            if (rand(1, 100) <= 40)
+            {
+                if ($this->actorCoverTimer)
+                {
+                    $this->actorCoverTimer->cancel();
+                    $this->actorCoverTimer = null;
+                }
+    
+                $this->actorCoverTimer = Timer::after(2500, function () {
+                    $randCover = rand(1, 2);
+                    $this->GameActor->playSound("res://.data/audio/fight/cover_sounds/actor/cover_fire_{$randCover}.mp3", 900);
+                    $this->actorCoverTimer = null;
+                });
+            }
         }
     }
    
     function Bleeding()
     {
-        $minHPWidth = 54;
-        $maxHPWidth = 264;
-        
-        $curW = $this->health_bar_gg->width;
-    
-        if ($curW >= $maxHPWidth)
-        {
-            $this->blood_ui->hide();
-            return;
-        }
-    
         if ($this->GameActor->isDead())
         {
             $this->blood_ui->hide();
             return;
         }
-        else
+    
+        $hpPercent = $this->GameActor->getHpPercent();
+    
+        if ($hpPercent >= 100)
         {
-            $this->blood_ui->show();
+            $this->blood_ui->hide();
+            return;
         }
     
-        $hpPercent = round((($curW - $minHPWidth) / ($maxHPWidth - $minHPWidth)) * 100);
-        $hpPercent = max(1, min(100, $hpPercent));
+        $this->blood_ui->show();
     
         if ($hpPercent >= 60)
         {
@@ -668,8 +526,109 @@ class maingame extends AbstractForm
         else
         {
             $this->blood_ui->image = new UXImage('res://.data/ui/maingame/blood_ultra.png');
-        }       
+        }
     }
+    
+    private function updateEnemyHealthUI($enemy): void
+    {
+        $pct = $enemy->getHpPercent();
+    
+        $min = 54;
+        $max = 264;
+        
+        $pct = max(0, min(100, $pct));
+    
+        $target = (int)($min + ($max - $min) * ($pct / 100));
+    
+        $this->form('Client')->animateResizeWidth(
+            $this->health_bar_enemy,
+            $target,
+            3,
+            function () use ($pct) {
+                $this->health_bar_enemy->text = $pct . '%';
+            }
+        );
+    }
+    
+    private function updateActorHealthUI($actor): void
+    {
+        $pct = $actor->getHpPercent();
+    
+        $min = 54;
+        $maxMain = 264;
+        $maxInv  = 416;
+        
+        $pct = max(0, min(100, $pct));
+            
+        $targetMain = (int)($min + ($maxMain - $min) * ($pct / 100));
+        $targetInv  = (int)($min + ($maxInv  - $min) * ($pct / 100));
+    
+        $this->form('Client')->animateResizeWidth(
+            $this->health_bar_gg,
+            $targetMain,
+            3,
+            function () use ($pct) {
+                $this->health_bar_gg->text = $pct . '%';
+            }
+        );
+    
+        $invBar = $this->form('Client')->Inventory->content->health_bar_gg;
+    
+        $this->form('Client')->animateResizeWidth(
+            $invBar,
+            $targetInv,
+            3,
+            function () use ($invBar, $pct) {
+                $invBar->text = $pct . '%';
+            }
+        );
+    }
+    
+    private function onEnemyDeath(): void
+    {
+        $this->health_static_enemy->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
+    
+        $this->health_bar_enemy->hide();
+        $this->health_bar_enemy_b->hide();
+        $this->Talk_Label->hide();
+    
+        $this->Particles->bloodConeAtTarget($this->GameEnemy->GetModel());
+    
+        if ($GLOBALS['AllSounds'])
+        {
+            $randDie = rand(1, 7);
+            $this->form('Client')->playSoundAsync("res://.data/audio/fight/death_sounds/enemy/death_{$randDie}.mp3", true, 'die_enemy');
+        }
+    
+        $this->finalizeBattle();
+    }
+    
+    private function onActorDeath(): void
+    {
+        $this->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
+    
+        $this->health_bar_gg->hide();
+        $this->health_bar_gg_b->hide();
+    
+        $this->form('Client')->Inventory->content->health_bar_gg->hide();
+        $this->form('Client')->Inventory->content->health_bar_gg_b->hide();
+        $this->form('Client')->Inventory->content->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
+    
+        $this->blood_ui->hide();
+        if ($this->HitMark->isVisible()) $this->HitMark->hide();
+    
+        $this->Particles->bloodConeAtTarget($this->GameActor->GetModel());
+    
+        if ($GLOBALS['AllSounds'])
+        {
+            $randDie = rand(1, 4);
+            $this->form('Client')->playSoundAsync("res://.data/audio/fight/death_sounds/actor/death_{$randDie}.mp3", true, 'die_actor');
+        }
+    
+        $this->finalizeBattle();
+    }
+    
+    
     function finalizeBattle()
     {
         $GLOBALS['NeedToCheckPDA'] = true;
@@ -680,16 +639,10 @@ class maingame extends AbstractForm
         $this->fight_image->blinkAnim->disable();
         
         $this->leave_btn->show();
-                
-        //if ($GLOBALS['ActorFailed']) $this->GameActor->GetModel()->hide();
-        //if ($GLOBALS['EnemyFailed']) $this->GameEnemy->GetModel()->hide();     
         
         $this->ItemVodka->disable();
         $this->ItemVodka->setOpacity(0);
         $this->ItemVodka->hide();
-        
-       // $this->GameActor->SetInteractive(false);
-       // $this->GameEnemy->SetInteractive(false);
         
         if ($GLOBALS['AllSounds']) $this->form('Client')->StopAllSoundsAsync();
         
