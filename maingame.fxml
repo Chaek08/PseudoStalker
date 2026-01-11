@@ -22,7 +22,7 @@
         <Font name="System Regular" size="75"/>
       </font>
     </LabelEx>
-    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="176" id="HitMark" layoutX="0" layoutY="32" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="1600">
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="176" id="HitMark_Visual" layoutX="0" layoutY="32" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="1600">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
@@ -81,7 +81,7 @@
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-health_static_enemy" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/maingame/exit_icon.png" id="data-leave_btn" visible=""/>
-    <Data clickImage="" cursor="DEFAULT" enabled="" hoverImage="" id="data-HitMark" image="" visible=""/>
+    <Data clickImage="" cursor="DEFAULT" enabled="" hoverImage="" id="data-HitMark_Visual" image="" visible=""/>
     <ImageViewEx autoSize="true" centered="false" focusTraversable="false" height="37" id="pda_icon" layoutX="320" layoutY="24" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="55">
       <font>
         <Font name="System Regular" size="12"/>

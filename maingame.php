@@ -24,11 +24,14 @@ use php\framework\Logger;
 use app\forms\classes\Localization;
 use php\gui\event\UXEvent; 
 use app\forms\classes\ParticleManager;
+use app\forms\classes\UI\HitMark;
 
 class maingame extends AbstractForm
 {
     private $currentCycle = '';
     private $localization;
+    
+    protected $HitMark;
     
     public $SDK_FightSound;
     public $SDK_ActorModel;
@@ -62,6 +65,8 @@ class maingame extends AbstractForm
         $this->GameEnemy->SetModel($this->enemy);
         
         $this->GameEnemy->SetInteractive(false);
+        
+        $this->HitMark = new HitMark($this->HitMark_Visual);
         
         $this->ItemVodka = new CVodka($this, $this->item_vodka_0000, $this->GameActor, $this->GameEnemy); //CItem zavtra
         $this->ItemVodka->disable();
@@ -498,10 +503,6 @@ class maingame extends AbstractForm
         }                    
     }
     
-    public $lastHitTime = 0;
-    public $hitmarkLevel = 1;
-    public $hitmarkVisibleUntil = 0;
-       
     /**
      * @event actor.click-2x
      */    
@@ -556,46 +557,7 @@ class maingame extends AbstractForm
                 }
             }
             
-            $now = Time::millis();
-            $timeDiff = $now - $this->lastHitTime;
-            $this->lastHitTime = $now;
-    
-            if ($timeDiff < 500)
-            {
-                if ($this->hitmarkLevel < 4)
-                {
-                    $this->hitmarkLevel++;
-                }
-            }
-    
-            Timer::after(1500, function () {
-                $sinceLastHit = Time::millis() - $this->lastHitTime;
-                if ($sinceLastHit >= 1500 && $this->hitmarkLevel > 1)
-                {
-                    $this->hitmarkLevel--;
-                }
-            });
-    
-            switch ($this->hitmarkLevel)
-            {
-                case 1: $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_1.png"); break;
-                case 2: $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_2.png"); break;
-                case 3: $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_3.png"); break;
-                case 4: $this->HitMark->image = new UXImage("res://.data/ui/maingame/hitmark/hitmark_4.png"); break;
-            }
-    
-            $this->HitMark->opacity = 0;
-            $this->HitMark->visible = true;
-            Animation::fadeIn($this->HitMark, 100);
-            $this->hitmarkVisibleUntil = Time::millis() + 500;
-    
-            Timer::after(500, function () {
-                if (Time::millis() >= $this->hitmarkVisibleUntil)
-                {
-                    Animation::fadeOut($this->HitMark, 300);
-                    Timer::after(300, function () { $this->hitmarkLevel = 1; });
-                }
-            });
+            $this->HitMark->play();
             
             $actor  = $this->GameActor->GetModel();
                     
