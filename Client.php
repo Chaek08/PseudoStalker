@@ -967,7 +967,7 @@ class Client extends AbstractForm
     /**
      * @event keyDown-1 
      */
-    function SwitchWeapon1(UXKeyEvent $e = null)
+    function SwitchWeapon1Proxy(UXKeyEvent $e = null)
     {    
         $this->MainGame->content->SwitchWeapon('Pm');
     }
@@ -975,8 +975,18 @@ class Client extends AbstractForm
     /**
      * @event keyDown-2 
      */
-    function SwitchWeapon2(UXKeyEvent $e = null)
+    function SwitchWeapon2Proxy(UXKeyEvent $e = null)
     {    
         $this->MainGame->content->SwitchWeapon('AK74');
+    }
+
+    /**
+     * @event keyDown-Enter 
+     */
+    function DialogEnterAnswerProxy(UXKeyEvent $e = null)
+    {    
+        if (!$this->Dialog->visible) return;
+        
+        $this->Dialog->content->EnterAnswer();
     }
 }
