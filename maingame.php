@@ -611,7 +611,7 @@ class maingame extends AbstractForm
             $this->Talk_Label->hide();
     
             if ($this->blood_ui->visible) $this->blood_ui->hide();
-            if ($this->HitMark->visible)  $this->HitMark->hide();
+            if ($this->HitMark->isVisible())  $this->HitMark->hide();
     
             $this->Particles->bloodConeAtTarget($this->GameActor->GetModel());
     

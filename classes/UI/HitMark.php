@@ -56,6 +56,11 @@ class HitMark
             }
         });
     }
+    
+    public function isVisible(): bool
+    {
+        return $this->view->visible === true;
+    }    
 
     protected function updateImage(): void
     {
