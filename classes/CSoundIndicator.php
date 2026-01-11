@@ -1,7 +1,6 @@
 <?php
 namespace app\forms\classes;
 
-use app\forms\classes\Weapons\CWeapon;
 use php\time\Timer;
 use action\Animation;
 use php\gui\UXImageView;
@@ -13,6 +12,7 @@ class CSoundIndicator
     private $icon;
     private $ownerModel;
     private $followTimer;
+    private $isHiding = false;
 
     private const ICON_SIZE = 56;
     private const FOLLOW_INTERVAL = 1;
@@ -35,8 +35,12 @@ class CSoundIndicator
     public function playFor(int $durationMs): void
     {
         $this->fxLater(function () {
+            if (!$this->icon) return;
+
+            $this->isHiding = false;
             $this->updatePosition();
             $this->icon->visible = true;
+
             Animation::fadeIn($this->icon, 150);
         });
 
@@ -55,7 +59,9 @@ class CSoundIndicator
 
         $this->followTimer = Timer::every(self::FOLLOW_INTERVAL, function () {
             $this->fxLater(function () {
-                $this->updatePosition();
+                if ($this->icon) {
+                    $this->updatePosition();
+                }
             });
         });
     }
@@ -71,8 +77,9 @@ class CSoundIndicator
 
     private function updatePosition(): void
     {
+        if (!$this->icon || !$this->ownerModel) return;
+
         $m = $this->ownerModel;
-        if (!$m) return;
 
         $this->icon->x = $m->x + ($m->width / 2) - (self::ICON_SIZE / 2);
         $this->icon->y = $m->y - self::ICON_SIZE;
@@ -80,9 +87,20 @@ class CSoundIndicator
 
     private function hide(): void
     {
-        Animation::fadeOut($this->icon, 200, function () {
-            $this->icon->visible = false;
+        if ($this->isHiding) return;
+        $this->isHiding = true;
+
+        $icon = $this->icon;
+        if (!$icon) return;
+
+        Animation::fadeOut($icon, 200, function () use ($icon) {
+            if ($icon)
+            {
+                $icon->visible = false;
+            }
+
             $this->stopFollow();
+            $this->isHiding = false;
         });
     }
 
@@ -90,13 +108,20 @@ class CSoundIndicator
     {
         $this->stopFollow();
 
-        if ($this->icon && $this->icon->parent)
-        {
-            $this->icon->parent->remove($this->icon);
-        }
-
+        $icon = $this->icon;
         $this->icon = null;
         $this->ownerModel = null;
+
+        if ($icon)
+        {
+            $icon->visible = false;
+            $icon->opacity = 0;
+
+            if ($icon->parent)
+            {
+                $icon->parent->remove($icon);
+            }
+        }
     }
 
     private function fxLater(callable $fn): void

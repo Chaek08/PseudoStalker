@@ -592,7 +592,7 @@ class opt extends AbstractForm
             $this->form('Client')->Fail->content->UpdateFailState();
             $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
             
-            $this->form('Client')->Task_Step_Label->text = $this->localization->get('No_Active_Task');
+            $this->form('Client')->MainGame->content->Task_Step_Label->text = $this->localization->get('No_Active_Task');
         }
         
         $this->form('Client')->MainMenu->content->UILoadWnd->content->ShowSavePreview();
