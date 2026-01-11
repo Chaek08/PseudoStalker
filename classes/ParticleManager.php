@@ -45,10 +45,10 @@ class ParticleManager
         $hitY   = $actorModel->y + $muzzleOffsetY;
         $floorY = $enemyModel->y + $enemyModel->height - 20;
     
-        $this->bloodBurstAtPoint($hitX, $hitY, $floorY, 4, 7, true);
+        $this->bloodBurstAtPoint($hitX, $hitY, $floorY, 4, 7);
     }
 
-    public function bloodBurstAtPoint(float $originX, float $originY, float $floorY, int $countMin = 6, int $countMax = 10, bool $isWeaponShot = false): void
+    public function bloodBurstAtPoint(float $originX, float $originY, float $floorY, int $countMin = 6, int $countMax = 10): void
     {
         $count = rand($countMin, $countMax);
 
@@ -63,7 +63,7 @@ class ParticleManager
             $impulseX = cos($angleRad) * $force;
             $impulseY = sin($angleRad) * $force - rand(15, 30);
                         
-            $this->spawnParticle($this->makeBloodFactory($originX, $originY, $scatterX, $scatterY), $this->makeBurstAnimator($impulseX, $impulseY, $floorY, $isWeaponShot), !$isWeaponShot);
+            $this->spawnParticle($this->makeBloodFactory($originX, $originY, $scatterX, $scatterY), $this->makeBurstAnimator($impulseX, $impulseY, $floorY));
         }
     }
 
@@ -95,24 +95,15 @@ class ParticleManager
         }
     }
 
-    protected function spawnParticle(callable $factory, callable $animator, bool $toClient = false): void
+    protected function spawnParticle(callable $factory, callable $animator): void
     {
-        (new Thread(function () use ($factory, $animator, $toClient) {
+        (new Thread(function () use ($factory, $animator) {
     
             $particle = $factory();
     
-            UXApplication::runLater(function () use ($particle, $animator, $toClient) {
+            UXApplication::runLater(function () use ($particle, $animator) {
     
-                if ($toClient)
-                {
-                    $particle->scale = $this->form->form('Client')->MainGame->scale;
-                    
-                    $this->form->form('Client')->add($particle);
-                }
-                else
-                {
-                    $this->form->form('Client')->MainGame->content->add($particle);
-                }
+                $this->form->form('Client')->MainGame->content->add($particle);
     
                 $animator($particle);
             });
@@ -138,24 +129,18 @@ class ParticleManager
         };
     }
     
-    protected function makeBurstAnimator(float $impulseX, float $impulseY, float $floorY, bool $toClient = false): callable
+    protected function makeBurstAnimator(float $impulseX, float $impulseY, float $floorY): callable
     {
-        return function ($p) use ($impulseX, $impulseY, $floorY, $toClient) {
+        return function ($p) use ($impulseX, $impulseY, $floorY) {
     
-            $scale = 1;
-    
-            if ($toClient) {
-                $scale = $this->form->form('Client')->MainGame->scale;
-            }
-    
-            $dx = $impulseX / $scale;
-            $dy = $impulseY / $scale;
+            $dx = $impulseX;
+            $dy = $impulseY;
     
             Animation::displace($p, 200, $dx, $dy);
     
-            Timer::after(210, function () use ($p, $floorY, $scale) {
+            Timer::after(210, function () use ($p, $floorY) {
     
-                $targetY = $floorY / $scale;
+                $targetY = $floorY;
     
                 if ($p->y < $targetY)
                 {

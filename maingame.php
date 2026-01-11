@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use php\desktop\Mouse;
 use app\forms\classes\Environment;
 use app\forms\classes\CEnemy;
 use Throwable;
@@ -423,12 +424,17 @@ class maingame extends AbstractForm
             {
                 if ($damageByMouse)
                 {
-                    $cursor = $this->form('Client')->CustomCursor;
                     $enemy  = $this->GameEnemy->GetModel();
+                    
+                    $localX = $e->x;
+                    $localY = $e->y;                    
+                    
+                    $originX = $enemy->x + $localX;
+                    $originY = $enemy->y + $localY;                    
             
                     $floorY = $enemy->y + $enemy->height - 20;
 
-                    $this->Particles->bloodBurstAtPoint($cursor->x, $cursor->y, $floorY, 4, 7);
+                    $this->Particles->bloodBurstAtPoint($originX, $originY, $floorY, 4, 7);
                 }
                 else
                 {
@@ -590,10 +596,19 @@ class maingame extends AbstractForm
                     Timer::after(300, function () { $this->hitmarkLevel = 1; });
                 }
             });
-    
-            $floorY = $this->GameActor->GetModel()->y + $this->GameActor->GetModel()->height - 20;
-            $this->Particles->bloodBurstAtPoint($this->form('Client')->CustomCursor->x, $this->form('Client')->CustomCursor->y, $floorY, 4, 7);
+            
+            $actor  = $this->GameActor->GetModel();
+                    
+            $localX = $e->x;
+            $localY = $e->y;                    
+                    
+            $originX = $actor->x + $localX;
+            $originY = $actor->y + $localY;                    
+            
+            $floorY = $actor->y + $actor->height - 20;
 
+            $this->Particles->bloodBurstAtPoint($originX, $originY, $floorY, 4, 7);    
+                    
             if ($GLOBALS['AllSounds'])
             {
                 $randEbanul = rand(0, 5);            

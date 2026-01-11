@@ -27,7 +27,7 @@ class InventoryGrid extends AbstractForm
     public $selectedItem = null;
     public $medkitCount = 0;
     public $pmAmmoCount = 25;
-    public $akAmmoCount = 60;
+    public $akAmmoCount = 69;
     public $isWearing = false;
     public $pmInWeaponSlot = false;
     public $AK74InWeaponSlot = false;
