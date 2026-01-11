@@ -229,9 +229,6 @@ class pda_fragment_ranking extends AbstractForm
     {    
         if ($GLOBALS['SelectedActor']) 
         {
-            $this->form('Client')->Pda->content->UpdateBtnColor();
-            $this->form('Client')->Pda->content->stat_label->textColor = '#d59b30';
-            
             $this->form('Client')->Pda->content->StatisticBtn(); 
         }
         if ($this->form('Client')->Pda->content->Pda_Contacts->content->icon->visible)
@@ -242,9 +239,6 @@ class pda_fragment_ranking extends AbstractForm
             }
             if ($GLOBALS['SelectedEnemy'])
             {
-                $this->form('Client')->Pda->content->UpdateBtnColor();
-                $this->form('Client')->Pda->content->contacts_label->textColor = '#d59b30';
-            
                 $this->form('Client')->Pda->content->ContactsBtn();
                 $this->form('Client')->Pda->content->Pda_Contacts->content->CharacterClick(); 
             }                     

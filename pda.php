@@ -56,11 +56,11 @@ class pda extends AbstractForm
             'stat_label'     => $this->localization->get('StatLabelTooltip')
         ];
     
-        $this->activePressedLabel = null;
-    
         foreach ($buttons as $btnName => $tooltipText)
         {
             $label = $this->{$btnName};
+            
+            $label->classes[] = 'pda-tab';
     
             $tooltip = new CustomTooltip($this->form('Client'));
             $tooltip->setText($tooltipText);
@@ -77,11 +77,6 @@ class pda extends AbstractForm
                         $tooltip->show();
                     });
                 });
-    
-                if ($label->textColor != "#d59b30")
-                {
-                    $label->textColor = "white";
-                }
             });
     
             $label->on('mouseExit', function($e) use ($tooltip, $label) {
@@ -91,11 +86,6 @@ class pda extends AbstractForm
                     $tooltip->showTimer = null; 
                 }
                 $tooltip->hide();
-    
-                if ($label->textColor != "#d59b30")
-                {
-                    $label->textColor = "#777778";
-                }
             });
     
             $label->on('mouseMove', function($e) use ($tooltip) {
@@ -104,41 +94,19 @@ class pda extends AbstractForm
                     $tooltip->repositionAtCursor();
                 }
             });
-    
-            $label->on("mouseDown", function($e) use ($label, $btnName) {
-                $this->activePressedLabel = $btnName;
-            });
         }
-    
-        $this->on("mouseUp", function($e) use ($buttons) {
-            if ($this->activePressedLabel != null)
-            {
-                $btnName = $this->activePressedLabel;
-                $label = $this->{$btnName};
-    
-                if ($label->hover)
-                {
-                    $this->UpdateBtnColor();
-                    $label->textColor = "#d59b30";
-    
-                    switch ($btnName)
-                    {
-                        case 'tasks_label':    $this->TasksBtn();     break;
-                        case 'contacts_label': $this->ContactsBtn();  break;
-                        case 'ranks_label':    $this->RankingBtn();   break;
-                        case 'stat_label':     $this->StatisticBtn(); break;
-                    }
-                }
-                else if ($label->textColor != "#d59b30")
-                {
-                    $label->textColor = "#777778";
-                }
-    
-                $this->activePressedLabel = null;
-            }
-        });
         
         $this->Pda_Tasks->content->InitTasks();
+    }
+    
+    function setActivePdaTab($name)
+    {
+        foreach (['tasks_label', 'contacts_label', 'ranks_label', 'stat_label'] as $btn)
+        {
+            $this->{$btn}->style = null;
+        }
+    
+        $this->{$name}->style = '-fx-text-fill: #d59b30;';
     }
 
     function DefaultState()
@@ -148,27 +116,21 @@ class pda extends AbstractForm
         $this->Pda_Tasks->hide();
         $this->Pda_Statistic->hide();
         
-        if (!$this->form('Client')->Pda->visible) $this->UpdateBtnColor();
-        
         $this->Pda_Background->show();
             
         $this->form('Client')->Pda->content->Pda_Ranking->content->HideUserInfo();
         $this->form('Client')->Pda->content->Pda_Tasks->content->ClearDetailTask();
         $this->form('Client')->Pda->content->Pda_Contacts->content->HideCharacter();
     }
-    function UpdateBtnColor()
-    {
-        foreach (['tasks_label', 'contacts_label', 'ranks_label', 'stat_label'] as $btnName)
-        {
-            $this->{$btnName}->textColor = '#777778';
-        }
-    }    
+
     /**
      * @event ranks_label.click-Left 
      */
     function RankingBtn(UXMouseEvent $e = null)
     { 
         if (!$this->Pda_Ranking->visible) $this->DefaultState();
+               
+        $this->setActivePdaTab('ranks_label');
                
         $this->Pda_Ranking->content->UpdateData();
         $this->Pda_Ranking->show();
@@ -182,27 +144,20 @@ class pda extends AbstractForm
     {  
         if (!$this->Pda_Tasks->visible) $this->DefaultState();
               
+        $this->setActivePdaTab('tasks_label');
+         
         $this->Pda_Tasks->content->UpdateData();
                 
         if (!$GLOBALS['QuestCompleted']) 
         {
-            $this->Pda_Tasks->content->ResetBtnColor();
-            $this->Pda_Tasks->content->active_task->textColor = '#d59b30';
-            
             $this->Pda_Tasks->content->ShowActiveTasks();
         }
         if ($GLOBALS['QuestCompleted'] && $this->form('Client')->MainGame->content->GameActor->isDead())
         {
-            $this->Pda_Tasks->content->ResetBtnColor();
-            $this->Pda_Tasks->content->failed_task->textColor = '#d59b30';
-        
             $this->Pda_Tasks->content->ShowFailedTasks();
         }
         if ($GLOBALS['QuestCompleted'] && $this->form('Client')->MainGame->content->GameEnemy->isDead())
         {
-            $this->Pda_Tasks->content->ResetBtnColor();
-            $this->Pda_Tasks->content->passive_task->textColor = '#d59b30';
-        
             $this->Pda_Tasks->content->ShowPassiveTasks();
         }        
         
@@ -217,6 +172,8 @@ class pda extends AbstractForm
     {   
         if (!$this->Pda_Contacts->visible) $this->DefaultState();     
         
+        $this->setActivePdaTab('contacts_label');
+        
         $this->Pda_Contacts->content->UpdateData();
         $this->Pda_Contacts->show();
         
@@ -228,6 +185,8 @@ class pda extends AbstractForm
     function StatisticBtn(UXMouseEvent $e = null)
     {    
         if (!$this->Pda_Statistic->visible) $this->DefaultState();     
+        
+        $this->setActivePdaTab('stat_label');
         
         $this->Pda_Statistic->content->UpdateData();
         $this->Pda_Statistic->show();

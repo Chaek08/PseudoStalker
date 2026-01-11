@@ -70,14 +70,9 @@ class pda_fragments_stat extends AbstractForm
      */
     function RedirectRaiting(UXMouseEvent $e = null)
     {    
-        $this->form('Client')->Pda->content->UpdateBtnColor();
-        $this->form('Client')->Pda->content->ranks_label->textColor = '#d59b30';
-    
         $this->form('Client')->Pda->content->RankingBtn();
         
-        $this->form('Client')->Pda->content->Pda_Ranking->content->ratingHueta->clickEntry(
-            $this->form('Client')->Pda->content->Pda_Ranking->content->actorCharacterInfo->name
-        );
+        $this->form('Client')->Pda->content->Pda_Ranking->content->ratingHueta->clickEntry($this->form('Client')->Pda->content->Pda_Ranking->content->actorCharacterInfo->name);
 
         $this->form('Client')->Pda->content->Pda_Ranking->content->ActorInListBtn();
     }

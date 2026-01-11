@@ -32,100 +32,64 @@ class pda_fragment_tasks extends AbstractForm
     
     function InitTasks()
     {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());  
-          
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+    
         $buttons = [
             'active_task'  => $this->localization->get('ActiveTaskTooltip'),
             'passive_task' => $this->localization->get('PassiveTaskTooltip'),
             'failed_task'  => $this->localization->get('FailedTaskTooltip'),
-            'quest_detail_btn' =>  $this->localization->get('TaskDetailTooltip')           
+            'quest_detail_btn' => $this->localization->get('TaskDetailTooltip')
         ];
-    
-        $this->activePressedTaskLabel = null;
+        
     
         foreach ($buttons as $btnName => $tooltipText)
         {
-            $label = $this->{$btnName};
+            $node = $this->{$btnName};
     
             $tooltip = new CustomTooltip($this->form('Client'));
             $tooltip->setText($tooltipText);
     
-            $label->on('mouseEnter', function($e) use ($tooltip, $label) {
-                if ($tooltip->showTimer)
-                { 
-                    $tooltip->showTimer->cancel(); 
-                    $tooltip->showTimer = null; 
+            $node->on('mouseEnter', function () use ($tooltip) {
+                if ($tooltip->showTimer) {
+                    $tooltip->showTimer->cancel();
+                    $tooltip->showTimer = null;
                 }
-                $tooltip->showTimer = Timer::after($tooltip->delayMs, function () use ($tooltip) {
-                    uiLater(function () use ($tooltip) {
-                        $tooltip->repositionAtCursor();
-                        $tooltip->show();
-                    });
-                });
     
-                if ($label->textColor != "#d59b30")
-                {
-                    $label->textColor = "white";
-                }
+                $tooltip->showTimer = Timer::after(
+                    $tooltip->delayMs,
+                    function () use ($tooltip) {
+                        uiLater(function () use ($tooltip) {
+                            $tooltip->repositionAtCursor();
+                            $tooltip->show();
+                        });
+                    }
+                );
             });
     
-            $label->on('mouseExit', function($e) use ($tooltip, $label) {
-                if ($tooltip->showTimer)
-                { 
-                    $tooltip->showTimer->cancel(); 
-                    $tooltip->showTimer = null; 
+            $node->on('mouseExit', function () use ($tooltip) {
+                if ($tooltip->showTimer) {
+                    $tooltip->showTimer->cancel();
+                    $tooltip->showTimer = null;
                 }
                 $tooltip->hide();
-    
-                if ($label->textColor != "#d59b30") {
-                    $label->textColor = "#777778";
-                }
             });
     
-            $label->on('mouseMove', function($e) use ($tooltip) {
-                if ($tooltip->visible)
-                {
+            $node->on('mouseMove', function () use ($tooltip) {
+                if ($tooltip->visible) {
                     $tooltip->repositionAtCursor();
                 }
             });
+        }
+    }
     
-            $label->on("mouseDown", function($e) use ($btnName) {
-                $this->activePressedTaskLabel = $btnName;
-            });
+    function setActiveTab($name)
+    {
+        foreach (['active_task', 'passive_task', 'failed_task'] as $btn)
+        {
+            $this->{$btn}->style = null;
         }
     
-        $this->on("mouseUp", function($e) use ($buttons) {
-            if ($this->activePressedTaskLabel != null)
-            {
-                $btnName = $this->activePressedTaskLabel;
-                $label = $this->{$btnName};
-    
-                if ($label->hover)
-                {
-                    $this->ResetBtnColor();
-                    $label->textColor = "#d59b30";
-    
-                    switch ($btnName)
-                    {
-                        case 'active_task':
-                            $this->ShowActiveTasks();
-                            break;
-                        case 'passive_task':
-                            $this->ShowPassiveTasks();
-                            break;
-                        case 'failed_task':
-                            $this->ShowFailedTasks();
-                            break;
-                    }
-                }
-                else if ($label->textColor != "#d59b30")
-                {
-                    $label->textColor = "#777778";
-                }
-    
-                $this->activePressedTaskLabel = null;
-            }
-        });
+        $this->{$name}->style = '-fx-text-fill: #d59b30;';
     }
 
     function UpdateData()
@@ -198,6 +162,8 @@ class pda_fragment_tasks extends AbstractForm
      */
     function ShowActiveTasks(UXMouseEvent $e = null)
     {    
+        $this->setActiveTab('active_task');
+        
         $GLOBALS['QuestCompleted'] ? $this->DeleteTask() : $this->AddTask();
     }
     /**
@@ -205,6 +171,7 @@ class pda_fragment_tasks extends AbstractForm
      */
     function ShowPassiveTasks(UXMouseEvent $e = null)
     {    
+        $this->setActiveTab('passive_task');
         
         $this->form('Client')->MainGame->content->GameEnemy->isDead() ? $this->AddTask() : $this->DeleteTask();
     }
@@ -213,6 +180,7 @@ class pda_fragment_tasks extends AbstractForm
      */
     function ShowFailedTasks(UXMouseEvent $e = null)
     {    
+        $this->setActiveTab('failed_task');
         
         if ($this->form('Client')->MainGame->content->GameActor->isDead()) //актор проиграл
         {
@@ -224,13 +192,7 @@ class pda_fragment_tasks extends AbstractForm
             $this->DeleteTask();
         }        
     }
-    function ResetBtnColor()
-    {
-        foreach (['active_task', 'passive_task', 'failed_task'] as $btn)
-        {
-            $this->{$btn}->textColor = "#777778";
-        }      
-    }
+
     function AddTask()
     {
         $this->task_label->show();
@@ -241,11 +203,13 @@ class pda_fragment_tasks extends AbstractForm
         $this->step1->show();
         $this->step2->show();
     }
+    
     function UpdateQuestTime()
     {
         $this->time_quest_hm->text = Time::now()->toString('HH:mm');
         $this->time_quest_date->text = Time::now()->toString('dd/MM/YYYY');
-    }    
+    }  
+      
     function Step_UpdatePda()
     {
         if ($GLOBALS['QuestCompleted'])
@@ -266,6 +230,7 @@ class pda_fragment_tasks extends AbstractForm
            $this->form('Client')->Pda->content->stat_label->graphic = new UXImageView(new UXImage('res://.data/ui/pda/mainbtn_icon.png'));              
         }
     }
+    
     function Step_DeletePda()
     {
         $GLOBALS['NeedToCheckPDA'] = false;
@@ -277,6 +242,7 @@ class pda_fragment_tasks extends AbstractForm
            $this->form('Client')->MainGame->content->pda_icon->hide();
         }
     }
+    
     function Step1_Complete()
     {
         $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));        
@@ -295,6 +261,7 @@ class pda_fragment_tasks extends AbstractForm
         
         $GLOBALS['QuestStep1'] = true;
     }
+    
     function Step2_Complete()
     {
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));
@@ -314,6 +281,7 @@ class pda_fragment_tasks extends AbstractForm
         
         $this->form('Client')->MainGame->content->ShowTaskStep();
     }   
+    
     function Step2_Failed()
     {
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png')); 
@@ -331,11 +299,13 @@ class pda_fragment_tasks extends AbstractForm
         
         $this->form('Client')->MainGame->content->ShowTaskStep();
     }
+    
     function StepReset()
     {
         $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_process.png'));    
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_process.png'));    
-    }    
+    }   
+     
     function DeleteTask()
     {
         $this->task_label->hide();

@@ -800,8 +800,6 @@ class Client extends AbstractForm
     {
         $this->ShowPda();
         $this->Pda->content->TasksBtn();
-        $this->Pda->content->UpdateBtnColor();
-        $this->Pda->content->tasks_label->textColor = '#d59b30';
     }
     /**
      * @event keyDown-C 
@@ -810,8 +808,6 @@ class Client extends AbstractForm
     {    
         $this->ShowPda();
         $this->Pda->content->ContactsBtn();
-        $this->Pda->content->UpdateBtnColor();
-        $this->Pda->content->contacts_label->textColor = '#d59b30';
     }    
     /**
      * @event keyDown-I 
