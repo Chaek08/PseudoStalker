@@ -260,8 +260,6 @@ class maingame extends AbstractForm
                 $this->health_bar_enemy->show();
                 $this->health_bar_enemy_b->show();
             }
-
-            $this->Bleeding();
             
             if ($this->currentWeapon) $this->ui_mag_background->show();
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
@@ -270,6 +268,8 @@ class maingame extends AbstractForm
             if ($this->GameActor->isDead() || $this->GameEnemy->isDead()) $this->leave_btn->show();
         
             $GLOBALS['HudVisible'] = true;
+            
+            $this->Bleeding();
         } 
         else 
         {
@@ -512,8 +512,11 @@ class maingame extends AbstractForm
             $this->blood_ui->hide();
             return;
         }
-    
-        $this->blood_ui->show();
+        
+        if ($GLOBALS['HudVisible'])
+        {
+            $this->blood_ui->show();
+        }
     
         if ($hpPercent >= 60)
         {

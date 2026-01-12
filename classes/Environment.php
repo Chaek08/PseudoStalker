@@ -347,6 +347,8 @@ class Environment
 
     protected function pickLocationForCycle($cycle)
     {
+        $finalCycle = $cycle;
+    
         if ($this->currentLocationIndex >= 0)
         {
             $index = $this->currentLocationIndex;
@@ -379,9 +381,16 @@ class Environment
     
         if (empty($this->locations[$locId][$cycle]))
         {
-            Debug::fail("Environment: missing location '{$locId}' for cycle '{$cycle}'", __FILE__, __LINE__);
-            return [null, false, false, null, $index];
-        }
+            if ($locId === 'L5' && isset($this->locations[$locId]['underground']))
+            {
+                $finalCycle = 'underground';
+            }
+            else
+            {
+                Debug::fail("Environment: missing location '{$locId}' for cycle '{$cycle}'", __FILE__, __LINE__);
+                return [null, false, false, null, $index, $finalCycle];
+            }
+        }    
     
         $item    = $this->locations[$locId][$cycle];
         $rawPath = $item['path'];
@@ -389,7 +398,7 @@ class Environment
         $rain    = !empty($item['rain']);
         $anomaly = !empty($item['anomaly']);
     
-        return [$path, $rain, $anomaly, $rawPath, $index];
+        return [$path, $rain, $anomaly, $rawPath, $index, $finalCycle];
     }
 
     public function setLocationIndex($index)
@@ -840,22 +849,22 @@ class Environment
     
         $old = $this->currentCycle;
     
-        list($backgroundPath, $rain, $anomaly, $rawPath, $locIndex) = $this->pickLocationForCycle($cycle);
+        list($backgroundPath, $rain, $anomaly, $rawPath, $locIndex, $realCycle) = $this->pickLocationForCycle($cycle);
         if ($backgroundPath === null)
         {
             Debug::fail("Environment: no background for cycle '{$cycle}'", __FILE__, __LINE__);
             return;
         }
     
-        $cycleChanged = ($cycle !== $this->currentCycle);
+        $cycleChanged = ($realCycle !== $this->currentCycle);
         $bgChanged    = ($backgroundPath !== $this->currentBackgroundPath);
     
         if ($cycleChanged || $bgChanged)
         {
             if ($cycleChanged)
             {
-                Logger::debug("[Environment]: cycle changed {$this->currentCycle} -> {$cycle}");
-                $this->currentCycle = $cycle;
+                Logger::debug("[Environment]: cycle changed {$this->currentCycle} -> {$realCycle}");
+                $this->currentCycle = $realCycle;
             }
     
             $this->currentBackgroundPath = $backgroundPath;
@@ -869,10 +878,7 @@ class Environment
                 return;
             }
 
-            Logger::debug(
-                "[Environment]: video '{$rawPath}' started for cycle '{$cycle}' (L{$locIndex}, rain=" .
-                ($rain ? '1' : '0') . ", anomaly=" . ($anomaly ? '1' : '0') . ")"
-            );
+            Logger::debug("[Environment]: video '{$rawPath}' started for cycle '{$realCycle}' (L{$locIndex}, rain=" . ($rain ? '1' : '0') . ", anomaly=" . ($anomaly ? '1' : '0') . ")");
     
             $this->setRainy($rain);
             $this->setAnomalyHum($anomaly);
@@ -880,8 +886,9 @@ class Environment
             $this->scheduleNextSfx();
             $this->scheduleNextEffect();
     
-            if ($cycleChanged && $this->onCycleChange !== null) {
-                call_user_func($this->onCycleChange, $old, $cycle);
+            if ($cycleChanged && $this->onCycleChange !== null)
+            {
+                call_user_func($this->onCycleChange, $old, $realCycle);
             }
         }
         else

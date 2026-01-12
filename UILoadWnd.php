@@ -147,8 +147,8 @@ class UILoadWnd extends AbstractForm
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         
         $this->savedata_name->text = $selectedSave;
-        $this->savedata_health->text = $this->localization->get('SaveData_Health_Label') 
-            . ' : ' . ($saveData['health']['gg']['value'] ?? '---%'); 
+        $hp = $saveData['health']['actor']['hp'] ?? null;
+        $this->savedata_health->text = $this->localization->get('SaveData_Health_Label') . ' : ' . ($hp !== null ? $hp . '%' : '---%');
         $this->savedata_time->text = $this->localization->get('SaveData_Time_Label') 
             . ' : ' . ($saveData['quest_time']['hm'] ?? '--:--') 
             . '  ' . ($saveData['quest_time']['date'] ?? '--/--/----');
