@@ -27,7 +27,8 @@ class CSoundIndicator
         $this->icon->fitHeight = self::ICON_SIZE;
         $this->icon->mouseTransparent = true;
         $this->icon->visible = false;
-        $this->icon->opacity = 0;
+        $this->icon->opacity = 0.85;
+        $this->icon->smooth = true;
 
         $ownerModel->parent->add($this->icon);
     }
@@ -39,9 +40,10 @@ class CSoundIndicator
 
             $this->isHiding = false;
             $this->updatePosition();
+            $this->icon->opacity = 0;
             $this->icon->visible = true;
-
-            Animation::fadeIn($this->icon, 150);
+            
+            Animation::fadeTo($this->icon, 150, 0.85);
         });
 
         $this->startFollow();
@@ -93,12 +95,8 @@ class CSoundIndicator
         $icon = $this->icon;
         if (!$icon) return;
 
-        Animation::fadeOut($icon, 200, function () use ($icon) {
-            if ($icon)
-            {
-                $icon->visible = false;
-            }
-
+        Animation::fadeTo($icon, 0, 200, function () use ($icon) {
+            $icon->visible = false;
             $this->stopFollow();
             $this->isHiding = false;
         });
