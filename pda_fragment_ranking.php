@@ -65,6 +65,8 @@ class pda_fragment_ranking extends AbstractForm
     
     function UpdateData()
     {
+        if ($this->form('Client')->Pda->content->Pda_Ranking->visible) return;
+    
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
         $this->ratingHueta->clearContainer($this->ratingKunteynir);
