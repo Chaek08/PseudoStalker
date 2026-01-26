@@ -390,9 +390,17 @@ class Environment
                 Debug::fail("Environment: missing location '{$locId}' for cycle '{$cycle}'", __FILE__, __LINE__);
                 return [null, false, false, null, $index, $finalCycle];
             }
-        }    
+        }
     
-        $item    = $this->locations[$locId][$cycle];
+        $useCycle = $finalCycle;
+    
+        if (empty($this->locations[$locId][$useCycle]))
+        {
+            Debug::fail("Environment: missing location '{$locId}' for real cycle '{$useCycle}'", __FILE__, __LINE__);
+            return [null, false, false, null, $index, $finalCycle];
+        }
+    
+        $item    = $this->locations[$locId][$useCycle];
         $rawPath = $item['path'];
         $path    = $this->texturesBasePath . $rawPath . '.mp4';
         $rain    = !empty($item['rain']);
@@ -400,6 +408,7 @@ class Environment
     
         return [$path, $rain, $anomaly, $rawPath, $index, $finalCycle];
     }
+
 
     public function setLocationIndex($index)
     {
@@ -848,22 +857,25 @@ class Environment
         if (!$this->isActive()) return;
     
         $old = $this->currentCycle;
-    
+        $firstInit = ($old === '' || $old === null);
+        
         list($backgroundPath, $rain, $anomaly, $rawPath, $locIndex, $realCycle) = $this->pickLocationForCycle($cycle);
         if ($backgroundPath === null)
         {
             Debug::fail("Environment: no background for cycle '{$cycle}'", __FILE__, __LINE__);
             return;
-        }
-    
-        $cycleChanged = ($realCycle !== $this->currentCycle);
+        }        
+        $cycleChanged = (!$firstInit && $realCycle !== $old);
         $bgChanged    = ($backgroundPath !== $this->currentBackgroundPath);
     
         if ($cycleChanged || $bgChanged)
         {
-            if ($cycleChanged)
+            if ($old !== $realCycle)
             {
-                Logger::debug("[Environment]: cycle changed {$this->currentCycle} -> {$realCycle}");
+                if (!$firstInit)
+                {
+                    Logger::debug("[Environment]: cycle changed {$old} -> {$realCycle}");
+                }
                 $this->currentCycle = $realCycle;
             }
     

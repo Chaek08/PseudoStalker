@@ -27,7 +27,7 @@ class CustomTooltip
     public $paddingX = 20;
     public $offsetX  = 10;
     public $gap      = 12;
-    public $delayMs  = 1000; //через сколько оно появится при наведении
+    public $delayMs  = 2000; //через сколько оно появится при наведении
     public $fadeMs   = 200; //через сколько исчезнет
 
     public $visible  = false;

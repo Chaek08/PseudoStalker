@@ -49,8 +49,6 @@ class Client extends AbstractForm
         
         $this->localization = new Localization($language); 
         
-        if (!$this->localization) Debug::fatal(__CLASS__ . ': Localization init failed', __FILE__, __LINE__);
-        
         $this->syncWithSDKLTX();
         $this->InitUserLTX();        
 
@@ -58,18 +56,10 @@ class Client extends AbstractForm
 
         $this->MainMenu->content->InitMainMenu();       
         $this->MainMenu->content->Options->content->InitOptions();
-                
-        $this->MainGame->content->RenderHud(false);
         
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
-        $user = System::getProperty('user.name');
-        if ($user == 'ok1') 
-        {
-            Debug::fatal("Incorrect player:\n$user", __FILE__, __LINE__);
-            $this->free();
-        }       
     }
+    
     function applyResolutionFromLTX()
     {
         $parts = explode('x', $this->ltx['vid_mode']);
