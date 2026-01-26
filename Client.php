@@ -49,10 +49,10 @@ class Client extends AbstractForm
         
         $this->localization = new Localization($language); 
         
+        $this->GetVersion();        
+        
         $this->syncWithSDKLTX();
         $this->InitUserLTX();        
-
-        $this->GetVersion();
 
         $this->MainMenu->content->InitMainMenu();       
         $this->MainMenu->content->Options->content->InitOptions();
