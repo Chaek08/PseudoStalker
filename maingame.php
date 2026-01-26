@@ -91,17 +91,14 @@ class maingame extends AbstractForm
         $this->ItemVodka->resetVisual();
         
         $this->Environment = new Environment($this->Environment_Space);
-        $this->Environment->startAmbient();
-        $this->Environment->pause();
-        $this->Environment->setOnCycleChange(function ($old, $new) use ($this) {
-            $brightness = $this->Environment->getEnvironmentBrightness();
-            
-            $this->GameActor->GetModel()->colorAdjustEffect->brightness   = $brightness;
-            $this->GameEnemy->GetModel()->colorAdjustEffect->brightness   = $brightness;
-            
+        $this->Environment->setOnBrightnessTick(function ($brightness) use ($this) {
+            $this->GameActor->GetModel()->colorAdjustEffect->brightness = $brightness;
+            $this->GameEnemy->GetModel()->colorAdjustEffect->brightness = $brightness;
             $this->ItemVodka->setBrightness($brightness);
         });
-        $this->Environment->fireCycleChangeOnce();   
+        $this->Environment->forceBrightnessNow();
+        $this->Environment->startAmbient();
+        $this->Environment->pause();
     }
     
     function getCurrentLanguageFromUI()
@@ -128,7 +125,7 @@ class maingame extends AbstractForm
             return;
         }
     
-        if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
+        if ($GLOBALS['AllSounds'] && $GLOBALS['FightSound'])
         {
             $this->FightSound->play();
         }

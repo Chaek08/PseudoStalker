@@ -74,9 +74,9 @@ class mainmenu extends AbstractForm
         
         $this->form('Client')->MainGame->content->Environment->resume();
         
-        if ($this->form('Client')->MainGame->content->fight_image->visible)
+        if ($GLOBALS['AllSounds'] && $GLOBALS['FightSound'])
         {
-            if ($GLOBALS['AllSounds'] && $GLOBALS['FightSound'])
+            if (!$GLOBALS['QuestCompleted'] && $GLOBALS['QuestStep1'])
             {
                  Media::play($this->form('Client')->MainGame->content->FightSound);
             }

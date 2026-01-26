@@ -51,6 +51,16 @@ class Environment
         'night'       => -0.4,
         'underground' => -0.4,
     ];
+    
+    public $brightnessTimerId = null;
+    
+    public $brightnessCurrent = 0.0;
+    public $brightnessTarget  = 0.0;
+    
+    public $brightnessTickMs = 4000;
+    public $brightnessLerp   = 0.25;
+    
+    public $onBrightnessTick = null;
 
     protected $volumeSfx     = 0.04;
     protected $volumeAmbient = 0.15;
@@ -272,6 +282,9 @@ class Environment
         $this->anomalyPlayer = new MediaPlayerScript();
 
         $this->update();
+        
+        $this->forceBrightnessNow();
+        $this->startBrightnessTimer();        
 
         $self = $this;
         $this->timerId = Timer::every(60 * 1000, function () use ($self) {
@@ -303,6 +316,76 @@ class Environment
         $cycle = $this->currentCycle ?: 'day';
         return $this->brightnessByCycle[$cycle] ?? 0.0;
     }
+    
+    public function setOnBrightnessTick($callback)
+    {
+        if ($callback === null || is_callable($callback))
+        {
+            $this->onBrightnessTick = $callback;
+        }
+    }
+    
+    public function clamp($v, $min, $max)
+    {
+        if ($v < $min) return $min;
+        if ($v > $max) return $max;
+        return $v;
+    }
+    
+    public function updateBrightnessTarget()
+    {
+        $cycle = $this->currentCycle ?: 'day';
+        $this->brightnessTarget = (float)($this->brightnessByCycle[$cycle] ?? 0.0);
+    }
+    
+    public function applyBrightness($value)
+    {
+        $value = (float)$value;
+    
+        if ($this->onBrightnessTick !== null)
+        {
+            call_user_func($this->onBrightnessTick, $value);
+        }
+    }
+    
+    public function startBrightnessTimer()
+    {
+        if ($this->brightnessTimerId !== null)
+        {
+            $this->brightnessTimerId->cancel();
+            $this->brightnessTimerId = null;
+        }
+    
+        $self = $this;
+    
+        $this->brightnessTimerId = Timer::every($this->brightnessTickMs, function () use ($self) {
+            if (!$self->isActive()) return;
+    
+            $self->updateBrightnessTarget();
+    
+            $cur = (float)$self->brightnessCurrent;
+            $tar = (float)$self->brightnessTarget;
+    
+            $next = $cur + ($tar - $cur) * $self->brightnessLerp;
+    
+            if (abs($tar - $next) < 0.005)
+            {
+                $next = $tar;
+            }
+    
+            $next = $self->clamp($next, -1.0, 1.0);
+    
+            $self->brightnessCurrent = $next;
+            $self->applyBrightness($next);
+        });
+    }
+    
+    public function forceBrightnessNow()
+    {
+        $this->updateBrightnessTarget();
+        $this->brightnessCurrent = $this->brightnessTarget;
+        $this->applyBrightness($this->brightnessCurrent);
+    }    
 
     protected function pickRandom(array $list)
     {
@@ -426,13 +509,15 @@ class Environment
         }
         else
         {
-            $cycle = $this->currentCycle !== ''
-                ? $this->currentCycle
-                : $this->getTimeCycleByString(Time::now()->toString('HH:mm'));
-
-            if ($cycle === 'underground')
+            if ($this->manualCycle !== null)
             {
-                $cycle = 'night';
+                $cycle = ($this->manualCycle === 'underground')
+                    ? $this->getTimeCycleByString(Time::now()->toString('HH:mm'))
+                    : $this->manualCycle;
+            }
+            else
+            {
+                $cycle = $this->getTimeCycleByString(Time::now()->toString('HH:mm'));
             }
         }
     
@@ -552,7 +637,7 @@ class Environment
 
         if ($lengthSec === null)
         {
-            list($_path, $len) = $this->pickRandomAmbient();
+            list($_path, $_raw, $len) = $this->pickRandomAmbient();
             $lengthSec = $len > 0 ? $len : 120;
         }
 
@@ -957,6 +1042,12 @@ class Environment
             $this->ambientTimerId->cancel();
             $this->ambientTimerId = null;
         }
+        
+        if ($this->brightnessTimerId)
+        {
+            $this->brightnessTimerId->cancel();
+            $this->brightnessTimerId = null;
+        }        
 
         $this->safeStopPlayer($this->videoPlayer);
         $this->safeStopPlayer($this->ambientPlayer);
@@ -984,6 +1075,9 @@ class Environment
         $this->lastLocationIndex    = -1;
     
         $this->update();
+        
+        $this->forceBrightnessNow();
+        $this->startBrightnessTimer();        
     
         $self = $this;
         $this->timerId = Timer::every(60 * 1000, function () use ($self) {

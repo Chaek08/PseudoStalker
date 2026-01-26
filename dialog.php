@@ -352,10 +352,7 @@ class dialog extends AbstractForm
             $this->VoicePlay(3);
         }
         */
-        if ($GLOBALS['FightSound'])
-        {
-            $this->form('Client')->MainGame->content->PlayFightSong();
-        }
+        $this->form('Client')->MainGame->content->PlayFightSong();
             
         $this->actorCharacterInfo->addRank(45);
             

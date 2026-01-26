@@ -196,9 +196,7 @@ class SaveLoadManager
             $parts = explode('.', $key);
             if (!$this->keyExists($data, $parts))
             {
-                Debug_Build
-                    ? Debug::fail("Corrupt save:\nmissing key '$key'", __FILE__, __LINE__)
-                    : Logger::error("Corrupt save: missing key '$key'");
+                Logger::error("Corrupt save: missing key '$key'");
                 $missing[] = $key;
             }
         }
@@ -210,15 +208,7 @@ class SaveLoadManager
     
         if (!isset($data['client_version']) || $data['client_version'] !== client_version)
         {
-            Debug_Build
-                ? Debug::fail(
-                    "Version mismatch in save:\n expected " . client_version . ", got " . ($data['client_version'] ?? 'null'),
-                    __FILE__,
-                    __LINE__
-                  )
-                : Logger::error(
-                    "Version mismatch in save: expected " . client_version . ", got " . ($data['client_version'] ?? 'null')
-                  );
+            Logger::error("Version mismatch in save: expected " . client_version . ", got " . ($data['client_version'] ?? 'null'));
                 
             return ['ok' => false, 'error' => 'version'];
         }
