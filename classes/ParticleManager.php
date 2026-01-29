@@ -7,6 +7,8 @@ use php\gui\UXApplication;
 use php\time\Timer;
 use action\Animation;
 use php\lang\Thread;
+use behaviour\custom\GlowEffectBehaviour;
+use behaviour\custom\BloomEffectBehaviour;
 
 class ParticleManager
 {
@@ -26,18 +28,48 @@ class ParticleManager
                 $p = new UXImageView(new UXImage('res://.data/ui/particles/shoot.png'));
                 $p->width = 128;
                 $p->height = 128;
-                $p->opacity = 1;
+                $p->opacity = 0;
                 $p->x = $actorModel->x + $muzzleOffsetX;
                 $p->y = $actorModel->y + $muzzleOffsetY;
+        
+                $bloom = new BloomEffectBehaviour();
+                $bloom->threshold = 1.0;
+                $bloom->apply($p);
+                
+                $glow = new GlowEffectBehaviour();
+                $glow->level = 0.0;
+                $glow->apply($p);
+                
+                $p->data['bloom'] = $bloom;
+                $p->data['glow']  = $glow;
+            
                 return $p;
             },
             function ($p) {
-                Animation::fadeOut($p, 150, function () use ($p) {
-                    $p->free();
+                $p->opacity = 0;
+            
+                $bloom = $p->data['bloom'] ?? null;
+                $glow  = $p->data['glow']  ?? null;
+            
+                if ($bloom) $bloom->threshold = 0.15;
+                if ($glow)  $glow->level = 0.35;
+            
+                Animation::fadeIn($p, 30, function () use ($p, $bloom, $glow) {
+            
+                    Timer::after(70, function () use ($bloom, $glow) {
+                        if ($bloom) $bloom->threshold = 1.0;
+                        if ($glow)  $glow->level = 0.0;
+                    });
+            
+                    Timer::after(80, function () use ($p) {
+                        Animation::fadeOut($p, 260, function () use ($p) {
+                            $p->free();
+                        });
+                    });
                 });
             }
         );
-    
+
         if (!$enemyModel || !$enemyModel->visible) return;
         if ($actorModel->x > $enemyModel->x) return;
     
