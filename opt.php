@@ -334,8 +334,11 @@ class opt extends AbstractForm
                 $this->form('Client')->MainMenu->content->Options->content->Language_Label->dropShadowEffect->disable();
                 $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->disable();
                 
-                if ($this->form('Client')->MainGame->content->currentWeapon)
-                $this->form('Client')->MainGame->content->currentWeapon->dropShadowEffect->disable();
+                $w = $this->form('Client')->MainGame->content->GameActor->getWeapon();
+                if ($w && $w->dropShadowEffect)
+                {
+                    $w->dropShadowEffect->disable();
+                }
             }); 
             
             $this->form('Client')->ltx['r_shadows'] = 'off';
@@ -416,8 +419,12 @@ class opt extends AbstractForm
                 $this->form('Client')->MainMenu->content->Options->content->Language_Label->dropShadowEffect->enable();
                 $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->dropShadowEffect->enable();  
                 
-                if ($this->form('Client')->MainGame->content->currentWeapon)
-                $this->form('Client')->MainGame->content->currentWeapon->dropShadowEffect->enable();
+                $w = $this->form('Client')->MainGame->content->GameActor->getWeapon();
+                if ($w && $w->dropShadowEffect)
+                {
+                    $w->dropShadowEffect->enable();
+                }
+
             }); 
             
             $this->form('Client')->ltx['r_shadows'] = 'on';

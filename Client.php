@@ -947,7 +947,7 @@ class Client extends AbstractForm
      */
     function ReloadWeaponProxy(UXKeyEvent $e = null)
     {    
-        $this->MainGame->content->ReloadWeapon();
+        $this->MainGame->content->GameActor->ReloadWeapon();
     }
 
     /**
@@ -955,7 +955,7 @@ class Client extends AbstractForm
      */
     function SwitchWeapon1Proxy(UXKeyEvent $e = null)
     {    
-        $this->MainGame->content->SwitchWeapon('Pm');
+        $this->MainGame->content->GameActor->SwitchWeapon('Pm');
     }
 
     /**
@@ -963,7 +963,7 @@ class Client extends AbstractForm
      */
     function SwitchWeapon2Proxy(UXKeyEvent $e = null)
     {    
-        $this->MainGame->content->SwitchWeapon('AK74');
+        $this->MainGame->content->GameActor->SwitchWeapon('AK74');
     }
 
     /**

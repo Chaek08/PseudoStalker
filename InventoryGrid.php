@@ -274,10 +274,12 @@ class InventoryGrid extends AbstractForm
         
         if ($this->draggedItem === $this->Inv_Wpn_Pm && $this->pmInWeaponSlot)
         {
-            if (is_object($this->form('Client')->MainGame->content->currentWeapon)
-                && $this->form('Client')->MainGame->content->currentWeapon->getType() == 'Pm')
+            $actor = $this->form('Client')->MainGame->content->GameActor;
+            $w = $actor->getWeapon();
+        
+            if ($w && $w->getType() === 'Pm')
             {
-                $this->form('Client')->MainGame->content->UnequipCurrentWeapon();
+                $actor->UnequipCurrentWeapon();
             }
         
             $this->pmInWeaponSlot = false;
@@ -285,10 +287,12 @@ class InventoryGrid extends AbstractForm
         
         if ($this->draggedItem === $this->Inv_Wpn_AK74 && $this->AK74InWeaponSlot)
         {
-            if (is_object($this->form('Client')->MainGame->content->currentWeapon)
-                && $this->form('Client')->MainGame->content->currentWeapon->getType() == 'AK74')
+            $actor = $this->form('Client')->MainGame->content->GameActor;
+            $w = $actor->getWeapon();
+        
+            if ($w && $w->getType() === 'AK74')
             {
-                $this->form('Client')->MainGame->content->UnequipCurrentWeapon();
+                $actor->UnequipCurrentWeapon();
             }
         
             $this->AK74InWeaponSlot = false;
@@ -792,7 +796,7 @@ class InventoryGrid extends AbstractForm
         
         $this->repackInventory();
         
-        $this->form('Client')->MainGame->content->SwitchWeapon('Pm');
+        $this->form('Client')->MainGame->content->GameActor->SwitchWeapon('Pm');
         $this->form('Client')->Inventory->content->UseSlotSound();
         $this->form('Client')->Inventory->content->HideCombobox();
     }
@@ -844,7 +848,7 @@ class InventoryGrid extends AbstractForm
                 $weapon->enabled = true;
                 $weapon->visible = true;
                 
-                $this->form('Client')->MainGame->content->UnequipCurrentWeapon();
+                $this->form('Client')->MainGame->content->GameActor->UnequipCurrentWeapon();
                 //$this->form('Client')->Inventory->content->UseSlotSound();
                 $this->form('Client')->Inventory->content->HideCombobox();
             }
@@ -871,7 +875,7 @@ class InventoryGrid extends AbstractForm
             $weapon->enabled = true;
             $this->$flagName = true;
             
-            $this->form('Client')->MainGame->content->SwitchWeapon($weaponType);
+            $this->form('Client')->MainGame->content->GameActor->SwitchWeapon($weaponType);
             //$this->form('Client')->Inventory->content->UseSlotSound();
             $this->form('Client')->Inventory->content->HideCombobox();
         }
@@ -893,7 +897,7 @@ class InventoryGrid extends AbstractForm
             $this->Inv_Wpn_Pm->enabled = true;
             $this->pmInWeaponSlot = true;
     
-            if (!$wasAnySlotOccupied) $this->form('Client')->MainGame->content->SwitchWeapon('Pm');
+            if (!$wasAnySlotOccupied) $this->form('Client')->MainGame->content->GameActor->SwitchWeapon('Pm');
         }
     
         if ($weaponName === 'AK74')
@@ -905,7 +909,7 @@ class InventoryGrid extends AbstractForm
             $this->Inv_Wpn_AK74->enabled = true;
             $this->AK74InWeaponSlot = true;
     
-            if (!$wasAnySlotOccupied) $this->form('Client')->MainGame->content->SwitchWeapon('AK74');
+            if (!$wasAnySlotOccupied) $this->form('Client')->MainGame->content->GameActor->SwitchWeapon('AK74');
         }
     
         $this->repackInventory();

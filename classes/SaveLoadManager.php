@@ -55,10 +55,11 @@ class SaveLoadManager
         ];
     
         $currentType = null;
-        if ($mg->currentWeapon)
+        $w = $mg->GameActor->getWeapon();
+        if ($w)
         {
-            $currentType = $mg->currentWeapon->getType();
-            $stateList[$currentType] = $mg->currentWeapon->exportState();
+            $currentType = $w->getType();
+            $stateList[$currentType] = $w->exportState();
         }
     
         $data = [
@@ -76,10 +77,10 @@ class SaveLoadManager
     
             'health' => [
                 'actor' => [
-                    'hp' => $c->MainGame->content->GameActor->getHp(),
+                    'hp' => $c->MainGame->content->GameActor->getHP(),
                 ],
                 'enemy' => [
-                    'hp' => $c->MainGame->content->GameEnemy->getHp(),
+                    'hp' => $c->MainGame->content->GameEnemy->getHP(),
                 ],
             ],
             'objects_position' => [
@@ -347,26 +348,28 @@ class SaveLoadManager
                         $wep = $saveData['weapons'];
                         $savedList = is_array($wep['list'] ?? null) ? $wep['list'] : [];
                         $desired   = $wep['current'] ?? null;
-                    
+                        
                         $mg = $form->MainGame->content;
-                    
+                        
                         $mg->weaponState = $savedList;
-                    
+                        
                         if ($desired !== null)
                         {
-                            $mg->SwitchWeapon($desired);
-                    
-                            if (isset($savedList[$desired]) && $mg->currentWeapon)
+                            $mg->GameActor->SwitchWeapon($desired);
+                        
+                            $w = $mg->GameActor->getWeapon();
+                            if ($w && isset($savedList[$desired]))
                             {
-                                $mg->currentWeapon->importState($savedList[$desired]);
+                                $w->importState($savedList[$desired]);
                             }
                         }
                         else
                         {
-                            $mg->UnequipCurrentWeapon();
+                            $mg->GameActor->UnequipCurrentWeapon();
                         }
-                    
+                        
                         $mg->UpdateMagazine();
+
                     }
 
                     $form->MainGame->content->UpdateMagazine();

@@ -42,9 +42,6 @@ class maingame extends AbstractForm
 
     public $GameActor;
     public $GameEnemy;
-
-    public $currentWeapon = null;  
-    public $weaponState = [];
     
     public $ItemVodka;
 
@@ -91,11 +88,10 @@ class maingame extends AbstractForm
         $this->ItemVodka->resetVisual();
         
         $this->Environment = new Environment($this->Environment_Space);
-        $this->Environment->setOnBrightnessTick(function ($brightness) use ($this) {
-            $this->GameActor->GetModel()->colorAdjustEffect->brightness = $brightness;
-            $this->GameEnemy->GetModel()->colorAdjustEffect->brightness = $brightness;
-            $this->ItemVodka->setBrightness($brightness);
+        $this->Environment->setOnBrightnessTick(function ($brightness) {
+            $this->applyBrightness($brightness);
         });
+
         $this->Environment->forceBrightnessNow();
         $this->Environment->startAmbient();
         $this->Environment->pause();
@@ -149,29 +145,29 @@ class maingame extends AbstractForm
             $this->form('Client')->Inventory->content->DespawnItems();
             $this->form('Client')->Inventory->content->SetItemCondition();
             
-            $this->SwitchWeapon('Pm');
-            UXApplication::runLater(function ()
-            {
-                if ($this->currentWeapon && $this->currentWeapon->getType() === 'Pm')
+            $this->GameActor->SwitchWeapon('Pm');
+            UXApplication::runLater(function () {
+                $w = $this->GameActor->getWeapon();
+                if ($w && $w->getType() === 'Pm')
                 {
-                    $w = $this->currentWeapon;
                     $w->importState(['jammed' => false, 'jamHandled' => false]);
                     $w->setAmmo($w->getMagSize());
-                    $this->UpdateMagazine();
                 }
-    
-                $this->SwitchWeapon('AK74');
-                UXApplication::runLater(function () {
-                    if ($this->currentWeapon && $this->currentWeapon->getType() === 'AK74')
-                    {
-                        $w = $this->currentWeapon;
-                        $w->importState(['jammed' => false, 'jamHandled' => false]);
-                        $w->setAmmo($w->getMagSize());
-                        $this->UpdateMagazine();
-                    }
-                });
-            });
+                $this->UpdateMagazine();
+                
+                $this->GameActor->SwitchWeapon('AK74');
             
+                UXApplication::runLater(function () {
+                    $w2 = $this->GameActor->getWeapon();
+                    if ($w2 && $w2->getType() === 'AK74')
+                    {
+                        $w2->importState(['jammed' => false, 'jamHandled' => false]);
+                        $w2->setAmmo($w2->getMagSize());
+                    }
+                    $this->UpdateMagazine();
+                });
+            
+            });
             $this->form('Client')->Inventory->content->InventoryGrid->content->MoveWeaponsToInvSlot();
                    
             $this->GameActor->respawn(112, $this->GameActor->GetModel()->y, false);
@@ -217,16 +213,18 @@ class maingame extends AbstractForm
                 $this->Environment = new Environment($this->Environment_Space);
                 $this->Environment->startAmbient();
                 $this->Environment->pause();
-                $this->Environment->setOnCycleChange(function ($old, $new) use ($this) {
-                    $brightness = $this->Environment->getEnvironmentBrightness();
             
-                    $this->GameActor->GetModel()->colorAdjustEffect->brightness   = $brightness;
-                    $this->GameEnemy->GetModel()->colorAdjustEffect->brightness   = $brightness;
-                    $this->item_vodka_0000->colorAdjustEffect->brightness         = $brightness;
+                $this->Environment->setOnBrightnessTick(function ($brightness) {
+                    $this->applyBrightness($brightness);
                 });
-
-            }         
-
+            
+                $this->Environment->setOnCycleChange(function ($old, $new) {
+                    $this->applyBrightness($this->Environment->getEnvironmentBrightness());
+                });
+            
+                $this->Environment->forceBrightnessNow();
+            }
+            
             $this->form('Client')->Dialog->content->StartDialog();
             
             if ($this->form('Client')->ltx['discord_rpc'] == 'on')
@@ -241,6 +239,17 @@ class maingame extends AbstractForm
             }
         });
     }
+    
+    private function applyBrightness(float $b): void
+    {
+        $this->GameActor->GetModel()->colorAdjustEffect->brightness = $b;
+        $this->GameEnemy->GetModel()->colorAdjustEffect->brightness = $b;
+        $this->ItemVodka->setBrightness($b);
+    
+        $w = $this->GameActor->getWeapon();
+        if ($w) $w->setBrightness($b);
+    }
+    
     function RenderHud($enable)
     {
         if ($enable) 
@@ -258,7 +267,7 @@ class maingame extends AbstractForm
                 $this->health_bar_enemy_b->show();
             }
             
-            if ($this->currentWeapon) $this->ui_mag_background->show();
+            if ($this->GameActor->getWeapon()) $this->ui_mag_background->show();
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
             if ($GLOBALS['GodMode']) $this->GodMode_Icon->show();
             if ($this->GameActor->CanInteractive() || $this->GameEnemy->CanInteractive()) $this->fight_image->show();
@@ -303,7 +312,8 @@ class maingame extends AbstractForm
         $this->form('Client')->Fail->content->UpdateFailState();
         $this->form('Client')->Fail->show();
         
-        if ($this->currentWeapon) $this->currentWeapon->softHide();
+        $w = $this->GameActor->getWeapon();
+        if ($w) $w->softHide();
         
         if ($this->ItemVodka->isVisible()) $this->ItemVodka->hide();
         if ($this->GameActor->isDead()) $this->GameEnemy->GetModel()->hide();
@@ -346,7 +356,7 @@ class maingame extends AbstractForm
         
         $nextY = $baseY;
     
-        if ($this->currentWeapon !== null)
+        if ($this->GameActor->getWeapon() !== null)
         {
             $this->ui_mag_background->y = $baseY;
             $nextY = $baseY + 64;
@@ -650,7 +660,7 @@ class maingame extends AbstractForm
         {
             $this->GameEnemy->SetInteractive(false);
             
-            if ($this->currentWeapon) $this->UnequipCurrentWeapon();
+            if ($this->GameActor->getWeapon()) $this->GameActor->UnequipCurrentWeapon();
               
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Failed();
             
@@ -747,68 +757,6 @@ class maingame extends AbstractForm
         });
     }  
     
-    public function UnequipCurrentWeapon(): void
-    {
-        if ($this->currentWeapon)
-        {
-            $this->weaponState[$this->currentWeapon->getType()] = $this->currentWeapon->exportState();
-            $this->currentWeapon->detach();
-            $this->currentWeapon = null;
-            $this->UpdateMagazine();
-        }
-    }
-    
-    public function SwitchWeapon(?string $weaponType): void
-    {
-        if (!$this->GameActor->GetModel()->visible) return;
-        if ($weaponType === null) { $this->UnequipCurrentWeapon(); return; }
-        if ($this->currentWeapon && $this->currentWeapon->getType() === $weaponType) return;
-    
-        $inv = $this->form('Client')->Inventory->content->InventoryGrid->content;
-        $flag = ($weaponType === 'Pm') ? 'pmInWeaponSlot' : (($weaponType === 'AK74') ? 'AK74InWeaponSlot' : null);
-        if (!$flag || empty($inv->$flag)) return;
-    
-        if ($this->currentWeapon) { $this->UnequipCurrentWeapon(); }
-    
-        $weapon = CWeaponFactory::create($weaponType, $this);
-        if (!$weapon)
-        {
-            Debug::fail("Weapon '$weaponType' not created", __FILE__, __LINE__);
-            return;
-        }
-    
-        if (isset($this->weaponState[$weaponType]))
-        {
-            $weapon->importState($this->weaponState[$weaponType]);
-        }
-    
-        $weapon->attach();
-        $this->currentWeapon = $weapon;
-        if (isset($GLOBALS['ShadowsSwitcher_IsOn']) && !$GLOBALS['ShadowsSwitcher_IsOn'])
-        {
-            $this->currentWeapon->disableShadow();
-        }
-        else
-        {
-            $this->currentWeapon->enableShadow();
-        }        
-        
-        $this->UpdateMagazine();
-    }
-    
-    public function Shoot(): void
-    {
-        if (empty($GLOBALS['QuestStep1'])) return;
-        if (!$this->currentWeapon) return;
-        $this->currentWeapon->shoot();
-    }
-    
-    public function ReloadWeapon(): void
-    {
-        if (!$this->currentWeapon) return;
-        $this->currentWeapon->reload();
-    }
-    
     public function UpdateMagazine(): void
     {
         $this->ui_mag_background->hide();
@@ -817,15 +765,16 @@ class maingame extends AbstractForm
         
         $this->GodMode();        
     
-        if (!$this->currentWeapon) return;
+        $w = $this->GameActor->getWeapon();
+        if (!$w) return;
     
         if (!empty($GLOBALS['HudVisible'])) $this->ui_mag_background->show();
     
-        $imgPath = $this->currentWeapon->hudMagImage();
+        $imgPath = $w->hudMagImage();
         $this->ui_mag_background->graphic = new UXImageView(new UXImage($imgPath));
     
-        $currentAmmo = $this->currentWeapon->getAmmo();
-        $totalAmmo   = $this->currentWeapon->getTotalAmmoFromInventory();
+        $currentAmmo = $w->getAmmo();
+        $totalAmmo   = $w->getTotalAmmoFromInventory();
         $this->ui_mag_background->text = $currentAmmo . '/' . $totalAmmo;
     }
     

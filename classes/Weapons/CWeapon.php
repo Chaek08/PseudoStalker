@@ -56,11 +56,21 @@ abstract class CWeapon
 
         $this->fxLater(function () use ($path) {
             $this->view = new UXImageView(new UXImage($path));
-            $model = $this->owner->GameActor->GetModel();
+            $model = $this->owner->GetModel();
             $this->view->x = $model->x + $this->offsetX;
             $this->view->y = $model->y + $this->offsetY;
             (new ColorAdjustEffectBehaviour())->apply($this->view);
             
+            $bm = 0.0;
+            if ($model && $model->colorAdjustEffect)
+            {
+                $bm = $model->colorAdjustEffect->brightness;
+            }
+            if ($this->view->colorAdjustEffect)
+            {
+                $this->view->colorAdjustEffect->brightness = $bm;
+            }
+                        
             $this->dropShadowEffect = new DropShadowEffectBehaviour();
             $this->dropShadowEffect->color   = '#1a1a1a';
             $this->dropShadowEffect->offsetX = 0;
@@ -112,7 +122,7 @@ abstract class CWeapon
         if ($this->reloading) { return; }
         if ($this->ammo <= 0) { $this->playEmpty(); return; }
     
-        if ($this->ammo < $this->magSize && rand(1, 60) === 1) { $this->jammed = true; }
+        if ($this->ammo < $this->magSize && rand(1, 30) === 1) { $this->jammed = true; }
     
         if ($this->jammed && !$this->jamHandled)
         {
@@ -175,16 +185,13 @@ abstract class CWeapon
     {
         $this->attachTimer = Timer::every(1, function () {
             $this->fxLater(function () {
-                if ($this->view && $this->owner->GameActor && $this->owner->GameActor->GetModel())
-                {
-                    $m = $this->owner->GameActor->GetModel();
-                    $this->view->x = $m->x + $this->offsetX;
-                    $this->view->y = $m->y + $this->offsetY;
-                    if ($this->view->colorAdjustEffect)
-                    {
-                        $this->view->colorAdjustEffect->brightness = $m->colorAdjustEffect->brightness;
-                    }
-                }
+                if (!$this->view) return;
+    
+                $m = $this->owner ? $this->owner->GetModel() : null;
+                if (!$m) return;
+    
+                $this->view->x = $m->x + $this->offsetX;
+                $this->view->y = $m->y + $this->offsetY;
             });
         });
     }
@@ -213,13 +220,14 @@ abstract class CWeapon
 
     protected function spawnMuzzleAndBlood(): void
     {
-        $actor = $this->owner->GameActor->GetModel();
-        $enemy = $this->owner->GameEnemy->GetModel();
-    
+        $actor = $this->owner->GetModel();
+        $enemyEntity = $this->owner->getEnemy();
+        $enemy = $enemyEntity ? $enemyEntity->GetModel() : null;
+        
         if (!$actor) return;
-    
-        $this->owner->Particles->weaponShot($actor, $enemy, $this->particleOffset[0], $this->particleOffset[1]);
-    
+        
+        $this->owner->getParticles()->weaponShot($actor, $enemy, $this->particleOffset[0], $this->particleOffset[1]);
+        
         if ($enemy && $enemy->visible && $actor->x < $enemy->x)
         {
             $this->owner->DamageEnemy(null, false);
@@ -290,7 +298,17 @@ abstract class CWeapon
         {
             $this->dropShadowEffect->disable();
         }
-    }    
+    }
+    
+    public function setBrightness(float $brightness): void
+    {
+        $this->fxLater(function () use ($brightness) {
+            if ($this->view && $this->view->colorAdjustEffect)
+            {
+                $this->view->colorAdjustEffect->brightness = $brightness;
+            }
+        });
+    }
     
     protected function fxLater(callable $fn): void { UXApplication::runLater($fn); }
 }

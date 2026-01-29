@@ -52,7 +52,7 @@ class fail_wnd extends AbstractForm
         
         $Client->Fail->hide();
         
-        if (!$Client->Inventory->content->InventoryGrid->content->Inv_Vodka->visible|| !$Vodka->isVisible())
+        if (!$Client->Inventory->content->InventoryGrid->content->Inv_Vodka->visible) //ПРОВЕРИТЬ
         {
             $Vodka->show();
         }
@@ -62,7 +62,8 @@ class fail_wnd extends AbstractForm
         
         if (!$Client->MainGame->content->GameActor->isDead())
         {
-            if ($Client->MainGame->content->currentWeapon) $Client->MainGame->content->currentWeapon->softShow();
+            $w = $Client->MainGame->content->GameActor->getWeapon();
+            if ($w) $w->softShow();
         }    
                    
         if ($GLOBALS['AllSounds'])
@@ -77,6 +78,7 @@ class fail_wnd extends AbstractForm
             }                
         }                 
     }
+    
     function UpdateFailState()
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
