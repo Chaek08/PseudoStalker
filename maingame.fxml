@@ -124,7 +124,7 @@
     <Data content="MessageBox" cursor="DEFAULT" enabled="1" id="data-MessageBox" visible=""/>
     <Data cursor="DEFAULT" enabled="" id="data-Task_Step_Label" visible=""/>
     <Data cursor="DEFAULT" enabled="1" id="data-Environment_Space" visible="1"/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="MessageBox" layoutX="32" layoutY="304" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="64" prefWidth="400" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="MessageBox" layoutX="32" layoutY="304" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="64" prefWidth="360" spacing="0" styleClass="fragment-pane "/>
     <FlatButton alignment="CENTER_LEFT" borderRadius="15" color="#ffffff00" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="10" id="ui_mag_background" layoutX="40" layoutY="88" prefHeight="56" prefWidth="272" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 30" styleClass="x-flat-button " text="30/60" textAlignment="RIGHT" textFill="#ffa500" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="30"/>

@@ -174,7 +174,7 @@ class Client extends AbstractForm
 
         if (!file_exists($filePath)) 
         {
-            Debug::fatal('PseudoCore.dll not found', __FILE__, __LINE__);
+            Debug::fatal("$filePath not found", __FILE__, __LINE__);
         }
 
         $encrypted = file_get_contents($filePath);
@@ -182,7 +182,7 @@ class Client extends AbstractForm
         
         if ($encrypted == false) 
         {
-            Debug::fail('Failed to read PseudoCore.dll', __FILE__, __LINE__);
+            Debug::fail("Failed to read $filePath", __FILE__, __LINE__);
         }
 
         if ($encrypted != false)
