@@ -1,6 +1,8 @@
 <?php
 namespace app\forms\classes;
 
+use php\gui\animation\UXAnimationTimer;
+use app\forms\classes\Log;
 use Throwable;
 use app\forms\classes\Debug;
 use php\framework\Logger;
@@ -57,7 +59,6 @@ class Environment
     public $brightnessCurrent = 0.0;
     public $brightnessTarget  = 0.0;
     
-    public $brightnessTickMs = 4000;
     public $brightnessLerp   = 0.25;
     
     public $onBrightnessTick = null;
@@ -350,34 +351,35 @@ class Environment
     
     public function startBrightnessTimer()
     {
-        if ($this->brightnessTimerId !== null)
+        if ($this->brightnessTimerId)
         {
-            $this->brightnessTimerId->cancel();
+            $this->brightnessTimerId->stop();
             $this->brightnessTimerId = null;
         }
     
-        $self = $this;
+        $this->brightnessTimerId = new UXAnimationTimer(function () {
     
-        $this->brightnessTimerId = Timer::every($this->brightnessTickMs, function () use ($self) {
-            if (!$self->isActive()) return;
+            if (!$this->isActive()) return;
     
-            $self->updateBrightnessTarget();
+            $this->updateBrightnessTarget();
     
-            $cur = (float)$self->brightnessCurrent;
-            $tar = (float)$self->brightnessTarget;
+            $cur = (float) $this->brightnessCurrent;
+            $tar = (float) $this->brightnessTarget;
     
-            $next = $cur + ($tar - $cur) * $self->brightnessLerp;
+            $next = $cur + ($tar - $cur) * $this->brightnessLerp;
     
             if (abs($tar - $next) < 0.005)
             {
                 $next = $tar;
             }
     
-            $next = $self->clamp($next, -1.0, 1.0);
+            $next = $this->clamp($next, -1.0, 1.0);
     
-            $self->brightnessCurrent = $next;
-            $self->applyBrightness($next);
+            $this->brightnessCurrent = $next;
+            $this->applyBrightness($next);
         });
+    
+        $this->brightnessTimerId->start();
     }
     
     public function forceBrightnessNow()
@@ -1045,7 +1047,7 @@ class Environment
         
         if ($this->brightnessTimerId)
         {
-            $this->brightnessTimerId->cancel();
+            $this->brightnessTimerId->stop();
             $this->brightnessTimerId = null;
         }        
 

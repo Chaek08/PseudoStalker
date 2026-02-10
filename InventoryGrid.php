@@ -34,7 +34,6 @@ class InventoryGrid extends AbstractForm
     
     private $inventoryLocked = false;
     private $dragDelaySec = 0.10;
-    private $followTickMs = 3;
     private $gridLeft = 0;
     private $gridTop = 120;
     private $gridRight = 552;
@@ -143,7 +142,12 @@ class InventoryGrid extends AbstractForm
         $this->dragGhost->enabled = false;
         $this->dragGhost->visible = false;
         
+        $cursor = $this->form('Client')->CustomCursor;
+        if (!$cursor) return;        
+        
         $this->form('Client')->add($this->dragGhost);
+        
+        $this->dragGhost->position = [$cursor->x - ($this->dragGhost->width / 2), $cursor->y - ($this->dragGhost->height / 2)];          
         $this->dragGhost->toFront();
     }
     
@@ -151,11 +155,11 @@ class InventoryGrid extends AbstractForm
     {
         $this->stopDragGhostFollowTimer();
         
-        $this->dragGhostFollowTimer = Timer::every($this->followTickMs, function () {
-            uiLater(function () {
-                $this->updateDragGhostFromCursor();
-            });
+        $this->dragGhostFollowTimer = new UXAnimationTimer(function () {
+            $this->updateDragGhostFromCursor();
         });
+    
+        $this->dragGhostFollowTimer->start();
     }
     
     private function updateDragGhostFromCursor(): void
@@ -167,11 +171,14 @@ class InventoryGrid extends AbstractForm
         
         $this->dragGhost->visible = true;
         
-        $offsetX = $this->dragGhost->width / 2;
-        $offsetY = $this->dragGhost->height / 2;
+        $targetX = $cursor->x - ($this->dragGhost->width / 2);
+        $targetY = $cursor->y - ($this->dragGhost->height / 2);
         
-        $x = $cursor->x - $offsetX;
-        $y = $cursor->y - $offsetY;
+        $x = $this->dragGhost->x;
+        $y = $this->dragGhost->y;        
+        
+        $x += ($targetX - $x) * 0.25;
+        $y += ($targetY - $y) * 0.25;
         
         $this->dragGhost->position = [$x, $y];
     }
@@ -180,7 +187,7 @@ class InventoryGrid extends AbstractForm
     {
         if ($this->dragGhostFollowTimer)
         {
-            $this->dragGhostFollowTimer->cancel();
+            $this->dragGhostFollowTimer->stop();
             $this->dragGhostFollowTimer = null;
         }
     }

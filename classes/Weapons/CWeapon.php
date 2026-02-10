@@ -1,6 +1,7 @@
 <?php
 namespace app\forms\classes\Weapons;
 
+use php\gui\animation\UXAnimationTimer;
 use behaviour\custom\DropShadowEffectBehaviour;
 use php\gui\UXApplication;
 use php\time\Timer;
@@ -103,7 +104,7 @@ abstract class CWeapon
 
     public function detach(): void
     {
-        if ($this->attachTimer) { $this->attachTimer->cancel(); $this->attachTimer = null; }
+        if ($this->attachTimer) { $this->attachTimer->stop(); $this->attachTimer = null; }
         $this->fxLater(function () {
             if ($this->view) {
                 $this->owner->remove($this->view);
@@ -183,17 +184,18 @@ abstract class CWeapon
 
     protected function startFollowTimer(): void
     {
-        $this->attachTimer = Timer::every(1, function () {
-            $this->fxLater(function () {
-                if (!$this->view) return;
+        $this->attachTimer = new UXAnimationTimer(function () {
     
-                $m = $this->owner ? $this->owner->GetModel() : null;
-                if (!$m) return;
+            if (!$this->view) return;
     
-                $this->view->x = $m->x + $this->offsetX;
-                $this->view->y = $m->y + $this->offsetY;
-            });
+            $m = $this->owner ? $this->owner->GetModel() : null;
+            if (!$m) return;
+    
+            $this->view->x = $m->x + $this->offsetX;
+            $this->view->y = $m->y + $this->offsetY;
         });
+    
+        $this->attachTimer->start();
     }
 
     protected $shotSeq = 0;

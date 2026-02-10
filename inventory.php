@@ -44,7 +44,6 @@ class inventory extends AbstractForm
     private $outfitGhostFollowTimer = null;
     
     private $dragDelaySec = 0.10;
-    private $followTickMs = 3;
     
     private $invGridRect = ['x'=>32, 'y'=>80,  'w'=>552, 'h'=>784];
     private $invGridTopSlotsH = 96;
@@ -496,11 +495,17 @@ class inventory extends AbstractForm
     
         $this->outfitGhost = new UXImageView();
         $this->outfitGhost->image = $this->InventoryGrid->content->Inv_Outfit->image;
+        $this->outfitGhost->scale = $this->form('Client')->MainGame->scale;        
         $this->outfitGhost->opacity = 0.6;
         $this->outfitGhost->enabled = false;
         $this->outfitGhost->visible = false;
+        
+        $cursor = $this->form('Client')->CustomCursor;
+        if (!$cursor) return;        
     
         $this->form('Client')->add($this->outfitGhost);
+        
+        $this->outfitGhost->position = [$cursor->x - ($this->outfitGhost->width / 2), $cursor->y - ($this->outfitGhost->height / 2)];            
         $this->outfitGhost->toFront();
     }
     
@@ -508,28 +513,35 @@ class inventory extends AbstractForm
     {
         $this->stopOutfitGhostFollow();
     
-        $this->outfitGhostFollowTimer = Timer::every($this->followTickMs, function () {
-            uiLater(function () {
-                if (!$this->dragOutfit || !$this->outfitGhost) return;
+        $this->outfitGhostFollowTimer = new UXAnimationTimer(function () {
     
-                $cursor = $this->form('Client')->CustomCursor;
-                if (!$cursor) return;
+            if (!$this->dragOutfit || !$this->outfitGhost) return;
     
-                $this->outfitGhost->visible = true;
+            $cursor = $this->form('Client')->CustomCursor;
+            if (!$cursor) return;
+                
+            $this->outfitGhost->visible = true;
     
-                $x = $cursor->x - ($this->outfitGhost->width / 2);
-                $y = $cursor->y - ($this->outfitGhost->height / 2);
+            $targetX = $cursor->x - ($this->outfitGhost->width / 2);
+            $targetY = $cursor->y - ($this->outfitGhost->height / 2);
     
-                $this->outfitGhost->position = [$x, $y];
-            });
+            $x = $this->outfitGhost->x;
+            $y = $this->outfitGhost->y;
+    
+            $x += ($targetX - $x) * 0.25;
+            $y += ($targetY - $y) * 0.25;
+    
+            $this->outfitGhost->position = [$x, $y];
         });
+    
+        $this->outfitGhostFollowTimer->start();
     }
     
     private function stopOutfitGhostFollow(): void
     {
         if ($this->outfitGhostFollowTimer)
         {
-            $this->outfitGhostFollowTimer->cancel();
+            $this->outfitGhostFollowTimer->stop();
             $this->outfitGhostFollowTimer = null;
         }
     }
