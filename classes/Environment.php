@@ -503,7 +503,7 @@ class Environment
     
         $this->currentLocationIndex = $index;
         $this->lastLocationIndex    = $index;
-        Logger::debug("[Environment]: manual location set to L{$index}");
+        Log::info("[Environment]: manual location set to L{$index}");
     
         if ($index === 5)
         {
@@ -547,7 +547,7 @@ class Environment
         $index = (int)$index;
         if ($index < 0 || $index >= count($this->ambientSounds))
         {
-            Logger::debug("[Environment]: playAmbientByIndex invalid index {$index}");
+            Log::info("[Environment]: playAmbientByIndex invalid index {$index}");
             return false;
         }
     
@@ -598,7 +598,7 @@ class Environment
 
         $this->scheduleTimer($this->sfxTimerId, $period, function ($delaySec) {
             if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
-            Logger::debug("[Environment]: sfx tick after {$delaySec}s");
+            Log::info("[Environment]: sfx tick after {$delaySec}s");
             $this->playRandomSfx();
             $this->scheduleNextSfx();
         });
@@ -620,7 +620,7 @@ class Environment
 
         $this->scheduleTimer($this->effectTimerId, $period, function ($delaySec) {
             if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
-            Logger::debug("[Environment]: effect tick after {$delaySec}s");
+            Log::info("[Environment]: effect tick after {$delaySec}s");
             $this->playRandomEffect();
             $this->scheduleNextEffect();
         });
@@ -657,7 +657,7 @@ class Environment
             if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
             if (isset($GLOBALS['AmbientSound']) && !$GLOBALS['AmbientSound']) return;
 
-            Logger::debug("[Environment]: ambient tick after {$delaySec}s");
+            Log::info("[Environment]: ambient tick after {$delaySec}s");
             $self->playRandomAmbient();
         });
     }
@@ -689,7 +689,7 @@ class Environment
             Debug::fail("Environment: sfx open failed '{$path}'", __FILE__, __LINE__);
         }
 
-        Logger::debug("[Environment]: sfx '{$sound}' played (cycle '{$cycle}')");
+        Log::info("[Environment]: sfx '{$sound}' played (cycle '{$cycle}')");
     }
 
     public function playRandomEffect()
@@ -719,7 +719,7 @@ class Environment
         $this->effectPlayer->volume = $this->volumeEffect;
         $this->effectPlayer->play();
 
-        Logger::debug("[Environment]: effect '{$effectName}' sound '{$file}' played, life_time={$effect['life_time']}s");
+        Log::info("[Environment]: effect '{$effectName}' sound '{$file}' played, life_time={$effect['life_time']}s");
     }
 
     protected function playAmbientInternal($path, $rawPath, $length, $tag = '')
@@ -737,11 +737,11 @@ class Environment
     
         if ($tag === '')
         {
-            Logger::debug("[Environment]: ambient '{$rawPath}' played (length={$length}s)");
+            Log::info("[Environment]: ambient '{$rawPath}' played (length={$length}s)");
         }
         else
         {
-            Logger::debug("[Environment]: ambient {$tag} '{$rawPath}' played (length={$length}s)");
+            Log::info("[Environment]: ambient {$tag} '{$rawPath}' played (length={$length}s)");
         }
     
         $this->scheduleNextAmbient($length);
@@ -778,7 +778,7 @@ class Environment
         if (isset($GLOBALS['AmbientSound']) && !$GLOBALS['AmbientSound']) return;
         if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
         $this->ambientPlayer->pause();
-        Logger::debug("[Environment]: ambient paused");
+        Log::info("[Environment]: ambient paused");
     }
 
     public function resumeAmbient()
@@ -787,7 +787,7 @@ class Environment
         if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
         if (!$this->isActive()) return;
         $this->ambientPlayer->play();
-        Logger::debug("[Environment]: ambient resumed");
+        Log::info("[Environment]: ambient resumed");
     }
 
     public function setRainy($flag)
@@ -811,13 +811,13 @@ class Environment
             Debug::fail("Environment: rain sound failed", __FILE__, __LINE__);
         }
         
-        Logger::debug("[Environment]: rain started '{$this->rainLoopPath}'");
+        Log::info("[Environment]: rain started '{$this->rainLoopPath}'");
     }
 
     protected function stopRain()
     {
         $this->rainPlayer->stop();
-        Logger::debug("[Environment]: rain stopped");
+        Log::info("[Environment]: rain stopped");
     }
 
     public function setAnomalyHum($flag)
@@ -837,13 +837,13 @@ class Environment
         $this->anomalyPlayer->loop   = true;
         $this->anomalyPlayer->play();
 
-        Logger::debug("[Environment]: anomaly hum started '{$this->anomalyLoopPath}'");
+        Log::info("[Environment]: anomaly hum started '{$this->anomalyLoopPath}'");
     }
 
     protected function stopAnomalyHum()
     {
         $this->anomalyPlayer->stop();
-        Logger::debug("[Environment]: anomaly hum stopped");
+        Log::info("[Environment]: anomaly hum stopped");
     }
 
     public function pause()
@@ -859,7 +859,7 @@ class Environment
         $this->rainPlayer->pause();
         $this->anomalyPlayer->pause();
 
-        Logger::debug("[Environment]: paused");
+        Log::info("[Environment]: paused");
     }
 
     public function resume()
@@ -913,7 +913,7 @@ class Environment
             $this->scheduleNextAmbient();
         }
 
-        Logger::debug("[Environment]: resumed");
+        Log::info("[Environment]: resumed");
     }
 
     public function setCycle($cycle)
@@ -921,7 +921,7 @@ class Environment
         if ($cycle === null)
         {
             $this->manualCycle = null;
-            Logger::debug("[Environment]: manual cycle cleared, using time");
+            Log::info("[Environment]: manual cycle cleared, using time");
             $this->update();
             return;
         }
@@ -929,12 +929,12 @@ class Environment
         $allowed = ['morning', 'day', 'evening', 'night', 'underground'];
         if (!in_array($cycle, $allowed, true))
         {
-            Logger::debug("[Environment]: invalid manual cycle '{$cycle}'");
+            Log::info("[Environment]: invalid manual cycle '{$cycle}'");
             return;
         }
 
         $this->manualCycle = $cycle;
-        Logger::debug("[Environment]: manual cycle set to '{$cycle}'");
+        Log::info("[Environment]: manual cycle set to '{$cycle}'");
 
         $this->updateWithCycle($cycle);
     }
@@ -961,7 +961,7 @@ class Environment
             {
                 if (!$firstInit)
                 {
-                    Logger::debug("[Environment]: cycle changed {$old} -> {$realCycle}");
+                    Log::info("[Environment]: cycle changed {$old} -> {$realCycle}");
                 }
                 $this->currentCycle = $realCycle;
             }
@@ -977,7 +977,7 @@ class Environment
                 return;
             }
 
-            Logger::debug("[Environment]: video '{$rawPath}' started for cycle '{$realCycle}' (L{$locIndex}, rain=" . ($rain ? '1' : '0') . ", anomaly=" . ($anomaly ? '1' : '0') . ")");
+            Log::info("[Environment]: video '{$rawPath}' started for cycle '{$realCycle}' (L{$locIndex}, rain=" . ($rain ? '1' : '0') . ", anomaly=" . ($anomaly ? '1' : '0') . ")");
     
             $this->setRainy($rain);
             $this->setAnomalyHum($anomaly);
@@ -1092,7 +1092,7 @@ class Environment
         $this->scheduleNextAmbient();
         $this->startAmbient();        
     
-        Logger::debug("[Environment]: is reset");
+        Log::info("[Environment]: is reset");
     }
     
     public function playBackgroundPath($path)
@@ -1106,7 +1106,7 @@ class Environment
         $this->videoPlayer->open($path);
         $this->videoPlayer->play();
 
-        Logger::debug("[Environment]: background restored '{$path}'");
+        Log::info("[Environment]: background restored '{$path}'");
     }
 
     public function playAmbientPath($path)
@@ -1123,7 +1123,7 @@ class Environment
         $this->ambientPlayer->volume = $this->volumeAmbient;
         $this->ambientPlayer->play();
 
-        Logger::debug("[Environment]: ambient restored '{$path}'");
+        Log::info("[Environment]: ambient restored '{$path}'");
     }
 
     public function getState()
@@ -1191,7 +1191,7 @@ class Environment
 
         if ($this->onCycleChange !== null)
         {
-            Logger::debug("[Environment]: restoreState -> force onCycleChange for cycle={$this->currentCycle}");
+            Log::info("[Environment]: restoreState -> force onCycleChange for cycle={$this->currentCycle}");
             call_user_func($this->onCycleChange, $this->currentCycle, $this->currentCycle);
         }
     }

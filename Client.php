@@ -25,6 +25,7 @@ use php\gui\event\UXWindowEvent;
 use php\gui\event\UXMouseEvent; 
 use php\gui\event\UXEvent; 
 use app\forms\classes\Debug;
+use app\forms\classes\Log;
 
 class Client extends AbstractForm
 {
@@ -39,7 +40,6 @@ class Client extends AbstractForm
         define('client_version', '3');
         define('Debug_Build', true);
         define('ResTracker', false);
-        define('UseLegacyEnvironment', false);
         
         $GLOBALS['AllSounds']  = true;
         $GLOBALS['MenuSound']  = true;
@@ -49,10 +49,10 @@ class Client extends AbstractForm
         
         $this->localization = new Localization($language); 
         
-        $this->GetVersion();        
+        $this->GetVersion();          
         
         $this->syncWithSDKLTX();
-        $this->InitUserLTX();        
+        $this->InitUserLTX();
 
         $this->MainMenu->content->InitMainMenu();       
         $this->MainMenu->content->Options->content->InitOptions();
@@ -62,15 +62,15 @@ class Client extends AbstractForm
     
     function applyResolutionFromLTX()
     {
-        $parts = explode('x', $this->ltx['vid_mode']);
-
         if (!preg_match('/^[1-9]\d*x[1-9]\d*$/', $this->ltx['vid_mode']))
         {
-            uiLater(function(){
-                Debug::fatal("Invalid vid_mode '{$this->ltx['vid_mode']}'", __FILE__, __LINE__);                
-            });
+            Log::error("Invalid vid_mode '{$this->ltx['vid_mode']}', fallback to 1600x900");
+            $this->ltx['vid_mode'] = '1600x900';
+            $this->SaveUserLTX($this->ltx);
             return;
         }
+        
+        $parts = explode('x', $this->ltx['vid_mode']);        
 
         $targetW = (int)$parts[0];
         $targetH = (int)$parts[1];
@@ -86,7 +86,7 @@ class Client extends AbstractForm
 
         $this->trackResolution();
 
-        Logger::info("window {$this->width}x{$this->height}, client via BG: {$clientW}x{$clientH}");
+        Log::info("[Client]: window {$this->width}x{$this->height}, client via BG: {$clientW}x{$clientH}");
     }       
     
     private $prevRes = null;
@@ -207,6 +207,8 @@ class Client extends AbstractForm
             $this->MainMenu->content->version_detail->show();
             Element::setText($this->MainMenu->content->version_detail, VersionID);
         }
+        
+        Log::setBuildData($this->BuildID, VersionID);          
     }
     
     function getCurrentLanguageFromUI()
@@ -363,6 +365,8 @@ class Client extends AbstractForm
             if ($line == '' || strpos($line, '=') == false) continue;
 
             [$key, $value] = explode('=', $line, 2);
+            
+            Log::info("[SDK]: $key = $value");
 
             switch ($key)
             {

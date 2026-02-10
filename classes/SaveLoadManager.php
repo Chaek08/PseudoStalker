@@ -197,7 +197,7 @@ class SaveLoadManager
             $parts = explode('.', $key);
             if (!$this->keyExists($data, $parts))
             {
-                Logger::error("Corrupt save: missing key '$key'");
+                Debug::error("Corrupt save: missing key '$key'");
                 $missing[] = $key;
             }
         }
@@ -209,7 +209,7 @@ class SaveLoadManager
     
         if (!isset($data['client_version']) || $data['client_version'] !== client_version)
         {
-            Logger::error("Version mismatch in save: expected " . client_version . ", got " . ($data['client_version'] ?? 'null'));
+            Debug::error("Version mismatch in save: expected " . client_version . ", got " . ($data['client_version'] ?? 'null'));
                 
             return ['ok' => false, 'error' => 'version'];
         }
@@ -243,7 +243,7 @@ class SaveLoadManager
     
             if (defined('Debug_Build') && Debug_Build)
             {
-                Logger::info("Saved game: " . $saveName);
+                Log::info("Saved game: " . $saveName);
             }
         } finally {
             if ($diskIo)
@@ -487,7 +487,7 @@ class SaveLoadManager
             
             $GLOBALS['IsSaveLoading'] = false; //убрать эту хуйню!!!!!!!!!!!! йй системой загрузки лвла!!!!!!!!!!!!!!!!!!
     
-            if (Debug_Build) Logger::info("Loaded save: " . $saveName);
+            Log::info("Loaded save: " . $saveName);
         });
     }
     
