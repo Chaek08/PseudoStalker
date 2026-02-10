@@ -770,6 +770,7 @@ class Client extends AbstractForm
         $this->MainGame->content->RenderHud(false);
         
         $this->Inventory->show();
+        $this->Inventory->content->UpdateInventoryHealthBar();        
         $this->Inventory->content->UpdateInventoryStatus();
         $this->Inventory->content->InventoryGrid->content->repackInventory();
         

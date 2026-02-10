@@ -60,19 +60,24 @@ class inventory extends AbstractForm
           
             $this->contextMenu = new InventoryContextMenu($this->form('Client'), $inv, $this->localization);
             
-            if ($btn = $this->contextMenu->getButton('drop')) {
+            if ($btn = $this->contextMenu->getButton('drop'))
+            {
                 $btn->on('click', function () use ($inv) { $inv->DropItem(); $this->HideCombobox(); });
             }
-            if ($btn = $this->contextMenu->getButton('use')) {
+            if ($btn = $this->contextMenu->getButton('use'))
+            {
                 $btn->on('click', function () use ($inv) { $inv->UseItem(); $this->HideCombobox(); });
             }
-            if ($btn = $this->contextMenu->getButton('takeOff')) {
+            if ($btn = $this->contextMenu->getButton('takeOff'))
+            {
                 $btn->on('click', function () use ($inv) { $inv->TakeOffItem(); $this->HideCombobox(); });
             }
-            if ($btn = $this->contextMenu->getButton('putOn')) {
+            if ($btn = $this->contextMenu->getButton('putOn'))
+            {
                 $btn->on('click', function () use ($inv) { $inv->PutOnItem(); $this->HideCombobox(); });
             }
-            if ($btn = $this->contextMenu->getButton('moveToSlot')) {
+            if ($btn = $this->contextMenu->getButton('moveToSlot'))
+            {
                 $btn->on('click', function () use ($inv) { $inv->MoveToSlot(); $this->HideCombobox(); });
             }    
         });    
@@ -81,6 +86,31 @@ class inventory extends AbstractForm
     function getCurrentLanguageFromUI()
     {
         return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+    }
+    
+    function UpdateInventoryHealthBar()
+    {
+        $actor = $this->form('Client')->MainGame->content->GameActor;
+        if (!$actor) return;
+    
+        $pct = max(0, min(100, $actor->getHpPercent()));
+    
+        $min = 54;
+        $maxInv = 416;
+    
+        $targetWidth = (int)($min + ($maxInv - $min) * ($pct / 100));
+    
+        $invBar = $this->form('Client')->Inventory->content->health_bar_gg;
+        $invBar->width = 0;
+        
+        UIProgressBarAnimator::resizeWidth(
+            $invBar,
+            $targetWidth,
+            700,
+            function () use ($invBar, $pct) {
+                $invBar->text = $pct . '%';
+            }
+        );
     }
     
     function UpdateSelectedItems()

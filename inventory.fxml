@@ -118,7 +118,7 @@
       </font>
     </FlatButton>
     <Data cursor="DEFAULT" enabled="1" id="data-health_bar_gg_b" visible="1"/>
-    <FlatButton alignment="CENTER" borderRadius="10" color="#990000" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="health_bar_gg" layoutX="1144" layoutY="816" prefHeight="40" prefWidth="416" styleClass="x-flat-button " text="100%" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="10" color="#990000" contentDisplay="LEFT" ellipsisString="" focusTraversable="true" graphicTextGap="4" id="health_bar_gg" layoutX="1144" layoutY="816" prefHeight="40" prefWidth="0" styleClass="x-flat-button " text="100%" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>
