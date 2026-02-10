@@ -123,7 +123,7 @@ abstract class CWeapon
         if ($this->reloading) { return; }
         if ($this->ammo <= 0) { $this->playEmpty(); return; }
     
-        if ($this->ammo < $this->magSize && rand(1, 600) === 1) { $this->jammed = true; }
+        if ($this->ammo > 1 && $this->ammo < $this->magSize && rand(1, 600) === 1) { $this->jammed = true; }
     
         if ($this->jammed && !$this->jamHandled)
         {
