@@ -6,7 +6,6 @@ use app\forms\classes\Environment;
 use app\forms\classes\CEnemy;
 use Throwable;
 use app\forms\classes\CActor;
-use app\forms\classes\Weapons\CWeapon_Dev;
 use behaviour\custom\ColorAdjustEffectBehaviour;
 use php\time\Timer;
 use php\gui\UXImageView;
@@ -25,6 +24,7 @@ use app\forms\classes\Localization;
 use php\gui\event\UXEvent; 
 use app\forms\classes\ParticleManager;
 use app\forms\classes\UI\HitMark;
+use app\forms\classes\UIProgressBarAnimator;
 
 class maingame extends AbstractForm
 {
@@ -550,10 +550,10 @@ class maingame extends AbstractForm
     
         $target = (int)($min + ($max - $min) * ($pct / 100));
     
-        $this->form('Client')->animateResizeWidth(
+        UIProgressBarAnimator::resizeWidth(
             $this->health_bar_enemy,
             $target,
-            3,
+            300,
             function () use ($pct) {
                 $this->health_bar_enemy->text = $pct . '%';
             }
@@ -573,10 +573,10 @@ class maingame extends AbstractForm
         $targetMain = (int)($min + ($maxMain - $min) * ($pct / 100));
         $targetInv  = (int)($min + ($maxInv  - $min) * ($pct / 100));
     
-        $this->form('Client')->animateResizeWidth(
+        UIProgressBarAnimator::resizeWidth(
             $this->health_bar_gg,
             $targetMain,
-            3,
+            300,
             function () use ($pct) {
                 $this->health_bar_gg->text = $pct . '%';
             }
@@ -584,10 +584,10 @@ class maingame extends AbstractForm
     
         $invBar = $this->form('Client')->Inventory->content->health_bar_gg;
     
-        $this->form('Client')->animateResizeWidth(
+        UIProgressBarAnimator::resizeWidth(
             $invBar,
             $targetInv,
-            3,
+            300,
             function () use ($invBar, $pct) {
                 $invBar->text = $pct . '%';
             }

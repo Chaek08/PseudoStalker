@@ -7,6 +7,7 @@ use std, gui, framework, app;
 use php\gui\event\UXMouseEvent; 
 use php\gui\event\UXWindowEvent; 
 use app\forms\classes\Localization;
+use app\forms\classes\UIProgressBarAnimator;
 
 class inventory extends AbstractForm
 {
@@ -92,6 +93,7 @@ class inventory extends AbstractForm
         $GLOBALS['item_ak74_selected'] = false;
         $GLOBALS['item_ammo_5x45_selected'] = false;
     }
+    
     function UpdateInventoryStatus()
     {
         $maxWeight = 90.0;
@@ -403,43 +405,49 @@ class inventory extends AbstractForm
             
             $target = round($minArmorWidth + (($armorPercent / 100) * ($maxArmorWidth - $minArmorWidth)));
     
-            $this->form('Client')->animateResizeWidth($this->maket_cond, $target, 10);
+            UIProgressBarAnimator::resizeWidth($this->maket_cond, $target, 700);
         }
         if ($GLOBALS['item_vodka_selected'])
         {
             $this->maket_cond->text = "100 %";
             $this->maket_cond->color = '#4d804d';
-            $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
+            
+            UIProgressBarAnimator::resizeWidth($this->maket_cond, 208, 700);
         }
         if ($GLOBALS['item_medkit_selected'])
         {
             $this->maket_cond->text = "100 %";
             $this->maket_cond->color = '#4d804d';
-            $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
+            
+            UIProgressBarAnimator::resizeWidth($this->maket_cond, 208, 700);
         }
         if ($GLOBALS['item_pm_selected'])
         {
             $this->maket_cond->text = "100 %";
             $this->maket_cond->color = '#4d804d';
-            $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
+            
+            UIProgressBarAnimator::resizeWidth($this->maket_cond, 208, 700);
         }
         if ($GLOBALS['item_ammo_9x18_selected'])
         {
             $this->maket_cond->text = "100 %";
             $this->maket_cond->color = '#4d804d';
-            $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
+            
+            UIProgressBarAnimator::resizeWidth($this->maket_cond, 208, 700);
         }
         if ($GLOBALS['item_ak74_selected'])
         {
             $this->maket_cond->text = "100 %";
             $this->maket_cond->color = '#4d804d';
-            $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
+            
+            UIProgressBarAnimator::resizeWidth($this->maket_cond, 208, 700);
         }
          if ($GLOBALS['item_ammo_5x45_selected'])
         {
             $this->maket_cond->text = "100 %";
             $this->maket_cond->color = '#4d804d';
-            $this->form('Client')->animateResizeWidth($this->maket_cond, 208, 10);
+            
+            UIProgressBarAnimator::resizeWidth($this->maket_cond, 208, 700);
         }       
     } 
      

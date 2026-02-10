@@ -1,9 +1,9 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\UI\UIProgressBarAnimator;
 use app\forms\classes\Environment;
 use php\lang\Thread;
-use app\forms\classes\FPSGandon;
 use php\gui\animation\UXAnimationTimer;
 use action\Animation;
 use php\framework\Logger;
@@ -167,7 +167,8 @@ class Client extends AbstractForm
                 Media::open($path, $loop);
             }
         }))->start();
-    }      
+    }
+    
     function GetVersion()
     {
         $filePath = "PseudoCore.dll";
@@ -322,6 +323,7 @@ class Client extends AbstractForm
 
         return $config;
     }
+    
     function SaveUserLTX($config)
     {
         $content = '';
@@ -342,6 +344,7 @@ class Client extends AbstractForm
         
         file_put_contents($this->ltxPath, $content);
     }
+    
     function syncWithSDKLTX()
     {
         define('DATA_FILE', 'sdk_data.ltx');
@@ -453,6 +456,7 @@ class Client extends AbstractForm
             }
         }     
     }
+    
     function StopAllSounds()
     {
         if (Media::isStatus('PLAYING', $this->MainGame->content->FightSound)) Media::stop($this->MainGame->content->FightSound);
@@ -518,52 +522,6 @@ class Client extends AbstractForm
         }))->start();
     }
 
-    public $isAnimating = false;
-    private $isAnimatingBars = [];
-    function animateResizeWidth($node, $targetWidth, $speed = 1, $callback = null)
-    {
-        $id = spl_object_hash($node);
-
-        if (isset($this->isAnimatingBars[$id]) && $this->isAnimatingBars[$id])
-        {
-            return;
-        }
-
-        $this->isAnimatingBars[$id] = true;
-
-        $timer = new UXAnimationTimer(function () use ($node, $targetWidth, $speed, &$timer, $callback, $id) {
-            if ($node->width < $targetWidth)
-            {
-                $node->width += $speed;
-                if ($node->width >= $targetWidth)
-                {
-                    $node->width = $targetWidth;
-                    $timer->stop();
-                    $this->isAnimatingBars[$id] = false;
-                    if ($callback) $callback();
-                }
-            }
-            elseif ($node->width > $targetWidth)
-            {
-                $node->width -= $speed;
-                if ($node->width <= $targetWidth)
-                {
-                    $node->width = $targetWidth;
-                    $timer->stop();
-                    $this->isAnimatingBars[$id] = false;
-                    if ($callback) $callback();
-                }
-            }
-            else
-            {
-                $timer->stop();
-                $this->isAnimatingBars[$id] = false;
-                if ($callback) $callback();
-            }
-        });
-
-        $timer->start();
-    }    
     /**
      * @event keyDown-F12 
      */
@@ -799,6 +757,7 @@ class Client extends AbstractForm
         $this->ShowPda();
         $this->Pda->content->ContactsBtn();
     }    
+    
     /**
      * @event keyDown-I 
      */
@@ -815,7 +774,8 @@ class Client extends AbstractForm
         $this->Inventory->content->InventoryGrid->content->repackInventory();
         
         if ($GLOBALS['AllSounds']) $this->playSoundAsync('res://.data/audio/inv_open.mp3', true);
-    }    
+    }
+     
     /**
      * @event keyDown-F4 
      */
