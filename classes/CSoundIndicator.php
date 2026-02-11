@@ -49,11 +49,7 @@ class CSoundIndicator
 
         $this->startFollow();
 
-        if ($this->hideTimer)
-        {
-            $this->hideTimer->cancel();
-            $this->hideTimer = null;
-        }
+        $this->cancelHideTimer();
         
         $this->hideTimer = Timer::after($durationMs, function () {
             $this->fxLater(function () {
@@ -83,13 +79,17 @@ class CSoundIndicator
             $this->followTimer->stop();
             $this->followTimer = null;
         }
-        
+    }
+    
+    private function cancelHideTimer(): void
+    {
         if ($this->hideTimer)
         {
             $this->hideTimer->cancel();
             $this->hideTimer = null;
-        }   
+        }
     }
+    
 
     private function updatePosition(): void
     {
@@ -119,6 +119,7 @@ class CSoundIndicator
     public function destroy(): void
     {
         $this->stopFollow();
+        $this->cancelHideTimer();
 
         $icon = $this->icon;
         $this->icon = null;
