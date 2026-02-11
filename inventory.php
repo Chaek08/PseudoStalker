@@ -328,18 +328,28 @@ class inventory extends AbstractForm
         $this->dragOutfit = true;
         $this->outfitDragStartTime = microtime(true);
     
-        $this->outfitDragDelayTimer = Timer::every(1, function () {
-            if (!$this->dragOutfit) { $this->cancelOutfitDragDelay(); return; }
-            if ((microtime(true) - $this->outfitDragStartTime) < $this->dragDelaySec) return;
+        $this->cancelOutfitDragDelay();
     
-            uiLater(function () {
-                if (!$this->dragOutfit) return;
-                $this->createOutfitGhost();
-                $this->startOutfitGhostFollow();
-            });
+        $this->outfitDragDelayTimer = new UXAnimationTimer(function () {
+    
+            if (!$this->dragOutfit)
+            {
+                $this->cancelOutfitDragDelay();
+                return;
+            }
+    
+            if ((microtime(true) - $this->outfitDragStartTime) < $this->dragDelaySec)
+            {
+                return;
+            }
+    
+            $this->createOutfitGhost();
+            $this->startOutfitGhostFollow();
     
             $this->cancelOutfitDragDelay();
         });
+    
+        $this->outfitDragDelayTimer->start();
     }
 
     /**
@@ -597,7 +607,7 @@ class inventory extends AbstractForm
     {
         if ($this->outfitDragDelayTimer)
         {
-            $this->outfitDragDelayTimer->cancel();
+            $this->outfitDragDelayTimer->stop();
             $this->outfitDragDelayTimer = null;
         }
     }

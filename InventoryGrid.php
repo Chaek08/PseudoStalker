@@ -98,20 +98,27 @@ class InventoryGrid extends AbstractForm
         $item->toFront();
         if ($extraFrontNode) $extraFrontNode->toFront();
         
-        $this->dragDelayTimer = Timer::every(1, function () {
-            if (!$this->draggedItem) { $this->cancelDragDelayTimer(); return; }
-            
-            if ((microtime(true) - $this->dragStartTime) < $this->dragDelaySec) return;
-            
-            uiLater(function () {
-                if (!$this->draggedItem) return;
-                $this->createDragGhost($this->draggedItem);
-                $this->startDragGhostFollowTimer();
-                $this->dragActivated = true;
-            });
-            
+        $this->dragDelayTimer = new UXAnimationTimer(function () {
+        
+            if (!$this->draggedItem)
+            {
+                $this->cancelDragDelayTimer();
+                return;
+            }
+        
+            if ((microtime(true) - $this->dragStartTime) < $this->dragDelaySec)
+            {
+                return;
+            }
+        
+            $this->createDragGhost($this->draggedItem);
+            $this->startDragGhostFollowTimer();
+            $this->dragActivated = true;
+        
             $this->cancelDragDelayTimer();
         });
+        
+        $this->dragDelayTimer->start();
     }
     
     function endDragUI()
@@ -126,7 +133,7 @@ class InventoryGrid extends AbstractForm
     {
         if ($this->dragDelayTimer)
         {
-            $this->dragDelayTimer->cancel();
+            $this->dragDelayTimer->stop();
             $this->dragDelayTimer = null;
         }
     }
