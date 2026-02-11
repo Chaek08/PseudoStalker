@@ -6,16 +6,17 @@ use action\Animation;
 use php\gui\UXImageView;
 use php\gui\UXImage;
 use php\gui\UXApplication;
+use php\gui\animation\UXAnimationTimer;
 
 class CSoundIndicator
 {
     private $icon;
     private $ownerModel;
     private $followTimer;
+    private $hideTimer;      
     private $isHiding = false;
 
     private const ICON_SIZE = 56;
-    private const FOLLOW_INTERVAL = 1;
 
     public function __construct($ownerModel)
     {
@@ -48,7 +49,13 @@ class CSoundIndicator
 
         $this->startFollow();
 
-        Timer::after($durationMs, function () {
+        if ($this->hideTimer)
+        {
+            $this->hideTimer->cancel();
+            $this->hideTimer = null;
+        }
+        
+        $this->hideTimer = Timer::after($durationMs, function () {
             $this->fxLater(function () {
                 $this->hide();
             });
@@ -59,22 +66,29 @@ class CSoundIndicator
     {
         $this->stopFollow();
 
-        $this->followTimer = Timer::every(self::FOLLOW_INTERVAL, function () {
-            $this->fxLater(function () {
-                if ($this->icon) {
-                    $this->updatePosition();
-                }
-            });
+        $this->followTimer = new UXAnimationTimer(function () {
+            if ($this->icon->visible)
+            {
+                $this->updatePosition();
+            }
         });
+        
+        $this->followTimer->start();
     }
 
     private function stopFollow(): void
     {
         if ($this->followTimer)
         {
-            $this->followTimer->cancel();
+            $this->followTimer->stop();
             $this->followTimer = null;
         }
+        
+        if ($this->hideTimer)
+        {
+            $this->hideTimer->cancel();
+            $this->hideTimer = null;
+        }   
     }
 
     private function updatePosition(): void
