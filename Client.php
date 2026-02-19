@@ -912,6 +912,8 @@ class Client extends AbstractForm
      */
     function ReloadWeaponProxy(UXKeyEvent $e = null)
     {    
+        if ($this->CheckVisibledFragments()) return;
+            
         $this->MainGame->content->GameActor->ReloadWeapon();
     }
 
@@ -920,6 +922,8 @@ class Client extends AbstractForm
      */
     function SwitchWeapon1Proxy(UXKeyEvent $e = null)
     {    
+        if ($this->CheckVisibledFragments()) return;
+        
         $this->MainGame->content->GameActor->SwitchWeapon('Pm');
     }
 
@@ -928,6 +932,8 @@ class Client extends AbstractForm
      */
     function SwitchWeapon2Proxy(UXKeyEvent $e = null)
     {    
+        if ($this->CheckVisibledFragments()) return;
+    
         $this->MainGame->content->GameActor->SwitchWeapon('AK74');
     }
 
