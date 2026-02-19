@@ -829,68 +829,30 @@ class Client extends AbstractForm
     {
         $this->Pda->hide();
         $this->Pda->content->DefaultState();                    
-    }
+    }   
+    
     /**
      * @event keyDown-F5 
      */
     function QuickSave(UXKeyEvent $e = null)
     {  
-        if (!$GLOBALS['ContinueGameState'] || $this->MainMenu->visible || $this->Fail->visible) return;
+        if ($this->CheckVisibledFragments()) return;
     
-        static $lastToastId = 0;
-    
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
         $saveName = System::getProperty('user.name') . '_quicksave';
-        $this->MainMenu->content->UISaveWnd->content->Edit_SaveName->text = $saveName;
-        $this->MainMenu->content->UISaveWnd->content->BtnSaveGame();
-        
-        $this->MainGame->content->SavedGame_Toast->opacity = 0;
-        $this->MainGame->content->SavedGame_Toast->visible = true;
-        $this->MainGame->content->SavedGame_Toast->text = $this->localization->get('SavedGameToast') . ' ' . $saveName;
-
-        Animation::fadeIn($this->MainGame->content->SavedGame_Toast, 300);
-
-        $lastToastId++;
-        $currentId = $lastToastId;
-
-        Timer::after(2300, function () use ($currentId) {
-            if ($currentId == $GLOBALS['lastToastId'])
-            {
-                Animation::fadeOut($this->MainGame->content->SavedGame_Toast, 300);
-            }
-        });
-        
-        $GLOBALS['lastToastId'] = $lastToastId;
+        $this->MainGame->content->performSave($saveName, true);
     }
     /**
      * @event keyDown-F7 
      */
     function QuickLoad(UXKeyEvent $e = null)
     {
-        if (!$GLOBALS['ContinueGameState'] || $this->MainMenu->visible || $this->Fail->visible) return;
+        if ($this->CheckVisibledFragments()) return;
 
-        $savesList = $this->MainMenu->content->UILoadWnd->content->saves_list;
-        $items = $savesList->items->toArray();
-
-        $latestIndex = -1;
-        $latestTime = 0;
-
-        foreach ($items as $index => $saveName) {
-            $filePath = $this->MainMenu->content->UILoadWnd->content->SaveLoadManager->getSaveDir() . $saveName . '.sav';
-            if (file_exists($filePath))
-            {
-                $fileTime = filemtime($filePath);
-                if ($fileTime > $latestTime)
-                {
-                    $latestTime = $fileTime;
-                    $latestIndex = $index;
-                }
-            }
+        $latest = $this->MainMenu->content->UILoadWnd->content->getLatestSaveName();
+        if ($latest)
+        {
+            $this->MainGame->content->performLoad($latest);
         }
-
-        $savesList->selectedIndex = $latestIndex;
-        $this->MainMenu->content->UILoadWnd->content->BtnLoadSave();
     }    
     /**
      * @event keyDown-Tab 

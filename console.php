@@ -291,80 +291,31 @@ class console extends AbstractForm
                         break;                       
                         
                 case "save":
-                        if (!$GLOBALS['ContinueGameState'] || $this->form('Client')->MainMenu->visible || $this->form('Client')->Fail->visible) return;
-
-                        static $lastToastId = 0;
-
-                        $parts = explode(" ", trim($this->edit->text), 2); 
-                        $saveName = "";
-
-                        if (count($parts) == 2 && trim($parts[1]) !== "")
-                        {
-                            $saveName = trim($parts[1]);
-                        }
-                        else
-                        {
-                            $username = System::getProperty('user.name');
-                            $saveName = $username . '_quicksave';
-                        }
-
-                        $saveUI = $this->form('Client')->MainMenu->content->UISaveWnd->content;
-                        $saveUI->Edit_SaveName->text = $saveName;
-                        $GLOBALS['AutoRewriteSave'] = true;
-                        $saveUI->BtnSaveGame();
-
-                        $this->form('Client')->MainGame->content->SavedGame_Toast->opacity = 0;
-                        $this->form('Client')->MainGame->content->SavedGame_Toast->visible = true;
-                        $this->form('Client')->MainGame->content->SavedGame_Toast->text = $this->localization->get('SavedGameToast') . ' ' . $saveName;
-
-                        Animation::fadeIn($this->form('Client')->MainGame->content->SavedGame_Toast, 300);
-
-                        $lastToastId++;
-                        $currentId = $lastToastId;
-
-                        Timer::after(2300, function () use ($currentId) {
-                            if ($currentId == $GLOBALS['lastToastId'])
-                            {
-                                Animation::fadeOut($this->form('Client')->MainGame->content->SavedGame_Toast, 300);
-                            }
-                        });
-
-                        $GLOBALS['AutoRewriteSave'] = false;
-
-                        $GLOBALS['lastToastId'] = $lastToastId;
+                        if ($this->form('Client')->CheckVisibledFragments()) return;
+                    
+                        $saveName = $customName ?: System::getProperty('user.name') . '_quicksave';
+                        $this->form('Client')->MainGame->content->performSave($saveName, true);
                         
                         $this->edit->text = "";
                         break;
                         
                 case "load":
-                    $parts = explode(" ", trim($this->edit->text), 2);
-                    if (count($parts) == 2)
-                    {
-                        $saveName = trim($parts[1]);
-                        if ($saveName !== "")
-                        {
-                            $filePath = $this->form('Client')->MainMenu->content->UILoadWnd->content->SaveLoadManager->getSaveDir() . $saveName . '.sav';
-                            if (file_exists($filePath))
-                            {
-                                $loadWnd = $this->form('Client')->MainMenu->content->UILoadWnd->content;
-                                $savesList = $loadWnd->saves_list;
-                                foreach ($savesList->items->toArray() as $index => $item) {
-                                if ($item == $saveName)
-                                {
-                                    $savesList->selectedIndex = $index;
-                                    $this->form('Client')->MainMenu->content->UILoadWnd->content->BtnLoadSave();
-                                    break;
-                                }}
-                        }
-                        else
-                        {
-                            Log::result("Save '$saveName' not found.");
-                        }
-                    }
-                }
+                        if ($this->form('Client')->CheckVisibledFragments()) return;
                 
-                $this->edit->text = "";
-                break;
+                        $parts = explode(" ", trim($this->edit->text), 2);
+                    
+                        if (count($parts) === 2)
+                        {
+                            $saveName = trim($parts[1]);
+                    
+                            if ($saveName !== "")
+                            {
+                                $this->form('Client')->MainGame->content->performLoad($saveName);
+                            }
+                        }
+                        
+                        $this->edit->text = "";
+                        break;
                       
                 case "call":
                         if (isset($args[1]))

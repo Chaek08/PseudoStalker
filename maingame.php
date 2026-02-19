@@ -798,4 +798,62 @@ class maingame extends AbstractForm
             });
         });
     }
+    
+    public function performSave(string $saveName, bool $autoRewrite = false)
+    {
+        if (!$GLOBALS['ContinueGameState']) return;
+    
+        static $lastToastId = 0;
+    
+        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
+    
+        $saveUI = $this->form('Client')->MainMenu->content->UISaveWnd->content;
+    
+        if ($autoRewrite)
+        {
+            $GLOBALS['AutoRewriteSave'] = true;
+        }
+    
+        $saveUI->Edit_SaveName->text = $saveName;
+        $saveUI->BtnSaveGame();
+    
+        $GLOBALS['AutoRewriteSave'] = false;
+    
+        $this->SavedGame_Toast->opacity = 0;
+        $this->SavedGame_Toast->visible = true;
+        $this->SavedGame_Toast->text = $this->localization->get('SavedGameToast') . ' ' . $saveName;
+    
+        Animation::fadeIn($this->SavedGame_Toast, 300);
+    
+        $lastToastId++;
+        $currentId = $lastToastId;
+    
+        Timer::after(2300, function () use ($currentId) {
+            if ($currentId == $GLOBALS['lastToastId']) {
+                Animation::fadeOut($this->SavedGame_Toast, 300);
+            }
+        });
+    
+        $GLOBALS['lastToastId'] = $lastToastId;
+    }    
+    
+    public function performLoad(string $saveName)
+    {
+        if (!$GLOBALS['ContinueGameState']) return;
+    
+        $loadWnd = $this->form('Client')->MainMenu->content->UILoadWnd->content;
+        $savesList = $loadWnd->saves_list;
+    
+        foreach ($savesList->items->toArray() as $index => $item)
+        {
+            if ($item === $saveName)
+            {
+                $savesList->selectedIndex = $index;
+                $loadWnd->BtnLoadSave();
+                return;
+            }
+        }
+    
+        Log::result("Save '$saveName' not found.");
+    }      
 }
