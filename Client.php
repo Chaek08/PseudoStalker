@@ -183,7 +183,7 @@ class Client extends AbstractForm
         
         if ($encrypted == false) 
         {
-            Debug::fail("Failed to read $filePath", __FILE__, __LINE__);
+            Debug::fatal("Failed to read $filePath", __FILE__, __LINE__);
         }
 
         if ($encrypted != false)

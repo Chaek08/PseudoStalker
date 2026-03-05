@@ -173,7 +173,7 @@ class UILoadWnd extends AbstractForm
         $saveData = $this->SaveLoadManager->load($saveName);
         if ($saveData === null) return;
         
-        $result = $this->SaveLoadManager->validateSave($saveData);
+        $result = $this->SaveLoadManager->validateSave($saveData, $saveName);
         
         if (!$result['ok'])// похуй//нам не нужна exitdialog хуета, ибо здесь нет выбора да или нет
         {

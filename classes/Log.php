@@ -128,9 +128,8 @@ class Log
         }
 
         $user = System::getProperty("user.name");
-        $time = Time::now()->toString("dd-MM-yyyy_HH-mm-ss");
-
-        self::$logFile = $dir . "kte_{$user}_{$time}.log";
+        
+        self::$logFile = $dir . "kte_{$user}.log";
 
         self::writeHeader();
         self::$initialized = true;

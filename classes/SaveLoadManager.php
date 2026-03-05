@@ -1,6 +1,7 @@
 <?php
 namespace app\forms\classes;
 
+use app\forms\classes\Log;
 use php\gui\UXApplication;
 use php\time\Timer;
 use php\framework\Logger;
@@ -125,7 +126,7 @@ class SaveLoadManager
     }
 
 
-    public function validateSave(array $data): array
+    public function validateSave(array $data, string $saveName): array
     {
         $requiredKeys = [
             'client_version',
@@ -197,7 +198,7 @@ class SaveLoadManager
             $parts = explode('.', $key);
             if (!$this->keyExists($data, $parts))
             {
-                Debug::error("Corrupt save: missing key '$key'");
+                Log::error("Corrupt save '{$saveName}': missing key '$key'");
                 $missing[] = $key;
             }
         }
@@ -209,7 +210,7 @@ class SaveLoadManager
     
         if (!isset($data['client_version']) || $data['client_version'] !== client_version)
         {
-            Debug::error("Version mismatch in save: expected " . client_version . ", got " . ($data['client_version'] ?? 'null'));
+            Log::error("Version mismatch in save '{$saveName}': expected " . client_version . ", got " . ($data['client_version'] ?? 'null'));
                 
             return ['ok' => false, 'error' => 'version'];
         }
@@ -516,7 +517,7 @@ class SaveLoadManager
             return;
         }
 
-        $result = $this->validateSave($saveData);
+        $result = $this->validateSave($saveData, $saveName);
         if (!$result['ok'])
         {
             if (Debug_Build)
