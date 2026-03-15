@@ -658,7 +658,7 @@ class maingame extends AbstractForm
         
         if ($this->GameActor->isDead())
         {
-            $this->GameEnemy->SetInteractive(false);
+            //$this->GameEnemy->SetInteractive(false);
             
             if ($this->GameActor->getWeapon()) $this->GameActor->UnequipCurrentWeapon();
               
@@ -668,7 +668,7 @@ class maingame extends AbstractForm
         }
         if ($this->GameEnemy->isDead())
         {
-            $this->GameActor->SetInteractive(false);
+            //$this->GameActor->SetInteractive(false);
             
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Complete();
             
