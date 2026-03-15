@@ -233,14 +233,7 @@ abstract class CWeapon
         
         if (!$actor) return;
         
-        $brightness = 0.0;
-        
-        if ($this->view && $this->view->colorAdjustEffect)
-        {
-            $brightness = $this->view->colorAdjustEffect->brightness;
-        }        
-        
-        $this->owner->getParticles()->weaponShot($actor, $enemy, $this->particleOffset[0], $this->particleOffset[1], $brightness);
+        $this->owner->getParticles()->weaponShot($actor, $enemy, $this->particleOffset[0], $this->particleOffset[1]);
         
         if ($enemy && $enemy->visible && $actor->x < $enemy->x)
         {
