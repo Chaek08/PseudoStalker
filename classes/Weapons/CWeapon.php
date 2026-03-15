@@ -121,7 +121,12 @@ abstract class CWeapon
     public function shoot(): void
     {
         if ($this->reloading) { return; }
-        if ($this->ammo <= 0) { $this->playEmpty(); return; }
+        if ($this->ammo <= 0) //перезаряд при попытке выстрела
+        {
+            $this->reload();
+            $this->playEmpty();
+            return;
+        }
     
         if ($this->ammo > 1 && $this->ammo < $this->magSize && rand(1, 600) === 1) { $this->jammed = true; }
     
@@ -140,7 +145,7 @@ abstract class CWeapon
         $this->ammo--;
         $this->owner->UpdateMagazine();
         $this->playShotOverlapped();
-        $this->spawnMuzzleAndBlood();
+        $this->spawnMuzzleAndBlood();      
     }
     
     public function reload(): void
@@ -228,7 +233,14 @@ abstract class CWeapon
         
         if (!$actor) return;
         
-        $this->owner->getParticles()->weaponShot($actor, $enemy, $this->particleOffset[0], $this->particleOffset[1]);
+        $brightness = 0.0;
+        
+        if ($this->view && $this->view->colorAdjustEffect)
+        {
+            $brightness = $this->view->colorAdjustEffect->brightness;
+        }        
+        
+        $this->owner->getParticles()->weaponShot($actor, $enemy, $this->particleOffset[0], $this->particleOffset[1], $brightness);
         
         if ($enemy && $enemy->visible && $actor->x < $enemy->x)
         {
