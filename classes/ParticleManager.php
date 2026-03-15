@@ -1,6 +1,7 @@
 <?php
 namespace app\forms\classes;
 
+use behaviour\custom\ColorAdjustEffectBehaviour;
 use php\gui\UXImageView;
 use php\gui\UXImage;
 use php\gui\UXApplication;
@@ -9,6 +10,7 @@ use action\Animation;
 use php\lang\Thread;
 use behaviour\custom\GlowEffectBehaviour;
 use behaviour\custom\BloomEffectBehaviour;
+use php\gui\animation\UXAnimationTimer;
 
 class ParticleManager
 {
@@ -69,15 +71,172 @@ class ParticleManager
                 });
             }
         );
-
-        if (!$enemyModel || !$enemyModel->visible) return;
-        if ($actorModel->x > $enemyModel->x) return;
-    
+        
         $hitX   = $enemyModel->x + ($enemyModel->width / 2);
         $hitY   = $actorModel->y + $muzzleOffsetY;
-        $floorY = $enemyModel->y + $enemyModel->height - 20;
+        $floorY = $enemyModel->y + $enemyModel->height - 80;        
+        
+        $this->spawnBullet($actorModel, $enemyModel, $muzzleOffsetX, $muzzleOffsetY);
+        $this->spawnShell($actorModel, $muzzleOffsetX, $muzzleOffsetY, $floorY);    
+
+        if (!$enemyModel || !$enemyModel->visible) return;
+        if ($actorModel->x > $enemyModel->x) return;    
     
         $this->bloodBurstAtPoint($hitX, $hitY, $floorY, 4, 7);
+    }
+    
+    public function spawnBullet($actorModel, $enemyModel, float $offsetX, float $offsetY): void
+    {
+        if (!$actorModel || !$enemyModel) return;
+    
+        $this->spawnParticle(
+    
+            function () use ($actorModel, $offsetX, $offsetY) {
+    
+                $p = new UXImageView();
+                $p->enabled = false;
+                $p->opacity = 1;
+                $p->image = new UXImage('res://.data/ui/particles/bullet_.png');
+    
+                $p->width  = 32;
+                $p->height = 32;
+    
+                $muzzleX = $actorModel->x + $offsetX;
+                $muzzleY = $actorModel->y + $offsetY + 60; //пуля летит ровно
+    
+                $p->x = $muzzleX - ($p->width / 2);
+                $p->y = $muzzleY - ($p->height / 2);
+    
+                return $p;
+            },
+    
+            function ($p) use ($actorModel, $enemyModel, $offsetX, $offsetY) {
+    
+                $muzzleX = $actorModel->x + $offsetX;
+                $muzzleY = $actorModel->y + $offsetY;
+    /*
+                if (!$enemyModel || !$enemyModel->visible || $actorModel->x > $enemyModel->x)
+                {
+                    $targetX = $muzzleX + 2000;
+                    $targetY = $muzzleY + rand(-50, 50);
+                }
+                else
+                {
+                    $targetX = $enemyModel->x + ($enemyModel->width / 2);
+                    $targetY = $enemyModel->y + ($enemyModel->height / 2);
+                }
+*/
+                $targetX = $muzzleX + 2000;
+                $targetY = $muzzleY + rand(-50, 50);
+                    
+                $distanceX = $targetX - $muzzleX;
+                $distanceY = $targetY - $muzzleY;
+                
+                $distance = sqrt($distanceX * $distanceX + $distanceY * $distanceY);
+                
+                $speed = 12;
+                $duration = $distance / $speed;
+                
+                Animation::displace(
+                    $p,
+                    $duration,
+                    $distanceX,
+                    $distanceY
+                );
+                
+                Timer::after($duration + 10, function () use ($p) {
+                    Animation::fadeOut($p, 60, function () use ($p) {
+                        $p->free();
+                    });
+                });
+            }
+        );
+    }
+        
+    public function spawnShell($actorModel, float $offsetX, float $offsetY, float $groundY): void
+    {
+        if (!$actorModel) return;
+    
+        $this->spawnParticle(
+    
+            function () use ($actorModel, $offsetX, $offsetY) {
+    
+                $p = new UXImageView();
+                $p->enabled = false;
+                $p->opacity = 1;
+                $p->image   = new UXImage('res://.data/ui/particles/bullet_.png');
+    
+                $p->width  = 32;
+                $p->height = 32;
+    
+                $p->x = $actorModel->x + $offsetX;
+                $p->y = $actorModel->y + $offsetY;
+    
+                return $p;
+            },
+    
+            function ($p) use ($groundY) {
+            
+                $groundY += 75; //для гильзы плюсуем
+                
+                $vx = -rand(6, 10);
+                $vy = -rand(12, 16);
+    
+                $gravity  = 0.6;
+                $friction = 0.98;
+    
+                $rotationSpeed = rand(8, 16);
+    
+                $timer = new UXAnimationTimer(function() use ($p, &$vx, &$vy, $gravity, $friction, $rotationSpeed, $groundY, &$timer) {
+    
+                    if (!$p)
+                    {
+                        $timer->stop();
+                        return;
+                    }
+    
+                    $p->x += $vx;
+                    $p->y += $vy;
+    
+                    $vy += $gravity;
+                    $vx *= $friction;
+    
+                    $p->rotate += $rotationSpeed;
+    
+                    if ($p->y >= $groundY - $p->height)
+                    {
+                        $p->y = $groundY - $p->height;
+                    
+                        $vy = -$vy * 0.45;
+                        $vx *= 0.7;
+                    
+                        if (abs($vy) < 1.5)
+                        {
+                            $vy = 0;
+                            $vx *= 0.3;
+                    
+                            if (abs($vx) < 0.3)
+                            {
+                                $timer->stop();
+                    
+                                Timer::after(2500, function () use ($p) {
+                    
+                                    Animation::fadeOut(
+                                        $p,
+                                        600,
+                                        function () use ($p) {
+                                            $p->free();
+                                        }
+                                    );
+                                });
+                            }
+                        }
+                    }
+                });
+                
+                $timer->start();
+            }
+        );
     }
 
     public function bloodBurstAtPoint(float $originX, float $originY, float $floorY, int $countMin = 6, int $countMax = 10): void
