@@ -10,6 +10,7 @@ class CWeapon_PM extends CWeapon
         $this->type = 'Pm';
         $this->magSize = 8;
         $this->ammo = 8;
+        $this->recoilPower = 4;        
         $this->inventoryField = 'pmAmmoCount';
         $this->inventoryUpdateFn = 'updateAmmo9x18Count';
         $this->soundShot = 'res://.data/audio/weapon/t_pm_shot.mp3';

@@ -10,6 +10,7 @@ class CWeapon_AK74 extends CWeapon
         $this->type = 'AK74';
         $this->magSize = 30;
         $this->ammo = 30;
+        $this->recoilPower = 10;
         $this->inventoryField = 'akAmmoCount';
         $this->inventoryUpdateFn = 'updateAmmo5x45Count';
         $this->soundShot = 'res://.data/audio/weapon/ak74_shot_0.mp3';

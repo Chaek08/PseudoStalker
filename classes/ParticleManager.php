@@ -219,7 +219,7 @@ class ParticleManager
                             {
                                 $timer->stop();
                     
-                                Timer::after(2500, function () use ($p) {
+                                Timer::after(2000, function () use ($p) {
                     
                                     Animation::fadeOut(
                                         $p,

@@ -29,6 +29,10 @@ abstract class CWeapon
     protected $jamHandled = false;
     
     protected $reloading = false;     
+    
+    protected $recoilOffsetX = 0;
+    protected $recoilOffsetY = 0;
+    protected $recoilPower;
 
     protected $view = null;
     protected $attachTimer = null;
@@ -39,9 +43,7 @@ abstract class CWeapon
     protected $shotPoolSize = 6;
     protected $shotIdx = 0;
 
-    protected $prevTaskLabelText = null;
-       
-    public $dropShadowEffect;
+    public $dropShadowEffect; 
 
     public function __construct($owner) { $this->owner = $owner; }
 
@@ -146,6 +148,7 @@ abstract class CWeapon
         $this->owner->UpdateMagazine();
         $this->playShotOverlapped();
         $this->spawnMuzzleAndBlood();      
+        $this->playRecoil();
     }
     
     public function reload(): void
@@ -196,8 +199,8 @@ abstract class CWeapon
             $m = $this->owner ? $this->owner->GetModel() : null;
             if (!$m) return;
     
-            $this->view->x = $m->x + $this->offsetX;
-            $this->view->y = $m->y + $this->offsetY;
+            $this->view->x = $m->x + $this->offsetX + $this->recoilOffsetX;
+            $this->view->y = $m->y + $this->offsetY + $this->recoilOffsetY;
         });
     
         $this->attachTimer->start();
@@ -240,6 +243,39 @@ abstract class CWeapon
             $this->owner->DamageEnemy(null, false);
         }
     }
+    
+    protected function playRecoil(): void
+    {
+        $power = $this->recoilPower;
+    
+        //$this->recoilOffsetY = -$power;
+        $this->recoilOffsetX = $power;//rand((int)(-$power * 0.3), (int)($power * 0.3));
+        // rand(-$power, $power)
+    
+        Timer::after(40, function () {
+            $steps = 6;
+    
+            $stepY = $this->recoilOffsetY / $steps;
+            $stepX = $this->recoilOffsetX / $steps;
+    
+            $i = 0;
+            $timer = new UXAnimationTimer(function () use (&$i, $steps, $stepX, $stepY, &$timer) {
+                $this->recoilOffsetY -= $stepY;
+                $this->recoilOffsetX -= $stepX;
+    
+                $i++;
+    
+                if ($i >= $steps)
+                {
+                    $this->recoilOffsetY = 0;
+                    $this->recoilOffsetX = 0;
+                    $timer->stop();
+                }
+            });
+    
+            $timer->start();
+        });
+    } 
 
     protected function getInventoryContent()
     {
@@ -277,11 +313,14 @@ abstract class CWeapon
     }
 
     public function exportState(): array { return ['ammo' => $this->ammo, 'jammed' => $this->jammed, 'jamHandled' => $this->jamHandled]; }
-    public function importState(array $s): void {
+    
+    public function importState(array $s): void
+    {
         if (isset($s['ammo'])) $this->setAmmo((int)$s['ammo']);
         if (isset($s['jammed'])) $this->jammed = (bool)$s['jammed'];
         if (isset($s['jamHandled'])) $this->jamHandled = (bool)$s['jamHandled'];
     }
+        
     
     protected function showJamHint(): void
     {
