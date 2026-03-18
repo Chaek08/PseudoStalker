@@ -33,6 +33,8 @@ abstract class CWeapon
     protected $recoilOffsetX = 0;
     protected $recoilOffsetY = 0;
     protected $recoilPower;
+    
+    protected $unlimitedAmmo = false;    
 
     protected $view = null;
     protected $attachTimer = null;
@@ -157,7 +159,8 @@ abstract class CWeapon
         if ($this->ammo >= $this->magSize && !$this->jammed) return;
     
         $inv = $this->getInventoryContent();
-        $totalAmmo = $inv->{$this->inventoryField};
+        $totalAmmo = $this->unlimitedAmmo ? $this->magSize : $inv->{$this->inventoryField};
+    
         if ($totalAmmo <= 0 && !$this->jammed) return;
     
         if (!empty($this->soundReload) && !empty($GLOBALS['AllSounds']))
@@ -170,19 +173,41 @@ abstract class CWeapon
     
         Timer::after($this->reloadDelay, function () use ($inv, $needed) {
             $this->fxLater(function () use ($inv, $needed) {
-                $totalAmmo = $inv->{$this->inventoryField};
-                if ($totalAmmo > 0)
+    
+                if ($this->unlimitedAmmo)
                 {
-                    if ($totalAmmo < $needed) { $this->ammo += $totalAmmo; $totalAmmo = 0; }
-                    else { $this->ammo += $needed; $totalAmmo -= $needed; }
-                    $inv->{$this->inventoryField} = $totalAmmo;
+                    $this->ammo = $this->magSize;
                 }
-                if ($this->inventoryUpdateFn && method_exists($inv, $this->inventoryUpdateFn))
+                else
                 {
-                    $fn = $this->inventoryUpdateFn; $inv->$fn();
+                    $totalAmmo = $inv->{$this->inventoryField};
+    
+                    if ($totalAmmo > 0)
+                    {
+                        if ($totalAmmo < $needed)
+                        {
+                            $this->ammo += $totalAmmo;
+                            $totalAmmo = 0;
+                        }
+                        else
+                        {
+                            $this->ammo += $needed;
+                            $totalAmmo -= $needed;
+                        }
+    
+                        $inv->{$this->inventoryField} = $totalAmmo;
+                    }
+    
+                    if ($this->inventoryUpdateFn && method_exists($inv, $this->inventoryUpdateFn))
+                    {
+                        $fn = $this->inventoryUpdateFn;
+                        $inv->$fn();
+                    }
                 }
+    
                 $this->owner->UpdateMagazine();
-                $this->jammed = false; $this->jamHandled = false;
+                $this->jammed = false;
+                $this->jamHandled = false;
                 $this->reloading = false;
             });
         });
@@ -290,6 +315,20 @@ abstract class CWeapon
         $inv = $this->getInventoryContent();
         return $inv->{$this->inventoryField};
     }
+    
+    public function setUnlimitedAmmo(bool $state): void
+    {
+        $this->unlimitedAmmo = $state;
+        if ($state)
+        {
+            $this->owner->UpdateMagazine();
+        }
+    }
+    
+    public function hasUnlimitedAmmo(): bool
+    {
+        return $this->unlimitedAmmo;
+    }  
 
     public function hudMagImage(): string
     {

@@ -253,6 +253,7 @@ class Client extends AbstractForm
             'ambient_sound' => 'on',            
             'r_version' => 'on',
             'g_god' => 'off',
+            'g_unlimitedammo' => 'off',            
             'vid_mode' => '1600x900',
             'vid_fullscreen' => 'off',
             'discord_rpc' => 'on'
@@ -273,6 +274,11 @@ class Client extends AbstractForm
         {
             $this->MainGame->content->setGodMode($this->MainGame->content->GameActor, true);
         }
+        
+        if ($this->ltx['g_unlimitedammo'] == 'on')
+        {
+            $GLOBALS['UnlimitedAmmoFlag'] = true;
+        }        
         
         Timer::after(100, function() {
             $this->applyResolutionFromLTX();

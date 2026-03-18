@@ -782,7 +782,7 @@ class maingame extends AbstractForm
         $this->ui_mag_background->hide();
         $this->ui_mag_background->text = null;
         $this->ui_mag_background->graphic = null;
-        
+    
         $this->GodMode();        
     
         $w = $this->GameActor->getWeapon();
@@ -794,8 +794,16 @@ class maingame extends AbstractForm
         $this->ui_mag_background->graphic = new UXImageView(new UXImage($imgPath));
     
         $currentAmmo = $w->getAmmo();
-        $totalAmmo   = $w->getTotalAmmoFromInventory();
-        $this->ui_mag_background->text = $currentAmmo . '/' . $totalAmmo;
+    
+        if ($w->hasUnlimitedAmmo())
+        {
+            $this->ui_mag_background->text = $currentAmmo . '/--';
+        }
+        else
+        {
+            $totalAmmo   = $w->getTotalAmmoFromInventory();
+            $this->ui_mag_background->text = $currentAmmo . '/' . $totalAmmo;
+        }
     }
     
     public function showJamHintUI(string $textKey): void

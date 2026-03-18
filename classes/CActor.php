@@ -113,6 +113,8 @@ class CActor extends CEntity
 
         $weapon->attach();
         $this->currentWeapon = $weapon;
+        
+        $weapon->setUnlimitedAmmo($GLOBALS['UnlimitedAmmoFlag']);
 
         if (isset($GLOBALS['ShadowsSwitcher_IsOn']) && !$GLOBALS['ShadowsSwitcher_IsOn'])
         {

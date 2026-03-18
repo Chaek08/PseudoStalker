@@ -40,27 +40,28 @@ class console extends AbstractForm
     }
     
     private $availableCommands = [
-        'exit'        => '',
-        'clear'       => '',
-        'help'        => '',
-        'version'     => '',
-        'sync_sdk_ltx'=> '',
-        'save'        => ' [name]',
-        'load'        => ' [name]',
-        'g_god'       => ' [off/on]',
-        'vid_mode'    => ' [1600x900]',
-        'r_version'   => ' [off/on]',
-        'r_shadows'   => ' [off/on]',
-        'snd_all'     => ' [off/on]',
-        'snd_ambient' => ' [off/on]',
-        'openform'    => ' [form_name]',
-        'call'        => ' [function_name]',
-        'language'    => ' [rus/eng]',
-        'set_level'   => ' [0-4]',
-        'set_cycle'   => ' [night, morning, day, evening, underground]',
-        'set_ambient' => ' [1-6]',
-        'env_reset'   => '',
-        'fatal'       => ' [message]'       
+        'exit'                => '',
+        'clear'               => '',
+        'help'                => '',
+        'version'             => '',
+        'sync_sdk_ltx'        => '',
+        'save'                => ' [name]',
+        'load'                => ' [name]',
+        'g_god'               => ' [off/on]',
+        'g_unlimitedammo'     => ' [off/on]',        
+        'vid_mode'            => ' [1600x900]',
+        'r_version'           => ' [off/on]',
+        'r_shadows'           => ' [off/on]',
+        'snd_all'             => ' [off/on]',
+        'snd_ambient'         => ' [off/on]',
+        'openform'            => ' [form_name]',
+        'call'                => ' [function_name]',
+        'language'            => ' [rus/eng]',
+        'set_level'           => ' [0-4]',
+        'set_cycle'           => ' [night, morning, day, evening, underground]',
+        'set_ambient'         => ' [1-6]',
+        'env_reset'           => '',
+        'fatal'               => ' [message]'       
     ];
 
     private $tabMatches = [];
@@ -183,6 +184,37 @@ class console extends AbstractForm
                         }
                         $this->edit->text = "";
                         break;    
+                        
+                case "g_unlimitedammo":
+                        if (isset($args[1]))
+                        {
+                            if ($args[1] == "on")
+                            {
+                                $GLOBALS['UnlimitedAmmoFlag'] = true;
+                                $this->form('Client')->MainGame->content->GameActor->getWeapon()->setUnlimitedAmmo($GLOBALS['UnlimitedAmmoFlag']);
+                                $this->form('Client')->MainGame->content->UpdateMagazine();
+
+                                if ($this->form('Client')->ltxInitialized)
+                                {
+                                    $this->form('Client')->ltx['g_unlimitedammo'] = 'on';
+                                    $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);
+                                }
+                            }
+                            elseif ($args[1] == "off")
+                            {
+                                $GLOBALS['UnlimitedAmmoFlag'] = false;
+                                $this->form('Client')->MainGame->content->GameActor->getWeapon()->setUnlimitedAmmo($GLOBALS['UnlimitedAmmoFlag']);
+                                $this->form('Client')->MainGame->content->UpdateMagazine();
+
+                                if ($this->form('Client')->ltxInitialized)
+                                {
+                                    $this->form('Client')->ltx['g_unlimitedammo'] = 'off';
+                                    $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);
+                                }
+                            }
+                        }
+                        $this->edit->text = "";
+                        break;                          
                 
                 case "vid_mode":
                         $form = $this->form('Client');
