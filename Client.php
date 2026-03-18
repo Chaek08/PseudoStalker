@@ -26,6 +26,7 @@ use php\gui\event\UXMouseEvent;
 use php\gui\event\UXEvent; 
 use app\forms\classes\Debug;
 use app\forms\classes\Log;
+use php\gui\event\UXScrollEvent; 
 
 class Client extends AbstractForm
 {
@@ -270,8 +271,7 @@ class Client extends AbstractForm
         
         if ($this->ltx['g_god'] == 'on')
         {
-            $GLOBALS['GodMode'] = true;
-            $this->MainGame->content->GodMode();
+            $this->MainGame->content->setGodMode($this->MainGame->content->GameActor, true);
         }
         
         Timer::after(100, function() {

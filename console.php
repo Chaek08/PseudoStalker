@@ -162,8 +162,7 @@ class console extends AbstractForm
                         {
                             if ($args[1] == "on")
                             {
-                                $GLOBALS['GodMode'] = true;
-                                $this->form('Client')->MainGame->content->GodMode();
+                                $this->form('Client')->MainGame->content->setGodMode($this->form('Client')->MainGame->content->GameActor, true);
 
                                 if ($this->form('Client')->ltxInitialized)
                                 {
@@ -173,8 +172,7 @@ class console extends AbstractForm
                             }
                             elseif ($args[1] == "off")
                             {
-                                $GLOBALS['GodMode'] = false;
-                                $this->form('Client')->MainGame->content->GodMode();
+                                $this->form('Client')->MainGame->content->setGodMode($this->form('Client')->MainGame->content->GameActor, false);
 
                                 if ($this->form('Client')->ltxInitialized)
                                 {

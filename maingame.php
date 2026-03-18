@@ -269,7 +269,7 @@ class maingame extends AbstractForm
             
             if ($this->GameActor->getWeapon()) $this->ui_mag_background->show();
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
-            if ($GLOBALS['GodMode']) $this->GodMode_Icon->show();
+            if ($this->GameActor->isGodMode()) $this->GodMode_Icon->show();
             if ($this->GameActor->CanInteractive() || $this->GameEnemy->CanInteractive()) $this->fight_image->show();
             if ($this->GameActor->isDead() || $this->GameEnemy->isDead()) $this->leave_btn->show();
         
@@ -291,7 +291,7 @@ class maingame extends AbstractForm
             $this->leave_btn->hide();
             
             if ($this->blood_ui->visible) $this->blood_ui->hide();
-            if ($this->GodMode_Icon->visible) $this->GodMode_Icon->hide();
+            if ($this->GameActor->isGodMode()) $this->GodMode_Icon->hide();
             if ($this->pda_icon->visible) $this->pda_icon->hide();
             if ($this->fight_image->visible) $this->fight_image->hide();
             if ($this->SavedGame_Toast->visible) $this->SavedGame_Toast->hide();
@@ -353,7 +353,6 @@ class maingame extends AbstractForm
     function GodMode()
     {
         $baseY = 96;
-        
         $nextY = $baseY;
     
         if ($this->GameActor->getWeapon() !== null)
@@ -362,7 +361,7 @@ class maingame extends AbstractForm
             $nextY = $baseY + 64;
         }
     
-        if ($GLOBALS['GodMode'])
+        if ($this->GameActor->isGodMode())
         {
             if ($GLOBALS['HudVisible']) $this->GodMode_Icon->show();
             $this->GodMode_Icon->y = $nextY;
@@ -375,6 +374,30 @@ class maingame extends AbstractForm
     
         $this->blood_ui->y = $nextY;
     }
+    
+    function setGodMode(CEntity $entity, bool $state): void
+    {
+        $entity->SetGodMode($state);
+    
+        if ($entity == $this->GameActor)
+        {
+            $this->updateGodModeUI($state);
+        }
+    }
+    
+    private function updateGodModeUI(bool $state): void
+    {
+        if ($state)
+        {
+            if ($GLOBALS['HudVisible']) $this->GodMode_Icon->show();
+        }
+        else
+        {
+            $this->GodMode_Icon->hide();
+        }
+    
+        $this->GodMode();
+    }    
     
     private $enemyCoverTimer; //2 отдельных таймера, дабы избежать гонки их же
     private $actorCoverTimer;
@@ -455,15 +478,12 @@ class maingame extends AbstractForm
             return;
         }
     
-        if (!$GLOBALS['GodMode'])
-        {
-            $missChance = 75;
+        $missChance = 75;
     
-            if (rand(1, 100) > $missChance)
-            {
-                $damage = rand(8, 20);
-                $this->GameActor->applyDamage($damage);
-            }
+        if (rand(1, 100) > $missChance)
+        {
+            $damage = rand(8, 20);
+            $this->GameActor->applyDamage($damage);
         }
     
         $this->HitMark->play();

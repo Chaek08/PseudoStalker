@@ -13,6 +13,7 @@ abstract class CEntity
     protected $soundIndicator;
 
     protected $canInteractive = false;
+    protected $GodMode = false;    
     protected $isDead = false;
 
     protected $maxHP = 100;
@@ -37,6 +38,16 @@ abstract class CEntity
             'limitedByParent' => true,
         ]);
     }
+    
+    public function SetGodMode(bool $state): void
+    {
+        $this->GodMode = $state;
+    }
+    
+    public function isGodMode(): bool
+    {
+        return $this->GodMode;
+    }    
 
     public function isDead(): bool
     {
@@ -95,6 +106,8 @@ abstract class CEntity
     public function applyDamage(int $amount): void
     {
         if ($this->isDead || $amount <= 0) return;
+        
+        if ($this->GodMode) return;
 
         $this->hp -= $amount;
 
@@ -228,6 +241,8 @@ abstract class CEntity
     public function setHp(int $value): void
     {
         $value = max(0, min($this->maxHP, $value));
+        
+        if ($this->GodMode) return;
     
         if ($this->isDead)
         {
