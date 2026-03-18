@@ -10,8 +10,9 @@ class CActor extends CEntity
     protected $game;
 
     protected $currentWeapon = null;
-
+    protected $currentWeaponIndex = 0;    
     protected $weaponState = [];
+    protected $weapons = ['Pm', 'AK74'];
 
     public function __construct($game, int $maxHP = 100)
     {
@@ -124,6 +125,83 @@ class CActor extends CEntity
 
         $this->UpdateMagazine();
     }
+    
+    protected function hasWeapon(string $weaponType): bool
+    {
+        $inv = $this->form('Client')->Inventory->content->InventoryGrid->content;
+    
+        switch ($weaponType)
+        {
+            case 'Pm':   return !empty($inv->pmInWeaponSlot);
+            case 'AK74': return !empty($inv->AK74InWeaponSlot);
+        }
+    
+        return false;
+    }    
+    
+    public function setWeaponIndex(int $index): void
+    {
+        if (!isset($this->weapons[$index])) return;
+    
+        $this->currentWeaponIndex = $index;
+        $this->applyWeaponByIndex();
+    }    
+    
+    public function applyWeaponByIndex(): void
+    {
+        $weaponType = $this->weapons[$this->currentWeaponIndex] ?? null;
+        $this->SwitchWeapon($weaponType);
+    }    
+    
+    public function switchNextWeapon(): void
+    {
+        if ($this->currentWeapon && $this->currentWeapon->isReloading()) return;
+    
+        $startIndex = $this->currentWeaponIndex;
+    
+        do {
+            $this->currentWeaponIndex++;
+    
+            if ($this->currentWeaponIndex >= count($this->weapons))
+            {
+                $this->currentWeaponIndex = 0;
+            }
+    
+            $weaponType = $this->weapons[$this->currentWeaponIndex];
+    
+            if ($this->hasWeapon($weaponType))
+            {
+                $this->applyWeaponByIndex();
+                return;
+            }
+    
+        } while ($this->currentWeaponIndex !== $startIndex);
+    }
+    
+    public function switchPrevWeapon(): void
+    {
+        if ($this->currentWeapon && $this->currentWeapon->isReloading()) return;
+    
+        $startIndex = $this->currentWeaponIndex;
+    
+        do {
+            $this->currentWeaponIndex--;
+    
+            if ($this->currentWeaponIndex < 0)
+            {
+                $this->currentWeaponIndex = count($this->weapons) - 1;
+            }
+    
+            $weaponType = $this->weapons[$this->currentWeaponIndex];
+    
+            if ($this->hasWeapon($weaponType))
+            {
+                $this->applyWeaponByIndex();
+                return;
+            }
+    
+        } while ($this->currentWeaponIndex !== $startIndex);
+    }  
 
     public function Shoot(): void
     {

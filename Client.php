@@ -886,7 +886,7 @@ class Client extends AbstractForm
     {    
         if ($this->CheckVisibledFragments()) return;
         
-        $this->MainGame->content->GameActor->SwitchWeapon('Pm');
+        $this->MainGame->content->GameActor->setWeaponIndex(0);
     }
 
     /**
@@ -896,9 +896,29 @@ class Client extends AbstractForm
     {    
         if ($this->CheckVisibledFragments()) return;
     
-        $this->MainGame->content->GameActor->SwitchWeapon('AK74');
+        $this->MainGame->content->GameActor->setWeaponIndex(1);
     }
-
+    
+    /**
+     * @event scroll-Up 
+     */
+    function SwitchWeaponOnScroll1Proxy(UXScrollEvent $e = null)
+    {    
+        if ($this->CheckVisibledFragments()) return;
+    
+        $this->MainGame->content->GameActor->switchNextWeapon();
+    }
+    
+    /**
+     * @event scroll-Down 
+     */
+    function SwitchWeaponOnScroll2Proxy(UXScrollEvent $e = null)
+    {    
+        if ($this->CheckVisibledFragments()) return;
+    
+        $this->MainGame->content->GameActor->switchPrevWeapon();
+    }    
+    
     /**
      * @event keyDown-Enter 
      */
