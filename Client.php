@@ -910,7 +910,7 @@ class Client extends AbstractForm
      */
     function SwitchWeaponOnScroll1Proxy(UXScrollEvent $e = null)
     {    
-        if ($this->CheckVisibledFragments()) return;
+        if ($this->CheckVisibledFragments() || $this->Console->visible) return;
     
         $this->MainGame->content->GameActor->switchNextWeapon();
     }
@@ -920,7 +920,7 @@ class Client extends AbstractForm
      */
     function SwitchWeaponOnScroll2Proxy(UXScrollEvent $e = null)
     {    
-        if ($this->CheckVisibledFragments()) return;
+        if ($this->CheckVisibledFragments() || $this->Console->visible) return;
     
         $this->MainGame->content->GameActor->switchPrevWeapon();
     }    
