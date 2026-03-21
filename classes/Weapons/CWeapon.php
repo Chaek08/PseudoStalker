@@ -14,38 +14,46 @@ use behaviour\custom\ColorAdjustEffectBehaviour;
 abstract class CWeapon
 {
     protected $owner;
-    protected $type; 
-    protected $magSize = 0; 
-    protected $ammo = 0; 
-    protected $inventoryField = '';   
+    protected $type;
+
+    protected $magSize = 0;
+    protected $inventoryField = '';
     protected $inventoryUpdateFn = '';
+    protected $reloadDelay = 1000;
+    protected $particleOffset = [0, 0];
+    protected $recoilPower;
+
+    protected $ammo = 0;
+    protected $reloading = false;
+
+    protected $jammed = false;
+    protected $jamHandled = false;
+
+    protected $unlimitedAmmo = false;
+
+    protected $recoilOffsetX = 0;
+    protected $recoilOffsetY = 0;
+
+    protected $reloadAnimOffsetX = 0;
+    protected $reloadAnimOffsetY = 0;
+    protected $reloadAnimRotate = 0;
+
+    protected $view = null;
+    protected $attachTimer = null;
+
+    protected $offsetX = 0;
+    protected $offsetY = 0;
+
+    public $dropShadowEffect;
+
     protected $soundShot;
     protected $soundEmpty;
     protected $soundDraw;
     protected $soundReload;
-    protected $reloadDelay = 1000;
-    protected $particleOffset = [0, 0];
-    protected $jammed = false;
-    protected $jamHandled = false;
-    
-    protected $reloading = false;     
-    
-    protected $recoilOffsetX = 0;
-    protected $recoilOffsetY = 0;
-    protected $recoilPower;
-    
-    protected $unlimitedAmmo = false;    
-
-    protected $view = null;
-    protected $attachTimer = null;
-    protected $offsetX = 0;
-    protected $offsetY = 0;
 
     protected $shotPlayers = [];
     protected $shotPoolSize = 6;
-    protected $shotIdx = 0;
-
-    public $dropShadowEffect; 
+    protected $shotSeq = 0;
 
     public function __construct($owner) { $this->owner = $owner; }
 
@@ -157,7 +165,7 @@ abstract class CWeapon
     {
         if ($this->reloading) return;
         if ($this->ammo >= $this->magSize && !$this->jammed) return;
-    
+        
         $inv = $this->getInventoryContent();
         $totalAmmo = $this->unlimitedAmmo ? $this->magSize : $inv->{$this->inventoryField};
     
@@ -167,9 +175,11 @@ abstract class CWeapon
         {
             $this->owner->form('Client')->playSoundAsync($this->soundReload, true, strtolower($this->type) . '_reload');
         }
-    
+               
         $needed = max(0, $this->magSize - $this->ammo);
         $this->reloading = true;
+        
+        $this->playReloadAnimation(); 
     
         Timer::after($this->reloadDelay, function () use ($inv, $needed) {
             $this->fxLater(function () use ($inv, $needed) {
@@ -224,16 +234,15 @@ abstract class CWeapon
             $m = $this->owner ? $this->owner->GetModel() : null;
             if (!$m) return;
     
-            $this->view->x = $m->x + $this->offsetX + $this->recoilOffsetX;
-            $this->view->y = $m->y + $this->offsetY + $this->recoilOffsetY;
+            $this->view->x = $m->x + $this->offsetX + $this->recoilOffsetX + $this->reloadAnimOffsetX;
+            $this->view->y = $m->y + $this->offsetY + $this->recoilOffsetY + $this->reloadAnimOffsetY;
+            
+            $this->view->rotate = $this->reloadAnimRotate;
         });
     
         $this->attachTimer->start();
     }
 
-    protected $shotSeq = 0;
-    protected $shotPoolSize = 6;
-    
     protected function playShotOverlapped(): void
     {
         if (empty($GLOBALS['AllSounds'])) return;
@@ -300,7 +309,86 @@ abstract class CWeapon
     
             $timer->start();
         });
-    } 
+    }
+    
+    protected function playReloadAnimation(): void
+    {
+        $downSteps = 18;
+        $upSteps = 20;
+    
+        $maxLift = -30; // наклон
+        $maxDropY = 6; // вниз
+        $sideSwing = 12; // лёгкий свинг
+        $backShift = -20; // уход назад
+    
+        $i = 0;
+    
+        $timerDown = new UXAnimationTimer(function () use (&$i, $downSteps, $maxLift, $maxDropY, $sideSwing, $backShift, &$timerDown) {
+    
+            $t = $i / $downSteps;
+    
+            $ease = 1 - pow(1 - $t, 3);
+    
+            $jerk = 0;
+            if ($t < 0.15)
+            {
+                $jt = $t / 0.15;
+                $jerk = 9 * (1 - pow(1 - $jt, 3));
+            }
+    
+            $this->reloadAnimRotate = $maxLift * sin($t * M_PI_2);
+            $this->reloadAnimOffsetY = $maxDropY * $ease;
+            $this->reloadAnimOffsetX = $jerk + ($backShift * sin($t * M_PI_2)) + (-sin($t * M_PI) * $sideSwing * 0.4);
+    
+            $i++;
+    
+            if ($i > $downSteps)
+            {
+                $timerDown->stop();
+            }
+        });
+    
+        $timerDown->start();
+    
+        Timer::after($this->reloadDelay, function () use ($upSteps) {
+    
+            $i = 0;
+    
+            $startRot = $this->reloadAnimRotate;
+            $startY   = $this->reloadAnimOffsetY;
+            $startX   = $this->reloadAnimOffsetX ?? 0;
+    
+            $timerUp = new UXAnimationTimer(function () use (&$i, $upSteps, $startRot, $startY, $startX, &$timerUp) {
+    
+                $t = $i / $upSteps;
+    
+                $c1 = 1.70158;
+                $c3 = $c1 + 1;
+                $ease = 1 + $c3 * pow($t - 1, 3) + $c1 * pow($t - 1, 2);
+    
+                $this->reloadAnimRotate = $startRot * (1 - $ease);
+                $this->reloadAnimOffsetY = $startY * (1 - $ease);
+                $this->reloadAnimOffsetX = $startX * (1 - $ease);
+    
+                $this->reloadAnimOffsetX += sin($t * M_PI) * 2;
+    
+                $shake = sin($t * M_PI * 8) * (1 - $t) * 3;
+                $this->reloadAnimRotate += $shake;
+    
+                $i++;
+    
+                if ($i > $upSteps)
+                {
+                    $this->reloadAnimRotate = 0;
+                    $this->reloadAnimOffsetY = 0;
+                    $this->reloadAnimOffsetX = 0;
+                    $timerUp->stop();
+                }
+            });
+    
+            $timerUp->start();
+        });
+    }
 
     protected function getInventoryContent()
     {
