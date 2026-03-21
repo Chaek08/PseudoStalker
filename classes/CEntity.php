@@ -64,7 +64,7 @@ abstract class CEntity
         if ($this->isDead) return;
 
         $this->canInteractive = $b;
-        $this->dragging->enabled = $b;
+        //$this->dragging->enabled = $b;
     }
 
     public function SetModel($mdl): void
@@ -138,7 +138,7 @@ abstract class CEntity
 
         $this->isDead = true;
         $this->canInteractive = false;
-        $this->dragging->enabled = false;
+        //$this->dragging->enabled = false;
 
         if ($this->soundIndicator)
         {
@@ -167,7 +167,7 @@ abstract class CEntity
         }
 
         $this->canInteractive = true;
-        $this->dragging->enabled = true;
+        //$this->dragging->enabled = true;
 
         $this->initSoundIndicator();
         $this->fireHpChanged();
