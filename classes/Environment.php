@@ -1,6 +1,7 @@
 <?php
 namespace app\forms\classes;
 
+use app\forms\classes\EnvironmentBrightness;
 use php\gui\animation\UXAnimationTimer;
 use app\forms\classes\Log;
 use Throwable;
@@ -61,7 +62,7 @@ class Environment
     
     public $brightnessLerp   = 0.25;
     
-    public $onBrightnessTick = null;
+    protected $brightnessManager;    
 
     protected $volumeSfx     = 0.04;
     protected $volumeAmbient = 0.15;
@@ -258,9 +259,10 @@ class Environment
         'night'   => ['ae0_effect_1','ae0_effect_2','ae0_effect_3','ae0_effect_8'],
     ];
 
-    public function __construct($mediaView)
+    public function __construct($mediaView, EnvironmentBrightness $brightnessManager)
     {
         $this->mediaView = $mediaView;
+        $this->brightnessManager = $brightnessManager;
         
         if ($mediaView == null)
         {
@@ -295,43 +297,6 @@ class Environment
         $this->scheduleNextSfx();
         $this->scheduleNextEffect();
     }
-
-    public function setOnCycleChange($callback)
-    {
-        if ($callback === null || is_callable($callback))
-        {
-            $this->onCycleChange = $callback;
-        }
-    }
-
-    public function fireCycleChangeOnce()
-    {
-        if ($this->onCycleChange !== null)
-        {
-            call_user_func($this->onCycleChange, $this->currentCycle, $this->currentCycle);
-        }
-    }
-
-    public function getEnvironmentBrightness()
-    {
-        $cycle = $this->currentCycle ?: 'day';
-        return $this->brightnessByCycle[$cycle] ?? 0.0;
-    }
-    
-    public function setOnBrightnessTick($callback)
-    {
-        if ($callback === null || is_callable($callback))
-        {
-            $this->onBrightnessTick = $callback;
-        }
-    }
-    
-    public function clamp($v, $min, $max)
-    {
-        if ($v < $min) return $min;
-        if ($v > $max) return $max;
-        return $v;
-    }
     
     public function updateBrightnessTarget()
     {
@@ -343,9 +308,9 @@ class Environment
     {
         $value = (float)$value;
     
-        if ($this->onBrightnessTick !== null)
+        if ($this->brightnessManager)
         {
-            call_user_func($this->onBrightnessTick, $value);
+            $this->brightnessManager->set($value);
         }
     }
     
@@ -353,12 +318,10 @@ class Environment
     {
         if ($this->brightnessTimerId)
         {
-            $this->brightnessTimerId->stop();
-            $this->brightnessTimerId = null;
+            return;
         }
     
         $this->brightnessTimerId = new UXAnimationTimer(function () {
-    
             if (!$this->isActive()) return;
     
             $this->updateBrightnessTarget();
@@ -373,9 +336,9 @@ class Environment
                 $next = $tar;
             }
     
-            $next = $this->clamp($next, -1.0, 1.0);
-    
+            $next = max(-1.0, min(1.0, $next));
             $this->brightnessCurrent = $next;
+    
             $this->applyBrightness($next);
         });
     
@@ -598,7 +561,7 @@ class Environment
 
         $this->scheduleTimer($this->sfxTimerId, $period, function ($delaySec) {
             if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
-            Log::info("[Environment]: sfx tick after {$delaySec}s");
+            //Log::info("[Environment]: sfx tick after {$delaySec}s");
             $this->playRandomSfx();
             $this->scheduleNextSfx();
         });
@@ -620,7 +583,7 @@ class Environment
 
         $this->scheduleTimer($this->effectTimerId, $period, function ($delaySec) {
             if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
-            Log::info("[Environment]: effect tick after {$delaySec}s");
+            //Log::info("[Environment]: effect tick after {$delaySec}s");
             $this->playRandomEffect();
             $this->scheduleNextEffect();
         });
@@ -657,7 +620,7 @@ class Environment
             if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
             if (isset($GLOBALS['AmbientSound']) && !$GLOBALS['AmbientSound']) return;
 
-            Log::info("[Environment]: ambient tick after {$delaySec}s");
+            //Log::info("[Environment]: ambient tick after {$delaySec}s");
             $self->playRandomAmbient();
         });
     }
@@ -689,7 +652,7 @@ class Environment
             Debug::fail("Environment: sfx open failed '{$path}'", __FILE__, __LINE__);
         }
 
-        Log::info("[Environment]: sfx '{$sound}' played (cycle '{$cycle}')");
+        //Log::info("[Environment]: sfx '{$sound}' played (cycle '{$cycle}')");
     }
 
     public function playRandomEffect()
@@ -719,7 +682,7 @@ class Environment
         $this->effectPlayer->volume = $this->volumeEffect;
         $this->effectPlayer->play();
 
-        Log::info("[Environment]: effect '{$effectName}' sound '{$file}' played, life_time={$effect['life_time']}s");
+        //Log::info("[Environment]: effect '{$effectName}' sound '{$file}' played, life_time={$effect['life_time']}s");
     }
 
     protected function playAmbientInternal($path, $rawPath, $length, $tag = '')
@@ -1011,14 +974,6 @@ class Environment
         return $this->ambientPlayer;
     }
 
-    protected function safeStopPlayer($player)
-    {
-        if ($player)
-        {
-            $player->stop();
-        }
-    }
-
     public function stop()
     {
         if ($this->timerId)
@@ -1051,12 +1006,12 @@ class Environment
             $this->brightnessTimerId = null;
         }        
 
-        $this->safeStopPlayer($this->videoPlayer);
-        $this->safeStopPlayer($this->ambientPlayer);
-        $this->safeStopPlayer($this->sfxPlayer);
-        $this->safeStopPlayer($this->effectPlayer);
-        $this->safeStopPlayer($this->rainPlayer);
-        $this->safeStopPlayer($this->anomalyPlayer);
+        if ($this->videoPlayer) $this->videoPlayer->stop();
+        if ($this->ambientPlayer) $this->ambientPlayer->stop();
+        if ($this->sfxPlayer) $this->sfxPlayer->stop();
+        if ($this->effectPlayer) $this->effectPlayer->stop();
+        if ($this->rainPlayer) $this->rainPlayer->stop();
+        if ($this->anomalyPlayer) $this->anomalyPlayer->stop();
     }
     
     public function reset()

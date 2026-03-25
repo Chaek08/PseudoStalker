@@ -10,11 +10,12 @@ use script\MediaPlayerScript;
 use php\gui\UXImageView;
 use php\gui\UXImage;
 use behaviour\custom\ColorAdjustEffectBehaviour;
+use app\forms\classes\EnvironmentBrightness;
 
 abstract class CWeapon
 {
     protected $owner;
-    protected $type;
+    protected $type; 
 
     protected $magSize = 0;
     protected $inventoryField = '';
@@ -40,6 +41,7 @@ abstract class CWeapon
 
     protected $view = null;
     protected $attachTimer = null;
+    protected $fxTimers = [];
 
     protected $offsetX = 0;
     protected $offsetY = 0;
@@ -55,7 +57,10 @@ abstract class CWeapon
     protected $shotPoolSize = 6;
     protected $shotSeq = 0;
 
-    public function __construct($owner) { $this->owner = $owner; }
+    public function __construct($owner)
+    {
+        $this->owner = $owner;
+    }
 
     abstract public function getType(): string;
     abstract protected function spritePath(): string;
@@ -72,17 +77,8 @@ abstract class CWeapon
             $model = $this->owner->GetModel();
             $this->view->x = $model->x + $this->offsetX;
             $this->view->y = $model->y + $this->offsetY;
-            (new ColorAdjustEffectBehaviour())->apply($this->view);
             
-            $bm = 0.0;
-            if ($model && $model->colorAdjustEffect)
-            {
-                $bm = $model->colorAdjustEffect->brightness;
-            }
-            if ($this->view->colorAdjustEffect)
-            {
-                $this->view->colorAdjustEffect->brightness = $bm;
-            }
+            $this->owner->form('Client')->MainGame->content->EnvironmentBrightness->register($this->view);
                         
             $this->dropShadowEffect = new DropShadowEffectBehaviour();
             $this->dropShadowEffect->color   = '#1a1a1a';
@@ -116,16 +112,28 @@ abstract class CWeapon
 
     public function detach(): void
     {
-        if ($this->attachTimer) { $this->attachTimer->stop(); $this->attachTimer = null; }
+        if ($this->attachTimer)
+        {
+            $this->attachTimer->stop();
+            $this->attachTimer = null;
+        }
+    
+        $this->stopAllFxTimers();
+    
         $this->fxLater(function () {
-            if ($this->view) {
-                $this->owner->remove($this->view);
+            if ($this->view)
+            {
+                $view = $this->view;
+    
+                $this->owner->form('Client')->MainGame->content->EnvironmentBrightness->unregister($view);
+                $this->owner->remove($view);
+    
                 $this->view = null;
-                
+    
                 if (!empty($GLOBALS['AllSounds']))
                 {
                     $this->owner->form('Client')->playSoundAsync('res://.data/audio/weapon/generic_close.mp3', true, 'generic_close');
-                }                
+                }
             }
         });
     }
@@ -282,18 +290,27 @@ abstract class CWeapon
     {
         $power = $this->recoilPower;
     
-        //$this->recoilOffsetY = -$power;
-        $this->recoilOffsetX = $power;//rand((int)(-$power * 0.3), (int)($power * 0.3));
-        // rand(-$power, $power)
+        $this->recoilOffsetX = $power;
     
         Timer::after(40, function () {
+    
+            if (!$this->view) return;
+    
             $steps = 6;
     
             $stepY = $this->recoilOffsetY / $steps;
             $stepX = $this->recoilOffsetX / $steps;
     
             $i = 0;
+    
             $timer = new UXAnimationTimer(function () use (&$i, $steps, $stepX, $stepY, &$timer) {
+    
+                if (!$this->view)
+                {
+                    $timer->stop();
+                    return;
+                }
+    
                 $this->recoilOffsetY -= $stepY;
                 $this->recoilOffsetX -= $stepX;
     
@@ -307,6 +324,7 @@ abstract class CWeapon
                 }
             });
     
+            $this->registerTimer($timer);
             $timer->start();
         });
     }
@@ -316,14 +334,20 @@ abstract class CWeapon
         $downSteps = 18;
         $upSteps = 20;
     
-        $maxLift = -30; // наклон
-        $maxDropY = 6; // вниз
-        $sideSwing = 12; // лёгкий свинг
-        $backShift = -20; // уход назад
+        $maxLift = -30;
+        $maxDropY = 6;
+        $sideSwing = 12;
+        $backShift = -20;
     
         $i = 0;
     
         $timerDown = new UXAnimationTimer(function () use (&$i, $downSteps, $maxLift, $maxDropY, $sideSwing, $backShift, &$timerDown) {
+    
+            if (!$this->view)
+            {
+                $timerDown->stop();
+                return;
+            }
     
             $t = $i / $downSteps;
     
@@ -338,7 +362,9 @@ abstract class CWeapon
     
             $this->reloadAnimRotate = $maxLift * sin($t * M_PI_2);
             $this->reloadAnimOffsetY = $maxDropY * $ease;
-            $this->reloadAnimOffsetX = $jerk + ($backShift * sin($t * M_PI_2)) + (-sin($t * M_PI) * $sideSwing * 0.4);
+            $this->reloadAnimOffsetX = $jerk
+                + ($backShift * sin($t * M_PI_2))
+                + (-sin($t * M_PI) * $sideSwing * 0.4);
     
             $i++;
     
@@ -348,9 +374,12 @@ abstract class CWeapon
             }
         });
     
+        $this->registerTimer($timerDown);
         $timerDown->start();
     
         Timer::after($this->reloadDelay, function () use ($upSteps) {
+    
+            if (!$this->view) return;
     
             $i = 0;
     
@@ -359,6 +388,12 @@ abstract class CWeapon
             $startX   = $this->reloadAnimOffsetX ?? 0;
     
             $timerUp = new UXAnimationTimer(function () use (&$i, $upSteps, $startRot, $startY, $startX, &$timerUp) {
+    
+                if (!$this->view)
+                {
+                    $timerUp->stop();
+                    return;
+                }
     
                 $t = $i / $upSteps;
     
@@ -386,6 +421,7 @@ abstract class CWeapon
                 }
             });
     
+            $this->registerTimer($timerUp);
             $timerUp->start();
         });
     }
@@ -473,15 +509,20 @@ abstract class CWeapon
         }
     }
     
-    public function setBrightness(float $brightness): void
-    {
-        $this->fxLater(function () use ($brightness) {
-            if ($this->view && $this->view->colorAdjustEffect)
-            {
-                $this->view->colorAdjustEffect->brightness = $brightness;
-            }
-        });
-    }
-    
     protected function fxLater(callable $fn): void { UXApplication::runLater($fn); }
+    
+    protected function registerTimer($timer): void
+    {
+        $this->fxTimers[] = $timer;
+    }    
+    
+    protected function stopAllFxTimers(): void
+    {
+        foreach ($this->fxTimers as $t)
+        {
+            if ($t) $t->stop();
+        }
+    
+        $this->fxTimers = [];
+    }    
 }

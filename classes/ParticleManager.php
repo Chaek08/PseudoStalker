@@ -11,11 +11,24 @@ use php\lang\Thread;
 use behaviour\custom\GlowEffectBehaviour;
 use behaviour\custom\BloomEffectBehaviour;
 use php\gui\animation\UXAnimationTimer;
+use app\forms\classes\EnvironmentBrightness;
 
 class ParticleManager
 {
     protected $form;
+    
+    protected $images = [];
 
+    protected function img(string $path): UXImage
+    {
+        if (!isset($this->images[$path]))
+        {
+            $this->images[$path] = new UXImage($path);
+        }
+    
+        return $this->images[$path];
+    }
+    
     public function __construct($form)
     {
         $this->form = $form;
@@ -27,12 +40,19 @@ class ParticleManager
     
         $this->spawnParticle(
             function () use ($actorModel, $muzzleOffsetX, $muzzleOffsetY) {
-                $p = new UXImageView(new UXImage('res://.data/ui/particles/shoot.png'));
+            
+                $p = new UXImageView();
+                $p->image = $this->img('res://.data/ui/particles/shoot.png');
                 $p->width = 128;
                 $p->height = 128;
                 $p->opacity = 0;
                 $p->x = $actorModel->x + $muzzleOffsetX;
                 $p->y = $actorModel->y + $muzzleOffsetY;
+                
+                //$brightness = $this->form->form('Client')->MainGame->content->EnvironmentBrightness->get();
+                
+                //(new ColorAdjustEffectBehaviour())->apply($p);
+                //$p->colorAdjustEffect->brightness = $brightness;                
         
                 $bloom = new BloomEffectBehaviour();
                 $bloom->threshold = 1.0;
@@ -94,9 +114,14 @@ class ParticleManager
             function () use ($actorModel, $offsetX, $offsetY) {
     
                 $p = new UXImageView();
+                $p->image = $this->img('res://.data/ui/particles/bullet_.png');
                 $p->enabled = false;
                 $p->opacity = 1;
-                $p->image = new UXImage('res://.data/ui/particles/bullet_.png');
+                
+                $brightness = $this->form->form('Client')->MainGame->content->EnvironmentBrightness->get();
+                
+                (new ColorAdjustEffectBehaviour())->apply($p);
+                $p->colorAdjustEffect->brightness = $brightness;                
     
                 $p->width  = 32;
                 $p->height = 32;
@@ -160,11 +185,16 @@ class ParticleManager
         $this->spawnParticle(
     
             function () use ($actorModel, $offsetX, $offsetY) {
-    
+            
                 $p = new UXImageView();
+                $p->image   = $this->img('res://.data/ui/particles/bullet_.png');
                 $p->enabled = false;
                 $p->opacity = 1;
-                $p->image   = new UXImage('res://.data/ui/particles/bullet_.png');
+                                
+                $brightness = $this->form->form('Client')->MainGame->content->EnvironmentBrightness->get();
+                
+                (new ColorAdjustEffectBehaviour())->apply($p);
+                $p->colorAdjustEffect->brightness = $brightness;                
     
                 $p->width  = 32;
                 $p->height = 32;
@@ -305,13 +335,18 @@ class ParticleManager
     protected function makeBloodFactory(float $originX, float $originY, int $scatterX, int $scatterY): callable
     {
         return function () use ($originX, $originY, $scatterX, $scatterY) {
-
+        
             $p = new UXImageView();
+            $p->image   = $this->img('res://.data/ui/particles/blood.png'); 
             $p->enabled = false;
-            $p->opacity = 1;
-            $p->image   = new UXImage('res://.data/ui/particles/blood.png');     
+            $p->opacity = 1;    
             $p->width   = 86;
             $p->height  = 86;
+            
+            $brightness = $this->form->form('Client')->MainGame->content->EnvironmentBrightness->get();
+            
+            (new ColorAdjustEffectBehaviour())->apply($p);
+            $p->colorAdjustEffect->brightness = $brightness;            
             
             $p->x = $originX - ($p->width / 2) + $scatterX;
             $p->y = $originY - ($p->height / 2) + $scatterY;

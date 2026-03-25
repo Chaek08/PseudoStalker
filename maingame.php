@@ -3,9 +3,10 @@ namespace app\forms;
 
 use php\desktop\Mouse;
 use app\forms\classes\Environment;
+use app\forms\classes\EnvironmentBrightness;
 use app\forms\classes\CEnemy;
-use Throwable;
 use app\forms\classes\CActor;
+use Throwable;
 use behaviour\custom\ColorAdjustEffectBehaviour;
 use php\time\Timer;
 use php\gui\UXImageView;
@@ -38,6 +39,7 @@ class maingame extends AbstractForm
     public $SDK_EnemyModel;    
     
     public $Environment;
+    public $EnvironmentBrightness;    
     public $Particles;
 
     public $GameActor;
@@ -51,15 +53,24 @@ class maingame extends AbstractForm
 
         $this->localization = new Localization($language); 
         
+        $this->EnvironmentBrightness = new EnvironmentBrightness();
+        $this->Environment = new Environment($this->Environment_Space, $this->EnvironmentBrightness);
+
+        $this->Environment->forceBrightnessNow();
+        $this->Environment->startAmbient();
+        $this->Environment->pause();        
+        
         $this->Particles = new ParticleManager($this);        
                
         $this->GameActor = new CActor($this);
         $this->GameActor->SetModel($this->actor);
+        $this->EnvironmentBrightness->register($this->GameActor->GetModel());
         
         $this->GameActor->SetInteractive(false);
         
         $this->GameEnemy = new CEnemy($this);
         $this->GameEnemy->SetModel($this->enemy);
+        $this->EnvironmentBrightness->register($this->GameEnemy->GetModel());        
         
         $this->GameEnemy->SetInteractive(false);
         
@@ -83,18 +94,10 @@ class maingame extends AbstractForm
         $this->HitMark = new HitMark($this->HitMark_Visual);
         
         $this->ItemVodka = new CVodka($this, $this->item_vodka_0000, $this->GameActor, $this->GameEnemy); //CItem zavtra
+        $this->EnvironmentBrightness->register($this->ItemVodka->GetModel()); 
         $this->ItemVodka->disable();
         $this->ItemVodka->hide();
-        $this->ItemVodka->resetVisual();
-        
-        $this->Environment = new Environment($this->Environment_Space);
-        $this->Environment->setOnBrightnessTick(function ($brightness) {
-            $this->applyBrightness($brightness);
-        });
-
-        $this->Environment->forceBrightnessNow();
-        $this->Environment->startAmbient();
-        $this->Environment->pause();
+        $this->ItemVodka->resetVisual(); 
     }
     
     function getCurrentLanguageFromUI()
@@ -210,19 +213,9 @@ class maingame extends AbstractForm
             
             if (empty($GLOBALS['IsSaveLoading']))
             {
-                $this->Environment = new Environment($this->Environment_Space);
+                $this->Environment = new Environment($this->Environment_Space, $this->EnvironmentBrightness);
                 $this->Environment->startAmbient();
                 $this->Environment->pause();
-            
-                $this->Environment->setOnBrightnessTick(function ($brightness) {
-                    $this->applyBrightness($brightness);
-                });
-            
-                $this->Environment->setOnCycleChange(function ($old, $new) {
-                    $this->applyBrightness($this->Environment->getEnvironmentBrightness());
-                });
-            
-                $this->Environment->forceBrightnessNow();
             }
             
             $this->form('Client')->Dialog->content->StartDialog();
@@ -238,16 +231,6 @@ class maingame extends AbstractForm
                 $afterReset();
             }
         });
-    }
-    
-    private function applyBrightness(float $b): void
-    {
-        $this->GameActor->GetModel()->colorAdjustEffect->brightness = $b;
-        $this->GameEnemy->GetModel()->colorAdjustEffect->brightness = $b;
-        $this->ItemVodka->setBrightness($b);
-    
-        $w = $this->GameActor->getWeapon();
-        if ($w) $w->setBrightness($b);
     }
     
     function RenderHud($enable)

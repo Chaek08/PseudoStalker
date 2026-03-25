@@ -113,11 +113,10 @@ class CVodka
         return $this->view->enabled;
     }
     
-    public function setBrightness(float $value): void
+    public function GetModel()
     {
-        if ($this->view->colorAdjustEffect)
-            $this->view->colorAdjustEffect->brightness = $value;
-    }
+        return $this->view;
+    }    
     
     public function throwAtEnemy(callable $onHit = null): void
     {
