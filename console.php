@@ -323,7 +323,12 @@ class console extends AbstractForm
                 case "save":
                         if ($this->form('Client')->CheckVisibledFragments()) return;
                     
-                        $saveName = $customName ?: System::getProperty('user.name') . '_quicksave';
+                        $parts = explode(" ", trim($this->edit->text), 2);
+                    
+                        $saveName = isset($parts[1]) && trim($parts[1]) !== ""
+                            ? trim($parts[1])
+                            : System::getProperty('user.name') . '_quicksave';
+                            
                         $this->form('Client')->MainGame->content->performSave($saveName, true);
                         
                         $this->edit->text = "";
