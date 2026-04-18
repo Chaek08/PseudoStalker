@@ -30,6 +30,6 @@
     <FragmentPane alignment="CENTER" focusTraversable="false" id="DebugUtilities" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <Data content="Debug_Info" cursor="DEFAULT" enabled="" id="data-DebugUtilities" visible="1"/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="ui_test" layoutX="1624" layoutY="256" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="200" prefWidth="400" spacing="0" styleClass="fragment-pane "/>
-    <Data content="ui_test" cursor="DEFAULT" enabled="1" id="data-ui_test" visible="1"/>
+    <Data content="ui_test" cursor="DEFAULT" enabled="1" id="data-ui_test" visible=""/>
   </children>
 </AnchorPane>

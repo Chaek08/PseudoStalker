@@ -31,7 +31,7 @@ class EnvironmentBrightness
          
         $this->applyTo($node);
         
-        Log::info("[EnvironmentBrightness]: REGISTER node {$key}");
+        //Log::info("[EnvironmentBrightness]: REGISTER node {$key}");
     }
 
     public function unregister($node): void
@@ -43,7 +43,7 @@ class EnvironmentBrightness
         if (isset($this->targets[$key]))
         {
             unset($this->targets[$key]);
-            Log::info("[EnvironmentBrightness]: UNREGISTER node {$key}");
+            //Log::info("[EnvironmentBrightness]: UNREGISTER node {$key}");
         }   
     }
 

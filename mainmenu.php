@@ -39,15 +39,7 @@ class mainmenu extends AbstractForm
         $this->MainMenuBackground->view = $this->dynamic_background;
         
         $sdk_background = trim($this->SDK_MMBackground);
-        if ($sdk_background !== '' && !fs::exists($sdk_background))
-        {
-            Debug::fail("SDK_MMBackground path not found:" . $sdk_background, __FILE__, __LINE__);
-        }
-        $backgroundPath = ($sdk_background != '') ? $sdk_background : '.\gamedata\textures\menu\background.mp4';
-        if (!fs::exists($backgroundPath))
-        {
-            Debug::fail("Main menu background not found: " . $backgroundPath, __FILE__, __LINE__);
-        }          
+        $backgroundPath = ($sdk_background != '') ? $sdk_background : 'C:\Users\drogo.B760\Downloads\kunteynir_privet_pider.mp4';         
         
         Media::open($backgroundPath, true, $this->MainMenuBackground);
               

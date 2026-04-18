@@ -13,6 +13,9 @@ class CActor extends CEntity
     protected $currentWeaponIndex = 0;    
     protected $weaponState = [];
     protected $weapons = ['Pm', 'AK74'];
+    
+    protected $lastWeaponSwitch = 0;
+    protected $weaponSwitchDelay = 0.12;
 
     public function __construct($game, int $maxHP = 100)
     {
@@ -155,9 +158,22 @@ class CActor extends CEntity
         $this->SwitchWeapon($weaponType);
     }    
     
+    public function canSwitchWeapon(): bool
+    {
+        $now = microtime(true);
+        
+        if (($now - $this->lastWeaponSwitch) < $this->weaponSwitchDelay)
+            return false;
+        
+        $this->lastWeaponSwitch = $now;
+        return true;
+    }    
+    
     public function switchNextWeapon(): void
     {
         if ($this->currentWeapon && $this->currentWeapon->isReloading()) return;
+        
+        if (!$this->canSwitchWeapon()) return;
     
         $startIndex = $this->currentWeaponIndex;
     
@@ -183,6 +199,8 @@ class CActor extends CEntity
     public function switchPrevWeapon(): void
     {
         if ($this->currentWeapon && $this->currentWeapon->isReloading()) return;
+        
+        if (!$this->canSwitchWeapon()) return;
     
         $startIndex = $this->currentWeaponIndex;
     
