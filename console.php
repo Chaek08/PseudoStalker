@@ -159,108 +159,75 @@ class console extends AbstractForm
                         break;
                         
                 case "g_god":
-                        if (isset($args[1]))
+                    if (isset($args[1]))
+                    {
+                        $state = $args[1] === "on";
+                
+                        $this->form('Client')->MainGame->content->setGodMode($this->form('Client')->MainGame->content->GameActor, $state);
+                
+                        if ($this->form('Client')->ltxInitialized)
                         {
-                            if ($args[1] == "on")
-                            {
-                                $this->form('Client')->MainGame->content->setGodMode($this->form('Client')->MainGame->content->GameActor, true);
-
-                                if ($this->form('Client')->ltxInitialized)
-                                {
-                                    $this->form('Client')->ltx['g_god'] = 'on';
-                                    $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);
-                                }
-                            }
-                            elseif ($args[1] == "off")
-                            {
-                                $this->form('Client')->MainGame->content->setGodMode($this->form('Client')->MainGame->content->GameActor, false);
-
-                                if ($this->form('Client')->ltxInitialized)
-                                {
-                                    $this->form('Client')->ltx['g_god'] = 'off';
-                                    $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);
-                                }
-                            }
+                            $this->form('Client')->ltx->w_bool('g_god', $state);
+                            $this->form('Client')->ltx->save();
                         }
-                        $this->edit->text = "";
-                        break;    
-                        
+                    }
+                
+                    $this->edit->text = "";
+                    break; 
+                            
                 case "g_unlimitedammo":
-                        if (isset($args[1]))
+                    if (isset($args[1]))
+                    {
+                        $state = $args[1] === "on";
+                
+                        $GLOBALS['UnlimitedAmmoFlag'] = $state;
+                
+                        $weapon = $this->form('Client')->MainGame->content->GameActor->getWeapon();
+                        if ($weapon)
                         {
-                            if ($args[1] == "on")
-                            {
-                                $GLOBALS['UnlimitedAmmoFlag'] = true;
-                                $this->form('Client')->MainGame->content->GameActor->getWeapon()->setUnlimitedAmmo($GLOBALS['UnlimitedAmmoFlag']);
-                                $this->form('Client')->MainGame->content->UpdateMagazine();
-
-                                if ($this->form('Client')->ltxInitialized)
-                                {
-                                    $this->form('Client')->ltx['g_unlimitedammo'] = 'on';
-                                    $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);
-                                }
-                            }
-                            elseif ($args[1] == "off")
-                            {
-                                $GLOBALS['UnlimitedAmmoFlag'] = false;
-                                $this->form('Client')->MainGame->content->GameActor->getWeapon()->setUnlimitedAmmo($GLOBALS['UnlimitedAmmoFlag']);
-                                $this->form('Client')->MainGame->content->UpdateMagazine();
-
-                                if ($this->form('Client')->ltxInitialized)
-                                {
-                                    $this->form('Client')->ltx['g_unlimitedammo'] = 'off';
-                                    $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);
-                                }
-                            }
+                            $weapon->setUnlimitedAmmo($state);
                         }
-                        $this->edit->text = "";
-                        break;                          
+                
+                        $this->form('Client')->MainGame->content->UpdateMagazine();
+                
+                        if ($this->form('Client')->ltxInitialized)
+                        {
+                            $this->form('Client')->ltx->w_bool('g_unlimitedammo', $state);
+                            $this->form('Client')->ltx->save();
+                        }
+                    }
+                
+                    $this->edit->text = "";
+                    break;                        
                 
                 case "vid_mode":
-                        $form = $this->form('Client');
-
-                        if (isset($args[1]))
+                    $client = $this->form('Client');
+                
+                    if (isset($args[1]))
+                    {
+                        $resolution = $args[1];
+                
+                        if (preg_match('/^[1-9]\d*x[1-9]\d*$/', $resolution))
                         {
-                            $resolution = $args[1];
-                            $parts = explode('x', $resolution);
-
-                            if (count($parts) === 2)
+                            if ($this->form('Client')->ltxInitialized)
                             {
-                                $targetW = (int)$parts[0];
-                                $targetH = (int)$parts[1];
-
-                                if ($targetW > 0 && $targetH > 0)
-                                {
-                                    $clientW = $form->Client_Proxy->width;
-                                    $clientH = $form->Client_Proxy->height;
-
-                                    $diffW = $form->width - $clientW;
-                                    $diffH = $form->height - $clientH;
-
-                                    $form->width = $targetW + $diffW;
-                                    $form->height = $targetH + $diffH;
-
-                                    if ($form->ltxInitialized)
-                                    {
-                                        $form->ltx['vid_mode'] = $resolution;
-                                        $form->SaveUserLTX($form->ltx);
-                                    }
-
-                                    if (method_exists($form, 'trackResolution'))
-                                    {
-                                        $form->trackResolution();
-                                    }
-                                }
+                                $this->form('Client')->ltx->w_string('vid_mode', $resolution);
+                                $this->form('Client')->ltx->save();
                             }
+                
+                            $this->form('Client')->applyResolutionFromLTX();
                         }
-                        else
-                        {
-                            $currentW = $form->Client_Proxy->width;
-                            $currentH = $form->Client_Proxy->height;
-                            Log::result("Current resolution: {$currentW}x{$currentH}");
-                        }
-                        $this->edit->text = "";
-                        break;
+                    }
+                    else
+                    {
+                        $w = $this->form('Client')->Client_Proxy->width;
+                        $h = $this->form('Client')->Client_Proxy->height;
+                
+                        Log::result("Current resolution: {$w}x{$h}");
+                    }
+                
+                    $this->edit->text = "";
+                    break;
 
                 case "r_shadows":
                         if (isset($args[1]))

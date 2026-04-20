@@ -76,7 +76,7 @@ class mainmenu extends AbstractForm
            
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
-        if ($this->form('Client')->ltx['discord_rpc'] == 'on')
+        if ($this->form('Client')->ltx->r_bool('discord_rpc'))
         {
             $GLOBALS['discord']->setDetails($this->localization->get('RPC_Ingame'));
             $GLOBALS['discord']->updateState();            

@@ -365,7 +365,7 @@ class dialog extends AbstractForm
 
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
-        if ($this->form('Client')->ltx['discord_rpc'] == 'on')
+        if ($this->form('Client')->ltx->r_bool('discord_rpc'))
         {        
             $GLOBALS['discord']->setState($this->localization->get('RPC_Fight'));
             $GLOBALS['discord']->updateState();      

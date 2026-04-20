@@ -19,57 +19,66 @@ class opt extends AbstractForm
         $this->localization = new Localization($language);
     }
     
-    function InitOptions()
-    {   
-        $GLOBALS['ShadowsSwitcher_IsOn'] = ($this->form('Client')->ltx['r_shadows'] ?? 'off') !== 'on';
-        $this->ShadowsSwitcher();
+	function InitOptions()
+	{
+		$this->form('Client')->ltx;
 
-        $GLOBALS['VersionSwitcher_IsOn'] = ($this->form('Client')->ltx['r_version'] ?? 'off') !== 'on';
-        $this->VersionSwitcher();
-        
-        $GLOBALS['AllSoundSwitcher_IsOn'] = true;
-        $GLOBALS['MenuSoundSwitcher_IsOn'] = true;
-        $GLOBALS['FightSoundSwitcher_IsOn'] = true;
-        $GLOBALS['AmbientSoundSwitcher_IsOn'] = true;
-                          
-        if (!$GLOBALS['AllSounds'])
-        {
-            $this->AllSoundSwitcher();
-            
-            return;
-        }
-        if (!$GLOBALS['MenuSound'])
-        {
-            $this->MenuSoundSwitcher();
-        }
-        if (!$GLOBALS['FightSound'])
-        {
-            $this->FightSoundSwitcher();
-        }
-        if (!$GLOBALS['AmbientSound'])
-        {
-            $this->AmbientSoundSwitcher();
-        }        
-           
-        if ($this->form('Client')->ltx['all_sounds'] == 'off')
-        {
-            $this->AllSoundSwitcher();
-        }  
-        if ($this->form('Client')->ltx['mm_sound'] == 'off' && $this->form('Client')->ltx['all_sounds'] == 'on')
-        {
-            $this->MenuSoundSwitcher();
-        }        
-        if ($this->form('Client')->ltx['fight_sound'] == 'off' && $this->form('Client')->ltx['all_sounds'] == 'on')
-        {
-            $this->FightSoundSwitcher();
-        }
-        if ($this->form('Client')->ltx['ambient_sound'] == 'off' && $this->form('Client')->ltx['all_sounds'] == 'on')
-        {
-            $this->AmbientSoundSwitcher();
-        }        
-        
-        $this->Language_Switcher_Combobobx->value = ($this->form('Client')->ltx['language'] == 'rus') ? 'Русский' : 'English';           
-    }
+		$GLOBALS['ShadowsSwitcher_IsOn'] = !$this->form('Client')->ltx->r_bool('r_shadows');
+		$this->ShadowsSwitcher();
+
+		$GLOBALS['VersionSwitcher_IsOn'] = !$this->form('Client')->ltx->r_bool('r_version');
+		$this->VersionSwitcher();
+
+		$GLOBALS['AllSoundSwitcher_IsOn'] = true;
+		$GLOBALS['MenuSoundSwitcher_IsOn'] = true;
+		$GLOBALS['FightSoundSwitcher_IsOn'] = true;
+		$GLOBALS['AmbientSoundSwitcher_IsOn'] = true;
+
+		if (!$GLOBALS['AllSounds'])
+		{
+			$this->AllSoundSwitcher();
+			return;
+		}
+
+		if (!$GLOBALS['MenuSound'])
+		{
+			$this->MenuSoundSwitcher();
+		}
+
+		if (!$GLOBALS['FightSound'])
+		{
+			$this->FightSoundSwitcher();
+		}
+
+		if (!$GLOBALS['AmbientSound'])
+		{
+			$this->AmbientSoundSwitcher();
+		}
+
+		if (!$this->form('Client')->ltx->r_bool('all_sounds'))
+		{
+			$this->AllSoundSwitcher();
+		}
+
+		if (!$this->form('Client')->ltx->r_bool('mm_sound') && $this->form('Client')->ltx->r_bool('all_sounds'))
+		{
+			$this->MenuSoundSwitcher();
+		}
+
+		if (!$this->form('Client')->ltx->r_bool('fight_sound') && $this->form('Client')->ltx->r_bool('all_sounds'))
+		{
+			$this->FightSoundSwitcher();
+		}
+
+		if (!$this->form('Client')->ltx->r_bool('ambient_sound') && $this->form('Client')->ltx->r_bool('all_sounds'))
+		{
+			$this->AmbientSoundSwitcher();
+		}
+
+		$lang = $this->form('Client')->ltx->r_string('language');
+		$this->Language_Switcher_Combobobx->value = ($lang === 'rus') ? 'Русский' : 'English';
+	}
+
     function SyncSwitcherStyles()
     {
         $this->AllSound_Switcher_Btn->classesString = $GLOBALS['AllSoundSwitcher_IsOn'] ? 'switch-on' : 'switch-off';
@@ -118,8 +127,8 @@ class opt extends AbstractForm
             
             $this->form('Client')->StopAllSounds();
             
-            $this->form('Client')->ltx['all_sounds'] = 'off';
-            $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
+            $this->form('Client')->ltx->w_string('all_sounds', 'off');
+            $this->form('Client')->ltx->save();              
             
             return;
         }
@@ -147,8 +156,8 @@ class opt extends AbstractForm
                 $this->AmbientSound_Switcher_Btn->enabled = true;
             }             
             
-            $this->form('Client')->ltx['all_sounds'] = 'on';
-            $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
+            $this->form('Client')->ltx->w_string('all_sounds', 'on');
+            $this->form('Client')->ltx->save();               
             
             return;
         }
@@ -167,8 +176,8 @@ class opt extends AbstractForm
             $GLOBALS['MenuSound'] = false;
             Media::stop($this->form('Client')->MainMenu->content->MenuSound);
             
-            $this->form('Client')->ltx['mm_sound'] = 'off';
-            $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
+            $this->form('Client')->ltx->w_string('mm_sound', 'off');
+            $this->form('Client')->ltx->save();              
             
             return;
         }
@@ -184,8 +193,8 @@ class opt extends AbstractForm
                 Media::play($this->form('Client')->MainMenu->content->MenuSound);
             }
             
-            $this->form('Client')->ltx['mm_sound'] = 'on';
-            $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
+            $this->form('Client')->ltx->w_string('mm_sound', 'on');
+            $this->form('Client')->ltx->save();            
             
             return;
         }
@@ -203,8 +212,8 @@ class opt extends AbstractForm
             
             $GLOBALS['FightSound'] = false;
             
-            $this->form('Client')->ltx['fight_sound'] = 'off';
-            $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);             
+            $this->form('Client')->ltx->w_string('fight_sound', 'off');
+            $this->form('Client')->ltx->save();              
             
             return;
         }
@@ -216,8 +225,8 @@ class opt extends AbstractForm
             
             $GLOBALS['FightSound'] = true;
             
-            $this->form('Client')->ltx['fight_sound'] = 'on';
-            $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
+            $this->form('Client')->ltx->w_string('fight_sound', 'on');
+            $this->form('Client')->ltx->save();            
             
             return;
         }
@@ -236,8 +245,8 @@ class opt extends AbstractForm
             
             $GLOBALS['AmbientSound'] = false;
             
-            $this->form('Client')->ltx['ambient_sound'] = 'off';
-            $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
+            $this->form('Client')->ltx->w_string('ambient_sound', 'off');
+            $this->form('Client')->ltx->save();             
             
             return;
         }
@@ -249,8 +258,8 @@ class opt extends AbstractForm
             
             $GLOBALS['AmbientSound'] = true;
             
-            $this->form('Client')->ltx['ambient_sound'] = 'on';
-            $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
+            $this->form('Client')->ltx->w_string('ambient_sound', 'on');
+            $this->form('Client')->ltx->save();          
             
             return;
         }
@@ -341,8 +350,8 @@ class opt extends AbstractForm
                 }
             }); 
             
-            $this->form('Client')->ltx['r_shadows'] = 'off';
-            $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
+            $this->form('Client')->ltx->w_string('r_shadows', 'off');
+            $this->form('Client')->ltx->save();          
             
             return;
         }
@@ -427,8 +436,8 @@ class opt extends AbstractForm
 
             }); 
             
-            $this->form('Client')->ltx['r_shadows'] = 'on';
-            $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);                      
+            $this->form('Client')->ltx->w_string('r_shadows', 'on');
+            $this->form('Client')->ltx->save();
                        
             return;
         }      
@@ -456,8 +465,8 @@ class opt extends AbstractForm
                 $this->form('Client')->MainMenu->content->version_detail->hide();
             }
             
-            $this->form('Client')->ltx['r_version'] = 'off';
-            $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
+            $this->form('Client')->ltx->w_string('r_version', 'off');
+            $this->form('Client')->ltx->save();        
             
             return;
         }
@@ -479,8 +488,8 @@ class opt extends AbstractForm
                 $this->form('Client')->MainMenu->content->version_detail->show();
             }
             
-            $this->form('Client')->ltx['r_version'] = 'on';
-            $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);            
+            $this->form('Client')->ltx->w_string('r_version', 'on');
+            $this->form('Client')->ltx->save();  
            
             return;
         }
@@ -497,8 +506,8 @@ class opt extends AbstractForm
             $this->localization->setLanguage($language_box);
         }
         
-        $this->form('Client')->ltx['language'] = $this->localization->getCurrentLanguage();
-        $this->form('Client')->SaveUserLTX($this->form('Client')->ltx);
+        $this->form('Client')->ltx->w_string('language', $this->localization->getCurrentLanguage());
+        $this->form('Client')->ltx->save();
         
         $this->form('Client')->ShowLoadScreen(function()
         {
@@ -606,7 +615,7 @@ class opt extends AbstractForm
         
         $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();
         
-        if ($this->form('Client')->ltx['discord_rpc'] == 'on')
+        if ($this->form('Client')->ltx->r_bool('discord_rpc'))
         {
             if ($this->form('Client')->MainMenu->visible)
             {

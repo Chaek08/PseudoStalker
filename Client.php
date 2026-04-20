@@ -27,10 +27,14 @@ use php\gui\event\UXEvent;
 use app\forms\classes\Debug;
 use app\forms\classes\Log;
 use php\gui\event\UXScrollEvent; 
+use app\forms\classes\CSimpleInifile;
 
 class Client extends AbstractForm
 {
     private $localization;
+    
+    public $ltx;
+    public $ltxInitialized = false;
     
     /**
      * @event show 
@@ -63,32 +67,33 @@ class Client extends AbstractForm
     
     function applyResolutionFromLTX()
     {
-        if (!preg_match('/^[1-9]\d*x[1-9]\d*$/', $this->ltx['vid_mode']))
+        $vid = $this->ltx->r_string('vid_mode');
+    
+        if (!preg_match('/^[1-9]\d*x[1-9]\d*$/', $vid))
         {
-            Log::error("Invalid vid_mode '{$this->ltx['vid_mode']}', fallback to 1600x900");
-            $this->ltx['vid_mode'] = '1600x900';
-            $this->SaveUserLTX($this->ltx);
+            Log::error("Invalid vid_mode '{$vid}', fallback to 1600x900");
+    
+            $this->ltx->w_string('vid_mode', '1600x900');
+            $this->ltx->save();
             return;
         }
-        
-        $parts = explode('x', $this->ltx['vid_mode']);        
-
-        $targetW = (int)$parts[0];
-        $targetH = (int)$parts[1];
-
+    
+        [$targetW, $targetH] = explode('x', $vid);
+    
+        $targetW = (int)$targetW;
+        $targetH = (int)$targetH;
+    
         $clientW = $this->Client_Proxy->width;
         $clientH = $this->Client_Proxy->height;
-        
+    
         $diffW = $this->width - $clientW;
         $diffH = $this->height - $clientH;
-            
+    
         $this->width = $targetW + $diffW;
         $this->height = $targetH + $diffH;
-
+    
         $this->trackResolution();
-
-        Log::info("[Client]: window {$this->width}x{$this->height}, client via BG: {$clientW}x{$clientH}");
-    }       
+    }      
     
     private $prevRes = null;
     private $prevClientW = null;
@@ -110,8 +115,8 @@ class Client extends AbstractForm
         
         $res = "{$w}x{$h}";
         
-        $this->ltx['vid_mode'] = $res;
-        $this->SaveUserLTX($this->ltx);
+        $this->ltx->w_string('vid_mode', $res);
+        $this->ltx->save();
     
         UXApplication::runLater(function() use ($w, $h) {
             if (ResTracker)
@@ -238,121 +243,59 @@ class Client extends AbstractForm
         $this->CustomCursor->show();
     }    
     
-    public $ltx = [];
-    public $ltxInitialized = false;
-    private $ltxPath = './userdata/user.ltx';
-    
     function InitUserLTX()
     {
-        $default = [
+        $this->ltx = new CSimpleInifile('./userdata/user.ltx', [
             'language' => 'rus',
             'r_shadows' => 'on',
             'all_sounds' => 'on',
             'mm_sound' => 'on',
             'fight_sound' => 'on',
-            'ambient_sound' => 'on',            
+            'ambient_sound' => 'on',
             'r_version' => 'on',
             'g_god' => 'off',
-            'g_unlimitedammo' => 'off',            
+            'g_unlimitedammo' => 'off',
             'vid_mode' => '1600x900',
             'vid_fullscreen' => 'off',
             'discord_rpc' => 'on'
-        ];
-
-        if (!file_exists($this->ltxPath))
-        {
-            $this->SaveUserLTX($default);
-            $this->ltx = $default;
-        }
-        else
-        {
-            $this->ltx = $this->LoadUserLTX($default);
-            $this->SaveUserLTX($this->ltx);
-        }
-        
-        if ($this->ltx['g_god'] == 'on')
+        ]);
+    
+        if ($this->ltx->r_bool('g_god'))
         {
             $this->MainGame->content->setGodMode($this->MainGame->content->GameActor, true);
         }
-        
-        if ($this->ltx['g_unlimitedammo'] == 'on')
+    
+        if ($this->ltx->r_bool('g_unlimitedammo'))
         {
             $GLOBALS['UnlimitedAmmoFlag'] = true;
-        }        
-        
-        Timer::after(100, function() {
+        }
+    
+        Timer::after(500, function() {
             $this->applyResolutionFromLTX();
         });
-          
-        if ($this->ltx['vid_fullscreen'] == 'on')
+    
+        if ($this->ltx->r_bool('vid_fullscreen'))
         {
             $this->FullscreenMode();
         }
-        
-        if ($this->ltx['discord_rpc'] == 'on')
+    
+        if ($this->ltx->r_bool('discord_rpc'))
         {
             $appId = "1387765734704418846";
             $discord = new DiscordRPC($appId);
-        
+    
             $discord->setDetails($this->localization->get('RPC_MainMenu'));
             $discord->setBigImage("icon", $this->BuildID);
             $discord->setStartTimestamp(Time::now()->getTime());
-            
+    
             $discord->updateState();
-        
+    
             $GLOBALS['discord'] = $discord;
-        }        
-
+        }
+    
         $this->ltxInitialized = true;
     }
-    function LoadUserLTX($default)
-    {
-        $config = [];
 
-        $lines = file($this->ltxPath);
-        foreach ($lines as $line)
-        {
-            $parts = explode(' ', trim($line));
-            if (count($parts) >= 2)
-            {;
-                $key = $parts[0];
-                $value = $parts[1];
-                $config[$key] = $value;
-            }
-        }
-
-        foreach ($default as $key => $value)
-        {
-            if (!isset($config[$key]))
-            {
-                $config[$key] = $value;
-            }
-        }
-
-        return $config;
-    }
-    
-    function SaveUserLTX($config)
-    {
-        $content = '';
-        foreach ($config as $key => $value)
-        {
-            $content .= $key . ' ' . $value . "\n";
-        }
-        $dir = dirname($this->ltxPath);
-        if (!is_dir($dir))
-        {
-            mkdir($dir, 0777, true);
-        }
-        
-        if (!is_writable(dirname($this->ltxPath))) 
-        {
-            Debug::fatal(__CLASS__.': user.ltx directory not writable', __FILE__, __LINE__);
-        }
-        
-        file_put_contents($this->ltxPath, $content);
-    }
-    
     function syncWithSDKLTX()
     {
         define('DATA_FILE', 'sdk_data.ltx');
@@ -609,8 +552,8 @@ class Client extends AbstractForm
     {    
         $this->fullScreen = !$this->fullScreen;
 
-        $this->ltx['vid_fullscreen'] = $this->fullScreen ? 'on' : 'off';
-        $this->SaveUserLTX($this->ltx);
+        $this->ltx->w_bool('vid_fullscreen', $this->fullScreen);
+        $this->ltx->save();
     }
     /**
      * @event keyDown-Esc 
@@ -711,7 +654,7 @@ class Client extends AbstractForm
         
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         
-        if ($this->ltx['discord_rpc'] == 'on')
+        if ($this->ltx->r_bool('discord_rpc'))
         {        
             $GLOBALS['discord']->setDetails($this->localization->get('RPC_MainMenu'));
             $GLOBALS['discord']->updateState();   

@@ -220,7 +220,7 @@ class maingame extends AbstractForm
             
             $this->form('Client')->Dialog->content->StartDialog();
             
-            if ($this->form('Client')->ltx['discord_rpc'] == 'on')
+            if ($this->form('Client')->ltx->r_bool('discord_rpc'))
             {            
                 $GLOBALS['discord']->setState(null);
                 $GLOBALS['discord']->updateState();           
@@ -682,7 +682,7 @@ class maingame extends AbstractForm
         
         $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateRaiting();
         
-        if ($this->form('Client')->ltx['discord_rpc'] == 'on')
+        if ($this->form('Client')->ltx->r_bool('discord_rpc'))
         {        
             $GLOBALS['discord']->setState(null);
             $GLOBALS['discord']->updateState();    
