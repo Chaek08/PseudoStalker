@@ -215,7 +215,7 @@ class console extends AbstractForm
                                 $this->form('Client')->ltx->save();
                             }
                 
-                            $this->form('Client')->applyResolutionFromLTX();
+                            $this->form('Client')->device->applyResolutionFromLTX();
                         }
                     }
                     else

@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\CWindowManager;
 use app\forms\classes\UI\UIProgressBarAnimator;
 use app\forms\classes\Environment;
 use php\lang\Thread;
@@ -33,6 +34,8 @@ class Client extends AbstractForm
 {
     private $localization;
     
+    public $device;
+    
     public $ltx;
     public $ltxInitialized = false;
     
@@ -52,109 +55,40 @@ class Client extends AbstractForm
         $GLOBALS['AmbientSound'] = true;        
         $GLOBALS['HudVisible'] = true;
         
-        $this->localization = new Localization($language); 
+        $this->GetVersion(); 
         
-        $this->GetVersion();          
+        $this->localization = new Localization($language);
         
-        $this->syncWithSDKLTX();
+        $this->ltx = new CSimpleInifile('./userdata/user.ltx', [
+            'language' => 'rus',
+            'r_shadows' => 'on',
+            'all_sounds' => 'on',
+            'mm_sound' => 'on',
+            'fight_sound' => 'on',
+            'ambient_sound' => 'on',
+            'r_version' => 'on',
+            'g_god' => 'off',
+            'g_unlimitedammo' => 'off',
+            'vid_mode' => '1600x900',
+            'vid_fullscreen' => 'off',
+            'discord_rpc' => 'on'
+        ]);        
+        
+        $this->device = new CWindowManager($this, $this->ltx);
+        Timer::after(300, function() {
+            $this->device->applyResolutionFromLTX();
+            $this->device->startTracking();
+        });
+        
         $this->InitUserLTX();
+        $this->syncWithSDKLTX();
 
         $this->MainMenu->content->InitMainMenu();       
         $this->MainMenu->content->Options->content->InitOptions();
         
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
     }
-    
-    function applyResolutionFromLTX()
-    {
-        $vid = $this->ltx->r_string('vid_mode');
-    
-        if (!preg_match('/^[1-9]\d*x[1-9]\d*$/', $vid))
-        {
-            Log::error("Invalid vid_mode '{$vid}', fallback to 1600x900");
-    
-            $this->ltx->w_string('vid_mode', '1600x900');
-            $this->ltx->save();
-            return;
-        }
-    
-        [$targetW, $targetH] = explode('x', $vid);
-    
-        $targetW = (int)$targetW;
-        $targetH = (int)$targetH;
-    
-        $clientW = $this->Client_Proxy->width;
-        $clientH = $this->Client_Proxy->height;
-    
-        $diffW = $this->width - $clientW;
-        $diffH = $this->height - $clientH;
-    
-        $this->width = $targetW + $diffW;
-        $this->height = $targetH + $diffH;
-    
-        $this->trackResolution();
-    }      
-    
-    private $prevRes = null;
-    private $prevClientW = null;
-    private $prevClientH = null;
-    
-    function trackResolution()
-    {
-        $w = $this->Client_Proxy->width;
-        $h = $this->Client_Proxy->height;
-    
-        if ($this->prevClientW == $w && $this->prevClientH == $h)
-        {
-            Timer::after(700, [$this, 'trackResolution']);
-            return;
-        }
-    
-        $this->prevClientW = $w;
-        $this->prevClientH = $h;
-        
-        $res = "{$w}x{$h}";
-        
-        $this->ltx->w_string('vid_mode', $res);
-        $this->ltx->save();
-    
-        UXApplication::runLater(function() use ($w, $h) {
-            if (ResTracker)
-            {
-                static $prevRes = '';
-    
-                $res = "$w x $h";
-                if ($res != $prevRes)
-                {
-                    $prevRes = $res;
-                    $this->DebugUtilities->content->track_res->text = $res;
-                }
-            }
-    
-            $sceneW = $this->Client_Proxy->width;
-            $sceneH = $this->Client_Proxy->height;
-    
-            foreach ([
-                $this->MainGame,
-                $this->MainMenu,
-                $this->Pda,
-                $this->Dialog,
-                $this->ExitDialog,
-                $this->Inventory,
-                $this->Fail,
-                $this->DebugUtilities
-            ] as $obj) {
-                $scale = min($sceneW / $obj->width, $sceneH / $obj->height);
-                $obj->scaleX = $scale;
-                $obj->scaleY = $scale;
-                $obj->x = ($sceneW - $obj->width) / 2;
-                $obj->y = ($sceneH - $obj->height) / 2;
-            }
-        });
-    
-        Timer::after(700, [$this, 'trackResolution']);
-    }
-    
+         
     function playSoundAsync(string $path, bool $loop = true, $channel = null)
     {
         (new Thread(function() use ($path, $loop, $channel)
@@ -245,21 +179,6 @@ class Client extends AbstractForm
     
     function InitUserLTX()
     {
-        $this->ltx = new CSimpleInifile('./userdata/user.ltx', [
-            'language' => 'rus',
-            'r_shadows' => 'on',
-            'all_sounds' => 'on',
-            'mm_sound' => 'on',
-            'fight_sound' => 'on',
-            'ambient_sound' => 'on',
-            'r_version' => 'on',
-            'g_god' => 'off',
-            'g_unlimitedammo' => 'off',
-            'vid_mode' => '1600x900',
-            'vid_fullscreen' => 'off',
-            'discord_rpc' => 'on'
-        ]);
-    
         if ($this->ltx->r_bool('g_god'))
         {
             $this->MainGame->content->setGodMode($this->MainGame->content->GameActor, true);
@@ -270,13 +189,9 @@ class Client extends AbstractForm
             $GLOBALS['UnlimitedAmmoFlag'] = true;
         }
     
-        Timer::after(500, function() {
-            $this->applyResolutionFromLTX();
-        });
-    
         if ($this->ltx->r_bool('vid_fullscreen'))
         {
-            $this->FullscreenMode();
+            $this->device->setFullscreen(true);
         }
     
         if ($this->ltx->r_bool('discord_rpc'))
@@ -550,10 +465,7 @@ class Client extends AbstractForm
      */
     function FullscreenMode(UXKeyEvent $e = null)
     {    
-        $this->fullScreen = !$this->fullScreen;
-
-        $this->ltx->w_bool('vid_fullscreen', $this->fullScreen);
-        $this->ltx->save();
+        $this->device->toggleFullscreen();
     }
     /**
      * @event keyDown-Esc 
