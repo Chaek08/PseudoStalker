@@ -47,7 +47,7 @@ class Client extends AbstractForm
         define('VersionID', 'v1.3 (rc2)');
         define('client_version', '3');
         define('Debug_Build', true);
-        define('ResTracker', false);
+        define('ResTracker', 1);
         
         $GLOBALS['AllSounds']  = true;
         $GLOBALS['MenuSound']  = true;
@@ -88,6 +88,18 @@ class Client extends AbstractForm
         
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
     }
+    
+    /**
+     * @event close 
+     */
+    function DestroyClient(UXWindowEvent $e = null)
+    {    
+        Log::flush();
+        
+        $this->ltx->save();
+        
+        app()->shutdown();
+    }    
          
     function playSoundAsync(string $path, bool $loop = true, $channel = null)
     {

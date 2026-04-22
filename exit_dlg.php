@@ -97,7 +97,7 @@ class exit_dlg extends AbstractForm
             case self::TYPE_EXIT:
                 $this->form('Client')->ShowLoadScreen(function() {
                     UXApplication::runLater(function() {
-                        app()->shutdown();
+                        $this->form('Client')->DestroyClient();
                     });
                 });
                 break;

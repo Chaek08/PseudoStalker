@@ -168,7 +168,6 @@ class console extends AbstractForm
                         if ($this->form('Client')->ltxInitialized)
                         {
                             $this->form('Client')->ltx->w_bool('g_god', $state);
-                            $this->form('Client')->ltx->save();
                         }
                     }
                 
@@ -193,7 +192,6 @@ class console extends AbstractForm
                         if ($this->form('Client')->ltxInitialized)
                         {
                             $this->form('Client')->ltx->w_bool('g_unlimitedammo', $state);
-                            $this->form('Client')->ltx->save();
                         }
                     }
                 
@@ -201,8 +199,6 @@ class console extends AbstractForm
                     break;                        
                 
                 case "vid_mode":
-                    $client = $this->form('Client');
-                
                     if (isset($args[1]))
                     {
                         $resolution = $args[1];
@@ -212,7 +208,6 @@ class console extends AbstractForm
                             if ($this->form('Client')->ltxInitialized)
                             {
                                 $this->form('Client')->ltx->w_string('vid_mode', $resolution);
-                                $this->form('Client')->ltx->save();
                             }
                 
                             $this->form('Client')->device->applyResolutionFromLTX();

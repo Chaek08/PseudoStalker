@@ -7,6 +7,8 @@ class CSimpleInifile
 {
     private $path;
     private $data = [];
+    
+    private $dirty = false;    
 
     public function __construct(string $path, array $default = [])
     {
@@ -24,8 +26,6 @@ class CSimpleInifile
                 $this->data[$key] = $value;
             }
         }
-
-        $this->save();
     }
 
     private function parse(array $lines): array
@@ -55,8 +55,13 @@ class CSimpleInifile
         return $data;
     }
 
-    public function save()
+    public function save(bool $force = false)
     {
+        if (!$this->dirty && !$force)
+        {
+            return;
+        }
+    
         $out = '';
 
         foreach ($this->data as $key => $value)
@@ -77,6 +82,8 @@ class CSimpleInifile
         }
 
         file_put_contents($this->path, $out);
+    
+        $this->dirty = false;
     }
 
     public function r_string(string $key, $default = '')
@@ -97,7 +104,13 @@ class CSimpleInifile
 
     public function w_string(string $key, $value)
     {
-        $this->data[$key] = (string)$value;
+        $value = (string)$value;
+    
+        if (!isset($this->data[$key]) || $this->data[$key] !== $value)
+        {
+            $this->data[$key] = $value;
+            $this->dirty = true;
+        }
     }
 
     public function w_bool(string $key, bool $value)

@@ -14,6 +14,9 @@ class Log
     private static $versionId = '(null)';
         
     private static $listeners = [];
+    
+    private static $buffer = [];
+    private static $bufferLimit = 50; //лимит строк в буффере 
 
     public static function onWrite(callable $listener)
     {
@@ -93,17 +96,31 @@ class Log
     private static function write(string $tag, string $text)
     {
         self::ensure();
-
-        if (!self::$logFile)
-        {
-            return;
-        }
-
+    
         $time = Time::now()->toString("HH:mm:ss");
-        file_put_contents(self::$logFile, "* [$time] [$tag] $text\n", FILE_APPEND);
-        
+        $line = "* [$time] [$tag] $text\n";
+    
+        self::$buffer[] = $line;
+    
+        if (count(self::$buffer) >= self::$bufferLimit)
+        {
+            self::flush();
+        }
+    
         self::notify($tag, $text);
     }
+    
+    public static function flush()
+    {
+        if (!self::$logFile || empty(self::$buffer))
+        {
+            return; 
+        }
+            
+        file_put_contents(self::$logFile, implode('', self::$buffer), FILE_APPEND);
+    
+        self::$buffer = [];
+    }    
 
     private static function ensure()
     {
