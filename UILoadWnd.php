@@ -274,29 +274,5 @@ class UILoadWnd extends AbstractForm
     function ProcessSaveClick(UXMouseEvent $e = null)
     {    
         $this->BtnLoadSave();
-    }
-    
-    function getLatestSaveName(): ?string
-    {
-        $items = $this->saves_list->items->toArray();
-    
-        $latestName = null;
-        $latestTime = 0;
-    
-        foreach ($items as $saveName)
-        {
-            $filePath = $this->SaveLoadManager->getSaveDir() . $saveName . '.sav';
-            if (file_exists($filePath))
-            {
-                $fileTime = filemtime($filePath);
-                if ($fileTime > $latestTime)
-                {
-                    $latestTime = $fileTime;
-                    $latestName = $saveName;
-                }
-            }
-        }
-    
-        return $latestName;
-    }      
+    }    
 }

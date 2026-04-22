@@ -721,7 +721,7 @@ class Client extends AbstractForm
     {
         if ($this->CheckVisibledFragments()) return;
 
-        $latest = $this->MainMenu->content->UILoadWnd->content->getLatestSaveName();
+        $latest = $this->MainMenu->content->UILoadWnd->content->SaveLoadManager->getLastSaveName();
         if ($latest)
         {
             $this->MainGame->content->performLoad($latest);

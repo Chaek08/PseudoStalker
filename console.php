@@ -285,10 +285,8 @@ class console extends AbstractForm
                 case "save":
                         if ($this->form('Client')->CheckVisibledFragments()) return;
                     
-                        $parts = explode(" ", trim($this->edit->text), 2);
-                    
-                        $saveName = isset($parts[1]) && trim($parts[1]) !== ""
-                            ? trim($parts[1])
+                        $saveName = !empty($args[1])
+                            ? trim($args[1])
                             : System::getProperty('user.name') . '_quicksave';
                             
                         $this->form('Client')->MainGame->content->performSave($saveName, true);
@@ -297,20 +295,23 @@ class console extends AbstractForm
                         break;
                         
                 case "load":
-                        if ($this->form('Client')->CheckVisibledFragments()) return;
                 
-                        $parts = explode(" ", trim($this->edit->text), 2);
+                        if ($this->form('Client')->CheckVisibledFragments()) return;
                     
-                        if (count($parts) === 2)
+                        if (!empty($args[1]))
                         {
-                            $saveName = trim($parts[1]);
+                            $this->form('Client')->MainGame->content->SaveLoadManager->restoreGame(trim($args[1]));
+                        }
+                        else
+                        {
+                            $last = $this->form('Client')->MainMenu->content->UILoadWnd->content->SaveLoadManager->getLastSaveName();
                     
-                            if ($saveName !== "")
+                            if ($last)
                             {
-                                $this->form('Client')->MainGame->content->performLoad($saveName);
+                                $this->form('Client')->MainGame->content->performLoad($last);
                             }
                         }
-                        
+                    
                         $this->edit->text = "";
                         break;
                       

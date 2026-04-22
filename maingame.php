@@ -39,7 +39,8 @@ class maingame extends AbstractForm
     public $SDK_EnemyModel;    
     
     public $Environment;
-    public $EnvironmentBrightness;    
+    public $EnvironmentBrightness;
+    
     public $Particles;
 
     public $GameActor;
@@ -812,7 +813,7 @@ class maingame extends AbstractForm
     
     public function performSave(string $saveName, bool $autoRewrite = false)
     {
-        if (!$GLOBALS['ContinueGameState']) return;
+        if (!$GLOBALS['ContinueGameState'] || !$saveName) return;
     
         static $lastToastId = 0;
     

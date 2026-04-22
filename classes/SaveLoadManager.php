@@ -26,6 +26,52 @@ class SaveLoadManager
     {
         return $this->saveDir;
     }    
+    
+    public function getAllSaves(): array
+    {
+        if (!is_dir($this->saveDir))
+        {
+            return [];
+        }
+    
+        $files = scandir($this->saveDir);
+    
+        $saves = [];
+    
+        foreach ($files as $file)
+        {
+            if (substr($file, -4) === '.sav')
+            {
+                $filePath = $this->saveDir . $file;
+    
+                if (file_exists($filePath))
+                {
+                    $saves[] = [
+                        'name' => substr($file, 0, -4),
+                        'time' => filemtime($filePath)
+                    ];
+                }
+            }
+        }
+    
+        return $saves;
+    }
+    
+    public function getLastSaveName(): ?string
+    {
+        $saves = $this->getAllSaves();
+    
+        if (empty($saves))
+        {
+            return null;
+        }
+    
+        usort($saves, function($a, $b) {
+            return $b['time'] <=> $a['time'];
+        });
+    
+        return $saves[0]['name'];
+    }
 
     protected function callForm($formName)
     {
