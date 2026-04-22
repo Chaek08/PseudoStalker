@@ -15,7 +15,7 @@ class CActor extends CEntity
     protected $weapons = ['Pm', 'AK74'];
     
     protected $lastWeaponSwitch = 0;
-    protected $weaponSwitchDelay = 0.12;
+    protected $weaponSwitchDelay = 0.48;
 
     public function __construct($game, int $maxHP = 100)
     {

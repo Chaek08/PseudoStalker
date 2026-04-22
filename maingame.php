@@ -606,7 +606,7 @@ class maingame extends AbstractForm
         $this->health_bar_enemy_b->hide();
         $this->Talk_Label->hide();
     
-        $this->Particles->bloodConeAtTarget($this->GameEnemy->GetModel());
+        //$this->Particles->bloodConeAtTarget($this->GameEnemy->GetModel());
     
         if ($GLOBALS['AllSounds'])
         {
@@ -631,7 +631,7 @@ class maingame extends AbstractForm
         $this->blood_ui->hide();
         if ($this->HitMark->isVisible()) $this->HitMark->hide();
     
-        $this->Particles->bloodConeAtTarget($this->GameActor->GetModel());
+        //$this->Particles->bloodConeAtTarget($this->GameActor->GetModel());
     
         if ($GLOBALS['AllSounds'])
         {
