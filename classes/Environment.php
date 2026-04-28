@@ -822,7 +822,7 @@ class Environment
         $this->rainPlayer->pause();
         $this->anomalyPlayer->pause();
 
-        Log::info("[Environment]: paused");
+        //Log::info("[Environment]: paused");
     }
 
     public function resume()
@@ -876,7 +876,7 @@ class Environment
             $this->scheduleNextAmbient();
         }
 
-        Log::info("[Environment]: resumed");
+        //Log::info("[Environment]: resumed");
     }
 
     public function setCycle($cycle)
