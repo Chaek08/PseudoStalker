@@ -29,17 +29,19 @@ class mainmenu extends AbstractForm
     {
         $GLOBALS['NewGameState'] = true;
         
-        Media::open('res://.data/audio/menu/menu_sound.mp3', false, $this->MenuSound);
+        PseudoSound::play('res://.data/audio/menu/menu_sound.mp3', 'menu_sound', true, PseudoSound::TYPE_MUSIC);
+        PseudoSound::muteChannel('menu_sound', false);
+        
         if ($GLOBALS['AllSounds'] && $GLOBALS['MenuSound'])
         {
-            Media::play($this->MenuSound);
+            PseudoSound::unmuteChannel('menu_sound');
         }
         
         //отрендерим задник меню
         $this->MainMenuBackground->view = $this->dynamic_background;
         
         $sdk_background = trim($this->SDK_MMBackground);
-        $backgroundPath = ($sdk_background != '') ? $sdk_background : 'C:\Users\drogo.B760\Downloads\kunteynir_privet_pider.mp4';         
+        $backgroundPath = ($sdk_background != '') ? $sdk_background : '.\gamedata\textures\menu\background.mp4';         
         
         Media::open($backgroundPath, true, $this->MainMenuBackground);
               
@@ -58,11 +60,17 @@ class mainmenu extends AbstractForm
         {
             $this->SwitchGameState();
             
+            //Environment
+            $this->form('Client')->MainGame->content->InitEnvironment();
+            
+            //Weapons
             $this->form('Client')->Inventory->content->InventoryGrid->content->MoveWeaponsToInvSlot(); //эта хуйня и будет опорой для аттача
         }
         
-        Media::pause($this->MenuSound);
-        Media::pause($this->MainMenuBackground);
+        PseudoSound::muteChannel('menu_sound');
+        PseudoSound::unmuteSfx();
+        
+        Media::pause($this->MainMenuBackground);        
         
         $this->form('Client')->MainGame->content->Environment->resume();
         
@@ -70,7 +78,7 @@ class mainmenu extends AbstractForm
         {
             if (!$GLOBALS['QuestCompleted'] && $GLOBALS['QuestStep1'])
             {
-                 Media::play($this->form('Client')->MainGame->content->FightSound);
+                 PseudoSound::unmuteChannel('fight_sound');
             }
         }
            

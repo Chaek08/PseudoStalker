@@ -29,6 +29,7 @@ use app\forms\classes\Debug;
 use app\forms\classes\Log;
 use php\gui\event\UXScrollEvent; 
 use app\forms\classes\CSimpleInifile;
+use app\forms\classes\PseudoSound;
 
 class Client extends AbstractForm
 {
@@ -47,7 +48,7 @@ class Client extends AbstractForm
         define('VersionID', 'v1.3 (rc2)');
         define('client_version', '3');
         define('Debug_Build', true);
-        define('ResTracker', 1);
+        define('ResTracker', false);
         
         $GLOBALS['AllSounds']  = true;
         $GLOBALS['MenuSound']  = true;
@@ -82,6 +83,10 @@ class Client extends AbstractForm
         
         $this->InitUserLTX();
         $this->syncWithSDKLTX();
+        
+        Timer::every(60, function() {
+            PseudoSound::update();
+        });
 
         $this->MainMenu->content->InitMainMenu();       
         $this->MainMenu->content->Options->content->InitOptions();
@@ -100,27 +105,7 @@ class Client extends AbstractForm
         
         app()->shutdown();
     }    
-         
-    function playSoundAsync(string $path, bool $loop = true, $channel = null)
-    {
-        (new Thread(function() use ($path, $loop, $channel)
-        {
-            if (is_bool($channel))
-            {
-                $channel = $channel ? 'true' : 'false';
-            }
-    
-            if ($channel != null)
-            {
-                Media::open($path, $loop, (string)$channel);
-            }
-            else
-            {
-                Media::open($path, $loop);
-            }
-        }))->start();
-    }
-    
+          
     function GetVersion()
     {
         $filePath = "PseudoCore.dll";
@@ -337,71 +322,6 @@ class Client extends AbstractForm
         }     
     }
     
-    function StopAllSounds()
-    {
-        if (Media::isStatus('PLAYING', $this->MainGame->content->FightSound)) Media::stop($this->MainGame->content->FightSound);
-        if (Media::isStatus('PLAYING', $this->MainMenu->content->MenuSound)) Media::stop($this->MainMenu->content->MenuSound);
-        //if (Media::isStatus('PLAYING', 'v_enemy')) Media::stop('v_enemy');
-        //if (Media::isStatus('PLAYING', 'v_actor')) Media::stop('v_actor');
-        //if (Media::isStatus('PLAYING', 'hit_enemy')) Media::stop('hit_enemy');
-        //if (Media::isStatus('PLAYING', 'hit_enemy_damage')) Media::stop('hit_enemy_damage');      
-        //if (Media::isStatus('PLAYING', 'hit_actor')) Media::stop('hit_actor');
-        //if (Media::isStatus('PLAYING', 'hit_actor_damage')) Media::stop('hit_actor_damage');
-        //if (Media::isStatus('PLAYING', 'die_enemy')) Media::stop('die_enemy');
-        //if (Media::isStatus('PLAYING', 'die_actor')) Media::stop('die_actor');
-        if (Media::isStatus('PLAYING', 'entity_voice')) Media::stop('entity_voice');
-        if (Media::isStatus('PLAYING', 'AK74_reload')) Media::stop('AK74_reload');
-        if (Media::isStatus('PLAYING', 'Pm_reload')) Media::stop('Pm_reload');
-        if (Media::isStatus('PLAYING', 'AK74_shot')) Media::stop('AK74_shot');
-        if (Media::isStatus('PLAYING', 'Pm_shot')) Media::stop('Pm_shot');        
-        if (Media::isStatus('PLAYING', 'pm_draw')) Media::stop('pm_draw');
-        if (Media::isStatus('PLAYING', 'ak74_draw')) Media::stop('ak74_draw');
-        if (Media::isStatus('PLAYING', 'generic_close')) Media::stop('generic_close');
-            
-        if (!$GLOBALS['AllSounds']) $this->MainGame->content->Environment->volume = 0;
-        
-        $this->Dialog->content->StopVoice();        
-    }
-    function StopAllSoundsAsync()
-    {
-        (new Thread(function() {
-            $channels = [
-                $this->MainGame->content->FightSound,
-                $this->MainMenu->content->MenuSound,
-                //'v_enemy', 'v_actor',
-                //'hit_enemy', 'hit_enemy_damage',
-                //'hit_actor', 'hit_actor_damage',
-                //'die_enemy', 'die_actor',
-                'entity_voice',
-                'AK74_reload', 'Pm_reload',
-                'AK74_shot', 'Pm_shot',
-                'pm_draw', 'ak74_draw',
-                'generic_close'
-            ];
-    
-            foreach ($channels as $ch)
-            {
-                if (Media::isStatus('PLAYING', $ch))
-                {
-                    Media::stop($ch);
-                }
-            }
-    
-            UXApplication::runLater(function() {
-                if (!$GLOBALS['AllSounds'])
-                {
-                    $this->MainGame->content->Environment->volume = 0;
-                }
-    
-                if ($this->Dialog && $this->Dialog->content)
-                {
-                    $this->Dialog->content->StopVoice();
-                }
-            });
-    
-        }))->start();
-    }
-
     /**
      * @event keyDown-F12 
      */
@@ -564,15 +484,17 @@ class Client extends AbstractForm
         
         $this->MainGame->content->Environment->pause();
         
-        if ($GLOBALS['AllSounds'] || $GLOBALS['FightSound'])
+        if ($GLOBALS['AllSounds'])
         {
-            //$this->StopAllSoundsAsync(); //возможно temp
+            PseudoSound::muteSfx();
             
-            Media::pause($this->MainGame->content->FightSound);
-            
+            if (!$GLOBALS['QuestCompleted'] && $GLOBALS['QuestStep1'])
+            {          
+                PseudoSound::muteChannel('fight_sound');
+            }            
             if ($GLOBALS['MenuSound'])
             {
-                Media::play($this->MainMenu->content->MenuSound);
+                PseudoSound::unmuteChannel('menu_sound');
             }
         }
         
@@ -651,7 +573,7 @@ class Client extends AbstractForm
         $this->Inventory->content->UpdateInventoryStatus();
         $this->Inventory->content->InventoryGrid->content->repackInventory();
         
-        if ($GLOBALS['AllSounds']) $this->playSoundAsync('res://.data/audio/inv_open.mp3', true);
+        PseudoSound::play('res://.data/audio/inv_open.mp3', 'inv_open', false, null, true);
     }
      
     /**
@@ -695,8 +617,8 @@ class Client extends AbstractForm
         $this->Inventory->content->HideCombobox();
         $this->Inventory->content->InventoryGrid->content->endDragUI();
         $this->Inventory->hide();
-                
-        if ($GLOBALS['AllSounds']) $this->playSoundAsync('res://.data/audio/inv_close.mp3', true);         
+                      
+        PseudoSound::play('res://.data/audio/inv_close.mp3', 'inv_close', false, null, true);
     }
     function HidePda()
     {

@@ -1,6 +1,7 @@
 <?php
 namespace app\forms\classes;
 
+use app\forms\classes\PseudoSound;
 use app\forms\classes\EnvironmentBrightness;
 use php\gui\animation\UXAnimationTimer;
 use app\forms\classes\Log;
@@ -17,12 +18,11 @@ class Environment
     protected $soundBasePath    = './gamedata/sounds/';
     protected $texturesBasePath = './gamedata/textures/';
 
-    protected $videoPlayer;
-    protected $ambientPlayer;
-    protected $sfxPlayer;
-    protected $effectPlayer;
-    protected $rainPlayer;
-    protected $anomalyPlayer;
+    const CH_AMBIENT = 'env_ambient';
+    const CH_SFX     = 'env_sfx';
+    const CH_EFFECT  = 'env_effect';
+    const CH_RAIN    = 'env_rain';
+    const CH_ANOMALY = 'env_anomaly';
 
     protected $mediaView;
 
@@ -64,11 +64,16 @@ class Environment
     
     protected $brightnessManager;    
 
-    protected $volumeSfx     = 0.04;
-    protected $volumeAmbient = 0.15;
-    protected $volumeEffect  = 0.15;
-    protected $volumeRain    = 0.02;
-    protected $volumeAnomaly = 0.05;
+  //  protected $volumeSfx     = 0.04;
+  //  protected $volumeAmbient = 0.25;
+ //   protected $volumeEffect  = 0.15;
+  //  protected $volumeRain    = 0.02;
+  //  protected $volumeAnomaly = 0.05;
+    protected $volumeSfx     = 1;
+    protected $volumeAmbient = 1;
+    protected $volumeEffect  = 1;
+    protected $volumeRain    = 1;
+    protected $volumeAnomaly = 1;  
 
     protected $sfxPeriods = [
         'evening'     => [6, 9],
@@ -132,7 +137,7 @@ class Environment
     ];
 
     protected $ambientSounds = [
-        [ 'path' => 'environment/ambient/amb00', 'length' => 221 ],
+        [ 'path' => 'environment/ambient/amb00', 'length' => 322 ],
         [ 'path' => 'environment/ambient/amb01', 'length' => 247 ],
         [ 'path' => 'environment/ambient/amb02', 'length' => 248 ],
         [ 'path' => 'environment/ambient/amb03', 'length' => 299 ],
@@ -277,12 +282,6 @@ class Environment
         } catch (\Throwable $e) {
             Debug::fatal('Environment: video player init failed', __FILE__, __LINE__);
         }
-
-        $this->ambientPlayer = new MediaPlayerScript();
-        $this->sfxPlayer     = new MediaPlayerScript();
-        $this->effectPlayer  = new MediaPlayerScript();
-        $this->rainPlayer    = new MediaPlayerScript();
-        $this->anomalyPlayer = new MediaPlayerScript();
 
         $this->update();
         
@@ -476,9 +475,7 @@ class Environment
         {
             if ($this->manualCycle !== null)
             {
-                $cycle = ($this->manualCycle === 'underground')
-                    ? $this->getTimeCycleByString(Time::now()->toString('HH:mm'))
-                    : $this->manualCycle;
+                $cycle = ($this->manualCycle === 'underground') ? $this->getTimeCycleByString(Time::now()->toString('HH:mm')) : $this->manualCycle;
             }
             else
             {
@@ -554,14 +551,11 @@ class Environment
         $cycle = $this->currentCycle ?: 'day';
 
         if (empty($this->rndSoundsByCycle[$cycle])) return;
-        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
 
         $periods = $this->sfxPeriods;
         $period  = $periods[$cycle] ?? [8, 14];
 
         $this->scheduleTimer($this->sfxTimerId, $period, function ($delaySec) {
-            if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
-            //Log::info("[Environment]: sfx tick after {$delaySec}s");
             $this->playRandomSfx();
             $this->scheduleNextSfx();
         });
@@ -577,13 +571,11 @@ class Environment
         }
 
         if (empty($this->effectsByCycle[$cycle])) return;
-        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+        
         $periods = $this->effectPeriods;
         $period  = $periods[$cycle] ?? [40, 90];
 
         $this->scheduleTimer($this->effectTimerId, $period, function ($delaySec) {
-            if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
-            //Log::info("[Environment]: effect tick after {$delaySec}s");
             $this->playRandomEffect();
             $this->scheduleNextEffect();
         });
@@ -598,7 +590,6 @@ class Environment
         }
 
         if (empty($this->ambientSounds) || !$this->isActive()) return;
-        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
 
         if ($lengthSec === null)
         {
@@ -617,10 +608,7 @@ class Environment
 
         $this->ambientTimerId = Timer::after($delayMs, function () use ($self, $delaySec) {
             if (!$self->isActive()) return;
-            if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
-            if (isset($GLOBALS['AmbientSound']) && !$GLOBALS['AmbientSound']) return;
 
-            //Log::info("[Environment]: ambient tick after {$delaySec}s");
             $self->playRandomAmbient();
         });
     }
@@ -628,15 +616,12 @@ class Environment
     public function playRandomSfx()
     {
         if (!$this->isActive()) return;
-        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
 
         $cycle = $this->isUnderground() ? 'underground' : ($this->currentCycle ?: 'day');
 
         $list = $this->rndSoundsByCycle[$cycle] ?? [];
 
-        $sound = ($this->isRainy && mt_rand(1, 100) <= 50)
-            ? $this->pickRandom($this->thunderSounds)
-            : $this->pickRandom($list);
+        $sound = ($this->isRainy && mt_rand(1, 100) <= 50) ? $this->pickRandom($this->thunderSounds) : $this->pickRandom($list);
 
         if ($sound === null) return;
 
@@ -644,21 +629,15 @@ class Environment
         $path = $this->soundBasePath . $file;
 
         try {
-            $this->sfxPlayer->stop();
-            $this->sfxPlayer->open($path);
-            $this->sfxPlayer->volume = $this->volumeSfx;
-            $this->sfxPlayer->play();
+            PseudoSound::play($path, self::CH_SFX, false, null, true, 0, $this->volumeSfx);
         } catch (\Throwable $e) {
             Debug::fail("Environment: sfx open failed '{$path}'", __FILE__, __LINE__);
         }
-
-        //Log::info("[Environment]: sfx '{$sound}' played (cycle '{$cycle}')");
     }
 
     public function playRandomEffect()
     {
         if (!$this->isActive()) return;
-        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
 
         $cycle = $this->currentCycle ?: 'day';
 
@@ -677,26 +656,24 @@ class Environment
         $file      = $effect['sound'] . '.mp3';
         $soundPath = $this->soundBasePath . $file;
 
-        $this->effectPlayer->stop();
-        $this->effectPlayer->open($soundPath);
-        $this->effectPlayer->volume = $this->volumeEffect;
-        $this->effectPlayer->play();
-
-        //Log::info("[Environment]: effect '{$effectName}' sound '{$file}' played, life_time={$effect['life_time']}s");
+        PseudoSound::play($soundPath, self::CH_EFFECT, false, null, true, 0, $this->volumeEffect);
     }
 
     protected function playAmbientInternal($path, $rawPath, $length, $tag = '')
     {
         if (!$this->isActive()) return;
-        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
         if ($path === null) return;
     
         $this->currentAmbientPath = $path;
-    
-        $this->ambientPlayer->stop();
-        $this->ambientPlayer->open($path);
-        $this->ambientPlayer->volume = $this->volumeAmbient;
-        $this->ambientPlayer->play();
+        
+        PseudoSound::stopChannelInstant(self::CH_AMBIENT);
+        PseudoSound::play($path, self::CH_AMBIENT, false, PseudoSound::TYPE_MUSIC, false, 0, $this->volumeAmbient);  
+        PseudoSound::muteChannel(self::CH_AMBIENT, false);
+        
+        if (isset($GLOBALS['AmbientSound']) && $GLOBALS['AmbientSound'])
+        {
+             PseudoSound::unmuteChannel(self::CH_AMBIENT);
+        }    
     
         if ($tag === '')
         {
@@ -719,38 +696,37 @@ class Environment
     public function startAmbient()
     {
         if (!$this->isActive()) return;
-        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+
         $this->playRandomAmbient();
     }
 
     public function stopAmbient()
     {
         if (isset($GLOBALS['AmbientSound']) && !$GLOBALS['AmbientSound']) return;
-        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
 
         if ($this->ambientTimerId !== null)
         {
             $this->ambientTimerId->cancel();
             $this->ambientTimerId = null;
         }
-        $this->ambientPlayer->stop();
+        
+        PseudoSound::destroyChannel(self::CH_AMBIENT);
     }
 
     public function pauseAmbient()
     {
         if (isset($GLOBALS['AmbientSound']) && !$GLOBALS['AmbientSound']) return;
-        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
-        $this->ambientPlayer->pause();
-        Log::info("[Environment]: ambient paused");
+        
+        PseudoSound::muteChannel(self::CH_AMBIENT);
     }
 
     public function resumeAmbient()
     {
         if (isset($GLOBALS['AmbientSound']) && !$GLOBALS['AmbientSound']) return;
-        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
+        
         if (!$this->isActive()) return;
-        $this->ambientPlayer->play();
-        Log::info("[Environment]: ambient resumed");
+        
+        PseudoSound::unmuteChannel(self::CH_AMBIENT);
     }
 
     public function setRainy($flag)
@@ -762,14 +738,17 @@ class Environment
     protected function startRain()
     {
         if (!$this->isActive()) return;
-        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
         
         try {
-            $this->rainPlayer->stop();
-            $this->rainPlayer->open($this->soundBasePath . $this->rainLoopPath . '.mp3');
-            $this->rainPlayer->volume = $this->volumeRain;
-            $this->rainPlayer->loop   = true;
-            $this->rainPlayer->play();
+        
+            PseudoSound::stopChannelInstant(self::CH_RAIN);
+            PseudoSound::play($this->soundBasePath . $this->rainLoopPath . '.mp3', self::CH_RAIN, true, PseudoSound::TYPE_MUSIC, true, 0, $this->volumeRain);
+            PseudoSound::muteChannel(self::CH_RAIN, false);
+            
+            if (isset($GLOBALS['AllSounds']) && $GLOBALS['AllSounds'])
+            {
+                 PseudoSound::unmuteChannel(self::CH_RAIN);
+            }          
         } catch (\Throwable $e) {
             Debug::fail("Environment: rain sound failed", __FILE__, __LINE__);
         }
@@ -779,34 +758,34 @@ class Environment
 
     protected function stopRain()
     {
-        $this->rainPlayer->stop();
-        Log::info("[Environment]: rain stopped");
+        PseudoSound::destroyChannel(self::CH_RAIN);
     }
 
     public function setAnomalyHum($flag)
     {
         $this->isAnomalyHum = (bool)$flag;
+        
+            Log::info("ANOMALY HUM: " . ($this->isAnomalyHum ? 'ON' : 'OFF'));
         $this->isAnomalyHum ? $this->startAnomalyHum() : $this->stopAnomalyHum();
     }
 
     protected function startAnomalyHum()
     {
         if (!$this->isActive()) return;
-        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
 
-        $this->anomalyPlayer->stop();
-        $this->anomalyPlayer->open($this->soundBasePath . $this->anomalyLoopPath . '.mp3');
-        $this->anomalyPlayer->volume = $this->volumeAnomaly;
-        $this->anomalyPlayer->loop   = true;
-        $this->anomalyPlayer->play();
-
-        Log::info("[Environment]: anomaly hum started '{$this->anomalyLoopPath}'");
+        PseudoSound::stopChannelInstant(self::CH_ANOMALY);
+        PseudoSound::play($this->soundBasePath . $this->anomalyLoopPath . '.mp3', self::CH_ANOMALY, true, PseudoSound::TYPE_MUSIC, false, 0, $this->volumeAnomaly);
+        PseudoSound::muteChannel(self::CH_ANOMALY, false);
+        
+        if (isset($GLOBALS['AllSounds']) && $GLOBALS['AllSounds'])
+        {
+            PseudoSound::unmuteChannel(self::CH_ANOMALY);
+        }
     }
 
     protected function stopAnomalyHum()
     {
-        $this->anomalyPlayer->stop();
-        Log::info("[Environment]: anomaly hum stopped");
+        PseudoSound::destroyChannel(self::CH_ANOMALY);
     }
 
     public function pause()
@@ -814,15 +793,14 @@ class Environment
         if ($this->isPaused) return;
 
         $this->isPaused = true;
-
+        
         $this->videoPlayer->pause();
-        $this->ambientPlayer->pause();
-        $this->sfxPlayer->pause();
-        $this->effectPlayer->pause();
-        $this->rainPlayer->pause();
-        $this->anomalyPlayer->pause();
 
-        //Log::info("[Environment]: paused");
+        PseudoSound::muteChannel(self::CH_AMBIENT);
+        PseudoSound::muteChannel(self::CH_SFX);
+        PseudoSound::muteChannel(self::CH_EFFECT);
+        PseudoSound::muteChannel(self::CH_RAIN);
+        PseudoSound::muteChannel(self::CH_ANOMALY);
     }
 
     public function resume()
@@ -837,20 +815,20 @@ class Environment
         {
             if (!isset($GLOBALS['AmbientSound']) || $GLOBALS['AmbientSound'])
             {
-                $this->ambientPlayer->play();
+                PseudoSound::unmuteChannel(self::CH_AMBIENT);
             }
-
-            $this->sfxPlayer->play();
-            $this->effectPlayer->play();
-
+    
+            PseudoSound::unmuteChannel(self::CH_SFX);
+            PseudoSound::unmuteChannel(self::CH_EFFECT);
+    
             if ($this->isRainy)
             {
-                $this->rainPlayer->play();
+                PseudoSound::unmuteChannel(self::CH_RAIN);
             }
             if ($this->isAnomalyHum)
             {
-                $this->anomalyPlayer->play();
-            }
+                PseudoSound::unmuteChannel(self::CH_ANOMALY);
+            }            
         }
 
         if ($this->sfxTimerId)
@@ -869,14 +847,9 @@ class Environment
             $this->ambientTimerId = null;
         }
 
-        if (!isset($GLOBALS['AllSounds']) || $GLOBALS['AllSounds'])
-        {
-            $this->scheduleNextSfx();
-            $this->scheduleNextEffect();
-            $this->scheduleNextAmbient();
-        }
-
-        //Log::info("[Environment]: resumed");
+        $this->scheduleNextSfx();
+        $this->scheduleNextEffect();
+        $this->scheduleNextAmbient();
     }
 
     public function setCycle($cycle)
@@ -969,11 +942,6 @@ class Environment
         return 'night';
     }
 
-    public function getAmbientPlayer()
-    {
-        return $this->ambientPlayer;
-    }
-
     public function stop()
     {
         if ($this->timerId)
@@ -1006,12 +974,11 @@ class Environment
             $this->brightnessTimerId = null;
         }        
 
-        if ($this->videoPlayer) $this->videoPlayer->stop();
-        if ($this->ambientPlayer) $this->ambientPlayer->stop();
-        if ($this->sfxPlayer) $this->sfxPlayer->stop();
-        if ($this->effectPlayer) $this->effectPlayer->stop();
-        if ($this->rainPlayer) $this->rainPlayer->stop();
-        if ($this->anomalyPlayer) $this->anomalyPlayer->stop();
+        PseudoSound::destroyChannel(self::CH_AMBIENT);
+        PseudoSound::destroyChannel(self::CH_SFX);
+        PseudoSound::destroyChannel(self::CH_EFFECT);
+        PseudoSound::destroyChannel(self::CH_RAIN);
+        PseudoSound::destroyChannel(self::CH_ANOMALY);
     }
     
     public function reset()
@@ -1064,21 +1031,15 @@ class Environment
         Log::info("[Environment]: background restored '{$path}'");
     }
 
-    public function playAmbientPath($path)
+    public function playAmbientPath($path) //DEPRECATED
     {
-        if (!$this->isActive()) return;
-        if (isset($GLOBALS['AllSounds']) && !$GLOBALS['AllSounds']) return;
-        if (isset($GLOBALS['AmbientSound']) && !$GLOBALS['AmbientSound']) return;
-        if (!$path) return;
+        if (!$this->isActive()) return;//DEPRECATED
+        if (isset($GLOBALS['AmbientSound']) && !$GLOBALS['AmbientSound']) return;//DEPRECATED
+        if (!$path) return;//DEPRECATED
 
-        $this->currentAmbientPath = $path;
+        $this->currentAmbientPath = $path;//DEPRECATED
 
-        $this->ambientPlayer->stop();
-        $this->ambientPlayer->open($path);
-        $this->ambientPlayer->volume = $this->volumeAmbient;
-        $this->ambientPlayer->play();
-
-        Log::info("[Environment]: ambient restored '{$path}'");
+        PseudoSound::play($path, self::CH_AMBIENT, false, PseudoSound::TYPE_MUSIC);//DEPRECATED//DEPRECATED//DEPRECATED//DEPRECATED//DEPRECATED//DEPRECATED//DEPRECATED
     }
 
     public function getState()
@@ -1091,7 +1052,7 @@ class Environment
             'is_anomaly_hum'   => $this->isAnomalyHum,
             'background_path'  => $this->currentBackgroundPath,
             'ambient_path'     => $this->currentAmbientPath,
-            'ambient_position' => $this->ambientPlayer ? $this->ambientPlayer->positionMs : 0,
+            'ambient_position' => 0, //$this->ambientPlayer ? $this->ambientPlayer->positionMs : 0,
         ];
     }
 
@@ -1131,7 +1092,15 @@ class Environment
 
         if (!empty($state['ambient_path']))
         {
-            $this->playAmbientPath($state['ambient_path']);
+            //$this->playAmbientPath($state['ambient_path']);
+            $path = $state['ambient_path'];
+        
+            //не уверен за эту хуйню, надо тестить
+            //но я не хочу и мне лень
+            $raw = str_replace($this->soundBasePath, '', $path);
+            $raw = preg_replace('/\.mp3$/', '', $raw);
+        
+            $this->playAmbientInternal($path, $raw, 0, '[restore]');            
         }
 
         if (isset($state['is_rainy']))

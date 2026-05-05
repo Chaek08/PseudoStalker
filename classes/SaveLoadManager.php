@@ -524,12 +524,13 @@ class SaveLoadManager
                 $env = $form->MainGame->content->Environment;
                 $env->restoreState($saveData['environment_state'], $saveData['quest_time']['hm']);
                 $env->resume();
-                
+ /*               
                 $ambientPlayer = $env->getAmbientPlayer();
                 if ($ambientPlayer && isset($saveData['environment_state']['ambient_position']))
                 {
                     $this->waitAndSetPosition($ambientPlayer, $saveData['environment_state']['ambient_position']);
-                }              
+                }    
+*/				
             }        
             
             $GLOBALS['IsSaveLoading'] = false; //убрать эту хуйню!!!!!!!!!!!! йй системой загрузки лвла!!!!!!!!!!!!!!!!!!

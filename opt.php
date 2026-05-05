@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\PseudoSound;
 use Exception;
 use std, gui, framework, app;
 use php\gui\event\UXMouseEvent; 
@@ -19,65 +20,65 @@ class opt extends AbstractForm
         $this->localization = new Localization($language);
     }
     
-	function InitOptions()
-	{
-		$this->form('Client')->ltx;
+    function InitOptions()
+    {
+        $this->form('Client')->ltx;
 
-		$GLOBALS['ShadowsSwitcher_IsOn'] = !$this->form('Client')->ltx->r_bool('r_shadows');
-		$this->ShadowsSwitcher();
+        $GLOBALS['ShadowsSwitcher_IsOn'] = !$this->form('Client')->ltx->r_bool('r_shadows');
+        $this->ShadowsSwitcher();
 
-		$GLOBALS['VersionSwitcher_IsOn'] = !$this->form('Client')->ltx->r_bool('r_version');
-		$this->VersionSwitcher();
+        $GLOBALS['VersionSwitcher_IsOn'] = !$this->form('Client')->ltx->r_bool('r_version');
+        $this->VersionSwitcher();
 
-		$GLOBALS['AllSoundSwitcher_IsOn'] = true;
-		$GLOBALS['MenuSoundSwitcher_IsOn'] = true;
-		$GLOBALS['FightSoundSwitcher_IsOn'] = true;
-		$GLOBALS['AmbientSoundSwitcher_IsOn'] = true;
+        $GLOBALS['AllSoundSwitcher_IsOn'] = true;
+        $GLOBALS['MenuSoundSwitcher_IsOn'] = true;
+        $GLOBALS['FightSoundSwitcher_IsOn'] = true;
+        $GLOBALS['AmbientSoundSwitcher_IsOn'] = true;
 
-		if (!$GLOBALS['AllSounds'])
-		{
-			$this->AllSoundSwitcher();
-			return;
-		}
+        if (!$GLOBALS['AllSounds'])
+        {
+            $this->AllSoundSwitcher();
+            return;
+        }
 
-		if (!$GLOBALS['MenuSound'])
-		{
-			$this->MenuSoundSwitcher();
-		}
+        if (!$GLOBALS['MenuSound'])
+        {
+            $this->MenuSoundSwitcher();
+        }
 
-		if (!$GLOBALS['FightSound'])
-		{
-			$this->FightSoundSwitcher();
-		}
+        if (!$GLOBALS['FightSound'])
+        {
+            $this->FightSoundSwitcher();
+        }
 
-		if (!$GLOBALS['AmbientSound'])
-		{
-			$this->AmbientSoundSwitcher();
-		}
+        if (!$GLOBALS['AmbientSound'])
+        {
+            $this->AmbientSoundSwitcher();
+        }
 
-		if (!$this->form('Client')->ltx->r_bool('all_sounds'))
-		{
-			$this->AllSoundSwitcher();
-		}
+        if (!$this->form('Client')->ltx->r_bool('all_sounds'))
+        {
+            $this->AllSoundSwitcher();
+        }
 
-		if (!$this->form('Client')->ltx->r_bool('mm_sound') && $this->form('Client')->ltx->r_bool('all_sounds'))
-		{
-			$this->MenuSoundSwitcher();
-		}
+        if (!$this->form('Client')->ltx->r_bool('mm_sound') && $this->form('Client')->ltx->r_bool('all_sounds'))
+        {
+            $this->MenuSoundSwitcher();
+        }
 
-		if (!$this->form('Client')->ltx->r_bool('fight_sound') && $this->form('Client')->ltx->r_bool('all_sounds'))
-		{
-			$this->FightSoundSwitcher();
-		}
+        if (!$this->form('Client')->ltx->r_bool('fight_sound') && $this->form('Client')->ltx->r_bool('all_sounds'))
+        {
+            $this->FightSoundSwitcher();
+        }
 
-		if (!$this->form('Client')->ltx->r_bool('ambient_sound') && $this->form('Client')->ltx->r_bool('all_sounds'))
-		{
-			$this->AmbientSoundSwitcher();
-		}
+        if (!$this->form('Client')->ltx->r_bool('ambient_sound') && $this->form('Client')->ltx->r_bool('all_sounds'))
+        {
+            $this->AmbientSoundSwitcher();
+        }
 
-		$lang = $this->form('Client')->ltx->r_string('language');
-		$this->Language_Switcher_Combobobx->value = ($lang === 'rus') ? 'Русский' : 'English';
-	}
+        $lang = $this->form('Client')->ltx->r_string('language');
+        $this->Language_Switcher_Combobobx->value = ($lang === 'rus') ? 'Русский' : 'English';
+    }
 
     function SyncSwitcherStyles()
     {
@@ -124,8 +125,6 @@ class opt extends AbstractForm
                 $this->AmbientSoundSwitcher();
                 $this->AmbientSound_Switcher_Btn->enabled = false;
             }            
-            
-            $this->form('Client')->StopAllSounds();
             
             $this->form('Client')->ltx->w_string('all_sounds', 'off');
             $this->form('Client')->ltx->save();              
@@ -174,7 +173,7 @@ class opt extends AbstractForm
             $this->MenuSound_Switcher_Btn->classesString = 'switch-off';
             
             $GLOBALS['MenuSound'] = false;
-            Media::stop($this->form('Client')->MainMenu->content->MenuSound);
+            PseudoSound::muteChannel('menu_sound');
             
             $this->form('Client')->ltx->w_string('mm_sound', 'off');
             $this->form('Client')->ltx->save();              
@@ -190,7 +189,7 @@ class opt extends AbstractForm
             $GLOBALS['MenuSound'] = true;
             if ($this->form('Client')->MainMenu->visible)
             {
-                Media::play($this->form('Client')->MainMenu->content->MenuSound);
+                PseudoSound::unmuteChannel('menu_sound');
             }
             
             $this->form('Client')->ltx->w_string('mm_sound', 'on');

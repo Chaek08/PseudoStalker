@@ -4,6 +4,7 @@ namespace app\forms\classes;
 use php\time\Timer;
 use app\forms\classes\CSoundIndicator;
 use behaviour\custom\DraggingBehaviour;
+use app\forms\classes\PseudoSound;
 
 abstract class CEntity
 {
@@ -208,7 +209,7 @@ abstract class CEntity
 
         uiLater(function () use ($path) {
             if ($this->isDead || !$this->model) return;
-            $this->form->form('Client')->playSoundAsync($path, true, 'entity_voice');
+            PseudoSound::play($path, 'entity_voice', false, null, true);
         });
     }
 

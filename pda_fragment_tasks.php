@@ -247,10 +247,8 @@ class pda_fragment_tasks extends AbstractForm
     {
         $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));        
         
-        if ($GLOBALS['AllSounds'])
-        {
-            $this->form('Client')->playSoundAsync('res://.data/audio/pda.mp3', 'pda_task');
-        }
+        PseudoSound::play('res://.data/audio/pda.mp3', 'pda_task', false, null, true);
+        
         $GLOBALS['Task_Status_Update'] = true;
         $this->form('Client')->MainGame->content->ShowMessageBox();
         
@@ -269,10 +267,8 @@ class pda_fragment_tasks extends AbstractForm
         
         $this->form('Client')->Pda->content->Pda_Contacts->content->UpdateContacts();
         
-        if ($GLOBALS['AllSounds'])
-        {
-            $this->form('Client')->playSoundAsync('res://.data/audio/pda.mp3', 'pda_task');
-        }
+        PseudoSound::play('res://.data/audio/pda.mp3', 'pda_task', false, null, true);
+        
         $GLOBALS['Task_Status_Update'] = true;
         $this->form('Client')->MainGame->content->ShowMessageBox();
         $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatEnemy_Task');        
@@ -287,10 +283,8 @@ class pda_fragment_tasks extends AbstractForm
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png')); 
         $this->DeleteTask();  
         
-        if ($GLOBALS['AllSounds'])
-        {
-            $this->form('Client')->playSoundAsync('res://.data/audio/pda.mp3', 'pda_task');
-        }
+        PseudoSound::play('res://.data/audio/pda.mp3', 'pda_task', false, null, true);
+        
         $GLOBALS['Task_Status_Failed'] = true;
         $this->form('Client')->MainGame->content->ShowMessageBox();
         $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_name != '' ? $quest_name : $this->localization->get('DefeatEnemy_Task');        

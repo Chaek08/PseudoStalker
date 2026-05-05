@@ -11,6 +11,7 @@ use php\gui\UXImageView;
 use php\gui\UXImage;
 use behaviour\custom\ColorAdjustEffectBehaviour;
 use app\forms\classes\EnvironmentBrightness;
+use app\forms\classes\PseudoSound;
 
 abstract class CWeapon
 {
@@ -52,6 +53,7 @@ abstract class CWeapon
     protected $soundEmpty;
     protected $soundDraw;
     protected $soundReload;
+    protected $soundClose = 'res://.data/audio/weapon/generic_close.mp3';
 
     protected $shotPlayers = [];
     protected $shotPoolSize = 6;
@@ -95,9 +97,9 @@ abstract class CWeapon
                    
             $this->owner->add($this->view);
 
-            if (!empty($this->soundDraw) && !empty($GLOBALS['AllSounds']))
+            if (!empty($this->soundDraw))
             {
-                $this->owner->form('Client')->playSoundAsync($this->soundDraw, true, strtolower($this->type) . '_draw');
+                PseudoSound::play($this->soundDraw, strtolower($this->type) . '_draw', false, null, true);
             }
 
             $this->startFollowTimer();
@@ -130,9 +132,9 @@ abstract class CWeapon
     
                 $this->view = null;
     
-                if (!empty($GLOBALS['AllSounds']))
+                if (!empty($this->soundClose))
                 {
-                    $this->owner->form('Client')->playSoundAsync('res://.data/audio/weapon/generic_close.mp3', true, 'generic_close');
+                    PseudoSound::play($this->soundClose, 'generic_close', false, null, true);
                 }
             }
         });
@@ -153,10 +155,7 @@ abstract class CWeapon
         if ($this->jammed && !$this->jamHandled)
         {
             $this->jamHandled = true;
-            if (!empty($GLOBALS['AllSounds'])) 
-            {
-                $this->owner->form('Client')->playSoundAsync($this->soundEmpty, true, strtolower($this->type) . '_jam');
-            }
+            $this->playEmpty();
             $this->showJamHint();
             return;
         }
@@ -179,9 +178,9 @@ abstract class CWeapon
     
         if ($totalAmmo <= 0 && !$this->jammed) return;
     
-        if (!empty($this->soundReload) && !empty($GLOBALS['AllSounds']))
+        if (!empty($this->soundReload))
         {
-            $this->owner->form('Client')->playSoundAsync($this->soundReload, true, strtolower($this->type) . '_reload');
+            PseudoSound::play($this->soundReload, strtolower($this->type) . '_reload', false, null, true);
         }
                
         $needed = max(0, $this->magSize - $this->ammo);
@@ -253,21 +252,16 @@ abstract class CWeapon
 
     protected function playShotOverlapped(): void
     {
-        if (empty($GLOBALS['AllSounds'])) return;
-    
         $base = strtolower($this->type) . '_shot';
         $tag = $base . '_' . $this->shotSeq;
         $this->shotSeq = ($this->shotSeq + 1) % $this->shotPoolSize;
     
-        $this->owner->form('Client')->playSoundAsync($this->soundShot, true, $tag);
+        PseudoSound::play($this->soundShot, $tag, false, null, true);
     }
 
     protected function playEmpty(): void
     {
-        if (!empty($GLOBALS['AllSounds']))
-        {
-            $this->owner->form('Client')->playSoundAsync($this->soundEmpty, true, strtolower($this->type) . '_empty');
-        }
+        PseudoSound::play($this->soundEmpty, strtolower($this->type) . '_empty', false, null, true);
     }
 
     protected function spawnMuzzleAndBlood(): void

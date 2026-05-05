@@ -26,6 +26,7 @@ use php\gui\event\UXEvent;
 use app\forms\classes\ParticleManager;
 use app\forms\classes\UI\HitMark;
 use app\forms\classes\UIProgressBarAnimator;
+use app\forms\classes\PseudoSound;
 
 class maingame extends AbstractForm
 {
@@ -53,25 +54,16 @@ class maingame extends AbstractForm
         parent::__construct();
 
         $this->localization = new Localization($language); 
-        
-        $this->EnvironmentBrightness = new EnvironmentBrightness();
-        $this->Environment = new Environment($this->Environment_Space, $this->EnvironmentBrightness);
-
-        $this->Environment->forceBrightnessNow();
-        $this->Environment->startAmbient();
-        $this->Environment->pause();        
-        
+            
         $this->Particles = new ParticleManager($this);        
                
         $this->GameActor = new CActor($this);
         $this->GameActor->SetModel($this->actor);
-        $this->EnvironmentBrightness->register($this->GameActor->GetModel());
         
         $this->GameActor->SetInteractive(false);
         
         $this->GameEnemy = new CEnemy($this);
-        $this->GameEnemy->SetModel($this->enemy);
-        $this->EnvironmentBrightness->register($this->GameEnemy->GetModel());        
+        $this->GameEnemy->SetModel($this->enemy);    
         
         $this->GameEnemy->SetInteractive(false);
         
@@ -95,7 +87,6 @@ class maingame extends AbstractForm
         $this->HitMark = new HitMark($this->HitMark_Visual);
         
         $this->ItemVodka = new CVodka($this, $this->item_vodka_0000, $this->GameActor, $this->GameEnemy); //CItem zavtra
-        $this->EnvironmentBrightness->register($this->ItemVodka->GetModel()); 
         $this->ItemVodka->disable();
         $this->ItemVodka->hide();
         $this->ItemVodka->resetVisual(); 
@@ -106,6 +97,22 @@ class maingame extends AbstractForm
         return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
     }     
     
+    function InitEnvironment()
+    {
+        $this->EnvironmentBrightness = new EnvironmentBrightness();    
+        $this->Environment = new Environment($this->Environment_Space, $this->EnvironmentBrightness);
+           
+        $this->Environment->forceBrightnessNow();
+        $this->Environment->startAmbient();
+        $this->Environment->pause();
+        
+        $this->EnvironmentBrightness->register($this->GameActor->GetModel());
+        
+        $this->EnvironmentBrightness->register($this->GameEnemy->GetModel());
+        
+        $this->EnvironmentBrightness->register($this->ItemVodka->GetModel());
+    }
+    
     function PlayFightSong()
     {
         $path = trim($this->SDK_FightSound);
@@ -115,19 +122,12 @@ class maingame extends AbstractForm
             $path = 'res://.data/audio/fight/fight_sound.mp3';
         }
         
-        try
-        {
-            Media::open($path, false, $this->FightSound);
-        }
-        catch (\Throwable $e)
-        {
-            Debug::fail("Fight sound not found: $path", __FILE__, __LINE__);
-            return;
-        }
-    
+        PseudoSound::play($path, 'fight_sound', true, PseudoSound::TYPE_MUSIC);
+        PseudoSound::muteChannel('fight_sound', false);
+        
         if ($GLOBALS['AllSounds'] && $GLOBALS['FightSound'])
         {
-            $this->FightSound->play();
+            PseudoSound::unmuteChannel('fight_sound');
         }
     }    
     
@@ -137,8 +137,11 @@ class maingame extends AbstractForm
         {
             if ($GLOBALS['QuestStep1']) $GLOBALS['QuestStep1'] = false;
             if ($GLOBALS['QuestCompleted']) $GLOBALS['QuestCompleted'] = false;
-
-            if ($GLOBALS['AllSounds']) $this->form('Client')->StopAllSoundsAsync();
+            
+            //вроде дестрой был, но хуй знает
+            PseudoSound::stopChannelInstant('fight_sound');
+            PseudoSound::stopChannelInstant('menu_sound');
+            
             Media::stop($this->Environment);
 
             if ($this->fight_image->visible) $this->fight_image->hide();
@@ -385,7 +388,7 @@ class maingame extends AbstractForm
     
     private $enemyCoverTimer; //2 отдельных таймера, дабы избежать гонки их же
     private $actorCoverTimer;
-
+    
     /**
      * @event enemy.click-2x
      */       
@@ -396,9 +399,9 @@ class maingame extends AbstractForm
             return;
         }
     
-        $missChance   = 75;
-        $damageMin   = 8;
-        $damageMax   = 20;
+        $missChance = 75;
+        $damageMin  = 8;
+        $damageMax  = 20;
     
         if (rand(1, 100) > $missChance)
         {
@@ -410,7 +413,7 @@ class maingame extends AbstractForm
         {
             if ($damageByMouse && $e)
             {
-                $enemy  = $this->GameEnemy->GetModel();
+                $enemy = $this->GameEnemy->GetModel();
     
                 $originX = $enemy->x + $e->x;
                 $originY = $enemy->y + $e->y;
@@ -424,34 +427,39 @@ class maingame extends AbstractForm
             }
         }
     
-        if ($GLOBALS['AllSounds'])
-        {
-            $rand = rand(0, 5);
-            $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$rand}.mp3", true, 'hit_enemy_damage');
+        $rand = rand(0, 5);
     
-            if (rand(1, 100) <= 90)
+        $ebanulChannel = PseudoSound::get()->getPooledChannel('hit_enemy_damage', 16);
+        //PseudoSound::play("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$rand}.mp3", $ebanulChannel);
+    
+        if (rand(1, 100) <= 25)
+        {
+            $randHit = rand(1, 8);
+    
+            $hitChannel = PseudoSound::get()->getPooledChannel('hit_enemy', 16);
+            //PseudoSound::play("res://.data/audio/fight/hit_sounds/enemy/hit_{$randHit}.mp3", $hitChannel);
+        }
+    
+        if (rand(1, 100) <= 20)
+        {
+            if ($this->enemyCoverTimer)
             {
-                $randHit = rand(1, 8);
-                $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/enemy/hit_{$randHit}.mp3", true, 'hit_enemy');
+                $this->enemyCoverTimer->cancel();
+                $this->enemyCoverTimer = null;
             }
     
-            if (rand(1, 100) <= 20)
-            {
-                if ($this->enemyCoverTimer)
+            $this->enemyCoverTimer = Timer::after(2500, function ()
                 {
-                    $this->enemyCoverTimer->cancel();
+                    $randCover = rand(1, 5);
+    
+                    $this->GameEnemy->playSound("res://.data/audio/fight/cover_sounds/enemy/cover_fire_{$randCover}.mp3", 900);
+    
                     $this->enemyCoverTimer = null;
                 }
-    
-                $this->enemyCoverTimer = Timer::after(2500, function () {
-                    $randCover = rand(1, 5);
-                    $this->GameEnemy->playSound("res://.data/audio/fight/cover_sounds/enemy/cover_fire_{$randCover}.mp3", 900);
-                    $this->enemyCoverTimer = null;
-                });
-            }
+            );
         }
     }
-
+    
     /**
      * @event actor.click-2x
      */
@@ -478,33 +486,38 @@ class maingame extends AbstractForm
         $originY = $actor->y + $e->y;
         $floorY  = $actor->y + $actor->height - 20;
     
-        $this->Particles->bloodBurstAtPoint($originX, $originY, $floorY, 4,7);
+        $this->Particles->bloodBurstAtPoint($originX, $originY, $floorY, 4, 7);
     
-        if ($GLOBALS['AllSounds'])
+        $randEbanul = rand(0, 5);
+        
+        $ebanulChannel = PseudoSound::get()->getPooledChannel('hit_actor_damage', 16);
+        //PseudoSound::play("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", $ebanulChannel, false, null, true);
+    
+        if (rand(1, 100) <= 25)
         {
-            $randEbanul = rand(0, 5);
-            $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", true, 'hit_actor_damage');
+            $randHit = rand(1, 3);
     
-            if (rand(1, 100) <= 90)
+            $hitChannel = PseudoSound::get()->getPooledChannel('hit_actor', 16);
+            //PseudoSound::play("res://.data/audio/fight/hit_sounds/actor/hit_{$randHit}.mp3", $hitChannel, false, null, true);
+        }
+    
+        if (rand(1, 100) <= 40)
+        {
+            if ($this->actorCoverTimer)
             {
-                $randHit = rand(1, 3);
-                $this->form('Client')->playSoundAsync("res://.data/audio/fight/hit_sounds/actor/hit_{$randHit}.mp3", true, 'hit_actor');
+                $this->actorCoverTimer->cancel();
+                $this->actorCoverTimer = null;
             }
     
-            if (rand(1, 100) <= 40)
-            {
-                if ($this->actorCoverTimer)
+            $this->actorCoverTimer = Timer::after(2500, function ()
                 {
-                    $this->actorCoverTimer->cancel();
+                    $randCover = rand(1, 2);
+    
+                    $this->GameActor->playSound("res://.data/audio/fight/cover_sounds/actor/cover_fire_{$randCover}.mp3", 900);
+    
                     $this->actorCoverTimer = null;
                 }
-    
-                $this->actorCoverTimer = Timer::after(2500, function () {
-                    $randCover = rand(1, 2);
-                    $this->GameActor->playSound("res://.data/audio/fight/cover_sounds/actor/cover_fire_{$randCover}.mp3", 900);
-                    $this->actorCoverTimer = null;
-                });
-            }
+            );
         }
     }
    
@@ -606,13 +619,8 @@ class maingame extends AbstractForm
         $this->health_bar_enemy_b->hide();
         $this->Talk_Label->hide();
     
-        //$this->Particles->bloodConeAtTarget($this->GameEnemy->GetModel());
-    
-        if ($GLOBALS['AllSounds'])
-        {
-            $randDie = rand(1, 7);
-            $this->form('Client')->playSoundAsync("res://.data/audio/fight/death_sounds/enemy/death_{$randDie}.mp3", true, 'die_enemy');
-        }
+        $randDie = rand(1, 7);
+        PseudoSound::play("res://.data/audio/fight/death_sounds/enemy/death_{$randDie}.mp3", 'die_enemy', false, null, true);
     
         $this->finalizeBattle();
     }
@@ -631,13 +639,8 @@ class maingame extends AbstractForm
         $this->blood_ui->hide();
         if ($this->HitMark->isVisible()) $this->HitMark->hide();
     
-        //$this->Particles->bloodConeAtTarget($this->GameActor->GetModel());
-    
-        if ($GLOBALS['AllSounds'])
-        {
-            $randDie = rand(1, 4);
-            $this->form('Client')->playSoundAsync("res://.data/audio/fight/death_sounds/actor/death_{$randDie}.mp3", true, 'die_actor');
-        }
+        $randDie = rand(1, 4);
+        PseudoSound::play("res://.data/audio/fight/death_sounds/actor/death_{$randDie}.mp3", 'die_actor', false, null, true);
     
         $this->finalizeBattle();
     }
@@ -658,7 +661,9 @@ class maingame extends AbstractForm
         $this->ItemVodka->setOpacity(0);
         $this->ItemVodka->hide();
         
-        if ($GLOBALS['AllSounds']) $this->form('Client')->StopAllSoundsAsync();
+        //НЕ НУЖНО ВСЕ ЗВУКИ ОСТАНАВЛИВАТЬ, МЫ ВЕДЬ НЕ ВЫХОДИМ В МЕНЮ, А ПРОСТО ЗАКАНЧИВАЕМ БОЙ
+        
+        PseudoSound::muteChannel('fight_sound'); //мы не стопаем канал сразу, чтобы не вызывать лагов. Но, главное, не забыть стопнуть уже при ресет гейм клиент
         
         if ($this->GameActor->isDead())
         {
@@ -668,7 +673,7 @@ class maingame extends AbstractForm
               
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Failed();
             
-            if ($GLOBALS['AllSounds']) $this->form('Client')->playSoundAsync('res://.data/audio/victory/victory_alex.mp3', true, 'v_enemy');
+            PseudoSound::play('res://.data/audio/victory/victory_alex.mp3', 'v_enemy', false, null, true);
         }
         if ($this->GameEnemy->isDead())
         {
@@ -676,7 +681,7 @@ class maingame extends AbstractForm
             
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Complete();
             
-            if ($GLOBALS['AllSounds']) $this->form('Client')->playSoundAsync('res://.data/audio/victory/victory_actor.mp3', true, 'v_actor');
+            PseudoSound::play('res://.data/audio/victory/victory_actor.mp3', 'v_actor', false, null, true);
         }
         
         $this->form('Client')->Pda->content->Pda_Tasks->content->Step_UpdatePda();

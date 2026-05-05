@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\PseudoSound;
 use app\forms\InventoryGrid;
 use php\gui\UXImage;
 use std, gui, framework, app;
@@ -278,23 +279,23 @@ class inventory extends AbstractForm
     }
     function UseSlotSound()
     {
-        if ($GLOBALS['AllSounds'] && $this->form('Client')->Inventory->visible)
+        if ($this->form('Client')->Inventory->visible)
         {
-            $this->form('Client')->playSoundAsync('res://.data/audio/inv_slot.mp3', 'inv_use_slot'); 
+            PseudoSound::play('res://.data/audio/inv_slot.mp3', 'inv_use_slot', false, null, true);
         }     
     }
     function PropertiesSound()
     {
-        if ($GLOBALS['AllSounds'] && $this->form('Client')->Inventory->visible)
+        if ($this->form('Client')->Inventory->visible)
         {
-            $this->form('Client')->playSoundAsync('res://.data/audio/inv_properties.mp3', 'inv_properties'); 
+            PseudoSound::play('res://.data/audio/inv_properties.mp3', 'inv_properties', false, null, true);
         }          
     }
     function DropSound()
     {
-        if ($GLOBALS['AllSounds'] && $this->form('Client')->Inventory->visible)
+        if ($this->form('Client')->Inventory->visible)
         {
-            $this->form('Client')->playSoundAsync('res://.data/audio/inv_drop.mp3', 'inv_drop'); 
+            PseudoSound::play('res://.data/audio/inv_drop.mp3', 'inv_drop', false, null, true);
         }               
     }    
     /**

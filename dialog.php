@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\PseudoSound;
 use app\forms\classes\UI\UICharacterInfo;
 use Throwable;
 use php\gui\UXImageView;
@@ -243,10 +244,12 @@ class dialog extends AbstractForm
         {
             Debug::fatal("Sound file not found: $soundPath", __FILE__, __LINE__);
         }
-    
+    /*
         (new Thread(function() use ($soundPath, $mediaId) {
             Media::open($soundPath, true, $mediaId);
         }))->start();
+      */
+       PseudoSound::play($soundPath, $mediaId, false, null, true);  
     }
     
     private function playVoice(string $sdkPath, string $fileName, string $mediaId)
@@ -259,7 +262,7 @@ class dialog extends AbstractForm
             
             if ($path != '')
             {
-                $this->form('Client')->playSoundAsync($path, $mediaId);
+                PseudoSound::play($path, $mediaId, false, null, true);
             }
             else
             {

@@ -64,19 +64,7 @@ class fail_wnd extends AbstractForm
         {
             $w = $Client->MainGame->content->GameActor->getWeapon();
             if ($w) $w->softShow();
-        }    
-                   
-        if ($GLOBALS['AllSounds'])
-        {
-            if ($Client->MainGame->content->GameActor->isDead())
-            {
-                if (Media::isStatus('PLAYING','v_enemy')) Media::stop('v_enemy');
-            }
-            if ($Client->MainGame->content->GameEnemy->isDead())
-            {
-                if (Media::isStatus('PLAYING','v_actor')) Media::stop('v_actor');                
-            }                
-        }                 
+        }     
     }
     
     function UpdateFailState()

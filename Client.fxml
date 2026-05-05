@@ -19,12 +19,12 @@
     <Data content="console" cursor="DEFAULT" enabled="1" id="data-Console" visible=""/>
     <FragmentPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" alignment="CENTER" focusTraversable="false" id="LoadScreen" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <Data content="load_screen" cursor="DEFAULT" enabled="1" id="data-LoadScreen" visible=""/>
-    <FragmentPane alignment="CENTER" focusTraversable="false" id="MainMenu" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
+    <FragmentPane alignment="CENTER" focusTraversable="false" id="MainMenu" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" opacity="0.52439024390244" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <Data content="mainmenu" cursor="DEFAULT" enabled="1" id="data-MainMenu" visible="1"/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="Dialog" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
     <Data content="dialog" cursor="DEFAULT" enabled="1" id="data-Dialog" visible=""/>
     <Data animated="1" cursor="DEFAULT" enabled="1" id="data-CustomCursor" sprite="game_cursor" visible="1"/>
-    <Data content="maingame" cursor="DEFAULT" enabled="1" id="data-MainGame" visible=""/>
+    <Data content="maingame" cursor="DEFAULT" enabled="1" id="data-MainGame" visible="1"/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="ExitDialog" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane fragment_form "/>
     <Data cursor="DEFAULT" enabled="" id="data-Client_Proxy" visible=""/>
     <FragmentPane alignment="CENTER" focusTraversable="false" id="DebugUtilities" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="900" prefWidth="1600" spacing="0" styleClass="fragment-pane "/>
