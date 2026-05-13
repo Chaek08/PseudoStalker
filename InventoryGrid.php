@@ -142,6 +142,11 @@ class InventoryGrid extends AbstractForm
     {
         $this->destroyDragGhost();
         
+        $originalItem->visible = false;
+        
+        $label = $this->getItemCountLabel($originalItem);
+        if ($label) $label->visible = false;        
+        
         $this->dragGhost = new UXImageView();
         $this->dragGhost->image = $originalItem->image;
         $this->dragGhost->scale = $this->form('Client')->MainGame->scale;
@@ -201,12 +206,34 @@ class InventoryGrid extends AbstractForm
     
     private function destroyDragGhost()
     {
+        if ($this->draggedItem)
+        {
+            $this->draggedItem->visible = true;
+            
+            $label = $this->getItemCountLabel($this->draggedItem);
+            if ($label)
+            {
+                $count = 0;
+    
+                if ($this->draggedItem === $this->Inv_Medkit)
+                    $count = $this->medkitCount;
+    
+                if ($this->draggedItem === $this->Inv_Ammo_9x18)
+                    $count = $this->pmAmmoCount;
+    
+                if ($this->draggedItem === $this->Inv_Ammo_5x45)
+                    $count = $this->akAmmoCount;
+    
+                $label->visible = ($count >= 2);
+            }            
+        }    
+    
         if ($this->dragGhost)
         {
             $this->form('Client')->remove($this->dragGhost);
             $this->dragGhost = null;
         }
-    }
+    }  
     
     /**
      * @event mouseMove
@@ -435,6 +462,15 @@ class InventoryGrid extends AbstractForm
             $item->visible = false;
         }
     }
+    
+    private function getItemCountLabel($item)
+    {
+        if ($item === $this->Inv_Medkit)    return $this->Inv_Medkit_Count;
+        if ($item === $this->Inv_Ammo_9x18) return $this->Inv_PmAmmo_Count;
+        if ($item === $this->Inv_Ammo_5x45) return $this->Inv_AkAmmo_Count;
+    
+        return null;
+    }    
     
     function canPlace($cellX, $cellY, $w, $h): bool
     {
