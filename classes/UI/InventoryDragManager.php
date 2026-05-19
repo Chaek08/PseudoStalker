@@ -28,11 +28,6 @@ class InventoryDragManager
 
     public function beginDrag($item, $extraFrontNode = null)
     {
-        if ($this->owner->isInventoryLocked()) //deprecated, нужно вырезать из InventoryGrid, но пока останется заглушкой
-        {
-            return;
-        }
-
         $this->endDragUI();
 
         $this->draggedItem = $item;

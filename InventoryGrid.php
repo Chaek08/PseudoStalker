@@ -27,8 +27,6 @@ class InventoryGrid extends AbstractForm
     public $pmInWeaponSlot = false;
     public $AK74InWeaponSlot = false;
     
-    private $inventoryLocked = false;
-    private $dragDelaySec = 0.10;
     private $gridLeft = 0;
     private $gridTop = 120;
     private $gridRight = 552;
@@ -91,7 +89,7 @@ class InventoryGrid extends AbstractForm
      */
     function GridMouseMove(UXMouseEvent $e = null)
     {
-        if ($this->dragManager->getDraggedItem() == null || $this->inventoryLocked) return;
+        if ($this->dragManager->getDraggedItem() == null) return;
         
         if (!$this->dragManager->isActivated()) return;
     
@@ -119,7 +117,7 @@ class InventoryGrid extends AbstractForm
      */
     function GridMouseUp(UXMouseEvent $e = null)
     {
-        if ($this->dragManager->getDraggedItem() == null || $this->inventoryLocked) return;
+        if ($this->dragManager->getDraggedItem() == null) return;
         
         if (!$this->dragManager->isActivated())
         {
@@ -447,33 +445,6 @@ class InventoryGrid extends AbstractForm
             else
             {
                 $item->visible = false;
-            }
-        }
-    }
-    
-    //DEPRECATED
-    public function isInventoryLocked(): bool
-    {
-        return $this->inventoryLocked;
-    }
-    //DEPRECATED    
-    function lockInventory(bool $locked)
-    {
-        $this->inventoryLocked = $locked;
-        
-        $items = [
-            $this->Inv_Medkit, $this->Inv_Medkit_Count,
-            $this->Inv_Vodka, $this->Inv_Outfit,
-            $this->Inv_Wpn_Pm, $this->Inv_Ammo_9x18, $this->Inv_PmAmmo_Count,
-            $this->Inv_Wpn_AK74, $this->Inv_Ammo_5x45, $this->Inv_AkAmmo_Count
-        ];
-        
-        foreach ($items as $obj)
-        {
-            if ($obj && $obj->visible)
-            {
-                $obj->enabled = !$locked;
-                $obj->colorAdjustEffect->brightness = $locked ? -0.4 : 0.0;
             }
         }
     }
