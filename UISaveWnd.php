@@ -316,4 +316,17 @@ class UISaveWnd extends AbstractForm
     {    
         $this->BtnSaveGame();
     }
+    
+    /**
+     * @event main_frame.click-Left 
+     */
+    function MainFrameAction(UXMouseEvent $e = null)
+    {    
+        if ($this->saves_list->selectedIndex >= 0)
+        {
+            $this->Edit_SaveName->text = '';
+        }
+    
+        $this->saves_list->selectedIndex = -1;
+    }    
 }

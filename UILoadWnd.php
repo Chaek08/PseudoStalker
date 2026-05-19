@@ -275,4 +275,14 @@ class UILoadWnd extends AbstractForm
     {    
         $this->BtnLoadSave();
     }    
+
+    /**
+     * @event main_frame.click-Left 
+     */
+    function MainFrameAction(UXMouseEvent $e = null)
+    {    
+        $this->saves_list->selectedIndex = -1;
+    
+        $this->HideSavePreview();
+    }
 }
