@@ -131,6 +131,10 @@ class UILoadWnd extends AbstractForm
         }
     
         $saveData = $this->SaveLoadManager->load($selectedSave);
+        
+        $this->savedata_name->show();
+        $this->savedata_time->show();
+        $this->savedata_health->show();        
     
         if ($saveData === null)
         {
@@ -139,10 +143,6 @@ class UILoadWnd extends AbstractForm
             $this->savedata_time->text   = '--:-- --/--/----';
             return;
         }
-    
-        $this->savedata_name->show();
-        $this->savedata_time->show();
-        $this->savedata_health->show();
         
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
         

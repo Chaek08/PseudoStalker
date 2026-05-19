@@ -1,6 +1,7 @@
 <?php
 namespace app\forms\classes;
 
+use Throwable;
 use app\forms\classes\Log;
 use php\gui\UXApplication;
 use php\time\Timer;
@@ -319,9 +320,15 @@ class SaveLoadManager
             if (!file_exists($path)) return null;
     
             $raw  = Stream::getContents($path);
-            $data = json_decode(DimasCryptoZlodey::decryptData($raw), true);
-    
-            return $data ?: null;
+            try
+            {
+                $data = json_decode(DimasCryptoZlodey::decryptData($raw), true);
+                return $data ?: null;
+            }
+            catch (\Throwable $e)
+            {
+                return null;
+            }
         } finally {
             if ($diskIo)
             {
@@ -530,7 +537,7 @@ class SaveLoadManager
                 {
                     $this->waitAndSetPosition($ambientPlayer, $saveData['environment_state']['ambient_position']);
                 }    
-*/				
+*/                
             }        
             
             $GLOBALS['IsSaveLoading'] = false; //убрать эту хуйню!!!!!!!!!!!! йй системой загрузки лвла!!!!!!!!!!!!!!!!!!
