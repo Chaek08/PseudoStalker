@@ -38,9 +38,6 @@ class InventoryGrid extends AbstractForm
     private $akSlotRect  = ['x'=>176, 'y'=>0, 'w'=>245, 'h'=>96];
   
     private $outfitSlotRect = ['x'=>1128, 'y'=>128, 'w'=>448, 'h'=>672];  
-    
-    public $isAnimatingBars = [];
-    private $isAnimatingBarsTimers = [];
 
     public function __construct()
     {
