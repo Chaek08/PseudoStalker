@@ -245,25 +245,25 @@ class InventoryGrid extends AbstractForm
         return [ceil($item->width / 49), ceil($item->height / 49)];
     }
     
-    /** @event Inv_Vodka.mouseDown-Left */
+    /** @event Inv_Vodka.mouseDrag */
     function VodkaMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender); }
     
-    /** @event Inv_Medkit.mouseDown-Left */
+    /** @event Inv_Medkit.mouseDrag */
     function MedkitMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender, $this->Inv_Medkit_Count); }
     
-    /** @event Inv_Outfit.mouseDown-Left */
+    /** @event Inv_Outfit.mouseDrag */
     function OutfitMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender); }
     
-    /** @event Inv_Wpn_Pm.mouseDown-Left */
+    /** @event Inv_Wpn_Pm.mouseDrag */
     function PmMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender); }
     
-    /** @event Inv_Wpn_AK74.mouseDown-Left */
+    /** @event Inv_Wpn_AK74.mouseDrag */
     function Ak74MouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender); }
     
-    /** @event Inv_Ammo_9x18.mouseDown-Left */
+    /** @event Inv_Ammo_9x18.mouseDrag */
     function Ammo9x18MouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender, $this->Inv_PmAmmo_Count); }
     
-    /** @event Inv_Ammo_5x45.mouseDown-Left */
+    /** @event Inv_Ammo_5x45.mouseDrag */
     function Ammo5x45MouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender, $this->Inv_AkAmmo_Count); }
     
     function addVodkaToInventory() { $this->addItemToInventory($this->Inv_Vodka, 1, 2); }
@@ -620,6 +620,8 @@ class InventoryGrid extends AbstractForm
         $inv->HideUIText();
         $inv->DropSound();
         
+        $this->repackInventory();
+        
         $this->selectedItem = null;
         $GLOBALS['item_outfit_selected'] = false;
     }
@@ -717,6 +719,8 @@ class InventoryGrid extends AbstractForm
     
     /** @event Inv_Wpn_AK74.click-2x */
     function MoveAK74ToSlot(UXMouseEvent $e = null) { $this->moveWeaponToSlot('AK74'); }
+
+
     
     function moveWeaponToSlot(string $weaponName)
     {
@@ -773,4 +777,3 @@ class InventoryGrid extends AbstractForm
         $actor->heal($healAmount);
     }
 }
-

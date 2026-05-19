@@ -13,13 +13,9 @@ class InventoryDragManager
 
     protected $dragGhost = null;
 
-    protected $dragDelayTimer = null;
     protected $dragGhostFollowTimer = null;
 
     protected $dragActivated = false;
-    protected $dragStartTime = 0.0;
-
-    protected $dragDelaySec = 0.10;
 
     public function __construct($owner)
     {
@@ -28,44 +24,21 @@ class InventoryDragManager
 
     public function beginDrag($item, $extraFrontNode = null)
     {
-        $this->endDragUI();
-
+        if ($this->draggedItem) return;
+    
         $this->draggedItem = $item;
         $this->draggedItemOriginalPos = $item->position;
-
-        $this->dragActivated = false;
-        $this->dragStartTime = microtime(true);
-
+        $this->dragActivated = true;
+    
         $item->toFront();
-
+    
         if ($extraFrontNode)
         {
             $extraFrontNode->toFront();
         }
-
-        $this->dragDelayTimer = new UXAnimationTimer(function ()
-        {
-            if (!$this->draggedItem)
-            {
-                $this->cancelDragDelayTimer();
-                return;
-            }
-
-            if ((microtime(true) - $this->dragStartTime) < $this->dragDelaySec)
-            {
-                return;
-            }
-
-            $this->createDragGhost($this->draggedItem);
-
-            $this->startDragGhostFollowTimer();
-
-            $this->dragActivated = true;
-
-            $this->cancelDragDelayTimer();
-        });
-
-        $this->dragDelayTimer->start();
+    
+        $this->createDragGhost($item);
+        $this->startDragGhostFollowTimer();
     }
 
     public function endDrag()
@@ -79,21 +52,10 @@ class InventoryDragManager
     public function endDragUI()
     {
         $this->dragActivated = false;
-
-        $this->cancelDragDelayTimer();
-
+        
         $this->stopDragGhostFollowTimer();
-
+        
         $this->destroyDragGhost();
-    }
-
-    protected function cancelDragDelayTimer()
-    {
-        if ($this->dragDelayTimer)
-        {
-            $this->dragDelayTimer->stop();
-            $this->dragDelayTimer = null;
-        }
     }
 
     protected function createDragGhost($originalItem)
@@ -117,7 +79,7 @@ class InventoryDragManager
 
         $this->dragGhost->opacity = 0.6;
         $this->dragGhost->enabled = false;
-        $this->dragGhost->visible = false;
+        $this->dragGhost->visible = true;
 
         $cursor = $this->owner->form('Client')->CustomCursor;
 
@@ -188,27 +150,18 @@ class InventoryDragManager
         {
             return;
         }
-
+    
         $cursor = $this->owner->form('Client')->CustomCursor;
-
+    
         if (!$cursor)
         {
             return;
         }
-
-        $this->dragGhost->visible = true;
-
-        $targetX = $cursor->x - ($this->dragGhost->width / 2);
-
-        $targetY = $cursor->y - ($this->dragGhost->height / 2);
-
-        $x = $this->dragGhost->x;
-        $y = $this->dragGhost->y;
-
-        $x += ($targetX - $x) * 0.25;
-        $y += ($targetY - $y) * 0.25;
-
-        $this->dragGhost->position = [$x, $y];
+    
+        $this->dragGhost->position = [
+            $cursor->x - ($this->dragGhost->width / 2),
+            $cursor->y - ($this->dragGhost->height / 2)
+        ];
     }
 
     public function isDragging(): bool

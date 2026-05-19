@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\UI\InventoryDragManager;
 use app\forms\classes\PseudoSound;
 use app\forms\InventoryGrid;
 use php\gui\UXImage;
@@ -38,14 +39,7 @@ class inventory extends AbstractForm
     public $SDK_VodkaWeight;
     public $SDK_VodkaDesc;
     
-    //ПРОСЛОЙКА ДЛЯ ПЕРЕТАСКИВАНИЯ БРОНИ В СЛОТ ИНВГРИД И ОБРАТНО
-    private $dragOutfit = false;
-    private $outfitDragStartTime = 0.0;
-    private $outfitDragDelayTimer = null;
-    private $outfitGhost = null;
-    private $outfitGhostFollowTimer = null;
-    
-    private $dragDelaySec = 0.10;
+    private $dragManager;
     
     private $invGridRect = ['x'=>32, 'y'=>80,  'w'=>552, 'h'=>784];
     private $invGridTopSlotsH = 96;
@@ -58,6 +52,8 @@ class inventory extends AbstractForm
         
         uiLater(function () {
             $inv = $this->InventoryGrid->content;
+          
+            $this->dragManager = new InventoryDragManager($this->InventoryGrid->content);
           
             $this->contextMenu = new InventoryContextMenu($this->form('Client'), $inv, $this->localization);
             
@@ -320,37 +316,13 @@ class inventory extends AbstractForm
     }  
     
     /**
-     * @event inv_maket_visual.mouseDown-Left 
+     * @event inv_maket_visual.mouseDrag 
      */
     function OutfitDragStart(UXMouseEvent $e = null)
     {
         if ($this->InventoryGrid->content->isWearing) return;
     
-        $this->dragOutfit = true;
-        $this->outfitDragStartTime = microtime(true);
-    
-        $this->cancelOutfitDragDelay();
-    
-        $this->outfitDragDelayTimer = new UXAnimationTimer(function () {
-    
-            if (!$this->dragOutfit)
-            {
-                $this->cancelOutfitDragDelay();
-                return;
-            }
-    
-            if ((microtime(true) - $this->outfitDragStartTime) < $this->dragDelaySec)
-            {
-                return;
-            }
-    
-            $this->createOutfitGhost();
-            $this->startOutfitGhostFollow();
-    
-            $this->cancelOutfitDragDelay();
-        });
-    
-        $this->outfitDragDelayTimer->start();
+        $this->dragManager->beginDrag($this->InventoryGrid->content->Inv_Outfit);
     }
 
     /**
@@ -358,14 +330,16 @@ class inventory extends AbstractForm
      */
     function OutfitDragEnd(UXMouseEvent $e = null)
     {
-        if (!$this->dragOutfit) return;
-    
+        if (!$this->dragManager->isDragging()) return;
+/*    
         $mx = $e->x;
         $my = $e->y;
-    
-        $this->dragOutfit = false;
-        $this->endOutfitDragUI();
-    
+*/    
+        $cursor = $this->form('Client')->CustomCursor;
+        
+        $mx = $cursor->x;
+        $my = $cursor->y;
+        
         if ($this->isInsideGridCellsArea($mx, $my))
         {
             $grid = $this->InventoryGrid->content;
@@ -378,6 +352,8 @@ class inventory extends AbstractForm
             $this->UpdateInventoryStatus();
             $this->HideCombobox();
         }
+        
+        $this->dragManager->endDrag();
     }    
     
     /**
@@ -538,87 +514,5 @@ class inventory extends AbstractForm
             'h' => $this->invGridRect['h'] - $this->invGridTopSlotsH,
         ];
         return $this->pointInRect($sceneX, $sceneY, $cellsRect);
-    }
-    
-    private function createOutfitGhost(): void
-    {
-        $this->destroyOutfitGhost();
-    
-        $this->outfitGhost = new UXImageView();
-        $this->outfitGhost->image = $this->InventoryGrid->content->Inv_Outfit->image;
-        $this->outfitGhost->scale = $this->form('Client')->MainGame->scale;        
-        $this->outfitGhost->opacity = 0.6;
-        $this->outfitGhost->enabled = false;
-        $this->outfitGhost->visible = false;
-        
-        $cursor = $this->form('Client')->CustomCursor;
-        if (!$cursor) return;        
-    
-        $this->form('Client')->add($this->outfitGhost);
-        
-        $this->outfitGhost->position = [$cursor->x - ($this->outfitGhost->width / 2), $cursor->y - ($this->outfitGhost->height / 2)];            
-        $this->outfitGhost->toFront();
-    }
-    
-    private function startOutfitGhostFollow(): void
-    {
-        $this->stopOutfitGhostFollow();
-    
-        $this->outfitGhostFollowTimer = new UXAnimationTimer(function () {
-    
-            if (!$this->dragOutfit || !$this->outfitGhost) return;
-    
-            $cursor = $this->form('Client')->CustomCursor;
-            if (!$cursor) return;
-                
-            $this->outfitGhost->visible = true;
-    
-            $targetX = $cursor->x - ($this->outfitGhost->width / 2);
-            $targetY = $cursor->y - ($this->outfitGhost->height / 2);
-    
-            $x = $this->outfitGhost->x;
-            $y = $this->outfitGhost->y;
-    
-            $x += ($targetX - $x) * 0.25;
-            $y += ($targetY - $y) * 0.25;
-    
-            $this->outfitGhost->position = [$x, $y];
-        });
-    
-        $this->outfitGhostFollowTimer->start();
-    }
-    
-    private function stopOutfitGhostFollow(): void
-    {
-        if ($this->outfitGhostFollowTimer)
-        {
-            $this->outfitGhostFollowTimer->stop();
-            $this->outfitGhostFollowTimer = null;
-        }
-    }
-    
-    private function destroyOutfitGhost(): void
-    {
-        if ($this->outfitGhost)
-        {
-            $this->form('Client')->remove($this->outfitGhost);
-            $this->outfitGhost = null;
-        }
-    }
-    
-    private function cancelOutfitDragDelay(): void
-    {
-        if ($this->outfitDragDelayTimer)
-        {
-            $this->outfitDragDelayTimer->stop();
-            $this->outfitDragDelayTimer = null;
-        }
-    }
-    
-    private function endOutfitDragUI(): void
-    {
-        $this->cancelOutfitDragDelay();
-        $this->stopOutfitGhostFollow();
-        $this->destroyOutfitGhost();
     }
 }
