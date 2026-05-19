@@ -141,8 +141,6 @@ class maingame extends AbstractForm
             //вроде дестрой был, но хуй знает
             PseudoSound::stopChannelInstant('fight_sound');
             PseudoSound::stopChannelInstant('menu_sound');
-            
-            Media::stop($this->Environment);
 
             if ($this->fight_image->visible) $this->fight_image->hide();
             if ($this->leave_btn->visible || !$GLOBALS['QuestCompleted']) $this->leave_btn->hide();
@@ -212,14 +210,18 @@ class maingame extends AbstractForm
             
             if ($this->Environment)
             {
-                $this->Environment->stop();
+                try
+                {
+                    $this->Environment->stop();
+                }
+                catch (Throwable $e) {}
+            
+                $this->Environment = null;
             }
             
             if (empty($GLOBALS['IsSaveLoading']))
             {
-                $this->Environment = new Environment($this->Environment_Space, $this->EnvironmentBrightness);
-                $this->Environment->startAmbient();
-                $this->Environment->pause();
+                $this->InitEnvironment();
             }
             
             $this->form('Client')->Dialog->content->StartDialog();
