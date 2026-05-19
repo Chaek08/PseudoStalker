@@ -96,9 +96,11 @@ class CActor extends CEntity
 
         if ($this->currentWeapon && $this->currentWeapon->getType() === $weaponType) return;
 
-        $inv  = $this->form('Client')->Inventory->content->InventoryGrid->content;
-        $flag = ($weaponType === 'Pm') ? 'pmInWeaponSlot' : (($weaponType === 'AK74') ? 'AK74InWeaponSlot' : null);
-        if (!$flag || empty($inv->$flag)) return;
+        $inv = $this->form('Client')->Inventory->content->InventoryGrid->content;
+    
+        $slot = $inv->getWeaponSlot($weaponType);
+    
+        if (!$slot || !$slot['equipped']) return;
 
         if ($this->currentWeapon) $this->UnequipCurrentWeapon();
 
@@ -135,14 +137,10 @@ class CActor extends CEntity
     {
         $inv = $this->form('Client')->Inventory->content->InventoryGrid->content;
     
-        switch ($weaponType)
-        {
-            case 'Pm':   return !empty($inv->pmInWeaponSlot);
-            case 'AK74': return !empty($inv->AK74InWeaponSlot);
-        }
+        $slot = $inv->getWeaponSlot($weaponType);
     
-        return false;
-    }    
+        return $slot ? !empty($slot['equipped']) : false;
+    }  
     
     public function setWeaponIndex(int $index): void
     {

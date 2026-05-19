@@ -175,7 +175,7 @@ class maingame extends AbstractForm
                 });
             
             });
-            $this->form('Client')->Inventory->content->InventoryGrid->content->MoveWeaponsToInvSlot();
+            $this->form('Client')->Inventory->content->InventoryGrid->content->MoveWeaponsToWeaponSlot();
                    
             $this->GameActor->respawn(112, $this->GameActor->GetModel()->y, false);
             $this->GameEnemy->respawn(1312, $this->GameEnemy->GetModel()->y, false);

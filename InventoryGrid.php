@@ -24,18 +24,30 @@ class InventoryGrid extends AbstractForm
     public $pmAmmoCount = 25;
     public $akAmmoCount = 69;
     public $isWearing = false;
-    public $pmInWeaponSlot = false;
-    public $AK74InWeaponSlot = false;
     
     private $gridLeft = 0;
     private $gridTop = 120;
     private $gridRight = 552;
     private $gridBottom = 904;
-    private $PmSlotPos = [0, 0];
-    private $Ak74SlotPos = [176, 0];
     
-    private $pmSlotRect  = ['x'=>0,   'y'=>0, 'w'=>152, 'h'=>96];
-    private $akSlotRect  = ['x'=>176, 'y'=>0, 'w'=>245, 'h'=>96];
+    //temp
+    private $weaponSlots = [
+        'Pm' => [
+            'item' => 'Inv_Wpn_Pm',
+            'rect' => ['x'=>0, 'y'=>0, 'w'=>152, 'h'=>96],
+            'pos' => [0, 0],
+            'size' => [1, 1],
+            'equipped' => false
+        ],
+    
+        'AK74' => [
+            'item' => 'Inv_Wpn_AK74',
+            'rect' => ['x'=>176, 'y'=>0, 'w'=>245, 'h'=>96],
+            'pos' => [176, 0],
+            'size' => [5, 2],
+            'equipped' => false
+        ]
+    ];    
   
     private $outfitSlotRect = ['x'=>1128, 'y'=>128, 'w'=>448, 'h'=>672];  
 
@@ -79,7 +91,12 @@ class InventoryGrid extends AbstractForm
     public function cancelDrag(): void
     {
         $this->dragManager->endDrag();
-    }    
+    }   
+    
+    public function getWeaponSlot(string $weapon)
+    {
+        return $this->weaponSlots[$weapon] ?? null;
+    }     
     
     /**
      * @event mouseMove
@@ -126,17 +143,19 @@ class InventoryGrid extends AbstractForm
         $mouseX = $e->x;
         $mouseY = $e->y;
         
-        if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_Pm && $this->pointInRect($mouseX, $mouseY, $this->pmSlotRect))
+        foreach ($this->weaponSlots as $weapon => $slot)
         {
-            $this->moveWeaponToSlotDirect('Pm');
-            $this->dragManager->endDrag();
-            return;
-        }
-        if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_AK74 && $this->pointInRect($mouseX, $mouseY, $this->akSlotRect))
-        {
-            $this->moveWeaponToSlotDirect('AK74');
-            $this->dragManager->endDrag();
-            return;
+            $item = $this->{$slot['item']};
+        
+            if (
+                $this->dragManager->getDraggedItem() === $item &&
+                $this->pointInRect($mouseX, $mouseY, $slot['rect'])
+            )
+            {
+                $this->moveWeaponToSlot($weapon);
+                $this->dragManager->endDrag();
+                return;
+            }
         }
         if ($this->dragManager->getDraggedItem() === $this->Inv_Outfit && $this->pointInRect($mouseX, $mouseY, $this->outfitSlotRect))
         {
@@ -162,7 +181,7 @@ class InventoryGrid extends AbstractForm
 
         $this->removeItemFromGrid($this->dragManager->getDraggedItem());
         
-        if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_Pm && $this->pmInWeaponSlot)
+        if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_Pm && $this->weaponSlots['Pm']['equipped'])
         {
             $actor = $this->form('Client')->MainGame->content->GameActor;
             $w = $actor->getWeapon();
@@ -172,10 +191,10 @@ class InventoryGrid extends AbstractForm
                 $actor->UnequipCurrentWeapon();
             }
         
-            $this->pmInWeaponSlot = false;
+            $this->weaponSlots['Pm']['equipped'] = false;
         }
         
-        if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_AK74 && $this->AK74InWeaponSlot)
+        if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_AK74 && $this->weaponSlots['AK74']['equipped'])
         {
             $actor = $this->form('Client')->MainGame->content->GameActor;
             $w = $actor->getWeapon();
@@ -185,13 +204,16 @@ class InventoryGrid extends AbstractForm
                 $actor->UnequipCurrentWeapon();
             }
         
-            $this->AK74InWeaponSlot = false;
+            $this->weaponSlots['AK74']['equipped'] = false;
         }
         
         if ($this->canPlace($cellX, $cellY, $itemWidthCells, $itemHeightCells))
         {
-            if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_Pm)  $this->pmInWeaponSlot = false;
-            if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_AK74) $this->AK74InWeaponSlot = false;
+            if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_Pm)
+                $this->weaponSlots['Pm']['equipped'] = false;
+            
+            if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_AK74)
+                $this->weaponSlots['AK74']['equipped'] = false;
             
             $this->placeItem($this->dragManager->getDraggedItem(), $cellX, $cellY, $itemWidthCells, $itemHeightCells);
             
@@ -233,18 +255,10 @@ class InventoryGrid extends AbstractForm
     function OutfitMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender); }
     
     /** @event Inv_Wpn_Pm.mouseDown-Left */
-    function PmMouseDown(UXMouseEvent $e = null)
-    {
-        //if ($this->pmInWeaponSlot) return;
-        $this->dragManager->beginDrag($e->sender);
-    }
+    function PmMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender); }
     
     /** @event Inv_Wpn_AK74.mouseDown-Left */
-    function Ak74MouseDown(UXMouseEvent $e = null)
-    {
-        //if ($this->AK74InWeaponSlot) return;
-        $this->dragManager->beginDrag($e->sender);
-    }
+    function Ak74MouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender); }
     
     /** @event Inv_Ammo_9x18.mouseDown-Left */
     function Ammo9x18MouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender, $this->Inv_PmAmmo_Count); }
@@ -418,8 +432,8 @@ class InventoryGrid extends AbstractForm
         foreach ($this->inventoryItems as $item)
         {
             if (!$item->visible) continue;
-            if ($item == $this->Inv_Wpn_Pm && $this->pmInWeaponSlot) continue;
-            if ($item == $this->Inv_Wpn_AK74 && $this->AK74InWeaponSlot) continue;
+            if ($item == $this->Inv_Wpn_Pm && $this->weaponSlots['Pm']['equipped']) continue;
+            if ($item == $this->Inv_Wpn_AK74 && $this->weaponSlots['AK74']['equipped']) continue;
             
             $visibleItems[] = $item;
         }
@@ -675,133 +689,74 @@ class InventoryGrid extends AbstractForm
         $this->PutOnItem();
     }
     
-    function MoveWeaponsToInvSlot()
+    function MoveWeaponsToWeaponSlot()
     {
-        if ($this->Inv_Wpn_Pm)
+        foreach ($this->weaponSlots as $weapon => &$slot)
         {
-            $this->removeItemFromGrid($this->Inv_Wpn_Pm);
-            $this->Inv_Wpn_Pm->position = $this->PmSlotPos;
-            $this->Inv_Wpn_Pm->visible = true;
-            $this->Inv_Wpn_Pm->enabled = true;
-            $this->pmInWeaponSlot = true;
+            $item = $this->{$slot['item']};
+    
+            if (!$item) continue;
+    
+            $this->removeItemFromGrid($item);
+    
+            $item->position = $slot['pos'];
+            $item->visible = true;
+            $item->enabled = true;
+    
+            $slot['equipped'] = true;
         }
-        
-        if ($this->Inv_Wpn_AK74)
-        {
-            $this->removeItemFromGrid($this->Inv_Wpn_AK74);
-            $this->Inv_Wpn_AK74->position = $this->Ak74SlotPos;
-            $this->Inv_Wpn_AK74->visible = true;
-            $this->Inv_Wpn_AK74->enabled = true;
-            $this->AK74InWeaponSlot = true;
-        }
-        
+    
         $this->repackInventory();
-        
+    
         $this->form('Client')->MainGame->content->GameActor->SwitchWeapon('Pm');
         $this->form('Client')->Inventory->content->UseSlotSound();
         $this->form('Client')->Inventory->content->HideCombobox();
     }
     
     /** @event Inv_Wpn_Pm.click-2x */
-    function MovePmToSlot(UXMouseEvent $e = null) { $this->MoveWeaponToSlot('Pm'); }
+    function MovePmToSlot(UXMouseEvent $e = null) { $this->moveWeaponToSlot('Pm'); }
     
     /** @event Inv_Wpn_AK74.click-2x */
-    function MoveAK74ToSlot(UXMouseEvent $e = null) { $this->MoveWeaponToSlot('AK74'); }
+    function MoveAK74ToSlot(UXMouseEvent $e = null) { $this->moveWeaponToSlot('AK74'); }
     
-    function MoveWeaponToSlot(string $weaponName)
+    function moveWeaponToSlot(string $weaponName)
     {
-        $weaponMap = [
-            'Pm' => [
-                'item' => $this->Inv_Wpn_Pm,
-                'slotPos' => $this->PmSlotPos,
-                'flag' => 'pmInWeaponSlot',
-                'gridSize' => [1, 1],
-                'weaponType' => 'Pm',
-            ],
-            'AK74' => [
-                'item' => $this->Inv_Wpn_AK74,
-                'slotPos' => $this->Ak74SlotPos,
-                'flag' => 'AK74InWeaponSlot',
-                'gridSize' => [5, 2],
-                'weaponType' => 'AK74',
-            ],
-        ];
-        
-        if (!isset($weaponMap[$weaponName])) return;
-        
-        $weapon = $weaponMap[$weaponName]['item'];
-        $slotX = $weaponMap[$weaponName]['slotPos'][0];
-        $slotY = $weaponMap[$weaponName]['slotPos'][1];
-        $flagName = $weaponMap[$weaponName]['flag'];
-        $size = $weaponMap[$weaponName]['gridSize'];
-        $weaponType = $weaponMap[$weaponName]['weaponType'];
-        
-        $this->selectedItem = $weapon;
-        
-        if ($this->$flagName)
+        $slot = $this->getWeaponSlot($weaponName);
+        if (!$slot) return;
+    
+        $item = $this->{$slot['item']};
+    
+        $this->selectedItem = $item;
+    
+        if ($this->weaponSlots[$weaponName]['equipped'])
         {
-            $slot = $this->findFreeSlot($size[0], $size[1]);
-            if ($slot != null)
+            $free = $this->findFreeSlot($slot['size'][0], $slot['size'][1]);
+    
+            if ($free)
             {
-                list($cellX, $cellY) = $slot;
-                $this->placeItem($weapon, $cellX, $cellY, $size[0], $size[1]);
-                $this->$flagName = false;
-                $weapon->enabled = true;
-                $weapon->visible = true;
-                
+                list($x, $y) = $free;
+    
+                $this->placeItem($item, $x, $y, $slot['size'][0], $slot['size'][1]);
+    
+                $this->weaponSlots[$weaponName]['equipped'] = false;
+    
                 $this->form('Client')->MainGame->content->GameActor->UnequipCurrentWeapon();
-                //$this->form('Client')->Inventory->content->UseSlotSound();
-                $this->form('Client')->Inventory->content->HideCombobox();
             }
+    
             return;
         }
-        
-        $this->removeItemFromGrid($weapon);
-        
-        $weapon->position = [$slotX, $slotY];
-        $weapon->visible = true;
-        $weapon->enabled = true;
-        $this->$flagName = true;
-            
-        $this->form('Client')->MainGame->content->GameActor->SwitchWeapon($weaponType);
-        //$this->form('Client')->Inventory->content->UseSlotSound();
-        $this->form('Client')->Inventory->content->HideCombobox();
-
-        $this->repackInventory();
-        $this->selectedItem = null;
-    }
     
-    private function moveWeaponToSlotDirect(string $weaponName): void
-    {
-        $wasAnySlotOccupied = ($this->pmInWeaponSlot || $this->AK74InWeaponSlot);
+        $this->removeItemFromGrid($item);
     
-        if ($weaponName === 'Pm')
-        {
-            $this->removeItemFromGrid($this->Inv_Wpn_Pm);
+        $item->position = $slot['pos'];
+        $item->visible = true;
+        $item->enabled = true;
     
-            $this->Inv_Wpn_Pm->position = $this->PmSlotPos;
-            $this->Inv_Wpn_Pm->visible = true;
-            $this->Inv_Wpn_Pm->enabled = true;
-            $this->pmInWeaponSlot = true;
+        $this->weaponSlots[$weaponName]['equipped'] = true;
     
-            if (!$wasAnySlotOccupied) $this->form('Client')->MainGame->content->GameActor->SwitchWeapon('Pm');
-        }
-    
-        if ($weaponName === 'AK74')
-        {
-            $this->removeItemFromGrid($this->Inv_Wpn_AK74);
-    
-            $this->Inv_Wpn_AK74->position = $this->Ak74SlotPos;
-            $this->Inv_Wpn_AK74->visible = true;
-            $this->Inv_Wpn_AK74->enabled = true;
-            $this->AK74InWeaponSlot = true;
-    
-            if (!$wasAnySlotOccupied) $this->form('Client')->MainGame->content->GameActor->SwitchWeapon('AK74');
-        }
+        $this->form('Client')->MainGame->content->GameActor->SwitchWeapon($weaponName);
     
         $this->repackInventory();
-        //$this->form('Client')->Inventory->content->UseSlotSound();
-        $this->form('Client')->Inventory->content->HideCombobox();
     }
     
     function ApplyMedkitEffect()
