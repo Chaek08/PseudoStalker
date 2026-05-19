@@ -905,31 +905,17 @@ class InventoryGrid extends AbstractForm
             return;
         }
         
-        $foundInGrid = false;
-        for ($x = 0; $x < 11; $x++)
-        {
-            for ($y = 0; $y < 13; $y++)
-            {
-                if ($this->grid[$x][$y] === $weapon)
-                {
-                    $this->grid[$x][$y] = null;
-                    $foundInGrid = true;
-                }
-            }
-        }
+        $this->removeItemFromGrid($weapon);
         
-        if ($foundInGrid)
-        {
-            $weapon->position = [$slotX, $slotY];
-            $weapon->visible = true;
-            $weapon->enabled = true;
-            $this->$flagName = true;
+        $weapon->position = [$slotX, $slotY];
+        $weapon->visible = true;
+        $weapon->enabled = true;
+        $this->$flagName = true;
             
-            $this->form('Client')->MainGame->content->GameActor->SwitchWeapon($weaponType);
-            //$this->form('Client')->Inventory->content->UseSlotSound();
-            $this->form('Client')->Inventory->content->HideCombobox();
-        }
-        
+        $this->form('Client')->MainGame->content->GameActor->SwitchWeapon($weaponType);
+        //$this->form('Client')->Inventory->content->UseSlotSound();
+        $this->form('Client')->Inventory->content->HideCombobox();
+
         $this->repackInventory();
         $this->selectedItem = null;
     }
