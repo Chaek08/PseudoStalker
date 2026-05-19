@@ -299,7 +299,6 @@ class InventoryGrid extends AbstractForm
         if (!$this->canPlace($cellX, $cellY, $w, $h)) return;
         
         $this->placeItem($item, $cellX, $cellY, $w, $h);
-        $this->repackInventory();
     }
     
     function updateMedkitCount() { $this->updateCountLabel($this->Inv_Medkit, $this->Inv_Medkit_Count, $this->medkitCount); }
@@ -587,6 +586,7 @@ class InventoryGrid extends AbstractForm
             {
                 $this->removeItemFromGrid($this->selectedItem);
                 $this->selectedItem->visible = false;
+                $this->repackInventory();
             }
         }
         else
@@ -594,7 +594,6 @@ class InventoryGrid extends AbstractForm
             return;
         }
         
-        $this->repackInventory();
         $this->updateMedkitCount();
         
         $inv->UpdateInventoryStatus();
@@ -668,6 +667,7 @@ class InventoryGrid extends AbstractForm
         {
             $this->removeItemFromGrid($this->selectedItem);
             $this->selectedItem->visible = false;
+            $this->repackInventory();
             
             $inv = $this->form('Client')->Inventory->content;
             $inv->UpdateInventoryStatus();
@@ -675,7 +675,6 @@ class InventoryGrid extends AbstractForm
             $inv->HideCombobox();
         }
         
-        $this->repackInventory();
         $this->updateMedkitCount();
         
         $this->selectedItem = null;
