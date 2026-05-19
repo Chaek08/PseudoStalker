@@ -142,10 +142,10 @@ class InventoryGrid extends AbstractForm
     {
         $this->destroyDragGhost();
         
-        $originalItem->visible = false;
+        $originalItem->opacity = 0;
         
         $label = $this->getItemCountLabel($originalItem);
-        if ($label) $label->visible = false;        
+        if ($label) $label->visible = false;
         
         $this->dragGhost = new UXImageView();
         $this->dragGhost->image = $originalItem->image;
@@ -208,7 +208,7 @@ class InventoryGrid extends AbstractForm
     {
         if ($this->draggedItem)
         {
-            $this->draggedItem->visible = true;
+            $this->draggedItem->opacity = 1;
             
             $label = $this->getItemCountLabel($this->draggedItem);
             if ($label)
@@ -242,19 +242,25 @@ class InventoryGrid extends AbstractForm
     {
         if ($this->draggedItem == null || $this->inventoryLocked) return;
         
-        $offsetX = $this->draggedItem->width / 2;
-        $offsetY = $this->draggedItem->height / 2;
-        
-        $newX = $e->sceneX - $offsetX;
-        $newY = $e->sceneY - $offsetY;
-        
-        $maxX = $this->gridRight - $this->draggedItem->width;
-        $maxY = $this->gridBottom - $this->draggedItem->height;
-        
-        $clampedX = max($this->gridLeft, min($newX, $maxX));
-        $clampedY = max($this->gridTop, min($newY, $maxY));
-        
-        $this->draggedItem->position = [$clampedX, $clampedY];
+        if ($this->dragActivated) return;
+    
+        $cellSize = 49;
+    
+        list($itemW, $itemH) = $this->itemGridSize($this->draggedItem);
+    
+        $cellX = floor(($e->x - $this->gridLeft) / $cellSize);
+        $cellY = floor(($e->y - $this->gridTop) / $cellSize);
+    
+        $cellX = max(0, min($cellX, 11 - $itemW));
+        $cellY = max(0, min($cellY, 13 - $itemH));
+    
+        $gridX = $this->gridLeft + ($cellX * $cellSize);
+        $gridY = $this->gridTop + ($cellY * $cellSize);
+    
+        $posX = $gridX + (($cellSize * $itemW) - $this->draggedItem->width) / 2;
+        $posY = $gridY + (($cellSize * $itemH) - $this->draggedItem->height) / 2;
+    
+        $this->draggedItem->position = [$posX, $posY];
     }
     
     /**
@@ -266,8 +272,8 @@ class InventoryGrid extends AbstractForm
         
         if (!$this->dragActivated)
         {
+            $this->endDragUI();
             $this->draggedItem = null;
-            $this->cancelDragDelayTimer();
             return;
         }
         
@@ -474,6 +480,8 @@ class InventoryGrid extends AbstractForm
     
     function canPlace($cellX, $cellY, $w, $h): bool
     {
+        if ($cellX < 0 || $cellY < 0) return false;
+
         if ($cellX + $w > 11 || $cellY + $h > 13) return false;
         
         for ($x = 0; $x < $w; $x++)
