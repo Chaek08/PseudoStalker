@@ -372,6 +372,8 @@ class inventory extends AbstractForm
         
             $grid->selectedItem = $grid->Inv_Outfit;
             $grid->TakeOffItem();
+            
+            $grid->repackInventory();
         
             $this->UpdateInventoryStatus();
             $this->HideCombobox();
