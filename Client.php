@@ -615,7 +615,7 @@ class Client extends AbstractForm
         $this->Inventory->content->SetItemInfo();
         $this->Inventory->content->HideUIText(); 
         $this->Inventory->content->HideCombobox();
-        $this->Inventory->content->InventoryGrid->content->endDragUI();
+        $this->Inventory->content->InventoryGrid->content->cancelDrag();
         $this->Inventory->hide();
                       
         PseudoSound::play('res://.data/audio/inv_close.mp3', 'inv_close', false, null, true);

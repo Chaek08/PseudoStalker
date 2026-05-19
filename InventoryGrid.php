@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\UI\InventoryDragManager;
 use php\gui\UXApplication;
 use php\time\Timer;
 use php\gui\UXImage;
@@ -15,14 +16,8 @@ class InventoryGrid extends AbstractForm
     var $grid;
     
     private $inventoryItems = [];
-    
-    var $draggedItem = null;
-    var $draggedItemOriginalPos = null;
-    var $dragGhost = null;
-    var $dragGhostFollowTimer = null;
-    var $dragDelayTimer = null;
-    var $dragStartTime = 0.0;
-    private $dragActivated = false;
+   
+    private $dragManager;
    
     public $selectedItem = null;
     public $medkitCount = 0;
@@ -63,6 +58,8 @@ class InventoryGrid extends AbstractForm
             }
         }
         
+        $this->dragManager = new InventoryDragManager($this);
+        
         $this->inventoryItems = [
             $this->Inv_Vodka,
             $this->Inv_Medkit,
@@ -84,169 +81,23 @@ class InventoryGrid extends AbstractForm
         return $x >= $r['x'] && $x < ($r['x'] + $r['w']) && $y >= $r['y'] && $y < ($r['y'] + $r['h']);
     }
     
-    private function beginDrag($item, $extraFrontNode = null)
+    public function cancelDrag(): void
     {
-        if ($this->inventoryLocked) return;
-        
-        $this->endDragUI();
-        
-        $this->draggedItem = $item;
-        $this->draggedItemOriginalPos = $item->position;
-        $this->dragStartTime = microtime(true);
-        $this->dragActivated = false;
-        
-        $item->toFront();
-        if ($extraFrontNode) $extraFrontNode->toFront();
-        
-        $this->dragDelayTimer = new UXAnimationTimer(function () {
-        
-            if (!$this->draggedItem)
-            {
-                $this->cancelDragDelayTimer();
-                return;
-            }
-        
-            if ((microtime(true) - $this->dragStartTime) < $this->dragDelaySec)
-            {
-                return;
-            }
-        
-            $this->createDragGhost($this->draggedItem);
-            $this->startDragGhostFollowTimer();
-            $this->dragActivated = true;
-        
-            $this->cancelDragDelayTimer();
-        });
-        
-        $this->dragDelayTimer->start();
-    }
-    
-    function endDragUI()
-    {
-        $this->dragActivated = false;
-        $this->cancelDragDelayTimer();
-        $this->stopDragGhostFollowTimer();
-        $this->destroyDragGhost();
-    }
-    
-    private function cancelDragDelayTimer()
-    {
-        if ($this->dragDelayTimer)
-        {
-            $this->dragDelayTimer->stop();
-            $this->dragDelayTimer = null;
-        }
-    }
-    
-    private function createDragGhost($originalItem)
-    {
-        $this->destroyDragGhost();
-        
-        $originalItem->opacity = 0;
-        
-        $label = $this->getItemCountLabel($originalItem);
-        if ($label) $label->visible = false;
-        
-        $this->dragGhost = new UXImageView();
-        $this->dragGhost->image = $originalItem->image;
-        $this->dragGhost->scale = $this->form('Client')->MainGame->scale;
-        $this->dragGhost->opacity = 0.6;
-        $this->dragGhost->enabled = false;
-        $this->dragGhost->visible = false;
-        
-        $cursor = $this->form('Client')->CustomCursor;
-        if (!$cursor) return;        
-        
-        $this->form('Client')->add($this->dragGhost);
-        
-        $this->dragGhost->position = [$cursor->x - ($this->dragGhost->width / 2), $cursor->y - ($this->dragGhost->height / 2)];          
-        $this->dragGhost->toFront();
-    }
-    
-    private function startDragGhostFollowTimer()
-    {
-        $this->stopDragGhostFollowTimer();
-        
-        $this->dragGhostFollowTimer = new UXAnimationTimer(function () {
-            $this->updateDragGhostFromCursor();
-        });
-    
-        $this->dragGhostFollowTimer->start();
-    }
-    
-    private function updateDragGhostFromCursor(): void
-    {
-        if (!$this->dragGhost || !$this->draggedItem) return;
-        
-        $cursor = $this->form('Client')->CustomCursor;
-        if (!$cursor) return;
-        
-        $this->dragGhost->visible = true;
-        
-        $targetX = $cursor->x - ($this->dragGhost->width / 2);
-        $targetY = $cursor->y - ($this->dragGhost->height / 2);
-        
-        $x = $this->dragGhost->x;
-        $y = $this->dragGhost->y;        
-        
-        $x += ($targetX - $x) * 0.25;
-        $y += ($targetY - $y) * 0.25;
-        
-        $this->dragGhost->position = [$x, $y];
-    }
-
-    private function stopDragGhostFollowTimer()
-    {
-        if ($this->dragGhostFollowTimer)
-        {
-            $this->dragGhostFollowTimer->stop();
-            $this->dragGhostFollowTimer = null;
-        }
-    }
-    
-    private function destroyDragGhost()
-    {
-        if ($this->draggedItem)
-        {
-            $this->draggedItem->opacity = 1;
-            
-            $label = $this->getItemCountLabel($this->draggedItem);
-            if ($label)
-            {
-                $count = 0;
-    
-                if ($this->draggedItem === $this->Inv_Medkit)
-                    $count = $this->medkitCount;
-    
-                if ($this->draggedItem === $this->Inv_Ammo_9x18)
-                    $count = $this->pmAmmoCount;
-    
-                if ($this->draggedItem === $this->Inv_Ammo_5x45)
-                    $count = $this->akAmmoCount;
-    
-                $label->visible = ($count >= 2);
-            }            
-        }    
-    
-        if ($this->dragGhost)
-        {
-            $this->form('Client')->remove($this->dragGhost);
-            $this->dragGhost = null;
-        }
-    }  
+        $this->dragManager->endDrag();
+    }    
     
     /**
      * @event mouseMove
      */
     function GridMouseMove(UXMouseEvent $e = null)
     {
-        if ($this->draggedItem == null || $this->inventoryLocked) return;
+        if ($this->dragManager->getDraggedItem() == null || $this->inventoryLocked) return;
         
-        if ($this->dragActivated) return;
+        if (!$this->dragManager->isActivated()) return;
     
         $cellSize = 49;
     
-        list($itemW, $itemH) = $this->itemGridSize($this->draggedItem);
+        list($itemW, $itemH) = $this->itemGridSize($this->dragManager->getDraggedItem());
     
         $cellX = floor(($e->x - $this->gridLeft) / $cellSize);
         $cellY = floor(($e->y - $this->gridTop) / $cellSize);
@@ -257,10 +108,10 @@ class InventoryGrid extends AbstractForm
         $gridX = $this->gridLeft + ($cellX * $cellSize);
         $gridY = $this->gridTop + ($cellY * $cellSize);
     
-        $posX = $gridX + (($cellSize * $itemW) - $this->draggedItem->width) / 2;
-        $posY = $gridY + (($cellSize * $itemH) - $this->draggedItem->height) / 2;
+        $posX = $gridX + (($cellSize * $itemW) - $this->dragManager->getDraggedItem()->width) / 2;
+        $posY = $gridY + (($cellSize * $itemH) - $this->dragManager->getDraggedItem()->height) / 2;
     
-        $this->draggedItem->position = [$posX, $posY];
+        $this->dragManager->getDraggedItem()->position = [$posX, $posY];
     }
     
     /**
@@ -268,58 +119,55 @@ class InventoryGrid extends AbstractForm
      */
     function GridMouseUp(UXMouseEvent $e = null)
     {
-        if ($this->draggedItem == null || $this->inventoryLocked) return;
+        if ($this->dragManager->getDraggedItem() == null || $this->inventoryLocked) return;
         
-        if (!$this->dragActivated)
+        if (!$this->dragManager->isActivated())
         {
-            $this->endDragUI();
-            $this->draggedItem = null;
+            $this->dragManager->endDrag();
             return;
         }
-        
-        $this->endDragUI();
         
         $cellSize = 49;
         $mouseX = $e->x;
         $mouseY = $e->y;
         
-        if ($this->draggedItem === $this->Inv_Wpn_Pm && $this->pointInRect($mouseX, $mouseY, $this->pmSlotRect))
+        if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_Pm && $this->pointInRect($mouseX, $mouseY, $this->pmSlotRect))
         {
             $this->moveWeaponToSlotDirect('Pm');
-            $this->draggedItem = null;
+            $this->dragManager->endDrag();
             return;
         }
-        if ($this->draggedItem === $this->Inv_Wpn_AK74 && $this->pointInRect($mouseX, $mouseY, $this->akSlotRect))
+        if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_AK74 && $this->pointInRect($mouseX, $mouseY, $this->akSlotRect))
         {
             $this->moveWeaponToSlotDirect('AK74');
-            $this->draggedItem = null;
+            $this->dragManager->endDrag();
             return;
         }
-        if ($this->draggedItem === $this->Inv_Outfit && $this->pointInRect($mouseX, $mouseY, $this->outfitSlotRect))
+        if ($this->dragManager->getDraggedItem() === $this->Inv_Outfit && $this->pointInRect($mouseX, $mouseY, $this->outfitSlotRect))
         {
             $this->selectedItem = $this->Inv_Outfit;
         
             $this->PutOnItem();
         
-            $this->draggedItem = null;
+            $this->dragManager->endDrag();
             return;
         }
         
         if ($mouseX < 0 || $mouseY < $this->gridTop || $mouseX >= 552 || $mouseY >= $this->gridBottom)
         {
-            $this->draggedItem->position = $this->draggedItemOriginalPos;
-            $this->draggedItem = null;
+            $this->dragManager->getDraggedItem()->position = $this->dragManager->getOriginalPosition();
+            $this->dragManager->endDrag();
             return;
         }
         
         $cellX = floor(($mouseX - $this->gridLeft) / $cellSize);
         $cellY = floor(($mouseY - $this->gridTop) / $cellSize);
         
-        list($itemWidthCells, $itemHeightCells) = $this->itemGridSize($this->draggedItem);
+        list($itemWidthCells, $itemHeightCells) = $this->itemGridSize($this->dragManager->getDraggedItem());
 
-        $this->removeItemFromGrid($this->draggedItem);
+        $this->removeItemFromGrid($this->dragManager->getDraggedItem());
         
-        if ($this->draggedItem === $this->Inv_Wpn_Pm && $this->pmInWeaponSlot)
+        if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_Pm && $this->pmInWeaponSlot)
         {
             $actor = $this->form('Client')->MainGame->content->GameActor;
             $w = $actor->getWeapon();
@@ -332,7 +180,7 @@ class InventoryGrid extends AbstractForm
             $this->pmInWeaponSlot = false;
         }
         
-        if ($this->draggedItem === $this->Inv_Wpn_AK74 && $this->AK74InWeaponSlot)
+        if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_AK74 && $this->AK74InWeaponSlot)
         {
             $actor = $this->form('Client')->MainGame->content->GameActor;
             $w = $actor->getWeapon();
@@ -347,23 +195,24 @@ class InventoryGrid extends AbstractForm
         
         if ($this->canPlace($cellX, $cellY, $itemWidthCells, $itemHeightCells))
         {
-            if ($this->draggedItem === $this->Inv_Wpn_Pm)  $this->pmInWeaponSlot = false;
-            if ($this->draggedItem === $this->Inv_Wpn_AK74) $this->AK74InWeaponSlot = false;
+            if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_Pm)  $this->pmInWeaponSlot = false;
+            if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_AK74) $this->AK74InWeaponSlot = false;
             
-            $this->placeItem($this->draggedItem, $cellX, $cellY, $itemWidthCells, $itemHeightCells);
+            $this->placeItem($this->dragManager->getDraggedItem(), $cellX, $cellY, $itemWidthCells, $itemHeightCells);
             
             $this->form('Client')->Inventory->content->UpdateComboboxPosition();
             //$this->form('Client')->Inventory->content->UseSlotSound();
         }
         else
         {
-            $this->draggedItem->position = $this->draggedItemOriginalPos;
-            $originalX = floor(($this->draggedItemOriginalPos[0] - $this->gridLeft) / $cellSize);
-            $originalY = floor(($this->draggedItemOriginalPos[1] - $this->gridTop) / $cellSize);
-            $this->placeItem($this->draggedItem, $originalX, $originalY, $itemWidthCells, $itemHeightCells);
+            $originalPosition = $this->dragManager->getOriginalPosition();
+            $this->dragManager->getDraggedItem()->position = $originalPosition;
+            $originalX = floor(($originalPosition[0] - $this->gridLeft) / $cellSize);
+            $originalY = floor(($originalPosition[1] - $this->gridTop) / $cellSize);
+            $this->placeItem($this->dragManager->getDraggedItem(), $originalX, $originalY, $itemWidthCells, $itemHeightCells);
         }
         
-        $this->draggedItem = null;
+        $this->dragManager->endDrag();
     }
     
     private function itemGridSize($item): array
@@ -380,33 +229,33 @@ class InventoryGrid extends AbstractForm
     }
     
     /** @event Inv_Vodka.mouseDown-Left */
-    function VodkaMouseDown(UXMouseEvent $e = null) { $this->beginDrag($e->sender); }
+    function VodkaMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender); }
     
     /** @event Inv_Medkit.mouseDown-Left */
-    function MedkitMouseDown(UXMouseEvent $e = null) { $this->beginDrag($e->sender, $this->Inv_Medkit_Count); }
+    function MedkitMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender, $this->Inv_Medkit_Count); }
     
     /** @event Inv_Outfit.mouseDown-Left */
-    function OutfitMouseDown(UXMouseEvent $e = null) { $this->beginDrag($e->sender); }
+    function OutfitMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender); }
     
     /** @event Inv_Wpn_Pm.mouseDown-Left */
     function PmMouseDown(UXMouseEvent $e = null)
     {
         //if ($this->pmInWeaponSlot) return;
-        $this->beginDrag($e->sender);
+        $this->dragManager->beginDrag($e->sender);
     }
     
     /** @event Inv_Wpn_AK74.mouseDown-Left */
     function Ak74MouseDown(UXMouseEvent $e = null)
     {
         //if ($this->AK74InWeaponSlot) return;
-        $this->beginDrag($e->sender);
+        $this->dragManager->beginDrag($e->sender);
     }
     
     /** @event Inv_Ammo_9x18.mouseDown-Left */
-    function Ammo9x18MouseDown(UXMouseEvent $e = null) { $this->beginDrag($e->sender, $this->Inv_PmAmmo_Count); }
+    function Ammo9x18MouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender, $this->Inv_PmAmmo_Count); }
     
     /** @event Inv_Ammo_5x45.mouseDown-Left */
-    function Ammo5x45MouseDown(UXMouseEvent $e = null) { $this->beginDrag($e->sender, $this->Inv_AkAmmo_Count); }
+    function Ammo5x45MouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender, $this->Inv_AkAmmo_Count); }
     
     function addVodkaToInventory() { $this->addItemToInventory($this->Inv_Vodka, 1, 2); }
     function addOutfitToInventory() { $this->addItemToInventory($this->Inv_Outfit, 2, 1); }
@@ -469,7 +318,27 @@ class InventoryGrid extends AbstractForm
         }
     }
     
-    private function getItemCountLabel($item)
+    public function getItemCount($item): int
+    {
+        if ($item === $this->Inv_Medkit)
+        {
+            return $this->medkitCount;
+        }
+    
+        if ($item === $this->Inv_Ammo_9x18)
+        {
+            return $this->pmAmmoCount;
+        }
+    
+        if ($item === $this->Inv_Ammo_5x45)
+        {
+            return $this->akAmmoCount;
+        }
+    
+        return 0;
+    }
+    
+    public function getItemCountLabel($item)
     {
         if ($item === $this->Inv_Medkit)    return $this->Inv_Medkit_Count;
         if ($item === $this->Inv_Ammo_9x18) return $this->Inv_PmAmmo_Count;
@@ -582,6 +451,12 @@ class InventoryGrid extends AbstractForm
         }
     }
     
+    //DEPRECATED
+    public function isInventoryLocked(): bool
+    {
+        return $this->inventoryLocked;
+    }
+    //DEPRECATED    
     function lockInventory(bool $locked)
     {
         $this->inventoryLocked = $locked;
@@ -602,7 +477,7 @@ class InventoryGrid extends AbstractForm
             }
         }
     }
-    
+  
     /** @event Inv_Vodka.click-Left */
     function SelectVodka(UXMouseEvent $e = null) { $this->selectItem('item_vodka_selected'); }
     
