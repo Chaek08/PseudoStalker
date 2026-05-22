@@ -124,7 +124,7 @@ class inventory extends AbstractForm
     function UpdateInventoryStatus()
     {
         $maxWeight = 90.0;
-        $baseWeight = 50.0;
+        $baseWeight = $this->form('Client')->MainGame->content->GameActor->getWeight();
         $totalWeight = $baseWeight;
 
         if ($this->InventoryGrid->content->Inv_Vodka->visible)
@@ -163,7 +163,8 @@ class inventory extends AbstractForm
         $this->weight_desc->text = $text;
         
         $this->money->text = $this->playerMonero . ' ' . $this->moneyCurrency;
-    }   
+    }
+    
     function ShowUIText()
     {
         $this->maket_label->show();

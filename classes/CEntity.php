@@ -19,6 +19,8 @@ abstract class CEntity
 
     protected $maxHP = 100;
     protected $hp = 100;
+    
+    protected $weight = 0.0;    
 
     protected $onHpChanged = [];
     protected $onDeath = [];
@@ -259,6 +261,16 @@ abstract class CEntity
             $this->death();
         }
     }
+    
+    public function setWeight(float $weight): void
+    {
+        $this->weight = max(0, $weight);
+    }
+
+    public function getWeight(): float
+    {
+        return $this->weight;
+    }    
 
     protected function startRegen(): void
     {

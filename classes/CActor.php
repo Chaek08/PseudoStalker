@@ -20,7 +20,11 @@ class CActor extends CEntity
     public function __construct($game, int $maxHP = 100)
     {
         parent::__construct($game, $maxHP);
+        
         $this->game = $game;
+        
+        $this->setWeight(50.0);
+        Log::info('Base actor weight: ' . $this->getWeight());
     }
 
     public function getGame()
