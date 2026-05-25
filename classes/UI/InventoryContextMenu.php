@@ -209,6 +209,11 @@ class InventoryContextMenu
 
         return [$x, $y];
     }
+    
+    public function isVisible(): bool
+    {
+        return $this->main && $this->main->visible;
+    }    
 
     public function getButton(string $key): ?UXFlatButton
     {

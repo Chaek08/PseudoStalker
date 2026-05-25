@@ -100,7 +100,7 @@ class CActor extends CEntity
 
         if ($this->currentWeapon && $this->currentWeapon->getType() === $weaponType) return;
 
-        $inv = $this->form('Client')->Inventory->content->InventoryGrid->content;
+        $inv = $this->form('Client')->Inventory->content;
     
         $slot = $inv->getWeaponSlot($weaponType);
     
@@ -139,7 +139,7 @@ class CActor extends CEntity
     
     protected function hasWeapon(string $weaponType): bool
     {
-        $inv = $this->form('Client')->Inventory->content->InventoryGrid->content;
+        $inv = $this->form('Client')->Inventory->content;
     
         $slot = $inv->getWeaponSlot($weaponType);
     

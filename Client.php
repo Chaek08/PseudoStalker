@@ -571,7 +571,7 @@ class Client extends AbstractForm
         $this->Inventory->show();
         $this->Inventory->content->UpdateInventoryHealthBar();        
         $this->Inventory->content->UpdateInventoryStatus();
-        $this->Inventory->content->InventoryGrid->content->repackInventory();
+        $this->Inventory->content->repackInventory();
         
         PseudoSound::play('res://.data/audio/inv_open.mp3', 'inv_open', false, null, true);
     }
@@ -615,7 +615,7 @@ class Client extends AbstractForm
         $this->Inventory->content->SetItemInfo();
         $this->Inventory->content->HideUIText(); 
         $this->Inventory->content->HideCombobox();
-        $this->Inventory->content->InventoryGrid->content->cancelDrag();
+        $this->Inventory->content->cancelDrag();
         $this->Inventory->hide();
                       
         PseudoSound::play('res://.data/audio/inv_close.mp3', 'inv_close', false, null, true);

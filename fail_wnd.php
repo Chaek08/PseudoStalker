@@ -52,7 +52,7 @@ class fail_wnd extends AbstractForm
         
         $Client->Fail->hide();
         
-        if (!$Client->Inventory->content->InventoryGrid->content->Inv_Vodka->visible) //ПРОВЕРИТЬ
+        if (!$Client->Inventory->content->Inv_Vodka->visible) //ПРОВЕРИТЬ
         {
             $Vodka->show();
         }

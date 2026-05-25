@@ -64,7 +64,7 @@ class mainmenu extends AbstractForm
             $this->form('Client')->MainGame->content->InitEnvironment();
             
             //Weapons
-            $this->form('Client')->Inventory->content->InventoryGrid->content->MoveWeaponsToWeaponSlot(); //эта хуйня и будет опорой для аттача
+            $this->form('Client')->Inventory->content->MoveWeaponsToWeaponSlot(); //эта хуйня и будет опорой для аттача
         }
         
         PseudoSound::muteChannel('menu_sound');

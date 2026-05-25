@@ -422,7 +422,7 @@ abstract class CWeapon
 
     protected function getInventoryContent()
     {
-        return $this->owner->form('Client')->Inventory->content->InventoryGrid->content;
+        return $this->owner->form('Client')->Inventory->content;
     }
 
     public function getAmmo(): int { return $this->ammo; }

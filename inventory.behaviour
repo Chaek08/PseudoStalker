@@ -12,4 +12,34 @@
   <target id="inv_maket_visual">
     <behaviour brightness="0" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
   </target>
+  <target id="Inv_Vodka">
+    <behaviour brightness="0" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Inv_Medkit">
+    <behaviour brightness="0" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Inv_Outfit">
+    <behaviour brightness="0" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Inv_Medkit_Count">
+    <behaviour brightness="0" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Inv_Wpn_Pm">
+    <behaviour brightness="0" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Inv_Ammo_9x18">
+    <behaviour brightness="0" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Inv_PmAmmo_Count">
+    <behaviour brightness="0" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Inv_Wpn_AK74">
+    <behaviour brightness="0" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Inv_Ammo_5x45">
+    <behaviour brightness="0" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="Inv_AkAmmo_Count">
+    <behaviour brightness="0" contrast="0" hue="0" saturation="0" type="behaviour\custom\ColorAdjustEffectBehaviour" when="ALWAYS"/>
+  </target>
 </behaviours>

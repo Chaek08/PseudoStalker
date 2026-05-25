@@ -114,8 +114,8 @@ class SaveLoadManager
             'client_version' => client_version,
     
             'ammo' => [
-                'pm_total'   => $c->Inventory->content->InventoryGrid->content->pmAmmoCount,
-                'ak74_total' => $c->Inventory->content->InventoryGrid->content->akAmmoCount,
+                'pm_total'   => $c->Inventory->content->pmAmmoCount,
+                'ak74_total' => $c->Inventory->content->akAmmoCount,
             ],
     
             'weapons' => [
@@ -135,7 +135,7 @@ class SaveLoadManager
                 'actor' => [
                     'x' => $c->MainGame->content->actor->position[0],
                     'y' => $c->MainGame->content->actor->position[1],
-                    'is_wearing' => $c->Inventory->content->InventoryGrid->content->isWearing,
+                    'is_wearing' => $c->Inventory->content->isWearing,
                 ],
                 'enemy' => [
                     'x' => $c->MainGame->content->enemy->position[0],
@@ -151,7 +151,7 @@ class SaveLoadManager
                 'hm'   => $c->Pda->content->Pda_Tasks->content->time_quest_hm->text,
             ],
             'vodka_exist'      => $c->MainGame->content->item_vodka_0000->visible,
-            'medkit_count'     => $c->Inventory->content->InventoryGrid->content->medkitCount,
+            'medkit_count'     => $c->Inventory->content->medkitCount,
             'quest_step1'      => isset($GLOBALS['QuestStep1']) ? $GLOBALS['QuestStep1'] : false,
             'quest_completed'  => isset($GLOBALS['QuestCompleted']) ? $GLOBALS['QuestCompleted'] : false,
             'actors_state' => [
@@ -361,8 +361,8 @@ class SaveLoadManager
             $form->MainGame->content->item_vodka_0000->visible = $saveData['vodka_exist'];
             if ($form->MainGame->content->ItemVodka->isVisible())
             {
-                if ($form->Inventory->content->InventoryGrid->content->selectedItem = $form->Inventory->content->InventoryGrid->content->Inv_Vodka)
-                    $form->Inventory->content->InventoryGrid->content->DropItem();
+                if ($form->Inventory->content->selectedItem = $form->Inventory->content->Inv_Vodka)
+                    $form->Inventory->content->DropItem();
             }
     
             $GLOBALS['QuestStep1']     = $saveData['quest_step1'];
@@ -392,7 +392,7 @@ class SaveLoadManager
     
                     if (isset($saveData['ammo']))
                     {
-                        $inv = $form->Inventory->content->InventoryGrid->content;
+                        $inv = $form->Inventory->content;
                         $inv->pmAmmoCount = $saveData['ammo']['pm_total'] ?? 0;
                         $inv->akAmmoCount = $saveData['ammo']['ak74_total'] ?? 0;
                     }
@@ -507,16 +507,16 @@ class SaveLoadManager
                 $form->MainGame->content->GetHealth();
             });
             
-            $form->Inventory->content->InventoryGrid->content->medkitCount = $saveData['medkit_count'];
-            $form->Inventory->content->InventoryGrid->content->updateMedkitCount();
+            $form->Inventory->content->medkitCount = $saveData['medkit_count'];
+            $form->Inventory->content->updateMedkitCount();
     
             if (isset($saveData['objects_position']['actor']['is_wearing']))
             {
-                $form->Inventory->content->InventoryGrid->content->isWearing = $saveData['objects_position']['actor']['is_wearing'];
-                if ($form->Inventory->content->InventoryGrid->content->isWearing)
+                $form->Inventory->content->isWearing = $saveData['objects_position']['actor']['is_wearing'];
+                if ($form->Inventory->content->isWearing)
                 {
-                    $form->Inventory->content->InventoryGrid->content->selectedItem = $form->Inventory->content->InventoryGrid->content->Inv_Outfit;
-                    $form->Inventory->content->InventoryGrid->content->TakeOffItem();
+                    $form->Inventory->content->selectedItem = $form->Inventory->content->Inv_Outfit;
+                    $form->Inventory->content->TakeOffItem();
                 }
             }
             

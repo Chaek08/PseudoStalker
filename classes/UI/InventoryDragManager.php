@@ -25,6 +25,11 @@ class InventoryDragManager
     public function beginDrag($item, $extraFrontNode = null)
     {
         if ($this->draggedItem) return;
+        
+        if ($this->owner->contextMenu && $this->owner->contextMenu->isVisible())
+        {
+            return;
+        }
     
         $this->draggedItem = $item;
         $this->draggedItemOriginalPos = $item->position;
