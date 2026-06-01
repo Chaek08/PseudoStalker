@@ -11,6 +11,7 @@ use app\forms\classes\PseudoSound;
 use app\forms\classes\UIProgressBarAnimator;
 use app\forms\classes\UI\InventoryDragManager;
 use app\forms\classes\UI\InventoryGrid;
+use app\forms\classes\UI\InventoryActions;
 
 class inventory extends AbstractForm
 {
@@ -44,6 +45,7 @@ class inventory extends AbstractForm
     
     private $grid;
     private $gridLayout;
+    private $actions
     
     private $inventoryItems = [];
 
@@ -51,7 +53,6 @@ class inventory extends AbstractForm
     public $medkitCount = 0;
     public $pmAmmoCount = 25;
     public $akAmmoCount = 69;
-    public $isWearing = false;
         
     private $gridLeft = 32;
     private $gridTop = 200;
@@ -89,6 +90,8 @@ class inventory extends AbstractForm
             $this->gridRight,
             $this->gridBottom
         );
+        
+        $this->actions = new InventoryActions($this);
         
         $this->inventoryItems = [
             $this->Inv_Vodka,
@@ -149,7 +152,22 @@ class inventory extends AbstractForm
     public function cancelDrag(): void
     {
         $this->dragManager->endDrag();
-    }   
+    }
+    
+    public function getGrid()
+    {
+        return $this->grid;
+    }
+    
+    public function getDragManager()
+    {
+        return $this->dragManager;
+    }
+    
+    public function getGridLayout()
+    {
+        return $this->gridLayout;
+    }
     
     public function getWeaponSlot(string $weapon)
     {
@@ -553,99 +571,27 @@ class inventory extends AbstractForm
     
     function DropItem()
     {
-        if (!$this->selectedItem) return;
-        
-        $this->DropSound();
-        $this->HideCombobox();
-        
-        $this->grid->remove($this->selectedItem);
-        $this->selectedItem->visible = false;
-        $this->repackInventory();
-        
-        $this->UpdateInventoryStatus();
-        $this->UpdateSelectedItems();
-        $this->HideUIText();
-        
-        $this->form('Client')->MainGame->content->SpawnItem();
-        
-        $this->selectedItem = null;
+        $this->actions->dropItem();
     }
     
     function UseItem()
     {
-        if (!$this->selectedItem) return;
-        
-        $this->UseSlotSound();
-        $this->HideCombobox();
-        
-        if ($this->selectedItem == $this->Inv_Medkit)
-        {
-            $this->ApplyMedkitEffect();
-            $this->medkitCount--;
-            
-            if ($this->medkitCount < 1)
-            {
-                $this->grid->remove($this->selectedItem);
-                $this->selectedItem->visible = false;
-                $this->repackInventory();
-            }
-        }
-        else
-        {
-            return;
-        }
-        
-        $this->updateMedkitCount();
-        
-        $this->UpdateInventoryStatus();
-        $this->UpdateSelectedItems();
-        $this->HideUIText();
-        
-        $this->selectedItem = null;
+        $this->actions->useItem();
     }
+    
+    function ApplyMedkitEffect()
+    {
+        $this->actions->applyMedkitEffect();
+    }    
     
     function TakeOffItem()
     {
-        if (!$this->selectedItem) return;
-        
-        $this->isWearing = true;
-        $nakedModel = 'res://.data/ui/maingame/sprite/noout/actor.png';
-        
-        $this->inv_maket_visual->image = new UXImage($nakedModel);
-        $this->form('Client')->MainGame->content->actor->image = new UXImage($nakedModel);
-        
-        $this->addOutfitToInventory();
-        
-        $this->HideCombobox();
-        $this->HideUIText();
-        $this->DropSound();
-        
-        $this->repackInventory();
-        
-        $this->selectedItem = null;
-        $GLOBALS['item_outfit_selected'] = false;
+        $this->actions->takeOffItem();
     }
     
     function PutOnItem()
     {
-        if (!$this->selectedItem) return;
-        
-        $this->isWearing = false;
-        $wearingModel = 'res://.data/ui/maingame/sprite/actor.png';
-        
-        $this->inv_maket_visual->image = new UXImage($wearingModel);
-        $this->form('Client')->MainGame->content->actor->image = new UXImage($wearingModel);
-        
-        $this->grid->remove($this->selectedItem);
-        $this->selectedItem->visible = false;
-        $this->repackInventory();
-        
-        $this->HideCombobox();
-        $this->HideUIText();
-        $this->UseSlotSound();
-        
-        $this->selectedItem = null;
-        $GLOBALS['item_outfit_selected'] = false;
+        $this->actions->putOnItem();
     }
     
     function MoveToSlot()
@@ -723,22 +669,7 @@ class inventory extends AbstractForm
         $this->UseSlotSound();
         $this->HideCombobox();
     }       
-    
-    function ApplyMedkitEffect()
-    {
-        $actor = $this->form('Client')->MainGame->content->GameActor;
-    
-        if ($actor->isDead())
-        {
-            return;
-        }
-    
-        $healPct = 20;
-        $healAmount = (int)(($actor->getMaxHP() * $healPct) / 100);
-    
-        $actor->heal($healAmount);
-    }    
-    
+        
     function UpdateInventoryHealthBar()
     {
         $actor = $this->form('Client')->MainGame->content->GameActor;
@@ -954,7 +885,7 @@ class inventory extends AbstractForm
      */
     function SelectActorMaket(UXMouseEvent $e = null)
     {
-        if ($this->isWearing) return;
+        if (!$this->form('Client')->MainGame->content->GameActor->isWearingOutfit()) return;
     
         $this->SelectOutfit();
     }
@@ -963,7 +894,7 @@ class inventory extends AbstractForm
      */
     function OutfitMaketActions(UXMouseEvent $e = null)
     {    
-        if ($this->isWearing) return;
+        if (!$this->form('Client')->MainGame->content->GameActor->isWearingOutfit()) return;
     
         $this->selectedItem = $this->Inv_Outfit;
         
@@ -975,7 +906,7 @@ class inventory extends AbstractForm
      */
     function OutfitDragStart(UXMouseEvent $e = null)
     {
-        if ($this->isWearing) return;
+        if (!$this->form('Client')->MainGame->content->GameActor->isWearingOutfit()) return;
     
         $this->dragManager->beginDrag($this->Inv_Outfit);
     }
@@ -985,7 +916,7 @@ class inventory extends AbstractForm
      */
     function QuickUseMaket(UXMouseEvent $e = null)
     {    
-        if ($this->isWearing) return;    
+        if (!$this->form('Client')->MainGame->content->GameActor->isWearingOutfit()) return;    
     
         $this->selectedItem = $this->Inv_Outfit;
         
@@ -1146,7 +1077,7 @@ class inventory extends AbstractForm
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         $this->contextMenu->refreshCaptions();
         
-        $this->contextMenu->showForItem($this->selectedItem, $cursorPos, $this->isWearing);
+        $this->contextMenu->showForItem($this->selectedItem, $cursorPos, $this->form('Client')->MainGame->content->GameActor->isWearingOutfit());
     }
 
     function UpdateComboboxPosition()

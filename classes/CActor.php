@@ -1,6 +1,9 @@
 <?php
 namespace app\forms\classes;
 
+use php\gui\UXImageView;
+use php\gui\UXImage;
+
 use app\forms\classes\Weapons\CWeapon;
 use app\forms\classes\Weapons\CWeaponFactory;
 use app\forms\classes\Debug;
@@ -8,6 +11,9 @@ use app\forms\classes\Debug;
 class CActor extends CEntity
 {
     protected $game;
+    
+    public const MODEL_OUTFIT_ON  = 'res://.data/ui/maingame/sprite/actor.png';
+    public const MODEL_OUTFIT_OFF = 'res://.data/ui/maingame/sprite/noout/actor.png';    
 
     protected $currentWeapon = null;
     protected $currentWeaponIndex = 0;    
@@ -16,6 +22,8 @@ class CActor extends CEntity
     
     protected $lastWeaponSwitch = 0;
     protected $weaponSwitchDelay = 0.48;
+
+    protected $wearingOutfit = true;
 
     public function __construct($game, int $maxHP = 100)
     {
@@ -76,6 +84,37 @@ class CActor extends CEntity
     {
         return $this->currentWeapon;
     }
+    
+    public function isWearingOutfit(): bool
+    {
+        return $this->wearingOutfit;
+    }    
+    
+    public function putOnOutfit(): void
+    {
+        if ($this->wearingOutfit) return;
+    
+        $this->wearingOutfit = true;
+    
+        $inv = $this->form('Client')->Inventory->content;
+    
+        $inv->inv_maket_visual->image = new UXImage(self::MODEL_OUTFIT_ON);
+        $this->form('Client')->MainGame->content->actor->image = new UXImage(self::MODEL_OUTFIT_ON);
+    }
+    
+    public function takeOffOutfit(): void
+    {
+        if (!$this->wearingOutfit) return;
+    
+        $this->wearingOutfit = false;
+    
+        $model = 'res://.data/ui/maingame/sprite/noout/actor.png';
+    
+        $inv = $this->form('Client')->Inventory->content;
+    
+        $inv->inv_maket_visual->image = new UXImage(self::MODEL_OUTFIT_OFF);
+        $this->form('Client')->MainGame->content->actor->image = new UXImage(self::MODEL_OUTFIT_OFF);
+    }   
 
     public function UnequipCurrentWeapon(): void
     {

@@ -135,7 +135,7 @@ class SaveLoadManager
                 'actor' => [
                     'x' => $c->MainGame->content->actor->position[0],
                     'y' => $c->MainGame->content->actor->position[1],
-                    'is_wearing' => $c->Inventory->content->isWearing,
+                    'is_wearing' => $c->MainGame->content->GameActor->isWearingOutfit(),
                 ],
                 'enemy' => [
                     'x' => $c->MainGame->content->enemy->position[0],
@@ -510,15 +510,21 @@ class SaveLoadManager
             $form->Inventory->content->medkitCount = $saveData['medkit_count'];
             $form->Inventory->content->updateMedkitCount();
     
-            if (isset($saveData['objects_position']['actor']['is_wearing']))
-            {
-                $form->Inventory->content->isWearing = $saveData['objects_position']['actor']['is_wearing'];
-                if ($form->Inventory->content->isWearing)
-                {
-                    $form->Inventory->content->selectedItem = $form->Inventory->content->Inv_Outfit;
-                    $form->Inventory->content->TakeOffItem();
-                }
-            }
+			$actor = $form->MainGame->content->GameActor;
+
+			if (isset($saveData['objects_position']['actor']['is_wearing']))
+			{
+				$isWearing = $saveData['objects_position']['actor']['is_wearing'];
+
+				if ($isWearing)
+				{
+					$actor->putOnOutfit();
+				}
+				else
+				{
+					$actor->takeOffOutfit();
+				}
+			}
             
             if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = true;            
     

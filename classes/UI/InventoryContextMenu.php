@@ -185,7 +185,7 @@ class InventoryContextMenu
         }
         if ($item === $inv->Inv_Outfit)
         {
-            return [$isWearing ? 'putOn' : 'takeOff'];
+		    return [$isWearing ? 'takeOff' : 'putOn'];
         }
 
         return [];
