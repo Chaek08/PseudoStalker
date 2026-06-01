@@ -10,6 +10,7 @@ use app\forms\classes\Localization;
 use app\forms\classes\PseudoSound;
 use app\forms\classes\UIProgressBarAnimator;
 use app\forms\classes\UI\InventoryDragManager;
+use app\forms\classes\UI\InventoryGrid;
 
 class inventory extends AbstractForm
 {
@@ -40,8 +41,9 @@ class inventory extends AbstractForm
     public $SDK_VodkaDesc;
     
     private $dragManager;
-    //port inventory grid to inventory
-    var $grid;   
+    
+    private $grid;
+    private $gridLayout;
     
     private $inventoryItems = [];
 
@@ -80,15 +82,13 @@ class inventory extends AbstractForm
     {
         parent::__construct();
         
-        $this->grid = [];
-        
-        for ($x = 0; $x < 11; $x++) 
-        {
-            for ($y = 0; $y < 13; $y++)
-            {
-                $this->grid[$x][$y] = null;
-            }
-        }  
+        $this->grid = new InventoryGrid(11, 13); 
+        $this->gridLayout = new InventoryGridLayout(
+            $this->gridLeft,
+            $this->gridTop,
+            $this->gridRight,
+            $this->gridBottom
+        );
         
         $this->inventoryItems = [
             $this->Inv_Vodka,
@@ -165,23 +165,14 @@ class inventory extends AbstractForm
         
         if (!$this->dragManager->isActivated()) return;
     
-        $cellSize = 49;
-    
         list($itemW, $itemH) = $this->itemGridSize($this->dragManager->getDraggedItem());
     
-        $cellX = floor(($e->x - $this->gridLeft) / $cellSize);
-        $cellY = floor(($e->y - $this->gridTop) / $cellSize);
+        list($cellX, $cellY) = $this->gridLayout->screenToCell($e->x, $e->y);
+        list($cellX, $cellY) = $this->gridLayout->clampCell($cellX, $cellY, $itemW, $itemH, 11, 13);
     
-        $cellX = max(0, min($cellX, 11 - $itemW));
-        $cellY = max(0, min($cellY, 13 - $itemH));
-    
-        $gridX = $this->gridLeft + ($cellX * $cellSize);
-        $gridY = $this->gridTop + ($cellY * $cellSize);
-    
-        $posX = $gridX + (($cellSize * $itemW) - $this->dragManager->getDraggedItem()->width) / 2;
-        $posY = $gridY + (($cellSize * $itemH) - $this->dragManager->getDraggedItem()->height) / 2;
-    
-        $this->dragManager->getDraggedItem()->position = [$posX, $posY];
+        $item = $this->dragManager->getDraggedItem();
+        
+        $item->position = $this->gridLayout->getItemPosition($item, $cellX, $cellY, $itemW, $itemH);
     }
     
     /**
@@ -189,7 +180,8 @@ class inventory extends AbstractForm
      */
     function GridMouseUp(UXMouseEvent $e = null)
     {
-        if (!$this->dragManager->isDragging()) {
+        if (!$this->dragManager->isDragging())
+        {
             return;
         }
     
@@ -198,7 +190,7 @@ class inventory extends AbstractForm
         $mouseX = $cursor->x;
         $mouseY = $cursor->y;
 
-        if ($this->dragManager->getDraggedItem() === $this->Inv_Outfit && $this->isInsideGridCellsArea($mouseX, $mouseY))
+        if ($this->dragManager->getDraggedItem() === $this->Inv_Outfit && $this->gridLayout->isInsideGrid($mouseX, $mouseY))
         {
             $this->selectedItem = $this->Inv_Outfit;
     
@@ -223,8 +215,6 @@ class inventory extends AbstractForm
             $this->dragManager->endDrag();
             return;
         }
-    
-        $cellSize = 49;
     
         foreach ($this->weaponSlots as $weapon => $slot)
         {
@@ -257,12 +247,13 @@ class inventory extends AbstractForm
             return;
         }
     
-        $cellX = floor(($mouseX - $this->gridLeft) / $cellSize);
-        $cellY = floor(($mouseY - $this->gridTop) / $cellSize);
-    
         list($itemWidthCells, $itemHeightCells) = $this->itemGridSize($this->dragManager->getDraggedItem());
+        
+        list($cellX, $cellY) = $this->gridLayout->screenToCell($mouseX, $mouseY);
+        list($cellX, $cellY) = $this->gridLayout->clampCell($cellX, $cellY, $itemWidthCells, $itemHeightCells, 11, 13);
     
-        $this->removeItemFromGrid($this->dragManager->getDraggedItem());
+        $oldCell = $this->grid->findItem($this->dragManager->getDraggedItem());    
+        $this->grid->remove($this->dragManager->getDraggedItem());
     
         if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_Pm && $this->weaponSlots['Pm']['equipped'])
         {
@@ -292,7 +283,7 @@ class inventory extends AbstractForm
             $this->weaponSlots['AK74']['equipped'] = false;
         }
     
-        if ($this->canPlace($cellX, $cellY, $itemWidthCells, $itemHeightCells))
+        if ($this->grid->canPlace($cellX, $cellY, $itemWidthCells, $itemHeightCells))
         {
             if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_Pm)
                 $this->weaponSlots['Pm']['equipped'] = false;
@@ -300,20 +291,18 @@ class inventory extends AbstractForm
             if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_AK74)
                 $this->weaponSlots['AK74']['equipped'] = false;
     
-            $this->placeItem($this->dragManager->getDraggedItem(), $cellX, $cellY, $itemWidthCells, $itemHeightCells);
+            $this->placeGridItem($this->dragManager->getDraggedItem(), $cellX, $cellY, $itemWidthCells, $itemHeightCells);
     
             $this->UpdateComboboxPosition();
         }
         else
         {
-            $originalPosition = $this->dragManager->getOriginalPosition();
-    
-            $this->dragManager->getDraggedItem()->position = $originalPosition;
-    
-            $originalX = floor(($originalPosition[0] - $this->gridLeft) / $cellSize);
-            $originalY = floor(($originalPosition[1] - $this->gridTop) / $cellSize);
-    
-            $this->placeItem($this->dragManager->getDraggedItem(), $originalX, $originalY, $itemWidthCells, $itemHeightCells);
+            if ($oldCell !== null)
+            {
+                list($originalX, $originalY) = $oldCell;
+            
+                $this->placeGridItem($this->dragManager->getDraggedItem(), $originalX, $originalY, $itemWidthCells, $itemHeightCells);
+            }
         }
     
         $this->dragManager->endDrag();
@@ -379,13 +368,13 @@ class inventory extends AbstractForm
     
     private function addItemToInventory($item, $w, $h)
     {
-        $slot = $this->findFreeSlot($w, $h);
+        $slot = $this->grid->findFreeSlot($w, $h);
         if (!$slot) return;
         
         list($cellX, $cellY) = $slot;
-        if (!$this->canPlace($cellX, $cellY, $w, $h)) return;
+        if (!$this->grid->canPlace($cellX, $cellY, $w, $h)) return;
         
-        $this->placeItem($item, $cellX, $cellY, $w, $h);
+        $this->placeGridItem($item, $cellX, $cellY, $w, $h);
     }
     
     function updateMedkitCount() { $this->updateCountLabel($this->Inv_Medkit, $this->Inv_Medkit_Count, $this->medkitCount); }
@@ -408,7 +397,7 @@ class inventory extends AbstractForm
         
         if ($count < 1)
         {
-            $this->removeItemFromGrid($item);
+            $this->grid->remove($item);
             $item->visible = false;
         }
     }
@@ -442,77 +431,6 @@ class inventory extends AbstractForm
         return null;
     }    
     
-    function canPlace($cellX, $cellY, $w, $h): bool
-    {
-        if ($cellX < 0 || $cellY < 0) return false;
-
-        if ($cellX + $w > 11 || $cellY + $h > 13) return false;
-        
-        for ($x = 0; $x < $w; $x++)
-        {
-            for ($y = 0; $y < $h; $y++)
-            {
-                if ($this->grid[$cellX + $x][$cellY + $y] != null) return false;
-            }
-        }
-        return true;
-    }
-    
-    function placeItem($item, $cellX, $cellY, $w, $h)
-    {
-        for ($x = 0; $x < $w; $x++)
-        {
-            for ($y = 0; $y < $h; $y++)
-            {
-                $this->grid[$cellX + $x][$cellY + $y] = $item;
-            }
-        }
-        
-        $cellSize = 49;
-        
-        $gridX = $this->gridLeft + ($cellX * $cellSize);
-        $gridY = $this->gridTop + ($cellY * $cellSize);
-        
-        $posX = $gridX + (($cellSize * $w) - $item->width) / 2;
-        $posY = $gridY + (($cellSize * $h) - $item->height) / 2;
-        
-        $item->position = [$posX, $posY];
-        $item->visible = true;
-        
-        $this->updateMedkitCount();
-        $this->updateAmmo9x18Count();
-        $this->updateAmmo5x45Count();
-    }
-    
-    function removeItemFromGrid($item)
-    {
-        for ($x = 0; $x < 11; $x++)
-        {
-            for ($y = 0; $y < 13; $y++)
-            {
-                if ($this->grid[$x][$y] === $item)
-                {
-                    $this->grid[$x][$y] = null;
-                }
-            }
-        }
-    }
-    
-    function findFreeSlot($w, $h)
-    {
-        for ($y = 0; $y < 13; $y++)
-        {
-            for ($x = 0; $x < 11; $x++)
-            {
-                if ($this->canPlace($x, $y, $w, $h))
-                {
-                    return [$x, $y];
-                }
-            }
-        }
-        return null;
-    }
-    
     function repackInventory()
     {
         $visibleItems = [];
@@ -527,18 +445,18 @@ class inventory extends AbstractForm
         
         foreach ($visibleItems as $item)
         {
-            $this->removeItemFromGrid($item);
+            $this->grid->remove($item);
         }
         
         foreach ($visibleItems as $item)
         {
             list($w, $h) = $this->itemGridSize($item);
-            $slot = $this->findFreeSlot($w, $h);
+            $slot = $this->grid->findFreeSlot($w, $h);
             
             if ($slot != null)
             {
                 list($x, $y) = $slot;
-                $this->placeItem($item, $x, $y, $w, $h);
+                $this->placeGridItem($item, $x, $y, $w, $h);
             }
             else
             {
@@ -640,7 +558,7 @@ class inventory extends AbstractForm
         $this->DropSound();
         $this->HideCombobox();
         
-        $this->removeItemFromGrid($this->selectedItem);
+        $this->grid->remove($this->selectedItem);
         $this->selectedItem->visible = false;
         $this->repackInventory();
         
@@ -667,7 +585,7 @@ class inventory extends AbstractForm
             
             if ($this->medkitCount < 1)
             {
-                $this->removeItemFromGrid($this->selectedItem);
+                $this->grid->remove($this->selectedItem);
                 $this->selectedItem->visible = false;
                 $this->repackInventory();
             }
@@ -718,7 +636,7 @@ class inventory extends AbstractForm
         $this->inv_maket_visual->image = new UXImage($wearingModel);
         $this->form('Client')->MainGame->content->actor->image = new UXImage($wearingModel);
         
-        $this->removeItemFromGrid($this->selectedItem);
+        $this->grid->remove($this->selectedItem);
         $this->selectedItem->visible = false;
         $this->repackInventory();
         
@@ -753,13 +671,13 @@ class inventory extends AbstractForm
     
         if ($this->weaponSlots[$weaponName]['equipped'])
         {
-            $free = $this->findFreeSlot($slot['size'][0], $slot['size'][1]);
+            $free = $this->grid->findFreeSlot($slot['size'][0], $slot['size'][1]);
     
             if ($free)
             {
                 list($x, $y) = $free;
     
-                $this->placeItem($item, $x, $y, $slot['size'][0], $slot['size'][1]);
+                $this->placeGridItem($item, $x, $y, $slot['size'][0], $slot['size'][1]);
     
                 $this->weaponSlots[$weaponName]['equipped'] = false;
     
@@ -769,7 +687,7 @@ class inventory extends AbstractForm
             return;
         }
     
-        $this->removeItemFromGrid($item);
+        $this->grid->remove($item);
     
         $item->position = $slot['pos'];
         $item->visible = true;
@@ -790,7 +708,7 @@ class inventory extends AbstractForm
     
             if (!$item) continue;
     
-            $this->removeItemFromGrid($item);
+            $this->grid->remove($item);
     
             $item->position = $slot['pos'];
             $item->visible = true;
@@ -1097,7 +1015,7 @@ class inventory extends AbstractForm
         
         if ($this->medkitCount < 1)
         {
-            $this->removeItemFromGrid($this->selectedItem);
+            $this->grid->remove($this->selectedItem);
             $this->selectedItem->visible = false;
             $this->repackInventory();
             
@@ -1244,13 +1162,15 @@ class inventory extends AbstractForm
         $this->contextMenu->hide();
     }
     
-    private function isInsideGridCellsArea($x, $y): bool
+    private function placeGridItem($item, $x, $y, $w, $h)
     {
-        return (
-            $x >= $this->gridLeft &&
-            $x < $this->gridRight &&
-            $y >= $this->gridTop &&
-            $y < $this->gridBottom
-        );
+        $this->grid->place($item, $x, $y, $w, $h);
+    
+        $item->position = $this->gridLayout->getItemPosition($item, $x, $y, $w, $h);
+        $item->visible = true;
+    
+        $this->updateMedkitCount();
+        $this->updateAmmo9x18Count();
+        $this->updateAmmo5x45Count();
     }
 }
