@@ -36,8 +36,6 @@ class PseudoSound
     
     protected $channelMuted = [];
     protected $typeMuted = [];     
-    
-    protected $channelPools = [];  
 
     public static function get()
     {
@@ -104,7 +102,6 @@ class PseudoSound
     
         $entry = $self->createPlayer($channel, $type, $loop);
         $entry['volume'] = max(0.0, $volume);
-        $entry['channelName'] = $channel;
         $player = $entry['player'];
         
     
@@ -412,7 +409,6 @@ class PseudoSound
                 if (!empty($entry['destroyAfterFade']) && !$entry['fade']['active'])
                 {
                     $self->safeStop($entry['player']);
-                    $self->releasePooledChannel($entry['channelName'] ?? '');
                     unset($players[$i]);
                     continue;
                 }                
@@ -430,10 +426,9 @@ class PseudoSound
                 */
                 
                     $self->safeStop($entry['player']);
-                    $self->releasePooledChannel($entry['channelName'] ?? '');
                     unset($players[$i]);
                 }
-            }
+            }         
 
             if (empty($players))
             {
@@ -507,59 +502,5 @@ class PseudoSound
             $this->safeStop($entry['player'] ?? null);
             unset($this->players[$targetChannel][$targetIndex]);
         }
-    }
-    
-    public function getPooledChannel(string $base, int $size = 8): string
-    {
-        if (!isset($this->channelPools[$base]))
-        {
-            $this->channelPools[$base] = [
-                'size' => $size,
-                'channels' => array_fill(0, $size, false),
-                'index' => 0
-            ];
-        }
-    
-        $pool = &$this->channelPools[$base];
-    
-        foreach ($pool['channels'] as $i => $pusy)
-        {
-            if (!$pusy)
-            {
-                $pool['channels'][$i] = true;
-                return $base . '_' . $i;
-            }
-        }
-    
-        $i = $pool['index'];
-        $pool['index'] = ($i + 1) % $pool['size'];
-    
-        return $base . '_' . $i;
-    } 
-    
-    protected function releasePooledChannel(string $channel)
-    {
-        if (!preg_match('/^(.*)_(\d+)$/', $channel, $m))
-        {
-            return;
-        }
-    
-        $base = $m[1];
-        $index = (int)$m[2];
-    
-        if (isset($this->channelPools[$base]['channels'][$index]))
-        {
-            $this->channelPools[$base]['channels'][$index] = false;
-        }
-    }
-    
-    public function clearPool(string $base)
-    {
-        unset($this->channelPools[$base]);
-    }
-    
-    public function clearAllPools()
-    {
-        $this->channelPools = [];
-    }     
+    }    
 }
