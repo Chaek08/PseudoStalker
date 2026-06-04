@@ -45,7 +45,7 @@ class inventory extends AbstractForm
     
     private $grid;
     private $gridLayout;
-    private $actions
+    private $actions;
     
     private $inventoryItems = [];
 

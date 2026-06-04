@@ -1,6 +1,8 @@
 <?php
 namespace app\forms\classes;
 
+use action\Media;
+use php\lang\Thread;
 use Throwable;
 use app\forms\classes\Debug;
 use script\MediaPlayerScript;
@@ -133,6 +135,26 @@ class PseudoSound
             $self->muteChannel($channel, false);
         }
     }
+     
+    public static function playAsync(string $path, bool $autoplay = true, $channel = null)
+    {
+        (new Thread(function() use ($path, $autoplay, $channel)
+        {
+            if (is_bool($channel))
+            {
+                $channel = $channel ? 'true' : 'false';
+            }
+    
+            if ($channel != null)
+            {
+                Media::open($path, $autoplay, (string)$channel);
+            }
+            else
+            {
+                Media::open($path, $autoplay);
+            }
+        }))->start();
+    }    
     
     protected function createPlayer(string $channel, string $type, bool $loop): array
     {

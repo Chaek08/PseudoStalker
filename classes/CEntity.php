@@ -211,7 +211,7 @@ abstract class CEntity
 
         uiLater(function () use ($path) {
             if ($this->isDead || !$this->model) return;
-            PseudoSound::play($path, 'entity_voice', false, null, true);
+            PseudoSound::playAsync($path, true, 'entity_voice');
         });
     }
 

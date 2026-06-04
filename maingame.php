@@ -431,15 +431,13 @@ class maingame extends AbstractForm
     
         $rand = rand(0, 5);
     
-        $ebanulChannel = PseudoSound::get()->getPooledChannel('hit_enemy_damage', 16);
-        //PseudoSound::play("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$rand}.mp3", $ebanulChannel);
+        PseudoSound::playAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$rand}.mp3", true, 'hit_enemy_damage');
     
         if (rand(1, 100) <= 25)
         {
             $randHit = rand(1, 8);
     
-            $hitChannel = PseudoSound::get()->getPooledChannel('hit_enemy', 16);
-            //PseudoSound::play("res://.data/audio/fight/hit_sounds/enemy/hit_{$randHit}.mp3", $hitChannel);
+            PseudoSound::playAsync("res://.data/audio/fight/hit_sounds/enemy/hit_{$randHit}.mp3", true, 'hit_enemy');
         }
     
         if (rand(1, 100) <= 20)
@@ -492,15 +490,13 @@ class maingame extends AbstractForm
     
         $randEbanul = rand(0, 5);
         
-        $ebanulChannel = PseudoSound::get()->getPooledChannel('hit_actor_damage', 16);
-        //PseudoSound::play("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", $ebanulChannel, false, null, true);
+        PseudoSound::playAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", true, 'hit_actor_damage');
     
         if (rand(1, 100) <= 25)
         {
             $randHit = rand(1, 3);
     
-            $hitChannel = PseudoSound::get()->getPooledChannel('hit_actor', 16);
-            //PseudoSound::play("res://.data/audio/fight/hit_sounds/actor/hit_{$randHit}.mp3", $hitChannel, false, null, true);
+            PseudoSound::playAsync("res://.data/audio/fight/hit_sounds/actor/hit_{$randHit}.mp3", true, 'hit_actor');
         }
     
         if (rand(1, 100) <= 40)

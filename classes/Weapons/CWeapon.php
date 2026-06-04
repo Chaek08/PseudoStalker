@@ -99,7 +99,7 @@ abstract class CWeapon
 
             if (!empty($this->soundDraw))
             {
-                PseudoSound::play($this->soundDraw, strtolower($this->type) . '_draw', false, null, true);
+                PseudoSound::playAsync($this->soundDraw, true, strtolower($this->type) . '_draw');
             }
 
             $this->startFollowTimer();
@@ -134,7 +134,7 @@ abstract class CWeapon
     
                 if (!empty($this->soundClose))
                 {
-                    PseudoSound::play($this->soundClose, 'generic_close', false, null, true);
+                    PseudoSound::playAsync($this->soundClose, true, 'generic_close');
                 }
             }
         });
@@ -180,7 +180,7 @@ abstract class CWeapon
     
         if (!empty($this->soundReload))
         {
-            PseudoSound::play($this->soundReload, strtolower($this->type) . '_reload', false, null, true);
+            PseudoSound::playAsync($this->soundReload, true, strtolower($this->type) . '_reload');
         }
                
         $needed = max(0, $this->magSize - $this->ammo);
@@ -256,12 +256,12 @@ abstract class CWeapon
         $tag = $base . '_' . $this->shotSeq;
         $this->shotSeq = ($this->shotSeq + 1) % $this->shotPoolSize;
     
-        PseudoSound::play($this->soundShot, $tag, false, null, true);
+        PseudoSound::playAsync($this->soundShot, true, $tag);
     }
 
     protected function playEmpty(): void
     {
-        PseudoSound::play($this->soundEmpty, strtolower($this->type) . '_empty', false, null, true);
+        PseudoSound::playAsync($this->soundEmpty, true, strtolower($this->type) . '_empty');
     }
 
     protected function spawnMuzzleAndBlood(): void
@@ -356,9 +356,7 @@ abstract class CWeapon
     
             $this->reloadAnimRotate = $maxLift * sin($t * M_PI_2);
             $this->reloadAnimOffsetY = $maxDropY * $ease;
-            $this->reloadAnimOffsetX = $jerk
-                + ($backShift * sin($t * M_PI_2))
-                + (-sin($t * M_PI) * $sideSwing * 0.4);
+            $this->reloadAnimOffsetX = $jerk + ($backShift * sin($t * M_PI_2)) + (-sin($t * M_PI) * $sideSwing * 0.4);
     
             $i++;
     
