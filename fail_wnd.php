@@ -36,8 +36,8 @@ class fail_wnd extends AbstractForm
      */
     function ExitGameBtn(UXMouseEvent $e = null)
     {
-        $this->form('Client')->MainGame->content->RenderHud(false);
         $this->form('Client')->ShowMenu();
+        
         $this->form('Client')->MainGame->content->ResetGameClient();
     }
     /**
