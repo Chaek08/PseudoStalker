@@ -17,7 +17,7 @@ use php\desktop\Mouse;
 
 class CustomTooltip
 {
-    public $form
+    public $form;
     public $mainGame;    
     public $overlay; //внутренняя залупа, на которой будет лежать тултип
     public $rect;
@@ -27,7 +27,7 @@ class CustomTooltip
     public $paddingX = 20;
     public $offsetX  = 10;
     public $gap      = 12;
-    public $delayMs  = 2000; //через сколько оно появится при наведении
+    public $delayMs  = 1700; //через сколько оно появится при наведении
     public $fadeMs   = 200; //через сколько исчезнет
 
     public $visible  = false;
@@ -120,7 +120,7 @@ class CustomTooltip
             {
                 $this->repositionAtCursor();
             }
-        });
+        });     
     }
 
     public function repositionAtCursor(): void

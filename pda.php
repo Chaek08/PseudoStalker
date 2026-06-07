@@ -59,41 +59,12 @@ class pda extends AbstractForm
         foreach ($buttons as $btnName => $tooltipText)
         {
             $label = $this->{$btnName};
-            
+        
             $label->classes[] = 'pda-tab';
-    
+        
             $tooltip = new CustomTooltip($this->form('Client'));
             $tooltip->setText($tooltipText);
-    
-            $label->on('mouseEnter', function($e) use ($tooltip, $label) {
-                if ($tooltip->showTimer)
-                { 
-                    $tooltip->showTimer->cancel(); 
-                    $tooltip->showTimer = null; 
-                }
-                $tooltip->showTimer = Timer::after($tooltip->delayMs, function () use ($tooltip) {
-                    uiLater(function () use ($tooltip) {
-                        $tooltip->repositionAtCursor();
-                        $tooltip->show();
-                    });
-                });
-            });
-    
-            $label->on('mouseExit', function($e) use ($tooltip, $label) {
-                if ($tooltip->showTimer)
-                { 
-                    $tooltip->showTimer->cancel(); 
-                    $tooltip->showTimer = null; 
-                }
-                $tooltip->hide();
-            });
-    
-            $label->on('mouseMove', function($e) use ($tooltip) {
-                if ($tooltip->visible)
-                {
-                    $tooltip->repositionAtCursor();
-                }
-            });
+            $tooltip->attachTo($label);
         }
         
         $this->Pda_Tasks->content->InitTasks();

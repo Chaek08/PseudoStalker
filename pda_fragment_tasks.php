@@ -41,44 +41,11 @@ class pda_fragment_tasks extends AbstractForm
             'quest_detail_btn' => $this->localization->get('TaskDetailTooltip')
         ];
         
-    
         foreach ($buttons as $btnName => $tooltipText)
         {
-            $node = $this->{$btnName};
-    
             $tooltip = new CustomTooltip($this->form('Client'));
             $tooltip->setText($tooltipText);
-    
-            $node->on('mouseEnter', function () use ($tooltip) {
-                if ($tooltip->showTimer) {
-                    $tooltip->showTimer->cancel();
-                    $tooltip->showTimer = null;
-                }
-    
-                $tooltip->showTimer = Timer::after(
-                    $tooltip->delayMs,
-                    function () use ($tooltip) {
-                        uiLater(function () use ($tooltip) {
-                            $tooltip->repositionAtCursor();
-                            $tooltip->show();
-                        });
-                    }
-                );
-            });
-    
-            $node->on('mouseExit', function () use ($tooltip) {
-                if ($tooltip->showTimer) {
-                    $tooltip->showTimer->cancel();
-                    $tooltip->showTimer = null;
-                }
-                $tooltip->hide();
-            });
-    
-            $node->on('mouseMove', function () use ($tooltip) {
-                if ($tooltip->visible) {
-                    $tooltip->repositionAtCursor();
-                }
-            });
+            $tooltip->attachTo($this->{$btnName});
         }
     }
     
