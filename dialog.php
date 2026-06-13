@@ -242,7 +242,7 @@ class dialog extends AbstractForm
     
         if (!file_exists($soundPath))
         {
-            Debug::fatal("Sound file not found: $soundPath", __FILE__, __LINE__);
+            Debug::fatal("Sound file not found: $soundPath");
         }
     /*
         (new Thread(function() use ($soundPath, $mediaId) {

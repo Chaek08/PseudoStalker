@@ -558,7 +558,7 @@ class console extends AbstractForm
                 case "fatal":
                     $message = isset($args[1]) ? implode(" ", array_slice($args, 1)) : "Fatal error triggered from console";
                     
-                    Debug::fatal($message, __FILE__, __LINE__);
+                    Debug::fatal($message);
                     
                     $this->edit->text = "";
                     break;

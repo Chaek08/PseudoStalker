@@ -91,7 +91,7 @@ class PseudoSound
     
         if (!$path)
         {
-            Debug::fail("Sound not found:\n$path", __FILE__, __LINE__);
+            Debug::fail("Sound not found:\n$path");
             return;
         }
     
@@ -110,7 +110,7 @@ class PseudoSound
             $player->loop = $loop;
             $player->play();
         } catch (Throwable $e) {
-            Debug::fail("Failed to play:\n$path", __FILE__, __LINE__);
+            Debug::fail("Failed to play:\n$path");
             return;
         }
     

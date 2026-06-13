@@ -35,7 +35,7 @@ class Localization {
         }
         else
         {
-            Debug::fatal("Localization file not found\n$filename", __FILE__, __LINE__);
+            Debug::fatal("Localization file not found\n$filename");
         }
     }
 

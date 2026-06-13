@@ -1,109 +1,138 @@
 <?php
 namespace app\forms;
 
+use action\Animation;
+use app\forms\classes\UI\CustomTooltip;
+use php\gui\UXImage;
+use php\io\File;
+use php\gui\UXClipboard;
+use php\lang\System;
+use app\forms\classes\Log;
+use app\forms\Client;
+use php\gui\UXApplication;
 use app\forms\classes\Debug;
 use php\gui\event\UXKeyEvent;
 use php\gui\UXLabel;
 use php\gui\layout\UXPanel;
 use php\gui\framework\AbstractForm;
+use php\gui\event\UXMouseEvent; 
+use php\gui\event\UXWindowEvent; 
 
 
 class PseudoDebug extends AbstractForm
 {
-    private $result = 'STOP';
+    function SetRandomCrashPic()
+    {
+        $count = 2;
+    
+        $id = mt_rand(1, $count);
+    
+        $this->dialog_picture->image = new UXImage("res://.data/ui/PseudoDebug/dialog_pictures/{$id}.png");
+    }
+    
+    function popEffect()
+    {
+        $node = $this->form('Client')->PseudoDebug;
+    
+        if (!$node) return;
+    
+        uiLater(function () use ($node) {
+    
+            $node->scaleX = 0.92;
+            $node->scaleY = 0.92;
+    
+            $steps = [
+                [180, 1.10],
+                [120, 0.97],
+                [140, 1.03],
+                [120, 1.00]
+            ];
+    
+            $play = function ($index) use (&$play, $steps, $node) {
+    
+                if (!isset($steps[$index])) return;
+    
+                [$duration, $scale] = $steps[$index];
+    
+                Animation::scaleTo(
+                    $node,
+                    $duration,
+                    $scale,
+                    function () use (&$play, $index) {
+                        $play($index + 1);
+                    }
+                );
+            };
+    
+            $play(0);
+        });
+    }
 
-    public function setData(string $type, string $msg, string $file, int $line)
+    public function setData(string $type, string $msg, string $file, int $line, string $trace = '')
     {
         $this->Title_Label->text = $type;
-        $this->Desc_Label->text  = $msg;
-        $this->Path_Label->text  = $file;
-        $this->Line_Label->text  = (string)$line;
-    }
-
-    public function getResult(): string
-    {
-        return $this->result;
+        
+        $this->Desc_Label->text  = "Reason: " . $msg;
+        
+        $this->Path_Label->text  = "File: " . $file;
+        $this->Line_Label->text  = "Line: " . (string)$line;
+        
+        $this->St_Label->text = "Stack trace: ";
+        $this->St_textArea->text = $trace;
+        
+        $tooltip = new CustomTooltip($this->form('Client'));
+        $tooltip->setText($this->form('Client')->getProductName());
+        $tooltip->attachTo($this->dialog_picture);
     }
 
     /**
-     * @event show
+     * @event btn_close.click-Left 
      */
-    function InitDebugWnd()
-    {
-        $stop = $this->createButton("Stop", function () {
-            $this->result = 'STOP';
-            $this->close();
-        });
-        $stop->size = [152, 29];
-        $stop->x = 10;
-        $stop->y = 170;
-        $this->add($stop);
-
-        $debug = $this->createButton("Debug", function () {
-            $this->result = 'DEBUG';
-            $this->close();
-        });
-        $debug->size = [152, 29];
-        $debug->x = 326;
-        $debug->y = 170;
-        $this->add($debug);
-
-        $this->requestFocus();        
-    }
-
-    private function createButton(string $text, callable $onClick): UXPanel
-    {
-        $btn = new UXPanel();
-        $btn->backgroundColor = '#f0f0f0';
-        $btn->borderColor = '#646464';
-        $btn->borderWidth = 1;
-
-        $label = new UXLabel($text);
-        $label->alignment = 'CENTER';
-        $label->textAlignment = 'CENTER';
-        $label->textColor = 'black';
-        $label->mouseTransparent = true;
-
-        $label->anchors = [
-            'left'   => true,
-            'right'  => true,
-            'top'    => true,
-            'bottom' => true
-        ];
-
-        $btn->add($label);
-
-        $btn->on('mouseEnter', function () use ($btn) {
-            $btn->borderWidth = 2;
-        });
-
-        $btn->on('mouseExit', function () use ($btn, $label) {
-            $btn->borderWidth = 1;
-            $label->translateX = 0;
-            $label->translateY = 0;
-        });
-
-        $btn->on('mouseDown', function () use ($label) {
-            $label->translateX = 1;
-            $label->translateY = 1;
-        });
-
-        $btn->on('mouseUp', function () use ($label, $onClick) {
-            $label->translateX = 0;
-            $label->translateY = 0;
-            call_user_func($onClick);
-        });   
-
-        return $btn;
-    }
-    
-    /**
-     * @event keyDown-Space 
-     */
-    function Space(UXKeyEvent $e = null)
+    function Close(UXMouseEvent $e = null)
     {    
-        $this->result = 'STOP';
-        $this->close();        
+        $this->form('Client')->PseudoDebug->hide();
+        
+        $this->form('Client')->overlay->hide();
+        
+        Debug::next();
     }
     
+    /**
+     * @event btn_exit_game.click-Left 
+     */
+    function ExitGame(UXMouseEvent $e = null)
+    {
+        $this->form('Client')->DestroyClient();
+    }    
+
+    /**
+     * @event btn_openlog.click-Left 
+     */
+    function OpenLogFile(UXMouseEvent $e = null)
+    {
+        $file = Log::getLogFile();
+    
+        if ($file && is_file($file))
+        {
+            execute("notepad \"$file\"");
+        }     
+    }
+
+    /**
+     * @event btn_copyreport.click-Left 
+     */
+    function CopyReport(UXMouseEvent $e = null)
+    {
+        $report =
+            $this->Title_Label->text . "\n\n" .
+            $this->Desc_Label->text . "\n" .
+            $this->Path_Label->text . "\n" .
+            $this->Line_Label->text . "\n\n" .
+            $this->St_Label->text . "\n" .
+            $this->St_textArea->text;
+    
+        UXClipboard::setText($report);
+        
+        $this->form('Client')->toast("Crash report copied to clipboard");
+    }
 }

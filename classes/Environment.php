@@ -271,7 +271,7 @@ class Environment
         
         if ($mediaView == null)
         {
-            Debug::fatal('Environment: mediaView is null', __FILE__, __LINE__);
+            Debug::fatal('Environment: mediaView is null');
             return;
         }        
 
@@ -280,7 +280,7 @@ class Environment
             $this->videoPlayer->view = $this->mediaView;
             $this->videoPlayer->loop = true;
         } catch (\Throwable $e) {
-            Debug::fatal('Environment: video player init failed', __FILE__, __LINE__);
+            Debug::fatal('Environment: video player init failed');
         }
 
         $this->update();
@@ -434,7 +434,7 @@ class Environment
             }
             else
             {
-                Debug::fail("Environment: missing location '{$locId}' for cycle '{$cycle}'", __FILE__, __LINE__);
+                Debug::fail("Environment: missing location '{$locId}' for cycle '{$cycle}'");
                 return [null, false, false, null, $index, $finalCycle];
             }
         }
@@ -443,7 +443,7 @@ class Environment
     
         if (empty($this->locations[$locId][$useCycle]))
         {
-            Debug::fail("Environment: missing location '{$locId}' for real cycle '{$useCycle}'", __FILE__, __LINE__);
+            Debug::fail("Environment: missing location '{$locId}' for real cycle '{$useCycle}'");
             return [null, false, false, null, $index, $finalCycle];
         }
     
@@ -631,7 +631,7 @@ class Environment
         try {
             PseudoSound::play($path, self::CH_SFX, false, null, true, 0, $this->volumeSfx);
         } catch (\Throwable $e) {
-            Debug::fail("Environment: sfx open failed '{$path}'", __FILE__, __LINE__);
+            Debug::fail("Environment: sfx open failed '{$path}'");
         }
     }
 
@@ -750,7 +750,7 @@ class Environment
                  PseudoSound::unmuteChannel(self::CH_RAIN);
             }          
         } catch (\Throwable $e) {
-            Debug::fail("Environment: rain sound failed", __FILE__, __LINE__);
+            Debug::fail("Environment: rain sound failed");
         }
         
         Log::info("[Environment]: rain started '{$this->rainLoopPath}'");
@@ -764,8 +764,7 @@ class Environment
     public function setAnomalyHum($flag)
     {
         $this->isAnomalyHum = (bool)$flag;
-        
-            Log::info("ANOMALY HUM: " . ($this->isAnomalyHum ? 'ON' : 'OFF'));
+
         $this->isAnomalyHum ? $this->startAnomalyHum() : $this->stopAnomalyHum();
     }
 
@@ -885,7 +884,7 @@ class Environment
         list($backgroundPath, $rain, $anomaly, $rawPath, $locIndex, $realCycle) = $this->pickLocationForCycle($cycle);
         if ($backgroundPath === null)
         {
-            Debug::fail("Environment: no background for cycle '{$cycle}'", __FILE__, __LINE__);
+            Debug::fail("Environment: no background for cycle '{$cycle}'");
             return;
         }        
         $cycleChanged = (!$firstInit && $realCycle !== $old);
@@ -909,7 +908,7 @@ class Environment
                 $this->videoPlayer->open($backgroundPath);
                 $this->videoPlayer->play();
             } catch (\Throwable $e) {
-                Debug::fail("Environment: video open failed '{$backgroundPath}'", __FILE__, __LINE__);
+                Debug::fail("Environment: video open failed '{$backgroundPath}'");
                 return;
             }
 
@@ -1060,7 +1059,7 @@ class Environment
     {
         if (!is_array($state))
         {
-            Debug::fail('Environment: restoreState got invalid state', __FILE__, __LINE__);
+            Debug::fail('Environment: restoreState got invalid state');
             return;
         }
     

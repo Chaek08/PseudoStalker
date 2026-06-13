@@ -179,4 +179,11 @@ class Log
             ?? $env["HOSTNAME"]
             ?? "unknown";
     }
+    
+    public static function getLogFile(): ?string
+    {
+        self::flush();
+        
+        return self::$logFile;
+    }    
 }

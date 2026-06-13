@@ -150,7 +150,7 @@ class CActor extends CEntity
         $weapon = CWeaponFactory::create($weaponType, $this);
         if (!$weapon)
         {
-            Debug::fail("Weapon '$weaponType' not created", __FILE__, __LINE__);
+            Debug::fail("Weapon '$weaponType' not created");
             return;
         }
 

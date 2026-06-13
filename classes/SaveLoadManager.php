@@ -582,7 +582,7 @@ class SaveLoadManager
         {
             if (Debug_Build)
             {
-                Debug::fail("Cannot load save '{$saveName}': " . $result['error'], __FILE__, __LINE__);
+                Debug::fail("Cannot load save '{$saveName}': " . $result['error']);
             }
             return;
         }

@@ -1,36 +1,103 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208" prefWidth="488" styleClass="">
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544" prefWidth="608" styleClass="">
   <children>
-    <Panel backgroundColor="#f0f0f0" borderColor="#808080" borderRadius="0" borderStyle="SOLID" borderWidth="1" focusTraversable="false" id="panel" layoutX="0" layoutY="0" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="208" prefWidth="488" styleClass="" titleColor="#333333" titleOffset="15" titlePosition="TOP_LEFT">
-      <children/>
-      <titleFont>
-        <Font name="System Regular" size="12"/>
-      </titleFont>
-    </Panel>
-    <Data cursor="DEFAULT" enabled="1" id="data-panel" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Line_Label" layoutX="160" layoutY="168" prefHeight="24" prefWidth="168" style="-fx-opacity: 1;" styleClass="label " text="Line_Label" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
+    <FlatButton alignment="CENTER" borderRadius="10" color="#4d4d4d" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="main_frame" layoutX="8" layoutY="8" opacity="0.95" prefHeight="528" prefWidth="592" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="" id="data-Line_Label" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Path_Label" layoutX="0" layoutY="120" prefHeight="32" prefWidth="488" style="-fx-opacity: 1;" styleClass="label " text="Path_Label" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
+    </FlatButton>
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button" layoutX="112" layoutY="72" prefHeight="120" prefWidth="472" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="" id="data-Path_Label" visible="1"/>
-    <LabelEx alignment="CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Title_Label" layoutX="0" layoutY="16" prefHeight="32" prefWidth="488" style="-fx-opacity: 1;" styleClass="label " text="Title_Label" textAlignment="LEFT" textFill="#000000" underline="false" wrapText="false">
+    </FlatButton>
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="button3" layoutX="112" layoutY="200" prefHeight="272" prefWidth="472" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
-    </LabelEx>
-    <Data cursor="DEFAULT" enabled="" id="data-Title_Label" visible="1"/>
-    <LabelEx alignment="TOP_CENTER" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="Desc_Label" layoutX="0" layoutY="40" prefHeight="72" prefWidth="488" style="-fx-opacity: 1;" styleClass="label " text="Desc_Label" textAlignment="CENTER" textFill="#000000" underline="false" wrapText="false">
+    </FlatButton>
+    <org.develnext.jphp.ext.javafx.jfoenix.support.JFXTextAreaFixed editable="false" focusColor="#4d4d4d00" focusTraversable="true" id="St_textArea" layoutX="128" layoutY="240" prefColumnCount="40" prefHeight="216" prefWidth="440" promptText="" text="" unFocusColor="#4d4d4d00" wrapText="true">
+      <font>
+        <Font name="Consolas" size="15"/>
+      </font>
+      <styleClass xmlns:fx="http://javafx.com/fxml">
+        <String fx:value="text-input"/>
+        <String fx:value="text-area"/>
+        <String fx:value="jfx-text-area"/>
+        <String fx:value="white-text"/>
+        <String fx:value="pidaras"/>
+        <String fx:value="error-scroll"/>
+      </styleClass>
+    </org.develnext.jphp.ext.javafx.jfoenix.support.JFXTextAreaFixed>
+    <FlatButton alignment="CENTER" borderRadius="15" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="frame_01" layoutX="112" layoutY="24" prefHeight="40" prefWidth="472" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="12"/>
       </font>
+    </FlatButton>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="Line_Label" layoutX="128" layoutY="152" prefHeight="24" prefWidth="440" style="-fx-opacity: 1;" styleClass="label " text="Line:" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="Consolas" size="15"/>
+      </font>
     </LabelEx>
-    <Data cursor="DEFAULT" enabled="" id="data-Desc_Label" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" graphic=".data/ui/dialog/no_role.png" id="data-Line_Label" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="Path_Label" layoutX="128" layoutY="128" prefHeight="32" prefWidth="440" style="-fx-opacity: 1;" styleClass="label " text="File:" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="Consolas" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="" graphic=".data/ui/PseudoDebug/file_ic.png" id="data-Path_Label" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" graphic=".data/ui/PseudoDebug/error_text_ic.png" id="data-Title_Label" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" graphic=".data/ui/PseudoDebug/reason_ic.png" id="data-Desc_Label" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" id="data-main_frame" visible="1"/>
+    <ImageViewEx autoSize="false" centered="true" focusTraversable="false" height="88" id="dialog_picture" layoutX="16" layoutY="40" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="88">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-dialog_picture" image=".data/ui/icon_npc/icon_vovchik.png" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#cccccc" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#e6e6e6" id="btn_close" layoutX="368" layoutY="488" prefHeight="32" prefWidth="88" styleClass="x-flat-button " text="Hide" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-btn_close" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" id="data-frame_01" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="Title_Label" layoutX="128" layoutY="32" prefHeight="24" prefWidth="440" style="-fx-opacity: 1;" styleClass="label " text="Title_Label" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="Consolas" size="16"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="" id="data-button" visible="1"/>
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="Desc_Label" layoutX="128" layoutY="88" prefHeight="48" prefWidth="440" style="-fx-opacity: 1;" styleClass="label " text="Reason:" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="Consolas" size="15"/>
+      </font>
+    </LabelEx>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#cccccc" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#e6e6e6" id="btn_openlog" layoutX="200" layoutY="488" prefHeight="32" prefWidth="120" styleClass="x-flat-button " text="Open Log" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-btn_openlog" visible="1"/>
+    <Data cursor="DEFAULT" enabled="" id="data-button3" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-St_textArea" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="6" id="St_Label" layoutX="128" layoutY="216" prefHeight="24" prefWidth="440" style="-fx-opacity: 1;" styleClass="label " text="Stack trace:" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="Consolas" size="15"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="" graphic=".data/ui/pda/mainbtn_icon.png" id="data-St_Label" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#cccccc" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#e6e6e6" id="btn_copyreport" layoutX="112" layoutY="488" prefHeight="32" prefWidth="80" styleClass="x-flat-button " text="Copy" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-btn_copyreport" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="10" clickColor="#cccccc" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#e6e6e6" id="btn_exit_game" layoutX="464" layoutY="488" prefHeight="32" prefWidth="120" styleClass="x-flat-button " text="Exit Game" textAlignment="CENTER" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="15"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-btn_exit_game" visible="1"/>
   </children>
 </AnchorPane>

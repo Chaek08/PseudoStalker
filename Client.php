@@ -56,6 +56,8 @@ class Client extends AbstractForm
         $GLOBALS['AmbientSound'] = true;        
         $GLOBALS['HudVisible'] = true;
         
+        Debug::setClient($this);        
+        
         $this->GetVersion(); 
         
         $this->localization = new Localization($language);
@@ -109,44 +111,59 @@ class Client extends AbstractForm
     function GetVersion()
     {
         $filePath = "PseudoCore.dll";
-
-        if (!file_exists($filePath)) 
+    
+        if (!file_exists($filePath))
         {
-            Debug::fatal("$filePath not found", __FILE__, __LINE__);
+            Debug::fatal("$filePath not found");
         }
-
+    
         $encrypted = file_get_contents($filePath);
         $this->BuildID = '(null)';
-        
-        if ($encrypted == false) 
+    
+        if ($encrypted == false)
         {
-            Debug::fatal("Failed to read $filePath", __FILE__, __LINE__);
+            Debug::fatal("Failed to read $filePath");
         }
-
-        if ($encrypted != false)
+    
+        $decrypted = DimasCryptoZlodey::decryptData($encrypted);
+    
+        if ($decrypted != false && trim($decrypted) != '')
         {
-            $decrypted = DimasCryptoZlodey::decryptData($encrypted);
-            if ($decrypted != false && trim($decrypted) != '')
-            {
-                $this->BuildID = trim($decrypted);
-            }
+            $this->BuildID = trim($decrypted);
         }
-
+    
         if (Debug_Build)
         {
             $this->DebugUtilities->content->version->show();
             $this->DebugUtilities->content->version_detail->show();
-            Element::setText($this->DebugUtilities->content->version_detail, $this->BuildID);
+    
+            Element::setText($this->DebugUtilities->content->version_detail, $this->getBuildID());
         }
         else
         {
             $this->MainMenu->content->version->show();
             $this->MainMenu->content->version_detail->show();
-            Element::setText($this->MainMenu->content->version_detail, VersionID);
+    
+            Element::setText($this->MainMenu->content->version_detail, $this->getVersionID());
         }
-        
-        Log::setBuildData($this->BuildID, VersionID);          
+    
+        Log::setBuildData($this->getBuildID(), $this->getVersionID());
     }
+    
+    public function getVersionID(): string
+    {
+        return VersionID;
+    }
+    
+    public function getBuildID(): string
+    {
+        return $this->BuildID ?? '(null)';
+    }
+    
+    public function getProductName(): string
+    {
+        return 'PseudoStalker ' . $this->getVersionID() . ', ' . $this->getBuildID();
+    }    
     
     function getCurrentLanguageFromUI()
     {
@@ -722,5 +739,13 @@ class Client extends AbstractForm
         if (!$this->Dialog->visible) return;
         
         $this->Dialog->content->EnterAnswer();
+    }
+
+    /**
+     * @event keyDown-Space 
+     */
+    function SpaceProxy(UXKeyEvent $e = null)
+    {    
+        if ($this->PseudoDebug->visible) $this->PseudoDebug->content->Close();
     }
 }

@@ -1,6 +1,8 @@
 <?php
 namespace app\forms\classes;
 
+use action\Animation;
+use app\forms\Client;
 use php\framework\Logger;
 use app\forms\PseudoDebug;
 use php\time\Time;
@@ -9,18 +11,23 @@ use app\forms\classes\Log;
 
 class Debug
 {
-    public const FATAL    = '*** Fatal Error ***';
-    public const ASSERT   = '*** Assertion Failed ***';
-    public const API      = '*** API Failure ***';
-    public const INTERNAL = '*** Internal Error ***';
+    public const FATAL    = 'Fatal Error';
+    public const ASSERT   = 'Assertion Failed';
+    public const API      = 'API Failure';
+    public const INTERNAL = 'Internal Error';
 
     private static $handling = false;
     private static $queue = [];
-    private static $paused = false;
+    
+    private static $client;
 
+    public static function setClient(Client $client)
+    {
+        self::$client = $client;
+    }    
     public static function fatal(string $message, string $file = null, int $line = null)
     {
-        self::backend(self::FATAL, $message, $file, $line);
+        self::backend(self::FATAL, $message, $file, $line); 
     }
 
     public static function fail(string $message, string $file = null, int $line = null)
@@ -41,13 +48,20 @@ class Debug
     private static function backend(string $type, string $message, ?string $file, ?int $line)
     {
         $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-        self::$queue[] = [$type, $message, $file, $line, $trace];
-
-        if ($type === self::FATAL || $type === self::ASSERT)
+        
+        //07.06.2026: теперь можно не передавать файл и номер строки при вызове, функция сама их вытягивает
+        if ($file === null && isset($trace[1]['file']))
         {
-            self::$paused = false;
+            $file = $trace[1]['file'];
         }
-
+    
+        if ($line === null && isset($trace[1]['line']))
+        {
+            $line = $trace[1]['line'];
+        }
+    
+        self::$queue[] = [$type, $message, $file, $line, $trace];
+    
         self::processQueue();
     }
 
@@ -57,49 +71,36 @@ class Debug
         {
             return;
         }
-
-        self::$handling = true;
-
-        while (!$thisPaused = self::$paused)
+    
+        $item = array_shift(self::$queue);
+    
+        if (!$item)
         {
-            $item = array_shift(self::$queue);
-            if (!$item)
-                break;
-
-            [$type, $message, $file, $line, $trace] = $item;
-
-            self::logCrash($type, $message, $file, $line, $trace);
-
-            $wnd = new PseudoDebug();
-            $wnd->setData(
-                $type,
-                $message,
-                $file ?? "unknown",
-                $line ?? 0
-            );
-
-            $wnd->showAndWait();
-            $result = $wnd->getResult();
-
-            if ($result === "STOP" && $type === self::FATAL)
-            {
-                exit(1);
-            }
-
-            if ($result === "DEBUG")
-            {
-                self::$handling = false;
-                throw new \Exception("Debug break");
-            }
-
-            if ($type === self::FATAL)
-            {
-                exit(1);
-            }
+            return;
         }
-
-        self::$handling = false;
+    
+        self::$handling = true;
+    
+        [$type, $message, $file, $line, $trace] = $item;
+    
+        self::logCrash($type, $message, $file, $line, $trace);
+    
+        if (!self::$client)
+        {
+            Logger::error("Debug client not initialized");
+            self::$handling = false;
+            return;
+        }
+    
+        self::showWindow($type, $message, $file, $line, $trace);
     }
+    
+    public static function next()
+    {
+        self::$handling = false;
+    
+        self::processQueue();
+    }    
 
     private static function logCrash(string $type, string $message, ?string $file, ?int $line, ?array $trace = null)
     {
@@ -151,15 +152,24 @@ class Debug
 
         return implode("\n", $out);
     }
-
-    public static function continueAfterStop()
+    
+    private static function showWindow(string $type, string $message, ?string $file, ?int $line,array $trace)
     {
-        if (!self::$paused)
-        {
-            return;
-        }
-
-        self::$paused = false;
-        self::processQueue();
-    }
+        $wnd = self::$client->PseudoDebug;
+    
+        $overlay = self::$client->overlay;
+        
+        $overlay->visible = true;
+        $overlay->toFront();
+            
+        //self::$client->overlay->visible = true;
+        //self::$client->overlay->toFront();
+    
+        $wnd->visible = true;
+        $wnd->toFront();
+    
+        $wnd->content->setData($type, $message, $file ?? 'unknown', $line ?? 0, self::formatTrace($trace));
+    
+        $wnd->content->popEffect();
+    }      
 }

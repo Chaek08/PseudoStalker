@@ -78,7 +78,7 @@ class CSimpleInifile
             
         if (!is_writable($dir))
         {
-            Debug::fatal("LTX dir not writable", __FILE__, __LINE__);
+            Debug::fatal("LTX dir not writable");
         }
 
         file_put_contents($this->path, $out);
