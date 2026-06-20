@@ -6,6 +6,8 @@ use std, gui, framework, app;
 use php\gui\text\UXFont;
 use php\gui\event\UXMouseEvent; 
 use app\forms\classes\Localization;
+use app\forms\classes\Environment\EnvironmentBase;
+use app\forms\classes\Environment\EnvironmentBrightness;
 
 class mainmenu extends AbstractForm
 {

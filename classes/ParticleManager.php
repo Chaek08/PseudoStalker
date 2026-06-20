@@ -11,7 +11,8 @@ use php\lang\Thread;
 use behaviour\custom\GlowEffectBehaviour;
 use behaviour\custom\BloomEffectBehaviour;
 use php\gui\animation\UXAnimationTimer;
-use app\forms\classes\EnvironmentBrightness;
+use app\forms\classes\Environment\EnvironmentBase;
+use app\forms\classes\Environment\EnvironmentBrightness;
 
 class ParticleManager
 {

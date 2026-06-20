@@ -3,7 +3,8 @@ namespace app\forms;
 
 use app\forms\classes\CWindowManager;
 use app\forms\classes\UI\UIProgressBarAnimator;
-use app\forms\classes\Environment;
+use app\forms\classes\Environment\EnvironmentBase;
+use app\forms\classes\Environment\EnvironmentBrightness;
 use php\lang\Thread;
 use php\gui\animation\UXAnimationTimer;
 use action\Animation;

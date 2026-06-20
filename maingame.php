@@ -2,8 +2,6 @@
 namespace app\forms;
 
 use php\desktop\Mouse;
-use app\forms\classes\Environment;
-use app\forms\classes\EnvironmentBrightness;
 use app\forms\classes\CEnemy;
 use app\forms\classes\CActor;
 use Throwable;
@@ -23,6 +21,8 @@ use php\gui\event\UXMouseEvent;
 use php\framework\Logger;
 use app\forms\classes\Localization;
 use php\gui\event\UXEvent; 
+use app\forms\classes\Environment\EnvironmentBase;
+use app\forms\classes\Environment\EnvironmentBrightness;
 use app\forms\classes\ParticleManager;
 use app\forms\classes\UI\HitMark;
 use app\forms\classes\UIProgressBarAnimator;

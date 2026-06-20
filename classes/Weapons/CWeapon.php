@@ -10,8 +10,9 @@ use script\MediaPlayerScript;
 use php\gui\UXImageView;
 use php\gui\UXImage;
 use behaviour\custom\ColorAdjustEffectBehaviour;
-use app\forms\classes\EnvironmentBrightness;
 use app\forms\classes\PseudoSound;
+use app\forms\classes\Environment\EnvironmentBase;
+use app\forms\classes\Environment\EnvironmentBrightness;
 
 abstract class CWeapon
 {
