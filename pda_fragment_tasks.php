@@ -212,9 +212,9 @@ class pda_fragment_tasks extends AbstractForm
     
     function Step1_Complete()
     {
-        $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));        
-        
-        PseudoSound::play('res://.data/audio/pda.mp3', 'pda_task', false, null, true);
+        $this->step1->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_complete.png'));   
+             
+        DimaAsyncHackEbatNaxyi::playSfxSound('res://.data/audio/pda.mp3', 'pda_pilikanie_ebanarot');  
         
         $GLOBALS['Task_Status_Update'] = true;
         $this->form('Client')->MainGame->content->ShowMessageBox();
@@ -234,7 +234,7 @@ class pda_fragment_tasks extends AbstractForm
         
         $this->form('Client')->Pda->content->Pda_Contacts->content->UpdateContacts();
         
-        PseudoSound::play('res://.data/audio/pda.mp3', 'pda_task', false, null, true);
+        DimaAsyncHackEbatNaxyi::playSfxSound('res://.data/audio/pda.mp3', 'pda_pilikanie_ebanarot');
         
         $GLOBALS['Task_Status_Update'] = true;
         $this->form('Client')->MainGame->content->ShowMessageBox();
@@ -250,7 +250,7 @@ class pda_fragment_tasks extends AbstractForm
         $this->step2->graphic = new UXImageView(new UXImage('res://.data/ui/pda/task_step_failed.png')); 
         $this->DeleteTask();  
         
-        PseudoSound::play('res://.data/audio/pda.mp3', 'pda_task', false, null, true);
+        DimaAsyncHackEbatNaxyi::playSfxSound('res://.data/audio/pda.mp3', 'pda_pilikanie_ebanarot');
         
         $GLOBALS['Task_Status_Failed'] = true;
         $this->form('Client')->MainGame->content->ShowMessageBox();

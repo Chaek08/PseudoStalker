@@ -1,6 +1,8 @@
 <?php
 namespace app\forms\classes\Weapons;
 
+use action\Media;
+use php\lang\Thread;
 use php\gui\animation\UXAnimationTimer;
 use behaviour\custom\DropShadowEffectBehaviour;
 use php\gui\UXApplication;
@@ -10,9 +12,9 @@ use script\MediaPlayerScript;
 use php\gui\UXImageView;
 use php\gui\UXImage;
 use behaviour\custom\ColorAdjustEffectBehaviour;
-use app\forms\classes\PseudoSound;
 use app\forms\classes\Environment\EnvironmentBase;
 use app\forms\classes\Environment\EnvironmentBrightness;
+use app\forms\classes\DimaAsyncHackEbatNaxyi;
 
 abstract class CWeapon
 {
@@ -59,12 +61,12 @@ abstract class CWeapon
     protected $shotPlayers = [];
     protected $shotPoolSize = 6;
     protected $shotSeq = 0;
-
+      
     public function __construct($owner)
     {
-        $this->owner = $owner;
+        $this->owner = $owner; 
     }
-
+        
     abstract public function getType(): string;
     abstract protected function spritePath(): string;
     abstract protected function spriteOffsets(): array;
@@ -98,10 +100,7 @@ abstract class CWeapon
                    
             $this->owner->add($this->view);
 
-            if (!empty($this->soundDraw))
-            {
-                PseudoSound::playAsync($this->soundDraw, true, strtolower($this->type) . '_draw');
-            }
+            DimaAsyncHackEbatNaxyi::playSfxSound($this->soundDraw, 'weapon_draw');
 
             $this->startFollowTimer();
 
@@ -133,10 +132,7 @@ abstract class CWeapon
     
                 $this->view = null;
     
-                if (!empty($this->soundClose))
-                {
-                    PseudoSound::playAsync($this->soundClose, true, 'generic_close');
-                }
+                DimaAsyncHackEbatNaxyi::playSfxSound($this->soundClose, 'weapon_close');
             }
         });
     }
@@ -179,10 +175,7 @@ abstract class CWeapon
     
         if ($totalAmmo <= 0 && !$this->jammed) return;
     
-        if (!empty($this->soundReload))
-        {
-            PseudoSound::playAsync($this->soundReload, true, strtolower($this->type) . '_reload');
-        }
+        DimaAsyncHackEbatNaxyi::playSfxSound($this->soundReload, 'weapon_reload');
                
         $needed = max(0, $this->magSize - $this->ammo);
         $this->reloading = true;
@@ -256,13 +249,14 @@ abstract class CWeapon
         $base = strtolower($this->type) . '_shot';
         $tag = $base . '_' . $this->shotSeq;
         $this->shotSeq = ($this->shotSeq + 1) % $this->shotPoolSize;
-    
-        PseudoSound::playAsync($this->soundShot, true, $tag);
+        
+        //сверху хуйня, удалиииииить
+        DimaAsyncHackEbatNaxyi::playSfxSound($this->soundShot, 'weapon_shot');
     }
 
     protected function playEmpty(): void
     {
-        PseudoSound::playAsync($this->soundEmpty, true, strtolower($this->type) . '_empty');
+        DimaAsyncHackEbatNaxyi::playSfxSound($this->soundEmpty, 'weapon_empty');
     }
 
     protected function spawnMuzzleAndBlood(): void
@@ -517,5 +511,23 @@ abstract class CWeapon
         }
     
         $this->fxTimers = [];
+    }    
+    
+    public function resetToDefaultState(): void
+    {
+        $this->ammo = $this->magSize;
+    
+        $this->jammed = false;
+        $this->jamHandled = false;
+        $this->reloading = false;
+    
+        $this->recoilOffsetX = 0;
+        $this->recoilOffsetY = 0;
+    
+        $this->reloadAnimOffsetX = 0;
+        $this->reloadAnimOffsetY = 0;
+        $this->reloadAnimRotate = 0;
+    
+        $this->stopAllFxTimers();
     }    
 }

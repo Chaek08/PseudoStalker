@@ -277,4 +277,21 @@ class CActor extends CEntity
         if (!$this->currentWeapon) return;
         $this->currentWeapon->reload();
     }
+    
+    public function ResetWeapons(): void
+    {
+        $this->weaponState = [];
+    
+        if ($this->currentWeapon)
+        {
+            $this->currentWeapon->resetToDefaultState();
+        }
+    
+        $this->UpdateMagazine();
+    }    
+    
+    public function setWeaponState(array $state): void
+    {
+        $this->weaponState = $state;
+    }    
 }

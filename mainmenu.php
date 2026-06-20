@@ -14,6 +14,8 @@ class mainmenu extends AbstractForm
     private $localization;
 
     public $SDK_MMBackground;
+    
+    public $menuPlayer;
 
     public function __construct()
     {
@@ -31,12 +33,18 @@ class mainmenu extends AbstractForm
     {
         $GLOBALS['NewGameState'] = true;
         
-        PseudoSound::play('res://.data/audio/menu/menu_sound.mp3', 'menu_sound', true, PseudoSound::TYPE_MUSIC);
-        PseudoSound::muteChannel('menu_sound', false);
+        if (is_object($this->menuPlayer))
+        {
+            $this->menuPlayer->stop();
+        }
+        
+        $this->menuPlayer = new MediaPlayerScript();
+        $this->menuPlayer->open('res://.data/audio/menu/menu_sound.mp3');
+        $this->menuPlayer->loop = true;
         
         if ($GLOBALS['AllSounds'] && $GLOBALS['MenuSound'])
         {
-            PseudoSound::unmuteChannel('menu_sound');
+            $this->menuPlayer->play();
         }
         
         //отрендерим задник меню
@@ -62,15 +70,10 @@ class mainmenu extends AbstractForm
         {
             $this->SwitchGameState();
             
-            //Environment
-            $this->form('Client')->MainGame->content->InitEnvironment();
-            
-            //Weapons
-            $this->form('Client')->Inventory->content->MoveWeaponsToWeaponSlot(); //эта хуйня и будет опорой для аттача
+            $this->form('Client')->MainGame->content->InitMainGame();
         }
         
-        PseudoSound::muteChannel('menu_sound');
-        PseudoSound::unmuteSfx();
+        $this->menuPlayer->pause();
         
         Media::pause($this->MainMenuBackground);        
         
@@ -80,7 +83,7 @@ class mainmenu extends AbstractForm
         {
             if (!$GLOBALS['QuestCompleted'] && $GLOBALS['QuestStep1'])
             {
-                 PseudoSound::unmuteChannel('fight_sound');
+                 $this->form('Client')->MainGame->content->fightPlayer->play();
             }
         }
            
@@ -89,13 +92,10 @@ class mainmenu extends AbstractForm
         if ($this->form('Client')->ltx->r_bool('discord_rpc'))
         {
             $GLOBALS['discord']->setDetails($this->localization->get('RPC_Ingame'));
-            $GLOBALS['discord']->updateState();            
+            $GLOBALS['discord']->updateState();
         }
-        
-        //предзагрузка здесь, чтобы в ui не палиться
-        $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();
-        $this->form('Client')->Dialog->content->UpdateData();
     }
+    
     function SwitchGameState()
     {
         $this->localization->setLanguage($this->getCurrentLanguageFromUI());

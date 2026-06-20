@@ -1,10 +1,11 @@
 <?php
 namespace app\forms\classes;
 
+use script\MediaPlayerScript;
 use php\time\Timer;
-use app\forms\classes\CSoundIndicator;
 use behaviour\custom\DraggingBehaviour;
-use app\forms\classes\PseudoSound;
+use app\forms\classes\CSoundIndicator;
+use app\forms\classes\DimaAsyncHackEbatNaxyi;
 
 abstract class CEntity
 {
@@ -34,12 +35,6 @@ abstract class CEntity
         $this->form  = $form;
         $this->maxHP = $maxHP;
         $this->hp    = $maxHP;
-
-        $this->dragging = new DraggingBehaviour();
-        $this->dragging->setProperties([
-            'direction' => 'LEFT_RIGHT',
-            'limitedByParent' => true,
-        ]);
     }
     
     public function SetGodMode(bool $state): void
@@ -73,7 +68,15 @@ abstract class CEntity
     public function SetModel($mdl): void
     {
         $this->model = $mdl;
+        
+        $this->dragging = new DraggingBehaviour();
+        $this->dragging->setProperties([
+            'direction' => 'LEFT_RIGHT',
+            'limitedByParent' => true,
+        ]);        
+        
         $this->dragging->apply($this->model);
+        
         $this->initSoundIndicator();
     }
 
@@ -84,6 +87,12 @@ abstract class CEntity
 
     protected function initSoundIndicator(): void
     {
+        if ($this->soundIndicator)
+        {
+            $this->soundIndicator->destroy();
+            $this->soundIndicator = null;
+        }    
+    
         if ($this->model)
         {
             $this->soundIndicator = new CSoundIndicator($this->model);
@@ -211,7 +220,8 @@ abstract class CEntity
 
         uiLater(function () use ($path) {
             if ($this->isDead || !$this->model) return;
-            PseudoSound::playAsync($path, true, 'entity_voice');
+            
+            DimaAsyncHackEbatNaxyi::playSfxSound($path, 'entity_voice');
         });
     }
 
@@ -307,5 +317,44 @@ abstract class CEntity
             $this->regenTimer = null;
         }
     }
+
+    public function restoreState(int $hp, bool $dead, bool $interactive = false): void
+    {
+        $this->stopRegen();
     
+        $this->hp = max(0, min($this->maxHP, $hp));
+        $this->isDead = $dead;
+    
+        if ($dead)
+        {
+            $this->canInteractive = false;
+    
+            if ($this->soundIndicator)
+            {
+                $this->soundIndicator->destroy();
+                $this->soundIndicator = null;
+            }
+    
+            if ($this->model)
+            {
+                $this->model->hide();
+            }
+        }
+        else
+        {
+            if ($this->model)
+            {
+                $this->model->show();
+            }
+    
+            $this->canInteractive = $interactive;
+    
+            if (!$this->soundIndicator)
+            {
+                $this->initSoundIndicator();
+            }
+        }
+    
+        $this->fireHpChanged();
+    }    
 }

@@ -1,7 +1,6 @@
 <?php
 namespace app\forms;
 
-use app\forms\classes\PseudoSound;
 use Exception;
 use std, gui, framework, app;
 use php\gui\event\UXMouseEvent; 
@@ -173,7 +172,7 @@ class opt extends AbstractForm
             $this->MenuSound_Switcher_Btn->classesString = 'switch-off';
             
             $GLOBALS['MenuSound'] = false;
-            PseudoSound::muteChannel('menu_sound');
+            $this->form('Client')->MainMenu->content->menuPlayer->pause();
             
             $this->form('Client')->ltx->w_string('mm_sound', 'off');
             $this->form('Client')->ltx->save();              
@@ -189,7 +188,7 @@ class opt extends AbstractForm
             $GLOBALS['MenuSound'] = true;
             if ($this->form('Client')->MainMenu->visible)
             {
-                PseudoSound::unmuteChannel('menu_sound');
+                $this->form('Client')->MainMenu->content->menuPlayer->play();
             }
             
             $this->form('Client')->ltx->w_string('mm_sound', 'on');

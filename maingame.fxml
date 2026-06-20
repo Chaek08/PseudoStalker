@@ -52,7 +52,7 @@
         <Font name="System Regular" size="12"/>
       </font>
     </ImageViewEx>
-    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="93" id="item_vodka_0000" layoutX="256" layoutY="688" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="30">
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="98" id="item_vodka_0000" layoutX="256" layoutY="688" mosaic="false" mosaicGap="0" proportional="false" stretch="false" styleClass="" textFill="#000000" width="49">
       <font>
         <Font name="System Regular" size="12"/>
       </font>

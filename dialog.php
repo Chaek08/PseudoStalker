@@ -1,14 +1,14 @@
 <?php
 namespace app\forms;
 
-use app\forms\classes\PseudoSound;
-use app\forms\classes\UI\UICharacterInfo;
 use Throwable;
 use php\gui\UXImageView;
 use php\gui\UXImage;
 use std, gui, framework, app;
-use app\forms\classes\Localization;
 use php\gui\event\UXMouseEvent; 
+use app\forms\classes\Localization;
+use app\forms\classes\UI\UICharacterInfo;
+use app\forms\classes\DimaAsyncHackEbatNaxyi;
 
 class dialog extends AbstractForm
 {
@@ -253,7 +253,7 @@ class dialog extends AbstractForm
             Media::open($soundPath, true, $mediaId);
         }))->start();
       */
-       PseudoSound::play($soundPath, $mediaId, false, null, true);  
+       DimaAsyncHackEbatNaxyi::playSfxSound($soundPath, $mediaId);  
     }
     
     private function playVoice(string $sdkPath, string $fileName, string $mediaId)
@@ -266,7 +266,7 @@ class dialog extends AbstractForm
             
             if ($path != '')
             {
-                PseudoSound::play($path, $mediaId, false, null, true);
+                DimaAsyncHackEbatNaxyi::playSfxSound($path, $mediaId);
             }
             else
             {

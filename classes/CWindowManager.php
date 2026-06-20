@@ -88,6 +88,8 @@ class CWindowManager
         {
             $this->updateDebug($w, $h);
             $this->scaleScenes($w, $h);
+            
+            $this->centerNode($this->form->PseudoDebug);      
         });
     }   
     
@@ -141,6 +143,15 @@ class CWindowManager
             $obj->y = ($h - $obj->height) / 2;
         }
     }
+    
+    public function centerNode($node)
+    {
+        $w = $this->form->Client_Proxy->width;
+        $h = $this->form->Client_Proxy->height;
+    
+        $node->x = ($w - $node->width) / 2;
+        $node->y = ($h - $node->height) / 2;
+    }    
 
     public function setFullscreen(bool $state)
     {

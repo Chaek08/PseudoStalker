@@ -2,13 +2,10 @@
 namespace app\forms;
 
 use php\desktop\Mouse;
-use app\forms\classes\CEnemy;
-use app\forms\classes\CActor;
 use Throwable;
 use behaviour\custom\ColorAdjustEffectBehaviour;
 use php\time\Timer;
 use php\gui\UXImageView;
-use discord\rpc\DiscordRPC;
 use php\gui\UXMediaView;
 use php\gui\UXImage;
 use php\gui\UXApplication;
@@ -19,14 +16,17 @@ use script\MediaPlayerScript;
 use php\gui\event\UXKeyEvent; 
 use php\gui\event\UXMouseEvent; 
 use php\framework\Logger;
-use app\forms\classes\Localization;
 use php\gui\event\UXEvent; 
+use discord\rpc\DiscordRPC;
+use app\forms\classes\CEnemy;
+use app\forms\classes\CActor;
+use app\forms\classes\Localization;
 use app\forms\classes\Environment\EnvironmentBase;
 use app\forms\classes\Environment\EnvironmentBrightness;
 use app\forms\classes\ParticleManager;
 use app\forms\classes\UI\HitMark;
 use app\forms\classes\UIProgressBarAnimator;
-use app\forms\classes\PseudoSound;
+use app\forms\classes\DimaAsyncHackEbatNaxyi;
 
 class maingame extends AbstractForm
 {
@@ -48,48 +48,16 @@ class maingame extends AbstractForm
     public $GameEnemy;
     
     public $ItemVodka;
+    
+    public $fightPlayer;
 
     public function __construct() 
     {
         parent::__construct();
 
         $this->localization = new Localization($language); 
-            
-        $this->Particles = new ParticleManager($this);        
-               
-        $this->GameActor = new CActor($this);
-        $this->GameActor->SetModel($this->actor);
         
-        $this->GameActor->SetInteractive(false);
-        
-        $this->GameEnemy = new CEnemy($this);
-        $this->GameEnemy->SetModel($this->enemy);    
-        
-        $this->GameEnemy->SetInteractive(false);
-        
-        $this->GameActor->onHpChanged(function ($entity) {
-            $this->Bleeding();
-            $this->updateActorHealthUI($entity);
-        });
-        
-        $this->GameActor->onDeath(function () {
-            $this->onActorDeath();
-        });
-        
-        $this->GameEnemy->onHpChanged(function ($entity) {
-            $this->updateEnemyHealthUI($entity);
-        });
-        
-        $this->GameEnemy->onDeath(function () {
-            $this->onEnemyDeath();
-        });
-        
-        $this->HitMark = new HitMark($this->HitMark_Visual);
-        
-        $this->ItemVodka = new CVodka($this, $this->item_vodka_0000, $this->GameActor, $this->GameEnemy); //CItem zavtra
-        $this->ItemVodka->disable();
-        $this->ItemVodka->hide();
-        $this->ItemVodka->resetVisual(); 
+        $this->CreatePersistentObjects();
     }
     
     function getCurrentLanguageFromUI()
@@ -97,21 +65,69 @@ class maingame extends AbstractForm
         return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
     }     
     
+    function CreatePersistentObjects()
+    {
+        $this->GameActor = new CActor($this);
+        $this->GameEnemy = new CEnemy($this);
+    
+        $this->Particles = new ParticleManager($this);
+        $this->HitMark = new HitMark($this->HitMark_Visual);
+    
+        $this->ItemVodka = new CVodka($this, $this->item_vodka_0000, $this->GameActor, $this->GameEnemy);
+        
+        $this->BindEntityEvents();
+    }    
+    
+    function InitMainGame()
+    {
+        $this->ItemVodka->disable();
+        $this->ItemVodka->hide();
+        $this->ItemVodka->resetVisual();    
+        
+        $this->GameActor->SetModel($this->actor);
+        $this->GameActor->SetInteractive(false);
+        
+        $this->GameEnemy->SetModel($this->enemy);    
+        $this->GameEnemy->SetInteractive(false);    
+        
+        $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();
+        $this->form('Client')->Dialog->content->UpdateData();      
+        
+        $this->form('Client')->Inventory->content->MoveWeaponsToWeaponSlot(); //эта хуйня и будет опорой для аттача
+        
+        $this->InitEnvironment();
+    }    
+    
+    function BindEntityEvents()
+    {
+        $this->GameActor->onHpChanged(function ($entity) {
+            $this->Bleeding();
+            $this->updateActorHealthUI($entity);
+        });
+    
+        $this->GameActor->onDeath(function () {
+            $this->onActorDeath();
+        });
+    
+        $this->GameEnemy->onHpChanged(function ($entity) {
+            $this->updateEnemyHealthUI($entity);
+        });
+    
+        $this->GameEnemy->onDeath(function () {
+            $this->onEnemyDeath();
+        });
+    }    
+    
     function InitEnvironment()
     {
         $this->EnvironmentBrightness = new EnvironmentBrightness();    
-        $this->Environment = new Environment($this->Environment_Space, $this->EnvironmentBrightness);
-           
-        $this->Environment->forceBrightnessNow();
-        $this->Environment->startAmbient();
+        $this->Environment = new EnvironmentBase($this->Environment_Space, $this->EnvironmentBrightness);
         $this->Environment->pause();
         
         $this->EnvironmentBrightness->register($this->GameActor->GetModel());
-        
         $this->EnvironmentBrightness->register($this->GameEnemy->GetModel());
-        
         $this->EnvironmentBrightness->register($this->ItemVodka->GetModel());
-    }
+    } 
     
     function PlayFightSong()
     {
@@ -121,123 +137,81 @@ class maingame extends AbstractForm
         {
             $path = 'res://.data/audio/fight/fight_sound.mp3';
         }
-        
-        PseudoSound::play($path, 'fight_sound', true, PseudoSound::TYPE_MUSIC);
-        PseudoSound::muteChannel('fight_sound', false);
-        
+    
+        if (is_object($this->fightPlayer))
+        {
+            $this->fightPlayer->stop();
+        }
+    
+        $this->fightPlayer = new MediaPlayerScript();
+        $this->fightPlayer->open($path);
+        $this->fightPlayer->loop = true;
+    
         if ($GLOBALS['AllSounds'] && $GLOBALS['FightSound'])
         {
-            PseudoSound::unmuteChannel('fight_sound');
+            $this->fightPlayer->play();
         }
-    }    
+    }
     
-    function ResetGameClient(callable $afterReset = null)
+    function ResetGameClient()
     {
-        $this->form('Client')->ShowLoadScreen(function () use ($afterReset)
-        {
+        $this->form('Client')->ShowLoadScreen(function ()
+        {    
+            $this->GameActor->respawn(112, $this->GameActor->GetModel()->y, false);
+            $this->GameEnemy->respawn(1312, $this->GameEnemy->GetModel()->y, false);
+              
             if ($GLOBALS['QuestStep1']) $GLOBALS['QuestStep1'] = false;
             if ($GLOBALS['QuestCompleted']) $GLOBALS['QuestCompleted'] = false;
             
-            //вроде дестрой был, но хуй знает
-            PseudoSound::stopChannelInstant('fight_sound');
-            PseudoSound::stopChannelInstant('menu_sound');
-
             if ($this->fight_image->visible) $this->fight_image->hide();
             if ($this->leave_btn->visible || !$GLOBALS['QuestCompleted']) $this->leave_btn->hide();
             if ($this->form('Client')->Fail->visible) $this->form('Client')->Fail->hide();
             if ($this->blood_ui->visible) $this->blood_ui->hide();
-
+            
             $this->form('Client')->Inventory->content->DespawnItems();
             $this->form('Client')->Inventory->content->SetItemCondition();
             
-            $this->GameActor->SwitchWeapon('Pm');
-            UXApplication::runLater(function () {
-                $w = $this->GameActor->getWeapon();
-                if ($w && $w->getType() === 'Pm')
-                {
-                    $w->importState(['jammed' => false, 'jamHandled' => false]);
-                    $w->setAmmo($w->getMagSize());
-                }
-                $this->UpdateMagazine();
-                
-                $this->GameActor->SwitchWeapon('AK74');
-            
-                UXApplication::runLater(function () {
-                    $w2 = $this->GameActor->getWeapon();
-                    if ($w2 && $w2->getType() === 'AK74')
-                    {
-                        $w2->importState(['jammed' => false, 'jamHandled' => false]);
-                        $w2->setAmmo($w2->getMagSize());
-                    }
-                    $this->UpdateMagazine();
-                });
-            
-            });
+            $this->GameActor->ResetWeapons();
             $this->form('Client')->Inventory->content->MoveWeaponsToWeaponSlot();
-                   
-            $this->GameActor->respawn(112, $this->GameActor->GetModel()->y, false);
-            $this->GameEnemy->respawn(1312, $this->GameEnemy->GetModel()->y, false);
-            
-            $this->form('Client')->Inventory->content->health_bar_gg->show();
-            $this->form('Client')->Inventory->content->health_bar_gg_b->show();
-            $this->form('Client')->Inventory->content->health_static_gg->show();
-            $this->form('Client')->Inventory->content->health_static_gg->graphic = null;
             
             $this->ItemVodka->disable();
-
+            
+            if ($this->form('Client')->MainMenu->visible)
+            {
+                if ($GLOBALS['ContinueGameState'])
+                {
+                    $this->form('Client')->MainMenu->content->SwitchGameState();
+                }
+                
+                if ($this->form('Client')->MainMenu->content->menuPlayer)
+                {
+                    $this->form('Client')->MainMenu->content->menuPlayer->stop();
+                    $this->form('Client')->MainMenu->content->menuPlayer = null;
+                }
+                
+                $this->form('Client')->MainMenu->content->InitMainMenu(); 
+            }
+            
+            $this->form('Client')->Dialog->content->StartDialog();
+            
             $this->form('Client')->Pda->content->DefaultState();
             $this->form('Client')->Pda->content->Pda_Contacts->content->UpdateContacts();
             $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateQuestTime();
             $this->form('Client')->Pda->content->Pda_Tasks->content->DeleteTask();
             $this->form('Client')->Pda->content->Pda_Tasks->content->ShowActiveTasks();
             $this->form('Client')->Pda->content->Pda_Tasks->content->StepReset();
-            $this->form('Client')->Pda->content->Pda_Tasks->content->Step_DeletePda();
+            $this->form('Client')->Pda->content->Pda_Tasks->content->Step_DeletePda(); //чистка флага need to check pda
             $this->form('Client')->Pda->content->Pda_Ranking->content->DeathFilterManager();
             $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateRaiting();
-            $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
-
-            $this->GetHealth();
-
-            if ($GLOBALS['ContinueGameState'])
-            {
-                $this->form('Client')->MainMenu->content->SwitchGameState();
-            }
-
-            if ($this->form('Client')->MainMenu->visible)
-            {
-                $this->form('Client')->MainMenu->content->InitMainMenu();
-            }
-            
-            if ($this->Environment)
-            {
-                try
-                {
-                    $this->Environment->stop();
-                }
-                catch (Throwable $e) {}
-            
-                $this->Environment = null;
-            }
-            
-            if (empty($GLOBALS['IsSaveLoading']))
-            {
-                $this->InitEnvironment();
-            }
-            
-            $this->form('Client')->Dialog->content->StartDialog();
+            $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateFinalLabel();    
             
             if ($this->form('Client')->ltx->r_bool('discord_rpc'))
             {            
                 $GLOBALS['discord']->setState(null);
                 $GLOBALS['discord']->updateState();           
-            }  
-            
-            if ($afterReset)
-            {
-                $afterReset();
-            }
-        });
-    }
+            }   
+         });                   
+    }  
     
     function RenderHud($enable)
     {
@@ -430,14 +404,14 @@ class maingame extends AbstractForm
         }
     
         $rand = rand(0, 5);
-    
-        PseudoSound::playAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$rand}.mp3", true, 'hit_enemy_damage');
+        
+        DimaAsyncHackEbatNaxyi::playSfxSound("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$rand}.mp3", 'kulak_ebanul_enemy');
     
         if (rand(1, 100) <= 25)
         {
             $randHit = rand(1, 8);
     
-            PseudoSound::playAsync("res://.data/audio/fight/hit_sounds/enemy/hit_{$randHit}.mp3", true, 'hit_enemy');
+            DimaAsyncHackEbatNaxyi::playSfxSound("res://.data/audio/fight/hit_sounds/enemy/hit_{$randHit}.mp3", 'hit_enemy');
         }
     
         if (rand(1, 100) <= 20)
@@ -490,13 +464,13 @@ class maingame extends AbstractForm
     
         $randEbanul = rand(0, 5);
         
-        PseudoSound::playAsync("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", true, 'hit_actor_damage');
+        DimaAsyncHackEbatNaxyi::playSfxSound("res://.data/audio/fight/hit_sounds/kulak_ebanul/kulak_ebanul_{$randEbanul}.mp3", 'kulak_ebanul_actor');
     
         if (rand(1, 100) <= 25)
         {
             $randHit = rand(1, 3);
     
-            PseudoSound::playAsync("res://.data/audio/fight/hit_sounds/actor/hit_{$randHit}.mp3", true, 'hit_actor');
+            DimaAsyncHackEbatNaxyi::playSfxSound("res://.data/audio/fight/hit_sounds/actor/hit_{$randHit}.mp3", 'hit_enemy');
         }
     
         if (rand(1, 100) <= 40)
@@ -556,6 +530,17 @@ class maingame extends AbstractForm
     
     private function updateEnemyHealthUI($enemy): void
     {
+        if (!$enemy->isDead())
+        {
+            $this->health_static_enemy->graphic = null;
+        
+            if ($GLOBALS['HudVisible'])
+            {
+                $this->health_bar_enemy->show();
+                $this->health_bar_enemy_b->show();                
+            }
+        }    
+    
         $pct = $enemy->getHpPercent();
     
         $min = 54;
@@ -577,6 +562,22 @@ class maingame extends AbstractForm
     
     private function updateActorHealthUI($actor): void
     {
+        if (!$actor->isDead())
+        {
+            $this->health_static_gg->graphic = null;
+        
+            if ($GLOBALS['HudVisible'])
+            {
+                $this->health_bar_gg->show();
+                $this->health_bar_gg_b->show();                
+            }
+        
+            $this->form('Client')->Inventory->content->health_bar_gg->show();
+            $this->form('Client')->Inventory->content->health_bar_gg_b->show();
+        
+            $this->form('Client')->Inventory->content->health_static_gg->graphic = null;
+        }  
+    
         $pct = $actor->getHpPercent();
     
         $min = 54;
@@ -618,7 +619,7 @@ class maingame extends AbstractForm
         $this->Talk_Label->hide();
     
         $randDie = rand(1, 7);
-        PseudoSound::play("res://.data/audio/fight/death_sounds/enemy/death_{$randDie}.mp3", 'die_enemy', false, null, true);
+        DimaAsyncHackEbatNaxyi::playSfxSound("res://.data/audio/fight/death_sounds/enemy/death_{$randDie}.mp3", "enemy_die");
     
         $this->finalizeBattle();
     }
@@ -638,7 +639,7 @@ class maingame extends AbstractForm
         if ($this->HitMark->isVisible()) $this->HitMark->hide();
     
         $randDie = rand(1, 4);
-        PseudoSound::play("res://.data/audio/fight/death_sounds/actor/death_{$randDie}.mp3", 'die_actor', false, null, true);
+        DimaAsyncHackEbatNaxyi::playSfxSound("res://.data/audio/fight/death_sounds/actor/death_{$randDie}.mp3", "actor_die");
     
         $this->finalizeBattle();
     }
@@ -659,9 +660,7 @@ class maingame extends AbstractForm
         $this->ItemVodka->setOpacity(0);
         $this->ItemVodka->hide();
         
-        //НЕ НУЖНО ВСЕ ЗВУКИ ОСТАНАВЛИВАТЬ, МЫ ВЕДЬ НЕ ВЫХОДИМ В МЕНЮ, А ПРОСТО ЗАКАНЧИВАЕМ БОЙ
-        
-        PseudoSound::muteChannel('fight_sound'); //мы не стопаем канал сразу, чтобы не вызывать лагов. Но, главное, не забыть стопнуть уже при ресет гейм клиент
+        $this->fightPlayer->volume = 0;
         
         if ($this->GameActor->isDead())
         {
@@ -671,7 +670,8 @@ class maingame extends AbstractForm
               
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Failed();
             
-            PseudoSound::play('res://.data/audio/victory/victory_alex.mp3', 'v_enemy', false, null, true);
+            DimaAsyncHackEbatNaxyi::playSfxSound('res://.data/audio/victory/victory_alex.mp3', 'victor_enemy');
+            
         }
         if ($this->GameEnemy->isDead())
         {
@@ -679,7 +679,7 @@ class maingame extends AbstractForm
             
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Complete();
             
-            PseudoSound::play('res://.data/audio/victory/victory_actor.mp3', 'v_actor', false, null, true);
+            DimaAsyncHackEbatNaxyi::playSfxSound('res://.data/audio/victory/victory_actor.mp3', 'victory_actor');
         }
         
         $this->form('Client')->Pda->content->Pda_Tasks->content->Step_UpdatePda();

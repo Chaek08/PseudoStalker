@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\DimaAsyncHackEbatNaxyi;
 use app\forms\classes\CWindowManager;
 use app\forms\classes\UI\UIProgressBarAnimator;
 use app\forms\classes\Environment\EnvironmentBase;
@@ -29,8 +30,7 @@ use php\gui\event\UXEvent;
 use app\forms\classes\Debug;
 use app\forms\classes\Log;
 use php\gui\event\UXScrollEvent; 
-use app\forms\classes\CSimpleInifile;
-use app\forms\classes\PseudoSound;
+use app\forms\classes\FileSystem\CSimpleInifile;
 
 class Client extends AbstractForm
 {
@@ -86,11 +86,7 @@ class Client extends AbstractForm
         
         $this->InitUserLTX();
         $this->syncWithSDKLTX();
-        
-        Timer::every(60, function() {
-            PseudoSound::update();
-        });
-
+       
         $this->MainMenu->content->InitMainMenu();       
         $this->MainMenu->content->Options->content->InitOptions();
         
@@ -475,10 +471,12 @@ class Client extends AbstractForm
             $this->MainGame->content->RenderHud(true);
             return;
         }
+        /*
         if (Media::isStatus('PLAYING', 'voice_talk3'))
         {
             $this->HideDialog();
         }
+        */
         if ($this->Pda->visible)
         {
             $this->HidePda();
@@ -504,15 +502,15 @@ class Client extends AbstractForm
         
         if ($GLOBALS['AllSounds'])
         {
-            PseudoSound::muteSfx();
-            
+            DimaAsyncHackEbatNaxyi::pauseAllSfx();
+        
             if (!$GLOBALS['QuestCompleted'] && $GLOBALS['QuestStep1'])
             {          
-                PseudoSound::muteChannel('fight_sound');
+                $this->MainGame->content->fightPlayer->pause();
             }            
             if ($GLOBALS['MenuSound'])
             {
-                PseudoSound::unmuteChannel('menu_sound');
+                $this->MainMenu->content->menuPlayer->play();
             }
         }
         
@@ -534,7 +532,7 @@ class Client extends AbstractForm
         if ($this->Dialog->visible) return true;
         if ($this->Fail->visible) return true;
         if ($this->ExitDialog->visible) return true;
-        
+                
         return false;
     }    
     /**
@@ -591,7 +589,7 @@ class Client extends AbstractForm
         $this->Inventory->content->UpdateInventoryStatus();
         $this->Inventory->content->repackInventory();
         
-        PseudoSound::play('res://.data/audio/inv_open.mp3', 'inv_open', false, null, true);
+        $this->Inventory->content->OpenSound();
     }
      
     /**
@@ -636,7 +634,7 @@ class Client extends AbstractForm
         $this->Inventory->content->cancelDrag();
         $this->Inventory->hide();
                       
-        PseudoSound::play('res://.data/audio/inv_close.mp3', 'inv_close', false, null, true);
+        $this->Inventory->content->CloseSound();
     }
     function HidePda()
     {

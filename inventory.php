@@ -1,13 +1,13 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\DimaAsyncHackEbatNaxyi;
 use php\gui\UXImage;
 use std, gui, framework, app;
 use php\gui\event\UXMouseEvent; 
 use php\gui\event\UXWindowEvent;
 
 use app\forms\classes\Localization;
-use app\forms\classes\PseudoSound;
 use app\forms\classes\UIProgressBarAnimator;
 use app\forms\classes\UI\InventoryDragManager;
 use app\forms\classes\UI\InventoryGrid;
@@ -77,7 +77,7 @@ class inventory extends AbstractForm
         ]
     ];      
     
-    private $outfitSlotRect = ['x'=>1128, 'y'=>128, 'w'=>448, 'h'=>672];    
+    private $outfitSlotRect = ['x'=>1128, 'y'=>128, 'w'=>448, 'h'=>672];     
        
     public function __construct() 
     {
@@ -136,7 +136,7 @@ class inventory extends AbstractForm
         $this->addVodkaToInventory();
         $this->addMedkitToInventory();
         $this->addAmmo9x18ToInventory();
-        $this->addAmmo5x45ToInventory();        
+        $this->addAmmo5x45ToInventory();                   
     }
     
     function getCurrentLanguageFromUI()
@@ -394,7 +394,7 @@ class inventory extends AbstractForm
         
         $this->placeGridItem($item, $cellX, $cellY, $w, $h);
     }
-    
+   
     function updateMedkitCount() { $this->updateCountLabel($this->Inv_Medkit, $this->Inv_Medkit_Count, $this->medkitCount); }
     function updateAmmo9x18Count() { $this->updateCountLabel($this->Inv_Ammo_9x18, $this->Inv_PmAmmo_Count, $this->pmAmmoCount); }
     function updateAmmo5x45Count() { $this->updateCountLabel($this->Inv_Ammo_5x45, $this->Inv_AkAmmo_Count, $this->akAmmoCount); }
@@ -859,27 +859,47 @@ class inventory extends AbstractForm
             Element::setText($this->maket_weight, sprintf('%.1fkg', $this->ak74AmmoWeight));            
         }        
     }
+    
     function UseSlotSound()
     {
         if ($this->form('Client')->Inventory->visible)
         {
-            PseudoSound::play('res://.data/audio/inv_slot.mp3', 'inv_use_slot', false, null, true);
-        }     
+            DimaAsyncHackEbatNaxyi::playSfxSound('res://.data/audio/inv_slot.mp3', 'inv_use_slot'); 
+        }
     }
+    
     function PropertiesSound()
     {
         if ($this->form('Client')->Inventory->visible)
         {
-            PseudoSound::play('res://.data/audio/inv_properties.mp3', 'inv_properties', false, null, true);
-        }          
+            DimaAsyncHackEbatNaxyi::playSfxSound('res://.data/audio/inv_properties.mp3', 'inv_properties'); 
+        }
     }
+    
     function DropSound()
     {
         if ($this->form('Client')->Inventory->visible)
         {
-            PseudoSound::play('res://.data/audio/inv_drop.mp3', 'inv_drop', false, null, true);
-        }               
-    }    
+            DimaAsyncHackEbatNaxyi::playSfxSound('res://.data/audio/inv_drop.mp3', 'inv_drop');
+        }
+    }  
+    
+    function OpenSound()
+    {
+        if ($GLOBALS['AllSounds'])
+        {    
+            DimaAsyncHackEbatNaxyi::playSfxSound('res://.data/audio/inv_open.mp3', 'inv_open');
+        }
+    }
+    
+    function CloseSound()
+    {
+        if ($GLOBALS['AllSounds'])
+        {      
+            DimaAsyncHackEbatNaxyi::playSfxSound('res://.data/audio/inv_close.mp3', 'inv_close');
+        }        
+    }
+    
     /**
      * @event inv_maket_visual.click-Left 
      */
