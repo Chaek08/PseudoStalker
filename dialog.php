@@ -110,6 +110,10 @@ class dialog extends AbstractForm
         $block->add($textLabel);
     
         $this->dialogContainer->add($block);
+        
+        $block->opacity = 0;
+        
+        Animation::fadeTo($block, 250, 1);        
     
         (new Thread(function () use ($block) { //ёбанные в жопу потоки, ёбанный в жопу скролл, дима зайцев гондурас
             for ($i = 0; $i < 3; $i++)
