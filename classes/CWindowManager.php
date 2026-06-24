@@ -200,7 +200,14 @@ class CWindowManager
     
         UXApplication::runLater(function () use ($form, $console, $originalX, $originalY)
         {
+            $cursor = $form->CustomCursor;
+            $cursorVisible = $cursor->visible;
+        
+            $cursor->visible = false;
+        
             $image = $form->layout->snapshot();
+        
+            $cursor->visible = $cursorVisible;
     
             $username = System::getProperty('user.name');
             $time = Time::now()->toString('HH-mm-ss');
