@@ -1,6 +1,7 @@
 <?php
 namespace app\forms\classes;
 
+use php\lang\ThreadPool;
 use Throwable;
 use app\forms\classes\Log;
 use php\gui\UXApplication;
@@ -15,12 +16,15 @@ class SaveLoadManager
     protected $saveDir;
     protected $formCallable;
     protected $weaponData;
+    private $savePool;
 
     public function __construct($formCallable, &$weaponData, $saveDir = "./userdata/savedgames/")
     {
         $this->formCallable = $formCallable;
         $this->weaponData   = &$weaponData;
         $this->saveDir      = rtrim($saveDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        
+        $this->savePool     = ThreadPool::createFixed(1);
     }
     
     public function getSaveDir(): string
@@ -277,32 +281,39 @@ class SaveLoadManager
             $diskIo->visible = true;
         }
     
-        try {
-            if (!is_dir($this->saveDir))
-            {
-                mkdir($this->saveDir, 0777, true);
-            }
+        $data = $this->collectSaveData();
     
-            $path = $this->saveDir . $saveName . '.sav';
-            $data = $this->collectSaveData();
-            $json = json_encode($data);
-            $encrypted = DimasCryptoZlodey::encryptData($json);
-            Stream::putContents($path, $encrypted);
+        $this->savePool->execute(function () use ($saveName, $data, $diskIo) {
     
-            if (defined('Debug_Build') && Debug_Build)
-            {
-                Log::info("Saved game: " . $saveName);
-            }
-        } finally {
-            if ($diskIo)
-            {
-                Timer::after(6000, function () use ($diskIo) {
+            try {
+                if (!is_dir($this->saveDir))
+                {
+                    mkdir($this->saveDir, 0777, true);
+                }
+    
+                $path = $this->saveDir . $saveName . '.sav';
+    
+                $json = json_encode($data);
+                $encrypted = DimasCryptoZlodey::encryptData($json);
+    
+                Stream::putContents($path, $encrypted);
+    
+                uiLater(function () use ($saveName) {
+                    if (defined('Debug_Build') && Debug_Build)
+                    {
+                        Log::info("Saved game: " . $saveName);
+                    }
+                });
+    
+            } finally {
+    
+                if ($diskIo) {
                     uiLater(function () use ($diskIo) {
                         $diskIo->visible = false;
                     });
-                });
+                }
             }
-        }
+        });
     }
 
     public function load($saveName)
@@ -495,22 +506,33 @@ class SaveLoadManager
 
     public function restoreGame(string $saveName): void
     {
-        $saveData = $this->load($saveName);
-        if ($saveData === null)
-        {
-            return;
-        }
-
-        $result = $this->validateSave($saveData, $saveName);
-        if (!$result['ok'])
-        {
-            if (Debug_Build)
+        $this->savePool->execute(function () use ($saveName) {
+    
+            $saveData = $this->load($saveName);
+    
+            if ($saveData === null)
             {
-                Debug::fail("Cannot load save '{$saveName}': " . $result['error']);
+                return;
             }
-            return;
-        }
-
-        $this->applySaveData($saveData, $saveName);
+    
+            $result = $this->validateSave($saveData, $saveName);
+    
+            if (!$result['ok'])
+            {
+                return;
+            }
+    
+            uiLater(function () use ($saveData, $saveName) {
+                $this->applySaveData($saveData, $saveName);
+            });
+        });
     }
+    
+    public function __destruct()
+    {
+        if ($this->savePool)
+        {
+            $this->savePool->shutdown();
+        }
+    }    
 }
