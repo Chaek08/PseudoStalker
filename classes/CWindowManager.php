@@ -1,10 +1,15 @@
 <?php
 namespace app\forms\classes;
 
+use php\lang\System;
+use php\lang\ThreadPool;
 use php\gui\animation\UXAnimationTimer;
 use php\gui\UXApplication;
 use php\time\Timer;
 use app\forms\classes\Log;
+use php\time\Time;
+use php\io\File;
+use php\lang\System;
 
 class CWindowManager
 {
@@ -15,11 +20,17 @@ class CWindowManager
 
     private $prevClientW = null;
     private $prevClientH = null;
+    
+    const SCREENSHOT_DIRECTORY = './userdata/screenshots/';
+    
+    private $screenshotPool;
 
     public function __construct($form, $ltx)
     {
         $this->form = $form;
         $this->ltx = $ltx;
+        
+        $this->screenshotPool = ThreadPool::createFixed(2);        
     }
     
     public function startTracking()
@@ -169,5 +180,77 @@ class CWindowManager
     
         $this->ltx->w_bool('vid_fullscreen', $newState);
         $this->ltx->save();
+    }   
+    
+    public function makeScreenshot()
+    {
+        if (!file_exists(self::SCREENSHOT_DIRECTORY))
+        {
+            mkdir(self::SCREENSHOT_DIRECTORY, 0777, true);
+        }
+    
+        $form = $this->form;
+        $console = $form->Console;
+    
+        $originalX = $console->x;
+        $originalY = $console->y;
+    
+        $console->x = max(0, min($console->x, $form->width - $console->width));
+        $console->y = max(0, min($console->y, $form->height - $console->height));
+    
+        UXApplication::runLater(function () use ($form, $console, $originalX, $originalY)
+        {
+            $image = $form->layout->snapshot();
+    
+            $username = System::getProperty('user.name');
+            $time = Time::now()->toString('HH-mm-ss');
+            $date = Time::now()->toString('dd-MM-yy');
+    
+            $fragments = [
+                'LoadScreen' => $form->LoadScreen,
+                'Fail' => $form->Fail,
+                'ExitDialog' => $form->ExitDialog,
+                'Dialog' => $form->Dialog,
+                'Inventory' => $form->Inventory,
+                'Pda' => $form->Pda,
+                'MainMenu' => $form->MainMenu,
+                'MainGame' => $form->MainGame
+            ];
+    
+            $formName = 'Client';
+    
+            foreach ($fragments as $name => $fragment)
+            {
+                if ($fragment && $fragment->visible && $name !== 'MainGame')
+                {
+                    $formName = $name;
+                    break;
+                }
+            }
+    
+            if ($formName === 'Client' && $form->MainGame && $form->MainGame->visible)
+            {
+                $formName = 'MainGame';
+            }
+    
+            $filename = "ss_{$username}_{$date}_{$time}_({$formName}).jpg";
+            $path = self::SCREENSHOT_DIRECTORY . $filename;
+    
+            $this->screenshotPool->execute(function () use ($image, $path)
+            {
+                $image->save(new File($path));
+            });
+    
+            $console->x = $originalX;
+            $console->y = $originalY;
+        });
     }    
+    
+    public function __destruct()
+    {
+        if ($this->screenshotPool && !$this->screenshotPool->isShutdown())
+        {
+            $this->screenshotPool->shutdown();
+        }
+    }     
 }
