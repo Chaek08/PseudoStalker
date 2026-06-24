@@ -1,10 +1,12 @@
 <?php
 namespace app\forms\classes;
 
+use php\lang\ThreadPool;
 use php\framework\Logger;
 use app\forms\classes\Log;
 use php\time\Time;
 use php\lang\System;
+
 
 class Log
 {
@@ -16,7 +18,10 @@ class Log
     private static $listeners = [];
     
     private static $buffer = [];
-    private static $bufferLimit = 50; //лимит строк в буффере 
+    private static $bufferLimit = 30; //лимит строк в буффере 
+
+    private static $logPool = null;
+    private static $flushPending = false;
 
     public static function onWrite(callable $listener)
     {
@@ -114,12 +119,31 @@ class Log
     {
         if (!self::$logFile || empty(self::$buffer))
         {
-            return; 
+            return;
         }
-            
-        file_put_contents(self::$logFile, implode('', self::$buffer), FILE_APPEND);
+    
+        if (self::$flushPending)
+        {
+            return;
+        }
+    
+        self::$flushPending = true;
+    
+        $data = implode('', self::$buffer);
+        $file = self::$logFile;
     
         self::$buffer = [];
+    
+        self::$logPool->execute(function () use ($file, $data)
+        {
+            Logger::info("LOG THREAD START");
+        
+            file_put_contents($file, $data, FILE_APPEND);
+        
+            Logger::info("LOG THREAD END");
+        
+            Log::$flushPending = false;
+        });      
     }    
 
     private static function ensure()
@@ -147,6 +171,7 @@ class Log
         $user = System::getProperty("user.name");
         
         self::$logFile = $dir . "kte_{$user}.log";
+        self::$logPool = ThreadPool::create(1, 1, 10000);
 
         self::writeHeader();
         self::$initialized = true;

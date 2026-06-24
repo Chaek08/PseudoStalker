@@ -23,7 +23,8 @@ class DimaAsyncHackEbatNaxyi
         {
             self::$channels[] = $channel;
         }
-
+        
+        //ГОВНО, БЛЯТЬ, ЕБАНОЕ, НУЖНО ЛИКВИДИРОВАТЬ.
         (new Thread(function () use ($path, $channel) {
             Media::open($path, true, $channel);
         }))->start();
