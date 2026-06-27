@@ -24,8 +24,6 @@ use php\gui\event\UXKeyEvent;
 
 class UISaveWnd extends AbstractForm
 {
-    private $localization;
-    
     public $SaveLoadManager;
     
     private $saveHistory = []; 
@@ -35,17 +33,10 @@ class UISaveWnd extends AbstractForm
     {
         parent::__construct();
 
-        $this->localization = new Localization($language);
-        
         $weaponData = &$this->weaponData;
         $this->SaveLoadManager = new SaveLoadManager(array($this, 'form'), $weaponData);
     }
-    
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }    
-        
+ 
     /**
      * @event show 
      */

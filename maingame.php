@@ -30,9 +30,6 @@ use app\forms\classes\DimaAsyncHackEbatNaxyi;
 
 class maingame extends AbstractForm
 {
-    private $currentCycle = '';
-    private $localization;
-    
     protected $HitMark;
     
     public $SDK_FightSound;
@@ -55,16 +52,9 @@ class maingame extends AbstractForm
     {
         parent::__construct();
 
-        $this->localization = new Localization($language); 
-        
         $this->CreatePersistentObjects();
     }
-    
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }     
-    
+ 
     function CreatePersistentObjects()
     {
         $this->GameActor = new CActor($this);
@@ -746,8 +736,7 @@ class maingame extends AbstractForm
 
                 if ($GLOBALS['QuestCompleted'])
                 {
-                    $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-                    $this->Task_Step_Label->text = $this->localization->get('No_Active_Task');
+                    $this->Task_Step_Label->text = Localization::get('No_Active_Task');
                 }
             });
         });        
@@ -795,13 +784,11 @@ class maingame extends AbstractForm
     
     public function showJamHintUI(string $textKey): void
     {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-    
         $lbl = $this->Task_Step_Label;
         $prev = $lbl->text ?? null;
     
         $lbl->visible = true;
-        $lbl->text = $this->localization->get($textKey);
+        $lbl->text = Localization::get($textKey);
     
         Timer::after(4000, function () use ($prev) {
             UXApplication::runLater(function () use ($prev){
@@ -820,8 +807,6 @@ class maingame extends AbstractForm
     
         static $lastToastId = 0;
     
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-    
         $saveUI = $this->form('Client')->MainMenu->content->UISaveWnd->content;
     
         if ($autoRewrite)
@@ -836,7 +821,7 @@ class maingame extends AbstractForm
     
         $this->SavedGame_Toast->opacity = 0;
         $this->SavedGame_Toast->visible = true;
-        $this->SavedGame_Toast->text = $this->localization->get('SavedGameToast') . ' ' . $saveName;
+        $this->SavedGame_Toast->text = Localization::get('SavedGameToast') . ' ' . $saveName;
     
         Animation::fadeIn($this->SavedGame_Toast, 300);
     

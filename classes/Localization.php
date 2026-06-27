@@ -5,33 +5,67 @@ namespace app\forms\classes;
 use app\forms\classes\Debug;
 
 class Localization {
-    private $translations = [];
-    private $language;
-    private $directory;
-
-    private $languageMap = [
-        'Русский' => 'rus',
-        'English' => 'eng'
-    ];
-
-    public function __construct($language, $directory = './gamedata/config/locales/')
+    private static $translations = [];
+    private static $language;
+    
+    private static $languages = [];    
+    
+    private static $directory = './gamedata/config/locales/';
+    
+    private static function loadLanguages()
     {
-        $this->directory = $directory;
+        if (!empty(self::$languages))
+        {
+            return;
+        }
+    
+        if (!is_dir(self::$directory))
+        {
+            return;
+        }
+    
+        foreach (scandir(self::$directory) as $file)
+        {
+            if (substr($file, -5) !== '.json')
+            {
+                continue;
+            }
+    
+            $path = self::$directory . $file;
+    
+            $data = json_decode(file_get_contents($path), true);
+    
+            if (!isset($data['_meta']))
+            {
+                continue;
+            }
+    
+            $code = $data['_meta']['code'] ?? null;
+    
+            if ($code)
+            {
+                self::$languages[$code] = $data['_meta'];
+            }
+        }
+    }  
 
-        $internalLanguage = $this->resolveInternalLanguage('rus');
-        $this->setLanguage($internalLanguage);
-    }
-
-    public function setLanguage($language)
+    public static function setLanguage($language)
     {
-        $language = $this->resolveInternalLanguage($language);
+        self::loadLanguages();
+        
+        if (!self::isValidLanguage($language))
+        {
+            Debug::fatal("Unknown language: $language");
+            return;
+        }
+        
+        self::$language = $language;
 
-        $this->language = $language;
-        $filename = $this->directory . $language . '.json';
+        $filename = self::$directory . $language . '.json';
 
         if (file_exists($filename))
         {
-            $this->translations = json_decode(file_get_contents($filename), true);
+            self::$translations = json_decode(file_get_contents($filename), true);
         }
         else
         {
@@ -39,24 +73,49 @@ class Localization {
         }
     }
 
-    public function get($key)
+    public static function get($key)
     {
-        return $this->translations[$key] ?? $key;
-    } 
-
-    public function getCurrentLanguage()
-    {
-        return $this->language;
+        return self::$translations[$key] ?? $key;
     }
 
-    private function resolveInternalLanguage($language)
+    public static function getCurrentLanguage()
     {
-        return $this->languageMap[$language] ?? $language;
+        return self::$language;
     }
 
-    public function getDisplayLanguage()
+    public static function getDisplayLanguage()
     {
-        return array_search($this->language, $this->languageMap) ?: $this->language;
+        self::loadLanguages();
+    
+        return self::$languages[self::$language]['name'] ?? self::$language;
+    }
+
+    public static function getDisplayLanguages()
+    {
+        self::loadLanguages();
+    
+        return array_column(self::$languages, 'name');
+    }
+
+    public static function getLanguageCode($displayLanguage)
+    {
+        self::loadLanguages();
+    
+        foreach (self::$languages as $code => $meta)
+        {
+            if ($meta['name'] === $displayLanguage)
+            {
+                return $code;
+            }
+        }
+    
+        return null;
+    }
+
+    public static function isValidLanguage($language)
+    {
+        self::loadLanguages();
+    
+        return isset(self::$languages[$language]);
     }
 }
-

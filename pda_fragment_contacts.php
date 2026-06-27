@@ -5,31 +5,15 @@ use app\forms\classes\UI\UIRoles;
 use php\gui\UXImage;
 use std, gui, framework, app;
 use php\gui\event\UXWindowEvent; 
-
+use app\forms\classes\Localization;
 
 class pda_fragment_contacts extends AbstractForm
 {
-    private $localization;
-    
     private $enemyCharacterInfo;     
 
-    public function __construct() 
-    {
-        parent::__construct();
-
-        $this->localization = new Localization($language);
-    }
-    
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }    
-    
     function UpdateData()
     {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
-        
-        $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->name, $this->reputation);
+        $this->enemyCharacterInfo = new UICharacterInfo($this, $this->icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->name, $this->reputation);
         $this->enemyCharacterInfo->setEnemy();
     }    
     /**
@@ -42,6 +26,7 @@ class pda_fragment_contacts extends AbstractForm
         $this->form('Client')->Pda->content->Pda_Ranking->content->ratingHueta->clickEntry($this->form('Client')->Pda->content->Pda_Ranking->content->enemyCharacterInfo->name);
         $this->form('Client')->Pda->content->Pda_Ranking->content->EnemyInListBtn();        
     }
+    
     function setCharacterSelected($selected)
     {
         $this->selected_new->opacity = $selected ? 0.40 : 0;
@@ -49,10 +34,8 @@ class pda_fragment_contacts extends AbstractForm
         if ($selected)
         {
             $this->bio->show();
-            
-            $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-                        
-            $this->tab_detail->text = $this->localization->get('TabBio');
+                
+            $this->tab_detail->text = Localization::get('TabBio');
         }
         else
         {

@@ -12,8 +12,6 @@ use app\forms\classes\DimaAsyncHackEbatNaxyi;
 
 class dialog extends AbstractForm
 {
-    private $localization;
-    
     private $actorCharacterInfo;
     private $enemyCharacterInfo;    
     
@@ -23,22 +21,18 @@ class dialog extends AbstractForm
     {
         parent::__construct();
 
-        $this->localization = new Localization($language);
-        
         uiLater(function(){
-            $this->actorCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon_gg, $this->rank_actor, null, $this->community_actor, null, $this->gg_name);
+ 
+            $this->actorCharacterInfo = new UICharacterInfo($this, $this->icon_gg, $this->rank_actor, null, $this->community_actor, null, $this->gg_name);
             $this->actorCharacterInfo->setActor();
             
-            $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon_enemy, $this->rank_enemy, null, $this->community_enemy, null, $this->enemy_name);
+            $this->enemyCharacterInfo = new UICharacterInfo($this, $this->icon_enemy, $this->rank_enemy, null, $this->community_enemy, null, $this->enemy_name);
             $this->enemyCharacterInfo->setEnemy();    
+            
+            $this->Dialog_Kunteynir->focusTraversable = false;
         });         
     }
-    
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }
-    
+
     private function preferValue($value, string $fallbackKey = '', string $default = ''): string
     {
         $value = trim((string)$value);
@@ -55,7 +49,7 @@ class dialog extends AbstractForm
     
         if ($fallbackKey != '')
         {
-            return $this->localization->get($fallbackKey);
+            return Localization::get($fallbackKey);
         }
     
         return '';
@@ -131,8 +125,6 @@ class dialog extends AbstractForm
     
     private function getRandomPhrase(): string
     {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-    
         $max = 56;
     
         do
@@ -143,16 +135,14 @@ class dialog extends AbstractForm
     
         $this->lastPhraseIndex = $index;
     
-        return $this->localization->get("Dialog_Random_Phrase_{$index}");
+        return Localization::get("Dialog_Random_Phrase_{$index}");
     }
     
     function StartDialog()
     {
         $this->ClearDialog();
     
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
-        $roles = new UIRoles($this, $this->localization);
+        $roles = new UIRoles($this);
         $actorRoleData = $roles->danilaEmoji($this->community_actor);
         $enemyRoleData = $roles->pidoras($this->community_enemy);        
         
@@ -195,13 +185,11 @@ class dialog extends AbstractForm
        
     function UpdateData()
     {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
         $this->actorCharacterInfo->setActor();
         $this->enemyCharacterInfo->setEnemy();
     
-        $actorRoleData = (new UIRoles($this, $this->localization))->danilaEmoji($this->community_actor);
-        $enemyRoleData = (new UIRoles($this, $this->localization))->pidoras($this->community_enemy);
+        $actorRoleData = (new UIRoles($this))->danilaEmoji($this->community_actor);
+        $enemyRoleData = (new UIRoles($this))->pidoras($this->community_enemy);
         
         $this->gg_name->textColor = $actorRoleData['color']; 
         $this->enemy_name->textColor = $enemyRoleData['color'];    
@@ -241,7 +229,7 @@ class dialog extends AbstractForm
     
     private function playVoiceAsync($fileName, $mediaId)
     {
-        $languageCode = $this->localization->getCurrentLanguage();
+        $languageCode = Localization::getCurrentLanguage();
         $soundPath = "./gamedata/sounds/voice/{$languageCode}/dialog/{$fileName}.mp3";
     
         if (!file_exists($soundPath))
@@ -370,11 +358,9 @@ class dialog extends AbstractForm
                 
         $this->form('Client')->MainGame->content->ItemVodka->enable();
 
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
         if ($this->form('Client')->ltx->r_bool('discord_rpc'))
         {        
-            $GLOBALS['discord']->setState($this->localization->get('RPC_Fight'));
+            $GLOBALS['discord']->setState(Localization::get('RPC_Fight'));
             $GLOBALS['discord']->updateState();      
         }
     }

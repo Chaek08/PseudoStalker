@@ -74,17 +74,14 @@
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Language_Label" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-Language_Switcher_Combobobx" visible="1"/>
-    <ComboBox editable="false" focusTraversable="true" id="Language_Switcher_Combobobx" layoutX="400" layoutY="688" prefHeight="93" prefWidth="240" promptText="" style="-fx-text-fill: white;&#10;-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" value="" visibleRowCount="2">
+    <ComboBox editable="false" focusTraversable="true" id="Language_Switcher_Combobobx" layoutX="400" layoutY="688" prefHeight="93" prefWidth="240" promptText="" style="-fx-text-fill: white;&#10;-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" value="" visibleRowCount="3">
       <styleClass xmlns:fx="http://javafx.com/fxml">
         <String fx:value="combo-box-base"/>
         <String fx:value="combo-box"/>
         <String fx:value="custom-combobox"/>
       </styleClass>
       <items xmlns:fx="http://javafx.com/fxml">
-        <FXCollections fx:factory="observableArrayList">
-          <String fx:value="Русский"/>
-          <String fx:value="English"/>
-        </FXCollections>
+        <FXCollections fx:factory="observableArrayList"/>
       </items>
     </ComboBox>
     <LabelEx alignment="CENTER" autoSize="true" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="AmbientSound_Label" layoutX="112" layoutY="432" prefHeight="66.50390625" prefWidth="333.3984375" style="-fx-font-family: 'Graffiti1CTT';&#10;-fx-font-size: 50" styleClass="label " text="Звук эмбиента" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">

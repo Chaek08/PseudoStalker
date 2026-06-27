@@ -22,25 +22,16 @@ use app\forms\classes\DimasCryptoZlodey;
 
 class UILoadWnd extends AbstractForm
 {
-    private $localization;
-    
     public $SaveLoadManager;
 
     public function __construct() 
     {
         parent::__construct();
 
-        $this->localization = new Localization($language);
-        
         $weaponData = &$this->weaponData;
         $this->SaveLoadManager = new SaveLoadManager(array($this, 'form'), $weaponData);            
     }
-    
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }    
-    
+
     /**
      * @event show 
      */
@@ -144,13 +135,11 @@ class UILoadWnd extends AbstractForm
             return;
         }
         
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
-        
         $this->savedata_name->text = $selectedSave;
         $hp = $saveData['health']['actor']['hp'] ?? $saveData['health']['gg']['value'] ?? null;
         if ($hp !== null && strpos($hp, '%') === false) $hp .= '%';
-        $this->savedata_health->text = $this->localization->get('SaveData_Health_Label') . ' : ' . ($hp ?? '---%');
-        $this->savedata_time->text = $this->localization->get('SaveData_Time_Label') 
+        $this->savedata_health->text = Localization::get('SaveData_Health_Label') . ' : ' . ($hp ?? '---%');
+        $this->savedata_time->text = Localization::get('SaveData_Time_Label') 
             . ' : ' . ($saveData['quest_time']['hm'] ?? '--:--') 
             . '  ' . ($saveData['quest_time']['date'] ?? '--/--/----');
     }
@@ -177,13 +166,12 @@ class UILoadWnd extends AbstractForm
         
         if (!$result['ok'])// похуй//нам не нужна exitdialog хуета, ибо здесь нет выбора да или нет
         {
-            $this->localization->setLanguage($this->getCurrentLanguageFromUI());
             if ($result['error'] === 'corrupt')
             {
                 if (!$this->form('Client')->ExitDialog->visible)
                 {
                     $this->form('Client')->ExitDialog->content->showDialog(exit_dlg::TYPE_CORRUPT_SAVE);
-                    //$this->form('Client')->toast($this->localization->get('SaveCorruptToast'));
+                    //$this->form('Client')->toast(Localization::get('SaveCorruptToast'));
                 }
             }
             elseif ($result['error'] === 'version')
@@ -191,7 +179,7 @@ class UILoadWnd extends AbstractForm
                 if (!$this->form('Client')->ExitDialog->visible)
                 {
                     $this->form('Client')->ExitDialog->content->showDialog(exit_dlg::TYPE_CLIENT_VERSION_ERR);
-                    //$this->form('Client')->toast($this->localization->get('InvalidGameClientToast'));
+                    //$this->form('Client')->toast(Localization::get('InvalidGameClientToast'));
                 }
             }
             return;

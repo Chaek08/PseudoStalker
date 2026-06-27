@@ -11,24 +11,10 @@ use app\forms\classes\Environment\EnvironmentBrightness;
 
 class mainmenu extends AbstractForm
 {
-    private $localization;
-
     public $SDK_MMBackground;
     
     public $menuPlayer;
 
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->localization = new Localization($language);
-    }
-    
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }
-    
     function InitMainMenu()
     {
         $GLOBALS['NewGameState'] = true;
@@ -74,7 +60,7 @@ class mainmenu extends AbstractForm
         }
         
         $this->menuPlayer->pause();
-        
+
         Media::pause($this->MainMenuBackground);        
         
         $this->form('Client')->MainGame->content->Environment->resume();
@@ -87,24 +73,20 @@ class mainmenu extends AbstractForm
             }
         }
            
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
         if ($this->form('Client')->ltx->r_bool('discord_rpc'))
         {
-            $GLOBALS['discord']->setDetails($this->localization->get('RPC_Ingame'));
+            $GLOBALS['discord']->setDetails(Localization::get('RPC_Ingame'));
             $GLOBALS['discord']->updateState();
         }
     }
     
     function SwitchGameState()
     {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
         if ($GLOBALS['NewGameState'])
         {
             $GLOBALS['NewGameState'] = false;
             
-            $this->Btn_Start_Game->text = $this->localization->get('ContinueGame_Label');
+            $this->Btn_Start_Game->text = Localization::get('ContinueGame_Label');
             
             $this->Btn_Save_Game->show();
             $this->Btn_End_Game->show();
@@ -122,7 +104,7 @@ class mainmenu extends AbstractForm
         {
             $GLOBALS['ContinueGameState'] = false;
             
-            $this->Btn_Start_Game->text = $this->localization->get('NewGame_Label');
+            $this->Btn_Start_Game->text = Localization::get('NewGame_Label');
         
             $this->Btn_Save_Game->hide();
             $this->Btn_End_Game->hide();

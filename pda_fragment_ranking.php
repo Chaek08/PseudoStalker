@@ -11,8 +11,6 @@ use app\forms\classes\Localization;
 
 class pda_fragment_ranking extends AbstractForm
 {
-    private $localization;
-    
     public $actorCharacterInfo;
     public $enemyCharacterInfo; 
     public $valerokCharacterInfo;
@@ -30,23 +28,19 @@ class pda_fragment_ranking extends AbstractForm
     {
         parent::__construct();
 
-        $this->localization = new Localization($language);
-        
         $this->ratingHueta = new RatingManager();
         
         uiLater(function() {
-            $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
-            
-            $this->actorCharacterInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->actorCharacterName);
+            $this->actorCharacterInfo = new UICharacterInfo($this, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->actorCharacterName);
             $this->actorCharacterInfo->setActor();
             
-            $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->enemyCharacterName);
+            $this->enemyCharacterInfo = new UICharacterInfo($this, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->enemyCharacterName);
             $this->enemyCharacterInfo->setEnemy();
             
-            $this->valerokCharacterInfo =  new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->valerokCharacterName);
+            $this->valerokCharacterInfo =  new UICharacterInfo($this, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->valerokCharacterName);
             $this->valerokCharacterInfo->setValerok();
             
-            $this->danilaCharacterInfo =  new UICharacterInfo($this, $this->localization, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->danilaCharacterInfo);
+            $this->danilaCharacterInfo =  new UICharacterInfo($this, $this->user_icon, $this->rank, $this->relationship, $this->community, $this->bio, $this->danilaCharacterInfo);
             $this->danilaCharacterInfo->setDanila();            
             
             //for($i=0;$i<27;$i++) $this->ratingHueta->setEntry(substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,rand(6,12)),rand(100,1000));            
@@ -58,17 +52,10 @@ class pda_fragment_ranking extends AbstractForm
         $GLOBALS['SelectedDanila'] = false;        
     }
     
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }     
-    
     function UpdateData()
     {
         if ($this->form('Client')->Pda->content->Pda_Ranking->visible) return;
     
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
         $this->ratingHueta->clearContainer($this->ratingKunteynir);
         
         $this->actorCharacterInfo->setActor();
@@ -126,9 +113,7 @@ class pda_fragment_ranking extends AbstractForm
     }
     function ShowUserInfo()
     {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
-        $this->tab_detail->text = $this->localization->get('TabDetail');
+        $this->tab_detail->text = Localization::get('TabDetail');
         
         $this->community_desc->show();
         $this->community->show(); 
@@ -248,8 +233,6 @@ class pda_fragment_ranking extends AbstractForm
     }
     function SetUserInfo()
     {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
         $this->DeathFilterManager();
         
         if ($GLOBALS['SelectedEnemy'])

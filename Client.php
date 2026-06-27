@@ -34,8 +34,6 @@ use app\forms\classes\FileSystem\CSimpleInifile;
 
 class Client extends AbstractForm
 {
-    private $localization;
-    
     public $device;
     
     public $ltx;
@@ -61,8 +59,6 @@ class Client extends AbstractForm
         
         $this->GetVersion(); 
         
-        $this->localization = new Localization($language);
-        
         $this->ltx = new CSimpleInifile('./userdata/user.ltx', [
             'language' => 'rus',
             'r_shadows' => 'on',
@@ -84,13 +80,15 @@ class Client extends AbstractForm
             $this->device->startTracking();
         });
         
+        $language = $this->ltx->r_string('language');
+        
+        Localization::setLanguage($language);      
+        
         $this->InitUserLTX();
         $this->syncWithSDKLTX();
        
         $this->MainMenu->content->InitMainMenu();       
         $this->MainMenu->content->Options->content->InitOptions();
-        
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
     }
     
     /**
@@ -161,12 +159,8 @@ class Client extends AbstractForm
     {
         return 'PseudoStalker ' . $this->getVersionID() . ', ' . $this->getBuildID();
     }    
-    
-    function getCurrentLanguageFromUI()
-    {
-        return $this->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }
-    
+
+  
     function ShowLoadScreen(callable $task)
     {
         $this->LoadScreen->opacity = 1;
@@ -210,7 +204,7 @@ class Client extends AbstractForm
             $appId = "1387765734704418846";
             $discord = new DiscordRPC($appId);
     
-            $discord->setDetails($this->localization->get('RPC_MainMenu'));
+            $discord->setDetails(Localization::get('RPC_MainMenu'));
             $discord->setBigImage("icon", $this->BuildID);
             $discord->setStartTimestamp(Time::now()->getTime());
     
@@ -451,11 +445,9 @@ class Client extends AbstractForm
             }
         }
         
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
         if ($this->ltx->r_bool('discord_rpc'))
         {        
-            $GLOBALS['discord']->setDetails($this->localization->get('RPC_MainMenu'));
+            $GLOBALS['discord']->setDetails(Localization::get('RPC_MainMenu'));
             $GLOBALS['discord']->updateState();   
         }     
     } 

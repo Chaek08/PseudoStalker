@@ -11,19 +11,17 @@ use php\gui\UXNode;
 class InventoryContextMenu
 {
     protected $form;
-    protected $inventory;
-    protected $localization;    
+    protected $inventory;   
 
     protected $main;
     protected $buttons = [];
     
     public $dropShadowEffect;    
 
-    public function __construct($clientForm, $inventoryContent, Localization $localization)
+    public function __construct($clientForm, $inventoryContent)
     {
         $this->form      = $clientForm;
-        $this->inventory = $inventoryContent;
-        $this->localization  = $localization;        
+        $this->inventory = $inventoryContent;       
 
         $this->createNodes();
     }
@@ -61,7 +59,7 @@ class InventoryContextMenu
         $this->main->hide();
         
         $btn = function (string $captionKey): UXFlatButton {
-            $caption = $this->localization->get($captionKey);
+            $caption = Localization::get($captionKey);
     
             $b = new UXFlatButton($caption);
             $b->alignment = 'CENTER';
@@ -104,7 +102,7 @@ class InventoryContextMenu
         {
             if (isset($this->buttons[$key]) && $this->buttons[$key])
             {
-                $this->buttons[$key]->text = $this->localization->get($locKey);
+                $this->buttons[$key]->text = Localization::get($locKey);
             }
         }
     }
@@ -185,7 +183,7 @@ class InventoryContextMenu
         }
         if ($item === $inv->Inv_Outfit)
         {
-		    return [$isWearing ? 'takeOff' : 'putOn'];
+            return [$isWearing ? 'takeOff' : 'putOn'];
         }
 
         return [];

@@ -1,6 +1,9 @@
 <?php
 namespace app\forms;
 
+use php\lang\Thread;
+use php\lang\ThreadGroup;
+use php\lang\ThreadPool;
 use app\forms\exit_dlg;
 use php\framework\Logger;
 use php\time\Timer;
@@ -18,25 +21,17 @@ use app\forms\classes\Log;
 
 class console extends AbstractForm
 {
-    private $localization;
-
     public function __construct()
     {
         parent::__construct();
 
-        $this->localization = new Localization($language);
-        
         Log::onWrite(function (string $tag, string $text) {
             uiLater(function () use ($tag, $text) {
                 Element::appendText($this->Console_Log, "> [$tag] $text\n");
                 $this->Console_Log->positionCaret(strlen($this->Console_Log->text));
             });
         });
-    }
-    
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
+
     }
     
     private $availableCommands = [
@@ -61,7 +56,9 @@ class console extends AbstractForm
         'set_cycle'           => ' [night, morning, day, evening, underground]',
         'set_ambient'         => ' [1-6]',
         'env_reset'           => '',
-        'fatal'               => ' [message]'       
+        'fatal'               => ' [message]',  
+        'flush'               => '',
+        'threadpool_stresstest' => ''
     ];
 
     private $tabMatches = [];
@@ -90,8 +87,6 @@ class console extends AbstractForm
         $args = explode(" ", $command);
         $command = strtolower($args[0]);
         
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
-
         switch ($command) 
         {
                 case "help":
@@ -150,7 +145,7 @@ class console extends AbstractForm
                         if (isset($args[1]))
                         {
                             $btn = $this->form('Client')->MainMenu->content->Options->content->Version_Switcher_Btn;
-                            if (($args[1] == "off" && $btn->text == $this->localization->get('TurnOn_Label')) || ($args[1] == "on" && $btn->text == $this->localization->get('TurnOff_Label')))
+                            if (($args[1] == "off" && $btn->text == Localization::get('TurnOn_Label')) || ($args[1] == "on" && $btn->text == Localization::get('TurnOff_Label')))
                             {
                                 $this->form('Client')->MainMenu->content->Options->content->VersionSwitcher();
                             }
@@ -228,7 +223,7 @@ class console extends AbstractForm
                         if (isset($args[1]))
                         {
                             $btn = $this->form('Client')->MainMenu->content->Options->content->Shadows_Switcher_Btn;
-                            if (($args[1] === "on" && $btn->text == $this->localization->get('TurnOff_Label')) || ($args[1] == "off" && $btn->text == $this->localization->get('TurnOn_Label')))
+                            if (($args[1] === "on" && $btn->text == Localization::get('TurnOff_Label')) || ($args[1] == "off" && $btn->text == Localization::get('TurnOn_Label')))
                             {
                                 $this->form('Client')->MainMenu->content->Options->content->ShadowsSwitcher();
                             }
@@ -244,7 +239,7 @@ class console extends AbstractForm
                         if (isset($args[1]))
                         {
                             $btn = $this->form('Client')->MainMenu->content->Options->content->AllSound_Switcher_Btn;
-                            if (($args[1] === "off" && $btn->text == $this->localization->get('TurnOn_Label')) || ($args[1] === "on" && $btn->text == $this->localization->get('TurnOff_Label')))
+                            if (($args[1] === "off" && $btn->text == Localization::get('TurnOn_Label')) || ($args[1] === "on" && $btn->text == Localization::get('TurnOff_Label')))
                             {
                                 $this->form('Client')->MainGame->content->Environment->pause();
                                 $this->form('Client')->MainMenu->content->Options->content->AllSoundSwitcher();
@@ -262,7 +257,7 @@ class console extends AbstractForm
                         if (isset($args[1]))
                         {
                             $btn = $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Switcher_Btn;
-                            if (($args[1] === "off" && $btn->text == $this->localization->get('TurnOn_Label')) || ($args[1] === "on" && $btn->text == $this->localization->get('TurnOff_Label')))
+                            if (($args[1] === "off" && $btn->text == Localization::get('TurnOn_Label')) || ($args[1] === "on" && $btn->text == Localization::get('TurnOff_Label')))
                             {
                                 $this->form('Client')->MainGame->content->Environment->pauseAmbient();
                                 $this->form('Client')->MainMenu->content->Options->content->AmbientSoundSwitcher();
@@ -399,23 +394,15 @@ class console extends AbstractForm
                 case "language":
                         $args = explode(" ", trim($this->edit->text));
 
-                        $languageMap = [
-                            'rus' => 'Русский',
-                            'eng' => 'English'
-                        ];
-
-                        if (isset($args[1]) && in_array($args[1], array_keys($languageMap)))
+                        if (isset($args[1]) && Localization::isValidLanguage($args[1]))
                         {
-                            $this->localization->setLanguage($args[1]);
-                            $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value = $languageMap[$args[1]];
+                            $code = $args[1];
+                    
+                            Localization::setLanguage($code);
+                    
+                            $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value = Localization::getDisplayLanguage();
+                            
                             $this->form('Client')->MainMenu->content->Options->content->LanguageSwitcherCombobobx();
-                            Log::result("Language changed to: {$args[1]} ({$languageMap[$args[1]]})");
-                        }
-                        else
-                        {
-                            $currentLang = $this->localization->getCurrentLanguage();
-                            $displayLang = $languageMap[$currentLang] ?? $currentLang;
-                            Log::result("Current language: {$currentLang} ({$displayLang})");
                         }
                         
                         $this->edit->text = "";
@@ -562,6 +549,25 @@ class console extends AbstractForm
                     
                     $this->edit->text = "";
                     break;
+                    
+                case "flush":
+                    Log::flush();
+                
+                    Log::result("Log buffer flushed.");
+                
+                    $this->edit->text = "";
+                    break;   
+                    
+                case "threadpool_stresstest":
+                    for ($i = 0; $i < 10000; $i++)
+                    {
+                        Log::info("TEST " . $i);
+                    }
+                    
+                    Log::flush();
+                    
+                    $this->edit->text = "";
+                    break;                                                        
                     
                 default:
                         if ($this->edit->text != "")

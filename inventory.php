@@ -15,8 +15,6 @@ use app\forms\classes\UI\InventoryActions;
 
 class inventory extends AbstractForm
 {
-    private $localization;
-    
     public $contextMenu;    
     
     private $vodkaWeight = 0.5;
@@ -102,14 +100,12 @@ class inventory extends AbstractForm
             $this->Inv_Wpn_AK74,
             $this->Inv_Ammo_5x45
         ];   
-
-        $this->localization = new Localization($language);
-        
+ 
         uiLater(function () {
             
             $this->dragManager = new InventoryDragManager($this);
           
-            $this->contextMenu = new InventoryContextMenu($this->form('Client'), $this, $this->localization);
+            $this->contextMenu = new InventoryContextMenu($this->form('Client'), $this);
             
             if ($btn = $this->contextMenu->getButton('drop'))
             {
@@ -137,11 +133,6 @@ class inventory extends AbstractForm
         $this->addMedkitToInventory();
         $this->addAmmo9x18ToInventory();
         $this->addAmmo5x45ToInventory();                   
-    }
-    
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
     }
     
     private function pointInRect($x, $y, $r): bool
@@ -740,9 +731,8 @@ class inventory extends AbstractForm
         {
            $totalWeight += $this->ak74AmmoWeight; 
         }        
-                    
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
-        $WeightLabel = $this->localization->get('Weight_Label');
+                       
+        $WeightLabel = Localization::get('Weight_Label');
         
         $text = $WeightLabel . "  " . round($totalWeight, 1) . " / " . round($maxWeight, 1);
         $this->weight_desc->text = $text;
@@ -778,8 +768,6 @@ class inventory extends AbstractForm
         $this->maket_label->text = null;
         $this->maket_desc->text = null;        
         
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-          
         if ($GLOBALS['item_vodka_selected'])
         {
             $vodka_name = trim($this->SDK_VodkaName);
@@ -788,10 +776,10 @@ class inventory extends AbstractForm
             $vodka_desc = trim($this->SDK_VodkaDesc);
             $vodka_price = trim($this->SDK_VodkaPrice);      
             
-            $this->maket_label->text = $vodka_name != '' ? $vodka_name : $this->localization->get('Vodka_Inv_Name');
+            $this->maket_label->text = $vodka_name != '' ? $vodka_name : Localization::get('Vodka_Inv_Name');
             $this->inv_maket->image = new UXImage($vodka_icon != '' ? $vodka_icon : 'res://.data/ui/inventory/item_vodka.png');
             $this->maket_weight->text = $vodka_weight != '' ? $vodka_weight . 'kg' : sprintf('%.1fkg', $this->vodkaWeight);
-            $this->maket_desc->text = $vodka_desc != '' ? $vodka_desc : $this->localization->get('Vodka_Inv_Desc');
+            $this->maket_desc->text = $vodka_desc != '' ? $vodka_desc : Localization::get('Vodka_Inv_Desc');
             $this->maket_count->text = ($vodka_price != '' ? $vodka_price : '250') . ' ' . $this->moneyCurrency;
         }
         if ($GLOBALS['item_outfit_selected'])
@@ -802,18 +790,18 @@ class inventory extends AbstractForm
             $outfit_desc = trim($this->SDK_OutfitDesc);
             $outfit_price = trim($this->SDK_OutfitPrice);        
             
-            $this->maket_label->text = $outfit_name != '' ? $outfit_name : $this->localization->get('Outfit_Inv_Name');
+            $this->maket_label->text = $outfit_name != '' ? $outfit_name : Localization::get('Outfit_Inv_Name');
             $this->inv_maket->image = new UXImage($outfit_icon != '' ? $outfit_icon : 'res://.data/ui/inventory/bandit_outfit.png');
             $this->maket_weight->text = $outfit_weight != '' ? $outfit_weight . 'kg' : sprintf('%.1fkg', $this->outfitWeight);
-            $this->maket_desc->text = $outfit_desc != '' ? $outfit_desc : $this->localization->get('Outfit_Inv_Desc');
+            $this->maket_desc->text = $outfit_desc != '' ? $outfit_desc : Localization::get('Outfit_Inv_Desc');
             $this->maket_count->text = ($outfit_price != '' ? $outfit_price : '2599') . ' ' . $this->moneyCurrency;
         }
         if ($GLOBALS['item_medkit_selected'])
         {
             $this->inv_maket->image = new UXImage('res://.data/ui/inventory/item_medkit.png');
             
-            $this->maket_label->text = $this->localization->get('Medkit_Inv_Name');
-            $this->maket_desc->text = $this->localization->get('Medkit_Inv_Desc');
+            $this->maket_label->text = Localization::get('Medkit_Inv_Name');
+            $this->maket_desc->text = Localization::get('Medkit_Inv_Desc');
             
             Element::setText($this->maket_count, "100" . ' ' . $this->moneyCurrency);
             Element::setText($this->maket_weight, sprintf('%.1fkg', $this->medkitWeight));
@@ -822,8 +810,8 @@ class inventory extends AbstractForm
         {
             $this->inv_maket->image = new UXImage('res://.data/ui/weapons/wpn_pm.png');
             
-            $this->maket_label->text = $this->localization->get('PM_Name');
-            $this->maket_desc->text = $this->localization->get('PM_Desc');
+            $this->maket_label->text = Localization::get('PM_Name');
+            $this->maket_desc->text = Localization::get('PM_Desc');
             
             Element::setText($this->maket_count, "280" . ' ' . $this->moneyCurrency);
             Element::setText($this->maket_weight, sprintf('%.1fkg', $this->pmWeight));
@@ -832,8 +820,8 @@ class inventory extends AbstractForm
         {
             $this->inv_maket->image = new UXImage('res://.data/ui/weapons/mag_9_18.png');
             
-            $this->maket_label->text = $this->localization->get('Ammo9x18_Name');
-            $this->maket_desc->text = $this->localization->get('Ammo9x18_Desc');
+            $this->maket_label->text = Localization::get('Ammo9x18_Name');
+            $this->maket_desc->text = Localization::get('Ammo9x18_Desc');
             
             Element::setText($this->maket_count, "70" . ' ' . $this->moneyCurrency);
             Element::setText($this->maket_weight, sprintf('%.1fkg', $this->pmAmmoWeight));            
@@ -842,8 +830,8 @@ class inventory extends AbstractForm
         {
             $this->inv_maket->image = new UXImage('res://.data/ui/weapons/wpn_ak74.png');
             
-            $this->maket_label->text = $this->localization->get('AK74_Name');
-            $this->maket_desc->text = $this->localization->get('AK74_Desc');
+            $this->maket_label->text = Localization::get('AK74_Name');
+            $this->maket_desc->text = Localization::get('AK74_Desc');
             
             Element::setText($this->maket_count, "2000" . ' ' . $this->moneyCurrency);
             Element::setText($this->maket_weight, sprintf('%.1fkg', $this->ak74Weight));
@@ -852,8 +840,8 @@ class inventory extends AbstractForm
         {
             $this->inv_maket->image = new UXImage('res://.data/ui/weapons/mag_5_45.png');
             
-            $this->maket_label->text = $this->localization->get('Ammo5x45_Name');
-            $this->maket_desc->text = $this->localization->get('Ammo5x45_Desc');
+            $this->maket_label->text = Localization::get('Ammo5x45_Name');
+            $this->maket_desc->text = Localization::get('Ammo5x45_Desc');
             
             Element::setText($this->maket_count, "200" . ' ' . $this->moneyCurrency);
             Element::setText($this->maket_weight, sprintf('%.1fkg', $this->ak74AmmoWeight));            
@@ -1094,7 +1082,6 @@ class inventory extends AbstractForm
 
         $cursorPos = $this->form('Client')->CustomCursor->position;
         
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
         $this->contextMenu->refreshCaptions();
         
         $this->contextMenu->showForItem($this->selectedItem, $cursorPos, $this->form('Client')->MainGame->content->GameActor->isWearingOutfit());

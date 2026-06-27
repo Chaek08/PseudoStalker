@@ -191,7 +191,7 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-time_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="time_label" layoutX="1144" layoutY="768" prefHeight="30" prefWidth="168" styleClass="label " text="time_label" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="time_label" layoutX="1144" layoutY="768" prefHeight="30" prefWidth="288" styleClass="label " text="time_label" textAlignment="LEFT" textFill="#ee991a" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="20"/>
       </font>

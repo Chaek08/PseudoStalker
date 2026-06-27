@@ -10,15 +10,6 @@ use app\forms\classes\Localization;
 
 class opt extends AbstractForm
 {
-    private $localization;
-
-    public function __construct() 
-    {
-        parent::__construct();
-
-        $this->localization = new Localization($language);
-    }
-    
     function InitOptions()
     {
         $this->form('Client')->ltx;
@@ -76,7 +67,13 @@ class opt extends AbstractForm
         }
 
         $lang = $this->form('Client')->ltx->r_string('language');
-        $this->Language_Switcher_Combobobx->value = ($lang === 'rus') ? 'Русский' : 'English';
+        
+        foreach (Localization::getDisplayLanguages() as $lang)
+        {
+            $this->Language_Switcher_Combobobx->items->add($lang);
+        }
+        
+        $this->Language_Switcher_Combobobx->value = Localization::getDisplayLanguage();
     }
 
     function SyncSwitcherStyles()
@@ -104,7 +101,7 @@ class opt extends AbstractForm
         if ($GLOBALS['AllSoundSwitcher_IsOn'])
         {
             $GLOBALS['AllSoundSwitcher_IsOn'] = false;       
-            $this->AllSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
+            $this->AllSound_Switcher_Btn->text = Localization::get('TurnOff_Label');
             $this->AllSound_Switcher_Btn->classesString = 'switch-off';
             
             $GLOBALS['AllSounds'] = false;
@@ -132,7 +129,7 @@ class opt extends AbstractForm
         }
         else 
         {
-            $this->AllSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
+            $this->AllSound_Switcher_Btn->text = Localization::get('TurnOn_Label');
             $this->AllSound_Switcher_Btn->classesString = 'switch-on';
             $GLOBALS['AllSoundSwitcher_IsOn'] = true;
         
@@ -168,7 +165,7 @@ class opt extends AbstractForm
         if ($GLOBALS['MenuSoundSwitcher_IsOn'])
         {
             $GLOBALS['MenuSoundSwitcher_IsOn'] = false;
-            $this->MenuSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
+            $this->MenuSound_Switcher_Btn->text = Localization::get('TurnOff_Label');
             $this->MenuSound_Switcher_Btn->classesString = 'switch-off';
             
             $GLOBALS['MenuSound'] = false;
@@ -182,7 +179,7 @@ class opt extends AbstractForm
         else 
         {
             $GLOBALS['MenuSoundSwitcher_IsOn'] = true;
-            $this->MenuSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
+            $this->MenuSound_Switcher_Btn->text = Localization::get('TurnOn_Label');
             $this->MenuSound_Switcher_Btn->classesString = 'switch-on';
             
             $GLOBALS['MenuSound'] = true;
@@ -205,7 +202,7 @@ class opt extends AbstractForm
         if ($GLOBALS['FightSoundSwitcher_IsOn'])
         {
             $GLOBALS['FightSoundSwitcher_IsOn'] = false;
-            $this->FightSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
+            $this->FightSound_Switcher_Btn->text = Localization::get('TurnOff_Label');
             $this->FightSound_Switcher_Btn->classesString = 'switch-off';           
             
             $GLOBALS['FightSound'] = false;
@@ -218,7 +215,7 @@ class opt extends AbstractForm
         else 
         {
             $GLOBALS['FightSoundSwitcher_IsOn'] = true;
-            $this->FightSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
+            $this->FightSound_Switcher_Btn->text = Localization::get('TurnOn_Label');
             $this->FightSound_Switcher_Btn->classesString = 'switch-on';            
             
             $GLOBALS['FightSound'] = true;
@@ -238,7 +235,7 @@ class opt extends AbstractForm
         if ($GLOBALS['AmbientSoundSwitcher_IsOn'])
         {
             $GLOBALS['AmbientSoundSwitcher_IsOn'] = false;
-            $this->AmbientSound_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
+            $this->AmbientSound_Switcher_Btn->text = Localization::get('TurnOff_Label');
             $this->AmbientSound_Switcher_Btn->classesString = 'switch-off';
             
             $GLOBALS['AmbientSound'] = false;
@@ -251,7 +248,7 @@ class opt extends AbstractForm
         else 
         {
             $GLOBALS['AmbientSoundSwitcher_IsOn'] = true;
-            $this->AmbientSound_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
+            $this->AmbientSound_Switcher_Btn->text = Localization::get('TurnOn_Label');
             $this->AmbientSound_Switcher_Btn->classesString = 'switch-on';
             
             $GLOBALS['AmbientSound'] = true;
@@ -271,7 +268,7 @@ class opt extends AbstractForm
         if ($GLOBALS['ShadowsSwitcher_IsOn'])
         {
             $GLOBALS['ShadowsSwitcher_IsOn'] = false;        
-            $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
+            $this->Shadows_Switcher_Btn->text = Localization::get('TurnOff_Label');
             $this->Shadows_Switcher_Btn->classesString = 'switch-off';
             
             //Client
@@ -357,7 +354,7 @@ class opt extends AbstractForm
         {
             $GLOBALS['ShadowsSwitcher_IsOn'] = true;
             
-            $this->Shadows_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
+            $this->Shadows_Switcher_Btn->text = Localization::get('TurnOn_Label');
             $this->Shadows_Switcher_Btn->classesString = 'switch-on';
             
             uiLater(function () {
@@ -449,7 +446,7 @@ class opt extends AbstractForm
         {
             $GLOBALS['VersionSwitcher_IsOn'] = false;
          
-            $this->Version_Switcher_Btn->text = $this->localization->get('TurnOff_Label');
+            $this->Version_Switcher_Btn->text = Localization::get('TurnOff_Label');
             $this->Version_Switcher_Btn->classesString = 'switch-off';
             
             if (Debug_Build)
@@ -472,7 +469,7 @@ class opt extends AbstractForm
         {
             $GLOBALS['VersionSwitcher_IsOn'] = true;
                      
-            $this->Version_Switcher_Btn->text = $this->localization->get('TurnOn_Label');
+            $this->Version_Switcher_Btn->text = Localization::get('TurnOn_Label');
             $this->Version_Switcher_Btn->classesString = 'switch-on';         
             
             if (Debug_Build)
@@ -498,13 +495,14 @@ class opt extends AbstractForm
      */
     function LanguageSwitcherCombobobx(UXEvent $e = null)
     {
-        $language_box = $this->Language_Switcher_Combobobx->value;
-        if ($language_box == 'Русский' || $language_box == 'English')
+        $code = Localization::getLanguageCode($this->Language_Switcher_Combobobx->value);
+        
+        if ($code !== null)
         {
-            $this->localization->setLanguage($language_box);
+            Localization::setLanguage($code);
         }
         
-        $this->form('Client')->ltx->w_string('language', $this->localization->getCurrentLanguage());
+        $this->form('Client')->ltx->w_string('language', Localization::getCurrentLanguage());
         $this->form('Client')->ltx->save();
         
         $this->form('Client')->ShowLoadScreen(function()
@@ -515,98 +513,100 @@ class opt extends AbstractForm
 
     function UpdateLocalization()
     {
-        $this->Return_Btn->text = $this->localization->get('Return_Btn');
-        $this->form('Client')->MainMenu->content->UILoadWnd->content->Return_Btn->text = $this->localization->get('Return_Btn');
-        $this->form('Client')->MainMenu->content->UISaveWnd->content->Return_Btn->text = $this->localization->get('Return_Btn');
+        $this->Return_Btn->text = Localization::get('Return_Btn');
+        $this->form('Client')->MainMenu->content->UILoadWnd->content->Return_Btn->text = Localization::get('Return_Btn');
+        $this->form('Client')->MainMenu->content->UISaveWnd->content->Return_Btn->text = Localization::get('Return_Btn');
       
-        $this->AllSound_Label->text = $this->localization->get('AllSound_Label');
-        $this->MenuSound_Label->text = $this->localization->get('MenuSound_Label');
-        $this->FightSound_Label->text = $this->localization->get('FightSound_Label');
-        $this->AmbientSound_Label->text = $this->localization->get('AmbientSound_Label');        
-        $this->Shadows_Label->text = $this->localization->get('Shadows_Label');
-        $this->Version_Label->text = $this->localization->get('Version_Label');
-        $this->Language_Label->text = $this->localization->get('Language_Label');
+        $this->AllSound_Label->text = Localization::get('AllSound_Label');
+        $this->MenuSound_Label->text = Localization::get('MenuSound_Label');
+        $this->FightSound_Label->text = Localization::get('FightSound_Label');
+        $this->AmbientSound_Label->text = Localization::get('AmbientSound_Label');        
+        $this->Shadows_Label->text = Localization::get('Shadows_Label');
+        $this->Version_Label->text = Localization::get('Version_Label');
+        $this->Language_Label->text = Localization::get('Language_Label');
 
-        $this->AllSound_Switcher_Btn->text = $this->localization->get($GLOBALS['AllSoundSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
-        $this->MenuSound_Switcher_Btn->text = $this->localization->get($GLOBALS['MenuSoundSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
-        $this->FightSound_Switcher_Btn->text = $this->localization->get($GLOBALS['FightSoundSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
-        $this->AmbientSound_Switcher_Btn->text = $this->localization->get($GLOBALS['AmbientSoundSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');        
-        $this->Shadows_Switcher_Btn->text = $this->localization->get($GLOBALS['ShadowsSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
-        $this->Version_Switcher_Btn->text = $this->localization->get($GLOBALS['VersionSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
+        $this->AllSound_Switcher_Btn->text = Localization::get($GLOBALS['AllSoundSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
+        $this->MenuSound_Switcher_Btn->text = Localization::get($GLOBALS['MenuSoundSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
+        $this->FightSound_Switcher_Btn->text = Localization::get($GLOBALS['FightSoundSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
+        $this->AmbientSound_Switcher_Btn->text = Localization::get($GLOBALS['AmbientSoundSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');        
+        $this->Shadows_Switcher_Btn->text = Localization::get($GLOBALS['ShadowsSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
+        $this->Version_Switcher_Btn->text = Localization::get($GLOBALS['VersionSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
 
-        $this->form('Client')->MainMenu->content->Btn_Start_Game->text = $this->localization->get(($GLOBALS['NewGameState'] ? 'NewGame_Label' : 'ContinueGame_Label'));
-        $this->form('Client')->MainMenu->content->Btn_Save_Game->text = $this->localization->get('SaveGame_Label');
-        $this->form('Client')->MainMenu->content->Btn_Load_Game->text = $this->localization->get('LoadGame_Label');
-        $this->form('Client')->MainMenu->content->Btn_End_Game->text = $this->localization->get('EndGame_Label');
-        $this->form('Client')->MainMenu->content->Btn_Opt->text = $this->localization->get('Options_Label');
-        $this->form('Client')->MainMenu->content->Btn_Exit_Windows->text = $this->localization->get('ExitToWindows_Label');
+        $this->form('Client')->MainMenu->content->Btn_Start_Game->text = Localization::get(($GLOBALS['NewGameState'] ? 'NewGame_Label' : 'ContinueGame_Label'));
+        $this->form('Client')->MainMenu->content->Btn_Save_Game->text = Localization::get('SaveGame_Label');
+        $this->form('Client')->MainMenu->content->Btn_Load_Game->text = Localization::get('LoadGame_Label');
+        $this->form('Client')->MainMenu->content->Btn_End_Game->text = Localization::get('EndGame_Label');
+        $this->form('Client')->MainMenu->content->Btn_Opt->text = Localization::get('Options_Label');
+        $this->form('Client')->MainMenu->content->Btn_Exit_Windows->text = Localization::get('ExitToWindows_Label');
         
-        $this->form('Client')->MainMenu->content->UISaveWnd->content->Wnd_Label->text = $this->localization->get('SaveGame_Label');
-        $this->form('Client')->MainMenu->content->UILoadWnd->content->Wnd_Label->text = $this->localization->get('LoadGame_Label');
-        $this->form('Client')->MainMenu->content->UISaveWnd->content->Save_Btn->text = $this->localization->get('Save_Btn');
-        $this->form('Client')->MainMenu->content->UILoadWnd->content->Load_Btn->text = $this->localization->get('Load_Btn');
-        $this->form('Client')->MainMenu->content->UISaveWnd->content->Remove_Save_Btn->text = $this->localization->get('Remove_Btn');
-        $this->form('Client')->MainMenu->content->UILoadWnd->content->Remove_Save_Btn->text = $this->localization->get('Remove_Btn');
+        $this->form('Client')->MainMenu->content->UISaveWnd->content->Wnd_Label->text = Localization::get('SaveGame_Label');
+        $this->form('Client')->MainMenu->content->UILoadWnd->content->Wnd_Label->text = Localization::get('LoadGame_Label');
+        $this->form('Client')->MainMenu->content->UISaveWnd->content->Save_Btn->text = Localization::get('Save_Btn');
+        $this->form('Client')->MainMenu->content->UILoadWnd->content->Load_Btn->text = Localization::get('Load_Btn');
+        $this->form('Client')->MainMenu->content->UISaveWnd->content->Remove_Save_Btn->text = Localization::get('Remove_Btn');
+        $this->form('Client')->MainMenu->content->UILoadWnd->content->Remove_Save_Btn->text = Localization::get('Remove_Btn');
 
-        $this->form('Client')->MainGame->content->Talk_Label->text = $this->localization->get('Talk_Label');
-        $this->form('Client')->MainGame->content->leave_btn->text = $this->localization->get('Leave_Label');
+        $this->form('Client')->MainGame->content->Talk_Label->text = Localization::get('Talk_Label');
+        $this->form('Client')->MainGame->content->leave_btn->text = Localization::get('Leave_Label');
 
-        $this->form('Client')->Inventory->content->time_label->text = $this->localization->get('Time_Label');
-        $this->form('Client')->Inventory->content->button5->text = $this->localization->get('Inventory_Label');
-        $this->form('Client')->Inventory->content->button6->text = $this->localization->get('Item_Label');
-        $this->form('Client')->Inventory->content->button7->text = $this->localization->get('Equipment_Label');      
-        $this->form('Client')->Inventory->content->maket_cond_label->text = $this->localization->get('Condition_Label');
+        $this->form('Client')->Inventory->content->time_label->text = Localization::get('Time_Label');
+        $this->form('Client')->Inventory->content->button5->text = Localization::get('Inventory_Label');
+        $this->form('Client')->Inventory->content->button6->text = Localization::get('Item_Label');
+        $this->form('Client')->Inventory->content->button7->text = Localization::get('Equipment_Label');      
+        $this->form('Client')->Inventory->content->maket_cond_label->text = Localization::get('Condition_Label');
 
-        $this->form('Client')->Pda->content->tasks_label->text = $this->localization->get('Tasks_Label');
-        $this->form('Client')->Pda->content->contacts_label->text = $this->localization->get('Contacts_Label');
-        $this->form('Client')->Pda->content->ranks_label->text = $this->localization->get('Ranks_Label');
-        $this->form('Client')->Pda->content->stat_label->text = $this->localization->get('Data_Label');
+        $this->form('Client')->Pda->content->tasks_label->text = Localization::get('Tasks_Label');
+        $this->form('Client')->Pda->content->contacts_label->text = Localization::get('Contacts_Label');
+        $this->form('Client')->Pda->content->ranks_label->text = Localization::get('Ranks_Label');
+        $this->form('Client')->Pda->content->stat_label->text = Localization::get('Data_Label');
         
-        $this->form('Client')->Pda->content->Pda_Tasks->content->task_label->text = $this->localization->get('DefeatEnemy_Task');
-        $this->form('Client')->Pda->content->Pda_Tasks->content->step1->text = $this->localization->get('TalkToGoblin_Task');
-        $this->form('Client')->Pda->content->Pda_Tasks->content->step2->text = $this->localization->get('DefeatGoblin_Task');
-        $this->form('Client')->Pda->content->Pda_Tasks->content->task_detail_text->text = $this->localization->get('TaskDetails');
-        $this->form('Client')->Pda->content->Pda_Tasks->content->active_task->text = $this->localization->get('ActiveTasks_Label');
-        $this->form('Client')->Pda->content->Pda_Tasks->content->passive_task->text = $this->localization->get('CompletedTasks_Label');
-        $this->form('Client')->Pda->content->Pda_Tasks->content->failed_task->text = $this->localization->get('FailedTasks_Label');
-        $this->form('Client')->Pda->content->Pda_Tasks->content->tab_button->text = $this->localization->get('Tasks_Label');
+        $this->form('Client')->Pda->content->Pda_Tasks->content->task_label->text = Localization::get('DefeatEnemy_Task');
+        $this->form('Client')->Pda->content->Pda_Tasks->content->step1->text = Localization::get('TalkToGoblin_Task');
+        $this->form('Client')->Pda->content->Pda_Tasks->content->step2->text = Localization::get('DefeatGoblin_Task');
+        $this->form('Client')->Pda->content->Pda_Tasks->content->task_detail_text->text = Localization::get('TaskDetails');
+        $this->form('Client')->Pda->content->Pda_Tasks->content->active_task->text = Localization::get('ActiveTasks_Label');
+        $this->form('Client')->Pda->content->Pda_Tasks->content->passive_task->text = Localization::get('CompletedTasks_Label');
+        $this->form('Client')->Pda->content->Pda_Tasks->content->failed_task->text = Localization::get('FailedTasks_Label');
+        $this->form('Client')->Pda->content->Pda_Tasks->content->tab_button->text = Localization::get('Tasks_Label');
 
-        $this->form('Client')->Pda->content->Pda_Contacts->content->community_desc->text = $this->localization->get('Group_Label');
-        $this->form('Client')->Pda->content->Pda_Contacts->content->reputation_desc->text = $this->localization->get('Reputation_Desc');
-        $this->form('Client')->Pda->content->Pda_Contacts->content->relationship_desc->text = $this->localization->get('Attitude_Label');
-        $this->form('Client')->Pda->content->Pda_Contacts->content->rank_desc->text = $this->localization->get('Rank_Desc');
-        $this->form('Client')->Pda->content->Pda_Contacts->content->tab_button->text = $this->localization->get('Contacts_Label');
+        $this->form('Client')->Pda->content->Pda_Contacts->content->community_desc->text = Localization::get('Group_Label');
+        $this->form('Client')->Pda->content->Pda_Contacts->content->reputation_desc->text = Localization::get('Reputation_Desc');
+        $this->form('Client')->Pda->content->Pda_Contacts->content->relationship_desc->text = Localization::get('Attitude_Label');
+        $this->form('Client')->Pda->content->Pda_Contacts->content->rank_desc->text = Localization::get('Rank_Desc');
+        $this->form('Client')->Pda->content->Pda_Contacts->content->tab_button->text = Localization::get('Contacts_Label');
         
-        $this->form('Client')->Pda->content->Pda_Ranking->content->name_label->text = $this->localization->get('Name_Label');
-        $this->form('Client')->Pda->content->Pda_Ranking->content->rank_label->text = $this->localization->get('Rank_Bio_Label');
-        $this->form('Client')->Pda->content->Pda_Ranking->content->rank_desc->text = $this->localization->get('Rank_Desc');
-        $this->form('Client')->Pda->content->Pda_Ranking->content->community_desc->text = $this->localization->get('Group_Label');
-        $this->form('Client')->Pda->content->Pda_Ranking->content->attitude->text = $this->localization->get('Attitude_Label');
-        $this->form('Client')->Pda->content->Pda_Ranking->content->tab_button->text = $this->localization->get('Ranks_Label');
+        $this->form('Client')->Pda->content->Pda_Ranking->content->name_label->text = Localization::get('Name_Label');
+        $this->form('Client')->Pda->content->Pda_Ranking->content->rank_label->text = Localization::get('Rank_Bio_Label');
+        $this->form('Client')->Pda->content->Pda_Ranking->content->rank_desc->text = Localization::get('Rank_Desc');
+        $this->form('Client')->Pda->content->Pda_Ranking->content->community_desc->text = Localization::get('Group_Label');
+        $this->form('Client')->Pda->content->Pda_Ranking->content->attitude->text = Localization::get('Attitude_Label');
+        $this->form('Client')->Pda->content->Pda_Ranking->content->tab_button->text = Localization::get('Ranks_Label');
     
-        $this->form('Client')->Pda->content->Pda_Statistic->content->Statistic_Label->text = $this->localization->get('Statistic_Label');
-        $this->form('Client')->Pda->content->Pda_Statistic->content->statistic->text = $this->localization->get('Statistic_Details');
-        $this->form('Client')->Pda->content->Pda_Statistic->content->rank_desc->text = $this->localization->get('Rank_Desc');
-        $this->form('Client')->Pda->content->Pda_Statistic->content->community_desc->text = $this->localization->get('Group_Label');
-        $this->form('Client')->Pda->content->Pda_Statistic->content->reputation_desc->text = $this->localization->get('Reputation_Desc');
-        $this->form('Client')->Pda->content->Pda_Statistic->content->buttonAlt->text = $this->localization->get('Info_Button');
-        $this->form('Client')->Pda->content->Pda_Statistic->content->tab_final->text = $this->localization->get('Timeline_Tab');
-        $this->form('Client')->Pda->content->Pda_Statistic->content->target_label->text = $this->localization->get('Target_Label');
+        $this->form('Client')->Pda->content->Pda_Statistic->content->Statistic_Label->text = Localization::get('Statistic_Label');
+        $this->form('Client')->Pda->content->Pda_Statistic->content->statistic->text = Localization::get('Statistic_Details');
+        $this->form('Client')->Pda->content->Pda_Statistic->content->rank_desc->text = Localization::get('Rank_Desc');
+        $this->form('Client')->Pda->content->Pda_Statistic->content->community_desc->text = Localization::get('Group_Label');
+        $this->form('Client')->Pda->content->Pda_Statistic->content->reputation_desc->text = Localization::get('Reputation_Desc');
+        $this->form('Client')->Pda->content->Pda_Statistic->content->buttonAlt->text = Localization::get('Info_Button');
+        $this->form('Client')->Pda->content->Pda_Statistic->content->tab_final->text = Localization::get('Timeline_Tab');
+        $this->form('Client')->Pda->content->Pda_Statistic->content->target_label->text = Localization::get('Target_Label');
 
-        $this->form('Client')->Dialog->content->rank_desc->text = $this->localization->get('Rank_Desc');
-        $this->form('Client')->Dialog->content->label->text = $this->localization->get('Rank_Desc');
-        $this->form('Client')->Dialog->content->community_desc->text = $this->localization->get('Group_Label');
-        $this->form('Client')->Dialog->content->label3->text = $this->localization->get('Group_Label');
+        $this->form('Client')->Dialog->content->rank_desc->text = Localization::get('Rank_Desc');
+        $this->form('Client')->Dialog->content->label->text = Localization::get('Rank_Desc');
+        $this->form('Client')->Dialog->content->community_desc->text = Localization::get('Group_Label');
+        $this->form('Client')->Dialog->content->label3->text = Localization::get('Group_Label');
     
-        $this->form('Client')->Fail->content->returnbtn->text = $this->localization->get('Return_Button');
-        $this->form('Client')->Fail->content->exitbtn->text = $this->localization->get('Exit_Button');
+        $this->form('Client')->Fail->content->returnbtn->text = Localization::get('Return_Button');
+        $this->form('Client')->Fail->content->exitbtn->text = Localization::get('Exit_Button');
+        
+        $this->form('Client')->Dialog->content->UpdateData();
             
         if ($GLOBALS['QuestCompleted']) 
         {
             $this->form('Client')->Fail->content->UpdateFailState();
             $this->form('Client')->Pda->content->Pda_Statistic->content->UpdateFinalLabel();
             
-            $this->form('Client')->MainGame->content->Task_Step_Label->text = $this->localization->get('No_Active_Task');
+            $this->form('Client')->MainGame->content->Task_Step_Label->text = Localization::get('No_Active_Task');
         }
         
         $this->form('Client')->MainMenu->content->UILoadWnd->content->ShowSavePreview();
@@ -617,16 +617,16 @@ class opt extends AbstractForm
         {
             if ($this->form('Client')->MainMenu->visible)
             {
-                $GLOBALS['discord']->setDetails($this->localization->get('RPC_MainMenu'));
+                $GLOBALS['discord']->setDetails(Localization::get('RPC_MainMenu'));
             }
             else 
             {
-                $GLOBALS['discord']->setDetails($this->localization->get('RPC_Ingame'));
+                $GLOBALS['discord']->setDetails(Localization::get('RPC_Ingame'));
             }
             
             if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted'])
             {
-                $GLOBALS['discord']->setState($this->localization->get('RPC_Fight'));
+                $GLOBALS['discord']->setState(Localization::get('RPC_Fight'));
             }
             else 
             {

@@ -4,24 +4,16 @@ namespace app\forms;
 use php\gui\UXImage;
 use std, gui, framework, app;
 use php\time\Time;
+use app\forms\classes\Localization;
 
 class pda_fragment_tasks extends AbstractForm
 {
-    private $localization;
-
     public function __construct() 
     {
         parent::__construct();
 
-        $this->localization = new Localization($language);
-        
         $this->UpdateQuestTime();
     }
-    
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }    
     
     public $SDK_QuestName;
     public $SDK_QuestIcon;
@@ -32,13 +24,11 @@ class pda_fragment_tasks extends AbstractForm
     
     function InitTasks()
     {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-    
         $buttons = [
-            'active_task'  => $this->localization->get('ActiveTaskTooltip'),
-            'passive_task' => $this->localization->get('PassiveTaskTooltip'),
-            'failed_task'  => $this->localization->get('FailedTaskTooltip'),
-            'quest_detail_btn' => $this->localization->get('TaskDetailTooltip')
+            'active_task'  => Localization::get('ActiveTaskTooltip'),
+            'passive_task' => Localization::get('PassiveTaskTooltip'),
+            'failed_task'  => Localization::get('FailedTaskTooltip'),
+            'quest_detail_btn' => Localization::get('TaskDetailTooltip')
         ];
         
         foreach ($buttons as $btnName => $tooltipText)
@@ -68,19 +58,17 @@ class pda_fragment_tasks extends AbstractForm
         $quest_step2 = trim($this->SDK_QuestStep2);
         $quest_target = trim($this->SDK_QuestTarget);
         
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
-        
-        $this->task_label->text = $quest_name != '' ? $quest_name : $this->localization->get('DefeatEnemy_Task');
+        $this->task_label->text = $quest_name != '' ? $quest_name : Localization::get('DefeatEnemy_Task');
         $this->icon_task->image = new UXImage($quest_icon != '' ? $quest_icon : 'res://.data/ui/pda/icon_Task.png');
-        $this->task_detail_text->text = $quest_desc != '' ? $quest_desc : $this->localization->get('TaskDetails');
-        $this->step1->text = $quest_step1 != '' ? $quest_step1 : $this->localization->get('TalkToGoblin_Task');
-        $this->step2->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatGoblin_Task');
-        $this->form('Client')->Pda->content->Pda_Statistic->content->target_label->text = $quest_target != '' ? $quest_target : $this->localization->get('Target_Label');
+        $this->task_detail_text->text = $quest_desc != '' ? $quest_desc : Localization::get('TaskDetails');
+        $this->step1->text = $quest_step1 != '' ? $quest_step1 : Localization::get('TalkToGoblin_Task');
+        $this->step2->text = $quest_step2 != '' ? $quest_step2 : Localization::get('DefeatGoblin_Task');
+        $this->form('Client')->Pda->content->Pda_Statistic->content->target_label->text = $quest_target != '' ? $quest_target : Localization::get('Target_Label');
         
-        if (!$GLOBALS['QuestStep1']) $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_step1 != '' ? $quest_step1 : $this->localization->get('TalkToGoblin_Task');
-        if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted']) $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatGoblin_Task');
+        if (!$GLOBALS['QuestStep1']) $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_step1 != '' ? $quest_step1 : Localization::get('TalkToGoblin_Task');
+        if ($GLOBALS['QuestStep1'] && !$GLOBALS['QuestCompleted']) $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_step2 != '' ? $quest_step2 : Localization::get('DefeatGoblin_Task');
         
-        $this->form('Client')->MainGame->content->MessageBox->content->Task_Name->text = $quest_name != '' ? $quest_name : $this->localization->get('DefeatEnemy_Task');
+        $this->form('Client')->MainGame->content->MessageBox->content->Task_Name->text = $quest_name != '' ? $quest_name : Localization::get('DefeatEnemy_Task');
         $this->form('Client')->MainGame->content->MessageBox->content->Icon->image = new UXImage($quest_icon != '' ? $quest_icon : 'res://.data/ui/pda/icon_Task.png');
     }
     /**
@@ -100,10 +88,8 @@ class pda_fragment_tasks extends AbstractForm
         else
         {
             $this->task_detail_text->show();
-            
-            $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-            
-            $this->tab_detail->text = $this->localization->get('TabTaskDetail');
+                 
+            $this->tab_detail->text = Localization::get('TabTaskDetail');
 
             $this->quest_detail_btn->image = new UXImage('res://.data/ui/pda/task_detail_opened.png');
             $this->quest_detail_btn->hoverImage = new UXImage('res://.data/ui/pda/task_detail_opened.png');
@@ -218,10 +204,8 @@ class pda_fragment_tasks extends AbstractForm
         
         $GLOBALS['Task_Status_Update'] = true;
         $this->form('Client')->MainGame->content->ShowMessageBox();
-        
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
-        $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatGoblin_Task');
+         
+        $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_step2 != '' ? $quest_step2 : Localization::get('DefeatGoblin_Task');
         $this->form('Client')->MainGame->content->ShowTaskStep();
         
         $GLOBALS['QuestStep1'] = true;
@@ -238,7 +222,7 @@ class pda_fragment_tasks extends AbstractForm
         
         $GLOBALS['Task_Status_Update'] = true;
         $this->form('Client')->MainGame->content->ShowMessageBox();
-        $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_step2 != '' ? $quest_step2 : $this->localization->get('DefeatEnemy_Task');        
+        $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_step2 != '' ? $quest_step2 : Localization::get('DefeatEnemy_Task');        
         
         $GLOBALS['QuestCompleted'] = true;
         
@@ -254,7 +238,7 @@ class pda_fragment_tasks extends AbstractForm
         
         $GLOBALS['Task_Status_Failed'] = true;
         $this->form('Client')->MainGame->content->ShowMessageBox();
-        $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_name != '' ? $quest_name : $this->localization->get('DefeatEnemy_Task');        
+        $this->form('Client')->MainGame->content->Task_Step_Label->text = $quest_name != '' ? $quest_name : Localization::get('DefeatEnemy_Task');        
 
         $GLOBALS['QuestCompleted'] = true;    //технически выполнен пусть и завален нахуй
         

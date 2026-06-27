@@ -11,7 +11,6 @@ use app\forms\classes\CharacterRank;
 class UICharacterInfo
 {
     private $form;
-    private $localization;
     private $roles;
 
     public $icon;
@@ -24,20 +23,10 @@ class UICharacterInfo
 
     private $character; // actor | valerok | enemy | danila!!!
 
-    public function __construct(
-        $form,
-        Localization $localization,
-        $icon = null,
-        $rank = null,
-        $relationship = null,
-        $community = null,
-        $bio = null,
-        $name = null,
-        $reputation = null
-    ) {
+    public function __construct($form, $icon = null, $rank = null, $relationship = null, $community = null, $bio = null, $name = null, $reputation = null)
+    {
         $this->form = $form;
-        $this->localization = $localization;
-        $this->roles = new UIRoles($form, $localization);
+        $this->roles = new UIRoles($form);
 
         $this->icon = $icon;
         $this->rank = $rank;
@@ -104,10 +93,10 @@ class UICharacterInfo
 
     private function getRankByValue(int $value): string
     {
-        if ($value >= 900) return $this->localization->get('Rank_Master');
-        elseif ($value >= 600) return $this->localization->get('Rank_Veterinarian');
-        elseif ($value >= 300) return $this->localization->get('Rank_Experienced');
-        elseif ($value >= 100) return $this->localization->get('Rank_Novice');
+        if ($value >= 900) return Localization::get('Rank_Master');
+        elseif ($value >= 600) return Localization::get('Rank_Veterinarian');
+        elseif ($value >= 300) return Localization::get('Rank_Experienced');
+        elseif ($value >= 100) return Localization::get('Rank_Novice');
         else return;
     }
 
@@ -122,7 +111,7 @@ class UICharacterInfo
         
         if ($this->relationship)
         {
-            $this->relationship->text = $this->localization->get('Relationship_Enemy');
+            $this->relationship->text = Localization::get('Relationship_Enemy');
             $this->relationship->textColor = '#cc3333';
         }
     
@@ -131,9 +120,9 @@ class UICharacterInfo
         $bioPath        = trim($this->form->form('Client')->Pda->content->SDK_EnemyBio);
         $reputationPath = trim($this->form->form('Client')->Pda->content->SDK_EnemyReputation);
     
-        $nameText = $namePath !== '' ? $namePath : $this->localization->get('Enemy_Name');
-        $bioText  = $bioPath  !== '' ? $bioPath  : $this->localization->get('GoblindaV_Bio');
-        $repText  = $reputationPath !== '' ? $reputationPath : $this->localization->get('Reputation_Terrible');
+        $nameText = $namePath !== '' ? $namePath : Localization::get('Enemy_Name');
+        $bioText  = $bioPath  !== '' ? $bioPath  : Localization::get('GoblindaV_Bio');
+        $repText  = $reputationPath !== '' ? $reputationPath : Localization::get('Reputation_Terrible');
         $iconImage = new UXImage($iconPath !== '' ? $iconPath : 'res://.data/ui/icon_npc/icon_petyx.png');
     
         if (is_object($this->name))
@@ -185,7 +174,7 @@ class UICharacterInfo
     
         if ($this->relationship)
         {
-            $this->relationship->text = $this->localization->get('Relationship_Friend');
+            $this->relationship->text = Localization::get('Relationship_Friend');
             $this->relationship->textColor = '#669966';
         }
     
@@ -194,9 +183,9 @@ class UICharacterInfo
         $bioPath        = trim($this->form->form('Client')->Pda->content->SDK_ValerokBio);
         //$reputationPath = trim($this->form->form('Client')->Pda->content->SDK_ValerokReputation);
     
-        $nameText = $namePath !== '' ? $namePath : $this->localization->get('Valerok_Name');
-        $bioText  = $bioPath  !== '' ? $bioPath  : $this->localization->get('Valerok_Bio');
-        $repText  = $reputationPath !== '' ? $reputationPath : $this->localization->get('Reputation_Default');
+        $nameText = $namePath !== '' ? $namePath : Localization::get('Valerok_Name');
+        $bioText  = $bioPath  !== '' ? $bioPath  : Localization::get('Valerok_Bio');
+        $repText  = $reputationPath !== '' ? $reputationPath : Localization::get('Reputation_Default');
         $iconImage = new UXImage($iconPath !== '' ? $iconPath : 'res://.data/ui/icon_npc/icon_valerok.png');
     
         if (is_object($this->name))
@@ -252,9 +241,9 @@ class UICharacterInfo
         $bioPath  = trim($this->form->form('Client')->Pda->content->SDK_ActorBio);
         $reputationPath = trim($this->form->form('Client')->Pda->content->SDK_ActorReputation);
     
-        $nameText = $namePath !== '' ? $namePath : $this->localization->get('GG_Name');
-        $bioText  = $bioPath !== ''  ? $bioPath  : $this->localization->get('Actor_Bio');
-        $repText  = $reputationPath !== '' ? $reputationPath : $this->localization->get('Reputation_Neutral');
+        $nameText = $namePath !== '' ? $namePath : Localization::get('GG_Name');
+        $bioText  = $bioPath !== ''  ? $bioPath  : Localization::get('Actor_Bio');
+        $repText  = $reputationPath !== '' ? $reputationPath : Localization::get('Reputation_Neutral');
         $iconImage = new UXImage($iconPath !== '' ? $iconPath : 'res://.data/ui/icon_npc/icon_actor.png');
     
         if (is_object($this->name))
@@ -305,7 +294,7 @@ class UICharacterInfo
         
         if ($this->relationship)
         {
-            $this->relationship->text = $this->localization->get('Relationship_Friend');
+            $this->relationship->text = Localization::get('Relationship_Friend');
             $this->relationship->textColor = '#669966';
         }        
     
@@ -314,9 +303,9 @@ class UICharacterInfo
         $bioPath  = trim($this->form->form('Client')->Pda->content->SDK_DanilaBio);
         //$reputationPath = trim($this->form->form('Client')->Pda->content->SDK_DanilaReputation);
     
-        $nameText = $namePath !== '' ? $namePath : $this->localization->get('Danila_Name');
-        $bioText  = $bioPath !== ''  ? $bioPath  : $this->localization->get('Danila_Bio');
-        $repText  = $reputationPath !== '' ? $reputationPath : $this->localization->get('Reputation_Good');
+        $nameText = $namePath !== '' ? $namePath : Localization::get('Danila_Name');
+        $bioText  = $bioPath !== ''  ? $bioPath  : Localization::get('Danila_Bio');
+        $repText  = $reputationPath !== '' ? $reputationPath : Localization::get('Reputation_Good');
         $iconImage = new UXImage($iconPath !== '' ? $iconPath : 'res://.data/ui/icon_npc/icon_danila.png');
     
         if (is_object($this->name))

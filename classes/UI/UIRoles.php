@@ -3,16 +3,15 @@ namespace app\forms\classes\UI;
 
 use php\gui\UXImage;
 use php\gui\UXImageView;
+use app\forms\classes\Localization;
 
 class UIRoles
 {
     private $form;
-    private $localization;
 
-    public function __construct($form, $localization)
+    public function __construct($form)
     {
         $this->form = $form;
-        $this->localization = $localization;
     }
 
     public function reset($target)
@@ -38,7 +37,7 @@ class UIRoles
 
         return $this->apply(
             $target,
-            $name ?: $this->localization->get('LA_Community'),
+            $name ?: Localization::get('LA_Community'),
             $icon ?: 'res://.data/ui/dialog/ladcega_role.png',
             $color ?: '#e64d4d'
         );
@@ -52,7 +51,7 @@ class UIRoles
 
         return $this->apply(
             $target,
-            $name ?: $this->localization->get('DE_Community'),
+            $name ?: Localization::get('DE_Community'),
             $icon ?: 'res://.data/ui/dialog/danila_emoji_role.png',
             $color ?: '#cc8033'
         );
@@ -66,7 +65,7 @@ class UIRoles
 
         return $this->apply(
             $target,
-            $name ?: $this->localization->get('Community_Pido'),
+            $name ?: Localization::get('Community_Pido'),
             $icon ?: 'res://.data/ui/dialog/pidoras_role.png',
             $color ?: '#16a4cd'
         );

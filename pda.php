@@ -2,12 +2,10 @@
 namespace app\forms;
 
 use std, gui, framework, app;
-
+use app\forms\classes\Localization;
 
 class pda extends AbstractForm
 {
-    private $localization;
-
     public $SDK_ActorName;
     public $SDK_ActorIcon;
     public $SDK_ActorBio;    
@@ -35,25 +33,16 @@ class pda extends AbstractForm
     {
         parent::__construct();
         
-        $this->localization = new Localization($language);        
-    
         $this->time_year->watchMaker->format = 'dd/MM/YYYY';
     }
     
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }    
-    
     function InitPDA()
     {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());    
-    
         $buttons = [
-            'tasks_label'    => $this->localization->get('TaskLabelTooltip'),
-            'contacts_label' => $this->localization->get('ContactsLabelTooltip'),
-            'ranks_label'    => $this->localization->get('RanksLabelTooltip'),
-            'stat_label'     => $this->localization->get('StatLabelTooltip')
+            'tasks_label'    => Localization::get('TaskLabelTooltip'),
+            'contacts_label' => Localization::get('ContactsLabelTooltip'),
+            'ranks_label'    => Localization::get('RanksLabelTooltip'),
+            'stat_label'     => Localization::get('StatLabelTooltip')
         ];
     
         foreach ($buttons as $btnName => $tooltipText)

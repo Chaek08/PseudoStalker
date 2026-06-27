@@ -17,69 +17,55 @@ class exit_dlg extends AbstractForm
     const TYPE_CLIENT_VERSION_ERR = 'client_version_error';
     const TYPE_LOAD_WITH_LOSS     = 'load_with_loss';
 
-    private $localization;
     private $currentType = null;
-
-    public function __construct() 
-    {
-        parent::__construct();
-
-        $this->localization = new Localization($language);
-    }
-    
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }
         
     function showDialog(string $type)
     {
         $this->dialog_warning->image = null;
         $this->btn_yes->show();
 
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        $this->btn_yes->text = $this->localization->get('Yes_Label');
-        $this->btn_no->text  = $this->localization->get('No_Label');
+        $this->btn_yes->text = Localization::get('Yes_Label');
+        $this->btn_no->text  = Localization::get('No_Label');
 
         switch ($type)
         {
             case self::TYPE_EXIT:
                 $this->dialog_warning->image = new UXImage('res://.data/ui/exit_dialog/dialog_warning.png');
-                $this->dialog_text->text = $this->localization->get('ExitDialog_Text');
+                $this->dialog_text->text = Localization::get('ExitDialog_Text');
                 break;
 
             case self::TYPE_END_GAME:
                 $this->dialog_warning->image = new UXImage('res://.data/ui/exit_dialog/dialog_warning.png');
-                $this->dialog_text->text = $this->localization->get('EndGameDialog_Text');
+                $this->dialog_text->text = Localization::get('EndGameDialog_Text');
                 break;
 
             case self::TYPE_REWRITE_SAVE:
                 $this->dialog_warning->image = new UXImage('res://.data/ui/exit_dialog/dialog_error.png');
-                $this->dialog_text->text = $this->localization->get('brainAFKToast');
+                $this->dialog_text->text = Localization::get('brainAFKToast');
                 break;
 
             case self::TYPE_REMOVE_SAVE:
                 $this->dialog_warning->image = new UXImage('res://.data/ui/exit_dialog/dialog_error.png');
-                $this->dialog_text->text = $this->localization->get('RemoveSaveWnd_Text');
+                $this->dialog_text->text = Localization::get('RemoveSaveWnd_Text');
                 break;
 
             case self::TYPE_CORRUPT_SAVE:
                 $this->dialog_warning->image = new UXImage('res://.data/ui/exit_dialog/dialog_error.png');
-                $this->dialog_text->text = $this->localization->get('SaveCorruptToast');
+                $this->dialog_text->text = Localization::get('SaveCorruptToast');
                 $this->btn_yes->hide();
                 $this->btn_no->text = 'OK';
                 break;
 
             case self::TYPE_CLIENT_VERSION_ERR:
                 $this->dialog_warning->image = new UXImage('res://.data/ui/exit_dialog/dialog_error.png');
-                $this->dialog_text->text = $this->localization->get('InvalidGameClientToast');
+                $this->dialog_text->text = Localization::get('InvalidGameClientToast');
                 $this->btn_yes->hide();
                 $this->btn_no->text = 'OK';
                 break;
                 
             case self::TYPE_LOAD_WITH_LOSS:
                 $this->dialog_warning->image = new UXImage('res://.data/ui/exit_dialog/dialog_warning.png');
-                $this->dialog_text->text = $this->localization->get('LoadWithLossDialog_Text');
+                $this->dialog_text->text = Localization::get('LoadWithLossDialog_Text');
                 break;                
         }
 

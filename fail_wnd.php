@@ -10,8 +10,6 @@ use app\forms\classes\Localization;
 
 class fail_wnd extends AbstractForm
 {
-    private $localization;
-    
     public $SDK_FailTextActor;
     public $SDK_FailTextIconActor;
     public $SDK_FailDescActor;
@@ -19,18 +17,6 @@ class fail_wnd extends AbstractForm
     public $SDK_FailTextIconEnemy;
     public $SDK_FailDescEnemy;
 
-    public function __construct() 
-    {
-        parent::__construct();
-
-        $this->localization = new Localization($language);
-    }
-    
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }     
-    
     /**
      * @event exitbtn.click-Left 
      */
@@ -69,8 +55,6 @@ class fail_wnd extends AbstractForm
     
     function UpdateFailState()
     {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-        
         $Client = $this->form('Client');
         if ($Client->MainGame->content->GameActor->isDead())
         {
@@ -80,9 +64,9 @@ class fail_wnd extends AbstractForm
             $actor_faildesc = trim($this->SDK_FailDescActor);
                 
             $this->Win_object->image = $actor_model != '' ? new UXImage($actor_model) : $this->form('Client')->MainGame->content->enemy->image;
-            $this->Win_fail_text->text = $actor_failtext != '' ? $actor_failtext : $this->localization->get('ActorFail_Label');
+            $this->Win_fail_text->text = $actor_failtext != '' ? $actor_failtext : Localization::get('ActorFail_Label');
             $this->Win_fail_text->graphic = new UXImageView(new UXImage($actor_failtexticon != '' ? $actor_failtexticon : 'res://.data/ui/fail_wnd/actor_fail.png'));
-            $this->Win_fail_desc->text = $actor_faildesc != '' ? $actor_faildesc : $this->localization->get('ActorFail_Desc');
+            $this->Win_fail_desc->text = $actor_faildesc != '' ? $actor_faildesc : Localization::get('ActorFail_Desc');
         }
         if ($Client->MainGame->content->GameEnemy->isDead())
         {
@@ -92,9 +76,9 @@ class fail_wnd extends AbstractForm
             $enemy_faildesc = trim($this->SDK_FailDescEnemy);    
             
             $this->Win_object->image = $actor_model != '' ? new UXImage($actor_model) : $this->form('Client')->MainGame->content->actor->image;
-            $this->Win_fail_text->text = $enemy_failtext != '' ? $enemy_failtext : $this->localization->get('EnemyFail_Label');
+            $this->Win_fail_text->text = $enemy_failtext != '' ? $enemy_failtext : Localization::get('EnemyFail_Label');
             $this->Win_fail_text->graphic = new UXImageView(new UXImage($enemy_failtexticon != '' ? $enemy_failtexticon : 'res://.data/ui/fail_wnd/enemy_fail.png'));
-            $this->Win_fail_desc->text = $enemy_faildesc != '' ? $enemy_faildesc : $this->localization->get('EnemyFail_Desc');                       
+            $this->Win_fail_desc->text = $enemy_faildesc != '' ? $enemy_faildesc : Localization::get('EnemyFail_Desc');                       
         }        
     }
 }

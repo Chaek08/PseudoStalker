@@ -6,14 +6,11 @@ use php\gui\UXImage;
 use php\gui\UXImageView;
 use action\Element; 
 use php\time\Time;
-
 use std, gui, framework, app;
 use app\forms\classes\Localization;
 
 class pda_fragments_stat extends AbstractForm
 {
-    private $localization;
-    
     private $actorCharacterInfo;
     private $enemyCharacterInfo;
     
@@ -21,32 +18,21 @@ class pda_fragments_stat extends AbstractForm
     {
         parent::__construct();
 
-        $this->localization = new Localization($language);
-        
         uiLater(function () {
-            $this->localization->setLanguage($this->getCurrentLanguageFromUI());
-            
-            $this->actorCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon, $this->rank, $this->null, $this->community, $this->null, $this->tab_button, $this->reputation); 
+            $this->actorCharacterInfo = new UICharacterInfo($this, $this->icon, $this->rank, $this->null, $this->community, $this->null, $this->tab_button, $this->reputation); 
             $this->actorCharacterInfo->setActor();
                     
-            $this->enemyCharacterInfo = new UICharacterInfo($this, $this->localization, $this->icon_enemy, $this->rank_enemy, null, $this->community_enemy, null, $this->enemy_name);
+            $this->enemyCharacterInfo = new UICharacterInfo($this, $this->icon_enemy, $this->rank_enemy, null, $this->community_enemy, null, $this->enemy_name);
             $this->enemyCharacterInfo->setEnemy();
         });
     }
     
     function UpdateData()
     {
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
-    
         $this->actorCharacterInfo->setActor();
         $this->enemyCharacterInfo->setEnemy();
     }
-        
-    function getCurrentLanguageFromUI()
-    {
-        return $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value;
-    }    
-    
+
     /**
      * @event show 
      */
@@ -104,19 +90,17 @@ class pda_fragments_stat extends AbstractForm
         $this->final_label->hide();
         $this->final_label->text = null;
         
-        $this->localization->setLanguage($this->getCurrentLanguageFromUI());        
-        
         if ($this->form('Client')->MainGame->content->GameActor->isDead())
         {
             $this->tab_final->show();
             $this->final_label->show();
-            $this->final_label->text = $this->localization->get('FinalLabel_ActorFail');
+            $this->final_label->text = Localization::get('FinalLabel_ActorFail');
         }
         if ($this->form('Client')->MainGame->content->GameEnemy->isDead())
         {
             $this->tab_final->show();
             $this->final_label->show();
-            $this->final_label->text = $this->localization->get('FinalLabel_EnemyFail');
+            $this->final_label->text = Localization::get('FinalLabel_EnemyFail');
         }
     }
 }
