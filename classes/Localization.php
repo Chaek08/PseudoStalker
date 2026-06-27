@@ -66,6 +66,8 @@ class Localization {
         if (file_exists($filename))
         {
             self::$translations = json_decode(file_get_contents($filename), true);
+            
+            unset(self::$translations['_meta']);
         }
         else
         {
@@ -94,7 +96,14 @@ class Localization {
     {
         self::loadLanguages();
     
-        return array_column(self::$languages, 'name');
+        $result = [];
+        
+        foreach (self::$languages as $code => $meta)
+        {
+            $result[$code] = $meta['name'];
+        }
+        
+        return $result;
     }
 
     public static function getLanguageCode($displayLanguage)

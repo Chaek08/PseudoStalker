@@ -399,10 +399,21 @@ class console extends AbstractForm
                             $code = $args[1];
                     
                             Localization::setLanguage($code);
+                            
+                            $displayLanguage = Localization::getDisplayLanguage();
                     
                             $this->form('Client')->MainMenu->content->Options->content->Language_Switcher_Combobobx->value = Localization::getDisplayLanguage();
                             
                             $this->form('Client')->MainMenu->content->Options->content->LanguageSwitcherCombobobx();
+                            
+                            Log::result("Language changed to: {$code} ({$displayLanguage})");
+                        }
+                        else
+                        {
+                            $currentLang = Localization::getCurrentLanguage();
+                            $displayLang = Localization::getDisplayLanguage();
+                    
+                            Log::result("Current language: {$currentLang} ({$displayLang})");                            
                         }
                         
                         $this->edit->text = "";
