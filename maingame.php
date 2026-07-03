@@ -61,6 +61,8 @@ class maingame extends AbstractForm
         $this->GameEnemy = new CEnemy($this);
     
         $this->Particles = new ParticleManager($this);
+        $this->Particles->preload();
+        
         $this->HitMark = new HitMark($this->HitMark_Visual);
     
         $this->ItemVodka = new CVodka($this, $this->item_vodka_0000, $this->GameActor, $this->GameEnemy);
