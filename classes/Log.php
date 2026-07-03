@@ -28,23 +28,13 @@ class Log
         self::$listeners[] = $listener;
     }
 
-    private static function notify(string $tag, string $text)
+    private static function notify(string $text)
     {
         foreach (self::$listeners as $listener)
         {
-            $listener($tag, $text);
+            $listener($text);
         }
     }    
-
-    public static function command(string $text) //mb
-    {
-        self::write("CMD", $text);
-    }
-
-    public static function result(string $text)
-    {
-        self::write("OUT", $text);
-    }
 
     public static function setBuildId(string $id)
     {
@@ -74,36 +64,12 @@ class Log
         Logger::info(self::$versionId . ', ' . self::$buildId);
     }
     
-    public static function info(string $text)
-    {
-        self::write("INFO", $text);
-        
-        Logger::debug($text); // бля
-    }
-
-    public static function warn(string $text)
-    {
-        self::write("WARN", $text);
-        
-        Logger::warn($text);
-    }
-
-    public static function error(string $text)
-    {
-        self::write("ERROR", $text);
-        
-        Logger::error($text);
-    }
-
-    public static function crash(string $text){ self::write("CRASH",$text); }
-    public static function trace(string $text){ self::write("TRACE",$text); }
-
-    private static function write(string $tag, string $text)
+    private static function write(string $text)
     {
         self::ensure();
     
         $time = Time::now()->toString("HH:mm:ss");
-        $line = "* [$time] [$tag] $text\n";
+        $line = "* [$time] $text\n";
     
         self::$buffer[] = $line;
     
@@ -112,8 +78,41 @@ class Log
             self::flush();
         }
     
-        self::notify($tag, $text);
+        self::notify($text);
     }
+    
+    public static function info(string $text)
+    {
+        self::write($text);
+        
+        Logger::debug($text);
+    }
+    
+    public static function warn(string $text)
+    {
+        self::write($text);
+        
+        Logger::warn($text);
+    }
+    
+    public static function error(string $text)
+    {
+        self::write($text);
+        
+        Logger::error($text);
+    }
+    
+    public static function result(string $text)
+    {
+        self::write($text);
+        
+        Logger::debug($text);
+    }
+    
+    public static function command(string $text)
+    {
+        self::write($text);
+    }    
     
     public static function flush()
     {
@@ -199,10 +198,7 @@ class Log
     {
         $env = System::getEnv();
 
-        return
-            $env["COMPUTERNAME"]
-            ?? $env["HOSTNAME"]
-            ?? "unknown";
+        return $env["COMPUTERNAME"] ?? $env["HOSTNAME"] ?? "unknown";
     }
     
     public static function getLogFile(): ?string
