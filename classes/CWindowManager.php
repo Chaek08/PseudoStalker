@@ -1,6 +1,7 @@
 <?php
 namespace app\forms\classes;
 
+use php\desktop\Mouse;
 use php\lang\System;
 use php\lang\ThreadPool;
 use php\gui\animation\UXAnimationTimer;
