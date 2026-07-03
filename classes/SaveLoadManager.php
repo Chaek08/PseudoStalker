@@ -2,6 +2,7 @@
 namespace app\forms\classes;
 
 use php\lang\ThreadPool;
+use app\forms\classes\UI\InventoryActions;
 use Throwable;
 use app\forms\classes\Log;
 use php\gui\UXApplication;
@@ -166,11 +167,11 @@ class SaveLoadManager
                     'dead' => $c->MainGame->content->GameEnemy->isDead(),
                 ],
             ],
-            'need_to_check_pda'=> isset($GLOBALS['NeedToCheckPDA']) ? $GLOBALS['NeedToCheckPDA'] : false,
+            'need_to_check_pda'      => isset($GLOBALS['NeedToCheckPDA']) ? $GLOBALS['NeedToCheckPDA'] : false,
             'menubackground_playpos' => $c->MainMenu->content->MainMenuBackground->positionMs,
-            'menusound_playpos'      => $c->MainMenu->content->MenuSound->positionMs,
-            'environment_state'      => $c->MainGame->content->Environment->getState(),            
-            'fightsound_playpos'     => $c->MainGame->content->FightSound->positionMs,
+            'menusound_playpos'      => isset($c->MainMenu->content->menuPlayer) ? $c->MainMenu->content->menuPlayer->positionMs : 0,
+            'environment_state'      => $c->MainGame->content->Environment->getState(),
+            'fightsound_playpos'     => isset($c->MainGame->content->fightPlayer) ? $c->MainGame->content->fightPlayer->positionMs : 0,
         ];
     
         return $data;
@@ -357,10 +358,10 @@ class SaveLoadManager
     {
         $form = $this->callForm('Client');
 
-        $form->MainGame->content->ResetGameClient();
-
+        $form->MainGame->content->ResetGameClient(function () use ($saveData, $saveName, $form) {
+        
         if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = false;
-
+        
         $form->Pda->content->Pda_Tasks->content->UpdateData();
         $form->Pda->content->Pda_Tasks->content->time_quest_date->text = $saveData['quest_time']['date'];
         $form->Pda->content->Pda_Tasks->content->time_quest_hm->text   = $saveData['quest_time']['hm'];        
@@ -426,23 +427,21 @@ class SaveLoadManager
             $form->MainGame->content->item_vodka_0000->position = [$saveData['objects_position']['item_vodka_0000']['x'], $saveData['objects_position']['item_vodka_0000']['y']];
         } 
  
-        $actorData = $saveData['actors_state']['actor'] ?? [];
-        $enemyData = $saveData['actors_state']['enemy'] ?? [];
-
-        $form->MainGame->content->GameActor->restoreState($actorData['hp'] ?? 100, $actorData['dead'] ?? false, true);
-        $form->MainGame->content->GameEnemy->restoreState($enemyData['hp'] ?? 100, $enemyData['dead'] ?? false, false);   
+        $actorHp   = $saveData['health']['actor']['hp'] ?? 100;
+        $enemyHp   = $saveData['health']['enemy']['hp'] ?? 100;
         
-        $actorWasDead = $saveData['actors_state']['actor']['dead'] ?? false;
-        $enemyWasDead = $saveData['actors_state']['enemy']['dead'] ?? false;
-          
-        if ($actorWasDead || $enemyWasDead)
+        $actorDead = $saveData['actors_state']['actor']['dead'] ?? false;
+        $enemyDead = $saveData['actors_state']['enemy']['dead'] ?? false;
+        
+        $form->MainGame->content->GameActor->restoreState($actorHp, $actorDead, true);
+        $form->MainGame->content->GameEnemy->restoreState($enemyHp, $enemyDead, false);
+        
+        if ($actorDead || $enemyDead)
         {
             if ($saveData['quest_step1'] == true)
             {
-                $form->Pda->content->Pda_Tasks->content->Step1_Complete();
+                $form->Dialog->content->Talk_Final();
             }
-            
-            $form->MainGame->content->finalizeBattle();
             
             $form->Pda->content->Pda_Ranking->content->DeathFilterManager();
             
@@ -456,6 +455,15 @@ class SaveLoadManager
                 $form->Pda->content->Pda_Tasks->content->Step_DeletePda();
             }
         }
+        
+        if ($actorDead)
+        {
+            $form->MainGame->content->onActorDeath();
+        }
+        if ($enemyDead)
+        {
+            $form->MainGame->content->onEnemyDeath();
+        }        
         
         if ($GLOBALS['AllSoundSwitcher_IsOn']) $GLOBALS['AllSounds'] = true;         
         
@@ -480,16 +488,18 @@ class SaveLoadManager
         if (isset($saveData['objects_position']['actor']['is_wearing']))
         {
             $isWearing = $saveData['objects_position']['actor']['is_wearing'];
+             
+            $inv = $form->Inventory->content;
             
-            $actor = $form->MainGame->content->GameActor;
-
             if ($isWearing)
             {
-                $actor->putOnOutfit();
+                $inv->selectedItem = $inv->Inv_Outfit;
+                $inv->getActions()->putOnItem();
             }
             else
             {
-                $actor->takeOffOutfit();
+                $inv->selectedItem = $inv->Inv_Outfit;
+                $inv->getActions()->takeOffItem();
             }
         }
         
@@ -497,8 +507,39 @@ class SaveLoadManager
         {
             $env = $form->MainGame->content->Environment;
             $env->restoreState($saveData['environment_state'], $saveData['quest_time']['hm']);
-        }   
+        }
         
+        if (isset($saveData['menusound_playpos']))
+        {
+            $player = $form->MainMenu->content->menuPlayer;
+        
+            if ($player)
+            {
+                $player->positionMs = (int)$saveData['menusound_playpos'];
+            }
+        }
+        
+        if (isset($saveData['fightsound_playpos']))
+        {
+            $player = $form->MainGame->content->fightPlayer;
+        
+            if ($player)
+            {
+                $player->positionMs = (int)$saveData['fightsound_playpos'];
+            }
+        }
+        
+        if (isset($saveData['menubackground_playpos']))
+        {
+            $bg = $form->MainMenu->content->MainMenuBackground;
+        
+            if ($bg)
+            {
+                $bg->positionMs = (int)$saveData['menubackground_playpos'];
+            }
+        }        
+        
+        });
         
         Log::info("Loaded save: " . $saveName);      
                            

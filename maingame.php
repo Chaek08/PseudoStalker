@@ -145,9 +145,9 @@ class maingame extends AbstractForm
         }
     }
     
-    function ResetGameClient()
+    function ResetGameClient(callable $afterReset = null)
     {
-        $this->form('Client')->ShowLoadScreen(function ()
+        $this->form('Client')->ShowLoadScreen(function () use ($afterReset)
         {    
             $this->GameActor->respawn(112, $this->GameActor->GetModel()->y, false);
             $this->GameEnemy->respawn(1312, $this->GameEnemy->GetModel()->y, false);
@@ -201,8 +201,13 @@ class maingame extends AbstractForm
             {            
                 $GLOBALS['discord']->setState(null);
                 $GLOBALS['discord']->updateState();           
-            }   
-         });                   
+            }  
+            
+            if ($afterReset)
+            {
+                $afterReset();
+            }             
+        });                   
     }  
     
     function RenderHud($enable)
@@ -549,7 +554,7 @@ class maingame extends AbstractForm
             function () use ($pct) {
                 $this->health_bar_enemy->text = $pct . '%';
             }
-        );
+        );  
     }
     
     private function updateActorHealthUI($actor): void
@@ -599,10 +604,10 @@ class maingame extends AbstractForm
             function () use ($invBar, $pct) {
                 $invBar->text = $pct . '%';
             }
-        );
+        );     
     }
     
-    private function onEnemyDeath(): void
+    public function onEnemyDeath(): void
     {
         $this->health_static_enemy->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
     
@@ -616,7 +621,7 @@ class maingame extends AbstractForm
         $this->finalizeBattle();
     }
     
-    private function onActorDeath(): void
+    public function onActorDeath(): void
     {
         $this->health_static_gg->graphic = new UXImageView(new UXImage('res://.data/ui/maingame/skull_new.png'));
     

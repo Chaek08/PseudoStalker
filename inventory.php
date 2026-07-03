@@ -165,6 +165,11 @@ class inventory extends AbstractForm
         return $this->weaponSlots[$weapon] ?? null;
     }
     
+    public function getActions()
+    {
+        return $this->actions;
+    }
+    
     /**
      * @event mouseMove
      */
