@@ -195,6 +195,9 @@ class UILoadWnd extends AbstractForm
         }
         $this->form('Client')->MainMenu->content->UILoadWnd->content->ReturnBtn();
         $this->form('Client')->MainMenu->content->BtnStartGame();
+        
+        $this->saves_list->selectedIndex = -1;
+        $this->HideSavePreview();        
                 
         $this->SaveLoadManager->applySaveData($saveData, $saveName);      
     }
