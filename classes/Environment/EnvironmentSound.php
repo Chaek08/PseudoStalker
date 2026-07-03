@@ -8,6 +8,7 @@ use php\time\Timer;
 use app\forms\classes\Log;
 use app\forms\classes\Environment\EnvironmentData;
 use app\forms\classes\Environment\EnvironmentBase;
+use app\forms\classes\DimaAsyncHackEbatNaxyi;
 
 class EnvironmentSound 
 {
@@ -20,8 +21,6 @@ class EnvironmentSound
     public $ambientTimerId;
 
     protected $ambientPlayer;
-    protected $sfxPlayer;
-    protected $effectPlayer;
     protected $rainPlayer;
     protected $anomalyPlayer;
 
@@ -99,7 +98,7 @@ class EnvironmentSound
         }
     
         $this->currentAmbientPath = $path;
-    
+        
         $this->ambientPlayer = new MediaPlayerScript();
         $this->ambientPlayer->open($path);
         $this->ambientPlayer->volume = $this->volumeAmbient;
@@ -205,10 +204,7 @@ class EnvironmentSound
         $path = self::SOUND_BASE_PATH . $file;
 
         try {
-            $this->sfxPlayer = new MediaPlayerScript();
-            $this->sfxPlayer->open($path);
-            $this->sfxPlayer->volume = $this->volumeSfx;
-            $this->sfxPlayer->play();
+            DimaAsyncHackEbatNaxyi::playSfxSound($path, 'env_sfx');
         } catch (\Throwable $e) {
             Debug::fail("Environment: sfx open failed '{$path}'");
         }
@@ -234,11 +230,12 @@ class EnvironmentSound
 
         $file      = $effect['sound'] . '.mp3';
         $soundPath = self::SOUND_BASE_PATH . $file;
-
-        $this->effectPlayer = new MediaPlayerScript();
-        $this->effectPlayer->open($soundPath);
-        $this->effectPlayer->volume = $this->volumeEffect;
-        $this->effectPlayer->play();
+        
+        try {
+            DimaAsyncHackEbatNaxyi::playSfxSound($soundPath, 'env_effect');
+        } catch (\Throwable $e) {
+            Debug::fail("Environment: effect open failed '{$soundPath}'");
+        }
     }
 
     protected function playAmbientInternal($path, $rawPath, $length, $tag = '')
@@ -339,16 +336,6 @@ class EnvironmentSound
             $this->ambientPlayer->pause();
         }
         
-        if (is_object($this->sfxPlayer))
-        {
-            $this->sfxPlayer->pause();
-        }
-        
-        if (is_object($this->effectPlayer))
-        {
-            $this->effectPlayer->pause();
-        }
-        
         if (is_object($this->rainPlayer))
         {
             $this->rainPlayer->pause();
@@ -377,16 +364,6 @@ class EnvironmentSound
                 {
                     $this->ambientPlayer->play();
                 }
-            }
-    
-            if (is_object($this->sfxPlayer))
-            {
-                $this->sfxPlayer->play();
-            }
-    
-            if (is_object($this->effectPlayer))
-            {
-                $this->effectPlayer->play();
             }
     
             if ($this->isRainy && is_object($this->rainPlayer))
@@ -443,7 +420,7 @@ class EnvironmentSound
             $this->ambientTimerId = null;
         }
         
-        foreach ([$this->ambientPlayer, $this->sfxPlayer, $this->effectPlayer, $this->rainPlayer, $this->anomalyPlayer] as $player)
+        foreach ([$this->ambientPlayer, $this->rainPlayer, $this->anomalyPlayer] as $player)
         {
             if ($player)
             {
@@ -452,8 +429,6 @@ class EnvironmentSound
         }
         
         $this->ambientPlayer = null;
-        $this->sfxPlayer = null;
-        $this->effectPlayer = null;
         $this->rainPlayer = null;
         $this->anomalyPlayer = null;
     }     

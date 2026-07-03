@@ -374,15 +374,6 @@ class EnvironmentBase
             return;
         }
     
-        if (!empty($state['cycle']))
-        {
-            $this->currentCycle = $state['cycle'];
-        }
-        elseif ($timeHm)
-        {
-            $this->currentCycle = $this->getTimeCycleByString($timeHm);
-        }
-
         if (isset($state['location_index']))
         {
             $this->currentLocationIndex = (int)$state['location_index'];
@@ -393,12 +384,8 @@ class EnvironmentBase
             $this->manualCycle = $state['manual_cycle'] !== null ? (string)$state['manual_cycle'] : null;
         }
         
-        $cycle = $this->currentCycle;
-        if ($cycle == '')
-        {
-            $cycle = $timeHm ? $this->getTimeCycleByString($timeHm) : $this->getTimeCycleByString(Time::now()->toString('HH:mm'));
-        }
-        $this->updateWithCycle($cycle);      
+        $cycle = !empty($state['cycle']) ? $state['cycle'] : ($timeHm ? $this->getTimeCycleByString($timeHm) : $this->getTimeCycleByString(Time::now()->toString('HH:mm')));
+        $this->updateWithCycle($cycle);    
 
         if (!empty($state['ambient_path']))
         {

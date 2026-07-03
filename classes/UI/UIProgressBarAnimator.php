@@ -12,9 +12,12 @@ class UIProgressBarAnimator
         if (!$node) return;
 
         $id = spl_object_hash($node);
-        if (isset(self::$active[$id])) return;
-
-        self::$active[$id] = true;
+        
+        if (isset(self::$active[$id]))
+        {
+            self::$active[$id]->stop();
+            unset(self::$active[$id]);
+        }
 
         $last = microtime(true);
 
@@ -22,7 +25,10 @@ class UIProgressBarAnimator
         {
             if (!$node)
             {
-                unset(self::$active[$id]);
+                if (isset(self::$active[$id]))
+                {
+                    unset(self::$active[$id]);
+                }
                 $timer->stop();
                 return;
             }
@@ -46,6 +52,8 @@ class UIProgressBarAnimator
 
             $node->width += ($diff > 0 ? $step : -$step);
         });
+        
+        self::$active[$id] = $timer;
 
         $timer->start();
     }

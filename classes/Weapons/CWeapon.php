@@ -250,8 +250,7 @@ abstract class CWeapon
         $tag = $base . '_' . $this->shotSeq;
         $this->shotSeq = ($this->shotSeq + 1) % $this->shotPoolSize;
         
-        //сверху хуйня, удалиииииить
-        DimaAsyncHackEbatNaxyi::playSfxSound($this->soundShot, 'weapon_shot');
+        DimaAsyncHackEbatNaxyi::playSfxSound($this->soundShot, $tag);
     }
 
     protected function playEmpty(): void
