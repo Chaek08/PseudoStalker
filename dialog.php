@@ -54,31 +54,13 @@ class dialog extends AbstractForm
     
         return '';
     }
-    
-    private function ensureDialogContainer(): void
-    {
-        if (!($this->Dialog_Kunteynir->content instanceof UXVBox))
-        {
-            $box = new UXVBox();
-            $box->spacing   = 6;
-            $box->alignment = 'TOP_LEFT';
-            $box->fillWidth = true;
-            $box->useMaxWidth = true;
-            $this->Dialog_Kunteynir->content = $box;
-    
-            $this->Dialog_Kunteynir->fitToWidth = true;
-        }
-        $this->dialogContainer = $this->Dialog_Kunteynir->content;
-    }   
- 
+      
     function addDialogMessage(string $name, string $color, string $iconPath, string $text): void
     {
-        $this->ensureDialogContainer();
-    
         $block = new UXVBox();
         $block->spacing = 5;
         $block->padding = 5;
-        $block->useMaxWidth = true;
+        $block->opacity = 0;
     
         $nameRow = new UXHBox();
         $nameRow->spacing = 6;
@@ -89,7 +71,8 @@ class dialog extends AbstractForm
         $nameLabel->font->size = 25;
     
         $icon = new UXImageView(new UXImage($iconPath));
-        $icon->width = $icon->height = 24;
+        $icon->width = 24;
+        $icon->height = 24;
     
         $nameRow->add($nameLabel);
         $nameRow->add($icon);
@@ -102,25 +85,21 @@ class dialog extends AbstractForm
     
         $block->add($nameRow);
         $block->add($textLabel);
-    
-        $this->dialogContainer->add($block);
         
-        $block->opacity = 0;
-        
-        Animation::fadeTo($block, 250, 1);        
+        Animation::fadeTo($block, 250, 1);
+
+        $this->Dialog_Kunteynir->items->add($block);
     
-        (new Thread(function () use ($block) { //ёбанные в жопу потоки, ёбанный в жопу скролл, дима зайцев гондурас
-            for ($i = 0; $i < 3; $i++)
+        uiLater(function() {
+            $count = $this->Dialog_Kunteynir->items->count();
+    
+            if ($count > 0)
             {
-                usleep(50000);
-                uiLater(function () use ($block) {
-                    $this->Dialog_Kunteynir->scrollToNode($block);
-                    $this->Dialog_Kunteynir->vvalue = 1;
-                });
+                $this->Dialog_Kunteynir->scrollTo($count - 1);
             }
-        }))->start();
-    }
-    
+        });
+    }    
+
     private $lastPhraseIndex = 0;
     
     private function getRandomPhrase(): string
@@ -175,12 +154,7 @@ class dialog extends AbstractForm
 
     function ClearDialog(): void
     {
-        $this->ensureDialogContainer();
-        
-        foreach ($this->dialogContainer->children->toArray() as $child)
-        {
-            $this->dialogContainer->remove($child);
-        }
+        $this->Dialog_Kunteynir->items->clear();
     }
        
     function UpdateData()
@@ -318,6 +292,7 @@ class dialog extends AbstractForm
                 }
             */
                 $this->addDialogMessage($step['name'], $step['color'], $step['icon'], $this->getRandomPhrase());
+                
                 $this->answerStep++;
                 continue;
             }

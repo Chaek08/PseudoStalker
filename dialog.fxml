@@ -103,15 +103,13 @@
         <Font name="System Bold" size="25"/>
       </font>
     </LabelEx>
-    <ScrollPane focusTraversable="false" hbarPolicy="AS_NEEDED" hvalue="0" id="Dialog_Kunteynir" layoutX="440" layoutY="264" prefHeight="496" prefWidth="720" styleClass="scroll-pane dialog-kunteynir " vbarPolicy="AS_NEEDED" vvalue="1">
-      <content>
-        <AnchorPane focusTraversable="false" id="" maxHeight="-1" maxWidth="-1" minHeight="-1" minWidth="-1" prefHeight="0" prefWidth="0" styleClass="">
-          <children/>
-        </AnchorPane>
-      </content>
-    </ScrollPane>
-    <Data cursor="DEFAULT" enabled="1" id="data-Dialog_Kunteynir" visible="1"/>
     <Separator focusTraversable="false" id="separator" layoutX="440" layoutY="760" opacity="0.05" orientation="HORIZONTAL" prefHeight="8" prefWidth="720" styleClass="separator "/>
     <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
+    <ListViewEx editable="false" fixedCellSize="-1" focusTraversable="true" id="Dialog_Kunteynir" layoutX="432" layoutY="256" prefHeight="496" prefWidth="728" styleClass="list-view dialog-kunteynir ">
+      <items xmlns:fx="http://javafx.com/fxml">
+        <FXCollections fx:factory="observableArrayList"/>
+      </items>
+    </ListViewEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Dialog_Kunteynir" visible="1"/>
   </children>
 </AnchorPane>
