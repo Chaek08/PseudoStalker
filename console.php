@@ -30,7 +30,7 @@ class console extends AbstractForm
     
         $this->consoleBuffer = new ConsoleBuffer();
     
-        Log::onWrite(function (string $tag, string $text)
+        Log::onWrite(function (string $text)
         {
             $this->consoleBuffer->add("> $text\n");
         });
