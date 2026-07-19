@@ -490,16 +490,32 @@ class Client extends AbstractForm
      */    
     function ShowPdaTasks()
     {
-        $this->ShowPda();
-        $this->Pda->content->TasksBtn();
+        if (!$this->Pda->visible)
+        {
+            $this->ShowPda();
+            $this->Pda->content->TasksBtn();
+        }
+        else 
+        {
+            $this->HidePda();
+            $this->MainGame->content->RenderHud(true);
+        }
     }
     /**
      * @event keyDown-C 
      */
     function ShowPdaContacts(UXKeyEvent $e = null)
     {    
-        $this->ShowPda();
-        $this->Pda->content->ContactsBtn();
+        if (!$this->Pda->visible)
+        {
+            $this->ShowPda();
+            $this->Pda->content->ContactsBtn();
+        }
+        else 
+        {
+            $this->HidePda();
+            $this->MainGame->content->RenderHud(true);
+        }
     }    
     
     /**
