@@ -507,18 +507,26 @@ class Client extends AbstractForm
      */
     function ShowInventory(UXKeyEvent $e = null)
     {       
-        if ($this->CheckVisibledFragments()) return;
-        
-        if ($this->MainGame->content->GameActor->isDead()) return;
-        
-        $this->MainGame->content->RenderHud(false);
-        
-        $this->Inventory->show();
-        $this->Inventory->content->UpdateInventoryHealthBar();        
-        $this->Inventory->content->UpdateInventoryStatus();
-        $this->Inventory->content->repackInventory();
-        
-        $this->Inventory->content->OpenSound();
+        if (!$this->Inventory->visible)
+        {
+            if ($this->CheckVisibledFragments()) return;
+            
+            if ($this->MainGame->content->GameActor->isDead()) return;
+            
+            $this->MainGame->content->RenderHud(false);
+            
+            $this->Inventory->show();
+            $this->Inventory->content->UpdateInventoryHealthBar();        
+            $this->Inventory->content->UpdateInventoryStatus();
+            $this->Inventory->content->repackInventory();
+            
+            $this->Inventory->content->OpenSound();
+        }
+        else 
+        {
+            $this->HideInventory();
+            $this->MainGame->content->RenderHud(true);
+        }
     }
      
     /**
