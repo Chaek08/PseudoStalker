@@ -5,7 +5,7 @@ use action\Geometry;
 use action\Animation;
 use php\gui\UXImageArea;
 
-class CVodka 
+class CVodka extends CConsumable
 {
     private $game;
     private $view;
@@ -14,11 +14,26 @@ class CVodka
 
     private $defaultPosition = [256, 696];
     private $defaultOpacity  = 100;
+    
+    protected $gridWidth = 1;
+    protected $gridHeight = 2;    
 
-    public function __construct($game, UXImageArea $view, $actor, $enemy)
+    public function __construct()
     {
-        $this->game  = $game;
-        $this->view  = $view;
+        parent::__construct(
+            'vodka',
+            'Vodka_Inv_Name',
+            'Vodka_Inv_Desc',
+            0.5,
+            20090121,
+            'res://.data/ui/inventory/item_vodka.png'
+        );    
+    }
+
+    public function attachToWorld($game, $view, $actor, $enemy)
+    {
+        $this->game = $game;
+        $this->view = $view;
         $this->actor = $actor;
         $this->enemy = $enemy;
     }
@@ -75,13 +90,17 @@ class CVodka
     public function enableShadow(): void
     {
         if ($this->view->dropShadowEffect)
+        {
             $this->view->dropShadowEffect->enable();
+        }
     }
 
     public function disableShadow(): void
     {
         if ($this->view->dropShadowEffect)
+        {
             $this->view->dropShadowEffect->disable();
+        }
     }
 
     public function spawn(): void
@@ -151,7 +170,8 @@ class CVodka
     
                 if ($enemyStillHere && Geometry::intersect($vodka, $enemy))
                 {
-                    if ($onHit) {
+                    if ($onHit)
+                    {
                         $onHit($enemy);
                     }
     
@@ -185,11 +205,6 @@ class CVodka
     {
         $actor = $this->actor->GetModel();
 
-        Animation::moveTo(
-            $this->view,
-            400,
-            $actor->x + ($actor->width * 1.2),
-            $this->view->y
-        );
+        Animation::moveTo($this->view, 400, $actor->x + ($actor->width * 1.2), $this->view->y);
     }    
 }

@@ -1,5 +1,5 @@
 <?php
-namespace app\forms\classes\Weapons;
+namespace app\forms\classes\Items;
 
 final class CWeaponFactory
 {
@@ -7,8 +7,8 @@ final class CWeaponFactory
     {
         switch ($type)
         {
-            case 'Pm':   return new CWeapon_PM($owner);
-            case 'AK74': return new CWeapon_AK74($owner);
+            case 'wpn_pm':   return new CWeapon_PM($owner);
+            case 'wpn_ak74': return new CWeapon_AK74($owner);
             default:     return null;
         }
     }

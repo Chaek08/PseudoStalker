@@ -4,8 +4,8 @@ namespace app\forms\classes;
 use php\gui\UXImageView;
 use php\gui\UXImage;
 
-use app\forms\classes\Weapons\CWeapon;
-use app\forms\classes\Weapons\CWeaponFactory;
+use app\forms\classes\Items\CWeapon;
+use app\forms\classes\Items\CWeaponFactory;
 use app\forms\classes\Debug;
 
 class CActor extends CEntity
@@ -15,10 +15,14 @@ class CActor extends CEntity
     public const MODEL_OUTFIT_ON  = 'res://.data/ui/maingame/sprite/actor.png';
     public const MODEL_OUTFIT_OFF = 'res://.data/ui/maingame/sprite/noout/actor.png';    
 
-    protected $currentWeapon = null;
     protected $currentWeaponIndex = 0;    
-    protected $weaponState = [];
-    protected $weapons = ['Pm', 'AK74'];
+    
+    protected $weaponTypes = [
+        'wpn_pm',
+        'wpn_ak74'
+    ];
+    protected $weapons = [];
+    protected $currentWeapon = null;    
     
     protected $lastWeaponSwitch = 0;
     protected $weaponSwitchDelay = 0.48;
@@ -32,7 +36,11 @@ class CActor extends CEntity
         $this->game = $game;
         
         $this->setWeight(50.0);
-        Log::info('Base actor weight: ' . $this->getWeight());
+        
+        $this->weapons['wpn_pm'] = CWeaponFactory::create('wpn_pm', $this);
+        $this->weapons['wpn_ak74'] = CWeaponFactory::create('wpn_ak74', $this);
+        
+        $this->currentWeapon = null;        
     }
 
     public function getGame()
@@ -118,61 +126,57 @@ class CActor extends CEntity
 
     public function UnequipCurrentWeapon(): void
     {
-        if ($this->currentWeapon)
-        {
-            $this->weaponState[$this->currentWeapon->getType()] = $this->currentWeapon->exportState();
-            $this->currentWeapon->detach();
-            $this->currentWeapon = null;
-            $this->UpdateMagazine();
-        }
+        if (!$this->currentWeapon) return;
+    
+        $this->currentWeapon->detach();
+        $this->currentWeapon = null;
+    
+        $this->UpdateMagazine();
     }
 
     public function SwitchWeapon(?string $weaponType): void
     {
         if (!$this->GetModel() || !$this->GetModel()->visible) return;
-
+    
         if ($weaponType === null)
         {
-            $this->UnequipCurrentWeapon();
+            if ($this->currentWeapon)
+            {
+                $this->currentWeapon->detach();
+                $this->currentWeapon = null;
+                $this->UpdateMagazine();
+            }
+            
             return;
         }
-
-        if ($this->currentWeapon && $this->currentWeapon->getType() === $weaponType) return;
-
-        $inv = $this->form('Client')->Inventory->content;
     
+        $inv = $this->form('Client')->Inventory->content;
         $slot = $inv->getWeaponSlot($weaponType);
     
         if (!$slot || !$slot['equipped']) return;
-
-        if ($this->currentWeapon) $this->UnequipCurrentWeapon();
-
-        $weapon = CWeaponFactory::create($weaponType, $this);
-        if (!$weapon)
+    
+        if ($this->currentWeapon === ($this->weapons[$weaponType] ?? null)) return;
+    
+        if ($this->currentWeapon)
         {
-            Debug::fail("Weapon '$weaponType' not created");
-            return;
+            $this->currentWeapon->detach();
         }
-
-        if (isset($this->weaponState[$weaponType]))
-        {
-            $weapon->importState($this->weaponState[$weaponType]);
-        }
-
-        $weapon->attach();
-        $this->currentWeapon = $weapon;
-        
-        $weapon->setUnlimitedAmmo($GLOBALS['UnlimitedAmmoFlag']);
-
-        if (isset($GLOBALS['ShadowsSwitcher_IsOn']) && !$GLOBALS['ShadowsSwitcher_IsOn'])
-        {
-            $this->currentWeapon->disableShadow();
-        }
-        else
+    
+        $this->currentWeapon = $this->weapons[$weaponType];
+    
+        $this->currentWeapon->attach();
+    
+        $this->currentWeapon->setUnlimitedAmmo($GLOBALS['UnlimitedAmmoFlag']);
+    
+        if (!empty($GLOBALS['ShadowsSwitcher_IsOn']))
         {
             $this->currentWeapon->enableShadow();
         }
-
+        else
+        {
+            $this->currentWeapon->disableShadow();
+        } 
+    
         $this->UpdateMagazine();
     }
     
@@ -187,7 +191,7 @@ class CActor extends CEntity
     
     public function setWeaponIndex(int $index): void
     {
-        if (!isset($this->weapons[$index])) return;
+        if (!isset($this->weaponTypes[$index])) return;
     
         $this->currentWeaponIndex = $index;
         $this->applyWeaponByIndex();
@@ -195,9 +199,9 @@ class CActor extends CEntity
     
     public function applyWeaponByIndex(): void
     {
-        $weaponType = $this->weapons[$this->currentWeaponIndex] ?? null;
+        $weaponType = $this->weaponTypes[$this->currentWeaponIndex] ?? null;
         $this->SwitchWeapon($weaponType);
-    }    
+    }  
     
     public function canSwitchWeapon(): bool
     {
@@ -226,7 +230,7 @@ class CActor extends CEntity
                 $this->currentWeaponIndex = 0;
             }
     
-            $weaponType = $this->weapons[$this->currentWeaponIndex];
+            $weaponType = $this->weaponTypes[$this->currentWeaponIndex];
     
             if ($this->hasWeapon($weaponType))
             {
@@ -253,7 +257,7 @@ class CActor extends CEntity
                 $this->currentWeaponIndex = count($this->weapons) - 1;
             }
     
-            $weaponType = $this->weapons[$this->currentWeaponIndex];
+            $weaponType = $this->weaponTypes[$this->currentWeaponIndex];
     
             if ($this->hasWeapon($weaponType))
             {
@@ -280,18 +284,16 @@ class CActor extends CEntity
     
     public function ResetWeapons(): void
     {
-        $this->weaponState = [];
-    
-        if ($this->currentWeapon)
+        foreach ($this->weapons as $weapon)
         {
-            $this->currentWeapon->resetToDefaultState();
+            $weapon->resetToDefaultState();
         }
     
         $this->UpdateMagazine();
-    }    
+    }
     
-    public function setWeaponState(array $state): void
+    public function getWeaponObject(string $type): ?CWeapon
     {
-        $this->weaponState = $state;
+        return $this->weapons[$type] ?? null;
     }    
 }

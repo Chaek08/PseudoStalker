@@ -1,6 +1,8 @@
 <?php
-namespace app\forms\classes\Weapons;
+namespace app\forms\classes\Items;
 
+use app\forms\classes\Log;
+use app\forms\classes\Debug;
 use action\Media;
 use php\lang\Thread;
 use php\gui\animation\UXAnimationTimer;
@@ -16,14 +18,13 @@ use app\forms\classes\Environment\EnvironmentBase;
 use app\forms\classes\Environment\EnvironmentBrightness;
 use app\forms\classes\DimaAsyncHackEbatNaxyi;
 
-abstract class CWeapon
+abstract class CWeapon extends CItem
 {
     protected $owner;
     protected $type; 
 
+    protected $ammoItemId = '';
     protected $magSize = 0;
-    protected $inventoryField = '';
-    protected $inventoryUpdateFn = '';
     protected $reloadDelay = 1000;
     protected $particleOffset = [0, 0];
     protected $recoilPower;
@@ -62,9 +63,11 @@ abstract class CWeapon
     protected $shotPoolSize = 6;
     protected $shotSeq = 0;
       
-    public function __construct($owner)
+    public function __construct($owner, string $id, string $name, string $desc, float $weight, int $price, string $icon, int $condition = 100)
     {
-        $this->owner = $owner; 
+        parent::__construct($id, $name, $desc, $weight, $price, $icon, $condition);
+    
+        $this->owner = $owner;
     }
         
     abstract public function getType(): string;
@@ -74,7 +77,10 @@ abstract class CWeapon
 
     public function attach(): void
     {
-        [$this->offsetX, $this->offsetY] = $this->spriteOffsets();
+        $offsets = $this->spriteOffsets();
+        $this->offsetX = $offsets[0];
+        $this->offsetY = $offsets[1];
+        
         $path = $this->spritePath();
 
         $this->fxLater(function () use ($path) {
@@ -128,6 +134,7 @@ abstract class CWeapon
                 $view = $this->view;
     
                 $this->owner->form('Client')->MainGame->content->EnvironmentBrightness->unregister($view);
+                
                 $this->owner->remove($view);
     
                 $this->view = null;
@@ -169,20 +176,23 @@ abstract class CWeapon
     {
         if ($this->reloading) return;
         if ($this->ammo >= $this->magSize && !$this->jammed) return;
-        
+    
         $inv = $this->getInventoryContent();
-        $totalAmmo = $this->unlimitedAmmo ? $this->magSize : $inv->{$this->inventoryField};
+        $ammoItem = $inv->getItem($this->ammoItemId);
+    
+        $totalAmmo = $this->unlimitedAmmo ? $this->magSize : ($ammoItem ? $ammoItem->getCount() : 0);
     
         if ($totalAmmo <= 0 && !$this->jammed) return;
     
         DimaAsyncHackEbatNaxyi::playSfxSound($this->soundReload, 'weapon_reload');
-               
+    
         $needed = max(0, $this->magSize - $this->ammo);
         $this->reloading = true;
-        
-        $this->playReloadAnimation(); 
+    
+        $this->playReloadAnimation();
     
         Timer::after($this->reloadDelay, function () use ($inv, $needed) {
+    
             $this->fxLater(function () use ($inv, $needed) {
     
                 if ($this->unlimitedAmmo)
@@ -191,28 +201,27 @@ abstract class CWeapon
                 }
                 else
                 {
-                    $totalAmmo = $inv->{$this->inventoryField};
+                    $ammoItem = $inv->getItem($this->ammoItemId);
     
-                    if ($totalAmmo > 0)
+                    if ($ammoItem)
                     {
-                        if ($totalAmmo < $needed)
-                        {
-                            $this->ammo += $totalAmmo;
-                            $totalAmmo = 0;
-                        }
-                        else
-                        {
-                            $this->ammo += $needed;
-                            $totalAmmo -= $needed;
-                        }
+                        $totalAmmo = $ammoItem->getCount();
     
-                        $inv->{$this->inventoryField} = $totalAmmo;
-                    }
+                        if ($totalAmmo > 0)
+                        {
+                            if ($totalAmmo < $needed)
+                            {
+                                $this->ammo += $totalAmmo;
+                                $ammoItem->setCount(0);
+                            }
+                            else
+                            {
+                                $this->ammo += $needed;
+                                $ammoItem->removeCount($needed);
+                            }
     
-                    if ($this->inventoryUpdateFn && method_exists($inv, $this->inventoryUpdateFn))
-                    {
-                        $fn = $this->inventoryUpdateFn;
-                        $inv->$fn();
+                            $inv->updateItemCount($ammoItem);
+                        }
                     }
                 }
     
@@ -221,6 +230,7 @@ abstract class CWeapon
                 $this->jamHandled = false;
                 $this->reloading = false;
             });
+    
         });
     }
 
@@ -420,10 +430,10 @@ abstract class CWeapon
     public function getAmmo(): int { return $this->ammo; }
     public function getMagSize(): int { return $this->magSize; } 
     public function setAmmo(int $n): void { $this->ammo = max(0, min($this->magSize, $n)); }
+    
     public function getTotalAmmoFromInventory(): int
     {
-        $inv = $this->getInventoryContent();
-        return $inv->{$this->inventoryField};
+        return $this->getInventoryContent()->getItem($this->ammoItemId)->getCount();
     }
     
     public function setUnlimitedAmmo(bool $state): void

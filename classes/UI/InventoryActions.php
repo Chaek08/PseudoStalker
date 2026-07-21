@@ -1,8 +1,6 @@
 <?php
 namespace app\forms\classes\UI;
 
-use php\gui\UXImage;
-
 class InventoryActions
 {
     private $inventory;
@@ -11,134 +9,142 @@ class InventoryActions
     {
         $this->inventory = $inventory;
     }
-    
-    public function useItem()
+
+    public function useItem(): void
     {
         $inv = $this->inventory;
-    
-        if (!$inv->selectedItem)
+        $item = $inv->getSelectedItem();
+
+        if (!$item)
         {
             return;
         }
-    
+
         $inv->UseSlotSound();
         $inv->HideCombobox();
-    
-        if ($inv->selectedItem === $inv->Inv_Medkit)
+
+        switch ($item->getId())
         {
-            $this->applyMedkitEffect();
-    
-            $inv->medkitCount--;
-    
-            if ($inv->medkitCount < 1)
-            {
-                $inv->getGrid()->remove($inv->selectedItem);
-    
-                $inv->selectedItem->visible = false;
-    
-                $inv->repackInventory();
-            }
+            case 'medkit':
+                $this->applyMedkitEffect();
+
+                $item->setCount($item->getCount() - 1);
+
+                if ($item->getCount() < 1)
+                {
+                    $ui = $item->getUIItem();
+
+                    $inv->getGrid()->remove($ui);
+                    $ui->visible = false;
+
+                    $inv->repackInventory();
+                }
+
+                $inv->updateMedkitCount();
+                break;
+
+            default:
+                return;
         }
-        else
-        {
-            return;
-        }
-    
-        $inv->updateMedkitCount();
-    
+
         $inv->UpdateInventoryStatus();
-        $inv->UpdateSelectedItems();
         $inv->HideUIText();
-    
-        $inv->selectedItem = null;
+
+        $inv->clearSelectedItem();
     }
-    
-    public function dropItem()
+
+    public function dropItem(): void
     {
         $inv = $this->inventory;
-    
-        if (!$inv->selectedItem)
+        $item = $inv->getSelectedItem();
+
+        if (!$item)
         {
             return;
         }
-    
+
+        $ui = $item->getUIItem();
+
         $inv->DropSound();
-    
         $inv->HideCombobox();
-    
-        $inv->getGrid()->remove($inv->selectedItem);
-    
-        $inv->selectedItem->visible = false;
-    
+
+        $inv->getGrid()->remove($ui);
+        $ui->visible = false;
+
         $inv->repackInventory();
-    
+
         $inv->UpdateInventoryStatus();
-        $inv->UpdateSelectedItems();
         $inv->HideUIText();
-    
+
         $inv->form('Client')->MainGame->content->SpawnItem();
-    
-        $inv->selectedItem = null;
-    }        
-    
+
+        $inv->clearSelectedItem();
+    }
+
     public function takeOffItem(): void
     {
         $inv = $this->inventory;
-        if (!$inv->selectedItem) return;
-    
+        $item = $inv->getSelectedItem();
+
+        if (!$item)
+        {
+            return;
+        }
+
         $actor = $inv->form('Client')->MainGame->content->GameActor;
-    
+
         $actor->takeOffOutfit();
-        
-        $inv->addOutfitToInventory();
-    
-        $inv->repackInventory();        
-    
+
+        $inv->addItem('outfit');
+        $inv->repackInventory();
+
         $inv->HideCombobox();
         $inv->HideUIText();
         $inv->DropSound();
-    
-        $inv->selectedItem = null;
-        $GLOBALS['item_outfit_selected'] = false;
+
+        $inv->clearSelectedItem();
     }
 
     public function putOnItem(): void
     {
         $inv = $this->inventory;
-        if (!$inv->selectedItem) return;
-    
+        $item = $inv->getSelectedItem();
+
+        if (!$item)
+        {
+            return;
+        }
+
+        $ui = $item->getUIItem();
+
         $actor = $inv->form('Client')->MainGame->content->GameActor;
-    
-        $inv->getGrid()->remove($inv->selectedItem);
-        $inv->selectedItem->visible = false;
-    
+
+        $inv->getGrid()->remove($ui);
+        $ui->visible = false;
+
         $actor->putOnOutfit();
-        
-        $inv->repackInventory();        
-    
+
+        $inv->repackInventory();
+
         $inv->HideCombobox();
         $inv->HideUIText();
         $inv->UseSlotSound();
-    
-        $inv->selectedItem = null;
-        $GLOBALS['item_outfit_selected'] = false;
+
+        $inv->clearSelectedItem();
     }
-    
-    public function applyMedkitEffect() //TODO: перенос в класс предметов
+
+    public function applyMedkitEffect(): void
     {
         $actor = $this->inventory->form('Client')->MainGame->content->GameActor;
-    
+
         if ($actor->isDead())
         {
             return;
         }
-    
+
         $healPct = 20;
-    
         $healAmount = (int)(($actor->getMaxHP() * $healPct) / 100);
-    
+
         $actor->heal($healAmount);
     }
-    
-    
 }

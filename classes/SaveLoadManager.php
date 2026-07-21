@@ -102,30 +102,24 @@ class SaveLoadManager
         $c  = $this->callForm('Client');
         $mg = $c->MainGame->content;
     
-        $stateList = [
-            'Pm'   => $mg->weaponState['Pm']   ?? ['ammo' => 0, 'jammed' => false, 'jamHandled' => false],
-            'AK74' => $mg->weaponState['AK74'] ?? ['ammo' => 0, 'jammed' => false, 'jamHandled' => false],
-        ];
-    
-        $currentType = null;
-        $w = $mg->GameActor->getWeapon();
-        if ($w)
-        {
-            $currentType = $w->getType();
-            $stateList[$currentType] = $w->exportState();
-        }
+        $actor = $mg->GameActor;
+
+        $currentWeapon = $actor->getWeapon();
     
         $data = [
             'client_version' => client_version,
     
             'ammo' => [
-                'pm_total'   => $c->Inventory->content->pmAmmoCount,
-                'ak74_total' => $c->Inventory->content->akAmmoCount,
+                'pm_total'   => $c->Inventory->content->getItem('ammo_9x18')->getCount(),
+                'ak74_total' => $c->Inventory->content->getItem('ammo_5x45')->getCount(),
             ],
     
             'weapons' => [
-                'current' => $currentType,
-                'list'    => $stateList,
+                'current' => $currentWeapon ? $currentWeapon->getType() : null,
+                'list' => [
+                    'wpn_pm'   => $actor->getWeaponObject('wpn_pm')->exportState(),
+                    'wpn_ak74' => $actor->getWeaponObject('wpn_ak74')->exportState(),
+                ],
             ],
     
             'health' => [
@@ -156,7 +150,7 @@ class SaveLoadManager
                 'hm'   => $c->Pda->content->Pda_Tasks->content->time_quest_hm->text,
             ],
             'vodka_exist'      => $c->MainGame->content->item_vodka_0000->visible,
-            'medkit_count'     => $c->Inventory->content->medkitCount,
+            'medkit_count'     => $c->Inventory->content->getItem('medkit')->getCount(),
             'quest_step1'      => isset($GLOBALS['QuestStep1']) ? $GLOBALS['QuestStep1'] : false,
             'quest_completed'  => isset($GLOBALS['QuestCompleted']) ? $GLOBALS['QuestCompleted'] : false,
             'actors_state' => [
@@ -233,14 +227,14 @@ class SaveLoadManager
         
             'weapons',
             'weapons.list',
-            'weapons.list.Pm',
-            'weapons.list.Pm.ammo',
-            'weapons.list.Pm.jammed',
-            'weapons.list.Pm.jamHandled',
-            'weapons.list.AK74',
-            'weapons.list.AK74.ammo',
-            'weapons.list.AK74.jammed',
-            'weapons.list.AK74.jamHandled',
+            'weapons.list.wpn_pm',
+            'weapons.list.wpn_pm.ammo',
+            'weapons.list.wpn_pm.jammed',
+            'weapons.list.wpn_pm.jamHandled',
+            'weapons.list.wpn_ak74',
+            'weapons.list.wpn_ak74.ammo',
+            'weapons.list.wpn_ak74.jammed',
+            'weapons.list.wpn_ak74.jamHandled',
         ];
 
         $missing = [];
@@ -370,11 +364,13 @@ class SaveLoadManager
 
         if ($form->MainGame->content->ItemVodka->isVisible())
         {
-            if ($form->Inventory->content->selectedItem == $form->Inventory->content->Inv_Vodka)
+            $inv = $form->Inventory->content;
+        
+            if ($inv->getSelectedItem() === $inv->getItem('vodka'))
             {
-                $form->Inventory->content->DropItem();
+                $inv->DropItem();
             }
-        }      
+        }    
 
         $GLOBALS['QuestStep1']     = $saveData['quest_step1'];
         $GLOBALS['QuestCompleted'] = $saveData['quest_completed'];
@@ -392,34 +388,35 @@ class SaveLoadManager
         if (isset($saveData['ammo']))
         {
             $inv = $form->Inventory->content;
-            $inv->pmAmmoCount = $saveData['ammo']['pm_total'] ?? 0;
-            $inv->akAmmoCount = $saveData['ammo']['ak74_total'] ?? 0;
+        
+            $pmAmmo = $inv->getItem('ammo_9x18');
+            $akAmmo = $inv->getItem('ammo_5x45');
+        
+            $pmAmmo->setCount($saveData['ammo']['pm_total'] ?? 0);
+            $akAmmo->setCount($saveData['ammo']['ak74_total'] ?? 0);
         }
         
         if (isset($saveData['weapons']))
         {
-            $wep = $saveData['weapons'];
+            $actor = $form->MainGame->content->GameActor;
         
-            $savedList = is_array($wep['list'] ?? null) ? $wep['list'] : [];
+            $list = $saveData['weapons']['list'] ?? [];
         
-            $desired = $wep['current'] ?? null;
-        
-            $mg = $form->MainGame->content;
-        
-            $mg->GameActor->setWeaponState($savedList);
-        
-            if ($desired !== null)
+            foreach ($list as $type => $state)
             {
-                $mg->GameActor->UnequipCurrentWeapon();
-            
-                $mg->GameActor->SwitchWeapon($desired);
-            }
-            else
-            {
-                $mg->GameActor->UnequipCurrentWeapon();
+                $weapon = $actor->getWeaponObject($type);
+        
+                if ($weapon)
+                {
+                    $weapon->importState($state);
+                }
             }
         
-            $mg->UpdateMagazine();
+            $desired = $saveData['weapons']['current'] ?? null;
+        
+            $actor->SwitchWeapon($desired);
+        
+            $form->MainGame->content->UpdateMagazine();
         }
 
         if (isset($saveData['objects_position']['item_vodka_0000']))
@@ -482,23 +479,24 @@ class SaveLoadManager
         if ($form->MainGame->content->MessageBox->visible) $form->MainGame->content->MessageBox->hide();
         if ($form->MainGame->content->Task_Step_Label->visible) $form->MainGame->content->Task_Step_Label->hide();    
         
-        $form->Inventory->content->medkitCount = $saveData['medkit_count'];
-        $form->Inventory->content->updateMedkitCount();
+        $medkit = $form->Inventory->content->getItem('medkit');
+        $medkit->setCount($saveData['medkit_count'] ?? 0);
+        $form->Inventory->content->updateItemCount($medkit);
     
         if (isset($saveData['objects_position']['actor']['is_wearing']))
         {
             $isWearing = $saveData['objects_position']['actor']['is_wearing'];
-             
+        
             $inv = $form->Inventory->content;
-            
+        
+            $inv->setSelectedItem($inv->getItem('outfit'));
+        
             if ($isWearing)
             {
-                $inv->selectedItem = $inv->Inv_Outfit;
                 $inv->getActions()->putOnItem();
             }
             else
             {
-                $inv->selectedItem = $inv->Inv_Outfit;
                 $inv->getActions()->takeOffItem();
             }
         }

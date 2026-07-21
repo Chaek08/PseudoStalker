@@ -14,6 +14,5 @@ class CEnemy extends CEntity
         $this->game = $game;
         
         $this->setWeight(65.0);
-        Log::info('Base enemy weight: ' . $this->getWeight());
     }    
 }

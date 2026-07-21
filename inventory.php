@@ -17,14 +17,6 @@ class inventory extends AbstractForm
 {
     public $contextMenu;    
     
-    private $vodkaWeight = 0.5;
-    private $medkitWeight = 0.1;
-    private $outfitWeight = 2.0;
-    private $pmWeight = 0.7;
-    private $pmAmmoWeight = 0.7;
-    private $ak74Weight = 5.2;
-    private $ak74AmmoWeight = 0.6;
-    
     private $playerMonero = 40;
     private $moneyCurrency = 'RU';
     
@@ -44,21 +36,14 @@ class inventory extends AbstractForm
     private $grid;
     private $gridLayout;
     private $actions;
-    
-    private $inventoryItems = [];
 
-    public $selectedItem = null;
-    public $medkitCount = 0;
-    public $pmAmmoCount = 25;
-    public $akAmmoCount = 69;
-        
     private $gridLeft = 32;
     private $gridTop = 200;
     private $gridRight = 552;
     private $gridBottom = 904;
     
     private $weaponSlots = [
-        'Pm' => [
+        'wpn_pm' => [
             'item' => 'Inv_Wpn_Pm',
             'rect' => ['x'=>32, 'y'=>80, 'w'=>152, 'h'=>96],
             'pos' => [32, 80],
@@ -66,7 +51,7 @@ class inventory extends AbstractForm
             'equipped' => false
         ],
     
-        'AK74' => [
+        'wpn_ak74' => [
             'item' => 'Inv_Wpn_AK74',
             'rect' => ['x'=>208, 'y'=>80, 'w'=>245, 'h'=>96],
             'pos' => [208, 80],
@@ -77,10 +62,39 @@ class inventory extends AbstractForm
     
     private $outfitSlotRect = ['x'=>1128, 'y'=>128, 'w'=>448, 'h'=>672];     
        
+    //CITEM FOR MP UPDATE
+    private $items = [];       
+    private $selectedItemData = null;     
+    
     public function __construct() 
     {
-        parent::__construct();
+        parent::__construct();    
         
+        $this->items = [
+            'vodka'      => new CVodka(),
+            'medkit'     => new CMedkit(),
+            'outfit'     => new COutfit(),
+            'wpn_pm'     => CWeaponFactory::create('wpn_pm', $actor),
+            'wpn_ak74'   => CWeaponFactory::create('wpn_ak74', $actor),
+            'ammo_9x18'  => new CAmmo9x18(),
+            'ammo_5x45'  => new CAmmo5x45(),
+        ];
+        
+        $itemMap = [
+            'vodka'      => $this->Inv_Vodka,
+            'medkit'     => $this->Inv_Medkit,
+            'outfit'     => $this->Inv_Outfit,
+            'wpn_pm'     => $this->Inv_Wpn_Pm,
+            'wpn_ak74'   => $this->Inv_Wpn_AK74,
+            'ammo_9x18'  => $this->Inv_Ammo_9x18,
+            'ammo_5x45'  => $this->Inv_Ammo_5x45,
+        ];
+        
+        foreach ($itemMap as $id => $ui)
+        {
+            $this->items[$id]->setUIItem($ui);
+        }         
+            
         $this->grid = new InventoryGrid(11, 13); 
         $this->gridLayout = new InventoryGridLayout(
             $this->gridLeft,
@@ -90,17 +104,7 @@ class inventory extends AbstractForm
         );
         
         $this->actions = new InventoryActions($this);
-        
-        $this->inventoryItems = [
-            $this->Inv_Vodka,
-            $this->Inv_Medkit,
-            $this->Inv_Outfit,
-            $this->Inv_Wpn_Pm,
-            $this->Inv_Ammo_9x18,
-            $this->Inv_Wpn_AK74,
-            $this->Inv_Ammo_5x45
-        ];   
- 
+          
         uiLater(function () {
             
             $this->dragManager = new InventoryDragManager($this);
@@ -126,19 +130,33 @@ class inventory extends AbstractForm
             if ($btn = $this->contextMenu->getButton('moveToSlot'))
             {
                 $btn->on('click', function () use ($this) { $this->MoveToSlot(); $this->HideCombobox(); });
-            }    
-        });
-        
-        $this->addVodkaToInventory();
-        $this->addMedkitToInventory();
-        $this->addAmmo9x18ToInventory();
-        $this->addAmmo5x45ToInventory();                   
+            }  
+            
+            $this->addItem('vodka');
+            $this->addItem('medkit', 2);
+            $this->addItem('ammo_9x18', 25);
+            $this->addItem('ammo_5x45', 60);   
+            
+            $this->items['medkit']->setUICountLabel($this->Inv_Medkit_Count);
+            $this->items['ammo_9x18']->setUICountLabel($this->Inv_PmAmmo_Count);
+            $this->items['ammo_5x45']->setUICountLabel($this->Inv_AkAmmo_Count);                        
+        });        
     }
+    
+    function InitItems()
+    {
+           
+    }    
     
     private function pointInRect($x, $y, $r): bool
     {
         return $x >= $r['x'] && $x < ($r['x'] + $r['w']) && $y >= $r['y'] && $y < ($r['y'] + $r['h']);
     }
+    
+    public function getItem(string $id): ?CItem
+    {
+        return $this->items[$id] ?? null;
+    }    
     
     public function cancelDrag(): void
     {
@@ -175,16 +193,19 @@ class inventory extends AbstractForm
      */
     function GridMouseMove(UXMouseEvent $e = null)
     {
-        if ($this->dragManager->getDraggedItem() == null) return;
+        if ($this->dragManager->getDraggedUIItem() == null) return;
         
         if (!$this->dragManager->isActivated()) return;
     
-        list($itemW, $itemH) = $this->itemGridSize($this->dragManager->getDraggedItem());
+        $item = $this->findItemByUI($this->dragManager->getDraggedUIItem());
+        
+        $itemW = $item->getGridWidth();
+        $itemH = $item->getGridHeight();
     
         list($cellX, $cellY) = $this->gridLayout->screenToCell($e->x, $e->y);
         list($cellX, $cellY) = $this->gridLayout->clampCell($cellX, $cellY, $itemW, $itemH, 11, 13);
     
-        $item = $this->dragManager->getDraggedItem();
+        $item = $this->dragManager->getDraggedUIItem();
         
         $item->position = $this->gridLayout->getItemPosition($item, $cellX, $cellY, $itemW, $itemH);
     }
@@ -204,9 +225,9 @@ class inventory extends AbstractForm
         $mouseX = $cursor->x;
         $mouseY = $cursor->y;
 
-        if ($this->dragManager->getDraggedItem() === $this->Inv_Outfit && $this->gridLayout->isInsideGrid($mouseX, $mouseY))
+        if ($this->dragManager->getDraggedUIItem() === $this->Inv_Outfit && $this->gridLayout->isInsideGrid($mouseX, $mouseY))
         {
-            $this->selectedItem = $this->Inv_Outfit;
+            $this->selectedItemData = $this->items['outfit'];
     
             $this->TakeOffItem();
     
@@ -219,7 +240,7 @@ class inventory extends AbstractForm
             return;
         }
     
-        if ($this->dragManager->getDraggedItem() == null) 
+        if ($this->dragManager->getDraggedUIItem() == null) 
         {
             return;
         }
@@ -234,7 +255,7 @@ class inventory extends AbstractForm
         {
             $item = $this->{$slot['item']};
     
-            if ($this->dragManager->getDraggedItem() === $item && $this->pointInRect($mouseX, $mouseY, $slot['rect']))
+            if ($this->dragManager->getDraggedUIItem() === $item && $this->pointInRect($mouseX, $mouseY, $slot['rect']))
             {
                 $this->moveWeaponToSlot($weapon);
     
@@ -243,9 +264,9 @@ class inventory extends AbstractForm
             }
         }
     
-        if ($this->dragManager->getDraggedItem() === $this->Inv_Outfit && $this->pointInRect($mouseX, $mouseY, $this->outfitSlotRect))
+        if ($this->dragManager->getDraggedUIItem() === $this->Inv_Outfit && $this->pointInRect($mouseX, $mouseY, $this->outfitSlotRect))
         {
-            $this->selectedItem = $this->Inv_Outfit;
+            $this->selectedItemData = $this->items['outfit'];
     
             $this->PutOnItem();
     
@@ -255,57 +276,60 @@ class inventory extends AbstractForm
     
         if ($mouseX < 0 || $mouseY < $this->gridTop ||  $mouseX >= 552 || $mouseY >= $this->gridBottom)
         {
-            $this->dragManager->getDraggedItem()->position = $this->dragManager->getOriginalPosition();
+            $this->dragManager->getDraggedUIItem()->position = $this->dragManager->getOriginalPosition();
     
             $this->dragManager->endDrag();
             return;
         }
     
-        list($itemWidthCells, $itemHeightCells) = $this->itemGridSize($this->dragManager->getDraggedItem());
+        $itemData = $this->findItemByUI($this->dragManager->getDraggedUIItem());
+        
+        $itemWidthCells = $itemData->getGridWidth();
+        $itemHeightCells = $itemData->getGridHeight();
         
         list($cellX, $cellY) = $this->gridLayout->screenToCell($mouseX, $mouseY);
         list($cellX, $cellY) = $this->gridLayout->clampCell($cellX, $cellY, $itemWidthCells, $itemHeightCells, 11, 13);
     
-        $oldCell = $this->grid->findItem($this->dragManager->getDraggedItem());    
-        $this->grid->remove($this->dragManager->getDraggedItem());
+        $oldCell = $this->grid->findItem($this->dragManager->getDraggedUIItem());    
+        $this->grid->remove($this->dragManager->getDraggedUIItem());
     
-        if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_Pm && $this->weaponSlots['Pm']['equipped'])
+        if ($this->dragManager->getDraggedUIItem() === $this->Inv_Wpn_Pm && $this->weaponSlots['wpn_pm']['equipped'])
         {
             $actor = $this->form('Client')->MainGame->content->GameActor;
     
             $w = $actor->getWeapon();
     
-            if ($w && $w->getType() === 'Pm')
+            if ($w && $w->getType() === 'wpn_pm')
             {
                 $actor->UnequipCurrentWeapon();
             }
     
-            $this->weaponSlots['Pm']['equipped'] = false;
+            $this->weaponSlots['wpn_pm']['equipped'] = false;
         }
     
-        if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_AK74 && $this->weaponSlots['AK74']['equipped'])
+        if ($this->dragManager->getDraggedUIItem() === $this->Inv_Wpn_AK74 && $this->weaponSlots['wpn_ak74']['equipped'])
         {
             $actor = $this->form('Client')->MainGame->content->GameActor;
     
             $w = $actor->getWeapon();
     
-            if ($w && $w->getType() === 'AK74')
+            if ($w && $w->getType() === 'wpn_ak74')
             {
                 $actor->UnequipCurrentWeapon();
             }
     
-            $this->weaponSlots['AK74']['equipped'] = false;
+            $this->weaponSlots['wpn_ak74']['equipped'] = false;
         }
     
         if ($this->grid->canPlace($cellX, $cellY, $itemWidthCells, $itemHeightCells))
         {
-            if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_Pm)
-                $this->weaponSlots['Pm']['equipped'] = false;
+            if ($this->dragManager->getDraggedUIItem() === $this->Inv_Wpn_Pm)
+                $this->weaponSlots['wpn_pm']['equipped'] = false;
     
-            if ($this->dragManager->getDraggedItem() === $this->Inv_Wpn_AK74)
-                $this->weaponSlots['AK74']['equipped'] = false;
+            if ($this->dragManager->getDraggedUIItem() === $this->Inv_Wpn_AK74)
+                $this->weaponSlots['wpn_ak74']['equipped'] = false;
     
-            $this->placeGridItem($this->dragManager->getDraggedItem(), $cellX, $cellY, $itemWidthCells, $itemHeightCells);
+            $this->placeGridItem($this->dragManager->getDraggedUIItem(), $cellX, $cellY, $itemWidthCells, $itemHeightCells);
     
             $this->UpdateComboboxPosition();
         }
@@ -315,210 +339,254 @@ class inventory extends AbstractForm
             {
                 list($originalX, $originalY) = $oldCell;
             
-                $this->placeGridItem($this->dragManager->getDraggedItem(), $originalX, $originalY, $itemWidthCells, $itemHeightCells);
+                $this->placeGridItem($this->dragManager->getDraggedUIItem(), $originalX, $originalY, $itemWidthCells, $itemHeightCells);
             }
         }
     
         $this->dragManager->endDrag();
     }  
-    
-    private function itemGridSize($item): array
-    {
-        if ($item === $this->Inv_Vodka)      return [1, 2];
-        if ($item === $this->Inv_Medkit)     return [2, 1];
-        if ($item === $this->Inv_Outfit)     return [2, 2];
-        if ($item === $this->Inv_Ammo_9x18)  return [1, 1];
-        if ($item === $this->Inv_Ammo_5x45)  return [2, 1];
-        if ($item === $this->Inv_Wpn_Pm)     return [1, 1];
-        if ($item === $this->Inv_Wpn_AK74)   return [5, 2];
-        
-        return [ceil($item->width / 49), ceil($item->height / 49)];
-    }    
-    
+ 
     /** @event Inv_Vodka.mouseDrag */
-    function VodkaMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender); }
+    function VodkaMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($this->findItemByUI($e->sender)); }
     
     /** @event Inv_Medkit.mouseDrag */
-    function MedkitMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender, $this->Inv_Medkit_Count); }
+    function MedkitMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($this->findItemByUI($e->sender)); }
     
     /** @event Inv_Outfit.mouseDrag */
-    function OutfitMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender); }
+    function OutfitMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($this->findItemByUI($e->sender)); }
     
     /** @event Inv_Wpn_Pm.mouseDrag */
-    function PmMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender); }
+    function PmMouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($this->findItemByUI($e->sender)); }
     
     /** @event Inv_Wpn_AK74.mouseDrag */
-    function Ak74MouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender); }
+    function Ak74MouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($this->findItemByUI($e->sender)); }
     
     /** @event Inv_Ammo_9x18.mouseDrag */
-    function Ammo9x18MouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender, $this->Inv_PmAmmo_Count); }
+    function Ammo9x18MouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($this->findItemByUI($e->sender)); }
     
     /** @event Inv_Ammo_5x45.mouseDrag */
-    function Ammo5x45MouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($e->sender, $this->Inv_AkAmmo_Count); }    
+    function Ammo5x45MouseDown(UXMouseEvent $e = null) { $this->dragManager->beginDrag($this->findItemByUI($e->sender)); }    
     
-    function addVodkaToInventory() { $this->addItemToInventory($this->Inv_Vodka, 1, 2); }
-    function addOutfitToInventory() { $this->addItemToInventory($this->Inv_Outfit, 2, 1); }
-    function addPmToInventory() { $this->addItemToInventory($this->Inv_Wpn_Pm, 1, 1); }
-    function addAk74ToInventory() { $this->addItemToInventory($this->Inv_Wpn_AK74, 1, 1); }
-    
-    function addMedkitToInventory()
+    public function addItem(string $id, int $count = 1): void
     {
-        $this->medkitCount += 2;
-        $this->updateMedkitCount();
-        $this->addItemToInventory($this->Inv_Medkit, 2, 1);
+        if (!isset($this->items[$id]))
+        {
+            return;
+        }
+    
+        $item = $this->items[$id];
+    
+        $wasEmpty = $item->isEmpty();
+    
+        $item->setCount($count);
+    
+        if ($wasEmpty)
+        {
+            $this->addItemToInventory($item);
+        }
+    
+        $this->updateItemCount($item);
+        $this->UpdateInventoryStatus();
     }
     
-    function addAmmo9x18ToInventory()
+    private function addItemToInventory(CItem $item)
     {
-        $this->updateAmmo9x18Count();
-        $this->addItemToInventory($this->Inv_Ammo_9x18, 2, 1);
-    }
+        $ui = $item->getUIItem();
     
-    function addAmmo5x45ToInventory()
-    {
-        $this->updateAmmo5x45Count();
-        $this->addItemToInventory($this->Inv_Ammo_5x45, 1, 1);
-    }
+        $w = $item->getGridWidth();
+        $h = $item->getGridHeight();
     
-    private function addItemToInventory($item, $w, $h)
-    {
         $slot = $this->grid->findFreeSlot($w, $h);
         if (!$slot) return;
-        
+    
         list($cellX, $cellY) = $slot;
-        if (!$this->grid->canPlace($cellX, $cellY, $w, $h)) return;
-        
-        $this->placeGridItem($item, $cellX, $cellY, $w, $h);
+    
+        if (!$this->grid->canPlace($cellX, $cellY, $w, $h))
+        {
+            return;
+        }
+    
+        $this->placeGridItem($ui, $cellX, $cellY, $w, $h);
     }
    
-    function updateMedkitCount() { $this->updateCountLabel($this->Inv_Medkit, $this->Inv_Medkit_Count, $this->medkitCount); }
-    function updateAmmo9x18Count() { $this->updateCountLabel($this->Inv_Ammo_9x18, $this->Inv_PmAmmo_Count, $this->pmAmmoCount); }
-    function updateAmmo5x45Count() { $this->updateCountLabel($this->Inv_Ammo_5x45, $this->Inv_AkAmmo_Count, $this->akAmmoCount); }
-    
-    private function updateCountLabel($item, $label, $count)
+    public function updateItemCount(CItem $item)
     {
-        $label->position = [$item->x, $item->y];
-        
-        if ($count >= 2)
+        $label = $item->getUICountLabel();
+    
+        if (!$label) return;
+           
+        $count = $item->getCount();
+    
+        $label->position = [$item->getUIItem()->x, $item->getUIItem()->y];
+    
+        $label->visible = $count > 1;
+    
+        if ($count > 1)
+        {
+            $label->text = "x{$count}";
+        }
+    
+        if ($item->isEmpty())
+        {
+            $this->grid->remove($item->getUIItem());
+            $item->getUIItem()->visible = false;
+        }
+    } 
+       
+    public function updateAllItemCounts()
+    {
+        foreach ($this->items as $item)
+        {
+            $this->updateItemCount($item);
+        }
+    }    
+    
+    private function updateCountLabel(CItem $item, $label)
+    {
+        $ui = $item->getUIItem();
+        $count = $item->getCount();
+    
+        $label->position = [$ui->x, $ui->y];
+    
+        if ($count > 1)
         {
             $label->text = 'x' . $count;
             $label->visible = true;
         }
         else
         {
+            Logger::error('пидорас');
             $label->visible = false;
         }
-        
-        if ($count < 1)
+    
+        if ($count <= 0)
         {
-            $this->grid->remove($item);
-            $item->visible = false;
+            Logger::error('пидорас');
+            $this->grid->remove($ui);
+            $ui->visible = false;
         }
     }
-    
-    public function getItemCount($item): int
-    {
-        if ($item === $this->Inv_Medkit)
-        {
-            return $this->medkitCount;
-        }
-    
-        if ($item === $this->Inv_Ammo_9x18)
-        {
-            return $this->pmAmmoCount;
-        }
-    
-        if ($item === $this->Inv_Ammo_5x45)
-        {
-            return $this->akAmmoCount;
-        }
-    
-        return 0;
-    }
-    
-    public function getItemCountLabel($item)
-    {
-        if ($item === $this->Inv_Medkit)    return $this->Inv_Medkit_Count;
-        if ($item === $this->Inv_Ammo_9x18) return $this->Inv_PmAmmo_Count;
-        if ($item === $this->Inv_Ammo_5x45) return $this->Inv_AkAmmo_Count;
-    
-        return null;
-    }    
+      
     
     function repackInventory()
     {
         $visibleItems = [];
-        foreach ($this->inventoryItems as $item)
+    
+        foreach ($this->items as $id => $item)
         {
-            if (!$item->visible) continue;
-            if ($item == $this->Inv_Wpn_Pm && $this->weaponSlots['Pm']['equipped']) continue;
-            if ($item == $this->Inv_Wpn_AK74 && $this->weaponSlots['AK74']['equipped']) continue;
-            
+            $ui = $item->getUIItem();
+    
+            if (!$ui || !$ui->visible)
+            {
+                continue;
+            }
+    
+            if (($id === 'wpn_pm'   && $this->weaponSlots['wpn_pm']['equipped']) || ($id === 'wpn_ak74' && $this->weaponSlots['wpn_ak74']['equipped']))
+            {
+                continue;
+            }
+    
             $visibleItems[] = $item;
         }
-        
+    
         foreach ($visibleItems as $item)
         {
-            $this->grid->remove($item);
+            $this->grid->remove($item->getUIItem());
         }
-        
+    
         foreach ($visibleItems as $item)
         {
-            list($w, $h) = $this->itemGridSize($item);
+            $w = $item->getGridWidth();
+            $h = $item->getGridHeight();
+    
             $slot = $this->grid->findFreeSlot($w, $h);
-            
-            if ($slot != null)
+    
+            if ($slot)
             {
                 list($x, $y) = $slot;
-                $this->placeGridItem($item, $x, $y, $w, $h);
+    
+                $this->placeGridItem($item->getUIItem(), $x, $y, $w, $h);
             }
             else
             {
-                $item->visible = false;
+                $item->getUIItem()->visible = false;
             }
         }
-    }   
+    }  
     
     /** @event Inv_Vodka.click-Left */
-    function SelectVodka(UXMouseEvent $e = null) { $this->selectItem('item_vodka_selected'); }
+    function SelectVodka(UXMouseEvent $e = null) { $this->selectItem('vodka'); }
     
     /** @event Inv_Medkit.click-Left */
-    function SelectMedkit(UXMouseEvent $e = null) { $this->selectItem('item_medkit_selected', $e->clickCount <= 2); }
+    function SelectMedkit(UXMouseEvent $e = null) { $this->selectItem('medkit', $e->clickCount <= 2); }
     
     /** @event Inv_Outfit.click-Left */
     function SelectOutfit(UXMouseEvent $e = null)
     {
         if ($e && $e->clickCount >= 2) return;
-        $this->selectItem('item_outfit_selected');
+        $this->selectItem('outfit');
     }
     
     /** @event Inv_Wpn_Pm.click-Left */
-    function SelectPm(UXMouseEvent $e = null) { $this->selectItem('item_pm_selected', $e->clickCount <= 2); }
+    function SelectPm(UXMouseEvent $e = null) { $this->selectItem('wpn_pm', $e->clickCount <= 2); }
     
     /** @event Inv_Wpn_AK74.click-Left */
-    function SelectAk74(UXMouseEvent $e = null) { $this->selectItem('item_ak74_selected', $e->clickCount <= 2); }
+    function SelectAk74(UXMouseEvent $e = null) { $this->selectItem('wpn_ak74', $e->clickCount <= 2); }
     
     /** @event Inv_Ammo_9x18.click-Left */
-    function SelectAmmo9x18(UXMouseEvent $e = null) { $this->selectItem('item_ammo_9x18_selected'); }
+    function SelectAmmo9x18(UXMouseEvent $e = null) { $this->selectItem('ammo_9x18'); }
     
     /** @event Inv_Ammo_5x45.click-Left */
-    function SelectAmmo5x45(UXMouseEvent $e = null) { $this->selectItem('item_ammo_5x45_selected'); }
-    
-    private function selectItem($globalKey, $playSound = true)
+    function SelectAmmo5x45(UXMouseEvent $e = null) { $this->selectItem('ammo_5x45'); }
+
+    public function selectItem(string $itemId, bool $playSound = true)
     {
         $this->HideCombobox();
-        
-        if ($GLOBALS[$globalKey]) return;
-        
-        $this->UpdateSelectedItems();
-        $GLOBALS[$globalKey] = true;
-        
+    
+        if (!isset($this->items[$itemId]))
+        {
+            return;
+        }
+    
+        $this->selectedItemData = $this->items[$itemId];
+    
         $this->ShowUIText();
         $this->SetItemInfo();
         $this->SetItemCondition();
-        
-        if ($playSound) $this->UseSlotSound();
+    
+        if ($playSound)
+        {
+            $this->UseSlotSound();
+        }
     }
+    
+    public function getSelectedItem(): ?CItem
+    {
+        return $this->selectedItemData;
+    }
+    
+    public function setSelectedItem(?CItem $item): void
+    {
+        $this->selectedItemData = $item;
+    }    
+    
+    public function clearSelectedItem(): void
+    {
+        $this->selectedItemData = null;
+    }
+    
+    private function findItemByUI($uiItem): ?CItem
+    {
+        foreach ($this->items as $item)
+        {
+            if ($item->getUIItem() === $uiItem)
+            {
+                return $item;
+            }
+        }
+    
+        return null;
+    }    
     
     /** @event Inv_Vodka.click-Right */
     function VodkaActions(UXMouseEvent $e = null) { $this->showItemActions($e->sender); }
@@ -537,7 +605,12 @@ class inventory extends AbstractForm
     
     private function showItemActions($item, $hide = false)
     {
-        $this->selectedItem = $item;
+        $this->selectedItemData = $this->findItemByUI($item);
+        
+        if (!$this->selectedItemData)
+        {
+            return;
+        }        
         
         if ($hide)
         {
@@ -558,9 +631,11 @@ class inventory extends AbstractForm
     /** @event inv_grid_wpn_2.click-Left */
     function UpdateInvWpn2Grid(UXMouseEvent $e = null) { $this->updateGridUI(); }     
     
+    function UpdateSelectedItems() {}
+    
     private function updateGridUI()
     {
-        $this->UpdateSelectedItems();
+        $this->clearSelectedItem();
         $this->HideUIText();
         $this->HideCombobox();
     }
@@ -592,15 +667,20 @@ class inventory extends AbstractForm
     
     function MoveToSlot()
     {
-        if ($this->selectedItem == $this->Inv_Wpn_AK74) $this->MoveAK74ToSlot();
-        if ($this->selectedItem == $this->Inv_Wpn_Pm) $this->MovePmToSlot();
-    } 
+        if (!$this->selectedItemData)
+        {
+            return;
+        }
+    
+        if ($this->selectedItemData->getId() === 'wpn_ak74') $this->MoveAK74ToSlot();
+        if ($this->selectedItemData->getId() === 'wpn_pm') $this->MovePmToSlot();
+    }
      
     /** @event Inv_Wpn_Pm.click-2x */
-    function MovePmToSlot(UXMouseEvent $e = null) { $this->moveWeaponToSlot('Pm'); }
+    function MovePmToSlot(UXMouseEvent $e = null) { $this->moveWeaponToSlot('wpn_pm'); }
     
     /** @event Inv_Wpn_AK74.click-2x */
-    function MoveAK74ToSlot(UXMouseEvent $e = null) { $this->moveWeaponToSlot('AK74'); }
+    function MoveAK74ToSlot(UXMouseEvent $e = null) { $this->moveWeaponToSlot('wpn_ak74'); }
         
     function moveWeaponToSlot(string $weaponName)
     {
@@ -609,7 +689,8 @@ class inventory extends AbstractForm
     
         $item = $this->{$slot['item']};
     
-        $this->selectedItem = $item;
+        //$this->selectedItem = $item;
+        //$this->selectedItemData = $this->findItemByUI($item);
     
         if ($this->weaponSlots[$weaponName]['equipped'])
         {
@@ -661,7 +742,7 @@ class inventory extends AbstractForm
     
         $this->repackInventory();
     
-        $this->form('Client')->MainGame->content->GameActor->SwitchWeapon('Pm');
+        $this->form('Client')->MainGame->content->GameActor->SwitchWeapon('wpn_pm');
         $this->UseSlotSound();
         $this->HideCombobox();
     }       
@@ -691,57 +772,26 @@ class inventory extends AbstractForm
         );
     }
     
-    function UpdateSelectedItems()
-    {
-        $GLOBALS['item_outfit_selected'] = false;    
-        $GLOBALS['item_vodka_selected'] = false;
-        $GLOBALS['item_medkit_selected'] = false;
-        $GLOBALS['item_pm_selected'] = false;
-        $GLOBALS['item_ammo_9x18_selected'] = false;
-        $GLOBALS['item_ak74_selected'] = false;
-        $GLOBALS['item_ammo_5x45_selected'] = false;
-    }
-    
     function UpdateInventoryStatus()
     {
         $maxWeight = 90.0;
         $baseWeight = $this->form('Client')->MainGame->content->GameActor->getWeight();
         $totalWeight = $baseWeight;
-
-        if ($this->Inv_Vodka->visible)
+    
+        foreach ($this->items as $item)
         {
-           $totalWeight += $this->vodkaWeight; 
-        }        
-        if ($this->Inv_Medkit->visible)
-        {
-            $totalWeight += $this->medkitWeight;
+            $ui = $item->getUIItem();
+    
+            if ($ui && $ui->visible)
+            {
+                $totalWeight += $item->getWeight();
+            }
         }
-        if ($this->inv_maket_visual->visible) //??
-        {
-            $totalWeight += $this->outfitWeight;
-        }
-        if ($this->Inv_Wpn_Pm->visible)
-        {
-           $totalWeight += $this->pmWeight; 
-        }        
-        if ($this->Inv_Ammo_9x18->visible)
-        {
-           $totalWeight += $this->pmAmmoWeight; 
-        }
-        if ($this->Inv_Wpn_AK74->visible)
-        {
-           $totalWeight += $this->ak74Weight; 
-        }  
-         if ($this->Inv_Ammo_5x45->visible)
-        {
-           $totalWeight += $this->ak74AmmoWeight; 
-        }        
-                       
-        $WeightLabel = Localization::get('Weight_Label');
-        
-        $text = $WeightLabel . "  " . round($totalWeight, 1) . " / " . round($maxWeight, 1);
-        $this->weight_desc->text = $text;
-        
+    
+        $weightLabel = Localization::get('Weight_Label');
+    
+        $this->weight_desc->text = sprintf('%s %.1f / %.1f', $weightLabel, $totalWeight, $maxWeight);
+    
         $this->money->text = $this->playerMonero . ' ' . $this->moneyCurrency;
     }
     
@@ -765,92 +815,21 @@ class inventory extends AbstractForm
         $this->maket_weight->hide();
         $this->inv_maket->hide();  
     }
+    
     function SetItemInfo()
     {
-        $this->inv_maket->image = null;
-        $this->maket_count->text = null;
-        $this->maket_weight->text = null;
-        $this->maket_label->text = null;
-        $this->maket_desc->text = null;        
-        
-        if ($GLOBALS['item_vodka_selected'])
+        if (!$this->selectedItemData)
         {
-            $vodka_name = trim($this->SDK_VodkaName);
-            $vodka_icon = trim($this->SDK_VodkaIcon);
-            $vodka_weight = trim($this->SDK_VodkaWeight);
-            $vodka_desc = trim($this->SDK_VodkaDesc);
-            $vodka_price = trim($this->SDK_VodkaPrice);      
-            
-            $this->maket_label->text = $vodka_name != '' ? $vodka_name : Localization::get('Vodka_Inv_Name');
-            $this->inv_maket->image = new UXImage($vodka_icon != '' ? $vodka_icon : 'res://.data/ui/inventory/item_vodka.png');
-            $this->maket_weight->text = $vodka_weight != '' ? $vodka_weight . 'kg' : sprintf('%.1fkg', $this->vodkaWeight);
-            $this->maket_desc->text = $vodka_desc != '' ? $vodka_desc : Localization::get('Vodka_Inv_Desc');
-            $this->maket_count->text = ($vodka_price != '' ? $vodka_price : '250') . ' ' . $this->moneyCurrency;
+            return;
         }
-        if ($GLOBALS['item_outfit_selected'])
-        {
-            $outfit_name = trim($this->SDK_OutfitName);
-            $outfit_icon = trim($this->SDK_OutfitIcon);
-            $outfit_weight = trim($this->SDK_OutfitWeight);
-            $outfit_desc = trim($this->SDK_OutfitDesc);
-            $outfit_price = trim($this->SDK_OutfitPrice);        
-            
-            $this->maket_label->text = $outfit_name != '' ? $outfit_name : Localization::get('Outfit_Inv_Name');
-            $this->inv_maket->image = new UXImage($outfit_icon != '' ? $outfit_icon : 'res://.data/ui/inventory/bandit_outfit.png');
-            $this->maket_weight->text = $outfit_weight != '' ? $outfit_weight . 'kg' : sprintf('%.1fkg', $this->outfitWeight);
-            $this->maket_desc->text = $outfit_desc != '' ? $outfit_desc : Localization::get('Outfit_Inv_Desc');
-            $this->maket_count->text = ($outfit_price != '' ? $outfit_price : '2599') . ' ' . $this->moneyCurrency;
-        }
-        if ($GLOBALS['item_medkit_selected'])
-        {
-            $this->inv_maket->image = new UXImage('res://.data/ui/inventory/item_medkit.png');
-            
-            $this->maket_label->text = Localization::get('Medkit_Inv_Name');
-            $this->maket_desc->text = Localization::get('Medkit_Inv_Desc');
-            
-            Element::setText($this->maket_count, "100" . ' ' . $this->moneyCurrency);
-            Element::setText($this->maket_weight, sprintf('%.1fkg', $this->medkitWeight));
-        }
-        if ($GLOBALS['item_pm_selected'])
-        {
-            $this->inv_maket->image = new UXImage('res://.data/ui/weapons/wpn_pm.png');
-            
-            $this->maket_label->text = Localization::get('PM_Name');
-            $this->maket_desc->text = Localization::get('PM_Desc');
-            
-            Element::setText($this->maket_count, "280" . ' ' . $this->moneyCurrency);
-            Element::setText($this->maket_weight, sprintf('%.1fkg', $this->pmWeight));
-        }
-        if ($GLOBALS['item_ammo_9x18_selected'])
-        {
-            $this->inv_maket->image = new UXImage('res://.data/ui/weapons/mag_9_18.png');
-            
-            $this->maket_label->text = Localization::get('Ammo9x18_Name');
-            $this->maket_desc->text = Localization::get('Ammo9x18_Desc');
-            
-            Element::setText($this->maket_count, "70" . ' ' . $this->moneyCurrency);
-            Element::setText($this->maket_weight, sprintf('%.1fkg', $this->pmAmmoWeight));            
-        }
-        if ($GLOBALS['item_ak74_selected'])
-        {
-            $this->inv_maket->image = new UXImage('res://.data/ui/weapons/wpn_ak74.png');
-            
-            $this->maket_label->text = Localization::get('AK74_Name');
-            $this->maket_desc->text = Localization::get('AK74_Desc');
-            
-            Element::setText($this->maket_count, "2000" . ' ' . $this->moneyCurrency);
-            Element::setText($this->maket_weight, sprintf('%.1fkg', $this->ak74Weight));
-        }
-        if ($GLOBALS['item_ammo_5x45_selected'])
-        {
-            $this->inv_maket->image = new UXImage('res://.data/ui/weapons/mag_5_45.png');
-            
-            $this->maket_label->text = Localization::get('Ammo5x45_Name');
-            $this->maket_desc->text = Localization::get('Ammo5x45_Desc');
-            
-            Element::setText($this->maket_count, "200" . ' ' . $this->moneyCurrency);
-            Element::setText($this->maket_weight, sprintf('%.1fkg', $this->ak74AmmoWeight));            
-        }        
+    
+        $item = $this->selectedItemData;
+    
+        $this->maket_label->text = $item->getName();
+        $this->maket_desc->text = $item->getDescription();
+        $this->maket_weight->text = $item->getWeight() . 'kg';
+        $this->maket_count->text = $item->getPrice() . ' ' . $this->moneyCurrency;
+        $this->inv_maket->image = new UXImage($item->getIcon());
     }
     
     function UseSlotSound()
@@ -909,7 +888,7 @@ class inventory extends AbstractForm
     {    
         if (!$this->form('Client')->MainGame->content->GameActor->isWearingOutfit()) return;
     
-        $this->selectedItem = $this->Inv_Outfit;
+        $this->selectedItemData = $this->items['outfit'];
         
         $this->ShowCombobox();
     }  
@@ -921,7 +900,7 @@ class inventory extends AbstractForm
     {
         if (!$this->form('Client')->MainGame->content->GameActor->isWearingOutfit()) return;
     
-        $this->dragManager->beginDrag($this->Inv_Outfit);
+        $this->dragManager->beginDrag($this->findItemByUI($this->Inv_Outfit));
     }
 
     /**
@@ -931,7 +910,7 @@ class inventory extends AbstractForm
     {    
         if (!$this->form('Client')->MainGame->content->GameActor->isWearingOutfit()) return;    
     
-        $this->selectedItem = $this->Inv_Outfit;
+        $this->selectedItemData = $this->findItemByUI($this->Inv_Outfit);
         
         $this->TakeOffItem();
     }
@@ -941,7 +920,7 @@ class inventory extends AbstractForm
      */
     function QuickUseOutfit(UXMouseEvent $e = null)
     {
-        $this->selectedItem = $e->sender;
+        $this->selectedItemData = $this->findItemByUI($e->sender);
         $this->PutOnItem();
     }
 
@@ -950,136 +929,94 @@ class inventory extends AbstractForm
      */
     function QuickUseMedkit(UXMouseEvent $e = null)
     {
-        $this->selectedItem = $e->sender;
+        $this->selectedItemData = $this->findItemByUI($e->sender);
         
         $this->ApplyMedkitEffect();
         $this->form('Client')->Inventory->content->UseSlotSound();
         
-        $this->medkitCount--;
+        $item = $this->items['medkit'];
         
-        if ($this->medkitCount < 1)
+        $item->removeCount();
+        
+        if ($item->isEmpty())
         {
-            $this->grid->remove($this->selectedItem);
-            $this->selectedItem->visible = false;
+            $ui = $item->getUIItem();
+        
+            $this->grid->remove($ui);
+            $ui->visible = false;
+        
             $this->repackInventory();
-            
-            $inv = $this->form('Client')->Inventory->content;
-            $inv->UpdateInventoryStatus();
-            $inv->HideUIText();
-            $inv->HideCombobox();
+        
+            $this->UpdateInventoryStatus();
+            $this->HideUIText();
+            $this->HideCombobox();
         }
         
-        $this->updateMedkitCount();
+        $this->updateItemCount($item);
         
-        $this->selectedItem = null;
-        $GLOBALS['item_medkit_selected'] = false;
+        $this->clearSelectedItem();
     }
     
     function DespawnItems()
     {
-        $this->medkitCount = 0;
+        $this->items['medkit']->setCount(0);
+        $this->updateItemCount($this->items['medkit']);
         
-        $this->selectedItem = $this->Inv_Outfit;
+        $this->items['ammo_9x18']->setCount(0);
+        $this->updateItemCount($this->items['ammo_9x18']);
+        
+        $this->items['ammo_5x45']->setCount(0);
+        $this->updateItemCount($this->items['ammo_5x45']);
+        
+        $this->setSelectedItem($this->items['outfit']);
         $this->PutOnItem();
-            
-        $this->akAmmoCount = 60;
-        $this->pmAmmoCount = 25;
-                   
-        $this->addVodkaToInventory();
-        $this->addMedkitToInventory();
-        $this->addAmmo5x45ToInventory();
-        $this->addAmmo9x18ToInventory();     
+        
+        $this->addItem('vodka');
+        $this->addItem('medkit', 2);
+        $this->addItem('ammo_5x45', 60);
+        $this->addItem('ammo_9x18', 25);
         
         $this->form('Client')->MainGame->content->ItemVodka->despawn();
     }
     
     function SetItemCondition()
     {
-        $this->maket_cond->width = 0;
+        if (!$this->selectedItemData)
+        {
+            return;
+        }
         
-        if ($GLOBALS['item_outfit_selected'])
-        {
-            $actor = $this->form('Client')->MainGame->content->GameActor;
-            $hpPercent = $actor->getHpPercent();
+        $this->maket_cond->width = 0;
     
-            if ($hpPercent >= 80)
-            {
-                $armorPercent = 100;
-                $color = '#4d804d';
-            }
-            elseif ($hpPercent >= 50)
-            {
-                $armorPercent = 67;
-                $color = '#b3801a';
-            }
-            elseif ($hpPercent >= 30)
-            {
-                $armorPercent = 45;
-                $color = '#b3801a';
-            }
-            else
-            {
-                $armorPercent = 13;
-                $color = '#990000';
-            }
+        $condition = $this->selectedItemData->getCondition();
     
-            $this->maket_cond->text = $armorPercent . " %";
-            $this->maket_cond->color = $color;
+        if ($condition >= 80)
+        {
+            $color = '#4d804d';
+        }
+        elseif ($condition >= 30)
+        {
+            $color = '#b3801a';
+        }
+        else
+        {
+            $color = '#990000';
+        }
     
-            $maxArmorWidth = 208;
-            $minArmorWidth = 40;
-            
-            $target = round($minArmorWidth + (($armorPercent / 100) * ($maxArmorWidth - $minArmorWidth)));
+        $this->maket_cond->text = $condition . ' %';
+        $this->maket_cond->color = $color;
     
-            UIProgressBarAnimator::resizeWidth($this->maket_cond, $target, 700);
-        }
-        if ($GLOBALS['item_vodka_selected'])
-        {
-            $this->maket_cond->text = "100 %";
-            $this->maket_cond->color = '#4d804d';
-            
-            UIProgressBarAnimator::resizeWidth($this->maket_cond, 208, 700);
-        }
-        if ($GLOBALS['item_medkit_selected'])
-        {
-            $this->maket_cond->text = "100 %";
-            $this->maket_cond->color = '#4d804d';
-            
-            UIProgressBarAnimator::resizeWidth($this->maket_cond, 208, 700);
-        }
-        if ($GLOBALS['item_pm_selected'])
-        {
-            $this->maket_cond->text = "100 %";
-            $this->maket_cond->color = '#4d804d';
-            
-            UIProgressBarAnimator::resizeWidth($this->maket_cond, 208, 700);
-        }
-        if ($GLOBALS['item_ammo_9x18_selected'])
-        {
-            $this->maket_cond->text = "100 %";
-            $this->maket_cond->color = '#4d804d';
-            
-            UIProgressBarAnimator::resizeWidth($this->maket_cond, 208, 700);
-        }
-        if ($GLOBALS['item_ak74_selected'])
-        {
-            $this->maket_cond->text = "100 %";
-            $this->maket_cond->color = '#4d804d';
-            
-            UIProgressBarAnimator::resizeWidth($this->maket_cond, 208, 700);
-        }
-         if ($GLOBALS['item_ammo_5x45_selected'])
-        {
-            $this->maket_cond->text = "100 %";
-            $this->maket_cond->color = '#4d804d';
-            
-            UIProgressBarAnimator::resizeWidth($this->maket_cond, 208, 700);
-        }       
-    } 
+        $maxWidth = 208;
+        $minWidth = 40;
+    
+        $target = round($minWidth + (($condition / 100) * ($maxWidth - $minWidth)));
+    
+        UIProgressBarAnimator::resizeWidth($this->maket_cond, $target, 700);
+    }
      
     function ShowCombobox()
     {
-        if (!$this->selectedItem) return;
+        if (!$this->selectedItemData) return;
         
         $this->cancelDrag();
 
@@ -1089,12 +1026,12 @@ class inventory extends AbstractForm
         
         $this->contextMenu->refreshCaptions();
         
-        $this->contextMenu->showForItem($this->selectedItem, $cursorPos, $this->form('Client')->MainGame->content->GameActor->isWearingOutfit());
+        $this->contextMenu->showForItem($this->selectedItemData, $cursorPos, $this->form('Client')->MainGame->content->GameActor->isWearingOutfit());
     }
 
     function UpdateComboboxPosition()
     {
-        if (!$this->selectedItem) return;
+        if (!$this->selectedItemData) return;
 
         $cursorPos = $this->form('Client')->CustomCursor->position;
         $this->contextMenu->updatePosition($cursorPos);
@@ -1112,8 +1049,6 @@ class inventory extends AbstractForm
         $item->position = $this->gridLayout->getItemPosition($item, $x, $y, $w, $h);
         $item->visible = true;
     
-        $this->updateMedkitCount();
-        $this->updateAmmo9x18Count();
-        $this->updateAmmo5x45Count();
+        $this->updateAllItemCounts();
     }
 }

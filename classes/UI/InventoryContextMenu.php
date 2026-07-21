@@ -109,28 +109,34 @@ class InventoryContextMenu
     
     public function showForItem($item, array $cursorPos, bool $isWearing): void
     {
-        if (!$item) return;
-
+        if (!$item)
+        {
+            return;
+        }
+    
         $this->hide();
-
+    
         [$x, $y] = $this->clampPosition($cursorPos);
-
+    
         $scale = $this->form->MainGame->scale ?? 1.0;
-
+    
         $this->main->position = [$x, $y];
-        $this->main->scale    = $scale;
+        $this->main->scale = $scale;
         $this->main->show();
         $this->main->toFront();
-
-        $buttons = $this->resolveButtonsForItem($item, $isWearing);
-
+    
+        $buttons = $this->resolveButtonsForItem($item->getId(), $isWearing);
+    
         foreach ($buttons as $btnKey)
         {
-            if (!isset($this->buttons[$btnKey])) continue;
+            if (!isset($this->buttons[$btnKey]))
+            {
+                continue;
+            }
+    
             $btn = $this->buttons[$btnKey];
-
             $btn->position = [$x + 8, $y + 8];
-            $btn->scale    = $scale;
+            $btn->scale = $scale;
             $btn->show();
             $btn->toFront();
         }
@@ -165,28 +171,26 @@ class InventoryContextMenu
         }
     }
 
-    protected function resolveButtonsForItem($item, bool $isWearing): array
+    protected function resolveButtonsForItem(string $id, bool $isWearing): array
     {
-        $inv = $this->inventory;
-
-        if ($item === $inv->Inv_Vodka)
+        switch ($id)
         {
-            return ['drop'];
+            case 'vodka':
+                return ['drop'];
+    
+            case 'medkit':
+                return ['use'];
+    
+            case 'wpn_pm':
+            case 'wpn_ak74':
+                return ['moveToSlot'];
+    
+            case 'outfit':
+                return [$isWearing ? 'takeOff' : 'putOn'];
+    
+            default:
+                return [];
         }
-        if ($item === $inv->Inv_Medkit)
-        {
-            return ['use'];
-        }
-        if ($item === $inv->Inv_Wpn_Pm || $item === $inv->Inv_Wpn_AK74)
-        {
-            return ['moveToSlot'];
-        }
-        if ($item === $inv->Inv_Outfit)
-        {
-            return [$isWearing ? 'takeOff' : 'putOn'];
-        }
-
-        return [];
     }
 
     protected function clampPosition(array $pos): array

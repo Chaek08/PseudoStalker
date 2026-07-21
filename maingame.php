@@ -1,6 +1,7 @@
 <?php
 namespace app\forms;
 
+use app\forms\classes\Items\CVodka_Depr;
 use php\desktop\Mouse;
 use Throwable;
 use behaviour\custom\ColorAdjustEffectBehaviour;
@@ -65,7 +66,8 @@ class maingame extends AbstractForm
         
         $this->HitMark = new HitMark($this->HitMark_Visual);
     
-        $this->ItemVodka = new CVodka($this, $this->item_vodka_0000, $this->GameActor, $this->GameEnemy);
+        $this->ItemVodka = new CVodka();
+        $this->ItemVodka->attachToWorld($this, $this->item_vodka_0000, $this->GameActor, $this->GameEnemy);
         
         $this->BindEntityEvents();
     }    
@@ -85,9 +87,11 @@ class maingame extends AbstractForm
         $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();
         $this->form('Client')->Dialog->content->UpdateData();      
         
+        $this->form('Client')->Inventory->content->InitItems();
         $this->form('Client')->Inventory->content->MoveWeaponsToWeaponSlot(); //эта хуйня и будет опорой для аттача
         
         $this->InitEnvironment();
+        
     }    
     
     function BindEntityEvents()

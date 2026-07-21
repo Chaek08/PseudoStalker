@@ -141,13 +141,15 @@ class ParticleManager
     
         $this->particlePools[$type][] = $particle;
         
+        /*
         //Log::info(sprintf("[POOL] %s | created=%d | pooled=%d", $type, $this->createdParticles[$type] ?? 0, count($this->particlePools[$type])));    
         echo sprintf(
             "[POOL] %s | created=%d | pooled=%d\n",
             $type,
             $this->createdParticles[$type] ?? 0,
             count($this->particlePools[$type])
-        );        
+        );  
+        */      
     }
     
     protected function setupParticle(string $type, string $image, int $width, int $height): UXImageView
