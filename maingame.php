@@ -645,7 +645,6 @@ class maingame extends AbstractForm
         $this->finalizeBattle();
     }
     
-    
     function finalizeBattle()
     {
         $GLOBALS['NeedToCheckPDA'] = true;
@@ -667,7 +666,7 @@ class maingame extends AbstractForm
         {
             $this->GameEnemy->SetInteractive(false);
             
-            if ($this->GameActor->getWeapon()) $this->GameActor->UnequipCurrentWeapon();
+            if ($this->GameActor->getWeapon()) $this->GameActor->DropCurrentWeapon();
               
             $this->form('Client')->Pda->content->Pda_Tasks->content->Step2_Failed();
             
@@ -693,6 +692,7 @@ class maingame extends AbstractForm
             $GLOBALS['discord']->updateState();    
         }    
     }
+    
     protected $isHovered = false;
     protected $isLabelVisible = false;    
     /**

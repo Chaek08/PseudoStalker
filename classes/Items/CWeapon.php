@@ -125,6 +125,12 @@ abstract class CWeapon extends CItem
             $this->attachTimer->stop();
             $this->attachTimer = null;
         }
+        
+        if ($this->dropTimer)
+        {
+            $this->dropTimer->stop();
+            $this->dropTimer = null;
+        }        
     
         $this->stopAllFxTimers();
     
@@ -144,10 +150,95 @@ abstract class CWeapon extends CItem
         });
     }
     
+    public function destroy(): void
+    {
+        if ($this->attachTimer)
+        {
+            $this->attachTimer->stop();
+            $this->attachTimer = null;
+        }
+        
+        $this->stopAllFxTimers();
+    
+        if ($this->view)
+        {
+            $this->owner->form('Client')->MainGame->content->EnvironmentBrightness->unregister($this->view);
+            $this->owner->remove($this->view);
+            $this->view = null;
+        }
+    }        
+    
+    public function drop(): void
+    {
+        if (!$this->view)
+        {
+            return;
+        }
+    
+        if ($this->attachTimer)
+        {
+            $this->attachTimer->stop();
+            $this->attachTimer = null;
+        }
+    
+        $this->stopAllFxTimers();
+    
+        $vx = rand(-1, 1);
+        $vy = -3.5;
+        $gravity = 0.38;
+    
+        $model = $this->owner->GetModel();
+        $groundY = $model->y + $model->height - 70;
+    
+        $rotation = $this->view->rotate;
+        $targetRotation = rand(-12, 12);
+    
+        $timer = null;
+    
+        $timer = new UXAnimationTimer(function () use (&$timer, &$vx, &$vy, $gravity, $groundY, &$rotation, $targetRotation) {
+    
+            if (!$this->view)
+            {
+                $timer->stop();
+                return;
+            }
+    
+            $this->view->x += $vx;
+            $this->view->y += $vy;
+    
+            $rotation += ($targetRotation - $rotation) * 0.12;
+            $this->view->rotate = $rotation;
+    
+            $vy += $gravity;
+    
+            if ($this->view->y >= $groundY)
+            {
+                $this->view->y = $groundY;
+    
+                if (abs($vy) > 0.8)
+                {
+                    $vy *= -0.2;
+                    $vx *= 0.5;
+                }
+                else
+                {
+                    $this->view->y = $groundY;
+                    $this->view->rotate = $targetRotation;
+    
+                    $timer->stop();
+                }
+            }
+        });
+    
+        $this->registerTimer($timer);
+        $timer->start();
+    }
+    
     public function shoot(): void
     {
         if ($this->reloading) { return; }
-        if ($this->ammo <= 0) //перезаряд при попытке выстрела
+        
+        if ($this->ammo <= 0)
         {
             $this->reload();
             $this->playEmpty();
@@ -238,6 +329,12 @@ abstract class CWeapon extends CItem
 
     protected function startFollowTimer(): void
     {
+        if ($this->attachTimer)
+        {
+            $this->attachTimer->stop();
+            $this->attachTimer = null;
+        }
+    
         $this->attachTimer = new UXAnimationTimer(function () {
     
             if (!$this->view) return;
@@ -516,11 +613,14 @@ abstract class CWeapon extends CItem
     {
         foreach ($this->fxTimers as $t)
         {
-            if ($t) $t->stop();
+            if ($t)
+            {
+                $t->stop();
+            }
         }
     
         $this->fxTimers = [];
-    }    
+    } 
     
     public function resetToDefaultState(): void
     {

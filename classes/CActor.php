@@ -133,6 +133,16 @@ class CActor extends CEntity
     
         $this->UpdateMagazine();
     }
+    
+    public function DropCurrentWeapon(): void
+    {
+        if (!$this->currentWeapon) return;
+    
+        $this->currentWeapon->drop();
+        $this->currentWeapon = null;
+    
+        $this->UpdateMagazine();
+    }    
 
     public function SwitchWeapon(?string $weaponType): void
     {
@@ -286,6 +296,7 @@ class CActor extends CEntity
     {
         foreach ($this->weapons as $weapon)
         {
+            $weapon->destroy();
             $weapon->resetToDefaultState();
         }
     
