@@ -1,0 +1,73 @@
+{
+  "props": {
+    "singleton": false,
+    "disabled": false
+  },
+  "components": {
+    "Pider": {
+      "type": "script\\RobotScript",
+      "x": 48,
+      "y": 480,
+      "props": {}
+    },
+    "clickTimer": {
+      "type": "script\\TimerScript",
+      "x": 304,
+      "y": 352,
+      "props": {
+        "interval": "1000",
+        "repeatable": "1",
+        "autoStart": "1"
+      }
+    },
+    "player": {
+      "type": "script\\MediaPlayerScript",
+      "x": 368,
+      "y": 192,
+      "props": {
+        "autoplay": "1",
+        "volume": "1.0",
+        "balance": "0.0",
+        "rate": "1.0"
+      }
+    },
+    "MainMenuBackground": {
+      "type": "script\\MediaPlayerScript",
+      "x": 208,
+      "y": 192,
+      "props": {
+        "loop": true,
+        "autoplay": true,
+        "volume": 1.0,
+        "balance": "0.0",
+        "rate": "1.0"
+      }
+    },
+    "ImageFileChooser": {
+      "type": "script\\FileChooserScript",
+      "x": 176,
+      "y": 48,
+      "props": {
+        "filterName": "Все файлы",
+        "filterExtensions": "*.png*, *.jpg*",
+        "filterAny": "0",
+        "inputNode": "",
+        "actionNode": ""
+      }
+    },
+    "MediaFileChooser": {
+      "type": "script\\FileChooserScript",
+      "x": 64,
+      "y": 48,
+      "props": {
+        "saveDialog": false,
+        "multiple": false,
+        "filterName": "Все файлы",
+        "filterExtensions": "*.mp3*, *.mp4*, *.wav*",
+        "filterAny": "0",
+        "inputNode": "",
+        "actionNode": ""
+      }
+    }
+  }
+}

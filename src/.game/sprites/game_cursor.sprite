@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sprite defaultAnimation="anim_cursor" file=".game/sprites/game_cursor.png" fixtureData="Array" fixtureType="" frameHeight="64" frameWidth="64" metaAutoSize="" metaCentred="" speed="19">
+  <animation indexes="0,1,2,3,4,5,6,7" name="anim_cursor"/>
+</sprite>

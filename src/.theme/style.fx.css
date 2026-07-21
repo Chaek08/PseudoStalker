@@ -1,0 +1,226 @@
+@font-face {
+    -fx-font-family: 'Graffiti1CTT';    
+    src: url('/.data/fonts/graffiti.ttf'); 
+}
+
+.my-font1 {
+    -fx-font-family: 'Graffiti1CTT'; 
+}
+
+.text{
+    -fx-font-smoothing-type: gray;
+}
+
+.list-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.list-view:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+}
+
+.custom-combobox {
+    -fx-background-color: #00000000; /* Фон ComboBox */
+    -fx-text-fill: white;          /* Цвет текста */
+    -fx-font-family: "Graffiti1CTT";
+    -fx-font-size: 18;
+}
+
+/* Стиль для элементов выпадающего списка */
+.custom-combobox .list-cell {
+    -fx-background-color: #00000000; /* Фон элементов */
+    -fx-text-fill: white;          /* Цвет текста элементов */
+}
+
+/* Стиль для выбранного элемента */
+.custom-combobox .combo-box-popup .list-view {
+    -fx-background-color: #00000000; /* Фон выпадающего списка */
+}
+
+.custom-combobox .combo-box-popup .list-cell:hover {
+    -fx-background-color: #2B2B2B; /* Фон при наведении */
+}
+
+
+.custom-combobox .arrow, 
+.custom-combobox .arrow-button {
+    -fx-background-color: transparent; /* Прозрачный фон */
+    -fx-shape: "";                     /* Убираем фигуру стрелки */
+    -fx-padding: 0;                    /* Убираем внутренние отступы */
+    -fx-pref-width: 0;                 /* Полностью схлопываем */
+    -fx-max-width: 0;                  /* Лочим ширину */
+}
+
+.mainmenu-btn {
+    -fx-text-fill: #ffffff;
+}
+
+.mainmenu-btn:hover {
+    -fx-text-fill: #b3b3b3;
+}
+
+.mainmenu-btn:pressed {
+    -fx-text-fill: #808080;
+}
+
+.switch-on {
+    -fx-text-fill: #0dd60d; /* основной зелёный */
+}
+
+.switch-on:hover {
+    -fx-text-fill: #0aa40a; /* темнее при наведении */
+}
+
+.switch-on:pressed {
+    -fx-text-fill: #066b06; /* ещё темнее при клике */
+}
+
+.switch-off {
+    -fx-text-fill: #b50b17; /* основной красный */
+}
+
+.switch-off:hover {
+    -fx-text-fill: #990a13; /* темнее при наведении */
+}
+
+.switch-off:pressed {
+    -fx-text-fill: #5c050b; /* ещё темнее при клике */
+}
+
+.answer_desc {
+    -fx-text-fill: #cccccc;
+}
+
+.answer_desc:hover {
+    -fx-text-fill: #ffffff;
+}
+
+.answer_desc:pressed {
+    -fx-text-fill: #936c26;
+}
+
+.dialog-kunteynir .list-cell {
+    -fx-background-color: transparent;
+}
+
+.dialog-kunteynir .list-cell:filled {
+    -fx-background-color: transparent;
+}
+
+.dialog-kunteynir .list-cell:selected {
+    -fx-background-color: transparent;
+}
+
+.dialog-kunteynir {
+    -fx-background-color: transparent;
+}
+
+.dialog-kunteynir .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-kunteynir .scroll-bar:vertical,
+.dialog-kunteynir .scroll-bar:horizontal {
+    -fx-background-color: #222222;   /* фон под треком */
+}
+
+.dialog-kunteynir .scroll-bar:vertical .thumb, 
+.dialog-kunteynir .scroll-bar:horizontal .thumb {
+    -fx-background-color: #333333;   /* сам бегунок */
+    -fx-background-radius: 4;        /* скругление */
+}
+
+.dialog-kunteynir .scroll-bar:vertical .track, 
+.dialog-kunteynir .scroll-bar:horizontal .track {
+    -fx-background-color: #1a1a1a;   /* цвет дорожки */
+}
+
+.dialog-kunteynir .scroll-bar:vertical .increment-button,
+.dialog-kunteynir .scroll-bar:vertical .decrement-button,
+.dialog-kunteynir .scroll-bar:horizontal .increment-button,
+.dialog-kunteynir .scroll-bar:horizontal .decrement-button {
+    -fx-background-color: #333333;   /* фон кнопки со стрелкой */
+}
+
+.dialog-kunteynir .scroll-bar:vertical .increment-button:hover,
+.dialog-kunteynir .scroll-bar:vertical .decrement-button:hover,
+.dialog-kunteynir .scroll-bar:horizontal .increment-button:hover,
+.dialog-kunteynir .scroll-bar:horizontal .decrement-button:hover {
+    -fx-background-color: #333333;   /* отключаем подсветку */
+}
+
+.dialog-kunteynir .scroll-bar .increment-button .arrow,
+.dialog-kunteynir .scroll-bar .decrement-button .arrow {
+    -fx-background-color: #333333;   /* стрелка */
+}
+
+.pda-tab {
+    -fx-text-fill: #777778;
+}
+
+.pda-tab:hover {
+    -fx-text-fill: #FFFFFF;
+}
+
+.pda-tab:pressed {
+    -fx-text-fill: #d59b30;
+}
+
+.white-text {
+    -fx-text-inner-color: white;
+}
+
+.pidaras {
+    -fx-highlight-fill: #3a3a3a;
+    -fx-highlight-text-fill: #d59b30;
+}
+
+.error-scroll .scroll-bar:vertical {
+    -fx-pref-width: 12;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.error-scroll .scroll-bar .track {
+    -fx-background-color: #2b2b2b;
+    -fx-background-radius: 8;
+}
+
+.error-scroll .scroll-bar .thumb {
+    -fx-background-color: #5a5a5a;
+    -fx-background-radius: 8;
+}
+
+.error-scroll .scroll-bar .thumb:hover {
+    -fx-background-color: #707070;
+}
+
+.error-scroll .scroll-bar .increment-button,
+.error-scroll .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.error-scroll .scroll-bar .increment-arrow,
+.error-scroll .scroll-bar .decrement-arrow {
+    -fx-shape: "";
+    -fx-padding: 0;
+}
+
+
+.scroll-pane,
+.scroll-pane:focused,
+.scroll-pane:hover {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}

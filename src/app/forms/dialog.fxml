@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?import javafx.scene.*?><?import javafx.collections.*?><?import javafx.scene.layout.*?><?import javafx.scene.control.*?><?import javafx.scene.text.*?><?import javafx.scene.image.*?><?import javafx.scene.shape.*?><?import javafx.scene.paint.*?><?import javafx.scene.web.*?><?import javafx.geometry.*?><?import java.lang.*?><?import org.develnext.jphp.ext.javafx.classes.data.*?><?import org.develnext.jphp.ext.javafx.support.*?><?import org.develnext.jphp.ext.javafx.support.control.*?><?import org.develnext.jphp.ext.game.support.*?><AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" focusTraversable="false" id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900" prefWidth="1600" styleClass="">
+  <children>
+    <FlatButton alignment="CENTER" borderRadius="30" color="#1a1a1a" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="main_frame" layoutX="408" layoutY="16" opacity="0.95121951219512" prefHeight="864" prefWidth="784" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <FlatButton alignment="CENTER" borderRadius="30" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="alex_character" layoutX="808" layoutY="40" opacity="0.95121951219512" prefHeight="208" prefWidth="360" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <FlatButton alignment="CENTER" borderRadius="30" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="actor_character" layoutX="432" layoutY="40" opacity="0.95121951219512" prefHeight="208" prefWidth="360" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-icon_gg" image=".data/ui/icon_npc/no_icon.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-icon_enemy" image=".data/ui/icon_npc/no_icon.png" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-enemy_name" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-gg_name" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-main_frame" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-actor_character" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-alex_character" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-answer_desc" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="7" id="answer_name" layoutX="448" layoutY="776" prefHeight="36" prefWidth="712" styleClass="label " text="answer_name" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="25"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-answer_name" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-rank_desc" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-rank_actor" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" id="data-community_desc" visible="1"/>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-community_actor" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label" layoutX="832" layoutY="104" prefHeight="27" prefWidth="144" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="18"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-label" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_enemy" layoutX="832" layoutY="128" prefHeight="26" prefWidth="144" styleClass="label " text="rank_enemy" textAlignment="LEFT" textFill="#e6e6e6" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="17"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-rank_enemy" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="label3" layoutX="832" layoutY="160" prefHeight="27" prefWidth="144" styleClass="label " text="группа" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="18"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-label3" visible="1"/>
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="community_enemy" layoutX="832" layoutY="184" prefHeight="64" prefWidth="152" styleClass="label " text="community_enemy" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+      <font>
+        <Font name="System Bold" size="17"/>
+      </font>
+    </LabelEx>
+    <Data cursor="DEFAULT" enabled="1" graphic="" id="data-community_enemy" visible="1"/>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="answer_desc" layoutX="448" layoutY="808" prefHeight="48" prefWidth="712" style="-fx-opacity: 1;" styleClass="label answer_desc " text="answer_desc" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="19"/>
+      </font>
+    </LabelEx>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="160" id="icon_gg" layoutX="456" layoutY="64" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="160">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="gg_name" layoutX="632" layoutY="64" prefHeight="40" prefWidth="160" styleClass="label " text="gg_name" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+      <font>
+        <Font name="System Bold" size="25"/>
+      </font>
+    </LabelEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_desc" layoutX="632" layoutY="104" prefHeight="27" prefWidth="144" styleClass="label " text="ранг" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="18"/>
+      </font>
+    </LabelEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="rank_actor" layoutX="632" layoutY="128" prefHeight="26" prefWidth="144" styleClass="label " text="rank_actor" textAlignment="LEFT" textFill="#e6e6e6" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="17"/>
+      </font>
+    </LabelEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="LEFT" ellipsisString="..." focusTraversable="false" graphicTextGap="4" id="community_desc" layoutX="632" layoutY="160" prefHeight="27" prefWidth="144" styleClass="label " text="группа" textAlignment="LEFT" textFill="#cccccc" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="18"/>
+      </font>
+    </LabelEx>
+    <LabelEx alignment="TOP_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="community_actor" layoutX="632" layoutY="184" prefHeight="64" prefWidth="152" styleClass="label " text="community_actor" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="true">
+      <font>
+        <Font name="System Bold" size="17"/>
+      </font>
+    </LabelEx>
+    <ImageViewEx autoSize="false" centered="false" focusTraversable="false" height="160" id="icon_enemy" layoutX="984" layoutY="64" mosaic="false" mosaicGap="0" proportional="false" stretch="true" styleClass="" textFill="#000000" width="160">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </ImageViewEx>
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="" focusTraversable="false" graphicTextGap="4" id="enemy_name" layoutX="832" layoutY="64" prefHeight="36" prefWidth="144" styleClass="label " text="enemy_name" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+      <font>
+        <Font name="System Bold" size="25"/>
+      </font>
+    </LabelEx>
+    <Separator focusTraversable="false" id="separator" layoutX="440" layoutY="760" opacity="0.05" orientation="HORIZONTAL" prefHeight="8" prefWidth="720" styleClass="separator "/>
+    <Data cursor="DEFAULT" enabled="1" id="data-separator" visible="1"/>
+    <ListViewEx editable="false" fixedCellSize="-1" focusTraversable="true" id="Dialog_Kunteynir" layoutX="432" layoutY="256" prefHeight="496" prefWidth="728" styleClass="list-view dialog-kunteynir ">
+      <items xmlns:fx="http://javafx.com/fxml">
+        <FXCollections fx:factory="observableArrayList"/>
+      </items>
+    </ListViewEx>
+    <Data cursor="DEFAULT" enabled="1" id="data-Dialog_Kunteynir" visible="1"/>
+  </children>
+</AnchorPane>

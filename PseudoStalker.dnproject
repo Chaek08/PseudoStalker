@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project author="drogo" authorOS="Windows 10" createdAt="1671865206347" ideName="DevelNext" ideVersion="16.7.0" ideVersionHash="2017103112" name="PseudoStalker" packageName="app" template="ide\project\templates\DefaultGuiProjectTemplate" updatedAt="1784491115449">
+  <tree>
+    <expanded>
+    <path src=""/>
+      <path src="/gamedata"/>
+      <path src="/gamedata/config"/>
+      <path src="/gamedata/config/locales"/>
+      <path src="/gamedata/sounds"/>
+      <path src="/src"/>
+      <path src="/src/.data"/>
+      <path src="/src/.data/audio"/>
+      <path src="/src/app"/>
+      <path src="/src/app/forms"/>
+      <path src="/src/app/forms/classes"/>
+      <path src="/src/app/forms/classes/Environment"/>
+      <path src="/src/app/forms/classes/FileSystem"/>
+      <path src="/src/app/forms/classes/Items"/>
+      <path src="/src/app/forms/classes/UI"/>
+    </expanded>
+  </tree>
+  <openedFiles>
+  <file src="PseudoStalker.dnproject"/>
+    <file src="src/app/modules/MainModule.php"/>
+    <file src="src/app/forms/maingame.php"/>
+    <file src="src/app/forms/mainmenu.php"/>
+    <file selected="1" src="src/app/forms/Client.php"/>
+    <file src="src/app/forms/pda_fragment_tasks.php"/>
+    <file src="src/app/forms/ui_test.php"/>
+    <file src="src/app/forms/dialog.php"/>
+    <file src="src/app/forms/Debug_Info.php"/>
+    <file src="src/app/forms/opt.php"/>
+    <file src="src/app/forms/MessageBox.php"/>
+    <file src="src/app/forms/exit_dlg.php"/>
+    <file src="src/app/forms/UISaveWnd.php"/>
+    <file src="src/app/forms/UILoadWnd.php"/>
+    <file src="src/app/forms/console.php"/>
+    <file src="src/app/forms/classes/DimasCryptoZlodey.php"/>
+    <file src="src/app/forms/fail_wnd.php"/>
+    <file src="src/app/forms/pda_fragments_stat.php"/>
+    <file src="src/app/forms/pda_fragment_ranking.php"/>
+    <file src="src/app/forms/pda_fragment_contacts.php"/>
+    <file src="src/app/forms/pda.php"/>
+    <file src="src/app/forms/load_screen.php"/>
+    <file src="src/app/forms/classes/Localization.php"/>
+    <file src="src/.game/sprites/ui_pda_anims_1.sprite"/>
+    <file src="src/.game/sprites/ui_pda_anims_2.sprite"/>
+    <file src="src/.game/sprites/ui_pda_anims_3.sprite"/>
+    <file src="src/.game/sprites/ui_pda_anims_4.sprite"/>
+    <file src="src/.game/sprites/ui_pda_anims_5.sprite"/>
+    <file src="src/.game/sprites/shot.sprite"/>
+    <file src="src/app/forms/inventory.php"/>
+    <file src="src/app/forms/classes/CActor.php"/>
+    <file src="src/app/forms/classes/UI/UICharacterInfo.php"/>
+    <file src="src/app/forms/classes/UI/UIRoles.php"/>
+    <file src="src/app/forms/classes/UI/RatingManager.php"/>
+    <file src="src/app/forms/classes/SaveLoadManager.php"/>
+    <file src="src/app/forms/classes/CEnemy.php"/>
+    <file src="src/app/forms/classes/UI/CustomTooltip.php"/>
+    <file src="src/app/forms/classes/Debug.php"/>
+    <file src="src/app/forms/PseudoDebug.php"/>
+    <file src="src/.game/sprites/game_cursor.sprite"/>
+    <file src="src/app/forms/classes/CharacterRank.php"/>
+    <file src="src/app/forms/classes/ParticleManager.php"/>
+    <file src="src/app/forms/classes/CSoundIndicator.php"/>
+    <file src="src/app/forms/classes/UI/HitMark.php"/>
+    <file src="src/app/forms/classes/CEntity.php"/>
+    <file src="src/app/forms/classes/UI/UIProgressBarAnimator.php"/>
+    <file src="src/app/forms/classes/Log.php"/>
+    <file src="src/app/forms/classes/CWindowManager.php"/>
+    <file src="src/app/forms/classes/UI/InventoryContextMenu.php"/>
+    <file src="src/app/forms/classes/UI/InventoryDragManager.php"/>
+    <file src="src/app/forms/classes/UI/InventoryGrid.php"/>
+    <file src="src/app/forms/classes/UI/InventoryGridLayout.php"/>
+    <file src="src/app/forms/classes/UI/InventoryActions.php"/>
+    <file src="src/app/forms/UIInventory.conf"/>
+    <file src="src/app/forms/classes/Environment/EnvironmentBrightness.php"/>
+    <file src="src/app/forms/classes/Environment/EnvironmentData.php"/>
+    <file src="src/app/forms/classes/Environment/EnvironmentBase.php"/>
+    <file src="src/app/forms/classes/Environment/EnvironmentSound.php"/>
+    <file src="src/app/forms/classes/Environment/EnvironmentRender.php"/>
+    <file src="src/app/forms/classes/FileSystem/CSimpleInifile.php"/>
+    <file src="src/app/forms/classes/DimaAsyncHackEbatNaxyi.php"/>
+    <file src="src/app/forms/classes/ConsoleBuffer.php"/>
+    <file src="src/app/forms/classes/Items/CItem.php"/>
+    <file src="src/app/forms/classes/Items/CMedkit.php"/>
+    <file src="src/app/forms/classes/Items/COutfit.php"/>
+    <file src="src/app/forms/classes/Items/CVodka.php"/>
+    <file src="src/app/forms/classes/Items/CConsumable.php"/>
+    <file src="src/app/forms/classes/Items/CAmmo.php"/>
+    <file src="src/app/forms/classes/Items/CAmmo9x18.php"/>
+    <file src="src/app/forms/classes/Items/CAmmo5x45.php"/>
+    <file src="src/app/forms/classes/Items/CWeapon_AK74.php"/>
+    <file src="src/app/forms/classes/Items/CWeapon.php"/>
+    <file src="src/app/forms/classes/Items/CWeaponFactory.php"/>
+    <file src="src/app/forms/classes/Items/CWeapon_PM.php"/>
+  </openedFiles>
+  <files/>
+  <behaviours>
+  <behaviour class="ide\project\behaviours\BundleProjectBehaviour"/>
+    <behaviour class="ide\project\behaviours\PhpProjectBehaviour"/>
+    <behaviour class="ide\project\behaviours\JavaPlatformBehaviour"/>
+    <behaviour class="ide\project\behaviours\GuiFrameworkProjectBehaviour"/>
+    <behaviour class="ide\project\behaviours\RunBuildProjectBehaviour"/>
+    <behaviour class="ide\project\behaviours\ShareProjectBehaviour"/>
+    <behaviour class="ide\project\behaviours\BackupProjectBehaviour"/>
+    <behaviour class="ide\project\behaviours\GradleProjectBehaviour"/>
+  </behaviours>
+</project>

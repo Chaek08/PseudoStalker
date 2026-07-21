@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sprite defaultAnimation="" file=".game/sprites/shot.png" fixtureData="Array" fixtureType="" frameHeight="48" frameWidth="138" metaAutoSize="" metaCentred="" speed="12">
+  <animation indexes="0,1,2,3,3,3,3" name="Shot"/>
+</sprite>

@@ -1,0 +1,106 @@
+<?php
+namespace app\forms;
+use app\forms\classes\UI\RatingManager;
+use app\forms\classes\UI\UIRoles;
+use php\gui\UXImage;
+use php\gui\UXImageView;
+use action\Element; 
+use php\time\Time;
+use std, gui, framework, app;
+use app\forms\classes\Localization;
+
+class pda_fragments_stat extends AbstractForm
+{
+    private $actorCharacterInfo;
+    private $enemyCharacterInfo;
+    
+    public function __construct() 
+    {
+        parent::__construct();
+
+        uiLater(function () {
+            $this->actorCharacterInfo = new UICharacterInfo($this, $this->icon, $this->rank, $this->null, $this->community, $this->null, $this->tab_button, $this->reputation); 
+            $this->actorCharacterInfo->setActor();
+                    
+            $this->enemyCharacterInfo = new UICharacterInfo($this, $this->icon_enemy, $this->rank_enemy, null, $this->community_enemy, null, $this->enemy_name);
+            $this->enemyCharacterInfo->setEnemy();
+        });
+    }
+    
+    function UpdateData()
+    {
+        $this->actorCharacterInfo->setActor();
+        $this->enemyCharacterInfo->setEnemy();
+    }
+
+    /**
+     * @event show 
+     */
+    function InitRaiting(UXWindowEvent $e = null)
+    {    
+        uiLater(function () {
+            $rank = CharacterRank::get('actor');
+        
+            $part1 = intdiv($rank, 2);
+            $part2 = intdiv($rank, 3);
+        
+            $questStatus = !empty($GLOBALS['QuestCompleted']) ? 1 : 0;
+        
+            $total = $rank;
+        
+            $this->statistic_num->text = $part1 . "\n" . $part2 . "\n" . $questStatus . "\n\n" . $total;            
+        });
+    }
+    /**
+     * @event icon.click-2x 
+     */
+    function RedirectRaiting(UXMouseEvent $e = null)
+    {    
+        $this->form('Client')->Pda->content->RankingBtn();
+        
+        $this->form('Client')->Pda->content->Pda_Ranking->content->ratingHueta->clickEntry($this->form('Client')->Pda->content->Pda_Ranking->content->actorCharacterInfo->name);
+
+        $this->form('Client')->Pda->content->Pda_Ranking->content->ActorInListBtn();
+    }
+    function UpdateRaiting()
+    {
+        if ($this->form('Client')->MainGame->content->GameEnemy->isDead())
+        {
+            $this->actorCharacterInfo->addRank(1500); 
+            $this->form('Client')->Pda->content->Pda_Ranking->content->UpdateData();    
+        }
+        if ($this->form('Client')->MainGame->content->GameActor->isDead())
+        {
+            $this->enemyCharacterInfo->addRank(1200);
+            $this->form('Client')->Pda->content->Pda_Ranking->content->UpdateData();
+        }
+        if (!$GLOBALS['QuestCompleted'])
+        {
+            $this->actorCharacterInfo->resetRank();
+            $this->enemyCharacterInfo->resetRank();            
+            
+            $this->form('Client')->Pda->content->Pda_Ranking->content->UpdateData();
+        }
+        
+        $this->InitRaiting();
+    }
+    function UpdateFinalLabel()
+    {
+        $this->tab_final->hide();
+        $this->final_label->hide();
+        $this->final_label->text = null;
+        
+        if ($this->form('Client')->MainGame->content->GameActor->isDead())
+        {
+            $this->tab_final->show();
+            $this->final_label->show();
+            $this->final_label->text = Localization::get('FinalLabel_ActorFail');
+        }
+        if ($this->form('Client')->MainGame->content->GameEnemy->isDead())
+        {
+            $this->tab_final->show();
+            $this->final_label->show();
+            $this->final_label->text = Localization::get('FinalLabel_EnemyFail');
+        }
+    }
+}

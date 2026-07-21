@@ -1,3 +1,21 @@
+
 *.conf
 ui_test*
+
+.dn
+
+vendor
+src_generated
+src/JPHP-INF
+src/.debug
+build
+build.xml
+build.gradle
+settings.gradle
+
+*.log
+*.pid
+*.tmp
+*.sourcemap
+userdata
 

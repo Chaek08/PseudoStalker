@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sprite defaultAnimation="noise" file=".game/sprites/noise.png" fixtureData="Array" fixtureType="" frameHeight="104" frameWidth="168" metaAutoSize="" metaCentred="" speed="24">
+  <animation indexes="0,1,2,3,4" name="noise"/>
+</sprite>
