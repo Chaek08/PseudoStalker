@@ -60,25 +60,22 @@ class fail_wnd extends AbstractForm
     function doNextlevelbuttonClickLeft(UXMouseEvent $e = null)
     {
         $Client = $this->form('Client');
-        
-        $Client->MainGame->content->RenderHud(true);
-        $Vodka = $Client->MainGame->content->ItemVodka;
-        
-        $Client->Fail->hide();
-        
-        if (!$Client->Inventory->content->Inv_Vodka->visible) //ПРОВЕРИТЬ
+        $Client->ShowLoadScreen(function()
         {
-            $Vodka->show();
-        }
-        
-        if ($Client->MainGame->content->GameActor->isDead()) $Client->MainGame->content->GameEnemy->GetModel()->show();
-        if ($Client->MainGame->content->GameEnemy->isDead()) $Client->MainGame->content->GameActor->GetModel()->show();
-        
-        if (!$Client->MainGame->content->GameActor->isDead())
-        {
-            $w = $Client->MainGame->content->GameActor->getWeapon();
-            if ($w) $w->softShow();
-        }     
+            $this->form('Client')->Fail->hide();
+            $this->form('Client')->MainGame->content->GameActor->GetModel()->show();
+            $this->form('Client')->MainGame->content->GameActor->heal(100);
+            $this->form('Client')->MainGame->content->RenderHud(true);
+            $this->form('Client')->MainGame->content->Environment->setLocationIndex(5); // temp
+            $this->form('Client')->MainGame->content->Environment->setCycle('underground'); // temp
+            $this->form('Client')->MainGame->content->health_static_enemy->hide();
+            
+            if (!$this->form('Client')->MainGame->content->GameActor->isDead())
+            {
+                $w = $this->form('Client')->MainGame->content->GameActor->getWeapon();
+                if ($w) $w->softShow();
+            }    
+        });
     }
     
     function UpdateFailState()

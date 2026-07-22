@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project author="drogo" authorOS="Windows 10" createdAt="1671865206347" ideName="DevelNext" ideVersion="16.7.0" ideVersionHash="2017103112" name="PseudoStalker" packageName="app" template="ide\project\templates\DefaultGuiProjectTemplate" updatedAt="1784491115449">
+<project author="drogo" authorOS="Windows 10" createdAt="1671865206347" ideName="DevelNext" ideVersion="16.7.0" ideVersionHash="2017103112" name="PseudoStalker" packageName="app" template="ide\project\templates\DefaultGuiProjectTemplate" updatedAt="1784720677356">
   <tree>
     <expanded>
     <path src=""/>
@@ -17,6 +17,7 @@
       <path src="/src/app/forms/classes/FileSystem"/>
       <path src="/src/app/forms/classes/Items"/>
       <path src="/src/app/forms/classes/UI"/>
+      <path src="/src/app/forms/load_screen.php"/>
     </expanded>
   </tree>
   <openedFiles>
@@ -24,7 +25,7 @@
     <file src="src/app/modules/MainModule.php"/>
     <file src="src/app/forms/maingame.php"/>
     <file src="src/app/forms/mainmenu.php"/>
-    <file selected="1" src="src/app/forms/Client.php"/>
+    <file src="src/app/forms/Client.php"/>
     <file src="src/app/forms/pda_fragment_tasks.php"/>
     <file src="src/app/forms/ui_test.php"/>
     <file src="src/app/forms/dialog.php"/>
@@ -36,7 +37,7 @@
     <file src="src/app/forms/UILoadWnd.php"/>
     <file src="src/app/forms/console.php"/>
     <file src="src/app/forms/classes/DimasCryptoZlodey.php"/>
-    <file src="src/app/forms/fail_wnd.php"/>
+    <file selected="1" src="src/app/forms/fail_wnd.php"/>
     <file src="src/app/forms/pda_fragments_stat.php"/>
     <file src="src/app/forms/pda_fragment_ranking.php"/>
     <file src="src/app/forms/pda_fragment_contacts.php"/>
