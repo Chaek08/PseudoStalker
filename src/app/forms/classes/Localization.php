@@ -77,7 +77,9 @@ class Localization {
 
     public static function get($key)
     {
-        return self::$translations[$key] ?? $key;
+        $index = rand(1, 56);
+        $key_temp = "Dialog_Random_Phrase_{$index}";
+        return self::$translations[$key_temp] ?? $key_temp;
     }
 
     public static function getCurrentLanguage()
