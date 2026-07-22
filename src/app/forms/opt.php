@@ -598,6 +598,7 @@ class opt extends AbstractForm
     
         $this->form('Client')->Fail->content->returnbtn->text = Localization::get('Return_Button');
         $this->form('Client')->Fail->content->exitbtn->text = Localization::get('Exit_Button');
+        $this->form('Client')->Fail->content->nextlevelbutton->text = Localization::get('NextLevel_Label');
         
         $this->form('Client')->Dialog->content->UpdateData();
             

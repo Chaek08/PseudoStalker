@@ -37,5 +37,11 @@
       </font>
     </LabelEx>
     <Data cursor="DEFAULT" enabled="1" graphic="" id="data-Win_fail_text" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="15" clickColor="#e6e6e6" color="#ffffff" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" hoverColor="#f2f2f2" id="nextlevelbutton" layoutX="792" layoutY="824" prefHeight="56" prefWidth="248" styleClass="x-flat-button " text="Следующий уровень" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="18"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/fail_wnd/next_icon.png" id="data-nextlevelbutton" visible="1"/>
   </children>
 </AnchorPane>

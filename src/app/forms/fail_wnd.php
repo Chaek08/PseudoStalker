@@ -7,6 +7,7 @@ use php\gui\UXImage;
 use std, gui, framework, app;
 use php\gui\event\UXWindowEvent; 
 use app\forms\classes\Localization;
+use php\gui\event\UXMouseEvent; 
 
 class fail_wnd extends AbstractForm
 {
@@ -52,6 +53,33 @@ class fail_wnd extends AbstractForm
             if ($w) $w->softShow();
         }     
     }
+
+    /**
+     * @event nextlevelbutton.click-Left 
+     */
+    function doNextlevelbuttonClickLeft(UXMouseEvent $e = null)
+    {
+        $Client = $this->form('Client');
+        
+        $Client->MainGame->content->RenderHud(true);
+        $Vodka = $Client->MainGame->content->ItemVodka;
+        
+        $Client->Fail->hide();
+        
+        if (!$Client->Inventory->content->Inv_Vodka->visible) //ПРОВЕРИТЬ
+        {
+            $Vodka->show();
+        }
+        
+        if ($Client->MainGame->content->GameActor->isDead()) $Client->MainGame->content->GameEnemy->GetModel()->show();
+        if ($Client->MainGame->content->GameEnemy->isDead()) $Client->MainGame->content->GameActor->GetModel()->show();
+        
+        if (!$Client->MainGame->content->GameActor->isDead())
+        {
+            $w = $Client->MainGame->content->GameActor->getWeapon();
+            if ($w) $w->softShow();
+        }     
+    }
     
     function UpdateFailState()
     {
@@ -67,6 +95,7 @@ class fail_wnd extends AbstractForm
             $this->Win_fail_text->text = $actor_failtext != '' ? $actor_failtext : Localization::get('ActorFail_Label');
             $this->Win_fail_text->graphic = new UXImageView(new UXImage($actor_failtexticon != '' ? $actor_failtexticon : 'res://.data/ui/fail_wnd/actor_fail.png'));
             $this->Win_fail_desc->text = $actor_faildesc != '' ? $actor_faildesc : Localization::get('ActorFail_Desc');
+            $this->nextlevelbutton->hide();
         }
         if ($Client->MainGame->content->GameEnemy->isDead())
         {
@@ -78,7 +107,8 @@ class fail_wnd extends AbstractForm
             $this->Win_object->image = $actor_model != '' ? new UXImage($actor_model) : $this->form('Client')->MainGame->content->actor->image;
             $this->Win_fail_text->text = $enemy_failtext != '' ? $enemy_failtext : Localization::get('EnemyFail_Label');
             $this->Win_fail_text->graphic = new UXImageView(new UXImage($enemy_failtexticon != '' ? $enemy_failtexticon : 'res://.data/ui/fail_wnd/enemy_fail.png'));
-            $this->Win_fail_desc->text = $enemy_faildesc != '' ? $enemy_faildesc : Localization::get('EnemyFail_Desc');                       
+            $this->Win_fail_desc->text = $enemy_faildesc != '' ? $enemy_faildesc : Localization::get('EnemyFail_Desc');  
+            $this->nextlevelbutton->show();                     
         }        
     }
 }
