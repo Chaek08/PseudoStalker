@@ -153,6 +153,7 @@ class maingame extends AbstractForm
     {
         $this->form('Client')->ShowLoadScreen(function () use ($afterReset)
         {    
+            $this->form('Client')->$levelIdx = 0;
             $this->GameActor->respawn(112, $this->GameActor->GetModel()->y, false);
             $this->GameEnemy->respawn(1312, $this->GameEnemy->GetModel()->y, false);
               
@@ -224,7 +225,10 @@ class maingame extends AbstractForm
                 $this->health_bar_gg->show();
                 $this->health_bar_gg_b->show();
             }
-            $this->health_static_enemy->show();
+            if ($this->form('Client')->$levelIdx == 0)
+            {
+                $this->health_static_enemy->show();
+            }
             if (!$this->GameEnemy->isDead()) 
             {
                 $this->health_bar_enemy->show();
@@ -235,8 +239,10 @@ class maingame extends AbstractForm
             if ($GLOBALS['NeedToCheckPDA']) $this->pda_icon->show();
             if ($this->GameActor->isGodMode()) $this->GodMode_Icon->show();
             if ($this->GameActor->CanInteractive() || $this->GameEnemy->CanInteractive()) $this->fight_image->show();
-            if ($this->GameActor->isDead() || $this->GameEnemy->isDead()) $this->leave_btn->show();
-        
+            if (($this->GameActor->isDead() || $this->GameEnemy->isDead()) && $this->form('Client')->$levelIdx == 0) 
+            {
+                $this->leave_btn->show();
+            }
             $GLOBALS['HudVisible'] = true;
             
             $this->Bleeding();

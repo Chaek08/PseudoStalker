@@ -62,6 +62,7 @@ class fail_wnd extends AbstractForm
         $Client = $this->form('Client');
         $Client->ShowLoadScreen(function()
         {
+            $this->form('Client')->$levelIdx++;
             $this->form('Client')->Fail->hide();
             $this->form('Client')->MainGame->content->GameActor->GetModel()->show();
             $this->form('Client')->MainGame->content->GameActor->heal(100);

@@ -38,6 +38,7 @@ class Client extends AbstractForm
     
     public $ltx;
     public $ltxInitialized = false;
+    public $levelIdx = 0;
     
     /**
      * @event show 
