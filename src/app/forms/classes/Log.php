@@ -112,7 +112,7 @@ class Log
     public static function command(string $text)
     {
         self::write($text);
-    }    
+    }      
     
     public static function flush()
     {

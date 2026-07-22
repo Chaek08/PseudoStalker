@@ -13,7 +13,7 @@ class CAmmo9x18 extends CAmmo
             'Ammo9x18_Name',
             'Ammo9x18_Desc',
             0.7,
-            70,
+            90,
             'res://.data/ui/weapons/mag_9_18.png'
         );
 

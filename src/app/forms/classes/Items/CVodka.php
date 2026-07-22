@@ -24,8 +24,8 @@ class CVodka extends CConsumable
             'vodka',
             'Vodka_Inv_Name',
             'Vodka_Inv_Desc',
-            0.5,
-            20090121,
+            0.2,
+            300,
             'res://.data/ui/inventory/item_vodka.png'
         );    
     }

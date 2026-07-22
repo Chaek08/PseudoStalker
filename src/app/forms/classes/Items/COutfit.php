@@ -14,8 +14,8 @@ class COutfit extends CItem
             'outfit',
             'Outfit_Inv_Name',
             'Outfit_Inv_Desc',
-            2.0,
-            2599,
+            1.5,
+            1200,
             'res://.data/ui/inventory/bandit_outfit.png'
         );
     }
