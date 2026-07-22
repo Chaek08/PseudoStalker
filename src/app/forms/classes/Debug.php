@@ -104,20 +104,20 @@ class Debug
 
     private static function logCrash(string $type, string $message, ?string $file, ?int $line, ?array $trace = null)
     {
-        Log::crash($type);
-        Log::crash("File: " . ($file ?? "unknown"));
-        Log::crash("Line: " . ($line ?? 0));
-        Log::crash("Reason: " . $message);
+        Log::error($type);
+        Log::error("File: " . ($file ?? "unknown"));
+        Log::error("Line: " . ($line ?? 0));
+        Log::error("Reason: " . $message);
     
         if ($trace)
         {
-            Log::trace("Stack trace:");
+            Log::error("Stack trace:");
             foreach (explode("\n", self::formatTrace($trace)) as $line)
             {
                 $line = trim($line);
                 if ($line !== "")
                 {
-                    Log::trace($line);
+                    Log::error($line);
                 }
             }
         }
