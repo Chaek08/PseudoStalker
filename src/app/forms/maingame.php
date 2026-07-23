@@ -134,18 +134,9 @@ class maingame extends AbstractForm
             $path = 'res://.data/audio/fight/fight_sound.mp3';
         }
     
-        if (is_object($this->fightPlayer))
-        {
-            $this->fightPlayer->stop();
-        }
-    
-        $this->fightPlayer = new MediaPlayerScript();
-        $this->fightPlayer->open($path);
-        $this->fightPlayer->loop = true;
-    
         if ($GLOBALS['AllSounds'] && $GLOBALS['FightSound'])
         {
-            $this->fightPlayer->play();
+            PseudoSound::playMusic( $path, 'fight_music', 0.5);
         }
     }
     

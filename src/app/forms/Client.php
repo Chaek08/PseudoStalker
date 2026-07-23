@@ -31,6 +31,7 @@ use app\forms\classes\Debug;
 use app\forms\classes\Log;
 use php\gui\event\UXScrollEvent; 
 use app\forms\classes\FileSystem\CSimpleInifile;
+use app\forms\classes\PseudoSound;
 
 class Client extends AbstractForm
 {
@@ -39,6 +40,8 @@ class Client extends AbstractForm
     public $ltx;
     public $ltxInitialized = false;
     public $levelIdx = 0;
+    
+    protected $soundTimer;
     
     /**
      * @event show 
@@ -56,8 +59,15 @@ class Client extends AbstractForm
         $GLOBALS['AmbientSound'] = true;        
         $GLOBALS['HudVisible'] = true;
         
-        Debug::setClient($this);        
+        Debug::setClient($this);  
+              
+        $this->soundTimer = new UXAnimationTimer(function ()
+        {
+            PseudoSound::update();
+        });
         
+        $this->soundTimer->start();
+             
         $this->GetVersion(); 
         
         $this->ltx = new CSimpleInifile('./userdata/user.ltx', [
@@ -438,11 +448,12 @@ class Client extends AbstractForm
         
             if (!$GLOBALS['QuestCompleted'] && $GLOBALS['QuestStep1'])
             {          
-                $this->MainGame->content->fightPlayer->pause();
+                
+                PseudoSound::stop('fight_music', 0.5);
             }            
             if ($GLOBALS['MenuSound'])
             {
-                $this->MainMenu->content->menuPlayer->play();
+                PseudoSound::playMusic('res://.data/audio/menu/menu_sound.mp3', 'menu_music');
             }
         }
         

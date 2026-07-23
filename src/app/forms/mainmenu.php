@@ -8,31 +8,20 @@ use php\gui\event\UXMouseEvent;
 use app\forms\classes\Localization;
 use app\forms\classes\Environment\EnvironmentBase;
 use app\forms\classes\Environment\EnvironmentBrightness;
+use app\forms\classes\PseudoSound;
 
 class mainmenu extends AbstractForm
 {
     public $SDK_MMBackground;
     
-    public $menuPlayer;
-
     function InitMainMenu()
     {
         $GLOBALS['NewGameState'] = true;
         
-        if (is_object($this->menuPlayer))
-        {
-            $this->menuPlayer->stop();
-        }
-        
-        $this->menuPlayer = new MediaPlayerScript();
-        $this->menuPlayer->open('res://.data/audio/menu/menu_sound.mp3');
-        $this->menuPlayer->loop = true;
-        
         if ($GLOBALS['AllSounds'] && $GLOBALS['MenuSound'])
         {
-            $this->menuPlayer->play();
+            PseudoSound::playMusic('res://.data/audio/menu/menu_sound.mp3', 'menu_music');
         }
-        
         //отрендерим задник меню
         $this->MainMenuBackground->view = $this->dynamic_background;
         
@@ -59,7 +48,7 @@ class mainmenu extends AbstractForm
             $this->form('Client')->MainGame->content->InitMainGame();
         }
         
-        $this->menuPlayer->pause();
+        PseudoSound::stop('menu_music', 0.5);
 
         Media::pause($this->MainMenuBackground);        
         
@@ -69,7 +58,8 @@ class mainmenu extends AbstractForm
         {
             if (!$GLOBALS['QuestCompleted'] && $GLOBALS['QuestStep1'])
             {
-                 $this->form('Client')->MainGame->content->fightPlayer->play();
+                 //PseudoSound::playMusic( $path, 'fight_music', 0.5);
+                 $this->form('Client')->MainGame->content->PlayFightSong();
             }
         }
            
