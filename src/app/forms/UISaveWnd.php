@@ -173,6 +173,8 @@ class UISaveWnd extends AbstractForm
      */
     function BtnSaveGame(UXMouseEvent $e = null)
     {
+        if ($this->form('Client')->MainGame->content->isMP) return;
+    
         $this->saveHistory[] = trim($this->Edit_SaveName->text);
         $this->historyIndex  = count($this->saveHistory);
     

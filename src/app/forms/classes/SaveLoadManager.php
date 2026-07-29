@@ -270,6 +270,13 @@ class SaveLoadManager
     
         $client = $this->callForm('Client');
         $diskIo = $client->MainGame->content->ui_disk_io ?? null;
+        
+        if ($client->MainGame->content->isMP)
+        {
+            Log::info('Saving/Loading is disabled in multiplayer.');
+            
+            return;
+        }        
     
         if ($diskIo)
         {
@@ -315,6 +322,13 @@ class SaveLoadManager
     {
         $client = $this->callForm('Client');
         $diskIo = $client->MainGame->content->ui_disk_io ?? null;
+        
+        if ($client->MainGame->content->isMP)
+        {
+            Log::info('Saving/Loading is disabled in multiplayer.');
+            
+            return;
+        }        
     
         if ($diskIo)
         {

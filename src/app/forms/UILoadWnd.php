@@ -158,6 +158,8 @@ class UILoadWnd extends AbstractForm
      */
     function BtnLoadSave(UXMouseEvent $e = null)
     {
+        if ($this->form('Client')->MainGame->content->isMP) return;
+    
         $saveName = $this->saves_list->selectedItem;
         $saveData = $this->SaveLoadManager->load($saveName);
         if ($saveData === null) return;

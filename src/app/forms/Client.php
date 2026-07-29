@@ -379,6 +379,16 @@ class Client extends AbstractForm
                 $this->MainMenu->content->UILoadWnd->content->ReturnBtn();
                 return;
             }
+            if ($this->MainMenu->content->UIMultiplayerWnd->visible)
+            {
+                if ($this->ExitDialog->visible)
+                {
+                    $this->ExitDialog->content->DisagreeButton();
+                    return;
+                }
+                $this->MainMenu->content->UIMultiplayerWnd->content->ReturnBtn();
+                return;
+            }            
             if ($this->ExitDialog->visible) 
             {
                 $this->ExitDialog->hide();

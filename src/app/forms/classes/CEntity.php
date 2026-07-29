@@ -1,6 +1,7 @@
 <?php
 namespace app\forms\classes;
 
+use app\forms\classes\Multiplayer\CNameIndicator;
 use script\MediaPlayerScript;
 use php\time\Timer;
 use behaviour\custom\DraggingBehaviour;
@@ -12,7 +13,9 @@ abstract class CEntity
     protected $form;
     protected $model;
     protected $dragging;
+    
     protected $soundIndicator;
+    protected $nameIndicator;    
 
     protected $canInteractive = false;
     protected $GodMode = false;    
@@ -75,9 +78,11 @@ abstract class CEntity
             'limitedByParent' => true,
         ]);        
         
-        $this->dragging->apply($this->model);
+        //$this->dragging->apply($this->model);
+        //29.07.2026: временно отключил для mp
         
         $this->initSoundIndicator();
+        $this->initNameIndicator();
     }
 
     public function GetModel()
@@ -98,6 +103,36 @@ abstract class CEntity
             $this->soundIndicator = new CSoundIndicator($this->model);
         }
     }
+    
+    protected function initNameIndicator(string $nickname = ''): void
+    {
+        if ($this->nameIndicator)
+        {
+            $this->nameIndicator->destroy();
+            $this->nameIndicator = null;
+        }
+    
+        if ($this->model)
+        {
+            $this->nameIndicator = new CNameIndicator($this->model, $nickname);
+        }
+    }    
+    
+    public function setNickname(string $name): void
+    {
+        if (!$this->nameIndicator)
+        {
+            $this->initNameIndicator($name);
+            return;
+        }
+    
+        $this->nameIndicator->setText($name);
+    }    
+    
+    public function getNickname(): string
+    {
+        return $this->nameIndicator ? $this->nameIndicator->getText() : '';
+    }    
 
     public function getHP(): int
     {
@@ -157,6 +192,12 @@ abstract class CEntity
             $this->soundIndicator->destroy();
             $this->soundIndicator = null;
         }
+        
+        if ($this->nameIndicator)
+        {
+            $this->nameIndicator->destroy();
+            $this->nameIndicator = null;
+        }        
 
         if ($this->model)
         {
@@ -182,6 +223,7 @@ abstract class CEntity
         //$this->dragging->enabled = true;
 
         $this->initSoundIndicator();
+        $this->initNameIndicator($this->getNickname());
         $this->fireHpChanged();
     }
 

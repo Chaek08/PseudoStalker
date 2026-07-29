@@ -735,6 +735,7 @@ class maingame extends AbstractForm
             });
         }
     }    
+
     function ShowTaskStep()
     {
         $this->Task_Step_Label->visible = true;      
@@ -820,7 +821,7 @@ class maingame extends AbstractForm
     
     public function performSave(string $saveName, bool $autoRewrite = false)
     {
-        if (!$GLOBALS['ContinueGameState'] || !$saveName) return;
+        if (!$GLOBALS['ContinueGameState'] || !$saveName || $this->isMP) return;
     
         static $lastToastId = 0;
     
@@ -856,7 +857,7 @@ class maingame extends AbstractForm
     
     public function performLoad(string $saveName)
     {
-        if (!$GLOBALS['ContinueGameState']) return;
+        if (!$GLOBALS['ContinueGameState'] || $this->isMP) return;
     
         $loadWnd = $this->form('Client')->MainMenu->content->UILoadWnd->content;
         $savesList = $loadWnd->saves_list;
@@ -872,5 +873,170 @@ class maingame extends AbstractForm
         }
     
         Log::result("Save '$saveName' not found.");
-    }      
+    }  
+    
+    
+    private $PlayerID;
+    
+    private $client;
+    
+    private $curPlayer;
+    
+    public $isMP;
+    
+    function NET_Pidoras() {$this->GameActor->setNickname($this->client->getDefaultNickname());}
+    
+    function NET_MultiplayerBehaviour($client)
+    {
+        $mpWnd = $this->form('Client')->MainMenu->content->UIMultiplayerWnd->content;
+    
+    
+        $this->client = $client;
+        
+        $this->PlayerID = $this->client->GetPlayerID();        
+        
+        Log::info('[GASTRIT SYSTEM] joined as ' . $this->PlayerID);
+        
+        $this->isMP = true;
+         
+        if ($this->PlayerID == 'actor')
+        {
+            $this->actor->dragging->enabled = true;
+            
+            uiLater(function () {
+                $this->GameActor->setNickname($this->client->getDefaultNickname());
+            });
+            
+            $this->curPlayer = $this->actor;
+
+        }
+        else if ($this->PlayerID == 'enemy')
+        {
+            $this->enemy->dragging->enabled = true;
+            
+            uiLater(function () {            
+                $this->GameEnemy->setNickname($this->client->getDefaultNickname());
+            });
+              
+            $this->curPlayer = $this->enemy;
+        }
+        else 
+        {
+            //$this->label->text = "наблюдаю бля";
+        }
+        
+        $this->client->onMessage(function($message) {
+            Log::info('GET MSG');
+            $this->NET_HandleServerMessage($message);
+        });        
+    } 
+    
+    function NET_Disconnect()
+    {
+        $this->isMP = false;
+        
+        $this->client->disconnect();
+        
+        $this->ResetGameClient();
+    }
+    
+    /**
+     * @event actor.mouseDrag 
+     */
+    function NET_ActorMove(UXMouseEvent $e = null)
+    {    
+        if ($this->PlayerID != "actor") return;
+            
+        $this->NET_UpdatePosOnServer();        
+    }
+    
+    /**
+     * @event enemy.mouseDrag 
+     */
+    function NET_EnemyMove(UXMouseEvent $e = null)
+    {    
+        if ($this->PlayerID != "enemy") return;
+            
+        $this->NET_UpdatePosOnServer();        
+    }          
+    
+     
+    public function NET_UpdatePosOnServer()
+    {  
+        //var_dump($this->curPlayer->position);
+        
+        $this->client->sendPosition($this->curPlayer->position[0], $this->curPlayer->position[1]);
+    }
+    
+    
+    private function NET_HandleServerMessage($message)
+    {
+        $parts = explode(' ', $message);
+        
+        if (count($parts) >= 4 && $parts[0] === 'POS')
+        {
+            $playerId = $parts[1];
+            $x = floatval($parts[2]);
+            $y = floatval($parts[3]);
+            
+            uiLater(function() use ($playerId, $x, $y) {
+                //Log::info('Player position updated', ['player' => $playerId, 'x' => $x, 'y' => $y]);
+            
+                if ($playerId == "actor")
+                {
+                    $this->actor->position = [$x, $y];
+                }
+                else if ($playerId == "enemy")
+                {
+                    $this->enemy->position = [$x, $y];
+                }
+            });
+
+        }
+        elseif (isset($parts[0]) && $parts[0] === 'PONG') //elseif ($parts[0] === 'PONG')
+        {
+            Log::info('Received pong from server');
+        }
+        elseif (strpos($message, 'STATE') === 0)
+        {
+            $this->NET_ParseStateMessage($message);
+        }
+    }
+    
+    private function NET_ParseStateMessage($message)
+    {
+        // Формат: STATE p1 x1 y1 p2 x2 y2
+        $parts = explode(' ', $message);
+        if (count($parts) >= 7) {
+            $p1Id = $parts[1];
+            $p1x = floatval($parts[2]);
+            $p1y = floatval($parts[3]);
+    
+            $p2Id = $parts[4];
+            $p2x = floatval($parts[5]);
+            $p2y = floatval($parts[6]);
+    
+            uiLater(function() use ($p1Id, $p1x, $p1y, $p2Id, $p2x, $p2y) {
+                Log::info('Game state updated');
+    
+                if ($p1Id == "actor")
+                {
+                    $this->actor->position = [$p1x, $p1y];
+                }
+                else if ($p1Id == "enemy")
+                {
+                    $this->enemy->position = [$p1x, $p1y];
+                }
+    
+                if ($p2Id == "actor")
+                {
+                    $this->actor->position = [$p2x, $p2y];
+                }
+                else if ($p2Id == "enemy")
+                {
+                    $this->enemy->position = [$p2x, $p2y];
+                }
+            });
+        }
+    }    
 }

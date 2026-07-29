@@ -97,6 +97,9 @@ class mainmenu extends AbstractForm
             $this->Btn_End_Game->y = 640;
             $this->Btn_Exit_Windows->y = 712;
             
+            //для мп нужно будет делать отдельно и красиво
+            $this->Btn_Disconnect->show();            
+            
             $GLOBALS['ContinueGameState'] = true;
             return;
         }
@@ -112,6 +115,9 @@ class mainmenu extends AbstractForm
             $this->Btn_Load_Game->y = 424;
             $this->Btn_Opt->y = 496;
             $this->Btn_Exit_Windows->y = 568;
+            
+            //для мп нужно будет делать отдельно и красиво
+            $this->Btn_Disconnect->hide();
             
             $GLOBALS['NewGameState'] = true;
             return;
@@ -158,5 +164,25 @@ class mainmenu extends AbstractForm
         $this->dynamic_background->toFront();
         $this->UILoadWnd->show();
         $this->UILoadWnd->toFront();
+    }
+    
+    /**
+     * @event Btn_Multiplayer.mouseDown-Left 
+     */
+    function BtnMultiplayer(UXMouseEvent $e = null)
+    {
+        $this->dynamic_background->toFront();
+        $this->UIMultiplayerWnd->show();
+        $this->UIMultiplayerWnd->toFront();
+        
+        $this->UIMultiplayerWnd->content->InitMPModule();
+    }
+
+    /**
+     * @event Btn_Disconnect.mouseDown-Left 
+     */
+    function BtnDisconnect(UXMouseEvent $e = null)
+    {
+        $this->form('Client')->MainGame->content->NET_Disconnect();
     }
 }
