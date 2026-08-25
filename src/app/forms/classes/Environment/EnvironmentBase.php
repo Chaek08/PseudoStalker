@@ -338,6 +338,11 @@ class EnvironmentBase
 
         $this->renderManager->play($path);
     }
+    
+    public function playAmbientByIndex($index)
+    {
+        return $this->soundManager->playAmbientByIndex($index);
+    }    
 
     public function getState()
     {
