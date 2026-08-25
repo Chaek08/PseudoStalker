@@ -893,7 +893,7 @@ class maingame extends AbstractForm
     
         $this->client = $client;
         
-        $this->PlayerID = $this->client->GetPlayerID();        
+        $this->PlayerID = $this->client->getPlayerId();        
         
         Log::info('[GASTRIT SYSTEM] joined as ' . $this->PlayerID);
         
@@ -902,33 +902,24 @@ class maingame extends AbstractForm
         if ($this->PlayerID == 'actor')
         {
             $this->actor->dragging->enabled = true;
-            
-            uiLater(function () {
-                $this->GameActor->setNickname($this->client->getDefaultNickname());
-            });
-            
+        
+            $this->NET_SetNickname('actor', $this->client->getNickname());
+        
             $this->curPlayer = $this->actor;
-
         }
         else if ($this->PlayerID == 'enemy')
         {
             $this->enemy->dragging->enabled = true;
-            
-            uiLater(function () {            
-                $this->GameEnemy->setNickname($this->client->getDefaultNickname());
-            });
-              
+        
+            $this->NET_SetNickname('enemy', $this->client->getNickname());
+        
             $this->curPlayer = $this->enemy;
         }
         else 
         {
             //$this->label->text = "наблюдаю бля";
         }
-        
-        $this->client->onMessage(function($message) {
-            Log::info('GET MSG');
-            $this->NET_HandleServerMessage($message);
-        });        
+               
     } 
     
     function NET_Disconnect()
@@ -957,7 +948,7 @@ class maingame extends AbstractForm
     {    
         if ($this->PlayerID != "enemy") return;
             
-        $this->NET_UpdatePosOnServer();        
+        $this->NET_UpdatePosOnServer();
     }          
     
      
@@ -966,10 +957,17 @@ class maingame extends AbstractForm
         //var_dump($this->curPlayer->position);
         
         $this->client->sendPosition($this->curPlayer->position[0], $this->curPlayer->position[1]);
+        
+        //$this->client->sendNickname();
     }
     
+    public function NET_UpdateShotOnServer()
+    {
+        $this->client->sendMessage("SHOT {$this->PlayerID}");
+    }    
     
-    private function NET_HandleServerMessage($message)
+    
+    public function NET_HandleServerMessage($message)
     {
         $parts = explode(' ', $message);
         
@@ -993,6 +991,31 @@ class maingame extends AbstractForm
             });
 
         }
+        elseif ($parts[0] === 'SHOT')
+        {
+            $playerId = $parts[1];
+        
+            uiLater(function() use ($playerId)
+            {
+                if ($playerId == "actor")
+                {
+                    $this->GameActor->Shoot();
+                }
+                else
+                {
+                    //$this->GameEnemy->Shoot();
+                    //TODO: аттачи для питуха
+                }
+            });
+        }
+        elseif ($parts[0] === 'NICK' && count($parts) >= 3)
+        {
+            $playerId = $parts[1];
+        
+            $nickname = trim(substr($message, strlen("NICK {$playerId} ")));
+        
+            $this->NET_SetNickname($playerId, $nickname);
+        }        
         elseif (isset($parts[0]) && $parts[0] === 'PONG') //elseif ($parts[0] === 'PONG')
         {
             Log::info('Received pong from server');
@@ -1038,5 +1061,27 @@ class maingame extends AbstractForm
                 }
             });
         }
+    }    
+    
+    private function NET_SetNickname(string $playerId, string $nickname): void
+    {
+        $nickname = trim($nickname);
+    
+        if ($nickname === '')
+        {
+            return;
+        }
+    
+        uiLater(function() use ($playerId, $nickname)
+        {
+            if ($playerId === 'actor')
+            {
+                $this->GameActor->setNickname($nickname);
+            }
+            else if ($playerId === 'enemy')
+            {
+                $this->GameEnemy->setNickname($nickname);
+            }
+        });
     }    
 }

@@ -280,7 +280,7 @@ class CActor extends CEntity
 
     public function Shoot(): void
     {
-        if (empty($GLOBALS['QuestStep1'])) return;
+        //if (empty($GLOBALS['QuestStep1'])) return;
         if (!$this->currentWeapon) return;
 
         $this->currentWeapon->shoot();

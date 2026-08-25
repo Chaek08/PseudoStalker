@@ -255,13 +255,24 @@ abstract class CWeapon extends CItem
             return;
         }
         if ($this->jammed) { $this->playEmpty(); return; }
+        
+        if ($this->owner->form('Client')->MainGame->content->isMP)
+        {
+            $this->owner->form('Client')->MainGame->content->NET_UpdateShotOnServer();
+        }        
     
         $this->ammo--;
         $this->owner->UpdateMagazine();
-        $this->playShotOverlapped();
-        $this->spawnMuzzleAndBlood();      
-        $this->playRecoil();
+        
+        $this->playShotFX();
     }
+    
+    public function playShotFX()
+    {
+        $this->playShotOverlapped();
+        $this->spawnMuzzleAndBlood();
+        $this->playRecoil();
+    }    
     
     public function reload(): void
     {

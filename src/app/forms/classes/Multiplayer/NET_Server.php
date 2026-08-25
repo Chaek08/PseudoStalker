@@ -11,10 +11,12 @@ use app\forms\classes\Log;
 
 class NET_Server 
 {
-    protected  $IsRunning = false;
-    protected  $serverThread;
+    public  $IsRunning = false;
+    protected $serverThread;
+    protected $serverSocket;
     protected  $clients = [];
     protected  $clientRoles = [];
+    protected $playerNicknames = [];    
     protected  $playerPositions = [
         'actor' => ['x' => 0.0, 'y' => 0.0],
         'enemy' => ['x' => 0.0, 'y' => 0.0],
@@ -23,10 +25,73 @@ class NET_Server
     protected $form;    
 
     public function addClient(string $cid, $client): void { $this->clients[$cid] = $client; }
-    public function removeClient(string $cid): void { unset($this->clients[$cid], $this->clientRoles[$cid]); }
+    
+    public function removeClient(string $cid): void
+    {
+        $role = $this->clientRoles[$cid] ?? null;
+    
+        unset($this->clients[$cid], $this->clientRoles[$cid]);
+    
+        if ($role !== null)
+        {
+            unset($this->playerNicknames[$role]);
+        }
+    }
+    
     public function setClientRole(string $cid, string $role): void { $this->clientRoles[$cid] = $role; }
     public function getClientRole(string $cid): ?string { return $this->clientRoles[$cid] ?? null; }
     public function getClients(): array { return $this->clients; }
+        
+    public function setPlayerNickname(string $playerId, string $nickname): void
+    {
+        $this->playerNicknames[$playerId] = $nickname;
+    }
+    
+    public function getPlayerNickname(string $playerId): ?string
+    {
+        return $this->playerNicknames[$playerId] ?? null;
+    }
+    
+    public function getNicknamesSnapshot(): string
+    {
+        $lines = [];
+    
+        foreach ($this->playerNicknames as $playerId => $nickname)
+        {
+            $lines[] = "NICK {$playerId} {$nickname}";
+        }
+    
+        return implode("\n", $lines) . ($lines ? "\n" : '');
+    } 
+    
+    public function broadcastNicknames(): void
+    {
+        $snapshot = $this->getNicknamesSnapshot();
+    
+        if ($snapshot === '')
+        {
+            return;
+        }
+    
+        foreach ($this->clients as $cid => $client)
+        {
+            if ($client->isClosed())
+            {
+                continue;
+            }
+    
+            try
+            {
+                $out = $client->getOutput();
+                $out->write($snapshot);
+                $out->flush();
+            }
+            catch (\Throwable $e)
+            {
+                Log::warn("Server: nickname broadcast error [{$cid}] ".$e->getMessage());
+            }
+        }
+    }  
 
     public function updatePlayerPos(string $playerId, float $x, float $y): void
     {
@@ -43,8 +108,6 @@ class NET_Server
 
     public function __construct()
     {
-        //$this->form = $form;
-        
         $this->IsRunning = false;
         
         Log::info("[gastrit system] server class loaded");
@@ -57,91 +120,179 @@ class NET_Server
             Log::warn('Server: already running');
             return true;
         }
-
+    
         Log::info('Server: start', ['host' => $host, 'port' => $port]);
+    
         $this->IsRunning = true;
-        try {
+    
+        try
+        {
             $serverInstance = $this;
-            $form = $this->form;
-                    
-            $this->serverThread = new Thread(function () use ($host, $port, $serverInstance) {
-                $socket = null;
-                try {
+    
+            $this->serverThread = new Thread(function () use ($host, $port, $serverInstance)
+            {
+                try
+                {
                     $socket = new ServerSocket();
+    
+                    $serverInstance->setServerSocket($socket);
+    
                     Log::info('Server: trying bind', ['host' => $host, 'port' => $port]);
+    
                     $socket->bind($host, (int)$port);
-
-                    //$serverInstance->IsRunning = true;
+    
                     Log::info('Server: bound & listening', ['host' => $host, 'port' => $port]);
-
-                    while (true)
+    
+                    while ($serverInstance->IsRunning)
                     {
-                        $client = $socket->accept();
-                        
+                        try
+                        {
+                            $client = $socket->accept();
+                        }
+                        catch (\Throwable $e)
+                        {
+                            if (!$serverInstance->IsRunning)
+                            {
+                                break;
+                            }
+    
+                            Log::error('Server: accept error: '.$e->getMessage());
+    
+                            break;
+                        }
+    
                         if (!$client)
                         {
                             continue;
                         }
-
+    
+                        if (!$serverInstance->IsRunning)
+                        {
+                            try {
+                                $client->close();
+                            } catch (\Throwable $e) {}
+    
+                            break;
+                        }
+    
                         $cid = spl_object_hash($client);
+    
                         $serverInstance->addClient($cid, $client);
-                        
+    
                         $count = count($serverInstance->getClients());
-                        
+    
                         if ($count == 1)
                         {
-                            $role = "actor";                      
+                            $role = 'actor';
                         }
                         elseif ($count == 2)
                         {
-                            $role = "enemy";                             
+                            $role = 'enemy';
                         }
                         else
                         {
-                            $client->close();
+                            $serverInstance->removeClient($cid);
+    
+                            try {
+                                $client->close();
+                            } catch (\Throwable $e) {}
+    
                             continue;
                         }
-                        
+    
                         $serverInstance->setClientRole($cid, $role);
-                        
-                        Log::info('Server: client accepted', [
-                            'id' => $cid,
-                            'role' => $serverInstance->getClientRole($cid)//clientRoles[$cid]
-                        ]);
-
-                        $out = $client->getOutput();
-                        $out->write("WELCOME " . $serverInstance->getClientRole($cid) . "\n");
-                        $out->write($serverInstance->getSnapshotLine());
-                        $out->flush();
-
+    
+                        Log::info('Server: client accepted', ['id' => $cid, 'role' => $role]);
+    
+                        try
+                        {
+                            $out = $client->getOutput();
+    
+                            $out->write("WELCOME ".$role."\n");
+    
+                            $out->write($serverInstance->getSnapshotLine());
+                            $out->write($serverInstance->getNicknamesSnapshot());
+    
+                            $out->flush();
+                        }
+                        catch (\Throwable $e)
+                        {
+                            Log::warn('Server: welcome error: '.$e->getMessage());
+    
+                            $serverInstance->removeClient($cid);
+    
+                            try {
+                                $client->close();
+                            } catch (\Throwable $e) {}
+    
+                            continue;
+                        }
+    
                         $serverInstance->handleClientAsync($client);
                     }
-                } catch (\Throwable $e) {
-                    Log::error('Server: accept/bind loop error -- msg: ' . $e->getMessage());
-                } finally {
-                    Log::info('Server: main thread cleanup');
-                    try {
-                        if ($socket)
-                        {
-                            $socket->close();
-                        }
-                    } catch (\Throwable $e) {
-                        Log::warn('Server: close server socket err: '.$e->getMessage());
+                }
+                catch (\Throwable $e)
+                {
+                    if ($serverInstance->IsRunning)
+                    {
+                        Log::error('Server: main loop error -- '.$e->getMessage());
                     }
-                    //$serverInstance->IsRunning = false;
+                }
+                finally
+                {
+                    $serverInstance->IsRunning = false;
+                    $serverInstance->clearServerSocket();
+    
+                    Log::info('Server: main thread cleanup');
                 }
             });
-
+    
             $this->serverThread->start();
+    
             return true;
-        } catch (\Throwable $e) {
+        }
+        catch (\Throwable $e)
+        {
             Log::error('Server: start failed. '.$e->getMessage());
-            \php\gui\UXDialog::showAndWait("Не удалось запустить сервер:\n" . $e->getMessage(), 'ERROR');
+    
+            UXDialog::showAndWait("Не удалось запустить сервер:\n".$e->getMessage(), 'ERROR');
+    
             $this->IsRunning = false;
+    
             return false;
         }
     }
-  
+    
+    public function sendToClient($cid, $message)
+    {
+        if (!isset($this->clients[$cid]))
+        {
+            return false;
+        }
+    
+        $client = $this->clients[$cid];
+    
+        if ($client->isClosed())
+        {
+            return false;
+        }
+    
+        try
+        {
+            $out = $client->getOutput();
+            $out->write($message);
+            $out->flush();
+    
+            return true;
+        }
+        catch (\Throwable $e)
+        {
+            Log::warn("Server: send error [id $cid] " . $e->getMessage());
+    
+            return false;
+        }
+    }    
+        
     public function handleClientAsync($client)
     {
         $serverInstance = $this;
@@ -156,6 +307,10 @@ class NET_Server
                 { 
                     $line = $serverInstance->readLineFromInput($input);
                     if ($line === null) break;
+                    
+
+Log::info("RAW SERVER LINE: [" . $line . "]");
+Log::info("RAW SERVER BYTES: " . strlen($line));                    
 
                     $line = trim($line);
                     //Log::info('Server: received from client | id = ' . $cid . ' | msg: '.$line);
@@ -176,6 +331,29 @@ class NET_Server
                         $output->write("PONG\n");
                         $output->flush();
                     }
+                    elseif ($parts[0] === 'SHOT')
+                    {
+                        $playerId = $parts[1];
+                    
+                        $serverInstance->broadcastToOthers($cid, "SHOT $playerId\n");
+                    }
+                    elseif ($parts[0] === 'NICK' && count($parts) >= 3)
+                    {
+                        $playerId = $parts[1];
+                    
+                        $nickname = trim(substr($line, strlen("NICK {$playerId} ")));
+                    
+                        if ($nickname === '')
+                        {
+                            continue;
+                        }
+
+                        $serverInstance->setPlayerNickname($playerId, $nickname);
+                    
+                        Log::info("SERVER GOT NICK: {$playerId} = {$nickname}");
+                    
+                        $serverInstance->broadcastNicknames();
+                    }                               
                     else 
                     {
                         Log::info('Server: unknown message');
@@ -229,7 +407,7 @@ class NET_Server
                     $out = $client->getOutput();
                     $out->write($message);
                     $out->flush();
-                    Log::info("SEND TO " . $this->getClientRole($cid));
+                    //Log::info("SEND TO " . $this->getClientRole($cid));
                 } catch (\Throwable $e) {
                     Log::warn("Server: broadcast error ['to' => $cid, 'err' => $e->getMessage()]");
                 }
@@ -239,16 +417,42 @@ class NET_Server
 
     public function stopServer()
     {
-        if (!$this->IsRunning) return;
-
+        if (!$this->IsRunning)
+        {
+            return;
+        }
+    
+        Log::info('Server: stopping');
+    
         $this->IsRunning = false;
 
-        foreach ($this->clients as $client)
+        foreach ($this->clients as $cid => $client)
         {
-            try { $client->close(); } catch (\Throwable $e) {}
+            try
+            {
+                $client->close();
+            }
+            catch (\Throwable $e)
+            {
+            }
         }
+    
         $this->clients = [];
-
+        $this->clientRoles = [];
+    
+        if ($this->serverSocket)
+        {
+            try
+            {
+                $this->serverSocket->close();
+            }
+            catch (\Throwable $e)
+            {
+            }
+    
+            $this->serverSocket = null;
+        }
+    
         Log::info('Server: stopped');
     }
     
@@ -263,4 +467,19 @@ class NET_Server
     
         return null;
     }  
+        
+    public function setServerSocket($socket): void
+    {
+        $this->serverSocket = $socket;
+    }
+    
+    public function getServerSocket()
+    {
+        return $this->serverSocket;
+    }
+    
+    public function clearServerSocket(): void
+    {
+        $this->serverSocket = null;
+    }    
 }

@@ -14,16 +14,13 @@ class NET_Client
     private $socket;
     private $playerId;
     private $clientThread;
-    private $isRunning = false;
+    public $isRunning = false;
     private $onMessageCallback;
     private $onConnectCallback;
     private $onDisconnectCallback;
     private $readBuffer = '';
     
-    public function GetPlayerID()
-    {
-        return $this->playerId;
-    }
+    private $nickname = 'PLAYER';    
     
     public function __construct()
     {
@@ -41,67 +38,81 @@ class NET_Client
         return "@{$domain}\\{$user}";
     }    
     
-    public function conectToServer($ip, $port)
+    public function setNickname(string $nickname): void
+    {
+        $nickname = trim($nickname);
+    
+        if ($nickname === '')
+        {
+            $nickname = $this->getDefaultNickname();
+        }
+    
+        $this->nickname = $nickname;
+    }
+    
+    public function getNickname(): string
+    {
+        return $this->nickname;
+    }    
+    
+    public function connectToServer($ip, $port)
     {
         if ($this->IsConnected)
         {
             Log::warn('Client: already connected');
             return true;
         }
-        
-        try {
+    
+        try
+        {
+            $this->readBuffer = '';
+            $this->playerId = null;
+    
             $this->socket = new \php\net\Socket($ip, (int)$port);
-            $in = $this->socket->getInput();
-            $out = $this->socket->getOutput();
-            
+    
             $this->IsConnected = true;
             $this->isRunning = true;
-            
-            Log::info("Client: connected: $ip:$port");
-            
-            // Читаем приветствие и состояние
+    
+            $in = $this->socket->getInput();
+    
+            Log::info("Client: connected: {$ip}:{$port}");
+    
             $welcome = $this->readLineFromInput($in);
             $state   = $this->readLineFromInput($in);
-
-            if ($welcome !== null)
+    
+            if ($welcome !== null &&
+                preg_match('/^WELCOME (.+)$/', trim($welcome), $matches))
             {
-                Log::info('Client: received welcome: '. trim($welcome));
-                
-                /*
-                if (preg_match('/WELCOME (.+)/', trim($welcome), $m))
-                {
-                    $this->playerId = $m[17];
-                }
-                */
+                $this->playerId = trim($matches[1]);
+    
+                Log::info("Client: assigned player id = {$this->playerId}");
+    
+                $this->sendNickname();
             }
-            if ($state !== null)
-            {
-                Log::info('Client: received state: '.trim($state));
-            }
-            
-            if (preg_match('/WELCOME (.+)/', trim((string)$welcome), $matches))
-            {
-                $this->playerId = $matches[1];
-            }
-            
+    
             if ($this->onConnectCallback)
             {
                 call_user_func($this->onConnectCallback, trim((string)$welcome), trim((string)$state));
             }
-            
+    
             $this->startListening();
-            
+    
             return true;
-            
-        } catch (\Throwable $e) {
+        }
+        catch (\Throwable $e)
+        {
             Log::error('Client: connection error: '.$e->getMessage());
+    
             $this->IsConnected = false;
+            $this->isRunning = false;
+            $this->socket = null;
+    
             return false;
         }
     }
     
     
-    private function readLineFromInput($in)
+    public function readLineFromInput($in)
     {
         while (true)
         {
@@ -115,7 +126,14 @@ class NET_Client
                 return rtrim($line, "\r");
             }
     
-            $chunk = $in->read(1024);
+            try
+            {
+                $chunk = $in->read(1024);
+            }
+            catch (\Throwable $e)
+            {
+                return null;
+            }
     
             if ($chunk === null || $chunk === '')
             {
@@ -126,31 +144,47 @@ class NET_Client
         }
     }
 
-
+    
     private function startListening()
     {
         $socket = $this->socket;
         $client = $this;
+    
         $this->clientThread = new Thread(function () use ($socket, $client) {
             if (!$socket) return;
+    
             $in = $socket->getInput();
+    
             while ($client->isRunning && $in)
             {
                 $line = $client->readLineFromInput($in);
-                if ($line === null) { $this->disconnect(); break; }
-                $line = trim($line);
+    
+                if ($line === null)
+                {
+                    if ($client->isRunning)
+                    {
+                        $client->disconnect();
+                    }
                 
+                    break;
+                }
+    
+                $line = trim($line);
+    
                 if ($line !== '')
                 {
                     Log::info('Client: received - '.$line);
-                    //dump($client->onMessageCallback);
-                    if ($client->onMessageCallback)
+    
+                    $callback = $client->getOnMessageCallback();
+                    
+                    if ($callback)
                     {
-                        call_user_func($client->onMessageCallback, $line);
+                        call_user_func($callback, $line);
                     }
                 }
             }
         });
+    
         $this->clientThread->start();
     }
 
@@ -175,6 +209,21 @@ class NET_Client
             Log::info('Client: send position error: '.$e->getMessage(), ['err' => $e->getMessage()]);
             return false;
         }
+    }
+    
+    public function sendShot()
+    {
+        return $this->sendMessage("SHOT {$this->playerId}");
+    }    
+    
+    public function sendNickname()
+    {
+        $message = "NICK {$this->playerId} {$this->nickname}\n";
+    
+        Log::info("NICK SEND: [{$message}]");
+        Log::info("NICK BYTES: " . strlen($message));
+    
+        return $this->sendMessage("NICK {$this->playerId} {$this->nickname}");
     }
     
     public function sendMessage($message)
@@ -206,29 +255,43 @@ class NET_Client
     
     public function disconnect()
     {
-        $this->isRunning = false;
-        
-        if ($this->socket)
+        if (!$this->IsConnected && !$this->isRunning)
         {
-            try {
-                $this->socket->close();
-            } catch (\Throwable $e) {
-                Log::warn('Client: close socket error', ['err' => $e->getMessage()]);
-            }
-            $this->socket = null;
+            return;
         }
-        
+    
+        $this->isRunning = false;
         $this->IsConnected = false;
-        
+    
+        $socket = $this->socket;
+        $this->socket = null;
+    
+        if ($socket)
+        {
+            try
+            {
+                $socket->close();
+            }
+            catch (\Throwable $e)
+            {
+            }
+        }
+    
         if ($this->onDisconnectCallback)
         {
             call_user_func($this->onDisconnectCallback);
         }
-        
+    
         Log::info('Client: disconnected');
     }
     
     // Колбэки для событий
+    
+    public function getOnMessageCallback()
+    {
+        return $this->onMessageCallback;
+    }    
+    
     public function onMessage($callback)
     {
         $this->onMessageCallback = $callback;

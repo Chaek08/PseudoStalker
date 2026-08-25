@@ -20,7 +20,6 @@ class UIMultiplayerWnd extends AbstractForm
     private $client;
     private $ip;
     private $port;
-    private $isServer = false;
     
     function InitMPModule()
     {
@@ -31,6 +30,11 @@ class UIMultiplayerWnd extends AbstractForm
         $this->client = new NET_Client();
         $this->ip = "127.0.0.1";
         $this->port = "1337";
+        
+        $this->client->onMessage(function($message) {
+            Log::info('GET MSG');
+            $this->form('Client')->MainGame->content->NET_HandleServerMessage($message);
+        });         
         
         $this->client->onConnect(function($welcome, $state) {
             uiLater(function() use ($welcome, $state) {
@@ -44,7 +48,9 @@ class UIMultiplayerWnd extends AbstractForm
             });
         });
         
-        Log::info("[gastrit system] App Loaded");        
+        $this->Edit_PlayerName->text = $this->client->getDefaultNickname();
+        
+        Log::info("[gastrit system] MPModule Loaded");
     }
 
 
@@ -80,19 +86,13 @@ class UIMultiplayerWnd extends AbstractForm
      */
     function CreateServerBtn(UXMouseEvent $e = null)
     {
-        if (!$this->isServer)
+        $result = $this->server->startServer($this->ip === '127.0.0.1' ? '0.0.0.0' : $this->ip, $this->port);
+    
+        if ($result)
         {
-            $result = $this->server->startServer($this->ip === "127.0.0.1" ? "0.0.0.0" : $this->ip, $this->port);
-            if ($result)
-            {
-                $this->isServer = true;
-                Log::info('Server started successfully');
-            }
+            Log::info('Server started successfully');
+    
             $this->Connect2ServerBtn();
-        }
-        else
-        {
-            Log::warn('Server is already running');
         }
     }
 
@@ -103,6 +103,8 @@ class UIMultiplayerWnd extends AbstractForm
     {
         if (!$this->client->isConnected())
         {
+            $this->UpdateClientNickname();
+        
             $input = trim($this->Edit_ServerIP->text);
     
             if ($input == '')
@@ -130,7 +132,7 @@ class UIMultiplayerWnd extends AbstractForm
             //$dlg->show();
     
             (new Thread(function() use ($targetIp, $targetPort) {
-                $result = $this->client->conectToServer($targetIp, $targetPort);
+                $result = $this->client->connectToServer($targetIp, $targetPort);
     
                 uiLater(function() use ($result, $targetIp, $targetPort) {
                     if ($result)
@@ -166,7 +168,19 @@ class UIMultiplayerWnd extends AbstractForm
             Log::warn('Client is already connected');
         }
     }
-
+    private function UpdateClientNickname()
+    {
+        $nickname = trim($this->Edit_PlayerName->text);
+    
+        if ($nickname === '')
+        {
+            $nickname = $this->client->getDefaultNickname();
+        }
+    
+        $this->client->setNickname($nickname);
+    
+        Log::info('Player nickname set: ' . $this->client->getNickname());
+    }
     /**
      * @event Edit_ServerIP.keyDown-Enter 
      */

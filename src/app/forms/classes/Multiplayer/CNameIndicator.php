@@ -19,7 +19,7 @@ class CNameIndicator
     private const LABEL_WIDTH = 500;
     private const LABEL_HEIGHT = 22;
 
-    private $nickname = '';
+    private $nickname = 'елодес';
 
 
     public function __construct($ownerModel, string $nickname = '')
