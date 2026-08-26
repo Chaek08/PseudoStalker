@@ -189,5 +189,41 @@ class UIMultiplayerWnd extends AbstractForm
         
     }
 
+    /**
+     * @event gen_nick_btn.click-Left 
+     */
+    function gen_nick(UXMouseEvent $e = null)
+    {    
+        $words = [
+            'Huesos',
+            'Gastrit',
+            'Pidor',
+            'Gnida',
+            'Lox',
+            'Ishak',
+            'Goblin',
+            'Mrazota',
+            'Mudak',
+            'Chmo',
+            'Utyrok',
+            'Dalbaeb',
+            'Ogloeb',
+            'Suchara',
+            'Vodolaz',
+            'Psi',
+            'Blyahamuha',
+            'WandererNikolai',
+            'Energia',
+            'Rassolnikbebe228'
+        ];
+    
+        $word = $words[rand(0, count($words) - 1)];
+        $number = rand(10, 9999);
+    
+        $nickname = $word . '_' . $number;
+    
+        $this->Edit_PlayerName->text = $nickname;
+    }
+
 
 }

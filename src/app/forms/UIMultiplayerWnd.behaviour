@@ -6,4 +6,7 @@
   <target id="button3">
     <behaviour color="#333333" offsetX="0" offsetY="0" radius="5" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
+  <target id="gen_nick_btn">
+    <behaviour color="#808080" offsetX="0" offsetY="0" radius="10" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
 </behaviours>
