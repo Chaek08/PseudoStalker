@@ -144,7 +144,7 @@ class CActor extends CEntity
         $this->UpdateMagazine();
     }    
 
-    public function SwitchWeapon(?string $weaponType): void
+    public function SwitchWeapon(?string $weaponType , bool $network = true): void
     {
         if (!$this->GetModel() || !$this->GetModel()->visible) return;
     
@@ -173,6 +173,16 @@ class CActor extends CEntity
         }
     
         $this->currentWeapon = $this->weapons[$weaponType];
+        
+        //чЁ (array_search is dead)
+        for ($i = 0; $i < count($this->weaponTypes); $i++)
+        {
+            if ($this->weaponTypes[$i] === $weaponType)
+            {
+                $this->currentWeaponIndex = $i;
+                break;
+            }
+        }  
     
         $this->currentWeapon->attach();
     
@@ -188,6 +198,11 @@ class CActor extends CEntity
         } 
     
         $this->UpdateMagazine();
+        
+        if ($network && $this->form('Client')->MainGame->content->isMP)
+        {
+            $this->form('Client')->MainGame->content->NET_UpdateWeaponOnServer($weaponType);
+        }        
     }
     
     protected function hasWeapon(string $weaponType): bool

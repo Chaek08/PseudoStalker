@@ -966,6 +966,15 @@ class maingame extends AbstractForm
         $this->client->sendMessage("SHOT {$this->PlayerID}");
     }    
     
+    public function NET_UpdateReloadOnServer()
+    {
+        $this->client->sendMessage("RELOAD {$this->PlayerID}");
+    }    
+    
+    public function NET_UpdateWeaponOnServer(string $weaponType)
+    {
+        $this->client->sendMessage("WEAPON {$this->PlayerID} {$weaponType}");
+    }    
     
     public function NET_HandleServerMessage($message)
     {
@@ -1008,6 +1017,40 @@ class maingame extends AbstractForm
                 }
             });
         }
+        elseif ($parts[0] === 'RELOAD')
+        {
+            $playerId = $parts[1];
+        
+            uiLater(function() use ($playerId)
+            {
+                if ($playerId == "actor")
+                {
+                    $this->GameActor->ReloadWeapon();
+                }
+                else if ($playerId == "enemy")
+                {
+                    //$this->GameEnemy->ReloadWeapon();
+                    
+                }
+            });
+        }   
+        elseif ($parts[0] === 'WEAPON' && count($parts) >= 3)
+        {
+            $playerId = $parts[1];
+            $weaponType = $parts[2];
+        
+            uiLater(function() use ($playerId, $weaponType)
+            {
+                if ($playerId === 'actor')
+                {
+                    $this->GameActor->SwitchWeapon($weaponType, false);
+                }
+                else if ($playerId === 'enemy')
+                {
+                    //$this->GameEnemy->SwitchWeapon($weaponType);
+                }
+            });
+        }             
         elseif ($parts[0] === 'NICK' && count($parts) >= 3)
         {
             $playerId = $parts[1];

@@ -96,13 +96,16 @@ class NET_Server
     public function updatePlayerPos(string $playerId, float $x, float $y): void
     {
         if (!isset($this->playerPositions[$playerId])) $this->playerPositions[$playerId] = ['x'=>0.0,'y'=>0.0];
+        
         $this->playerPositions[$playerId]['x'] = $x;
         $this->playerPositions[$playerId]['y'] = $y;
     }
+    
     public function getSnapshotLine(): string
     {
         $p1 = $this->playerPositions['actor'] ?? ['x'=>0.0,'y'=>0.0];
         $p2 = $this->playerPositions['enemy'] ?? ['x'=>0.0,'y'=>0.0];
+        
         return sprintf("STATE actor %.3f %.3f enemy %.3f %.3f\n", $p1['x'], $p1['y'], $p2['x'], $p2['y']);
     }
 
@@ -308,10 +311,6 @@ class NET_Server
                     $line = $serverInstance->readLineFromInput($input);
                     if ($line === null) break;
                     
-
-Log::info("RAW SERVER LINE: [" . $line . "]");
-Log::info("RAW SERVER BYTES: " . strlen($line));                    
-
                     $line = trim($line);
                     //Log::info('Server: received from client | id = ' . $cid . ' | msg: '.$line);
                     
@@ -337,6 +336,19 @@ Log::info("RAW SERVER BYTES: " . strlen($line));
                     
                         $serverInstance->broadcastToOthers($cid, "SHOT $playerId\n");
                     }
+                    elseif ($parts[0] === 'RELOAD')
+                    {
+                        $playerId = $parts[1];
+                    
+                        $serverInstance->broadcastToOthers($cid, "RELOAD $playerId\n");
+                    }
+                    elseif ($parts[0] === 'WEAPON' && count($parts) >= 3)
+                    {
+                        $playerId = $parts[1];
+                        $weaponType = $parts[2];
+                    
+                        $serverInstance->broadcastToOthers($cid, "WEAPON {$playerId} {$weaponType}\n");
+                    }                            
                     elseif ($parts[0] === 'NICK' && count($parts) >= 3)
                     {
                         $playerId = $parts[1];

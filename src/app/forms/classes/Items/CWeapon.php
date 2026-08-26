@@ -290,6 +290,11 @@ abstract class CWeapon extends CItem
     
         $needed = max(0, $this->magSize - $this->ammo);
         $this->reloading = true;
+        
+        if ($this->owner->form('Client')->MainGame->content->isMP)
+        {
+            $this->owner->form('Client')->MainGame->content->NET_UpdateReloadOnServer();
+        }        
     
         $this->playReloadAnimation();
     

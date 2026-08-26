@@ -218,11 +218,6 @@ class NET_Client
     
     public function sendNickname()
     {
-        $message = "NICK {$this->playerId} {$this->nickname}\n";
-    
-        Log::info("NICK SEND: [{$message}]");
-        Log::info("NICK BYTES: " . strlen($message));
-    
         return $this->sendMessage("NICK {$this->playerId} {$this->nickname}");
     }
     
