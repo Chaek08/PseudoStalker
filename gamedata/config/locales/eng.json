@@ -201,5 +201,17 @@
   "FailedTaskTooltip": "Show failed tasks",
   "TaskDetailTooltip": "Show task details",
   "Danila_Name": "danila",
-  "Danila_Bio": "At first glance, it may seem like just a ginger cat in low resolution. But that is merely a distraction. In reality, this is a rather influential figure who once struck fear even into Valera. He owns a server named after himself. Every statement he makes is filled with deep meaning and holds great value for society."
+  "Danila_Bio": "At first glance, it may seem like just a ginger cat in low resolution. But that is merely a distraction. In reality, this is a rather influential figure who once struck fear even into Valera. He owns a server named after himself. Every statement he makes is filled with deep meaning and holds great value for society.",
+  "Btn_Cancel": "Cancel",
+  "Connect_Label": "Connect to:",
+  "Status_Process": "Connecting...",
+  "Status_Connecting": "Establishing connection...",
+  "Status_WaitingServer": "Waiting for server response...",
+  "Status_ServerResponse": "Server response received",
+  "Status_GameState": "Receiving game state...",
+  "Status_SendingPlayer": "Sending player data...",
+  "Status_StartingNetwork": "Starting network connection...",
+  "Status_Complete": "Connection completed",
+  "Status_Cancelled": "Connection cancelled",
+  "Status_Error": "Connection error"
 }

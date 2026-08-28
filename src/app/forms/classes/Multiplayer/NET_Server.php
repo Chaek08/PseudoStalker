@@ -362,7 +362,7 @@ class NET_Server
 
                         $serverInstance->setPlayerNickname($playerId, $nickname);
                     
-                        Log::info("SERVER GOT NICK: {$playerId} = {$nickname}");
+                        //Log::info("SERVER GOT NICK: {$playerId} = {$nickname}");
                     
                         $serverInstance->broadcastNicknames();
                     }                               

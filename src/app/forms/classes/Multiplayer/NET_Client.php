@@ -1,6 +1,7 @@
 <?php
 namespace app\forms\classes\Multiplayer;
 
+use php\net\Socket;
 use php\lang\System;
 use Throwable;
 use php\framework\Logger;
@@ -15,7 +16,9 @@ class NET_Client
     private $playerId;
     private $clientThread;
     public $isRunning = false;
+    private $connectCancelled = false;    
     private $onMessageCallback;
+    private $onStatusCallback;    
     private $onConnectCallback;
     private $onDisconnectCallback;
     private $readBuffer = '';
@@ -62,30 +65,73 @@ class NET_Client
             Log::warn('Client: already connected');
             return true;
         }
+        
+        $this->connectCancelled = false;        
     
         try
         {
+            $this->setStatus('Status_Connecting');
+        
             $this->readBuffer = '';
             $this->playerId = null;
     
-            $this->socket = new \php\net\Socket($ip, (int)$port);
+            $this->socket = new Socket($ip, (int)$port);
+            
+            if ($this->connectCancelled)
+            {
+                try
+                {
+                    $this->socket->close();
+                }
+                catch (\Throwable $e)
+                {
+                }
+    
+                $this->socket = null;
+                $this->IsConnected = false;
+                $this->isRunning = false;
+    
+                Log::info('Client: connection cancelled');
+    
+                return false;
+            }            
     
             $this->IsConnected = true;
             $this->isRunning = true;
     
             $in = $this->socket->getInput();
+            
+            $this->setStatus('Status_WaitingServer');            
     
             Log::info("Client: connected: {$ip}:{$port}");
     
             $welcome = $this->readLineFromInput($in);
+            
+            if ($this->connectCancelled)
+            {
+                $this->disconnect();
+                return false;
+            }            
+            
+            $this->setStatus('Status_ServerResponse');            
+            
             $state   = $this->readLineFromInput($in);
+            
+            if ($this->connectCancelled)
+            {
+                $this->disconnect();
+                return false;
+            }
+            
+            $this->setStatus('Status_GameState');            
     
-            if ($welcome !== null &&
-                preg_match('/^WELCOME (.+)$/', trim($welcome), $matches))
+            if ($welcome !== null && preg_match('/^WELCOME (.+)$/', trim($welcome), $matches))
             {
                 $this->playerId = trim($matches[1]);
     
                 Log::info("Client: assigned player id = {$this->playerId}");
+                
+                $this->setStatus('Status_SendingPlayer');
     
                 $this->sendNickname();
             }
@@ -94,6 +140,8 @@ class NET_Client
             {
                 call_user_func($this->onConnectCallback, trim((string)$welcome), trim((string)$state));
             }
+            
+            $this->setStatus('Status_StartingNetwork');            
     
             $this->startListening();
     
@@ -101,7 +149,16 @@ class NET_Client
         }
         catch (\Throwable $e)
         {
-            Log::error('Client: connection error: '.$e->getMessage());
+            if ($this->connectCancelled)
+            {
+                $this->setStatus('Status_Cancelled');
+            }
+            else
+            {
+                $this->setStatus('Status_Error');
+    
+                Log::error('Client: connection error: '.$e->getMessage());
+            }
     
             $this->IsConnected = false;
             $this->isRunning = false;
@@ -280,6 +337,30 @@ class NET_Client
         Log::info('Client: disconnected');
     }
     
+    public function cancelConnection(): void
+    {
+        $this->connectCancelled = true;
+    
+        $this->isRunning = false;
+        $this->IsConnected = false;
+    
+        $socket = $this->socket;
+        $this->socket = null;
+    
+        if ($socket)
+        {
+            try
+            {
+                $socket->close();
+            }
+            catch (\Throwable $e)
+            {
+            }
+        }
+    
+        Log::info('Client: connection attempt cancelled');
+    }    
+    
     // Колбэки для событий
     
     public function getOnMessageCallback()
@@ -291,6 +372,19 @@ class NET_Client
     {
         $this->onMessageCallback = $callback;
     }
+    
+    public function onStatus($callback)
+    {
+        $this->onStatusCallback = $callback;
+    }
+    
+    private function setStatus($status)
+    {
+        if ($this->onStatusCallback)
+        {
+            call_user_func($this->onStatusCallback, $status);
+        }
+    }    
     
     public function onConnect($callback)
     {
