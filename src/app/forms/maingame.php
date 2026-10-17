@@ -41,6 +41,8 @@ class maingame extends AbstractForm
     public $EnvironmentBrightness;
     
     public $Particles;
+    
+    public $gameState = 'new';
 
     public $GameActor;
     public $GameEnemy;
@@ -175,9 +177,9 @@ class maingame extends AbstractForm
             
             if ($this->form('Client')->MainMenu->visible)
             {
-                if ($GLOBALS['ContinueGameState'])
+                if ($this->gameState == 'continue')
                 {
-                    $this->form('Client')->MainMenu->content->SwitchGameState();
+                    $this->form('Client')->MainMenu->content->ResetMenuState();
                 }
                 
                 if ($this->form('Client')->MainMenu->content->menuPlayer)
@@ -821,7 +823,7 @@ class maingame extends AbstractForm
     
     public function performSave(string $saveName, bool $autoRewrite = false)
     {
-        if (!$GLOBALS['ContinueGameState'] || !$saveName || $this->isMP) return;
+        if ($this->gameState == 'new' || !$saveName || $this->isMP) return;
     
         static $lastToastId = 0;
     
@@ -857,7 +859,7 @@ class maingame extends AbstractForm
     
     public function performLoad(string $saveName)
     {
-        if (!$GLOBALS['ContinueGameState'] || $this->isMP) return;
+        if ($this->gameState == 'new' || $this->isMP) return;
     
         $loadWnd = $this->form('Client')->MainMenu->content->UILoadWnd->content;
         $savesList = $loadWnd->saves_list;

@@ -18,10 +18,9 @@ use app\forms\classes\Multiplayer\NET_Client;
 
 class UIMultiplayerWnd extends AbstractForm
 {
-    private $server;
-    private $client;
-    private $ip;
-    private $port;
+    private $server, $client;
+    
+    private $ip, $port;
     
     private $currentConnectStatus = null;    
 
@@ -36,7 +35,6 @@ class UIMultiplayerWnd extends AbstractForm
         $this->port = "1337";
         
         $this->client->onMessage(function($message) {
-            //Log::info('GET MSG');
             $this->form('Client')->MainGame->content->NET_HandleServerMessage($message);
         });  
         
@@ -46,22 +44,31 @@ class UIMultiplayerWnd extends AbstractForm
                 $this->Status_Label->text = Localization::get($status);
             });
         });               
-        
+
+/*        
         $this->client->onConnect(function($welcome, $state) {
             uiLater(function() use ($welcome, $state) {
                 Log::info('Connected to server', ['welcome' => $welcome, 'state' => $state]);
             });
         });
-        
+*/        
         $this->client->onDisconnect(function() {
             uiLater(function() {
                 Log::info('Disconnected from server');
+                
+                $this->form('Client')->MainMenu->content->SetupMenu();                
             });
         });
         
         $this->Edit_PlayerName->text = $this->client->getDefaultNickname();
         
         Log::info("[gastrit system] Loaded");
+    }
+    
+
+    public function IsMultiplayerSessionActive()
+    {
+        return is_object($this->client) && $this->client->isConnected();
     }
 
 
@@ -194,8 +201,6 @@ class UIMultiplayerWnd extends AbstractForm
         }
     
         $this->client->setNickname($nickname);
-    
-        Log::info('Player nickname set: ' . $this->client->getNickname());
     }
     /**
      * @event Edit_ServerIP.keyDown-Enter 

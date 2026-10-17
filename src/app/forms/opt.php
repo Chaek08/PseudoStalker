@@ -532,11 +532,13 @@ class opt extends AbstractForm
         $this->Shadows_Switcher_Btn->text = Localization::get($GLOBALS['ShadowsSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
         $this->Version_Switcher_Btn->text = Localization::get($GLOBALS['VersionSwitcher_IsOn'] ? 'TurnOn_Label' : 'TurnOff_Label');
 
-        $this->form('Client')->MainMenu->content->Btn_Start_Game->text = Localization::get(($GLOBALS['NewGameState'] ? 'NewGame_Label' : 'ContinueGame_Label'));
+        $this->form('Client')->MainMenu->content->Btn_Start_Game->text = Localization::get(($this->form('Client')->MainGame->content->gameState === 'new' ? 'NewGame_Label' : 'ContinueGame_Label'));
+        $this->form('Client')->MainMenu->content->Btn_Multiplayer->text = Localization::get('Multiplayer_Label');        
         $this->form('Client')->MainMenu->content->Btn_Save_Game->text = Localization::get('SaveGame_Label');
         $this->form('Client')->MainMenu->content->Btn_Load_Game->text = Localization::get('LoadGame_Label');
         $this->form('Client')->MainMenu->content->Btn_End_Game->text = Localization::get('EndGame_Label');
         $this->form('Client')->MainMenu->content->Btn_Opt->text = Localization::get('Options_Label');
+        $this->form('Client')->MainMenu->content->Btn_Disconnect->text = Localization::get('Disconnect_Label');        
         $this->form('Client')->MainMenu->content->Btn_Exit_Windows->text = Localization::get('ExitToWindows_Label');
         
         $this->form('Client')->MainMenu->content->UISaveWnd->content->Wnd_Label->text = Localization::get('SaveGame_Label');

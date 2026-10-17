@@ -187,7 +187,7 @@ class UILoadWnd extends AbstractForm
             return;
         }
         
-        if (!empty($GLOBALS['ContinueGameState']))
+        if ($this->form('Client')->MainGame->content->gameState == 'continue')
         {
             if (!$this->form('Client')->ExitDialog->visible && $this->form('Client')->MainMenu->visible)
             {        
