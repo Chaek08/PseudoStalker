@@ -88,7 +88,7 @@ class NET_Server
             }
             catch (\Throwable $e)
             {
-                Log::warn("Server: nickname broadcast error [{$cid}] ".$e->getMessage());
+                Log::warn("Server: nickname broadcast error id: {$cid}, error: {$e->getMessage()}");
             }
         }
     }  
@@ -124,7 +124,7 @@ class NET_Server
             return true;
         }
     
-        Log::info('Server: start', ['host' => $host, 'port' => $port]);
+        Log::info("Server: starting host: {$host}, port: {$port}");
     
         $this->IsRunning = true;
     
@@ -140,11 +140,11 @@ class NET_Server
     
                     $serverInstance->setServerSocket($socket);
     
-                    Log::info('Server: trying bind', ['host' => $host, 'port' => $port]);
+                    Log::info("Server: trying bind host: {$host}, port: {$port}");
     
                     $socket->bind($host, (int)$port);
     
-                    Log::info('Server: bound & listening', ['host' => $host, 'port' => $port]);
+                    Log::info("Server: bound & listening host: {$host}, port: {$port}");
     
                     while ($serverInstance->IsRunning)
                     {
@@ -159,7 +159,7 @@ class NET_Server
                                 break;
                             }
     
-                            Log::error('Server: accept error: '.$e->getMessage());
+                            Log::error("Server: accept error: {$e->getMessage()}");
     
                             break;
                         }
@@ -205,7 +205,7 @@ class NET_Server
     
                         $serverInstance->setClientRole($cid, $role);
     
-                        Log::info('Server: client accepted', ['id' => $cid, 'role' => $role]);
+                        Log::info("Server: client accepted id: {$cid}, role: {$role}");
     
                         try
                         {
@@ -220,7 +220,7 @@ class NET_Server
                         }
                         catch (\Throwable $e)
                         {
-                            Log::warn('Server: welcome error: '.$e->getMessage());
+                            Log::warn("Server: welcome error: {$e->getMessage()}");
     
                             $serverInstance->removeClient($cid);
     
@@ -238,7 +238,7 @@ class NET_Server
                 {
                     if ($serverInstance->IsRunning)
                     {
-                        Log::error('Server: main loop error -- '.$e->getMessage());
+                        Log::error("Server: main loop error: {$e->getMessage()}");
                     }
                 }
                 finally
@@ -256,9 +256,7 @@ class NET_Server
         }
         catch (\Throwable $e)
         {
-            Log::error('Server: start failed. '.$e->getMessage());
-    
-            UXDialog::showAndWait("Не удалось запустить сервер:\n".$e->getMessage(), 'ERROR');
+            Log::error("Server: start failed: {$e->getMessage()}");
     
             $this->IsRunning = false;
     
@@ -290,7 +288,7 @@ class NET_Server
         }
         catch (\Throwable $e)
         {
-            Log::warn("Server: send error [id $cid] " . $e->getMessage());
+            Log::warn("Server: send error id: {$cid}, error: {$e->getMessage()}");
     
             return false;
         }
@@ -372,11 +370,11 @@ class NET_Server
                     }
                 }
             } catch (\Throwable $e) {
-                Log::error("Server: client handler error [id $cid] err: ".$e->getMessage());
+                Log::error("Server: client handler error id: {$cid}, error: {$e->getMessage()}");
             } finally {
                 $serverInstance->removeClient($cid);
                 try { $client->close(); } catch (\Throwable $e) {}
-                Log::info('Server: client disconnected id: '.$cid);
+                Log::info("Server: client disconnected id: {$cid}");
             }
         });
 
@@ -421,7 +419,7 @@ class NET_Server
                     $out->flush();
                     //Log::info("SEND TO " . $this->getClientRole($cid));
                 } catch (\Throwable $e) {
-                    Log::warn("Server: broadcast error ['to' => $cid, 'err' => $e->getMessage()]");
+                    Log::warn("Server: broadcast error to: {$cid}, error: {$e->getMessage()}");
                 }
             }
         }
@@ -434,7 +432,7 @@ class NET_Server
             return;
         }
     
-        Log::info('Server: stopping');
+        Log::info('Server: stopping...');
     
         $this->IsRunning = false;
 

@@ -157,7 +157,7 @@ class NET_Client
             {
                 $this->setStatus('Status_Error');
     
-                Log::error('Client: connection error: '.$e->getMessage());
+                Log::error("Client: connection error: {$e->getMessage()}");
             }
     
             $this->IsConnected = false;
@@ -230,7 +230,7 @@ class NET_Client
     
                 if ($line !== '')
                 {
-                    Log::info('Client: received - '.$line);
+                    Log::info("Client: received: {$line}");
     
                     $callback = $client->getOnMessageCallback();
                     
@@ -263,7 +263,7 @@ class NET_Client
             return true;
             
         } catch (\Throwable $e) {
-            Log::info('Client: send position error: '.$e->getMessage(), ['err' => $e->getMessage()]);
+            Log::error("Client: send position error: {$e->getMessage()}");
             return false;
         }
     }
@@ -291,11 +291,11 @@ class NET_Client
             $out->write($message . "\n");
             $out->flush();
             
-            Log::info('Client: sent message', ['msg' => $message]);
+            Log::info("Client: sent message: {$message}");
             return true;
             
         } catch (\Throwable $e) {
-            Log::warn('Client: send message error', ['err' => $e->getMessage()]);
+            Log::warn("Client: send message error: {$e->getMessage()}");
             return false;
         }
     }
