@@ -48,7 +48,6 @@ class Client extends AbstractForm
         define('VersionID', 'v1.3 (rc2)');
         define('client_version', '3');
         define('Debug_Build', true);
-        define('ResTracker', false);
         
         $GLOBALS['AllSounds']  = true;
         $GLOBALS['MenuSound']  = true;
@@ -72,7 +71,8 @@ class Client extends AbstractForm
             'g_unlimitedammo' => 'off',
             'vid_mode' => '1600x900',
             'vid_fullscreen' => 'off',
-            'discord_rpc' => 'on'
+            'discord_rpc' => 'on',
+            'dbg_restracker' => 'off'
         ]);        
         
         $this->device = new CWindowManager($this, $this->ltx);
@@ -83,13 +83,20 @@ class Client extends AbstractForm
         
         $language = $this->ltx->r_string('language');
         
-        Localization::setLanguage($language);      
+        Localization::setLanguage($language);  
+        
+        $GLOBALS['ResTracker'] = $this->ltx->r_bool('dbg_restracker');        
         
         $this->InitUserLTX();
         $this->syncWithSDKLTX();
        
         $this->MainMenu->content->InitMainMenu();       
         $this->MainMenu->content->Options->content->InitOptions();
+    }
+    
+    function Device_RefreshDebug()
+    {
+        $this->device->refreshDebug();
     }
     
     /**

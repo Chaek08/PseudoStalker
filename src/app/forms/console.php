@@ -84,6 +84,8 @@ class console extends AbstractForm
         'env_reset'           => '',
         'fatal'               => ' [message]',  
         'flush'               => '',
+        'dbg_restracker'      => ' [off/on/1/0]',
+          
         'threadpool_stresstest' => ''
     ];
 
@@ -185,66 +187,103 @@ class console extends AbstractForm
                         break;
 
                 case "r_version":
-                    if (isset($args[1]))
+                    $options = $this->form('Client')->MainMenu->content->Options->content;
+                    $btn = $options->Version_Switcher_Btn;
+                    $isEnabled = ($btn->text == Localization::get('TurnOn_Label')); //ебаный даун
+                
+                    if (!isset($args[1]))
                     {
-                        $btn = $this->form('Client')->MainMenu->content->Options->content->Version_Switcher_Btn;
-                
-                        $state = $this->parseBoolArg($args[1]);
-                
-                        if ($state === null)
-                        {
-                            Log::result("Usage: r_version [on/off/1/0]");
-                            break;
-                        }
-                
-                        $isEnabled = ($btn->text == Localization::get('TurnOff_Label'));
-                
-                        if ($state !== $isEnabled)
-                        {
-                            $this->form('Client')->MainMenu->content->Options->content->VersionSwitcher();
-                        }
+                        Log::result("r_version " . ($isEnabled ? "on" : "off"));
+                        $this->edit->text = "";
+                        break;
                     }
                 
+                    $state = $this->parseBoolArg($args[1]);
+                
+                    if ($state === null)
+                    {
+                        Log::result("Usage: r_version [on/off/1/0]");
+                        $this->edit->text = "";
+                        break;
+                    }
+                
+                    if ($state !== $isEnabled)
+                    {
+                        $options->VersionSwitcher();
+                    }
+                
+                    Log::result("r_version " . ($state ? "on" : "off"));
                     $this->edit->text = "";
                     break;
                         
                 case "g_god":
-                    if (isset($args[1]))
+                    $client = $this->form('Client');
+                
+                    if (!isset($args[1]))
                     {
-                        $state = $this->parseBoolArg($args[1]);
-                
-                        $this->form('Client')->MainGame->content->setGodMode($this->form('Client')->MainGame->content->GameActor, $state);
-                
-                        if ($this->form('Client')->ltxInitialized)
-                        {
-                            $this->form('Client')->ltx->w_bool('g_god', $state);
-                        }
+                        $state = $client->ltx->r_bool('g_god');
+                        Log::result("g_god " . ($state ? "on" : "off"));
+                        $this->edit->text = "";
+                        break;
                     }
                 
+                    $state = $this->parseBoolArg($args[1]);
+                
+                    if ($state === null)
+                    {
+                        Log::result("Usage: g_god [on/off/1/0]");
+                        $this->edit->text = "";
+                        break;
+                    }
+                
+                    $client->MainGame->content->setGodMode($client->MainGame->content->GameActor,$state);
+                
+                    if ($client->ltxInitialized)
+                    {
+                        $client->ltx->w_bool('g_god', $state);
+                    }
+                
+                    Log::result("g_god " . ($state ? "on" : "off"));
                     $this->edit->text = "";
-                    break; 
+                    break;
                             
                 case "g_unlimitedammo":
-                    if (isset($args[1]))
+                    $client = $this->form('Client');
+                
+                    if (!isset($args[1]))
                     {
-                        $state = $this->parseBoolArg($args[1]);
-                
-                        $GLOBALS['UnlimitedAmmoFlag'] = $state;
-                
-                        $weapon = $this->form('Client')->MainGame->content->GameActor->getWeapon();
-                        if ($weapon)
-                        {
-                            $weapon->setUnlimitedAmmo($state);
-                        }
-                
-                        $this->form('Client')->MainGame->content->UpdateMagazine();
-                
-                        if ($this->form('Client')->ltxInitialized)
-                        {
-                            $this->form('Client')->ltx->w_bool('g_unlimitedammo', $state);
-                        }
+                        $state = !empty($GLOBALS['UnlimitedAmmoFlag']);
+                        Log::result("g_unlimitedammo " . ($state ? "on" : "off"));
+                        $this->edit->text = "";
+                        break;
                     }
                 
+                    $state = $this->parseBoolArg($args[1]);
+                
+                    if ($state === null)
+                    {
+                        Log::result("Usage: g_unlimitedammo [on/off/1/0]");
+                        $this->edit->text = "";
+                        break;
+                    }
+                
+                    $GLOBALS['UnlimitedAmmoFlag'] = $state;
+                
+                    $weapon = $client->MainGame->content->GameActor->getWeapon();
+                
+                    if ($weapon)
+                    {
+                        $weapon->setUnlimitedAmmo($state);
+                    }
+                
+                    $client->MainGame->content->UpdateMagazine();
+                
+                    if ($client->ltxInitialized)
+                    {
+                        $client->ltx->w_bool('g_unlimitedammo', $state);
+                    }
+                
+                    Log::result("g_unlimitedammo " . ($state ? "on" : "off"));
                     $this->edit->text = "";
                     break;                        
                 
@@ -275,95 +314,102 @@ class console extends AbstractForm
                     break;
 
                 case "r_shadows":
-                    if (isset($args[1]))
+                    $options = $this->form('Client')->MainMenu->content->Options->content;
+                    $btn = $options->Shadows_Switcher_Btn;
+                    $isEnabled = ($btn->text == Localization::get('TurnOn_Label')); //ебаный даун
+                
+                    if (!isset($args[1]))
                     {
-                        $state = $this->parseBoolArg($args[1]);
-                
-                        if ($state === null)
-                        {
-                            Log::result("Usage: r_shadows [on/off/1/0]");
-                            break;
-                        }
-                
-                        $btn = $this->form('Client')->MainMenu->content->Options->content->Shadows_Switcher_Btn;
-                
-                        $isEnabled = ($btn->text == Localization::get('TurnOff_Label'));
-                
-                        if ($state !== $isEnabled)
-                        {
-                            $this->form('Client')->MainMenu->content->Options->content->ShadowsSwitcher();
-                        }
+                        Log::result("r_shadows " . ($isEnabled ? "on" : "off"));
+                        $this->edit->text = "";
+                        break;
                     }
-                    else
+                
+                    $state = $this->parseBoolArg($args[1]);
+                
+                    if ($state === null)
                     {
                         Log::result("Usage: r_shadows [on/off/1/0]");
+                        $this->edit->text = "";
+                        break;
                     }
                 
+                    if ($state !== $isEnabled)
+                    {
+                        $options->ShadowsSwitcher();
+                    }
+                
+                    Log::result("r_shadows " . ($state ? "on" : "off"));
                     $this->edit->text = "";
                     break;
 
                 case "snd_all":
-                    if (isset($args[1]))
+                    $client = $this->form('Client');
+                    $options = $client->MainMenu->content->Options->content;
+                    $btn = $options->AllSound_Switcher_Btn;
+                    $isEnabled = ($btn->text == Localization::get('TurnOn_Label')); //ебаный даун
+                
+                    if (!isset($args[1]))
                     {
-                        $state = $this->parseBoolArg($args[1]);
-                
-                        if ($state === null)
-                        {
-                            Log::result("Usage: snd_all [on/off/1/0]");
-                            break;
-                        }
-                
-                        $btn = $this->form('Client')->MainMenu->content->Options->content->AllSound_Switcher_Btn;
-                
-                        $isEnabled = ($btn->text == Localization::get('TurnOff_Label'));
-                
-                        if ($state !== $isEnabled)
-                        {
-                            $this->form('Client')->MainGame->content->Environment->pause();
-                            $this->form('Client')->MainMenu->content->Options->content->AllSoundSwitcher();
-                            $this->form('Client')->MainGame->content->Environment->resume();
-                        }
+                        Log::result("snd_all " . ($isEnabled ? "on" : "off"));
+                        $this->edit->text = "";
+                        break;
                     }
-                    else
+                
+                    $state = $this->parseBoolArg($args[1]);
+                
+                    if ($state === null)
                     {
                         Log::result("Usage: snd_all [on/off/1/0]");
+                        $this->edit->text = "";
+                        break;
                     }
                 
+                    if ($state !== $isEnabled)
+                    {
+                        $client->MainGame->content->Environment->pause();
+                        $options->AllSoundSwitcher();
+                        $client->MainGame->content->Environment->resume();
+                    }
+                
+                    Log::result("snd_all " . ($state ? "on" : "off"));
                     $this->edit->text = "";
                     break;
                         
                 case "snd_ambient":
-                    if (isset($args[1]))
+                    $client = $this->form('Client');
+                    $options = $client->MainMenu->content->Options->content;
+                    $btn = $options->AmbientSound_Switcher_Btn;
+                    $isEnabled = ($btn->text == Localization::get('TurnOn_Label')); //ебаный даун
+                
+                    if (!isset($args[1]))
                     {
-                        $state = $this->parseBoolArg($args[1]);
-                
-                        if ($state === null)
-                        {
-                            Log::result("Usage: snd_ambient [on/off/1/0]");
-                            break;
-                        }
-                
-                        $btn = $this->form('Client')->MainMenu->content->Options->content->AmbientSound_Switcher_Btn;
-                
-                        $isEnabled = ($btn->text == Localization::get('TurnOff_Label'));
-                
-                        if ($state !== $isEnabled)
-                        {
-                            $this->form('Client')->MainGame->content->Environment->pauseAmbient();
-                            $this->form('Client')->MainMenu->content->Options->content->AmbientSoundSwitcher();
-                            $this->form('Client')->MainGame->content->Environment->resumeAmbient();
-                        }
+                        Log::result("snd_ambient " . ($isEnabled ? "on" : "off"));
+                        $this->edit->text = "";
+                        break;
                     }
-                    else
+                
+                    $state = $this->parseBoolArg($args[1]);
+                
+                    if ($state === null)
                     {
                         Log::result("Usage: snd_ambient [on/off/1/0]");
+                        $this->edit->text = "";
+                        break;
                     }
                 
+                    if ($state !== $isEnabled)
+                    {
+                        $client->MainGame->content->Environment->pauseAmbient();
+                        $options->AmbientSoundSwitcher();
+                        $client->MainGame->content->Environment->resumeAmbient();
+                    }
+                
+                    Log::result("snd_ambient " . ($state ? "on" : "off"));
                     $this->edit->text = "";
-                    break;                        
+                    break;                       
                         
                 case "version":
-                        global $BuildID;
                         Log::result("PseudoStalker, " . VersionID . ", " . $this->form('Client')->BuildID);
                         $this->edit->text = "";
                         break;                       
@@ -659,7 +705,7 @@ class console extends AbstractForm
                     break;   
                     
                 case "threadpool_stresstest":
-                    for ($i = 0; $i < 10000; $i++)
+                    for ($i = 0; $i < 7777; $i++)
                     {
                         Log::info("TEST " . $i);
                     }
@@ -667,7 +713,29 @@ class console extends AbstractForm
                     Log::flush();
                     
                     $this->edit->text = "";
-                    break;                                                        
+                    break;  
+                    
+                case "dbg_restracker":
+                    $state = isset($args[1]) ? $this->parseBoolArg($args[1]) : null;
+                
+                    if ($state === null)
+                    {
+                        Log::result("Usage: dbg_restracker [off/on/1/0]");
+                        $this->edit->text = "";
+                        break;
+                    }
+                
+                    $GLOBALS['ResTracker'] = $state;
+                    
+                    $this->form('Client')->Device_RefreshDebug();
+                    
+                    if ($this->form('Client')->ltxInitialized)
+                    {
+                        $this->form('Client')->ltx->w_bool('dbg_restracker', $state);
+                    }                    
+                
+                    $this->edit->text = "";
+                    break;                                                                          
                     
                 default:
                     if ($this->edit->text != "")
@@ -675,7 +743,7 @@ class console extends AbstractForm
                         $this->edit->text = "";
                         Log::result("Command '$command' does not exist.");
                     }
-                    break;
+                    break;                    
         }
         
         $this->Console_Log->positionCaret(strlen($this->Console_Log->text));

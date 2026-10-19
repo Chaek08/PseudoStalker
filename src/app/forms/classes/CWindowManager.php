@@ -107,10 +107,21 @@ class CWindowManager
     
     private function updateDebug($w, $h)
     {
-        if (!defined('ResTracker') || !ResTracker)
+        if (!isset($this->form->DebugUtilities))
         {
             return;
         }
+    
+        $trackRes = $this->form->DebugUtilities->content->track_res;
+    
+        if (empty($GLOBALS['ResTracker']))
+        {
+            $trackRes->visible = false;
+            Log::error('msg');
+            return;
+        }
+    
+        $trackRes->visible = true;
     
         static $prevRes = '';
     
@@ -122,12 +133,16 @@ class CWindowManager
         }
     
         $prevRes = $res;
-    
-        if (isset($this->form->DebugUtilities))
-        {
-            $this->form->DebugUtilities->content->track_res->text = $res;
-        }
+        $trackRes->text = $res;
     }
+    
+    public function refreshDebug()
+    {
+        $w = $this->form->Client_Proxy->width;
+        $h = $this->form->Client_Proxy->height;
+    
+        $this->updateDebug($w, $h);
+    }    
     
     private function getScenes()
     {

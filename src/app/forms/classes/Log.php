@@ -135,11 +135,11 @@ class Log
     
         self::$logPool->execute(function () use ($file, $data)
         {
-            Logger::info("LOG THREAD START");
+            //Logger::info("LOG THREAD START");
         
             file_put_contents($file, $data, FILE_APPEND);
         
-            Logger::info("LOG THREAD END");
+            //Logger::info("LOG THREAD END");
         
             Log::$flushPending = false;
         });      
