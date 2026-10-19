@@ -117,7 +117,6 @@ class CWindowManager
         if (empty($GLOBALS['ResTracker']))
         {
             $trackRes->visible = false;
-            Log::error('msg');
             return;
         }
     

@@ -122,8 +122,7 @@ class opt extends AbstractForm
                 $this->AmbientSound_Switcher_Btn->enabled = false;
             }            
             
-            $this->form('Client')->ltx->w_string('all_sounds', 'off');
-            $this->form('Client')->ltx->save();              
+            $this->form('Client')->ltx->w_string('all_sounds', 'off');             
             
             return;
         }
@@ -151,8 +150,7 @@ class opt extends AbstractForm
                 $this->AmbientSound_Switcher_Btn->enabled = true;
             }             
             
-            $this->form('Client')->ltx->w_string('all_sounds', 'on');
-            $this->form('Client')->ltx->save();               
+            $this->form('Client')->ltx->w_string('all_sounds', 'on');            
             
             return;
         }
@@ -171,8 +169,7 @@ class opt extends AbstractForm
             $GLOBALS['MenuSound'] = false;
             $this->form('Client')->MainMenu->content->menuPlayer->pause();
             
-            $this->form('Client')->ltx->w_string('mm_sound', 'off');
-            $this->form('Client')->ltx->save();              
+            $this->form('Client')->ltx->w_string('mm_sound', 'off');             
             
             return;
         }
@@ -188,8 +185,7 @@ class opt extends AbstractForm
                 $this->form('Client')->MainMenu->content->menuPlayer->play();
             }
             
-            $this->form('Client')->ltx->w_string('mm_sound', 'on');
-            $this->form('Client')->ltx->save();            
+            $this->form('Client')->ltx->w_string('mm_sound', 'on');         
             
             return;
         }
@@ -207,8 +203,7 @@ class opt extends AbstractForm
             
             $GLOBALS['FightSound'] = false;
             
-            $this->form('Client')->ltx->w_string('fight_sound', 'off');
-            $this->form('Client')->ltx->save();              
+            $this->form('Client')->ltx->w_string('fight_sound', 'off');             
             
             return;
         }
@@ -220,8 +215,7 @@ class opt extends AbstractForm
             
             $GLOBALS['FightSound'] = true;
             
-            $this->form('Client')->ltx->w_string('fight_sound', 'on');
-            $this->form('Client')->ltx->save();            
+            $this->form('Client')->ltx->w_string('fight_sound', 'on');         
             
             return;
         }
@@ -240,8 +234,7 @@ class opt extends AbstractForm
             
             $GLOBALS['AmbientSound'] = false;
             
-            $this->form('Client')->ltx->w_string('ambient_sound', 'off');
-            $this->form('Client')->ltx->save();             
+            $this->form('Client')->ltx->w_string('ambient_sound', 'off');           
             
             return;
         }
@@ -253,8 +246,7 @@ class opt extends AbstractForm
             
             $GLOBALS['AmbientSound'] = true;
             
-            $this->form('Client')->ltx->w_string('ambient_sound', 'on');
-            $this->form('Client')->ltx->save();          
+            $this->form('Client')->ltx->w_string('ambient_sound', 'on');         
             
             return;
         }
@@ -345,8 +337,7 @@ class opt extends AbstractForm
                 }
             }); 
             
-            $this->form('Client')->ltx->w_string('r_shadows', 'off');
-            $this->form('Client')->ltx->save();          
+            $this->form('Client')->ltx->w_string('r_shadows', 'off');          
             
             return;
         }
@@ -432,7 +423,6 @@ class opt extends AbstractForm
             }); 
             
             $this->form('Client')->ltx->w_string('r_shadows', 'on');
-            $this->form('Client')->ltx->save();
                        
             return;
         }      
@@ -461,7 +451,6 @@ class opt extends AbstractForm
             }
             
             $this->form('Client')->ltx->w_string('r_version', 'off');
-            $this->form('Client')->ltx->save();        
             
             return;
         }
@@ -484,7 +473,6 @@ class opt extends AbstractForm
             }
             
             $this->form('Client')->ltx->w_string('r_version', 'on');
-            $this->form('Client')->ltx->save();  
            
             return;
         }
@@ -503,7 +491,6 @@ class opt extends AbstractForm
         }
         
         $this->form('Client')->ltx->w_string('language', Localization::getCurrentLanguage());
-        $this->form('Client')->ltx->save();
         
         $this->form('Client')->ShowLoadScreen(function()
         {

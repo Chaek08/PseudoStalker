@@ -188,8 +188,7 @@ class console extends AbstractForm
 
                 case "r_version":
                     $options = $this->form('Client')->MainMenu->content->Options->content;
-                    $btn = $options->Version_Switcher_Btn;
-                    $isEnabled = ($btn->text == Localization::get('TurnOn_Label')); //ебаный даун
+                    $isEnabled = $this->form('Client')->ltx->r_bool('r_version');
                 
                     if (!isset($args[1]))
                     {
@@ -315,8 +314,7 @@ class console extends AbstractForm
 
                 case "r_shadows":
                     $options = $this->form('Client')->MainMenu->content->Options->content;
-                    $btn = $options->Shadows_Switcher_Btn;
-                    $isEnabled = ($btn->text == Localization::get('TurnOn_Label')); //ебаный даун
+                    $isEnabled = $this->form('Client')->ltx->r_bool('r_shadows');
                 
                     if (!isset($args[1]))
                     {
@@ -346,8 +344,7 @@ class console extends AbstractForm
                 case "snd_all":
                     $client = $this->form('Client');
                     $options = $client->MainMenu->content->Options->content;
-                    $btn = $options->AllSound_Switcher_Btn;
-                    $isEnabled = ($btn->text == Localization::get('TurnOn_Label')); //ебаный даун
+                    $isEnabled = !empty($GLOBALS['AllSounds']);
                 
                     if (!isset($args[1]))
                     {
@@ -379,8 +376,7 @@ class console extends AbstractForm
                 case "snd_ambient":
                     $client = $this->form('Client');
                     $options = $client->MainMenu->content->Options->content;
-                    $btn = $options->AmbientSound_Switcher_Btn;
-                    $isEnabled = ($btn->text == Localization::get('TurnOn_Label')); //ебаный даун
+                    $isEnabled = !empty($GLOBALS['AmbientSound']);
                 
                     if (!isset($args[1]))
                     {
