@@ -65,7 +65,7 @@ abstract class CEntity
         if ($this->isDead) return;
 
         $this->canInteractive = $b;
-        //$this->dragging->enabled = $b;
+        $this->dragging->enabled = $b;
     }
 
     public function SetModel($mdl): void
@@ -78,8 +78,7 @@ abstract class CEntity
             'limitedByParent' => true,
         ]);        
         
-        //$this->dragging->apply($this->model);
-        //29.07.2026: временно отключил для mp
+        $this->dragging->apply($this->model);
         
         $this->initSoundIndicator();
         $this->initNameIndicator();

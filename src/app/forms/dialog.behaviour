@@ -12,4 +12,13 @@
   <target id="icon_enemy">
     <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="5" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
   </target>
+  <target id="buttonAlt">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="5" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="SendMsg_Btn">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="5" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
+  <target id="StartFight_Btn">
+    <behaviour color="#1a1a1a" offsetX="0" offsetY="0" radius="5" spread="0" type="behaviour\custom\DropShadowEffectBehaviour" when="ALWAYS"/>
+  </target>
 </behaviours>

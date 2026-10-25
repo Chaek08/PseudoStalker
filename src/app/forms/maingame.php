@@ -884,6 +884,8 @@ class maingame extends AbstractForm
     
     private $curPlayer;
     
+    private $NET_PlayerNicknames = [];    
+    
     public $isMP;
     
     function NET_Pidoras() {$this->GameActor->setNickname($this->client->getDefaultNickname());}
@@ -976,7 +978,41 @@ class maingame extends AbstractForm
     public function NET_UpdateWeaponOnServer(string $weaponType)
     {
         $this->client->sendMessage("WEAPON {$this->PlayerID} {$weaponType}");
+    }  
+    
+    public function NET_SendDialogOpen()
+    {
+        $this->client->sendMessage("DIALOG_OPEN");
+    } 
+    
+    public function NET_SendDialogClose()
+    {
+        $this->client->sendMessage("DIALOG_CLOSE");
+    }          
+    
+
+    public function NET_SendDialogMessage(string $message)
+    {
+        if (trim($message) === '') return;
+    
+        $this->client->sendMessage("DIALOG_MSG " . trim($message));
+    }
+    
+    public function NET_SendDialogFight()
+    {
+        $this->client->sendMessage("DIALOG_FIGHT");
+    }
+    
+    public function NET_GetPlayerID()
+    {
+        return $this->PlayerID;
+    }
+    
+    public function NET_GetPlayerNickname(string $playerId): ?string
+    {
+        return $this->NET_PlayerNicknames[$playerId] ?? null;
     }    
+    
     
     public function NET_HandleServerMessage($message)
     {
@@ -1060,7 +1096,45 @@ class maingame extends AbstractForm
             $nickname = trim(substr($message, strlen("NICK {$playerId} ")));
         
             $this->NET_SetNickname($playerId, $nickname);
+        }       
+        elseif ($parts[0] === 'DIALOG_OPEN')
+        {
+            uiLater(function()
+            {
+                $this->form('Client')->ShowDialog();
+            });
+        }
+        elseif ($parts[0] === 'DIALOG_CLOSE')
+        {
+            uiLater(function()
+            {
+                $this->form('Client')->HideNetworkDialog();
+            });
         }        
+        
+    
+        elseif ($parts[0] === 'DIALOG_MSG' && count($parts) >= 3)
+        {
+            $playerId = $parts[1];
+            $text = trim(substr($message, strlen("DIALOG_MSG {$playerId} ")));
+        
+            if ($text !== '')
+            {
+                uiLater(function() use ($playerId, $text)
+                {
+                    $this->form('Client')->Dialog->content->ReceiveNetworkMessage($playerId, $text);
+                });
+            }
+        }
+        elseif ($parts[0] === 'DIALOG_FIGHT')
+        {
+            uiLater(function()
+            {
+                $this->form('Client')->Dialog->content->ForceCombatStart();
+            });
+        }
+
+        
         elseif (isset($parts[0]) && $parts[0] === 'PONG') //elseif ($parts[0] === 'PONG')
         {
             Log::info('Received pong from server');
@@ -1116,6 +1190,8 @@ class maingame extends AbstractForm
         {
             return;
         }
+        
+        $this->NET_PlayerNicknames[$playerId] = $nickname;
     
         uiLater(function() use ($playerId, $nickname)
         {
@@ -1128,5 +1204,5 @@ class maingame extends AbstractForm
                 $this->GameEnemy->setNickname($nickname);
             }
         });
-    }    
+    }       
 }

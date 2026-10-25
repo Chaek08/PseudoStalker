@@ -418,6 +418,12 @@ class Client extends AbstractForm
         {
             $this->HideDialog();
             $this->MainGame->content->RenderHud(true);
+            
+            if ($this->MainGame->content->isMP)
+            {
+                $this->MainGame->content->NET_SendDialogClose();
+            }            
+            
             return;
         }
         /*
@@ -582,12 +588,27 @@ class Client extends AbstractForm
         if ($this->CheckVisibledFragments()) return;
         if ($GLOBALS['QuestStep1']) return;
         
+        $this->OpenDialog();
+    
+        if ($this->MainGame->content->isMP)
+        {
+            $this->MainGame->content->NET_SendDialogOpen();
+        }
+    }  
+    
+    function OpenDialog()
+    {
+        if ($this->CheckVisibledFragments()) return;
+        if ($GLOBALS['QuestStep1']) return;
+        
         $this->MainGame->content->RenderHud(false);
     
         $this->Dialog->content->StartDialog();
         //$this->Dialog->content->VoicePlay(0);
-        $this->Dialog->show();
-    }  
+        $this->Dialog->show();        
+    }
+    
+    
     function HideDialog()
     {
         $this->Dialog->content->StopVoice();
@@ -596,6 +617,15 @@ class Client extends AbstractForm
         
         $this->Dialog->hide();
     }
+    
+    function HideNetworkDialog()
+    {
+        if (!$this->Dialog->visible) return;
+    
+        $this->HideDialog();
+        $this->MainGame->content->RenderHud(true);
+    }
+    
     function HideInventory()
     {
         $this->Inventory->content->UpdateSelectedItems();

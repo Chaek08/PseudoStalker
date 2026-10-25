@@ -363,7 +363,30 @@ class NET_Server
                         //Log::info("SERVER GOT NICK: {$playerId} = {$nickname}");
                     
                         $serverInstance->broadcastNicknames();
-                    }                               
+                    }   
+                    elseif ($parts[0] === 'DIALOG_OPEN')
+                    {
+                        $serverInstance->broadcastToOthers($cid, "DIALOG_OPEN\n");
+                    }
+                    elseif ($parts[0] === 'DIALOG_CLOSE')
+                    {
+                        $serverInstance->broadcastToOthers($cid, "DIALOG_CLOSE\n");
+                    }          
+                    elseif ($parts[0] === 'DIALOG_MSG')
+                    {
+                        $role = $serverInstance->getClientRole($cid);
+                        $text = trim(substr($line, strlen('DIALOG_MSG ')));
+                    
+                        if ($role !== null && $text !== '')
+                        {
+                            $serverInstance->broadcastToOthers($cid, "DIALOG_MSG {$role} {$text}\n");
+                        }
+                    }
+                    elseif ($parts[0] === 'DIALOG_FIGHT')
+                    {
+                        $serverInstance->broadcastToOthers($cid, "DIALOG_FIGHT\n");
+                    }
+                                                
                     else 
                     {
                         Log::info('Server: unknown message');

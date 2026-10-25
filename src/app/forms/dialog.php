@@ -9,6 +9,7 @@ use php\gui\event\UXMouseEvent;
 use app\forms\classes\Localization;
 use app\forms\classes\UI\UICharacterInfo;
 use app\forms\classes\DimaAsyncHackEbatNaxyi;
+use php\gui\event\UXKeyEvent; 
 
 class dialog extends AbstractForm
 {
@@ -16,6 +17,9 @@ class dialog extends AbstractForm
     private $enemyCharacterInfo;    
     
     public $answerStep = 0;
+
+    private $defaultActorName = '';
+    private $defaultEnemyName = '';    
     
     public function __construct() 
     {
@@ -27,7 +31,10 @@ class dialog extends AbstractForm
             $this->actorCharacterInfo->setActor();
             
             $this->enemyCharacterInfo = new UICharacterInfo($this, $this->icon_enemy, $this->rank_enemy, null, $this->community_enemy, null, $this->enemy_name);
-            $this->enemyCharacterInfo->setEnemy();    
+            $this->enemyCharacterInfo->setEnemy();
+            
+            $this->defaultActorName = $this->actorCharacterInfo->name->text;
+            $this->defaultEnemyName = $this->enemyCharacterInfo->name->text;            
             
             $this->Dialog_Kunteynir->focusTraversable = false;
         });         
@@ -120,11 +127,35 @@ class dialog extends AbstractForm
     function StartDialog()
     {
         $this->ClearDialog();
+        $this->UpdateMultiplayerNames();
+        
+        if ($this->form('Client')->MainGame->content->isMP)
+        {
+            $this->SendMsg_Btn->show();
+            $this->StartFight_Btn->show();
+            $this->buttonAlt->show();
+            $this->Edit_Message->show();
+            $this->answer_desc->hide();
+        
+            $this->dialogSteps = [];
+            $this->answerStep = 0;
+            $this->answer_desc->text = '';
+            
+            return;
+        }
+        else 
+        {
+            $this->SendMsg_Btn->hide();
+            $this->StartFight_Btn->hide();
+            $this->buttonAlt->hide();
+            $this->Edit_Message->hide();
+            $this->answer_desc->show();            
+        }
     
         $roles = new UIRoles($this);
         $actorRoleData = $roles->danilaEmoji($this->community_actor);
-        $enemyRoleData = $roles->pidoras($this->community_enemy);        
-        
+        $enemyRoleData = $roles->pidoras($this->community_enemy);     
+           
         $this->dialogSteps = [];
         $rounds = rand(5, 25);
         $voiceIndex = 0;
@@ -165,12 +196,10 @@ class dialog extends AbstractForm
         $actorRoleData = (new UIRoles($this))->danilaEmoji($this->community_actor);
         $enemyRoleData = (new UIRoles($this))->pidoras($this->community_enemy);
         
+        $this->UpdateMultiplayerNames();
+        
         $this->gg_name->textColor = $actorRoleData['color']; 
         $this->enemy_name->textColor = $enemyRoleData['color'];    
-    
-        $this->answer_name->text = $this->gg_name->text;
-        $this->answer_name->textColor = $actorRoleData['color'];
-        $this->answer_name->graphic = new UXImageView(new UXImage($actorRoleData['icon']));
     
         foreach ([$this->community_actor, $this->community_enemy] as $el)
         {
@@ -275,7 +304,7 @@ class dialog extends AbstractForm
         $this->answerStep++;
         $this->advanceToNextPlayer();
     }
-        
+
     private function advanceToNextPlayer(): void
     {
         while (isset($this->dialogSteps[$this->answerStep]))
@@ -328,8 +357,18 @@ class dialog extends AbstractForm
             
         $this->form('Client')->Pda->content->Pda_Tasks->content->Step1_Complete();
 
-        $this->form('Client')->MainGame->content->GameActor->SetInteractive(true);
-        $this->form('Client')->MainGame->content->GameEnemy->SetInteractive(true);
+        if ($this->form('Client')->MainGame->content->isMP)
+        {
+            $playerId = $this->form('Client')->MainGame->content->NET_GetPlayerID();
+    
+            $this->form('Client')->MainGame->content->GameActor->SetInteractive($playerId === 'actor');
+            $this->form('Client')->MainGame->content->GameEnemy->SetInteractive($playerId === 'enemy');
+        }
+        else
+        {
+            $this->form('Client')->MainGame->content->GameActor->SetInteractive(true);
+            $this->form('Client')->MainGame->content->GameEnemy->SetInteractive(true);
+        }
                 
         $this->form('Client')->MainGame->content->ItemVodka->enable();
 
@@ -338,5 +377,136 @@ class dialog extends AbstractForm
             $GLOBALS['discord']->setState(Localization::get('RPC_Fight'));
             $GLOBALS['discord']->updateState();      
         }
+    }
+    
+
+    /**
+     * @event SendMsg_Btn.click-Left
+     */
+    function SendMessage(UXMouseEvent $e = null)
+    {
+        $text = trim($this->Edit_Message->text);
+    
+        if ($text === '') return;
+    
+        if ($this->form('Client')->MainGame->content->isMP)
+        {
+            $playerId = $this->form('Client')->MainGame->content->NET_GetPlayerID();
+    
+            if ($playerId === 'actor')
+            {
+                $roles = new UIRoles($this);
+                $roleData = $roles->danilaEmoji($this->community_actor);
+    
+                $this->addDialogMessage($this->actorCharacterInfo->name->text, $roleData['color'], $roleData['icon'], $text);
+            }
+            else
+            {
+                $roles = new UIRoles($this);
+                $roleData = $roles->pidoras($this->community_enemy);
+    
+                $this->addDialogMessage($this->enemyCharacterInfo->name->text, $roleData['color'], $roleData['icon'], $text);
+            }
+    
+            $this->form('Client')->MainGame->content->NET_SendDialogMessage($text);
+        }
+        else
+        {
+            $this->addDialogMessage($this->answer_name->text, $this->answer_name->textColor, '', $text);
+        }
+    
+        $this->Edit_Message->text = '';
+    }
+
+    /**
+     * @event Edit_Message.keyDown-Enter 
+     */
+    function HotkeySendMessage(UXKeyEvent $e = null)
+    {    
+        $this->SendMessage();
+    }
+    
+    /**
+     * @event StartFight_Btn.click-Left 
+     */
+    function ForceCombatStart(UXMouseEvent $e = null)
+    {    
+        if ($this->form('Client')->MainGame->content->isMP)
+        {
+            $this->form('Client')->MainGame->content->NET_SendDialogFight();
+        }
+    
+        $this->Talk_Final();
+    }    
+    
+
+    private function UpdateMultiplayerNames(): void
+    {
+        $content = $this->form('Client')->MainGame->content;
+        $isMP = $content->isMP;
+    
+        $actorName = $this->defaultActorName;
+        $enemyName = $this->defaultEnemyName;
+    
+        if ($isMP)
+        {
+            $networkActor = $content->NET_GetPlayerNickname('actor');
+            $networkEnemy = $content->NET_GetPlayerNickname('enemy');
+    
+            if ($networkActor !== null && trim($networkActor) !== '') $actorName = $networkActor;
+            if ($networkEnemy !== null && trim($networkEnemy) !== '') $enemyName = $networkEnemy;
+        }
+    
+        $this->actorCharacterInfo->name->text = $actorName;
+        $this->enemyCharacterInfo->name->text = $enemyName;
+    
+        $this->gg_name->text = $actorName;
+        $this->enemy_name->text = $enemyName;
+    
+        $roles = new UIRoles($this);
+        $playerId = $isMP ? $content->NET_GetPlayerID() : 'actor';
+    
+        if ($playerId === 'enemy')
+        {
+            $roleData = $roles->pidoras($this->community_enemy);
+            $name = $enemyName;
+        }
+        else
+        {
+            $roleData = $roles->danilaEmoji($this->community_actor);
+            $name = $actorName;
+        }
+    
+        $this->answer_name->text = $name;
+        $this->answer_name->textColor = $roleData['color'];
+        $this->answer_name->graphic = new UXImageView(new UXImage($roleData['icon']));
+    
+        $this->answer_name->graphic->width = 24;
+        $this->answer_name->graphic->height = 24;
+    }
+    
+
+    public function ReceiveNetworkMessage(string $playerId, string $text)
+    {
+        if ($playerId === 'actor')
+        {
+            $roles = new UIRoles($this);
+            $roleData = $roles->danilaEmoji($this->community_actor);
+    
+            $name = $this->actorCharacterInfo->name->text;
+        }
+        elseif ($playerId === 'enemy')
+        {
+            $roles = new UIRoles($this);
+            $roleData = $roles->pidoras($this->community_enemy);
+    
+            $name = $this->enemyCharacterInfo->name->text;
+        }
+        else
+        {
+            return;
+        }
+    
+        $this->addDialogMessage($name, $roleData['color'], $roleData['icon'], $text);
     }
 }

@@ -20,17 +20,6 @@
         "autoStart": "1"
       }
     },
-    "player": {
-      "type": "script\\MediaPlayerScript",
-      "x": 368,
-      "y": 192,
-      "props": {
-        "autoplay": "1",
-        "volume": "1.0",
-        "balance": "0.0",
-        "rate": "1.0"
-      }
-    },
     "MainMenuBackground": {
       "type": "script\\MediaPlayerScript",
       "x": 208,
@@ -43,16 +32,15 @@
         "rate": "1.0"
       }
     },
-    "ImageFileChooser": {
-      "type": "script\\FileChooserScript",
-      "x": 176,
-      "y": 48,
+    "player": {
+      "type": "script\\MediaPlayerScript",
+      "x": 368,
+      "y": 192,
       "props": {
-        "filterName": "Все файлы",
-        "filterExtensions": "*.png*, *.jpg*",
-        "filterAny": "0",
-        "inputNode": "",
-        "actionNode": ""
+        "autoplay": "1",
+        "volume": "1.0",
+        "balance": "0.0",
+        "rate": "1.0"
       }
     },
     "MediaFileChooser": {
@@ -64,6 +52,18 @@
         "multiple": false,
         "filterName": "Все файлы",
         "filterExtensions": "*.mp3*, *.mp4*, *.wav*",
+        "filterAny": "0",
+        "inputNode": "",
+        "actionNode": ""
+      }
+    },
+    "ImageFileChooser": {
+      "type": "script\\FileChooserScript",
+      "x": 176,
+      "y": 48,
+      "props": {
+        "filterName": "Все файлы",
+        "filterExtensions": "*.png*, *.jpg*",
         "filterAny": "0",
         "inputNode": "",
         "actionNode": ""

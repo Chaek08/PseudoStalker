@@ -24,7 +24,7 @@
     <Data cursor="DEFAULT" enabled="1" id="data-actor_character" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-alex_character" visible="1"/>
     <Data cursor="DEFAULT" enabled="1" id="data-answer_desc" visible="1"/>
-    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="7" id="answer_name" layoutX="448" layoutY="776" prefHeight="36" prefWidth="712" styleClass="label " text="answer_name" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
+    <LabelEx alignment="CENTER_LEFT" autoSize="false" contentDisplay="RIGHT" ellipsisString="..." focusTraversable="false" graphicTextGap="7" id="answer_name" layoutX="448" layoutY="768" prefHeight="36" prefWidth="712" styleClass="label " text="answer_name" textAlignment="LEFT" textFill="#ffffff" underline="false" wrapText="false">
       <font>
         <Font name="System Regular" size="25"/>
       </font>
@@ -111,5 +111,34 @@
       </items>
     </ListViewEx>
     <Data cursor="DEFAULT" enabled="1" id="data-Dialog_Kunteynir" visible="1"/>
+    <FlatButton alignment="CENTER" borderRadius="20" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="buttonAlt" layoutX="440" layoutY="808" opacity="0.95121951219512" prefHeight="48" prefWidth="608" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" id="data-buttonAlt" visible=""/>
+    <FlatButton alignment="CENTER" borderRadius="20" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="StartFight_Btn" layoutX="1112" layoutY="808" opacity="0.95121951219512" prefHeight="48" prefWidth="48" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/multiplayer/fight_btn.png" id="data-StartFight_Btn" visible=""/>
+    <FlatButton alignment="CENTER" borderRadius="20" color="#333333" contentDisplay="LEFT" ellipsisString="..." focusTraversable="true" graphicTextGap="4" id="SendMsg_Btn" layoutX="1056" layoutY="808" opacity="0.95121951219512" prefHeight="48" prefWidth="48" styleClass="x-flat-button " text="" textAlignment="CENTER" textFill="#333333" underline="false" wrapText="false">
+      <font>
+        <Font name="System Regular" size="12"/>
+      </font>
+    </FlatButton>
+    <Data cursor="DEFAULT" enabled="1" graphic=".data/ui/dialog/multiplayer/send_btn.png" id="data-SendMsg_Btn" visible=""/>
+    <com.jfoenix.controls.JFXTextField alignment="CENTER_LEFT" editable="true" focusColor="#4059a900" focusTraversable="true" id="Edit_Message" layoutX="456" layoutY="808" prefColumnCount="12" prefHeight="48" prefWidth="576" promptText="Сообщение..." style="-fx-text-fill: white;" text="" unFocusColor="#4059a900">
+      <font>
+        <Font name="System Regular" size="17"/>
+      </font>
+      <styleClass xmlns:fx="http://javafx.com/fxml">
+        <String fx:value="text-input"/>
+        <String fx:value="text-field"/>
+        <String fx:value="jfx-text-field"/>
+      </styleClass>
+    </com.jfoenix.controls.JFXTextField>
+    <Data cursor="DEFAULT" enabled="1" id="data-Edit_Message" visible=""/>
   </children>
 </AnchorPane>
