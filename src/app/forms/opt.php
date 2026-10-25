@@ -535,6 +535,13 @@ class opt extends AbstractForm
         $this->form('Client')->MainMenu->content->UISaveWnd->content->Remove_Save_Btn->text = Localization::get('Remove_Btn');
         $this->form('Client')->MainMenu->content->UILoadWnd->content->Remove_Save_Btn->text = Localization::get('Remove_Btn');
 
+        $this->form('Client')->MainMenu->content->UIMultiplayerWnd->content->Wnd_Label->text = Localization::get('Multiplayer_Label');
+        $this->form('Client')->MainMenu->content->UIMultiplayerWnd->content->label->text = Localization::get('PlayerName_Label');
+        $this->form('Client')->MainMenu->content->UIMultiplayerWnd->content->labelAlt->text = Localization::get('ServerIP_Label');
+        $this->form('Client')->MainMenu->content->UIMultiplayerWnd->content->Btn_Connect2Server->text = Localization::get('Connect_Btn');
+        $this->form('Client')->MainMenu->content->UIMultiplayerWnd->content->Btn_CreateServer->text = Localization::get('CreateServer_Btn');
+        $this->form('Client')->MainMenu->content->UIMultiplayerWnd->content->Return_Btn->text = Localization::get('Return_Btn');
+
         $this->form('Client')->MainGame->content->Talk_Label->text = Localization::get('Talk_Label');
         $this->form('Client')->MainGame->content->leave_btn->text = Localization::get('Leave_Label');
 

@@ -41,7 +41,7 @@ class UIMultiplayerWnd extends AbstractForm
         $this->client->onStatus(function($status) {
             uiLater(function() use ($status) {
                 $this->currentConnectStatus = $status; //для хуйни в failed connect
-                $this->Status_Label->text = Localization::get($status);
+                $this->ServerConnectWnd->content->Status_Label->text = Localization::get($status);
             });
         });               
 
@@ -69,6 +69,16 @@ class UIMultiplayerWnd extends AbstractForm
     public function IsMultiplayerSessionActive()
     {
         return is_object($this->client) && $this->client->isConnected();
+    }
+    
+    public function GetClient()
+    {
+        return $this->client;
+    }
+    
+    public function GetConnectStatus()
+    {
+        return $this->currentConnectStatus;
     }
 
 
@@ -144,7 +154,7 @@ class UIMultiplayerWnd extends AbstractForm
                 }
             }
     
-            $this->ShowConnectDialog($targetIp, $targetPort);
+            $this->ServerConnectWnd->content->ShowConnectDialog($targetIp, $targetPort);
     
             (new Thread(function() use ($targetIp, $targetPort) {
                 $result = $this->client->connectToServer($targetIp, $targetPort);
@@ -154,7 +164,7 @@ class UIMultiplayerWnd extends AbstractForm
                     {
                         Log::info("Connected to server successfully at {$targetIp}:{$targetPort}");
                         
-                        $this->HideConnectDialog();
+                        $this->ServerConnectWnd->content->HideConnectDialog();
                         
                         $this->form('Client')->ShowLoadScreen(function() {
                             $this->ReturnBtn();
@@ -168,17 +178,11 @@ class UIMultiplayerWnd extends AbstractForm
                     {
                         Log::warn("Failed to connect to server at {$targetIp}:{$targetPort}");
 
-                        $this->progressBar->hide();
-                        $this->Btn_Cancel->hide();
-                        $this->button4->hide();
-                        $this->Status_Label->hide();
-                        
-                        $this->Connect_Label->textColor = 'red';
-                        $this->Connect_Label->text = Localization::get($this->currentConnectStatus);
+                        $this->ServerConnectWnd->content->FailedConnectState();
                         
                         Timer::after(1200, function() {
                             uiLater(function() {
-                                $this->HideConnectDialog();
+                                $this->ServerConnectWnd->content->HideConnectDialog();
                             });
                         });                        
                     }
@@ -202,6 +206,7 @@ class UIMultiplayerWnd extends AbstractForm
     
         $this->client->setNickname($nickname);
     }
+    
     /**
      * @event Edit_ServerIP.keyDown-Enter 
      */
@@ -210,84 +215,7 @@ class UIMultiplayerWnd extends AbstractForm
         
     }
         
-    function ShowConnectDialog($targetIp = null, $targetPort = null)
-    {
-        if ($targetIp === null)
-        {
-            $targetIp = trim($this->Edit_ServerIP->text);
     
-            if ($targetIp === '')
-            {
-                $targetIp = '127.0.0.1';
-            }
-        }
-    
-        if ($targetPort === null)
-        {
-            $targetPort = $this->port;
-        }
-    
-        $this->Connect_Label->text = Localization::get('Connect_Label') . "\n{$targetIp}:{$targetPort}";
-    
-        //$this->Status_Label->text = Localization::get('Status_Label_Process');
-    
-        $this->progressBar->progress = -100;
-    
-        $this->Connect_Label->show();
-        $this->Connect_Label->textColor = '#cccccc';
-        $this->Status_Label->show();
-        $this->progressBar->show();
-        $this->button4->show();
-        $this->GameLogo_Image->show();
-        $this->Btn_Cancel->show();
-        $this->Btn_Cancel->text = Localization::get('Btn_Cancel');        
-    
-        $this->button10->hide();
-        $this->button3->hide();
-        $this->button->hide();
-        $this->label->hide();
-        $this->labelAlt->hide();
-        $this->Edit_ServerIP->hide();
-        $this->Edit_PlayerName->hide();
-        $this->gen_nick_btn->hide();
-        $this->Btn_Connect2Server->hide();
-        $this->Btn_CreateServer->hide();
-        $this->Return_Btn->hide();
-    }
-    
-    function HideConnectDialog()
-    {
-        $this->Connect_Label->hide();
-        $this->Status_Label->hide();
-        $this->progressBar->hide();
-        $this->button4->hide();
-        $this->GameLogo_Image->hide();
-        $this->Btn_Cancel->hide();
-    
-        $this->button10->show();
-        $this->button3->show();
-        $this->button->show();
-        $this->label->show();
-        $this->labelAlt->show();
-        $this->Edit_ServerIP->show();
-        $this->Edit_PlayerName->show();
-        $this->gen_nick_btn->show();
-        $this->Btn_Connect2Server->show();
-        $this->Btn_CreateServer->show();
-        $this->Return_Btn->show();
-    }
-    
-    /**
-     * @event Btn_Cancel.click-Left 
-     */
-    function CancelConnect(UXMouseEvent $e = null)
-    {
-        Log::info('Cancelling connection...');
-    
-        $this->client->cancelConnection();
-    
-        $this->HideConnectDialog();
-    }
     
     
     /**
