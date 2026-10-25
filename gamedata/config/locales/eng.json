@@ -215,5 +215,10 @@
   "Status_StartingNetwork": "Starting network connection...",
   "Status_Complete": "Connection completed",
   "Status_Cancelled": "Connection cancelled",
-  "Status_Error": "Connection error"
+  "Status_Error": "Connection error",
+  "NetworkGame_Label": "Network Game",
+  "PlayerName_Label": "Player name:",
+  "ServerIP_Label": "Server IP address:",
+  "Connect_Btn": "Connect",
+  "CreateServer_Btn": "Create Server"
 }

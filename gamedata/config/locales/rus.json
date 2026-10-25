@@ -215,6 +215,11 @@
   "Status_StartingNetwork": "Запуск сетевого соединения...",
   "Status_Complete": "Подключение завершено",
   "Status_Cancelled": "Подключение отменено",
-  "Status_Error": "Пошёл ты сам нахуй"
+  "Status_Error": "Пошёл ты сам нахуй",
+  "NetworkGame_Label": "Сетевая игра",
+  "PlayerName_Label": "Имя игрока:",
+  "ServerIP_Label": "IP-адрес сервера:",
+  "Connect_Btn": "Подключиться",
+  "CreateServer_Btn": "Создать сервер"
 }
 
