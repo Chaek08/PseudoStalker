@@ -997,7 +997,9 @@ class maingame extends AbstractForm
     {
         if (trim($message) === '') return;
     
-        $this->client->sendMessage("DIALOG_MSG " . trim($message));
+        $message = base64_encode($message);
+    
+        return $this->client->sendMessage("DIALOG_MSG {$this->playerId} {$message}");        
     }
     
     public function NET_SendDialogFight()
@@ -1166,7 +1168,8 @@ class maingame extends AbstractForm
         {
             $playerId = $parts[1];
         
-            $nickname = trim(substr($message, strlen("NICK {$playerId} ")));
+            $encodedNickname = trim(substr($message, strlen("NICK {$playerId} ")));
+            $nickname = base64_decode($encodedNickname);
         
             $this->NET_SetNickname($playerId, $nickname);
         }       
@@ -1189,7 +1192,9 @@ class maingame extends AbstractForm
         elseif ($parts[0] === 'DIALOG_MSG' && count($parts) >= 3)
         {
             $playerId = $parts[1];
-            $text = trim(substr($message, strlen("DIALOG_MSG {$playerId} ")));
+            
+            $encodedText = trim(substr($message, strlen("DIALOG_MSG {$playerId} ")));
+            $text = base64_decode($encodedText);
         
             if ($text !== '')
             {

@@ -275,7 +275,9 @@ class NET_Client
     
     public function sendNickname()
     {
-        return $this->sendMessage("NICK {$this->playerId} {$this->nickname}");
+        $nickname = base64_encode($this->nickname);
+    
+        return $this->sendMessage("NICK {$this->playerId} {$nickname}");
     }
     
     public function sendMessage($message)

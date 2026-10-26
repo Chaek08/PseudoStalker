@@ -58,11 +58,12 @@ class NET_Server
     
         foreach ($this->playerNicknames as $playerId => $nickname)
         {
-            $lines[] = "NICK {$playerId} {$nickname}";
+            $encodedNickname = base64_encode($nickname);
+            $lines[] = "NICK {$playerId} {$encodedNickname}";
         }
     
         return implode("\n", $lines) . ($lines ? "\n" : '');
-    } 
+    }
     
     public function broadcastNicknames(): void
     {
@@ -412,20 +413,19 @@ class NET_Server
                     elseif ($parts[0] === 'NICK' && count($parts) >= 3)
                     {
                         $playerId = $parts[1];
+                        $encodedNickname = trim(substr($line, strlen("NICK {$playerId} ")));
                     
-                        $nickname = trim(substr($line, strlen("NICK {$playerId} ")));
+                        $nickname = base64_decode($encodedNickname);
                     
-                        if ($nickname === '')
+                        if ($nickname === false || $nickname === '')
                         {
                             continue;
                         }
-
+                    
                         $serverInstance->setPlayerNickname($playerId, $nickname);
                     
-                        //Log::info("SERVER GOT NICK: {$playerId} = {$nickname}");
-                    
                         $serverInstance->broadcastNicknames();
-                    }   
+                    }  
                     elseif ($parts[0] === 'DIALOG_OPEN')
                     {
                         $serverInstance->broadcastToOthers($cid, "DIALOG_OPEN\n");
@@ -437,11 +437,15 @@ class NET_Server
                     elseif ($parts[0] === 'DIALOG_MSG')
                     {
                         $role = $serverInstance->getClientRole($cid);
-                        $text = trim(substr($line, strlen('DIALOG_MSG ')));
+                        $encodedText = trim(substr($line, strlen('DIALOG_MSG ')));
                     
-                        if ($role !== null && $text !== '')
+                        $text = base64_decode($encodedText);
+                    
+                        if ($role !== null && $text !== false && trim($text) !== '')
                         {
-                            $serverInstance->broadcastToOthers($cid, "DIALOG_MSG {$role} {$text}\n");
+                            $encodedText = base64_encode($text);
+                    
+                            $serverInstance->broadcastToOthers($cid, "DIALOG_MSG {$role} {$encodedText}\n");
                         }
                     }
                     elseif ($parts[0] === 'DIALOG_FIGHT')
