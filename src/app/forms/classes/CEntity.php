@@ -1,11 +1,11 @@
 <?php
 namespace app\forms\classes;
 
-use app\forms\classes\Multiplayer\CNameIndicator;
 use script\MediaPlayerScript;
 use php\time\Timer;
 use behaviour\custom\DraggingBehaviour;
-use app\forms\classes\CSoundIndicator;
+use app\forms\classes\UI\CNameIndicator;
+use app\forms\classes\UI\CSoundIndicator;
 use app\forms\classes\DimaAsyncHackEbatNaxyi;
 
 abstract class CEntity
@@ -113,7 +113,7 @@ abstract class CEntity
     
         if ($this->model)
         {
-            $this->nameIndicator = new CNameIndicator($this->model, $nickname);
+            $this->nameIndicator = new CNameIndicator($this->model, $nickname, $this->form);
         }
     }    
     
@@ -122,16 +122,39 @@ abstract class CEntity
         if (!$this->nameIndicator)
         {
             $this->initNameIndicator($name);
-            return;
         }
-    
-        $this->nameIndicator->setText($name);
-    }    
-    
+        else
+        {
+            $this->nameIndicator->setText($name);
+        }
+    }
+     
     public function getNickname(): string
     {
         return $this->nameIndicator ? $this->nameIndicator->getText() : '';
-    }    
+    }
+    
+    public function setRole(string $role): void
+    {
+        $this->role = $role;
+    
+        if (!$this->nameIndicator)
+        {
+            $this->initNameIndicator($this->getNickname());
+        }
+    
+        if ($this->nameIndicator)
+        {
+            $this->nameIndicator->setRole($role);
+        }
+        
+        //пока только для nameIndic, в будущем надо будет связать с UI PDA
+    }  
+
+    public function getRole(): string
+    {
+        return $this->role;
+    }      
 
     public function getHP(): int
     {

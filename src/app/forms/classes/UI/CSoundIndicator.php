@@ -1,5 +1,5 @@
 <?php
-namespace app\forms\classes;
+namespace app\forms\classes\UI;
 
 use php\time\Timer;
 use action\Animation;
@@ -98,7 +98,7 @@ class CSoundIndicator
         $m = $this->ownerModel;
 
         $this->icon->x = $m->x + ($m->width / 2) - (self::ICON_SIZE / 2);
-        $this->icon->y = $m->y - self::ICON_SIZE;
+        $this->icon->y = $m->y - self::ICON_SIZE - 22 - 20;
     }
 
     private function hide(): void

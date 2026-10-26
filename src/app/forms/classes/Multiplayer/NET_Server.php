@@ -302,6 +302,9 @@ class NET_Server
             $cid = spl_object_hash($client);
             $input = $client->getInput();
             $output = $client->getOutput();
+            
+            $avatarBuffer = '';
+            $avatarRole = null;            
 
             try {
                 while (!$client->isClosed()) //$serverInstance->IsRunning && 
@@ -313,6 +316,65 @@ class NET_Server
                     //Log::info('Server: received from client | id = ' . $cid . ' | msg: '.$line);
                     
                     $parts = explode(' ', $line);
+                    if (strpos($line, 'AVATAR_BEGIN ') === 0)
+                    {
+                        $avatarRole = $serverInstance->getClientRole($cid);
+                        $avatarBuffer = '';
+                    
+                        $parts = explode(' ', $line, 2);
+                        $total = isset($parts[1]) ? (int)$parts[1] : 0;
+                    
+                        if ($avatarRole !== null && $total > 0 && $total <= 100)
+                        {
+                            $serverInstance->broadcastToOthers($cid, "AVATAR_BEGIN {$avatarRole} {$total}\n");
+                        }
+                    
+                        continue;
+                    }
+                    elseif (strpos($line, 'AVATAR_DATA ') === 0)
+                    {
+                        if ($avatarRole === null) continue;
+                    
+                        $prefix = 'AVATAR_DATA ';
+                        $payload = substr($line, strlen($prefix));
+                        $separator = strpos($payload, ' ');
+                    
+                        if ($separator === false) continue;
+                    
+                        $chunk = substr($payload, $separator + 1);
+                        $avatarBuffer .= $chunk;
+                    
+                        $serverInstance->broadcastToOthers($cid, "AVATAR_DATA {$avatarRole} {$payload}\n");
+                    
+                        continue;
+                    }
+                    elseif ($line === 'AVATAR_END')
+                    {
+                        if ($avatarRole !== null && $avatarBuffer !== '')
+                        {
+                            $dir = './userdata/avatars';
+                    
+                            if (!is_dir($dir))
+                            {
+                                mkdir($dir, 0777, true);
+                            }
+                    
+                            $path = $dir . '/' . $avatarRole . '.avatar';
+                            $imageData = base64_decode($avatarBuffer);
+                    
+                            if ($imageData !== false)
+                            {
+                                file_put_contents($path, $imageData);
+                    
+                                $serverInstance->broadcastToOthers($cid, "AVATAR_END {$avatarRole}\n");
+                            }
+                        }
+                    
+                        $avatarBuffer = '';
+                        $avatarRole = null;
+                    
+                        continue;
+                    }                    
                     if (count($parts) >= 4 && $parts[0] === 'POS')
                     {
                         $playerId = $parts[1];
@@ -386,6 +448,7 @@ class NET_Server
                     {
                         $serverInstance->broadcastToOthers($cid, "DIALOG_FIGHT\n");
                     }
+                                        
                                                 
                     else 
                     {

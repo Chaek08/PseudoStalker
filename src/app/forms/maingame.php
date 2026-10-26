@@ -1,7 +1,6 @@
 <?php
 namespace app\forms;
 
-use app\forms\classes\Items\CVodka_Depr;
 use php\desktop\Mouse;
 use Throwable;
 use behaviour\custom\ColorAdjustEffectBehaviour;
@@ -81,10 +80,14 @@ class maingame extends AbstractForm
         $this->ItemVodka->resetVisual();    
         
         $this->GameActor->SetModel($this->actor);
+        $this->GameActor->setNickname(Localization::get('GG_Name'));
+        $this->GameActor->setRole('danilaEmoji');
         $this->GameActor->SetInteractive(false);
         
-        $this->GameEnemy->SetModel($this->enemy);    
-        $this->GameEnemy->SetInteractive(false);    
+        $this->GameEnemy->SetModel($this->enemy);
+        $this->GameEnemy->setNickname(Localization::get('Enemy_Name'));
+        $this->GameEnemy->setRole('pidoras');
+        $this->GameEnemy->SetInteractive(false);
         
         $this->form('Client')->Pda->content->Pda_Tasks->content->UpdateData();
         $this->form('Client')->Dialog->content->UpdateData();      
@@ -93,7 +96,6 @@ class maingame extends AbstractForm
         $this->form('Client')->Inventory->content->MoveWeaponsToWeaponSlot(); //эта хуйня и будет опорой для аттача
         
         $this->InitEnvironment();
-        
     }    
     
     function BindEntityEvents()
@@ -884,7 +886,11 @@ class maingame extends AbstractForm
     
     private $curPlayer;
     
-    private $NET_PlayerNicknames = [];    
+    private $NET_PlayerNicknames = [];  
+    
+    private $NET_AvatarBuffer = '';
+    private $NET_AvatarRole = null;
+    private $NET_AvatarTotal = 0;      
     
     public $isMP;
     
@@ -907,15 +913,11 @@ class maingame extends AbstractForm
         {
             $this->actor->dragging->enabled = true;
         
-            $this->NET_SetNickname('actor', $this->client->getNickname());
-        
             $this->curPlayer = $this->actor;
         }
         else if ($this->PlayerID == 'enemy')
         {
             $this->enemy->dragging->enabled = true;
-        
-            $this->NET_SetNickname('enemy', $this->client->getNickname());
         
             $this->curPlayer = $this->enemy;
         }
@@ -1017,6 +1019,77 @@ class maingame extends AbstractForm
     public function NET_HandleServerMessage($message)
     {
         $parts = explode(' ', $message);
+        
+        if (strpos($message, 'AVATAR_BEGIN ') === 0)
+        {
+            $parts = explode(' ', $message);
+        
+            if (count($parts) >= 3)
+            {
+                $this->NET_AvatarRole = $parts[1];
+                $this->NET_AvatarTotal = (int)$parts[2];
+                $this->NET_AvatarBuffer = '';
+            }
+        
+            return;
+        }
+        elseif (strpos($message, 'AVATAR_DATA ') === 0)
+        {
+            $parts = explode(' ', $message, 4);
+        
+            if (count($parts) >= 4 && $this->NET_AvatarRole === $parts[1])
+            {
+                $this->NET_AvatarBuffer .= $parts[3];
+            }
+        
+            return;
+        }
+        elseif (strpos($message, 'AVATAR_END ') === 0)
+        {
+            $parts = explode(' ', $message);
+            
+            if (count($parts) >= 2 && $parts[1] === $this->NET_AvatarRole)
+            {
+                $imageData = base64_decode($this->NET_AvatarBuffer);
+                $role = $this->NET_AvatarRole;
+
+                if ($imageData !== false && ($role === 'actor' || $role === 'enemy'))
+                {
+                    $dir = './userdata/avatars';
+        
+                    if (!is_dir($dir))
+                    {
+                        mkdir($dir, 0777, true);
+                    }
+        
+                    $path = $dir . '/' . $role . '.avatar';
+
+                    if (file_put_contents($path, $imageData) !== false)
+                    {
+                        uiLater(function() use ($path, $role)
+                        {
+                        Log::info('ok4');
+                            $dialog = $this->form('Client')->Dialog->content;
+        
+                            if ($role === 'actor')
+                            {
+                                $dialog->icon_gg->image = new UXImage($path);
+                            }
+                            else
+                            {
+                                $dialog->icon_enemy->image = new UXImage($path);
+                            }
+                        });
+                    }
+                }
+        
+                $this->NET_AvatarBuffer = '';
+                $this->NET_AvatarRole = null;
+                $this->NET_AvatarTotal = 0;
+            }
+        
+            return;
+        }        
         
         if (count($parts) >= 4 && $parts[0] === 'POS')
         {
@@ -1192,16 +1265,33 @@ class maingame extends AbstractForm
         
         $this->NET_PlayerNicknames[$playerId] = $nickname;
     
-        uiLater(function() use ($playerId, $nickname)
+        Timer::after(500, function() use ($playerId, $nickname)
         {
-            if ($playerId === 'actor')
+            uiLater(function() use ($playerId, $nickname)
             {
-                $this->GameActor->setNickname($nickname);
-            }
-            else if ($playerId === 'enemy')
-            {
-                $this->GameEnemy->setNickname($nickname);
-            }
+                if ($playerId === 'actor')
+                {
+                    $this->GameActor->setNickname($nickname);
+                }
+                else if ($playerId === 'enemy')
+                {
+                    $this->GameEnemy->setNickname($nickname);
+                }
+            });
         });
     }       
+    
+    public function NET_SetLocalAvatar(string $path): void
+    {
+        $dialog = $this->form('Client')->Dialog->content;
+    
+        if ($this->PlayerID === 'actor')
+        {
+            $dialog->icon_gg->image = new UXImage($path);
+        }
+        elseif ($this->PlayerID === 'enemy')
+        {
+            $dialog->icon_enemy->image = new UXImage($path);
+        }
+    }    
 }

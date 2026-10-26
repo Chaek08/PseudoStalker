@@ -128,6 +128,7 @@ class dialog extends AbstractForm
     {
         $this->ClearDialog();
         $this->UpdateMultiplayerNames();
+        $this->UpdateMultiplayerAvatars();
         
         if ($this->form('Client')->MainGame->content->isMP)
         {
@@ -197,6 +198,7 @@ class dialog extends AbstractForm
         $enemyRoleData = (new UIRoles($this))->pidoras($this->community_enemy);
         
         $this->UpdateMultiplayerNames();
+        $this->UpdateMultiplayerAvatars();
         
         $this->gg_name->textColor = $actorRoleData['color']; 
         $this->enemy_name->textColor = $enemyRoleData['color'];    
@@ -491,6 +493,22 @@ class dialog extends AbstractForm
         $this->answer_name->graphic->width = 24;
         $this->answer_name->graphic->height = 24;
     }
+    
+    private function UpdateMultiplayerAvatars(): void
+    {
+        $content = $this->form('Client')->MainGame->content;
+    
+        if (!$content->isMP) return;
+    
+        $basePath = './userdata/avatars/';
+        $defaultPath = 'res://.data/ui/multiplayer_wnd/default_avatar.jpg';
+    
+        $actorPath = $basePath . 'actor.avatar';
+        $enemyPath = $basePath . 'enemy.avatar';
+    
+        $this->icon_gg->image = new UXImage(file_exists($actorPath) ? $actorPath : $defaultPath);
+        $this->icon_enemy->image = new UXImage(file_exists($enemyPath) ? $enemyPath : $defaultPath);
+    }   
     
 
     public function ReceiveNetworkMessage(string $playerId, string $text)

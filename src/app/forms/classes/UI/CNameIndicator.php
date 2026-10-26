@@ -1,6 +1,8 @@
 <?php
-namespace app\forms\classes\Multiplayer;
+namespace app\forms\classes\UI;
 
+use php\gui\UXImage;
+use php\gui\UXImageView;
 use behaviour\custom\DropShadowEffectBehaviour;
 use php\gui\text\UXFont;
 use php\gui\paint\UXColor;
@@ -8,10 +10,12 @@ use php\gui\UXApplication;
 use action\Animation;
 use php\gui\animation\UXAnimationTimer;
 use php\gui\UXLabel;
+use app\forms\classes\UI\UIRoles;
 
 class CNameIndicator
 {
     private $label;
+    private $form;
     private $ownerModel;
     private $followTimer;
     private $dropShadowEffect;
@@ -19,13 +23,14 @@ class CNameIndicator
     private const LABEL_WIDTH = 500;
     private const LABEL_HEIGHT = 22;
 
-    private $nickname = 'елодес';
+    private $nickname = 'Entity';
 
 
-    public function __construct($ownerModel, string $nickname = '')
+    public function __construct($ownerModel, string $nickname = '', $form = null)
     {
         $this->ownerModel = $ownerModel;
         $this->nickname = $nickname;
+        $this->form = $form;
 
         $this->label = new UXLabel($nickname);
 
@@ -42,7 +47,9 @@ class CNameIndicator
          
         $this->label->textAlignment = 'CENTER';
         $this->label->textColor = UXColor::of('#ffffff');//UXColor::of('#ffa500');
-        $this->label->font = UXFont::of('System', 20);      
+        $this->label->font = UXFont::of('System', 20);
+        
+        $this->label->contentDisplay = 'RIGHT';
         
         $this->dropShadowEffect = new DropShadowEffectBehaviour();
         $this->dropShadowEffect->color   = '#1a1a1a';//'#1a1a1ab2';
@@ -60,6 +67,39 @@ class CNameIndicator
 
         $this->startFollow();
     }
+    
+    public function setRole(string $role): void
+    {
+        $roles = new UIRoles($this->form);
+    
+        switch ($role)
+        {
+            case 'ladcega':
+                $data = $roles->ladcega($this->label);
+                break;
+    
+            case 'danilaEmoji':
+                $data = $roles->danilaEmoji($this->label);
+                break;
+    
+            case 'pidoras':
+                $data = $roles->pidoras($this->label);
+                break;
+    
+            default:
+                $roles->reset($this->label);
+                return;
+        }
+    
+        $this->label->text = $this->nickname;
+        $this->label->textColor = UXColor::of($data['color']);
+    
+        $icon = new UXImageView(new UXImage($data['icon']));
+        $icon->fitWidth = 16;
+        $icon->fitHeight = 16;
+    
+        $this->label->graphic = $icon;
+    }   
 
 
     private function startFollow(): void

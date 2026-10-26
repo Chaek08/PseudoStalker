@@ -300,6 +300,42 @@ class NET_Client
         }
     }
     
+    public function sendAvatar(string $path): bool
+    {
+        if (!file_exists($path))
+        {
+            Log::warn("Client: avatar not found: {$path}");
+            return false;
+        }
+    
+        $data = file_get_contents($path);
+    
+        if ($data === false || $data === '')
+        {
+            Log::warn('Client: failed to read avatar');
+            return false;
+        }
+    
+        $encoded = base64_encode($data);
+        $chunks = str_split($encoded, 6000);
+        $total = count($chunks);
+    
+        if (!$this->sendMessage("AVATAR_BEGIN {$total}"))
+        {
+            return false;
+        }
+    
+        foreach ($chunks as $index => $chunk)
+        {
+            if (!$this->sendMessage("AVATAR_DATA {$index} {$chunk}"))
+            {
+                return false;
+            }
+        }
+    
+        return $this->sendMessage('AVATAR_END');
+    }    
+    
     public function ping()
     {
         return $this->sendMessage("PING");

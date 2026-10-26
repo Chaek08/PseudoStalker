@@ -2,6 +2,8 @@
 namespace app\forms;
 
 
+use php\gui\UXImageView;
+use php\gui\UXImage;
 use app\forms\classes\Localization;
 use php\time\Timer;
 use app\forms\classes\Log;
@@ -22,7 +24,9 @@ class UIMultiplayerWnd extends AbstractForm
     
     private $ip, $port;
     
-    private $currentConnectStatus = null;    
+    private $currentConnectStatus = null;
+    
+    private $avatarPath = null;  
 
     function InitMPModule()
     {
@@ -79,6 +83,11 @@ class UIMultiplayerWnd extends AbstractForm
     public function GetConnectStatus()
     {
         return $this->currentConnectStatus;
+    }
+
+    public function GetAvatarPath()
+    {
+        return $this->avatarPath;
     }
 
 
@@ -173,6 +182,9 @@ class UIMultiplayerWnd extends AbstractForm
     
                         $this->form('Client')->MainGame->content->NET_MultiplayerBehaviour($this->client);
                         
+                        //точно ли здесь
+                        $this->SendLocalAvatar();                     
+                        
                     }
                     else
                     {
@@ -205,6 +217,40 @@ class UIMultiplayerWnd extends AbstractForm
         }
     
         $this->client->setNickname($nickname);
+    }
+    
+    /**
+     * @event ChangeAvatarHueta.click-Left 
+     */
+    function ChangeAvatar(UXMouseEvent $e = null)
+    {    
+        $this->ImageFileChooser->inputNode = $this->Avatar;
+        
+        if ($this->ImageFileChooser->execute())
+        {
+            $path = $this->ImageFileChooser->file;
+    
+            $this->Avatar->image = new UXImage($path);
+            $this->avatarPath = $path;
+        }     
+    }    
+    
+    private function SendLocalAvatar(): void
+    {
+        $avatarPath = $this->GetAvatarPath();
+    
+        if ($avatarPath === null || !file_exists($avatarPath))
+        {
+            Log::info('No custom avatar selected');
+            return;
+        }
+    
+        $content = $this->form('Client')->MainGame->content;
+    
+        $content->NET_SetLocalAvatar($avatarPath);
+        $this->client->sendAvatar($avatarPath);
+    
+        Log::info("Sending local avatar: {$avatarPath}");
     }
     
     /**
@@ -253,8 +299,6 @@ class UIMultiplayerWnd extends AbstractForm
     
         $this->Edit_PlayerName->text = $nickname;
     }
-
-
 
 
 
