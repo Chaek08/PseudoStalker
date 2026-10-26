@@ -1130,10 +1130,9 @@ class maingame extends AbstractForm
         {
             uiLater(function()
             {
-                $this->form('Client')->Dialog->content->ForceCombatStart();
+                $this->form('Client')->Dialog->content->NetworkForceCombatStart();
             });
         }
-
         
         elseif (isset($parts[0]) && $parts[0] === 'PONG') //elseif ($parts[0] === 'PONG')
         {

@@ -437,7 +437,14 @@ class dialog extends AbstractForm
         }
     
         $this->Talk_Final();
-    }    
+    }
+    
+    public function NetworkForceCombatStart()
+    {
+        if (!$this->form('Client')->Dialog->visible) return;
+    
+        $this->Talk_Final();
+    }
     
 
     private function UpdateMultiplayerNames(): void
