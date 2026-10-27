@@ -59,14 +59,17 @@ class ServerConnectWnd extends AbstractForm
         $mp_wnd->button10->hide();
         $mp_wnd->button3->hide();
         $mp_wnd->button->hide();
-        $mp_wnd->label->hide();
-        $mp_wnd->labelAlt->hide();
+        $mp_wnd->PlayerName_Label->hide();
+        $mp_wnd->IP_Label->hide();
         $mp_wnd->Edit_ServerIP->hide();
         $mp_wnd->Edit_PlayerName->hide();
         $mp_wnd->gen_nick_btn->hide();
         $mp_wnd->Btn_Connect2Server->hide();
         $mp_wnd->Btn_CreateServer->hide();
         $mp_wnd->Return_Btn->hide();
+        $mp_wnd->Avatar->hide();
+        $mp_wnd->Avatar_Background->hide();
+        $mp_wnd->ChangeAvatarHueta->hide();
         
         if (!$this->progressBar->visible)
         {
@@ -86,14 +89,17 @@ class ServerConnectWnd extends AbstractForm
         $mp_wnd->button10->show();
         $mp_wnd->button3->show();
         $mp_wnd->button->show();
-        $mp_wnd->label->show();
-        $mp_wnd->labelAlt->show();
+        $mp_wnd->IP_Label->show();
+        $mp_wnd->PlayerName_Label->show();
         $mp_wnd->Edit_ServerIP->show();
         $mp_wnd->Edit_PlayerName->show();
         $mp_wnd->gen_nick_btn->show();
         $mp_wnd->Btn_Connect2Server->show();
         $mp_wnd->Btn_CreateServer->show();
-        $mp_wnd->Return_Btn->show();        
+        $mp_wnd->Return_Btn->show(); 
+        $mp_wnd->Avatar->show();
+        $mp_wnd->Avatar_Background->show();
+        $mp_wnd->ChangeAvatarHueta->show();               
     }
     
     function FailedConnectState()

@@ -999,7 +999,7 @@ class maingame extends AbstractForm
     
         $message = base64_encode($message);
     
-        return $this->client->sendMessage("DIALOG_MSG {$this->playerId} {$message}");        
+        return $this->client->sendMessage("DIALOG_MSG {$this->PlayerID} {$message}");        
     }
     
     public function NET_SendDialogFight()

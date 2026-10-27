@@ -108,14 +108,12 @@ class UIMultiplayerWnd extends AbstractForm
         $this->form('Client')->MainMenu->content->UIMultiplayerWnd->hide();
     }
 
-
-
     /**
      * @event Edit_PlayerName.keyDown-Enter 
      */
-    function doEdit_PlayerNameKeyDownEnter(UXKeyEvent $e = null)
+    function HotkeyConnect2Server(UXKeyEvent $e = null)
     {
-   
+        $this->Connect2ServerBtn();
     }
 
     /**
