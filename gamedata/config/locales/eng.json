@@ -218,7 +218,7 @@
   "Status_Error": "Connection error",
   "NetworkGame_Label": "Network Game",
   "PlayerName_Label": "Player name:",
-  "ServerIP_Label": "Server IP address:",
+  "ServerIP_Label": "IP address:",
   "Connect_Btn": "Connect",
   "CreateServer_Btn": "Create Server"
 }

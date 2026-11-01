@@ -218,7 +218,7 @@
   "Status_Error": "Пошёл ты сам нахуй",
   "NetworkGame_Label": "Сетевая игра",
   "PlayerName_Label": "Имя игрока:",
-  "ServerIP_Label": "IP-адрес сервера:",
+  "ServerIP_Label": "IP-адрес:",
   "Connect_Btn": "Подключиться",
   "CreateServer_Btn": "Создать сервер"
 }

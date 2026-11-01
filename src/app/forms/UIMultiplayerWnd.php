@@ -43,8 +43,8 @@ class UIMultiplayerWnd extends AbstractForm
         });  
         
         $this->client->onStatus(function($status) {
+            $this->currentConnectStatus = $status;
             uiLater(function() use ($status) {
-                $this->currentConnectStatus = $status; //для хуйни в failed connect
                 $this->ServerConnectWnd->content->Status_Label->text = Localization::get($status);
             });
         });               
