@@ -440,6 +440,26 @@ class dialog extends AbstractForm
     
         $this->Talk_Final();
     }
+
+    /**
+     * @event gg_name.mouseEnter 
+     */
+    function ActorNameHeaderTooltip(UXMouseEvent $e = null)
+    {    
+        $tooltip = new CustomTooltip($this->form('Client'));
+        $tooltip->setText($this->gg_name->text);
+        $tooltip->attachTo($this->gg_name);        
+    }
+
+    /**
+     * @event enemy_name.mouseEnter 
+     */
+    function EnemyNameHeaderTooltip(UXMouseEvent $e = null)
+    {    
+        $tooltip = new CustomTooltip($this->form('Client'));
+        $tooltip->setText($this->enemy_name->text);
+        $tooltip->attachTo($this->enemy_name);          
+    }
     
     public function NetworkForceCombatStart()
     {
